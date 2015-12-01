@@ -40,6 +40,11 @@ function preloaderLoadAssets()
 	loader.add('ship2Texture','./assets/image/textures/ship2.png')
 	loader.add('ship3Texture','./assets/image/textures/ship3.png')
 	
+	loader.add('r2d2DroidBlueTexture','./assets/image/textures/R2D2DroidBlue.png')
+	loader.add('r2d2DroidRedTexture','./assets/image/textures/R2D2DroidRed.png')
+	
+	
+	
 	loader.once('complete',onPreloaderAssetsLoaderComplete);
 	loader.once('progress',onPreloaderAssetsLoaderProcess);
 	loader.load();
@@ -59,6 +64,10 @@ function onPreloaderAssetsLoaderComplete(loader, res)
 	ship1Texture = res.ship1Texture.texture;						// ship1.png
 	ship2Texture = res.ship2Texture.texture;						// ship2.png
 	ship3Texture = res.ship3Texture.texture;						// ship3.png
+	r2d2DroidBlueTexture  = res.r2d2DroidBlueTexture.texture;		// R2D2DroidBlue.png
+	r2d2DroidRedTexture = res.r2d2DroidRedTexture.texture;		// R2D2DroidRed.png
+
+	
 	
 	menuCreate();
 	preloaderRemove();

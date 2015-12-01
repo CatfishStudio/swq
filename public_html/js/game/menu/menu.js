@@ -15,14 +15,16 @@ function menuCreate()
 	
 	menuStars();
 	menuDeathStar();
-	menuShip1();
 	menuShip2();
 	menuShip3();
+	menuShip1();
 	
 	menuButtonPanel();
 	menuBorder();
 	menuLogo();
 	menuDroid();
+	
+	menuBackgroundParallaxTween();
 } 
 
 function menuRemove() 
@@ -170,7 +172,7 @@ function menuDroidMessage()
 function menuShip1()
 {
 	menuShip1Sprite = new PIXI.Sprite(ship1Texture); 
-	menuShip1Sprite.position.x = 50; 
+	menuShip1Sprite.position.x = -375; 
 	menuShip1Sprite.position.y = 250; 
 	menuStage.addChild(menuShip1Sprite);
 }
@@ -178,7 +180,7 @@ function menuShip1()
 function menuShip2()
 {
 	menuShip2Sprite = new PIXI.Sprite(ship2Texture); 
-	menuShip2Sprite.position.x = 550; 
+	menuShip2Sprite.position.x = 900; 
 	menuShip2Sprite.position.y = 150; 
 	menuStage.addChild(menuShip2Sprite);
 }
@@ -188,6 +190,35 @@ function menuShip3()
 	menuShip3Sprite = new PIXI.Sprite(ship3Texture); 
 	menuShip3Sprite.position.x = 50; 
 	menuShip3Sprite.position.y = 150; 
-	//menuShip3Sprite.scale.set(0.9);
 	menuStage.addChild(menuShip3Sprite);
+}
+
+function menuBackgroundParallaxTween()
+{
+	createjs.Tween.get(menuStarsSprite, {loop: true}) 
+		.to({x: -50, y: 0}, 25000, createjs.Ease.getPowInOut(3))
+		.to({x: -50, y: -50}, 25000, createjs.Ease.getPowInOut(3))
+		.to({x: 0, y: -50}, 25000, createjs.Ease.getPowInOut(3))
+		.to({x: 0, y: 0}, 25000, createjs.Ease.getPowInOut(3));
+	
+	createjs.Tween.get(menuDeathStarSprite, {loop: true}) 
+		.to({x: 200, y: 100}, 25000, createjs.Ease.getPowInOut(3))
+		.to({x: 200, y: 0}, 25000, createjs.Ease.getPowInOut(3))
+		.to({x: 300, y: 0}, 25000, createjs.Ease.getPowInOut(3))
+		.to({x: 300, y: 100}, 25000, createjs.Ease.getPowInOut(3));
+		
+	createjs.Tween.get(menuShip3Sprite, {loop: true}) 
+		.to({x: -150, y: 150}, 25000, createjs.Ease.getPowInOut(3))
+		.to({x: -150, y: 0}, 25000, createjs.Ease.getPowInOut(3))
+		.to({x: 50, y: 0}, 25000, createjs.Ease.getPowInOut(3))
+		.to({x: 50, y: 150}, 25000, createjs.Ease.getPowInOut(3));
+
+	createjs.Tween.get(menuShip1Sprite, {loop: true}) 
+		.to({x: 1000, y: 1000}, 5000, createjs.Ease.getPowInOut(3));
+
+	createjs.Tween.get(menuShip2Sprite, {loop: true}) 
+		.to({x: -250, y: 350}, 5000, createjs.Ease.getPowInOut(3));
+
+		
+	createjs.Ticker.setFPS(60); 
 }

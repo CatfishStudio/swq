@@ -10,12 +10,19 @@ function init()
     draw();
 
     preloaderCreate();		// Запускаем загрузку ассетов
+    
+    /* Инициализация ВКонтакте */
+    VK.init(function() {
+        apiId: 5170657;
+    });
 }
-
-window.addEventListener("load", init, false);
 
 function draw() 
 {
     requestAnimationFrame(draw);
     renderer.render(stage);
 }
+
+window.addEventListener("load", init, false);
+
+ 

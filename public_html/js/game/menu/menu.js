@@ -102,8 +102,7 @@ function menuButtonPanel()
     graphics.drawRect(23, 20, 347, 700);
     menuStage.addChild(graphics);
     
-    var textArr = ["НАЧАТЬ ИГРУ", "НАСТРОЙКИ", "ПРЕГЛАСИТЬ"];
-    
+    var textArr = ["НАЧАТЬ ИГРУ", "НАСТРОЙКИ", "ПРИГЛАСИТЬ"];
     
     for(var i = 0; i < textArr.length; i++)
     {
@@ -157,10 +156,21 @@ function onMenuButtonUpdate()
 
 function onMenuButtonClick() 
 {
-    if(this.name === "")
+    switch (this.name)
     {
-		
+        case "button_0":
+            break;
+        case "button_1":
+            break;
+        case "button_2":
+            VK.callMethod("showInviteBox");
+            console.log("Пригласит друга");
+            break;
+        
+        default:
+            break;
     }
+    
 }
 
 function menuLogo()
@@ -222,7 +232,7 @@ function menuLineMessageGraphicsTween()
 
 function menuDroidMessage()
 {
-    menuText = new PIXI.Text("\nДобро пожаловать на путь силы. \nВаши способности привышают способности обычных людей. \nВы тут потому что вы были избраны. \n\nНажчите кнопку \n''Начать игру'' \n\nИ да пребудет с Вами Сила!", menuStyleDroidText); 
+    menuText = new PIXI.Text("\nДобро пожаловать на путь силы. \nВаши способности превышают способности обычных людей. \nВы тут потому что вы были избраны. \n\nНажмите кнопку \n''Начать игру'' \n\nИ да пребудет с Вами Сила!", menuStyleDroidText); 
     menuText.x = 555; 
     menuText.y = 300; 
     menuStage.addChild(menuText);

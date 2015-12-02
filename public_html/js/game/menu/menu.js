@@ -13,7 +13,9 @@ function menuCreate()
 {
     menuStage = new PIXI.Container(); 
     stage.addChild(menuStage); 
-
+    
+    soundPlayStarWarsThemeSong();
+    
     menuStars();
     menuDeathStar();
     menuShip2();
@@ -159,12 +161,13 @@ function onMenuButtonClick()
     switch (this.name)
     {
         case "button_0":
+            
             break;
         case "button_1":
+            
             break;
         case "button_2":
             VK.callMethod("showInviteBox");
-            console.log("Пригласит друга");
             break;
         
         default:

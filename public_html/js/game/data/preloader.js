@@ -27,8 +27,25 @@ function onPreloaderLoaderComplete(loader, res)
     textureSprite.position.y = 0; 
     preloaderStage.addChild(textureSprite);
 
-    preloaderLoadAssets();
+    preloaderLoadSound(); // загрузка звуков и музыки
 }
+
+var preloaderSounds = [
+    //{id:"Music", src:"M-GameBG.ogg"},
+    {id:"StarWarsThemeSong", src:"assets/music/star_wars_theme_song.mp3"}
+];
+
+function preloaderLoadSound()
+{
+    createjs.Sound.addEventListener("fileload", onPreloaderSoundLoaderComplete);
+    createjs.Sound.registerSounds(preloaderSounds);
+}
+
+function onPreloaderSoundLoaderComplete(event) 
+{
+    preloaderLoadAssets();  // загрузка текстур и атласов
+}
+
 
 function preloaderLoadAssets()
 {

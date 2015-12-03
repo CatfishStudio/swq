@@ -62,6 +62,8 @@ function preloaderLoadAssets()
 
     loader.add('buttonBlueAtlas','./assets/image/atlas/button_blue.json');
     loader.add('buttonRedAtlas','./assets/image/atlas/button_red.json');
+    
+    loader.add('buttonsSettings','./assets/image/atlas/settings_buttons.json');
 
 
     loader.once('complete',onPreloaderAssetsLoaderComplete);
@@ -88,6 +90,14 @@ function onPreloaderAssetsLoaderComplete(loader, res)
 
     animTexButtonBlue = loadAnimationTextures(11, 'button_blue_');
     animTexButtonRed = loadAnimationTextures(11, 'button_red_');
+    
+    engButtonTexture = PIXI.Texture.fromFrame('eng.png');
+    infoButtonTexture = PIXI.Texture.fromFrame('information.png');
+    musicOnButtonTexture = PIXI.Texture.fromFrame('music.png');
+    musicOffButtonTexture = PIXI.Texture.fromFrame('music_off.png');
+    rusButtonTexture = PIXI.Texture.fromFrame('rus.png');
+    soundOnButtonTexture = PIXI.Texture.fromFrame('sound.png');
+    soundOffButtonTexture = PIXI.Texture.fromFrame('sound_off.png');
 
     menuCreate();
     preloaderRemove();

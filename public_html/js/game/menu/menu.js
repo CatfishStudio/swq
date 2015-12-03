@@ -164,7 +164,7 @@ function onMenuButtonClick()
             
             break;
         case "button_1":
-            
+            settingsCreate();
             break;
         case "button_2":
             VK.callMethod("showInviteBox");

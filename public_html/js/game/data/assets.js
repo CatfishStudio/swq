@@ -12,3 +12,12 @@ var animTexButtonBlue = [];
 
 /* button_red.json */
 var animTexButtonRed = [];
+
+/* settings_buttons.json */
+var engButtonTexture;
+var infoButtonTexture;
+var musicOnButtonTexture;
+var musicOffButtonTexture;
+var rusButtonTexture;
+var soundOnButtonTexture;
+var soundOffButtonTexture;

@@ -2,6 +2,10 @@ var MAIN_WIDTH = 860;
 var MAIN_HEIGH = 730;
 var MAIN_BACKGROUND_COLOR = 0xFFFFFF;
 
+var SIDE_NONE = "side_none";
+var SIDE_JEDI = "side_jedi";
+var SIDE_SITH = "side_sith";
+
 var DAMAGE_HIT_1 = 5;
 var DAMAGE_HIT_2 = 3;
 var DAMAGE_HIT_3 = 3;

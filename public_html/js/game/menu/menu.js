@@ -161,7 +161,8 @@ function onMenuButtonClick()
     switch (this.name)
     {
         case "button_0":
-            
+            sideCreate();
+            menuRemove();
             break;
         case "button_1":
             settingsCreate();
@@ -194,7 +195,7 @@ function menuDeathStar()
 
 function menuDroid()
 {
-    var textureSprite = new PIXI.Sprite(r2d2DroidBlueTexture); 
+    var textureSprite = new PIXI.Sprite(r2d2DroidBlueRightTexture); 
     textureSprite.position.x = 700; 
     textureSprite.position.y = 550; 
     textureSprite.scale.set(0.4);

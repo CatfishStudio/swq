@@ -57,8 +57,15 @@ function preloaderLoadAssets()
     loader.add('ship2Texture','./assets/image/textures/ship2.png');
     loader.add('ship3Texture','./assets/image/textures/ship3.png');
 
-    loader.add('r2d2DroidBlueTexture','./assets/image/textures/R2D2DroidBlue.png');
-    loader.add('r2d2DroidRedTexture','./assets/image/textures/R2D2DroidRed.png');
+    loader.add('r2d2DroidBlueRightTexture','./assets/image/textures/r2d2_droid_blue_right.png');
+    loader.add('r2d2DroidRedRightTexture','./assets/image/textures/r2d2_droid_red_right.png');
+    loader.add('r2d2DroidBlueLeftTexture','./assets/image/textures/r2d2_droid_blue_left.png');
+    loader.add('r2d2DroidRedLeftTexture','./assets/image/textures/r2d2_droid_red_left.png');
+
+    loader.add('sideBackgroundTexture','./assets/image/textures/side_background.png');
+    loader.add('sideDarthVaderTexture','./assets/image/textures/side_darth_vader.png');
+    loader.add('sideLukeSkywalkerTexture','./assets/image/textures/side_luke_skywalker.png');
+
 
     loader.add('buttonBlueAtlas','./assets/image/atlas/button_blue.json');
     loader.add('buttonRedAtlas','./assets/image/atlas/button_red.json');
@@ -81,12 +88,17 @@ function onPreloaderAssetsLoaderComplete(loader, res)
 {
     deathstarTexture = res.deathstarTexture.texture;			// deathstar.png
     starwarsTexture = res.starwarsTexture.texture;			// starwars.png
-    stars1Texture = res.stars1Texture.texture;					// stars1.jpg
-    ship1Texture = res.ship1Texture.texture;						// ship1.png
-    ship2Texture = res.ship2Texture.texture;						// ship2.png
-    ship3Texture = res.ship3Texture.texture;						// ship3.png
-    r2d2DroidBlueTexture  = res.r2d2DroidBlueTexture.texture;		// R2D2DroidBlue.png
-    r2d2DroidRedTexture = res.r2d2DroidRedTexture.texture;		// R2D2DroidRed.png
+    stars1Texture = res.stars1Texture.texture;				// stars1.jpg
+    ship1Texture = res.ship1Texture.texture;				// ship1.png
+    ship2Texture = res.ship2Texture.texture;				// ship2.png
+    ship3Texture = res.ship3Texture.texture;				// ship3.png
+    r2d2DroidBlueRightTexture  = res.r2d2DroidBlueRightTexture.texture;	// r2d2_droid_blue_right.png
+    r2d2DroidRedRightTexture = res.r2d2DroidRedRightTexture.texture;	// r2d2_droid_red_right.png
+    r2d2DroidBlueLeftTexture  = res.r2d2DroidBlueLeftTexture.texture;	// r2d2_droid_blue_left.png
+    r2d2DroidRedLeftTexture = res.r2d2DroidRedLeftTexture.texture;	// r2d2_droid_red_left.png
+    sideBackgroundTexture = res.sideBackgroundTexture.texture;          // side_background.png
+    sideDarthVaderTexture = res.sideDarthVaderTexture.texture;          // side_darth_vader.png
+    sideLukeSkywalkerTexture = res.sideLukeSkywalkerTexture.texture;    // side_luke_skywalker.png
 
     animTexButtonBlue = loadAnimationTextures(11, 'button_blue_');
     animTexButtonRed = loadAnimationTextures(11, 'button_red_');

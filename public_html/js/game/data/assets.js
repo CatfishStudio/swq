@@ -1,11 +1,16 @@
 var deathstarTexture;			// deathstar.png
-var starwarsTexture;				// starwars.png
-var stars1Texture;				// stars1.jpg
-var ship1Texture;					// ship1.png
-var ship2Texture;					// ship2.png
-var ship3Texture;					// ship3.png
-var r2d2DroidBlueTexture;		// R2D2DroidBlue.png
-var r2d2DroidRedTexture;		// R2D2DroidRed.png
+var starwarsTexture;			// starwars.png
+var stars1Texture;			// stars1.jpg
+var ship1Texture;			// ship1.png
+var ship2Texture;			// ship2.png
+var ship3Texture;			// ship3.png
+var r2d2DroidBlueRightTexture;		// r2d2_droid_blue_right.png
+var r2d2DroidRedRightTexture;		// r2d2_droid_red_right.png
+var r2d2DroidBlueLeftTexture;		// r2d2_droid_blue_left.png
+var r2d2DroidRedLeftTexture;		// r2d2_droid_red_left.png
+var sideBackgroundTexture;              // side_background.png
+var sideDarthVaderTexture;              // side_darth_vader.png
+var sideLukeSkywalkerTexture;           // side_luke_skywalker.png
 
 /* button_blue.json */
 var animTexButtonBlue = [];

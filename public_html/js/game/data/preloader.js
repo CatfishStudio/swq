@@ -1,4 +1,7 @@
 var preloaderStage;
+var preloaderProgressSoundText;
+var preloaderProgressImageText;
+var preloaderStyleText = { font : 'bold 18px Arial', fill : '#FFFF80', stroke : '#FF8000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
 
 function preloaderCreate()
 {
@@ -26,8 +29,27 @@ function onPreloaderLoaderComplete(loader, res)
     textureSprite.position.x = 0; 
     textureSprite.position.y = 0; 
     preloaderStage.addChild(textureSprite);
+    
+    preloaderProgressSound();
+    preloaderProgressImage();
 
     preloaderLoadSound(); // загрузка звуков и музыки
+}
+
+function preloaderProgressSound()
+{
+    preloaderProgressSoundText = new PIXI.Text("Загрузка звуков : ............... в процессе", preloaderStyleText); 
+    preloaderProgressSoundText.x = 300;
+    preloaderProgressSoundText.y = 550;
+    preloaderStage.addChild(preloaderProgressSoundText);
+}
+
+function preloaderProgressImage()
+{
+    preloaderProgressImageText = new PIXI.Text("Загрузка текстур: ............... в процессе", preloaderStyleText); 
+    preloaderProgressImageText.x = 300;
+    preloaderProgressImageText.y = 580;
+    preloaderStage.addChild(preloaderProgressImageText);
 }
 
 var preloaderSounds = [
@@ -37,15 +59,29 @@ var preloaderSounds = [
 
 function preloaderLoadSound()
 {
+    /*
     createjs.Sound.addEventListener("fileload", onPreloaderSoundLoaderComplete);
     createjs.Sound.registerSounds(preloaderSounds);
+    */
+    var queue = new createjs.LoadQueue();
+    createjs.Sound.alternateExtensions = ["mp3"];
+    queue.installPlugin(createjs.Sound);
+    queue.on("progress", onPreloaderSoundLoaderProcess);
+    queue.on("complete", onPreloaderSoundLoaderComplete);
+    queue.loadFile({"id":"StarWarsThemeSong", "src":"assets/music/star_wars_theme_song.mp3"});
+}
+
+function onPreloaderSoundLoaderProcess(event) 
+{
+    //console.log("Загрузка звуков: процесс:" + event.progress + " файл:" + event.loaded);
+    //console.log("Звуков загружено: " + event.loaded + " из " + event.total);
+    preloaderProgressSoundText.text = "Загрузка звуков : ............... " + event.progress + " / " + event.total;
 }
 
 function onPreloaderSoundLoaderComplete(event) 
 {
     preloaderLoadAssets();  // загрузка текстур и атласов
 }
-
 
 function preloaderLoadAssets()
 {
@@ -73,15 +109,18 @@ function preloaderLoadAssets()
     loader.add('buttonsSettings','./assets/image/atlas/settings_buttons.json');
 
 
-    loader.once('complete',onPreloaderAssetsLoaderComplete);
-    loader.once('progress',onPreloaderAssetsLoaderProcess);
+    //loader.once('complete',onPreloaderAssetsLoaderComplete);
+    //loader.once('progress',onPreloaderAssetsLoaderProcess);
+    loader.on('complete', onPreloaderAssetsLoaderComplete);
+    loader.on('progress',onPreloaderAssetsLoaderProcess);
     loader.load();
 	
 }
 
 function onPreloaderAssetsLoaderProcess()
 {
-    // console.log("Progress load!");
+    //console.log(this.progress);
+    preloaderProgressImageText.text = "Загрузка текстур: ............... " + (Math.round(this.progress)) + "%";
 }
 
 function onPreloaderAssetsLoaderComplete(loader, res) 

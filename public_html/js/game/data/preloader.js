@@ -56,17 +56,8 @@ function preloaderProgressSound()
 }
 
 
-var preloaderSounds = [
-    //{id:"Music", src:"M-GameBG.ogg"},
-    {id:"StarWarsThemeSong", src:"assets/music/star_wars_theme_song.mp3"}
-];
-
 function preloaderLoadSound()
 {
-    /*
-    createjs.Sound.addEventListener("fileload", onPreloaderSoundLoaderComplete);
-    createjs.Sound.registerSounds(preloaderSounds);
-    */
     var queue = new createjs.LoadQueue();
     createjs.Sound.alternateExtensions = ["mp3"];
     queue.installPlugin(createjs.Sound);
@@ -77,14 +68,11 @@ function preloaderLoadSound()
 
 function onPreloaderSoundLoaderProcess(event) 
 {
-    //console.log("Загрузка звуков: процесс:" + event.progress + " файл:" + event.loaded);
-    //console.log("Звуков загружено: " + event.loaded + " из " + event.total);
     preloaderProgressSoundText.text = "Загрузка звуков : ............... " + event.progress + " / " + event.total;
 }
 
 function onPreloaderSoundLoaderComplete(event) 
 {
-    //preloaderLoadAssets();  // загрузка текстур и атласов
     preloaderComplete++;
     if(preloaderComplete === 2)
     {
@@ -119,8 +107,6 @@ function preloaderLoadAssets()
     loader.add('buttonsSettings','./assets/image/atlas/settings_buttons.json');
 
 
-    //loader.once('complete',onPreloaderAssetsLoaderComplete);
-    //loader.once('progress',onPreloaderAssetsLoaderProcess);
     loader.on('complete', onPreloaderAssetsLoaderComplete);
     loader.on('progress',onPreloaderAssetsLoaderProcess);
     loader.load();
@@ -129,7 +115,6 @@ function preloaderLoadAssets()
 
 function onPreloaderAssetsLoaderProcess()
 {
-    //console.log(this.progress);
     preloaderProgressImageText.text = "Загрузка текстур: ............... " + (Math.round(this.progress)) + "%";
 }
 
@@ -162,8 +147,6 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     soundOnButtonTexture = PIXI.Texture.fromFrame('sound.png');
     soundOffButtonTexture = PIXI.Texture.fromFrame('sound_off.png');
 
-    //menuCreate();
-    //preloaderRemove();
     preloaderComplete++;
     if(preloaderComplete === 2)
     {

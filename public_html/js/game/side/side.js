@@ -217,7 +217,7 @@ function sideDroidBlue()
 
 function sideDroidBlueMessage()
 {
-    var textMessage = new PIXI.Text("\nВыберите светлую сторону силы.\nТолько покой ощутив, возмёшь контроль над желаниями своими. \n\nПройдите путь Люка Скайуокера!", sideStyleDroidBlueText); 
+    var textMessage = new PIXI.Text("\nВыберите светлую сторону силы.\n\"Только покой ощутив, возмёшь контроль над желаниями своими\". \n\nПройдите путь Люка Скайуокера!", sideStyleDroidBlueText); 
     textMessage.x = 455; 
     textMessage.y = 455; 
     sideDroidBlueStage.addChild(textMessage);
@@ -273,7 +273,7 @@ function sideDroidRed()
 
 function sideDroidRedMessage()
 {
-    var textMessage = new PIXI.Text("\nВыберите тёмную сторону силы.\nПоддайся амбициям, почувствуй власть в своих руках. \n\nПройдите путь Дарт Вейдера!", sideStyleDroidRedText); 
+    var textMessage = new PIXI.Text("\nВыберите тёмную сторону силы.\n\"Поддайся амбициям, почувствуй власть в своих руках.\" \n\nПройдите путь Дарт Вейдера!", sideStyleDroidRedText); 
     textMessage.x = 130; 
     textMessage.y = 455; 
     sideDroidRedStage.addChild(textMessage);

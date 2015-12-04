@@ -1,7 +1,9 @@
 var preloaderStage;
 var preloaderProgressSoundText;
 var preloaderProgressImageText;
-var preloaderStyleText = { font : 'bold 18px Arial', fill : '#FFFF80', stroke : '#FF8000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
+var preloaderStyleText = { font : 'bold 18px Arial', fill : '#FFFF80', stroke : '#FF8000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 600 }; 
+var preloaderComplete = 0;  // количество завершенных процессов.
+
 
 function preloaderCreate()
 {
@@ -30,27 +32,29 @@ function onPreloaderLoaderComplete(loader, res)
     textureSprite.position.y = 0; 
     preloaderStage.addChild(textureSprite);
     
-    preloaderProgressSound();
     preloaderProgressImage();
-
-    preloaderLoadSound(); // загрузка звуков и музыки
-}
-
-function preloaderProgressSound()
-{
-    preloaderProgressSoundText = new PIXI.Text("Загрузка звуков : ............... в процессе", preloaderStyleText); 
-    preloaderProgressSoundText.x = 300;
-    preloaderProgressSoundText.y = 550;
-    preloaderStage.addChild(preloaderProgressSoundText);
+    preloaderProgressSound();
+    
+    preloaderLoadAssets();  // загрузка текстур
+    preloaderLoadSound();   // загрузка звуков и музыки
 }
 
 function preloaderProgressImage()
 {
     preloaderProgressImageText = new PIXI.Text("Загрузка текстур: ............... в процессе", preloaderStyleText); 
     preloaderProgressImageText.x = 300;
-    preloaderProgressImageText.y = 580;
+    preloaderProgressImageText.y = 550;
     preloaderStage.addChild(preloaderProgressImageText);
 }
+
+function preloaderProgressSound()
+{
+    preloaderProgressSoundText = new PIXI.Text("Загрузка звуков : ............... в процессе", preloaderStyleText); 
+    preloaderProgressSoundText.x = 300;
+    preloaderProgressSoundText.y = 580;
+    preloaderStage.addChild(preloaderProgressSoundText);
+}
+
 
 var preloaderSounds = [
     //{id:"Music", src:"M-GameBG.ogg"},
@@ -80,7 +84,13 @@ function onPreloaderSoundLoaderProcess(event)
 
 function onPreloaderSoundLoaderComplete(event) 
 {
-    preloaderLoadAssets();  // загрузка текстур и атласов
+    //preloaderLoadAssets();  // загрузка текстур и атласов
+    preloaderComplete++;
+    if(preloaderComplete === 2)
+    {
+        menuCreate();
+        preloaderRemove();
+    }
 }
 
 function preloaderLoadAssets()
@@ -125,6 +135,8 @@ function onPreloaderAssetsLoaderProcess()
 
 function onPreloaderAssetsLoaderComplete(loader, res) 
 {
+    preloaderProgressImageText.text = "Загрузка текстур: ............... 100%";
+    
     deathstarTexture = res.deathstarTexture.texture;			// deathstar.png
     starwarsTexture = res.starwarsTexture.texture;			// starwars.png
     stars1Texture = res.stars1Texture.texture;				// stars1.jpg
@@ -150,8 +162,14 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     soundOnButtonTexture = PIXI.Texture.fromFrame('sound.png');
     soundOffButtonTexture = PIXI.Texture.fromFrame('sound_off.png');
 
-    menuCreate();
-    preloaderRemove();
+    //menuCreate();
+    //preloaderRemove();
+    preloaderComplete++;
+    if(preloaderComplete === 2)
+    {
+        menuCreate();
+        preloaderRemove();
+    }
 }
 
 function loadAnimationTextures(countFrame, nameFrame)

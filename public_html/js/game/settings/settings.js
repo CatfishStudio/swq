@@ -45,11 +45,16 @@ function settingsWindow()
         graphics.lineTo(600, 500);
         graphics.lineTo(250, 500);
         graphics.endFill
-        for(var i = 0; i < 38; i++)
+        for(var i = 0; i < 55; i++)
         {
-            graphics.lineStyle(1, 0x0090F0, 0.5);
-            graphics.moveTo(250,280+(3*i));
-            graphics.lineTo(600, 280+(3*i));
+            if(i > 15 && i < 35)
+            {
+                
+            }else{
+                graphics.lineStyle(1, 0x0090F0, 0.5);
+                graphics.moveTo(250,280+(3*i));
+                graphics.lineTo(600, 280+(3*i));
+            }
         }
         settingsStage.addChild(graphics);
         
@@ -89,7 +94,7 @@ function settingsTitle()
 
 function settingsText()
 {
-    var text = new PIXI.Text("Окно настроек позволяет включить или отключить в игре звуки и музыку.\n\nТак же вы можете посетить группу разработчика ВКонтакте, нажав на кнопку 'информация'.", settingsStyleText); 
+    var text = new PIXI.Text("Окно настроек позволяет включить или отключить в игре звуки и музыку.\n\n\n\n\nТак же вы можете посетить группу разработчика ВКонтакте, нажав на кнопку 'информация'.", settingsStyleText); 
     text.x = 255;
     text.y = 285;
     settingsStage.addChild(text);
@@ -154,7 +159,7 @@ function settingsButtons()
     else soundButton = new PIXI.Sprite(soundOffButtonTexture);
     soundButton.name = "sound";
     soundButton.position.x = 300;
-    soundButton.position.y = 405;
+    soundButton.position.y = 345;
     soundButton.interactive = true;
     soundButton.buttonMode = true;
     soundButton.tap = onSettingsButtonsClick;
@@ -172,7 +177,7 @@ function settingsButtons()
     else musicButton = new PIXI.Sprite(musicOffButtonTexture);
     musicButton.name = "music";
     musicButton.position.x = 405;
-    musicButton.position.y = 405;
+    musicButton.position.y = 345;
     musicButton.interactive = true;
     musicButton.buttonMode = true;
     musicButton.tap = onSettingsButtonsClick;
@@ -188,7 +193,7 @@ function settingsButtons()
     var infoButton = new PIXI.Sprite(infoButtonTexture);
     infoButton.name = "info";
     infoButton.position.x = 510;
-    infoButton.position.y = 405;
+    infoButton.position.y = 345;
     infoButton.interactive = true;
     infoButton.buttonMode = true;
     infoButton.tap = onSettingsButtonsClick;

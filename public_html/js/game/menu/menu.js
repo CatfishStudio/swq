@@ -160,15 +160,17 @@ function onMenuButtonClick()
 {
     switch (this.name)
     {
-        case "button_0":
+        case "button_0":        // Начать игру
             sideCreate();
             menuRemove();
             break;
-        case "button_1":
+        case "button_1":        // Настройки игры
             settingsCreate();
             break;
-        case "button_2":
-            VK.callMethod("showInviteBox");
+        case "button_2":        // Позвать друзей ВК
+            //VK.callMethod("showInviteBox");
+            testCreate();
+            menuRemove();
             break;
         
         default:

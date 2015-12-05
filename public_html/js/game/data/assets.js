@@ -1,3 +1,5 @@
+var animTest = [];                      // для теста
+
 var deathstarTexture;			// deathstar.png
 var starwarsTexture;			// starwars.png
 var stars1Texture;			// stars1.jpg
@@ -11,6 +13,8 @@ var r2d2DroidRedLeftTexture;		// r2d2_droid_red_left.png
 var sideBackgroundTexture;              // side_background.png
 var sideDarthVaderTexture;              // side_darth_vader.png
 var sideLukeSkywalkerTexture;           // side_luke_skywalker.png
+var mapSpaceBlueTexture;                // space_blue.jpg
+var mapSpaceRedTexture;                 // space_red.jpg
 
 /* button_blue.json */
 var animTexButtonBlue = [];

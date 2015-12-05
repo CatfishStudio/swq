@@ -1,9 +1,9 @@
 var preloaderStage;
-var preloaderProgressSoundText;
-var preloaderProgressImageText;
-var preloaderStyleText = { font : 'bold 18px Arial', fill : '#FFFF80', stroke : '#FF8000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 600 }; 
+var preloaderProgressAssetsText;
+var preloaderStyleText = { font : 'bold 48px Arial', fill : '#FFFF80', stroke : '#FF8000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 600 }; 
 var preloaderComplete = 0;  // количество завершенных процессов.
-
+var preloaderPercentSounds = 0;
+var preloaderPercentTextures = 0;
 
 function preloaderCreate()
 {
@@ -32,29 +32,19 @@ function onPreloaderLoaderComplete(loader, res)
     textureSprite.position.y = 0; 
     preloaderStage.addChild(textureSprite);
     
-    preloaderProgressImage();
-    preloaderProgressSound();
+    preloaderProgressAssets();
     
     preloaderLoadAssets();  // загрузка текстур
     preloaderLoadSound();   // загрузка звуков и музыки
 }
 
-function preloaderProgressImage()
+function preloaderProgressAssets()
 {
-    preloaderProgressImageText = new PIXI.Text("Загрузка текстур: ............... в процессе", preloaderStyleText); 
-    preloaderProgressImageText.x = 300;
-    preloaderProgressImageText.y = 550;
-    preloaderStage.addChild(preloaderProgressImageText);
+    preloaderProgressAssetsText = new PIXI.Text("Загрузка", preloaderStyleText); 
+    preloaderProgressAssetsText.x = 280;
+    preloaderProgressAssetsText.y = 550;
+    preloaderStage.addChild(preloaderProgressAssetsText);
 }
-
-function preloaderProgressSound()
-{
-    preloaderProgressSoundText = new PIXI.Text("Загрузка звуков : ............... в процессе", preloaderStyleText); 
-    preloaderProgressSoundText.x = 300;
-    preloaderProgressSoundText.y = 580;
-    preloaderStage.addChild(preloaderProgressSoundText);
-}
-
 
 function preloaderLoadSound()
 {
@@ -68,7 +58,8 @@ function preloaderLoadSound()
 
 function onPreloaderSoundLoaderProcess(event) 
 {
-    preloaderProgressSoundText.text = "Загрузка звуков : ............... " + event.progress + " / " + event.total;
+    preloaderPercentSounds = Math.round((event.loaded) * (50 / event.total));
+    preloaderProgressAssetsText.text = "Загрузка " + (preloaderPercentTextures + preloaderPercentSounds) + "%";
 }
 
 function onPreloaderSoundLoaderComplete(event) 
@@ -84,6 +75,9 @@ function onPreloaderSoundLoaderComplete(event)
 function preloaderLoadAssets()
 {
     var loader = new PIXI.loaders.Loader();
+    
+    loader.add('animTest','./assets/test/test_animation.json');
+    
     loader.add('deathstarTexture','./assets/image/textures/deathstar.png');
     loader.add('starwarsTexture','./assets/image/textures/starwars.png');
     loader.add('stars1Texture','./assets/image/textures/stars1.jpg');
@@ -100,6 +94,9 @@ function preloaderLoadAssets()
     loader.add('sideDarthVaderTexture','./assets/image/textures/side_darth_vader.png');
     loader.add('sideLukeSkywalkerTexture','./assets/image/textures/side_luke_skywalker.png');
 
+    loader.add('mapSpaceBlueTexture','./assets/image/textures/space_blue.jpg');
+    loader.add('mapSpaceRedTexture','./assets/image/textures/space_red.jpg');
+
 
     loader.add('buttonBlueAtlas','./assets/image/atlas/button_blue.json');
     loader.add('buttonRedAtlas','./assets/image/atlas/button_red.json');
@@ -115,12 +112,18 @@ function preloaderLoadAssets()
 
 function onPreloaderAssetsLoaderProcess()
 {
-    preloaderProgressImageText.text = "Загрузка текстур: ............... " + (Math.round(this.progress)) + "%";
+    preloaderPercentTextures = (Math.round(this.progress) / 2);
+    preloaderProgressAssetsText.text = "Загрузка " + (preloaderPercentTextures + preloaderPercentSounds) + "%";
 }
 
 function onPreloaderAssetsLoaderComplete(loader, res) 
 {
-    preloaderProgressImageText.text = "Загрузка текстур: ............... 100%";
+    //preloaderProgressImageText.text = "Загрузка текстур: ............... 100%";
+    preloaderComplete++;
+    preloaderPercentTextures = 50;
+    preloaderProgressAssetsText.text = "Загрузка " + (preloaderPercentTextures + preloaderPercentSounds) + "%";
+    
+    animTest = loadAnimationTextures(11, 'dv_');
     
     deathstarTexture = res.deathstarTexture.texture;			// deathstar.png
     starwarsTexture = res.starwarsTexture.texture;			// starwars.png
@@ -136,6 +139,9 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     sideDarthVaderTexture = res.sideDarthVaderTexture.texture;          // side_darth_vader.png
     sideLukeSkywalkerTexture = res.sideLukeSkywalkerTexture.texture;    // side_luke_skywalker.png
 
+    mapSpaceBlueTexture = res.mapSpaceBlueTexture.texture;              // space_blue.jpg
+    mapSpaceRedTexture = res.mapSpaceRedTexture.texture;                // space_red.jpg
+
     animTexButtonBlue = loadAnimationTextures(11, 'button_blue_');
     animTexButtonRed = loadAnimationTextures(11, 'button_red_');
     
@@ -147,7 +153,6 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     soundOnButtonTexture = PIXI.Texture.fromFrame('sound.png');
     soundOffButtonTexture = PIXI.Texture.fromFrame('sound_off.png');
 
-    preloaderComplete++;
     if(preloaderComplete === 2)
     {
         menuCreate();

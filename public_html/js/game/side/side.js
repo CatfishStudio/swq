@@ -167,12 +167,15 @@ function onSideButtonClick()
 {
     if(this.name === "DarthVader")
     {
-        
+        side = SIDE_SITH;
+        mapCreate();
     }
     if(this.name === "LukeSkywalker")
     {
-        
+        side = SIDE_JEDI;
+        mapCreate();
     }
+    sideRemove();
 }
 
 function sideDroidBlue()

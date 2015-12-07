@@ -103,6 +103,9 @@ function preloaderLoadAssets()
     
     loader.add('buttonsSettings','./assets/image/atlas/settings_buttons.json');
 
+    loader.add('coruscant_planet','./assets/image/textures/coruscant.png');
+    loader.add('coruscant_landscape','./assets/image/textures/coruscant_landscape.jpg');
+
 
     loader.on('complete', onPreloaderAssetsLoaderComplete);
     loader.on('progress',onPreloaderAssetsLoaderProcess);
@@ -152,6 +155,13 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     rusButtonTexture = PIXI.Texture.fromFrame('rus.png');
     soundOnButtonTexture = PIXI.Texture.fromFrame('sound.png');
     soundOffButtonTexture = PIXI.Texture.fromFrame('sound_off.png');
+    
+    planetTextures = new Object();
+    planetTextures["Coruscant"] = [res.coruscant_planet.texture, res.coruscant_landscape.texture];
+    
+    heroesTextures = new Object();
+    heroesTextures["Luke_Skywalker"] = [];
+    
 
     if(preloaderComplete === 2)
     {

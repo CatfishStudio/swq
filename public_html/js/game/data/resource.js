@@ -1,0 +1,1 @@
+var resMapPlanets;      // планеты карты

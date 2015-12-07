@@ -165,6 +165,8 @@ function onSideButtonOut()
 
 function onSideButtonClick()
 {
+    initMap();
+    
     if(this.name === "DarthVader")
     {
         side = SIDE_SITH;
@@ -175,6 +177,7 @@ function onSideButtonClick()
         side = SIDE_JEDI;
         mapCreate();
     }
+    
     sideRemove();
 }
 

@@ -30,3 +30,9 @@ var musicOffButtonTexture;
 var rusButtonTexture;
 var soundOnButtonTexture;
 var soundOffButtonTexture;
+
+/* Planets */
+var planetTextures;                     // текстуры планет
+
+/* Heroes */
+var heroesTextures;                     // текстуры персонажей

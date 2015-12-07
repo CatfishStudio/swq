@@ -18,7 +18,7 @@ function soundloadComplete(event)
 
 function soundPlayStarWarsThemeSong()
 {
-    if(music === true) createjs.Sound.play("StarWarsThemeSong");
+    if(music === true) createjs.Sound.play("StarWarsThemeSong", {loop:-1});
 }
 
 function soundStopStarWarsThemeSong()

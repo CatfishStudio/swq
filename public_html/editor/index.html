@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <script src="./js/pixijs/pixi.min.js"></script>
+    <script src="./js/const.js" type="text/javascript"></script>
+    <script src="./js/field.js" type="text/javascript"></script>
+    <script src="./js/window.js" type="text/javascript"></script>
+    <style>
+        body,html 
+        {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+            var renderer;
+            var stage;
+
+            function init()
+            {
+                    renderer = PIXI.autoDetectRenderer(860, 730,{backgroundColor : 0xFFFFFF});
+                    document.body.appendChild(renderer.view);
+                    stage = new PIXI.Container();
+                    draw();
+                   
+                    windowCreate();
+            }
+
+            window.addEventListener("load", init, false);
+
+            function draw() 
+            {
+                    requestAnimationFrame(draw);
+                    renderer.render(stage);
+            }
+    </script>
+</body>
+</html>

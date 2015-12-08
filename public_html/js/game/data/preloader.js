@@ -178,9 +178,9 @@ function loadAnimationTextures(countFrame, nameFrame)
     {
         if(i < 10)
 	{
-            nameTexture = nameFrame + '0' + i + '.png'
+            nameTexture = nameFrame + '0' + i + '.png';
         }else{
-            nameTexture = nameFrame + i + '.png'
+            nameTexture = nameFrame + i + '.png';
         }
         var texture = PIXI.Texture.fromFrame(nameTexture);
         animTextures.push(texture);

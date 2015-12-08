@@ -1,0 +1,1 @@
+copy *.js starwars.game.js

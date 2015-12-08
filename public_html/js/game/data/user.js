@@ -1,0 +1,1 @@
+var userMapPlanets;      // карта планет

@@ -88,13 +88,8 @@ function onMapSpaceMove()
 
 function mapCreatePlanets()
 {
-    var planet = new PIXI.Sprite(resMapPlanets["Coruscant"][1]);
-    planet.name = resMapPlanets["Coruscant"][0];
-    planet.position.x = resMapPlanets["Coruscant"][3]; 
-    planet.position.y = resMapPlanets["Coruscant"][4]; 
-    planet.scale.set(0.2);
-    planet.interactive = true;
-    planet.buttonMode = true;
-    mapSprite.addChild(planet);
+    userMapPlanets["Coruscant"][1].scale.set(0.2);
+    
+    mapSprite.addChild(userMapPlanets["Coruscant"][1]);
     
 }

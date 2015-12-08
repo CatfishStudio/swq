@@ -165,7 +165,7 @@ function onSideButtonOut()
 
 function onSideButtonClick()
 {
-    initMap();
+    initGame(); // инициализация игры
     
     if(this.name === "DarthVader")
     {

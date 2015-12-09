@@ -77,8 +77,6 @@ function preloaderLoadAssets()
     var loader = new PIXI.loaders.Loader();
     
     loader.add('animTest','./assets/test/test_animation.json');
-    
-    loader.add('deathstarTexture','./assets/image/textures/deathstar.png');
     loader.add('starwarsTexture','./assets/image/textures/starwars.png');
     loader.add('stars1Texture','./assets/image/textures/stars1.jpg');
     loader.add('ship1Texture','./assets/image/textures/ship1.png');
@@ -103,6 +101,8 @@ function preloaderLoadAssets()
     
     loader.add('buttonsSettings','./assets/image/atlas/settings_buttons.json');
 
+    loader.add('deathstarTexture','./assets/image/textures/deathstar.png');
+    loader.add('deathstar_landscape','./assets/image/textures/deathstar_landscape.jpg');
     loader.add('coruscant_planet','./assets/image/textures/coruscant.png');
     loader.add('coruscant_landscape','./assets/image/textures/coruscant_landscape.jpg');
     loader.add('tatooine_planet','./assets/image/textures/tatooine.png');
@@ -123,6 +123,12 @@ function preloaderLoadAssets()
     loader.add('geonosis_landscape','./assets/image/textures/geonosis_landscape.jpg');
     loader.add('alderaan_planet','./assets/image/textures/alderaan.png');
     loader.add('alderaan_landscape','./assets/image/textures/alderaan_landscape.jpg');
+    loader.add('kamino_planet','./assets/image/textures/kamino.png');
+    loader.add('kamino_landscape','./assets/image/textures/kamino_landscape.jpg');
+    loader.add('utapau_planet','./assets/image/textures/utapau.png');
+    loader.add('utapau_landscape','./assets/image/textures/utapau_landscape.jpg');
+    loader.add('saleucami_planet','./assets/image/textures/saleucami.png');
+    loader.add('saleucami_landscape','./assets/image/textures/saleucami_landscape.jpg');
 
 
     loader.on('complete', onPreloaderAssetsLoaderComplete);
@@ -185,6 +191,10 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     planetTextures["Bespin"] = [res.bespin_planet.texture, res.bespin_landscape.texture];
     planetTextures["Geonosis"] = [res.geonosis_planet.texture, res.geonosis_landscape.texture];
     planetTextures["Alderaan"] = [res.alderaan_planet.texture, res.alderaan_landscape.texture];
+    planetTextures["Kamino"] = [res.kamino_planet.texture, res.kamino_landscape.texture];
+    planetTextures["DeathStar"] = [res.deathstarTexture.texture, res.deathstar_landscape.texture];
+    planetTextures["Utapau"] = [res.utapau_planet.texture, res.utapau_landscape.texture];
+    planetTextures["Saleucami"] = [res.saleucami_planet.texture, res.saleucami_landscape.texture];
     
     
     heroesTextures = new Object();

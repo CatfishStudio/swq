@@ -105,5 +105,13 @@ function mapCreatePlanets()
     mapSprite.addChild(userMapPlanets["Geonosis"][1]);
     userMapPlanets["Alderaan"][1].scale.set(0.2);
     mapSprite.addChild(userMapPlanets["Alderaan"][1]);
+    userMapPlanets["Kamino"][1].scale.set(0.2);
+    mapSprite.addChild(userMapPlanets["Kamino"][1]);
+    userMapPlanets["DeathStar"][1].scale.set(0.2);
+    mapSprite.addChild(userMapPlanets["DeathStar"][1]);
+    userMapPlanets["Utapau"][1].scale.set(0.2);
+    mapSprite.addChild(userMapPlanets["Utapau"][1]);
+    userMapPlanets["Saleucami"][1].scale.set(0.2);
+    mapSprite.addChild(userMapPlanets["Saleucami"][1]);
     
 }

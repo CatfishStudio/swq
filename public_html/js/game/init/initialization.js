@@ -44,8 +44,8 @@ function initMap()
         "Набу"
     ];
     planets["Naboo"][1].name = "naboo_planet";
-    planets["Naboo"][1].position.x = 650; 
-    planets["Naboo"][1].position.y = 150; 
+    planets["Naboo"][1].position.x = 630; 
+    planets["Naboo"][1].position.y = 240; 
     planets["Naboo"][1].interactive = true; 
     planets["Naboo"][1].buttonMode = true;
     planets["Naboo"][2].name = "naboo_landscape";
@@ -119,8 +119,8 @@ function initMap()
         "Беспин"
     ];
     planets["Bespin"][1].name = "bespin_planet";
-    planets["Bespin"][1].position.x = 400; 
-    planets["Bespin"][1].position.y = 155; 
+    planets["Bespin"][1].position.x = 375; 
+    planets["Bespin"][1].position.y = 105; 
     planets["Bespin"][1].interactive = true; 
     planets["Bespin"][1].buttonMode = true;
     planets["Bespin"][2].name = "bespin_landscape";
@@ -149,7 +149,7 @@ function initMap()
         "Альдераан"
     ];
     planets["Alderaan"][1].name = "alderaan_planet";
-    planets["Alderaan"][1].position.x = 100; 
+    planets["Alderaan"][1].position.x = 50; 
     planets["Alderaan"][1].position.y = 350; 
     planets["Alderaan"][1].interactive = true; 
     planets["Alderaan"][1].buttonMode = true;
@@ -157,6 +157,65 @@ function initMap()
     planets["Alderaan"][2].position.x = 0; 
     planets["Alderaan"][2].position.y = 0;
     
+    planets["Kamino"] = [
+        "Kamino",
+        new PIXI.Sprite(planetTextures["Kamino"][0]),
+        new PIXI.Sprite(planetTextures["Kamino"][1]),
+        "Камино"
+    ];
+    planets["Kamino"][1].name = "kamino_planet";
+    planets["Kamino"][1].position.x = 400; 
+    planets["Kamino"][1].position.y = 275; 
+    planets["Kamino"][1].interactive = true; 
+    planets["Kamino"][1].buttonMode = true;
+    planets["Kamino"][2].name = "kamino_landscape";
+    planets["Kamino"][2].position.x = 0; 
+    planets["Kamino"][2].position.y = 0;
+    
+    planets["DeathStar"] = [
+        "DeathStar",
+        new PIXI.Sprite(planetTextures["DeathStar"][0]),
+        new PIXI.Sprite(planetTextures["DeathStar"][1]),
+        "Звезда смерти"
+    ];
+    planets["DeathStar"][1].name = "deathstar_planet";
+    planets["DeathStar"][1].position.x = 200; 
+    planets["DeathStar"][1].position.y = 200; 
+    planets["DeathStar"][1].interactive = true; 
+    planets["DeathStar"][1].buttonMode = true;
+    planets["DeathStar"][2].name = "deathstar_landscape";
+    planets["DeathStar"][2].position.x = 0; 
+    planets["DeathStar"][2].position.y = 0;
+    
+    planets["Utapau"] = [
+        "Utapau",
+        new PIXI.Sprite(planetTextures["Utapau"][0]),
+        new PIXI.Sprite(planetTextures["Utapau"][1]),
+        "Утапау"
+    ];
+    planets["Utapau"][1].name = "utapau_planet";
+    planets["Utapau"][1].position.x = 700; 
+    planets["Utapau"][1].position.y = 50; 
+    planets["Utapau"][1].interactive = true; 
+    planets["Utapau"][1].buttonMode = true;
+    planets["Utapau"][2].name = "utapau_landscape";
+    planets["Utapau"][2].position.x = 0; 
+    planets["Utapau"][2].position.y = 0;
+    
+    planets["Saleucami"] = [
+        "Saleucami",
+        new PIXI.Sprite(planetTextures["Saleucami"][0]),
+        new PIXI.Sprite(planetTextures["Saleucami"][1]),
+        "Салукемай"
+    ];
+    planets["Saleucami"][1].name = "saleucami_planet";
+    planets["Saleucami"][1].position.x = 880; 
+    planets["Saleucami"][1].position.y = 145; 
+    planets["Saleucami"][1].interactive = true; 
+    planets["Saleucami"][1].buttonMode = true;
+    planets["Saleucami"][2].name = "saleucami_landscape";
+    planets["Saleucami"][2].position.x = 0; 
+    planets["Saleucami"][2].position.y = 0;
     
     return planets;
 }

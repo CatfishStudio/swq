@@ -25,9 +25,6 @@ function mapSpace()
     mapSprite.position.x = -82; 
     mapSprite.position.y = -19; 
     mapSprite.interactive = true;
-    mapSprite.buttonMode = true;
-    //mapSprite.tap = onMapSpaceClick;
-    //mapSprite.click = onMapSpaceClick;
     mapSprite.on('mousedown', onMapSpaceDown);
     mapSprite.on('touchstart', onMapSpaceDown);
     mapSprite.on('mouseup', onMapSpaceUp);
@@ -89,7 +86,24 @@ function onMapSpaceMove()
 function mapCreatePlanets()
 {
     userMapPlanets["Coruscant"][1].scale.set(0.2);
-    
     mapSprite.addChild(userMapPlanets["Coruscant"][1]);
+    userMapPlanets["Totooine"][1].scale.set(0.2);
+    mapSprite.addChild(userMapPlanets["Totooine"][1]);
+    userMapPlanets["Naboo"][1].scale.set(0.2);
+    mapSprite.addChild(userMapPlanets["Naboo"][1]);
+    userMapPlanets["Endor"][1].scale.set(0.2);
+    mapSprite.addChild(userMapPlanets["Endor"][1]);
+    userMapPlanets["Hoth"][1].scale.set(0.2);
+    mapSprite.addChild(userMapPlanets["Hoth"][1]);
+    userMapPlanets["Mustafar"][1].scale.set(0.2);
+    mapSprite.addChild(userMapPlanets["Mustafar"][1]);
+    userMapPlanets["Dagobah"][1].scale.set(0.2);
+    mapSprite.addChild(userMapPlanets["Dagobah"][1]);
+    userMapPlanets["Bespin"][1].scale.set(0.2);
+    mapSprite.addChild(userMapPlanets["Bespin"][1]);
+    userMapPlanets["Geonosis"][1].scale.set(0.2);
+    mapSprite.addChild(userMapPlanets["Geonosis"][1]);
+    userMapPlanets["Alderaan"][1].scale.set(0.2);
+    mapSprite.addChild(userMapPlanets["Alderaan"][1]);
     
 }

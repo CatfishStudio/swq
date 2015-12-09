@@ -105,6 +105,24 @@ function preloaderLoadAssets()
 
     loader.add('coruscant_planet','./assets/image/textures/coruscant.png');
     loader.add('coruscant_landscape','./assets/image/textures/coruscant_landscape.jpg');
+    loader.add('tatooine_planet','./assets/image/textures/tatooine.png');
+    loader.add('tatooine_landscape','./assets/image/textures/tatooine_landscape.jpg');
+    loader.add('naboo_planet','./assets/image/textures/naboo.png');
+    loader.add('naboo_landscape','./assets/image/textures/naboo_landscape.jpg');
+    loader.add('endor_planet','./assets/image/textures/endor.png');
+    loader.add('endor_landscape','./assets/image/textures/endor_landscape.jpg');
+    loader.add('hoth_planet','./assets/image/textures/hoth.png');
+    loader.add('hoth_landscape','./assets/image/textures/hoth_landscape.jpg');
+    loader.add('mustafar_planet','./assets/image/textures/mustafar.png');
+    loader.add('mustafar_landscape','./assets/image/textures/mustafar_landscape.jpg');
+    loader.add('dagobah_planet','./assets/image/textures/dagobah.png');
+    loader.add('dagobah_landscape','./assets/image/textures/dagobah_landscape.jpg');
+    loader.add('bespin_planet','./assets/image/textures/bespin.png');
+    loader.add('bespin_landscape','./assets/image/textures/bespin_landscape.jpg');
+    loader.add('geonosis_planet','./assets/image/textures/geonosis.png');
+    loader.add('geonosis_landscape','./assets/image/textures/geonosis_landscape.jpg');
+    loader.add('alderaan_planet','./assets/image/textures/alderaan.png');
+    loader.add('alderaan_landscape','./assets/image/textures/alderaan_landscape.jpg');
 
 
     loader.on('complete', onPreloaderAssetsLoaderComplete);
@@ -158,6 +176,16 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     
     planetTextures = new Object();
     planetTextures["Coruscant"] = [res.coruscant_planet.texture, res.coruscant_landscape.texture];
+    planetTextures["Totooine"] = [res.tatooine_planet.texture, res.tatooine_landscape.texture];
+    planetTextures["Naboo"] = [res.naboo_planet.texture, res.naboo_landscape.texture];
+    planetTextures["Endor"] = [res.endor_planet.texture, res.endor_landscape.texture];
+    planetTextures["Hoth"] = [res.hoth_planet.texture, res.hoth_landscape.texture];
+    planetTextures["Mustafar"] = [res.mustafar_planet.texture, res.mustafar_landscape.texture];
+    planetTextures["Dagobah"] = [res.dagobah_planet.texture, res.dagobah_landscape.texture];
+    planetTextures["Bespin"] = [res.bespin_planet.texture, res.bespin_landscape.texture];
+    planetTextures["Geonosis"] = [res.geonosis_planet.texture, res.geonosis_landscape.texture];
+    planetTextures["Alderaan"] = [res.alderaan_planet.texture, res.alderaan_landscape.texture];
+    
     
     heroesTextures = new Object();
     heroesTextures["Luke_Skywalker"] = [];

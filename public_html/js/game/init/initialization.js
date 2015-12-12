@@ -9,9 +9,9 @@ function initMap()
     
     planets["Coruscant"] = [
         "Coruscant",
-        new PIXI.Sprite(planetTextures["Coruscant"][0]),
         new PIXI.Sprite(planetTextures["Coruscant"][1]),
-        "Корусант"
+        new PIXI.Sprite(planetTextures["Coruscant"][2]),
+        planetTextures["Coruscant"][0]
     ];
     planets["Coruscant"][1].name = "coruscant_planet";
     planets["Coruscant"][1].position.x = 550; 
@@ -24,9 +24,9 @@ function initMap()
     
     planets["Totooine"] = [
         "Totooine",
-        new PIXI.Sprite(planetTextures["Totooine"][0]),
         new PIXI.Sprite(planetTextures["Totooine"][1]),
-        "Татуин"
+        new PIXI.Sprite(planetTextures["Totooine"][2]),
+        planetTextures["Totooine"][0]
     ];
     planets["Totooine"][1].name = "tatooine_planet";
     planets["Totooine"][1].position.x = 300; 
@@ -39,9 +39,9 @@ function initMap()
     
     planets["Naboo"] = [
         "Naboo",
-        new PIXI.Sprite(planetTextures["Naboo"][0]),
         new PIXI.Sprite(planetTextures["Naboo"][1]),
-        "Набу"
+        new PIXI.Sprite(planetTextures["Naboo"][2]),
+        planetTextures["Naboo"][0]
     ];
     planets["Naboo"][1].name = "naboo_planet";
     planets["Naboo"][1].position.x = 630; 
@@ -54,9 +54,9 @@ function initMap()
     
     planets["Endor"] = [
         "Endor",
-        new PIXI.Sprite(planetTextures["Endor"][0]),
         new PIXI.Sprite(planetTextures["Endor"][1]),
-        "Эндор"
+        new PIXI.Sprite(planetTextures["Endor"][2]),
+        planetTextures["Endor"][0]
     ];
     planets["Endor"][1].name = "endor_planet";
     planets["Endor"][1].position.x = 150; 
@@ -69,9 +69,9 @@ function initMap()
     
     planets["Hoth"] = [
         "Hoth",
-        new PIXI.Sprite(planetTextures["Hoth"][0]),
         new PIXI.Sprite(planetTextures["Hoth"][1]),
-        "Хот"
+        new PIXI.Sprite(planetTextures["Hoth"][2]),
+        planetTextures["Hoth"][0]
     ];
     planets["Hoth"][1].name = "hoth_planet";
     planets["Hoth"][1].position.x = 850; 
@@ -84,9 +84,9 @@ function initMap()
     
     planets["Mustafar"] = [
         "Mustafar",
-        new PIXI.Sprite(planetTextures["Mustafar"][0]),
         new PIXI.Sprite(planetTextures["Mustafar"][1]),
-        "Мустафар"
+        new PIXI.Sprite(planetTextures["Mustafar"][2]),
+        planetTextures["Mustafar"][0]
     ];
     planets["Mustafar"][1].name = "mustafar_planet";
     planets["Mustafar"][1].position.x = 600; 
@@ -99,9 +99,9 @@ function initMap()
     
     planets["Dagobah"] = [
         "Dagobah",
-        new PIXI.Sprite(planetTextures["Dagobah"][0]),
         new PIXI.Sprite(planetTextures["Dagobah"][1]),
-        "Дагоба"
+        new PIXI.Sprite(planetTextures["Dagobah"][2]),
+        planetTextures["Dagobah"][0]
     ];
     planets["Dagobah"][1].name = "dagobah_planet";
     planets["Dagobah"][1].position.x = 200; 
@@ -114,9 +114,9 @@ function initMap()
     
     planets["Bespin"] = [
         "Bespin",
-        new PIXI.Sprite(planetTextures["Bespin"][0]),
         new PIXI.Sprite(planetTextures["Bespin"][1]),
-        "Беспин"
+        new PIXI.Sprite(planetTextures["Bespin"][2]),
+        planetTextures["Bespin"][0]
     ];
     planets["Bespin"][1].name = "bespin_planet";
     planets["Bespin"][1].position.x = 375; 
@@ -129,9 +129,9 @@ function initMap()
     
     planets["Geonosis"] = [
         "Geonosis",
-        new PIXI.Sprite(planetTextures["Geonosis"][0]),
         new PIXI.Sprite(planetTextures["Geonosis"][1]),
-        "Джеонозис"
+        new PIXI.Sprite(planetTextures["Geonosis"][2]),
+        planetTextures["Geonosis"][0]
     ];
     planets["Geonosis"][1].name = "geonosis_planet";
     planets["Geonosis"][1].position.x = 800; 
@@ -144,9 +144,9 @@ function initMap()
     
     planets["Alderaan"] = [
         "Alderaan",
-        new PIXI.Sprite(planetTextures["Alderaan"][0]),
         new PIXI.Sprite(planetTextures["Alderaan"][1]),
-        "Альдераан"
+        new PIXI.Sprite(planetTextures["Alderaan"][2]),
+        planetTextures["Alderaan"][0]
     ];
     planets["Alderaan"][1].name = "alderaan_planet";
     planets["Alderaan"][1].position.x = 50; 
@@ -159,9 +159,9 @@ function initMap()
     
     planets["Kamino"] = [
         "Kamino",
-        new PIXI.Sprite(planetTextures["Kamino"][0]),
         new PIXI.Sprite(planetTextures["Kamino"][1]),
-        "Камино"
+        new PIXI.Sprite(planetTextures["Kamino"][2]),
+        planetTextures["Kamino"][0]
     ];
     planets["Kamino"][1].name = "kamino_planet";
     planets["Kamino"][1].position.x = 400; 
@@ -174,9 +174,9 @@ function initMap()
     
     planets["DeathStar"] = [
         "DeathStar",
-        new PIXI.Sprite(planetTextures["DeathStar"][0]),
         new PIXI.Sprite(planetTextures["DeathStar"][1]),
-        "Звезда смерти"
+        new PIXI.Sprite(planetTextures["DeathStar"][2]),
+        planetTextures["DeathStar"][0]
     ];
     planets["DeathStar"][1].name = "deathstar_planet";
     planets["DeathStar"][1].position.x = 200; 
@@ -189,9 +189,9 @@ function initMap()
     
     planets["Utapau"] = [
         "Utapau",
-        new PIXI.Sprite(planetTextures["Utapau"][0]),
         new PIXI.Sprite(planetTextures["Utapau"][1]),
-        "Утапау"
+        new PIXI.Sprite(planetTextures["Utapau"][2]),
+        planetTextures["Utapau"][0]
     ];
     planets["Utapau"][1].name = "utapau_planet";
     planets["Utapau"][1].position.x = 700; 
@@ -204,9 +204,9 @@ function initMap()
     
     planets["Saleucami"] = [
         "Saleucami",
-        new PIXI.Sprite(planetTextures["Saleucami"][0]),
         new PIXI.Sprite(planetTextures["Saleucami"][1]),
-        "Салукемай"
+        new PIXI.Sprite(planetTextures["Saleucami"][2]),
+        planetTextures["Saleucami"][0]
     ];
     planets["Saleucami"][1].name = "saleucami_planet";
     planets["Saleucami"][1].position.x = 880; 

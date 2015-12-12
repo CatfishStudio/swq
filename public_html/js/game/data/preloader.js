@@ -77,6 +77,8 @@ function preloaderLoadAssets()
     var loader = new PIXI.loaders.Loader();
     
     loader.add('animTest','./assets/test/test_animation.json');
+    loader.add('testTexture','./assets/test/test_texture.png');
+    
     loader.add('starwarsTexture','./assets/image/textures/starwars.png');
     loader.add('stars1Texture','./assets/image/textures/stars1.jpg');
     loader.add('ship1Texture','./assets/image/textures/ship1.png');
@@ -101,34 +103,34 @@ function preloaderLoadAssets()
     
     loader.add('buttonsSettings','./assets/image/atlas/settings_buttons.json');
 
-    loader.add('deathstarTexture','./assets/image/textures/deathstar.png');
-    loader.add('deathstar_landscape','./assets/image/textures/deathstar_landscape.jpg');
-    loader.add('coruscant_planet','./assets/image/textures/coruscant.png');
-    loader.add('coruscant_landscape','./assets/image/textures/coruscant_landscape.jpg');
-    loader.add('tatooine_planet','./assets/image/textures/tatooine.png');
-    loader.add('tatooine_landscape','./assets/image/textures/tatooine_landscape.jpg');
-    loader.add('naboo_planet','./assets/image/textures/naboo.png');
-    loader.add('naboo_landscape','./assets/image/textures/naboo_landscape.jpg');
-    loader.add('endor_planet','./assets/image/textures/endor.png');
-    loader.add('endor_landscape','./assets/image/textures/endor_landscape.jpg');
-    loader.add('hoth_planet','./assets/image/textures/hoth.png');
-    loader.add('hoth_landscape','./assets/image/textures/hoth_landscape.jpg');
-    loader.add('mustafar_planet','./assets/image/textures/mustafar.png');
-    loader.add('mustafar_landscape','./assets/image/textures/mustafar_landscape.jpg');
-    loader.add('dagobah_planet','./assets/image/textures/dagobah.png');
-    loader.add('dagobah_landscape','./assets/image/textures/dagobah_landscape.jpg');
-    loader.add('bespin_planet','./assets/image/textures/bespin.png');
-    loader.add('bespin_landscape','./assets/image/textures/bespin_landscape.jpg');
-    loader.add('geonosis_planet','./assets/image/textures/geonosis.png');
-    loader.add('geonosis_landscape','./assets/image/textures/geonosis_landscape.jpg');
-    loader.add('alderaan_planet','./assets/image/textures/alderaan.png');
-    loader.add('alderaan_landscape','./assets/image/textures/alderaan_landscape.jpg');
-    loader.add('kamino_planet','./assets/image/textures/kamino.png');
-    loader.add('kamino_landscape','./assets/image/textures/kamino_landscape.jpg');
-    loader.add('utapau_planet','./assets/image/textures/utapau.png');
-    loader.add('utapau_landscape','./assets/image/textures/utapau_landscape.jpg');
-    loader.add('saleucami_planet','./assets/image/textures/saleucami.png');
-    loader.add('saleucami_landscape','./assets/image/textures/saleucami_landscape.jpg');
+    loader.add('deathstarTexture','./assets/image/textures/planets/deathstar.png');
+    loader.add('deathstar_landscape','./assets/image/textures/planets/deathstar_landscape.jpg');
+    loader.add('coruscant_planet','./assets/image/textures/planets/coruscant.png');
+    loader.add('coruscant_landscape','./assets/image/textures/planets/coruscant_landscape.jpg');
+    loader.add('tatooine_planet','./assets/image/textures/planets/tatooine.png');
+    loader.add('tatooine_landscape','./assets/image/textures/planets/tatooine_landscape.jpg');
+    loader.add('naboo_planet','./assets/image/textures/planets/naboo.png');
+    loader.add('naboo_landscape','./assets/image/textures/planets/naboo_landscape.jpg');
+    loader.add('endor_planet','./assets/image/textures/planets/endor.png');
+    loader.add('endor_landscape','./assets/image/textures/planets/endor_landscape.jpg');
+    loader.add('hoth_planet','./assets/image/textures/planets/hoth.png');
+    loader.add('hoth_landscape','./assets/image/textures/planets/hoth_landscape.jpg');
+    loader.add('mustafar_planet','./assets/image/textures/planets/mustafar.png');
+    loader.add('mustafar_landscape','./assets/image/textures/planets/mustafar_landscape.jpg');
+    loader.add('dagobah_planet','./assets/image/textures/planets/dagobah.png');
+    loader.add('dagobah_landscape','./assets/image/textures/planets/dagobah_landscape.jpg');
+    loader.add('bespin_planet','./assets/image/textures/planets/bespin.png');
+    loader.add('bespin_landscape','./assets/image/textures/planets/bespin_landscape.jpg');
+    loader.add('geonosis_planet','./assets/image/textures/planets/geonosis.png');
+    loader.add('geonosis_landscape','./assets/image/textures/planets/geonosis_landscape.jpg');
+    loader.add('alderaan_planet','./assets/image/textures/planets/alderaan.png');
+    loader.add('alderaan_landscape','./assets/image/textures/planets/alderaan_landscape.jpg');
+    loader.add('kamino_planet','./assets/image/textures/planets/kamino.png');
+    loader.add('kamino_landscape','./assets/image/textures/planets/kamino_landscape.jpg');
+    loader.add('utapau_planet','./assets/image/textures/planets/utapau.png');
+    loader.add('utapau_landscape','./assets/image/textures/planets/utapau_landscape.jpg');
+    loader.add('saleucami_planet','./assets/image/textures/planets/saleucami.png');
+    loader.add('saleucami_landscape','./assets/image/textures/planets/saleucami_landscape.jpg');
 
 
     loader.on('complete', onPreloaderAssetsLoaderComplete);
@@ -151,6 +153,7 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     preloaderProgressAssetsText.text = "Загрузка " + (preloaderPercentTextures + preloaderPercentSounds) + "%";
     
     animTest = loadAnimationTextures(11, 'dv_');
+    testTexture = res.testTexture.texture;
     
     deathstarTexture = res.deathstarTexture.texture;			// deathstar.png
     starwarsTexture = res.starwarsTexture.texture;			// starwars.png

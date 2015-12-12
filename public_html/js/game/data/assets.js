@@ -1,4 +1,5 @@
 var animTest = [];                      // для теста
+var testTexture;                        // для теста
 
 var deathstarTexture;			// deathstar.png
 var starwarsTexture;			// starwars.png

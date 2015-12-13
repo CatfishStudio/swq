@@ -3,7 +3,7 @@ var stage;
 
 function init()
 {
-    renderer = PIXI.autoDetectRenderer(MAIN_WIDTH, MAIN_HEIGH,{backgroundColor : MAIN_BACKGROUND_COLOR});
+    renderer = PIXI.autoDetectRenderer(MAIN_WIDTH, MAIN_HEIGH,{backgroundColor : MAIN_BACKGROUND_COLOR, antialias : true});
     document.body.appendChild(renderer.view);
     stage = new PIXI.Container();
 

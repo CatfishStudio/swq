@@ -1,1 +1,2 @@
-var userMapPlanets;      // карта планет
+var userMapPlanets;     // карта планет
+var userLevels;         // Уровни

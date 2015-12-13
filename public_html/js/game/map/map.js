@@ -113,5 +113,7 @@ function mapCreatePlanets()
     mapSprite.addChild(userMapPlanets["Utapau"][1]);
     userMapPlanets["Saleucami"][1].scale.set(0.2);
     mapSprite.addChild(userMapPlanets["Saleucami"][1]);
+    userMapPlanets["Jakku"][1].scale.set(0.2);
+    mapSprite.addChild(userMapPlanets["Jakku"][1]);
     
 }

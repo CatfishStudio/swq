@@ -119,7 +119,7 @@ function initMap()
         planetTextures["Bespin"][0]
     ];
     planets["Bespin"][1].name = "bespin_planet";
-    planets["Bespin"][1].position.x = 375; 
+    planets["Bespin"][1].position.x = 25; 
     planets["Bespin"][1].position.y = 105; 
     planets["Bespin"][1].interactive = true; 
     planets["Bespin"][1].buttonMode = true;
@@ -216,6 +216,21 @@ function initMap()
     planets["Saleucami"][2].name = "saleucami_landscape";
     planets["Saleucami"][2].position.x = 0; 
     planets["Saleucami"][2].position.y = 0;
+    
+    planets["Jakku"] = [
+        "Jakku",
+        new PIXI.Sprite(planetTextures["Jakku"][1]),
+        new PIXI.Sprite(planetTextures["Jakku"][2]),
+        planetTextures["Jakku"][0]
+    ];
+    planets["Jakku"][1].name = "jakku_planet";
+    planets["Jakku"][1].position.x = 450; 
+    planets["Jakku"][1].position.y = 75; 
+    planets["Jakku"][1].interactive = true; 
+    planets["Jakku"][1].buttonMode = true;
+    planets["Jakku"][2].name = "jakku_landscape";
+    planets["Jakku"][2].position.x = 0; 
+    planets["Jakku"][2].position.y = 0;
     
     return planets;
 }

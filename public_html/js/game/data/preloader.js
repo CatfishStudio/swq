@@ -103,6 +103,7 @@ function preloaderLoadAssets()
     
     loader.add('buttonsSettings','./assets/image/atlas/settings_buttons.json');
 
+    loader.add('planet_light','./assets/image/textures/planets/planet_light.png');
     loader.add('deathstarTexture','./assets/image/textures/planets/deathstar.png');
     loader.add('deathstar_landscape','./assets/image/textures/planets/deathstar_landscape.jpg');
     loader.add('coruscant_planet','./assets/image/textures/planets/coruscant.png');
@@ -131,6 +132,8 @@ function preloaderLoadAssets()
     loader.add('utapau_landscape','./assets/image/textures/planets/utapau_landscape.jpg');
     loader.add('saleucami_planet','./assets/image/textures/planets/saleucami.png');
     loader.add('saleucami_landscape','./assets/image/textures/planets/saleucami_landscape.jpg');
+    loader.add('jakku_planet','./assets/image/textures/planets/jakku.png');
+    loader.add('jakku_landscape','./assets/image/textures/planets/jakku_landscape.jpg');
 
     loader.add('aayla_secura_lr','./assets/image/textures/personages/aayla_secura_lr.png');
     loader.add('aayla_secura_rl','./assets/image/textures/personages/aayla_secura_rl.png');
@@ -168,6 +171,8 @@ function preloaderLoadAssets()
     loader.add('dooku_lr','./assets/image/textures/personages/dooku_lr.png');
     loader.add('dooku_rl','./assets/image/textures/personages/dooku_rl.png');
     loader.add('eeth_koth','./assets/image/textures/personages/eeth_koth.png');
+    loader.add('finn_lr','./assets/image/textures/personages/finn_lr.png');
+    loader.add('finn_rl','./assets/image/textures/personages/finn_rl.png');
     loader.add('general_grievous','./assets/image/textures/personages/general_grievous.png');
     loader.add('general_madine_lr','./assets/image/textures/personages/general_madine_lr.png');
     loader.add('general_madine_rl','./assets/image/textures/personages/general_madine_rl.png');
@@ -180,6 +185,7 @@ function preloaderLoadAssets()
     loader.add('kapitan_antilles','./assets/image/textures/personages/kapitan_antilles.png');
     loader.add('ki_adi_mundi','./assets/image/textures/personages/ki_adi_mundi.png');
     loader.add('kit_fisto','./assets/image/textures/personages/kit_fisto.png');
+    loader.add('kylo_ren','./assets/image/textures/personages/kylo_ren.png');
     loader.add('lando_calrissian_lr','./assets/image/textures/personages/lando_calrissian_lr.png');
     loader.add('lando_calrissian_rl','./assets/image/textures/personages/lando_calrissian_rl.png');
     loader.add('leia_organa_lr','./assets/image/textures/personages/leia_organa_lr.png');
@@ -196,13 +202,16 @@ function preloaderLoadAssets()
     loader.add('owen_lars','./assets/image/textures/personages/owen_lars.png');
     loader.add('padme_amidala','./assets/image/textures/personages/padme_amidala.png');
     loader.add('palpatine','./assets/image/textures/personages/palpatine.png');
+    loader.add('phasma','./assets/image/textures/personages/phasma.png');
     loader.add('plo_koon','./assets/image/textures/personages/plo_koon.png');
+    loader.add('poe_dameron','./assets/image/textures/personages/poe_dameron.png');
     loader.add('poggle_the_lesser','./assets/image/textures/personages/poggle_the_lesser.png');
     loader.add('qui_gon_jinn_lr','./assets/image/textures/personages/qui_gon_jinn_lr.png');
     loader.add('qui_gon_jinn_rl','./assets/image/textures/personages/qui_gon_jinn_rl.png');
     loader.add('red_battle_droid_lr','./assets/image/textures/personages/red_battle_droid_lr.png');
     loader.add('red_battle_droid_rl','./assets/image/textures/personages/red_battle_droid_rl.png');
     loader.add('republic_clone_army','./assets/image/textures/personages/republic_clone_army.png');
+    loader.add('rey','./assets/image/textures/personages/rey.png');
     loader.add('royal_guards','./assets/image/textures/personages/royal_guards.png');
     loader.add('rune_haako_lr','./assets/image/textures/personages/rune_haako_lr.png');
     loader.add('rune_haako_rl','./assets/image/textures/personages/rune_haako_rl.png');
@@ -276,20 +285,21 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     soundOffButtonTexture = PIXI.Texture.fromFrame('sound_off.png');
     
     planetTextures = new Object();
-    planetTextures["Coruscant"] = ["Корусант", res.coruscant_planet.texture, res.coruscant_landscape.texture];
-    planetTextures["Totooine"] = ["Татуин", res.tatooine_planet.texture, res.tatooine_landscape.texture];
-    planetTextures["Naboo"] = ["Набу", res.naboo_planet.texture, res.naboo_landscape.texture];
-    planetTextures["Endor"] = ["Эндор", res.endor_planet.texture, res.endor_landscape.texture];
-    planetTextures["Hoth"] = ["Хот", res.hoth_planet.texture, res.hoth_landscape.texture];
-    planetTextures["Mustafar"] = ["Мустафар", res.mustafar_planet.texture, res.mustafar_landscape.texture];
-    planetTextures["Dagobah"] = ["Дагоба", res.dagobah_planet.texture, res.dagobah_landscape.texture];
-    planetTextures["Bespin"] = ["Беспин", res.bespin_planet.texture, res.bespin_landscape.texture];
-    planetTextures["Geonosis"] = ["Джеонозис", res.geonosis_planet.texture, res.geonosis_landscape.texture];
-    planetTextures["Alderaan"] = ["Альдераан", res.alderaan_planet.texture, res.alderaan_landscape.texture];
-    planetTextures["Kamino"] = ["Камино", res.kamino_planet.texture, res.kamino_landscape.texture];
-    planetTextures["DeathStar"] = ["Звезда смерти", res.deathstarTexture.texture, res.deathstar_landscape.texture];
-    planetTextures["Utapau"] = ["Утапау", res.utapau_planet.texture, res.utapau_landscape.texture];
-    planetTextures["Saleucami"] = ["Салукемай", res.saleucami_planet.texture, res.saleucami_landscape.texture];
+    planetTextures["Coruscant"] = ["Корусант", res.coruscant_planet.texture, res.coruscant_landscape.texture, res.planet_light.texture];
+    planetTextures["Totooine"] = ["Татуин", res.tatooine_planet.texture, res.tatooine_landscape.texture, res.planet_light.texture];
+    planetTextures["Naboo"] = ["Набу", res.naboo_planet.texture, res.naboo_landscape.texture, res.planet_light.texture];
+    planetTextures["Endor"] = ["Эндор", res.endor_planet.texture, res.endor_landscape.texture, res.planet_light.texture];
+    planetTextures["Hoth"] = ["Хот", res.hoth_planet.texture, res.hoth_landscape.texture, res.planet_light.texture];
+    planetTextures["Mustafar"] = ["Мустафар", res.mustafar_planet.texture, res.mustafar_landscape.texture, res.planet_light.texture];
+    planetTextures["Dagobah"] = ["Дагоба", res.dagobah_planet.texture, res.dagobah_landscape.texture, res.planet_light.texture];
+    planetTextures["Bespin"] = ["Беспин", res.bespin_planet.texture, res.bespin_landscape.texture, res.planet_light.texture];
+    planetTextures["Geonosis"] = ["Джеонозис", res.geonosis_planet.texture, res.geonosis_landscape.texture, res.planet_light.texture];
+    planetTextures["Alderaan"] = ["Альдераан", res.alderaan_planet.texture, res.alderaan_landscape.texture, res.planet_light.texture];
+    planetTextures["Kamino"] = ["Камино", res.kamino_planet.texture, res.kamino_landscape.texture, res.planet_light.texture];
+    planetTextures["DeathStar"] = ["Звезда смерти", res.deathstarTexture.texture, res.deathstar_landscape.texture, res.planet_light.texture];
+    planetTextures["Utapau"] = ["Утапау", res.utapau_planet.texture, res.utapau_landscape.texture, res.planet_light.texture];
+    planetTextures["Saleucami"] = ["Салукемай", res.saleucami_planet.texture, res.saleucami_landscape.texture, res.planet_light.texture];
+    planetTextures["Jakku"] = ["Джакку", res.jakku_planet.texture, res.jakku_landscape.texture, res.planet_light.texture];
     
     
     heroesTextures = new Object();
@@ -319,6 +329,7 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     heroesTextures["darth_vader"] = ["Дарт Вейдер", res.darth_vader.texture, res.darth_vader.texture];
     heroesTextures["dooku"] = ["Граф Дуку", res.dooku_lr.texture, res.dooku_rl.texture];
     heroesTextures["eeth_koth"] = ["Иит Кот", res.eeth_koth.texture, res.eeth_koth.texture];
+    heroesTextures["finn"] = ["Финн", res.finn_lr.texture, res.finn_rl.texture];
     heroesTextures["general_grievous"] = ["Генерал Гривус", res.general_grievous.texture, res.general_grievous.texture];
     heroesTextures["general_madine"] = ["Генерал Мадин", res.general_madine_lr.texture, res.general_madine_rl.texture];
     heroesTextures["han_solo"] = ["Хан Соло", res.han_solo_lr.texture, res.han_solo_rl.texture];
@@ -328,6 +339,7 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     heroesTextures["kapitan_antilles"] = ["Капитан Антиллес", res.kapitan_antilles.texture, res.kapitan_antilles.texture];
     heroesTextures["ki_adi_mundi"] = ["Ки-Ади-Мунди", res.ki_adi_mundi.texture, res.ki_adi_mundi.texture];
     heroesTextures["kit_fisto"] = ["Кит Фисто", res.kit_fisto.texture, res.kit_fisto.texture];
+    heroesTextures["kylo_ren"] = ["Кайло Рен", res.kylo_ren.texture, res.kylo_ren.texture];
     heroesTextures["lando_calrissian"] = ["Лэндо Калриссиан", res.lando_calrissian_lr.texture, res.lando_calrissian_rl.texture];
     heroesTextures["leia_organa"] = ["Принцесса Лея Органа", res.leia_organa_lr.texture, res.leia_organa_rl.texture];
     heroesTextures["luke_skywalker"] = ["Люк Скайуокер", res.luke_skywalker.texture, res.luke_skywalker.texture];
@@ -340,11 +352,14 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     heroesTextures["owen_lars"] = ["Оуэн Ларс", res.owen_lars.texture, res.owen_lars.texture];
     heroesTextures["padme_amidala"] = ["Падме Амидала", res.padme_amidala.texture, res.padme_amidala.texture];
     heroesTextures["palpatine"] = ["Палпатин", res.palpatine.texture, res.palpatine.texture];
+    heroesTextures["phasma"] = ["Фазма", res.phasma.texture, res.phasma.texture];   
     heroesTextures["plo_koon"] = ["Пло Кун", res.plo_koon.texture, res.plo_koon.texture];
+    heroesTextures["poe_dameron"] = ["По Дамерон", res.poe_dameron.texture, res.poe_dameron.texture];
     heroesTextures["poggle_the_lesser"] = ["Поггль Меньший", res.poggle_the_lesser.texture, res.poggle_the_lesser.texture];
     heroesTextures["qui_gon_jinn"] = ["Квай-Гон Джинн", res.qui_gon_jinn_lr.texture, res.qui_gon_jinn_rl.texture];
     heroesTextures["red_battle_droid"] = ["Боевой дроид", res.red_battle_droid_lr.texture, res.red_battle_droid_rl.texture];
     heroesTextures["republic_clone_army"] = ["Республиканская армия клонов", res.republic_clone_army.texture, res.republic_clone_army.texture];
+    heroesTextures["rey"] = ["Рей армия клонов", res.rey.texture, res.rey.texture];
     heroesTextures["royal_guards"] = ["Королевский страж", res.royal_guards.texture, res.royal_guards.texture];
     heroesTextures["rune_haako"] = ["Рун Хаако", res.rune_haako_lr.texture, res.rune_haako_rl.texture];
     heroesTextures["saesee_tiin"] = ["Сэси Тийн", res.saesee_tiin_lr.texture, res.saesee_tiin_rl.texture];

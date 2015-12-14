@@ -24,10 +24,11 @@ function initMap()
         new PIXI.Sprite(heroesTextures["mas_amedda"][1])
     ];
     planets["Coruscant"][1].name = "coruscant_planet";
-    planets["Coruscant"][1].position.x = 450; //550 -100
-    planets["Coruscant"][1].position.y = 575; //600 - 25
+    planets["Coruscant"][1].position.x = 450;
+    planets["Coruscant"][1].position.y = 575;
     planets["Coruscant"][1].interactive = true; 
     planets["Coruscant"][1].buttonMode = true;
+    planets["Coruscant"][1].scale.set(0.2);
     planets["Coruscant"][2].position.x = 490; 
     planets["Coruscant"][2].position.y = 550; 
     planets["Coruscant"][3].position.x = 490; 
@@ -77,6 +78,7 @@ function initMap()
     planets["Totooine"][1].position.y = 425; 
     planets["Totooine"][1].interactive = true; 
     planets["Totooine"][1].buttonMode = true;
+    planets["Totooine"][1].scale.set(0.2);
     planets["Totooine"][2].position.x = 340; 
     planets["Totooine"][2].position.y = 400; 
     planets["Totooine"][3].position.x = 340; 
@@ -125,6 +127,7 @@ function initMap()
     planets["Naboo"][1].position.y = 240; 
     planets["Naboo"][1].interactive = true; 
     planets["Naboo"][1].buttonMode = true;
+    planets["Naboo"][1].scale.set(0.2);
     planets["Naboo"][2].position.x = 670; 
     planets["Naboo"][2].position.y = 215; 
     planets["Naboo"][3].position.x = 670; 
@@ -174,6 +177,7 @@ function initMap()
     planets["Endor"][1].position.y = 550; 
     planets["Endor"][1].interactive = true; 
     planets["Endor"][1].buttonMode = true;
+    planets["Endor"][1].scale.set(0.2);
     planets["Endor"][2].position.x = 190; 
     planets["Endor"][2].position.y = 525; 
     planets["Endor"][3].position.x = 190; 
@@ -185,7 +189,6 @@ function initMap()
     planets["Endor"][4].lineTo(185, 545);
     planets["Endor"][4].moveTo(185, 545);
     planets["Endor"][4].lineTo(350, 545);
-    
     planets["Endor"][5].position.x = 225; 
     planets["Endor"][5].position.y = 550;
     planets["Endor"][5].scale.set(0.18);
@@ -195,7 +198,6 @@ function initMap()
     planets["Endor"][7].position.x = 325; 
     planets["Endor"][7].position.y = 550;
     planets["Endor"][7].scale.set(0.19);
-    
     planets["Endor"][8].position.x = 225; 
     planets["Endor"][8].position.y = 545;
     planets["Endor"][8].scale.set(0.20);
@@ -210,49 +212,99 @@ function initMap()
         "Hoth",
         new PIXI.Sprite(planetTextures["Hoth"][1]),
         new PIXI.Text(planetTextures["Hoth"][0], initPlanetBlueStyleText),
-        new PIXI.Text(planetTextures["Endor"][0], initPlanetRedStyleText),
-        new PIXI.Graphics()
+        new PIXI.Text(planetTextures["Hoth"][0], initPlanetRedStyleText),
+        new PIXI.Graphics(),
+        new PIXI.Sprite(heroesTextures["maximilian_veers"][1]),
+        new PIXI.Sprite(heroesTextures["stormtrooper_2"][2]),
+        new PIXI.Sprite(heroesTextures["stormtrooper_1"][1]),
+        new PIXI.Sprite(heroesTextures["general_madine"][2]),
+        new PIXI.Sprite(heroesTextures["han_solo"][1]),
+        new PIXI.Sprite(heroesTextures["chewbacca"][2])
     ];
     planets["Hoth"][1].name = "hoth_planet";
-    planets["Hoth"][1].position.x = 850; 
-    planets["Hoth"][1].position.y = 450; 
+    planets["Hoth"][1].position.x = 800;
+    planets["Hoth"][1].position.y = 475;
     planets["Hoth"][1].interactive = true; 
     planets["Hoth"][1].buttonMode = true;
-    planets["Hoth"][2].position.x = 890; 
-    planets["Hoth"][2].position.y = 425; 
-    planets["Hoth"][3].position.x = 890; 
-    planets["Hoth"][3].position.y = 425;
+    planets["Hoth"][1].scale.set(0.2);
+    planets["Hoth"][2].position.x = 840; 
+    planets["Hoth"][2].position.y = 450; 
+    planets["Hoth"][3].position.x = 840; 
+    planets["Hoth"][3].position.y = 450;
     planets["Hoth"][4].lineStyle(1, 0xFFFFFF, 0.3);
-    planets["Hoth"][4].drawCircle(891, 490, 39);
+    planets["Hoth"][4].drawCircle(841, 515, 39);
     planets["Hoth"][4].lineStyle(1, 0xFFFFFF, 1);
-    planets["Hoth"][4].moveTo(875, 470);
-    planets["Hoth"][4].lineTo(885, 445);
-    planets["Hoth"][4].moveTo(885, 445);
-    planets["Hoth"][4].lineTo(950, 445);
+    planets["Hoth"][4].moveTo(825, 495);
+    planets["Hoth"][4].lineTo(835, 470);
+    planets["Hoth"][4].moveTo(835, 470);
+    planets["Hoth"][4].lineTo(1000, 470);
+    planets["Hoth"][5].position.x = 875; 
+    planets["Hoth"][5].position.y = 475;
+    planets["Hoth"][5].scale.set(0.18);
+    planets["Hoth"][6].position.x = 925; 
+    planets["Hoth"][6].position.y = 475;
+    planets["Hoth"][6].scale.set(0.18);
+    planets["Hoth"][7].position.x = 975; 
+    planets["Hoth"][7].position.y = 475;
+    planets["Hoth"][7].scale.set(0.18);
+    planets["Hoth"][8].position.x = 875; 
+    planets["Hoth"][8].position.y = 475;
+    planets["Hoth"][8].scale.set(0.18);
+    planets["Hoth"][9].position.x = 925; 
+    planets["Hoth"][9].position.y = 475;
+    planets["Hoth"][9].scale.set(0.18);
+    planets["Hoth"][10].position.x = 975; 
+    planets["Hoth"][10].position.y = 475;
+    planets["Hoth"][10].scale.set(0.18);
     
     planets["Mustafar"] = [
         "Mustafar",
         new PIXI.Sprite(planetTextures["Mustafar"][1]),
         new PIXI.Text(planetTextures["Mustafar"][0], initPlanetBlueStyleText),
         new PIXI.Text(planetTextures["Mustafar"][0], initPlanetRedStyleText),
-        new PIXI.Graphics()
+        new PIXI.Graphics(),
+        new PIXI.Sprite(heroesTextures["anakin_skywalker"][1]),
+        new PIXI.Sprite(heroesTextures["palpatine"][2]),
+        new PIXI.Sprite(heroesTextures["separatists"][1]),
+        new PIXI.Sprite(heroesTextures["obi_wan_kenobi"][2]),
+        new PIXI.Sprite(heroesTextures["padme_amidala"][1]),
+        new PIXI.Sprite(heroesTextures["wat_tambor"][1])
     ];
     planets["Mustafar"][1].name = "mustafar_planet";
     planets["Mustafar"][1].position.x = 600; 
-    planets["Mustafar"][1].position.y = 425; 
+    planets["Mustafar"][1].position.y = 375;
     planets["Mustafar"][1].interactive = true; 
     planets["Mustafar"][1].buttonMode = true;
+    planets["Mustafar"][1].scale.set(0.2);
     planets["Mustafar"][2].position.x = 640; 
-    planets["Mustafar"][2].position.y = 400; 
+    planets["Mustafar"][2].position.y = 350; 
     planets["Mustafar"][3].position.x = 640; 
-    planets["Mustafar"][3].position.y = 400;
+    planets["Mustafar"][3].position.y = 350;
     planets["Mustafar"][4].lineStyle(1, 0xFFFFFF, 0.3);
-    planets["Mustafar"][4].drawCircle(642, 465, 39);
+    planets["Mustafar"][4].drawCircle(642, 415, 39);
     planets["Mustafar"][4].lineStyle(1, 0xFFFFFF, 1);
-    planets["Mustafar"][4].moveTo(625, 445);
-    planets["Mustafar"][4].lineTo(635, 420);
-    planets["Mustafar"][4].moveTo(635, 420);
-    planets["Mustafar"][4].lineTo(700, 420);
+    planets["Mustafar"][4].moveTo(625, 395);
+    planets["Mustafar"][4].lineTo(635, 370);
+    planets["Mustafar"][4].moveTo(635, 370);
+    planets["Mustafar"][4].lineTo(800, 370);
+    planets["Mustafar"][5].position.x = 675; 
+    planets["Mustafar"][5].position.y = 375;
+    planets["Mustafar"][5].scale.set(0.18);
+    planets["Mustafar"][6].position.x = 725; 
+    planets["Mustafar"][6].position.y = 375;
+    planets["Mustafar"][6].scale.set(0.18);
+    planets["Mustafar"][7].position.x = 775; 
+    planets["Mustafar"][7].position.y = 360;
+    planets["Mustafar"][7].scale.set(0.22);
+    planets["Mustafar"][8].position.x = 675; 
+    planets["Mustafar"][8].position.y = 375;
+    planets["Mustafar"][8].scale.set(0.18);
+    planets["Mustafar"][9].position.x = 725; 
+    planets["Mustafar"][9].position.y = 375;
+    planets["Mustafar"][9].scale.set(0.18);
+    planets["Mustafar"][10].position.x = 775; 
+    planets["Mustafar"][10].position.y = 375;
+    planets["Mustafar"][10].scale.set(0.18);
     
     
     planets["Dagobah"] = [
@@ -260,13 +312,20 @@ function initMap()
         new PIXI.Sprite(planetTextures["Dagobah"][1]),
         new PIXI.Text(planetTextures["Dagobah"][0], initPlanetBlueStyleText),
         new PIXI.Text(planetTextures["Dagobah"][0], initPlanetRedStyleText),
-        new PIXI.Graphics()
+        new PIXI.Graphics(),
+        new PIXI.Sprite(heroesTextures["stormtroopers"][1]),
+        new PIXI.Sprite(heroesTextures["rune_haako"][2]),
+        new PIXI.Sprite(heroesTextures["nute_gunray"][1]),
+        new PIXI.Sprite(heroesTextures["yoda"][1]),
+        new PIXI.Sprite(heroesTextures["barriss_offee"][1]),
+        new PIXI.Sprite(heroesTextures["kit_fisto"][1])
     ];
     planets["Dagobah"][1].name = "dagobah_planet";
     planets["Dagobah"][1].position.x = 200; 
     planets["Dagobah"][1].position.y = 50; 
     planets["Dagobah"][1].interactive = true; 
     planets["Dagobah"][1].buttonMode = true;
+    planets["Dagobah"][1].scale.set(0.2);
     planets["Dagobah"][2].position.x = 240; 
     planets["Dagobah"][2].position.y = 25; 
     planets["Dagobah"][3].position.x = 240; 
@@ -277,7 +336,28 @@ function initMap()
     planets["Dagobah"][4].moveTo(225, 70);
     planets["Dagobah"][4].lineTo(235, 45);
     planets["Dagobah"][4].moveTo(235, 45);
-    planets["Dagobah"][4].lineTo(300, 45);
+    planets["Dagobah"][4].lineTo(400, 45);
+    
+    planets["Dagobah"][5].position.x = 275; 
+    planets["Dagobah"][5].position.y = 45;
+    planets["Dagobah"][5].scale.set(0.2);
+    planets["Dagobah"][6].position.x = 325; 
+    planets["Dagobah"][6].position.y = 50;
+    planets["Dagobah"][6].scale.set(0.18);
+    planets["Dagobah"][7].position.x = 375; 
+    planets["Dagobah"][7].position.y = 50;
+    planets["Dagobah"][7].scale.set(0.18);
+    
+    planets["Dagobah"][8].position.x = 275; 
+    planets["Dagobah"][8].position.y = 50;
+    planets["Dagobah"][8].scale.set(0.18);
+    planets["Dagobah"][9].position.x = 325; 
+    planets["Dagobah"][9].position.y = 50;
+    planets["Dagobah"][9].scale.set(0.18);
+    planets["Dagobah"][10].position.x = 375; 
+    planets["Dagobah"][10].position.y = 50;
+    planets["Dagobah"][10].scale.set(0.18);
+   
     
     planets["Bespin"] = [
         "Bespin",
@@ -291,6 +371,7 @@ function initMap()
     planets["Bespin"][1].position.y = 105; 
     planets["Bespin"][1].interactive = true; 
     planets["Bespin"][1].buttonMode = true;
+    planets["Bespin"][1].scale.set(0.2);
     planets["Bespin"][2].position.x = 65; 
     planets["Bespin"][2].position.y = 80; 
     planets["Bespin"][3].position.x = 65; 
@@ -315,6 +396,7 @@ function initMap()
     planets["Geonosis"][1].position.y = 600; 
     planets["Geonosis"][1].interactive = true; 
     planets["Geonosis"][1].buttonMode = true;
+    planets["Geonosis"][1].scale.set(0.2);
     planets["Geonosis"][2].position.x = 840; 
     planets["Geonosis"][2].position.y = 575; 
     planets["Geonosis"][3].position.x = 840; 
@@ -339,6 +421,7 @@ function initMap()
     planets["Alderaan"][1].position.y = 350; 
     planets["Alderaan"][1].interactive = true; 
     planets["Alderaan"][1].buttonMode = true;
+    planets["Alderaan"][1].scale.set(0.2);
     planets["Alderaan"][2].position.x = 90; 
     planets["Alderaan"][2].position.y = 325; 
     planets["Alderaan"][3].position.x = 90; 
@@ -363,6 +446,7 @@ function initMap()
     planets["Kamino"][1].position.y = 275; 
     planets["Kamino"][1].interactive = true; 
     planets["Kamino"][1].buttonMode = true;
+    planets["Kamino"][1].scale.set(0.2);
     planets["Kamino"][2].position.x = 440; 
     planets["Kamino"][2].position.y = 250; 
     planets["Kamino"][3].position.x = 440; 
@@ -388,6 +472,7 @@ function initMap()
     planets["DeathStar"][1].position.y = 200; 
     planets["DeathStar"][1].interactive = true; 
     planets["DeathStar"][1].buttonMode = true;
+    planets["DeathStar"][1].scale.set(0.2);
     planets["DeathStar"][2].position.x = 240; 
     planets["DeathStar"][2].position.y = 175; 
     planets["DeathStar"][3].position.x = 240; 
@@ -413,6 +498,7 @@ function initMap()
     planets["Utapau"][1].position.y = 50; 
     planets["Utapau"][1].interactive = true; 
     planets["Utapau"][1].buttonMode = true;
+    planets["Utapau"][1].scale.set(0.2);
     planets["Utapau"][2].position.x = 740; 
     planets["Utapau"][2].position.y = 25; 
     planets["Utapau"][3].position.x = 740; 
@@ -438,6 +524,7 @@ function initMap()
     planets["Saleucami"][1].position.y = 145; 
     planets["Saleucami"][1].interactive = true; 
     planets["Saleucami"][1].buttonMode = true;
+    planets["Saleucami"][1].scale.set(0.2);
     planets["Saleucami"][2].position.x = 920; 
     planets["Saleucami"][2].position.y = 120; 
     planets["Saleucami"][3].position.x = 920; 
@@ -469,6 +556,7 @@ function initMap()
     planets["Jakku"][1].position.y = 75; 
     planets["Jakku"][1].interactive = true; 
     planets["Jakku"][1].buttonMode = true;
+    planets["Jakku"][1].scale.set(0.2);
     planets["Jakku"][2].position.x = 490; 
     planets["Jakku"][2].position.y = 50; 
     planets["Jakku"][3].position.x = 490; 

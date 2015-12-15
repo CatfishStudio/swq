@@ -203,18 +203,54 @@ function mapCreatePlanets()
         
     mapSprite.addChild(userMapPlanets["Bespin"][1]);
     mapSprite.addChild(userMapPlanets["Bespin"][4]);
-    if(side === SIDE_JEDI) mapSprite.addChild(userMapPlanets["Bespin"][2]);
-    if(side === SIDE_SITH) mapSprite.addChild(userMapPlanets["Bespin"][3]);
+    if(side === SIDE_JEDI) 
+    {
+        mapSprite.addChild(userMapPlanets["Bespin"][2]);
+        mapSprite.addChild(userMapPlanets["Bespin"][5]);
+        mapSprite.addChild(userMapPlanets["Bespin"][6]);
+        mapSprite.addChild(userMapPlanets["Bespin"][7]);
+    }
+    if(side === SIDE_SITH) 
+    {
+        mapSprite.addChild(userMapPlanets["Bespin"][3]);
+        mapSprite.addChild(userMapPlanets["Bespin"][8]);
+        mapSprite.addChild(userMapPlanets["Bespin"][9]);
+        mapSprite.addChild(userMapPlanets["Bespin"][10]);
+    }
         
     mapSprite.addChild(userMapPlanets["Geonosis"][1]);
     mapSprite.addChild(userMapPlanets["Geonosis"][4]);
-    if(side === SIDE_JEDI) mapSprite.addChild(userMapPlanets["Geonosis"][2]);
-    if(side === SIDE_SITH) mapSprite.addChild(userMapPlanets["Geonosis"][3]);
+    if(side === SIDE_JEDI) 
+    {
+        mapSprite.addChild(userMapPlanets["Geonosis"][2]);
+        mapSprite.addChild(userMapPlanets["Geonosis"][5]);
+        mapSprite.addChild(userMapPlanets["Geonosis"][6]);
+        mapSprite.addChild(userMapPlanets["Geonosis"][7]);
+    }
+    if(side === SIDE_SITH) 
+    {
+        mapSprite.addChild(userMapPlanets["Geonosis"][3]);
+        mapSprite.addChild(userMapPlanets["Geonosis"][8]);
+        mapSprite.addChild(userMapPlanets["Geonosis"][9]);
+        mapSprite.addChild(userMapPlanets["Geonosis"][10]);
+    }
         
     mapSprite.addChild(userMapPlanets["Alderaan"][1]);
     mapSprite.addChild(userMapPlanets["Alderaan"][4]);
-    if(side === SIDE_JEDI) mapSprite.addChild(userMapPlanets["Alderaan"][2]);
-    if(side === SIDE_SITH) mapSprite.addChild(userMapPlanets["Alderaan"][3]);
+    if(side === SIDE_JEDI) 
+    {
+        mapSprite.addChild(userMapPlanets["Alderaan"][2]);
+        mapSprite.addChild(userMapPlanets["Alderaan"][5]);
+        mapSprite.addChild(userMapPlanets["Alderaan"][6]);
+        mapSprite.addChild(userMapPlanets["Alderaan"][7]);
+    }
+    if(side === SIDE_SITH) 
+    {
+        mapSprite.addChild(userMapPlanets["Alderaan"][3]);
+        mapSprite.addChild(userMapPlanets["Alderaan"][8]);
+        mapSprite.addChild(userMapPlanets["Alderaan"][9]);
+        mapSprite.addChild(userMapPlanets["Alderaan"][10]);
+    }
         
     mapSprite.addChild(userMapPlanets["Kamino"][1]);
     mapSprite.addChild(userMapPlanets["Kamino"][4]);

@@ -165,7 +165,7 @@ function initMap()
         new PIXI.Text(planetTextures["Endor"][0], initPlanetBlueStyleText),
         new PIXI.Text(planetTextures["Endor"][0], initPlanetRedStyleText),
         new PIXI.Graphics(),
-        new PIXI.Sprite(heroesTextures["admiral_ozzel"][1]),
+        new PIXI.Sprite(heroesTextures["nute_gunray"][1]),
         new PIXI.Sprite(heroesTextures["stormtroopers"][1]),
         new PIXI.Sprite(heroesTextures["aurra_sing"][2]),
         new PIXI.Sprite(heroesTextures["alliance_to_restore_the_republic"][2]),
@@ -314,8 +314,8 @@ function initMap()
         new PIXI.Text(planetTextures["Dagobah"][0], initPlanetRedStyleText),
         new PIXI.Graphics(),
         new PIXI.Sprite(heroesTextures["stormtroopers"][1]),
-        new PIXI.Sprite(heroesTextures["rune_haako"][2]),
-        new PIXI.Sprite(heroesTextures["nute_gunray"][1]),
+        new PIXI.Sprite(heroesTextures["clone_commander_bakara"][2]),
+        new PIXI.Sprite(heroesTextures["clone_commander_cody"][1]),
         new PIXI.Sprite(heroesTextures["yoda"][1]),
         new PIXI.Sprite(heroesTextures["barriss_offee"][1]),
         new PIXI.Sprite(heroesTextures["kit_fisto"][1])
@@ -337,7 +337,6 @@ function initMap()
     planets["Dagobah"][4].lineTo(235, 45);
     planets["Dagobah"][4].moveTo(235, 45);
     planets["Dagobah"][4].lineTo(400, 45);
-    
     planets["Dagobah"][5].position.x = 275; 
     planets["Dagobah"][5].position.y = 45;
     planets["Dagobah"][5].scale.set(0.2);
@@ -347,7 +346,6 @@ function initMap()
     planets["Dagobah"][7].position.x = 375; 
     planets["Dagobah"][7].position.y = 50;
     planets["Dagobah"][7].scale.set(0.18);
-    
     planets["Dagobah"][8].position.x = 275; 
     planets["Dagobah"][8].position.y = 50;
     planets["Dagobah"][8].scale.set(0.18);
@@ -364,57 +362,112 @@ function initMap()
         new PIXI.Sprite(planetTextures["Bespin"][1]),
         new PIXI.Text(planetTextures["Bespin"][0], initPlanetBlueStyleText),
         new PIXI.Text(planetTextures["Bespin"][0], initPlanetRedStyleText),
-        new PIXI.Graphics()
+        new PIXI.Graphics(),
+        new PIXI.Sprite(heroesTextures["boba_fett"][1]),
+        new PIXI.Sprite(heroesTextures["stormtrooper_1"][1]),
+        new PIXI.Sprite(heroesTextures["clone_commander_neyo"][1]),
+        new PIXI.Sprite(heroesTextures["adigallia"][1]),
+        new PIXI.Sprite(heroesTextures["lando_calrissian"][1]),
+        new PIXI.Sprite(heroesTextures["ki_adi_mundi"][1])
     ];
     planets["Bespin"][1].name = "bespin_planet";
-    planets["Bespin"][1].position.x = 25; 
-    planets["Bespin"][1].position.y = 105; 
+    planets["Bespin"][1].position.x = 5;
+    planets["Bespin"][1].position.y = 125;
     planets["Bespin"][1].interactive = true; 
     planets["Bespin"][1].buttonMode = true;
     planets["Bespin"][1].scale.set(0.2);
-    planets["Bespin"][2].position.x = 65; 
-    planets["Bespin"][2].position.y = 80; 
-    planets["Bespin"][3].position.x = 65; 
-    planets["Bespin"][3].position.y = 80;
+    planets["Bespin"][2].position.x = 45; 
+    planets["Bespin"][2].position.y = 100; 
+    planets["Bespin"][3].position.x = 45; 
+    planets["Bespin"][3].position.y = 100;
     planets["Bespin"][4].lineStyle(2, 0xFFFFFF, 0.4);
-    planets["Bespin"][4].drawCircle(67.5, 145.5, 38);
+    planets["Bespin"][4].drawCircle(47.5, 165.5, 38);
     planets["Bespin"][4].lineStyle(1, 0xFFFFFF, 1);
-    planets["Bespin"][4].moveTo(50, 125);
-    planets["Bespin"][4].lineTo(60, 100);
-    planets["Bespin"][4].moveTo(60, 100);
-    planets["Bespin"][4].lineTo(125, 100);
-    
+    planets["Bespin"][4].moveTo(30, 145);
+    planets["Bespin"][4].lineTo(40, 120);
+    planets["Bespin"][4].moveTo(40, 120);
+    planets["Bespin"][4].lineTo(205, 120);
+    planets["Bespin"][5].position.x = 80; 
+    planets["Bespin"][5].position.y = 125;
+    planets["Bespin"][5].scale.set(0.18);
+    planets["Bespin"][6].position.x = 130; 
+    planets["Bespin"][6].position.y = 125;
+    planets["Bespin"][6].scale.set(0.18);
+    planets["Bespin"][7].position.x = 180; 
+    planets["Bespin"][7].position.y = 125;
+    planets["Bespin"][7].scale.set(0.18);
+    planets["Bespin"][8].position.x = 80; 
+    planets["Bespin"][8].position.y = 125;
+    planets["Bespin"][8].scale.set(0.18);
+    planets["Bespin"][9].position.x = 130; 
+    planets["Bespin"][9].position.y = 125;
+    planets["Bespin"][9].scale.set(0.18);
+    planets["Bespin"][10].position.x = 180; 
+    planets["Bespin"][10].position.y = 125;
+    planets["Bespin"][10].scale.set(0.18);
+
+   
     planets["Geonosis"] = [
         "Geonosis",
         new PIXI.Sprite(planetTextures["Geonosis"][1]),
         new PIXI.Text(planetTextures["Geonosis"][0], initPlanetBlueStyleText),
         new PIXI.Text(planetTextures["Geonosis"][0], initPlanetRedStyleText),
-        new PIXI.Graphics()
+        new PIXI.Graphics(),
+        new PIXI.Sprite(heroesTextures["dooku"][1]),
+        new PIXI.Sprite(heroesTextures["b1_battle_droid"][1]),
+        new PIXI.Sprite(heroesTextures["red_battle_droid"][1]),
+        new PIXI.Sprite(heroesTextures["republic_clone_army"][1]),
+        new PIXI.Sprite(heroesTextures["poggle_the_lesser"][1]),
+        new PIXI.Sprite(heroesTextures["saesee_tiin"][1])
     ];
     planets["Geonosis"][1].name = "geonosis_planet";
-    planets["Geonosis"][1].position.x = 800; 
+    planets["Geonosis"][1].position.x = 750;
     planets["Geonosis"][1].position.y = 600; 
     planets["Geonosis"][1].interactive = true; 
     planets["Geonosis"][1].buttonMode = true;
     planets["Geonosis"][1].scale.set(0.2);
-    planets["Geonosis"][2].position.x = 840; 
+    planets["Geonosis"][2].position.x = 790; 
     planets["Geonosis"][2].position.y = 575; 
-    planets["Geonosis"][3].position.x = 840; 
+    planets["Geonosis"][3].position.x = 790; 
     planets["Geonosis"][3].position.y = 575;
     planets["Geonosis"][4].lineStyle(1, 0xFFFFFF, 0.3);
-    planets["Geonosis"][4].drawCircle(840, 639, 39);
+    planets["Geonosis"][4].drawCircle(790, 639, 39);
     planets["Geonosis"][4].lineStyle(1, 0xFFFFFF, 1);
-    planets["Geonosis"][4].moveTo(825, 620);
-    planets["Geonosis"][4].lineTo(835, 595);
-    planets["Geonosis"][4].moveTo(835, 595);
-    planets["Geonosis"][4].lineTo(900, 595);
+    planets["Geonosis"][4].moveTo(775, 620);
+    planets["Geonosis"][4].lineTo(785, 595);
+    planets["Geonosis"][4].moveTo(785, 595);
+    planets["Geonosis"][4].lineTo(950, 595);
+    planets["Geonosis"][5].position.x = 825; 
+    planets["Geonosis"][5].position.y = 600;
+    planets["Geonosis"][5].scale.set(0.18);
+    planets["Geonosis"][6].position.x = 875; 
+    planets["Geonosis"][6].position.y = 600;
+    planets["Geonosis"][6].scale.set(0.18);
+    planets["Geonosis"][7].position.x = 925; 
+    planets["Geonosis"][7].position.y = 600;
+    planets["Geonosis"][7].scale.set(0.18);
+    planets["Geonosis"][8].position.x = 815; 
+    planets["Geonosis"][8].position.y = 585;
+    planets["Geonosis"][8].scale.set(0.23);
+    planets["Geonosis"][9].position.x = 880; 
+    planets["Geonosis"][9].position.y = 600;
+    planets["Geonosis"][9].scale.set(0.18);
+    planets["Geonosis"][10].position.x = 925; 
+    planets["Geonosis"][10].position.y = 600;
+    planets["Geonosis"][10].scale.set(0.18);
     
     planets["Alderaan"] = [
         "Alderaan",
         new PIXI.Sprite(planetTextures["Alderaan"][1]),
         new PIXI.Text(planetTextures["Alderaan"][0], initPlanetBlueStyleText),
         new PIXI.Text(planetTextures["Alderaan"][0], initPlanetRedStyleText),
-        new PIXI.Graphics()
+        new PIXI.Graphics(),
+        new PIXI.Sprite(heroesTextures["admiral_ozzel"][1]),
+        new PIXI.Sprite(heroesTextures["stormtroopers"][1]),
+        new PIXI.Sprite(heroesTextures["rune_haako"][1]),
+        new PIXI.Sprite(heroesTextures["bail_organa"][1]),
+        new PIXI.Sprite(heroesTextures["leia_organa"][1]),
+        new PIXI.Sprite(heroesTextures["kapitan_antilles"][1])
     ];
     planets["Alderaan"][1].name = "alderaan_planet";
     planets["Alderaan"][1].position.x = 50; 
@@ -432,7 +485,28 @@ function initMap()
     planets["Alderaan"][4].moveTo(75, 370);
     planets["Alderaan"][4].lineTo(85, 345);
     planets["Alderaan"][4].moveTo(85, 345);
-    planets["Alderaan"][4].lineTo(150, 345);
+    planets["Alderaan"][4].lineTo(250, 345);
+    
+    planets["Alderaan"][5].position.x = 125; 
+    planets["Alderaan"][5].position.y = 350;
+    planets["Alderaan"][5].scale.set(0.18);
+    planets["Alderaan"][6].position.x = 175; 
+    planets["Alderaan"][6].position.y = 345;
+    planets["Alderaan"][6].scale.set(0.2);
+    planets["Alderaan"][7].position.x = 225; 
+    planets["Alderaan"][7].position.y = 350;
+    planets["Alderaan"][7].scale.set(0.18);
+    
+    planets["Alderaan"][8].position.x = 125; 
+    planets["Alderaan"][8].position.y = 350;
+    planets["Alderaan"][8].scale.set(0.18);
+    planets["Alderaan"][9].position.x = 175; 
+    planets["Alderaan"][9].position.y = 350;
+    planets["Alderaan"][9].scale.set(0.17);
+    planets["Alderaan"][10].position.x = 225; 
+    planets["Alderaan"][10].position.y = 350;
+    planets["Alderaan"][10].scale.set(0.18);
+    
         
     planets["Kamino"] = [
         "Kamino",
@@ -468,22 +542,22 @@ function initMap()
         new PIXI.Graphics()
     ];
     planets["DeathStar"][1].name = "deathstar_planet";
-    planets["DeathStar"][1].position.x = 200; 
-    planets["DeathStar"][1].position.y = 200; 
+    planets["DeathStar"][1].position.x = 150;
+    planets["DeathStar"][1].position.y = 245; //225 + 20
     planets["DeathStar"][1].interactive = true; 
     planets["DeathStar"][1].buttonMode = true;
     planets["DeathStar"][1].scale.set(0.2);
-    planets["DeathStar"][2].position.x = 240; 
-    planets["DeathStar"][2].position.y = 175; 
-    planets["DeathStar"][3].position.x = 240; 
-    planets["DeathStar"][3].position.y = 175;
+    planets["DeathStar"][2].position.x = 190; 
+    planets["DeathStar"][2].position.y = 220; 
+    planets["DeathStar"][3].position.x = 190; 
+    planets["DeathStar"][3].position.y = 220;
     planets["DeathStar"][4].lineStyle(1, 0xFFFFFF, 0.3);
-    planets["DeathStar"][4].drawCircle(240, 240, 39);
+    planets["DeathStar"][4].drawCircle(190, 285, 39);
     planets["DeathStar"][4].lineStyle(1, 0xFFFFFF, 1);
-    planets["DeathStar"][4].moveTo(225, 220);
-    planets["DeathStar"][4].lineTo(235, 195);
-    planets["DeathStar"][4].moveTo(235, 195);
-    planets["DeathStar"][4].lineTo(300, 195);
+    planets["DeathStar"][4].moveTo(175, 265);
+    planets["DeathStar"][4].lineTo(185, 240);
+    planets["DeathStar"][4].moveTo(185, 240);
+    planets["DeathStar"][4].lineTo(350, 240);
     
     
     planets["Utapau"] = [

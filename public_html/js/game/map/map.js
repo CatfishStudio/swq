@@ -254,23 +254,68 @@ function mapCreatePlanets()
         
     mapSprite.addChild(userMapPlanets["Kamino"][1]);
     mapSprite.addChild(userMapPlanets["Kamino"][4]);
-    if(side === SIDE_JEDI) mapSprite.addChild(userMapPlanets["Kamino"][2]);
-    if(side === SIDE_SITH) mapSprite.addChild(userMapPlanets["Kamino"][3]);
+    if(side === SIDE_JEDI) 
+    {
+        mapSprite.addChild(userMapPlanets["Kamino"][2]);
+        mapSprite.addChild(userMapPlanets["Kamino"][5]);
+        mapSprite.addChild(userMapPlanets["Kamino"][6]);
+        mapSprite.addChild(userMapPlanets["Kamino"][7]);
+    }
+    if(side === SIDE_SITH) 
+    {
+        mapSprite.addChild(userMapPlanets["Kamino"][3]);
+        mapSprite.addChild(userMapPlanets["Kamino"][8]);
+        mapSprite.addChild(userMapPlanets["Kamino"][9]);
+        mapSprite.addChild(userMapPlanets["Kamino"][10]);
+    }
     
     mapSprite.addChild(userMapPlanets["DeathStar"][1]);
     mapSprite.addChild(userMapPlanets["DeathStar"][4]);
-    if(side === SIDE_JEDI) mapSprite.addChild(userMapPlanets["DeathStar"][2]);
-    if(side === SIDE_SITH) mapSprite.addChild(userMapPlanets["DeathStar"][3]);
+    if(side === SIDE_JEDI) 
+    {
+        mapSprite.addChild(userMapPlanets["DeathStar"][2]);
+        mapSprite.addChild(userMapPlanets["DeathStar"][5]);
+        mapSprite.addChild(userMapPlanets["DeathStar"][6]);
+        mapSprite.addChild(userMapPlanets["DeathStar"][7]);
+    }
+    if(side === SIDE_SITH) 
+    {
+        mapSprite.addChild(userMapPlanets["DeathStar"][3]);
+    }
         
     mapSprite.addChild(userMapPlanets["Utapau"][1]);
     mapSprite.addChild(userMapPlanets["Utapau"][4]);
-    if(side === SIDE_JEDI) mapSprite.addChild(userMapPlanets["Utapau"][2]);
-    if(side === SIDE_SITH) mapSprite.addChild(userMapPlanets["Utapau"][3]);
+    if(side === SIDE_JEDI)
+    {
+        mapSprite.addChild(userMapPlanets["Utapau"][2]);
+        mapSprite.addChild(userMapPlanets["Utapau"][5]);
+        mapSprite.addChild(userMapPlanets["Utapau"][6]);
+        mapSprite.addChild(userMapPlanets["Utapau"][7]);
+    }
+    if(side === SIDE_SITH) 
+    {
+        mapSprite.addChild(userMapPlanets["Utapau"][3]);
+        mapSprite.addChild(userMapPlanets["Utapau"][8]);
+        mapSprite.addChild(userMapPlanets["Utapau"][9]);
+        mapSprite.addChild(userMapPlanets["Utapau"][10]);
+    }
         
     mapSprite.addChild(userMapPlanets["Saleucami"][1]);
     mapSprite.addChild(userMapPlanets["Saleucami"][4]);
-    if(side === SIDE_JEDI) mapSprite.addChild(userMapPlanets["Saleucami"][2]);
-    if(side === SIDE_SITH) mapSprite.addChild(userMapPlanets["Saleucami"][3]);
+    if(side === SIDE_JEDI) 
+    {
+        mapSprite.addChild(userMapPlanets["Saleucami"][2]);
+        mapSprite.addChild(userMapPlanets["Saleucami"][5]);
+        mapSprite.addChild(userMapPlanets["Saleucami"][6]);
+        mapSprite.addChild(userMapPlanets["Saleucami"][7]);
+    }
+    if(side === SIDE_SITH) 
+    {
+        mapSprite.addChild(userMapPlanets["Saleucami"][3]);
+        mapSprite.addChild(userMapPlanets["Saleucami"][8]);
+        mapSprite.addChild(userMapPlanets["Saleucami"][9]);
+        mapSprite.addChild(userMapPlanets["Saleucami"][10]);
+    }
     
     mapSprite.addChild(userMapPlanets["Jakku"][1]);
     mapSprite.addChild(userMapPlanets["Jakku"][4]);

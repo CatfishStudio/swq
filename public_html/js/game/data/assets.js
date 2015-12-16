@@ -23,6 +23,9 @@ var animTexButtonBlue = [];
 /* button_red.json */
 var animTexButtonRed = [];
 
+/* side_darth_vader.json */
+var animTexSideDarthVader = [];
+
 /* settings_buttons.json */
 var engButtonTexture;
 var infoButtonTexture;

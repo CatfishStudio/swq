@@ -104,6 +104,7 @@ function sideBorder()
 
 function sideHeroes()
 {
+    /*
     var button = new PIXI.Sprite(sideDarthVaderTexture);
     button.name = "DarthVader";
     button.position.x = 25;
@@ -114,6 +115,21 @@ function sideHeroes()
     button.click = onSideButtonClick; 
     button.on('mouseover', onSideButtonOver);
     button.on('mouseout', onSideButtonOut);
+    sideStage.addChild(button);
+    */
+    var button = new PIXI.extras.MovieClip(animTexSideDarthVader);
+    button.name = "DarthVader";
+    button.position.x = 25;
+    button.position.y = 75;
+    button.interactive = true;
+    button.buttonMode = true;
+    button.tap = onSideButtonClick; 
+    button.click = onSideButtonClick; 
+    button.on('mouseover', onSideButtonOver);
+    button.on('mouseout', onSideButtonOut);
+    button.loop = true;
+    button.animationSpeed = 0.2;
+    button.play();
     sideStage.addChild(button);
     
     button = new PIXI.Sprite(sideLukeSkywalkerTexture);

@@ -30,7 +30,7 @@ function testAnimation()
     var anim = new PIXI.extras.MovieClip(animTest); 
     anim.name = "animation_test";
     anim.position.x = 0; 
-    anim.position.y = 0; 
+    anim.position.y = 150; 
     anim.interactive = true; 
     anim.buttonMode = true; 
     anim.loop = true; 

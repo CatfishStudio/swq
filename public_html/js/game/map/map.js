@@ -2,6 +2,7 @@ var mapStage;
 var mapSprite;
 var mapStartPosX;
 var mapStartPosY;
+var mapDesktopLineGraphics;
 
 function mapCreate() 
 { 
@@ -10,6 +11,7 @@ function mapCreate()
     
     mapSpace();
     mapCreatePlanets();
+    mapCreateInterface()
 } 
 
 function mapRemove() 
@@ -85,253 +87,186 @@ function onMapSpaceMove()
 
 function mapCreatePlanets()
 {
-    mapSprite.addChild(userMapPlanets["Coruscant"][1]);
-    mapSprite.addChild(userMapPlanets["Coruscant"][4]);
+    for (var key in userMapPlanets)
+    {
+        mapSprite.addChild(userMapPlanets[key][1]);
+        mapSprite.addChild(userMapPlanets[key][4]);
+        if(side === SIDE_JEDI)
+        {
+            mapSprite.addChild(userMapPlanets[key][2]);
+            if(key !== "Coruscant")
+            {
+                mapSprite.addChild(userMapPlanets[key][5]);
+                mapSprite.addChild(userMapPlanets[key][6]);
+                mapSprite.addChild(userMapPlanets[key][7]);
+            }
+        }
+        if(side === SIDE_SITH) 
+        {
+            mapSprite.addChild(userMapPlanets[key][3]);
+            if(key !== "DeathStar")
+            {
+                mapSprite.addChild(userMapPlanets[key][8]);
+                mapSprite.addChild(userMapPlanets[key][9]);
+                mapSprite.addChild(userMapPlanets[key][10]);
+            }
+        }
+    }
+}
+
+function mapCreateInterface()
+{
     if(side === SIDE_JEDI)
     {
-        mapSprite.addChild(userMapPlanets["Coruscant"][2]);
-    }
-    if(side === SIDE_SITH) 
-    {
-        mapSprite.addChild(userMapPlanets["Coruscant"][3]);
-        mapSprite.addChild(userMapPlanets["Coruscant"][8]);
-        mapSprite.addChild(userMapPlanets["Coruscant"][9]);
-        mapSprite.addChild(userMapPlanets["Coruscant"][10]);
-    }
-        
-    mapSprite.addChild(userMapPlanets["Totooine"][1]);
-    mapSprite.addChild(userMapPlanets["Totooine"][4]);
-    if(side === SIDE_JEDI) 
-    {
-        mapSprite.addChild(userMapPlanets["Totooine"][2]);
-        mapSprite.addChild(userMapPlanets["Totooine"][5]);
-        mapSprite.addChild(userMapPlanets["Totooine"][6]);
-        mapSprite.addChild(userMapPlanets["Totooine"][7]);
-    }
-    if(side === SIDE_SITH) 
-    {
-        mapSprite.addChild(userMapPlanets["Totooine"][3]);
-        mapSprite.addChild(userMapPlanets["Totooine"][8]);
-        mapSprite.addChild(userMapPlanets["Totooine"][9]);
-        mapSprite.addChild(userMapPlanets["Totooine"][10]);
-    }
-        
-    mapSprite.addChild(userMapPlanets["Naboo"][1]);
-    mapSprite.addChild(userMapPlanets["Naboo"][4]);
-    if(side === SIDE_JEDI)
-    {
-        mapSprite.addChild(userMapPlanets["Naboo"][2]);
-        mapSprite.addChild(userMapPlanets["Naboo"][5]);
-        mapSprite.addChild(userMapPlanets["Naboo"][6]);
-        mapSprite.addChild(userMapPlanets["Naboo"][7]);
+        mapBorderBlue();
+        mapDesktopBlue();
     }
     if(side === SIDE_SITH)
     {
-        mapSprite.addChild(userMapPlanets["Naboo"][3]);
-        mapSprite.addChild(userMapPlanets["Naboo"][8]);
-        mapSprite.addChild(userMapPlanets["Naboo"][9]);
-        mapSprite.addChild(userMapPlanets["Naboo"][10]);
+        mapBorderRed();
+        mapDesktopRed();
     }
-        
-    mapSprite.addChild(userMapPlanets["Endor"][1]);
-    mapSprite.addChild(userMapPlanets["Endor"][4]);
-    if(side === SIDE_JEDI) 
-    {
-        mapSprite.addChild(userMapPlanets["Endor"][2]);
-        mapSprite.addChild(userMapPlanets["Endor"][5]);
-        mapSprite.addChild(userMapPlanets["Endor"][6]);
-        mapSprite.addChild(userMapPlanets["Endor"][7]);
-    }
-    if(side === SIDE_SITH) 
-    {
-        mapSprite.addChild(userMapPlanets["Endor"][3]);
-        mapSprite.addChild(userMapPlanets["Endor"][8]);
-        mapSprite.addChild(userMapPlanets["Endor"][9]);
-        mapSprite.addChild(userMapPlanets["Endor"][10]);
-    }
-        
-    mapSprite.addChild(userMapPlanets["Hoth"][1]);
-    mapSprite.addChild(userMapPlanets["Hoth"][4]);
-    if(side === SIDE_JEDI)
-    {
-        mapSprite.addChild(userMapPlanets["Hoth"][2]);
-        mapSprite.addChild(userMapPlanets["Hoth"][5]);
-        mapSprite.addChild(userMapPlanets["Hoth"][6]);
-        mapSprite.addChild(userMapPlanets["Hoth"][7]);
-    }
-    if(side === SIDE_SITH)
-    {
-        mapSprite.addChild(userMapPlanets["Hoth"][3]);
-        mapSprite.addChild(userMapPlanets["Hoth"][8]);
-        mapSprite.addChild(userMapPlanets["Hoth"][9]);
-        mapSprite.addChild(userMapPlanets["Hoth"][10]);
-    }
-        
-    mapSprite.addChild(userMapPlanets["Mustafar"][1]);
-    mapSprite.addChild(userMapPlanets["Mustafar"][4]);
-    if(side === SIDE_JEDI)
-    {
-        mapSprite.addChild(userMapPlanets["Mustafar"][2]);
-        mapSprite.addChild(userMapPlanets["Mustafar"][5]);
-        mapSprite.addChild(userMapPlanets["Mustafar"][6]);
-        mapSprite.addChild(userMapPlanets["Mustafar"][7]);
-    }
-    if(side === SIDE_SITH)
-    {
-        mapSprite.addChild(userMapPlanets["Mustafar"][3]);
-        mapSprite.addChild(userMapPlanets["Mustafar"][8]);
-        mapSprite.addChild(userMapPlanets["Mustafar"][9]);
-        mapSprite.addChild(userMapPlanets["Mustafar"][10]);
-    }
-        
-    mapSprite.addChild(userMapPlanets["Dagobah"][1]);
-    mapSprite.addChild(userMapPlanets["Dagobah"][4]);
-    if(side === SIDE_JEDI) 
-    {
-        mapSprite.addChild(userMapPlanets["Dagobah"][2]);
-        mapSprite.addChild(userMapPlanets["Dagobah"][5]);
-        mapSprite.addChild(userMapPlanets["Dagobah"][6]);
-        mapSprite.addChild(userMapPlanets["Dagobah"][7]);
-    }
-    if(side === SIDE_SITH) 
-    {
-        mapSprite.addChild(userMapPlanets["Dagobah"][3]);
-        mapSprite.addChild(userMapPlanets["Dagobah"][8]);
-        mapSprite.addChild(userMapPlanets["Dagobah"][9]);
-        mapSprite.addChild(userMapPlanets["Dagobah"][10]);
-    }
-        
-    mapSprite.addChild(userMapPlanets["Bespin"][1]);
-    mapSprite.addChild(userMapPlanets["Bespin"][4]);
-    if(side === SIDE_JEDI) 
-    {
-        mapSprite.addChild(userMapPlanets["Bespin"][2]);
-        mapSprite.addChild(userMapPlanets["Bespin"][5]);
-        mapSprite.addChild(userMapPlanets["Bespin"][6]);
-        mapSprite.addChild(userMapPlanets["Bespin"][7]);
-    }
-    if(side === SIDE_SITH) 
-    {
-        mapSprite.addChild(userMapPlanets["Bespin"][3]);
-        mapSprite.addChild(userMapPlanets["Bespin"][8]);
-        mapSprite.addChild(userMapPlanets["Bespin"][9]);
-        mapSprite.addChild(userMapPlanets["Bespin"][10]);
-    }
-        
-    mapSprite.addChild(userMapPlanets["Geonosis"][1]);
-    mapSprite.addChild(userMapPlanets["Geonosis"][4]);
-    if(side === SIDE_JEDI) 
-    {
-        mapSprite.addChild(userMapPlanets["Geonosis"][2]);
-        mapSprite.addChild(userMapPlanets["Geonosis"][5]);
-        mapSprite.addChild(userMapPlanets["Geonosis"][6]);
-        mapSprite.addChild(userMapPlanets["Geonosis"][7]);
-    }
-    if(side === SIDE_SITH) 
-    {
-        mapSprite.addChild(userMapPlanets["Geonosis"][3]);
-        mapSprite.addChild(userMapPlanets["Geonosis"][8]);
-        mapSprite.addChild(userMapPlanets["Geonosis"][9]);
-        mapSprite.addChild(userMapPlanets["Geonosis"][10]);
-    }
-        
-    mapSprite.addChild(userMapPlanets["Alderaan"][1]);
-    mapSprite.addChild(userMapPlanets["Alderaan"][4]);
-    if(side === SIDE_JEDI) 
-    {
-        mapSprite.addChild(userMapPlanets["Alderaan"][2]);
-        mapSprite.addChild(userMapPlanets["Alderaan"][5]);
-        mapSprite.addChild(userMapPlanets["Alderaan"][6]);
-        mapSprite.addChild(userMapPlanets["Alderaan"][7]);
-    }
-    if(side === SIDE_SITH) 
-    {
-        mapSprite.addChild(userMapPlanets["Alderaan"][3]);
-        mapSprite.addChild(userMapPlanets["Alderaan"][8]);
-        mapSprite.addChild(userMapPlanets["Alderaan"][9]);
-        mapSprite.addChild(userMapPlanets["Alderaan"][10]);
-    }
-        
-    mapSprite.addChild(userMapPlanets["Kamino"][1]);
-    mapSprite.addChild(userMapPlanets["Kamino"][4]);
-    if(side === SIDE_JEDI) 
-    {
-        mapSprite.addChild(userMapPlanets["Kamino"][2]);
-        mapSprite.addChild(userMapPlanets["Kamino"][5]);
-        mapSprite.addChild(userMapPlanets["Kamino"][6]);
-        mapSprite.addChild(userMapPlanets["Kamino"][7]);
-    }
-    if(side === SIDE_SITH) 
-    {
-        mapSprite.addChild(userMapPlanets["Kamino"][3]);
-        mapSprite.addChild(userMapPlanets["Kamino"][8]);
-        mapSprite.addChild(userMapPlanets["Kamino"][9]);
-        mapSprite.addChild(userMapPlanets["Kamino"][10]);
-    }
+}
+
+function mapBorderBlue()
+{
+    var graphics = new PIXI.Graphics(); 
+
+    graphics.lineStyle(2, 0x0000FF, 1);
+    graphics.beginFill(0x000000, 0);
+    graphics.drawRect(10, 10, 840, 710);
     
-    mapSprite.addChild(userMapPlanets["DeathStar"][1]);
-    mapSprite.addChild(userMapPlanets["DeathStar"][4]);
-    if(side === SIDE_JEDI) 
-    {
-        mapSprite.addChild(userMapPlanets["DeathStar"][2]);
-        mapSprite.addChild(userMapPlanets["DeathStar"][5]);
-        mapSprite.addChild(userMapPlanets["DeathStar"][6]);
-        mapSprite.addChild(userMapPlanets["DeathStar"][7]);
-    }
-    if(side === SIDE_SITH) 
-    {
-        mapSprite.addChild(userMapPlanets["DeathStar"][3]);
-    }
-        
-    mapSprite.addChild(userMapPlanets["Utapau"][1]);
-    mapSprite.addChild(userMapPlanets["Utapau"][4]);
-    if(side === SIDE_JEDI)
-    {
-        mapSprite.addChild(userMapPlanets["Utapau"][2]);
-        mapSprite.addChild(userMapPlanets["Utapau"][5]);
-        mapSprite.addChild(userMapPlanets["Utapau"][6]);
-        mapSprite.addChild(userMapPlanets["Utapau"][7]);
-    }
-    if(side === SIDE_SITH) 
-    {
-        mapSprite.addChild(userMapPlanets["Utapau"][3]);
-        mapSprite.addChild(userMapPlanets["Utapau"][8]);
-        mapSprite.addChild(userMapPlanets["Utapau"][9]);
-        mapSprite.addChild(userMapPlanets["Utapau"][10]);
-    }
-        
-    mapSprite.addChild(userMapPlanets["Saleucami"][1]);
-    mapSprite.addChild(userMapPlanets["Saleucami"][4]);
-    if(side === SIDE_JEDI) 
-    {
-        mapSprite.addChild(userMapPlanets["Saleucami"][2]);
-        mapSprite.addChild(userMapPlanets["Saleucami"][5]);
-        mapSprite.addChild(userMapPlanets["Saleucami"][6]);
-        mapSprite.addChild(userMapPlanets["Saleucami"][7]);
-    }
-    if(side === SIDE_SITH) 
-    {
-        mapSprite.addChild(userMapPlanets["Saleucami"][3]);
-        mapSprite.addChild(userMapPlanets["Saleucami"][8]);
-        mapSprite.addChild(userMapPlanets["Saleucami"][9]);
-        mapSprite.addChild(userMapPlanets["Saleucami"][10]);
-    }
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFFFF, 1);
+    graphics.drawCircle(5, 600,4);
+    graphics.endFill();
     
-    mapSprite.addChild(userMapPlanets["Jakku"][1]);
-    mapSprite.addChild(userMapPlanets["Jakku"][4]);
-    if(side === SIDE_JEDI)
-    {
-        mapSprite.addChild(userMapPlanets["Jakku"][2]);
-        mapSprite.addChild(userMapPlanets["Jakku"][5]);
-        mapSprite.addChild(userMapPlanets["Jakku"][6]);
-        mapSprite.addChild(userMapPlanets["Jakku"][7]);
-    }
-    if(side === SIDE_SITH)
-    {
-        mapSprite.addChild(userMapPlanets["Jakku"][3]);
-        mapSprite.addChild(userMapPlanets["Jakku"][8]);
-        mapSprite.addChild(userMapPlanets["Jakku"][9]);
-        mapSprite.addChild(userMapPlanets["Jakku"][10]);
-    }
+    graphics.lineStyle(2, 0xFFFFFF, 1);
+    graphics.moveTo(5,600);
+    graphics.lineTo(5, 725);
+    graphics.moveTo(5,725);
+    graphics.lineTo(650, 725);
+    graphics.moveTo(650,725);
+    graphics.lineTo(670, 710);
+    graphics.moveTo(670,710);
+    graphics.lineTo(840, 710);
     
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFFFF, 1);
+    graphics.drawCircle(855, 550, 4);
+    graphics.endFill();
+    
+    graphics.lineStyle(2, 0xFFFFFF, 1);
+    graphics.moveTo(855,550);
+    graphics.lineTo(855, 5);
+    graphics.moveTo(855,5);
+    graphics.lineTo(5, 5);
+    
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFFFF, 1);
+    graphics.drawCircle(5, 5, 4);
+    graphics.endFill();
+    
+    mapStage.addChild(graphics);
+}
+
+function mapDesktopBlue()
+{
+    var graphics = new PIXI.Graphics(); 
+    graphics.lineStyle(2, 0x0000FF, 1);
+    graphics.beginFill(0x0000FF, 0.2);
+    graphics.moveTo(15, 610);
+    graphics.lineTo(350, 610);
+    graphics.lineTo(350, 715);
+    graphics.lineTo(15, 715);
+    graphics.endFill
+    for(var i = 0; i < 35; i++)
+    {
+        graphics.lineStyle(1, 0x0000FF, 0.5);
+        graphics.moveTo(15, 610+(3*i));
+        graphics.lineTo(350, 610+(3*i));
+    }
+    mapStage.addChild(graphics);
+    
+    mapDesktopLineGraphics = new PIXI.Graphics(); 
+    mapDesktopLineGraphics.lineStyle(10, 0x0000FF, 0.3);
+    mapDesktopLineGraphics.moveTo(15,615);
+    mapDesktopLineGraphics.lineTo(350, 615);
+    mapStage.addChild(mapDesktopLineGraphics);
+    mapDesktopLineGraphicsTween();
+}
+
+function mapBorderRed()
+{
+    var graphics = new PIXI.Graphics(); 
+
+    graphics.lineStyle(2, 0xFF0000, 1);
+    graphics.beginFill(0x000000, 0);
+    graphics.drawRect(10, 10, 840, 710);
+    
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFF00, 1);
+    graphics.drawCircle(5, 600,4);
+    graphics.endFill();
+    
+    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.moveTo(5,600);
+    graphics.lineTo(5, 725);
+    graphics.moveTo(5,725);
+    graphics.lineTo(650, 725);
+    graphics.moveTo(650,725);
+    graphics.lineTo(670, 710);
+    graphics.moveTo(670,710);
+    graphics.lineTo(840, 710);
+    
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFF00, 1);
+    graphics.drawCircle(855, 550, 4);
+    graphics.endFill();
+    
+    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.moveTo(855,550);
+    graphics.lineTo(855, 5);
+    graphics.moveTo(855,5);
+    graphics.lineTo(5, 5);
+    
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFF00, 1);
+    graphics.drawCircle(5, 5, 4);
+    graphics.endFill();
+    
+    mapStage.addChild(graphics);
+}
+
+function mapDesktopRed()
+{
+    var graphics = new PIXI.Graphics(); 
+    graphics.lineStyle(2, 0x800000, 1);
+    graphics.beginFill(0x800000, 0.2);
+    graphics.moveTo(15, 610);
+    graphics.lineTo(350, 610);
+    graphics.lineTo(350, 715);
+    graphics.lineTo(15, 715);
+    graphics.endFill
+    for(var i = 0; i < 35; i++)
+    {
+        graphics.lineStyle(1, 0x800000, 0.5);
+        graphics.moveTo(15, 610+(3*i));
+        graphics.lineTo(350, 610+(3*i));
+    }
+    mapStage.addChild(graphics);
+    
+    mapDesktopLineGraphics = new PIXI.Graphics(); 
+    mapDesktopLineGraphics.lineStyle(10, 0x800000, 0.3);
+    mapDesktopLineGraphics.moveTo(15,615);
+    mapDesktopLineGraphics.lineTo(350, 615);
+    mapStage.addChild(mapDesktopLineGraphics);
+    mapDesktopLineGraphicsTween();
+}
+
+function mapDesktopLineGraphicsTween()
+{
+    createjs.Tween.get(mapDesktopLineGraphics, {loop: true}) 
+            .to({x: 0, y: 95}, 2500, createjs.Ease.getPowInOut(3));
+    createjs.Ticker.setFPS(60);
 }

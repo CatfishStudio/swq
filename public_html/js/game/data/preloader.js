@@ -100,8 +100,9 @@ function preloaderLoadAssets()
 
     loader.add('buttonBlueAtlas','./assets/image/atlas/button_blue.json');
     loader.add('buttonRedAtlas','./assets/image/atlas/button_red.json');
-    
     loader.add('buttonsSettings','./assets/image/atlas/settings_buttons.json');
+    
+    loader.add('sideDarthVaderAtlas','./assets/image/atlas/side_darth_vader.json');
 
     loader.add('planet_light','./assets/image/textures/planets/planet_light.png');
     loader.add('deathstarTexture','./assets/image/textures/planets/deathstar.png');
@@ -253,7 +254,7 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     preloaderPercentTextures = 50;
     preloaderProgressAssetsText.text = "Загрузка " + (preloaderPercentTextures + preloaderPercentSounds) + "%";
     
-    animTest = loadAnimationTextures(11, 'dv_');
+    animTest = loadAnimationTextures(8, 'dv_');
     testTexture = res.testTexture.texture;
     
     deathstarTexture = res.deathstarTexture.texture;			// deathstar.png
@@ -283,6 +284,8 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     rusButtonTexture = PIXI.Texture.fromFrame('rus.png');
     soundOnButtonTexture = PIXI.Texture.fromFrame('sound.png');
     soundOffButtonTexture = PIXI.Texture.fromFrame('sound_off.png');
+    
+    animTexSideDarthVader = loadAnimationTextures(16, 'side_darth_vader_');
     
     planetTextures = new Object();
     planetTextures["Coruscant"] = ["Корусант", res.coruscant_planet.texture, res.coruscant_landscape.texture, res.planet_light.texture];

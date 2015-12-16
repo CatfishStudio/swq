@@ -418,7 +418,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["red_battle_droid"][1]),
         new PIXI.Sprite(heroesTextures["republic_clone_army"][1]),
         new PIXI.Sprite(heroesTextures["poggle_the_lesser"][1]),
-        new PIXI.Sprite(heroesTextures["saesee_tiin"][1])
+        new PIXI.Sprite(heroesTextures["saesee_tiin"][2])
     ];
     planets["Geonosis"][1].name = "geonosis_planet";
     planets["Geonosis"][1].position.x = 750;

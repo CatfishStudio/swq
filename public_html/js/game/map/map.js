@@ -3,9 +3,10 @@ var mapSprite;
 var mapStartPosX;
 var mapStartPosY;
 var mapDesktopLineGraphics;
-var mapStyleDroidBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 }; 
+var mapMessageLineGraphics;
+var mapStyleDroidBlueText = { font : 'bold 14px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 }; 
 var mapStyleButtonBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
-var mapStyleDroidRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 }; 
+var mapStyleDroidRedText = { font : 'bold 14px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 }; 
 var mapStyleButtonRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
 
 
@@ -126,6 +127,7 @@ function mapCreateInterface()
         mapBorderBlue();
         mapDesktopBlue();
         mapDroidBlue();
+        mapDroidBlueMessage();
         mapBattonsBlue();
     }
     if(side === SIDE_SITH)
@@ -133,6 +135,7 @@ function mapCreateInterface()
         mapBorderRed();
         mapDesktopRed();
         mapDroidRed();
+        mapDroidRedMessage();
         mapBattonsRed();
     }
 }
@@ -225,6 +228,39 @@ function mapDroidBlue()
     textureSprite.position.y = 605; 
     textureSprite.scale.set(0.3);
     mapStage.addChild(textureSprite);
+    
+    var graphics = new PIXI.Graphics(); 
+    graphics.lineStyle(2, 0x0090F0, 0.2);
+    graphics.beginFill(0x0090F0, 0.2);
+    graphics.moveTo(792, 620);
+    graphics.lineTo(700, 455);
+    graphics.lineTo(845, 455);
+    graphics.lineTo(792, 620);
+    graphics.endFill;
+    mapStage.addChild(graphics);
+    
+    for(var i = 0; i < 72; i++)
+    {
+        graphics.lineStyle(1, 0x0090F0, 0.2);
+        graphics.moveTo(698, 239+(3*i));
+        graphics.lineTo(846, 239+(3*i));
+    }
+    mapStage.addChild(graphics);
+    
+    mapMessageLineGraphics = new PIXI.Graphics(); 
+    mapMessageLineGraphics.lineStyle(10, 0x0090F0, 0.3);
+    mapMessageLineGraphics.moveTo(698, 243);
+    mapMessageLineGraphics.lineTo(846, 243);
+    mapStage.addChild(mapMessageLineGraphics);
+    mapMessageLineGraphicsTween();
+}
+
+function mapDroidBlueMessage()
+{
+    var textMessage = new PIXI.Text("Меня зовут R2D2", mapStyleDroidBlueText); 
+    textMessage.x = 705; 
+    textMessage.y = 245; 
+    mapStage.addChild(textMessage);
 }
 
 function mapBattonsBlue()
@@ -372,6 +408,39 @@ function mapDroidRed()
     textureSprite.position.y = 605; 
     textureSprite.scale.set(0.3);
     mapStage.addChild(textureSprite);
+    
+    var graphics = new PIXI.Graphics(); 
+    graphics.lineStyle(2, 0xA63A24, 0.2);
+    graphics.beginFill(0xA63A24, 0.2);
+    graphics.moveTo(792, 620);
+    graphics.lineTo(700, 455);
+    graphics.lineTo(845, 455);
+    graphics.lineTo(792, 620);
+    graphics.endFill;
+    mapStage.addChild(graphics);
+    
+    for(var i = 0; i < 72; i++)
+    {
+        graphics.lineStyle(1, 0xA63A24, 0.2);
+        graphics.moveTo(698, 239+(3*i));
+        graphics.lineTo(846, 239+(3*i));
+    }
+    mapStage.addChild(graphics);
+    
+    mapMessageLineGraphics = new PIXI.Graphics(); 
+    mapMessageLineGraphics.lineStyle(10, 0xA63A24, 0.3);
+    mapMessageLineGraphics.moveTo(698, 243);
+    mapMessageLineGraphics.lineTo(846, 243);
+    mapStage.addChild(mapMessageLineGraphics);
+    mapMessageLineGraphicsTween();
+}
+
+function mapDroidRedMessage()
+{
+    var textMessage = new PIXI.Text("Меня зовут R2D2", mapStyleDroidRedText); 
+    textMessage.x = 705; 
+    textMessage.y = 245; 
+    mapStage.addChild(textMessage);
 }
 
 function mapBattonsRed()
@@ -478,5 +547,12 @@ function mapDesktopLineGraphicsTween()
 {
     createjs.Tween.get(mapDesktopLineGraphics, {loop: true}) 
             .to({x: 0, y: 95}, 2500, createjs.Ease.getPowInOut(3));
+    createjs.Ticker.setFPS(60);
+}
+
+function mapMessageLineGraphicsTween()
+{
+    createjs.Tween.get(mapMessageLineGraphics, {loop: true}) 
+            .to({x: 0, y: 205}, 2500, createjs.Ease.getPowInOut(3));
     createjs.Ticker.setFPS(60);
 }

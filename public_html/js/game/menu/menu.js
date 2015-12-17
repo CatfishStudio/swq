@@ -210,7 +210,7 @@ function menuDroid()
     graphics.lineTo(550, 575);
     graphics.lineTo(550, 300);
     graphics.lineTo(735, 300);
-    graphics.endFill
+    graphics.endFill;
     for(var i = 0; i < 92; i++)
     {
         graphics.lineStyle(1, 0x0090F0, 0.5);

@@ -4,6 +4,7 @@ var initPlanetRedStyleText = { font : 'bold 14px Arial', fill : '#FFFFFF', strok
 function initGame()
 {
     userMapPlanets = initMap();
+    userMapMessage = initMessage();
 }
 
 function initMap()
@@ -760,4 +761,12 @@ function initMap()
     planets["Jakku"][10].scale.set(0.18);
     
     return planets;
+}
+
+function initMessage()
+{
+    var message = new Object();
+    message["message1"] = ["Меня зовут R2D2", "Меня зовут R3-S6"];
+    
+    return message;
 }

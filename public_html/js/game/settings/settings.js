@@ -1,6 +1,7 @@
 var settingsStage;
 var settingsLineAnimationGraphics;
-var settingsStyleText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
+var settingsStyleBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
+var settingsStyleRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
 
 function settingsCreate()
 {
@@ -35,7 +36,7 @@ function settingsBackground()
 
 function settingsWindow()
 {
-    if(side === SIDE_NONE)
+    if(side === SIDE_NONE || side === SIDE_JEDI)
     {
         var graphics = new PIXI.Graphics(); 
         graphics.lineStyle(2, 0x0080C0, 1);
@@ -75,6 +76,47 @@ function settingsWindow()
         graphics.endFill
         settingsStage.addChild(graphics);
     }
+    if(side === SIDE_SITH)
+    {
+        var graphics = new PIXI.Graphics(); 
+        graphics.lineStyle(2, 0xA63A24, 1);
+        graphics.beginFill(0xA63A24, 0.2);
+        graphics.moveTo(250,250);
+        graphics.lineTo(600, 250);
+        graphics.lineTo(600, 500);
+        graphics.lineTo(250, 500);
+        graphics.endFill
+        for(var i = 0; i < 55; i++)
+        {
+            if(i > 15 && i < 35)
+            {
+                
+            }else{
+                graphics.lineStyle(1, 0xA63A24, 0.5);
+                graphics.moveTo(250,280+(3*i));
+                graphics.lineTo(600, 280+(3*i));
+            }
+        }
+        settingsStage.addChild(graphics);
+        
+        settingsLineAnimationGraphics = new PIXI.Graphics(); 
+        settingsLineAnimationGraphics.lineStyle(10, 0xA63A24, 0.3);
+        settingsLineAnimationGraphics.moveTo(250,255);
+        settingsLineAnimationGraphics.lineTo(600, 255);
+        settingsStage.addChild(settingsLineAnimationGraphics);
+        settingsLineAnimationGraphicsTween();
+        
+        graphics = new PIXI.Graphics(); 
+        graphics.lineStyle(1, 0xA63A24, 1);
+        graphics.beginFill(0xA63A24, 1);
+        graphics.moveTo(400,250);
+        graphics.lineTo(425, 275);
+        graphics.lineTo(600, 275);
+        graphics.lineTo(600, 250);
+        graphics.endFill
+        settingsStage.addChild(graphics);
+    }
+    
 }
 
 function settingsLineAnimationGraphicsTween()
@@ -86,7 +128,10 @@ function settingsLineAnimationGraphicsTween()
 
 function settingsTitle()
 {
-    var text = new PIXI.Text("НАСТРОЙКИ", settingsStyleText); 
+    var text;
+    
+    if(side === SIDE_NONE || side === SIDE_JEDI) text = new PIXI.Text("НАСТРОЙКИ", settingsStyleBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text("НАСТРОЙКИ", settingsStyleRedText); 
     text.x = 500;
     text.y = 255;
     settingsStage.addChild(text);
@@ -94,7 +139,9 @@ function settingsTitle()
 
 function settingsText()
 {
-    var text = new PIXI.Text("Окно настроек позволяет включить или отключить в игре звуки и музыку.\n\n\n\n\nТак же вы можете посетить группу разработчика ВКонтакте, нажав на кнопку 'информация'.", settingsStyleText); 
+    var text;
+    if(side === SIDE_NONE || side === SIDE_JEDI) text = new PIXI.Text("Окно настроек позволяет включить или отключить в игре звуки и музыку.\n\n\n\n\nТакже вы можете посетить группу разработчика ВКонтакте, нажав на кнопку 'информация'.", settingsStyleBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text("Окно настроек позволяет включить или отключить в игре звуки и музыку.\n\n\n\n\nТакже вы можете посетить группу разработчика ВКонтакте, нажав на кнопку 'информация'.", settingsStyleRedText); 
     text.x = 255;
     text.y = 285;
     settingsStage.addChild(text);
@@ -102,7 +149,7 @@ function settingsText()
 
 function settingsButtonClose()
 {
-    if(side === SIDE_NONE)
+    if(side === SIDE_NONE || side === SIDE_JEDI)
     {
         var button = new PIXI.extras.MovieClip(animTexButtonBlue); 
         button.name = "button_close";
@@ -117,7 +164,28 @@ function settingsButtonClose()
         button.click = onSettingsButtonCloseClick; 
         button.on('mouseover', onSettingsButtonCloseOver);
         button.on('mouseout', onSettingsButtonCloseOut);
-        var text = new PIXI.Text("Закрыть", settingsStyleText); 
+        var text = new PIXI.Text("Закрыть", settingsStyleBlueText); 
+        text.x = button.width / 3;
+        text.y = button.height / 3;
+        button.addChild(text); 
+        settingsStage.addChild(button);
+    }
+    if(side === SIDE_SITH)
+    {
+        var button = new PIXI.extras.MovieClip(animTexButtonRed); 
+        button.name = "button_close";
+        button.position.x = 320; 
+        button.position.y = 450; 
+        button.interactive = true; 
+        button.buttonMode = true; 
+        button.loop = false; 
+        button.animationSpeed = 0.2;
+        button.onComplete = onSettingsButtonCloseUpdate;
+        button.tap = onSettingsButtonCloseClick; 
+        button.click = onSettingsButtonCloseClick; 
+        button.on('mouseover', onSettingsButtonCloseOver);
+        button.on('mouseout', onSettingsButtonCloseOut);
+        var text = new PIXI.Text("Закрыть", settingsStyleRedText); 
         text.x = button.width / 3;
         text.y = button.height / 3;
         button.addChild(text); 

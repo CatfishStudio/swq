@@ -257,7 +257,7 @@ function mapDroidBlue()
 
 function mapDroidBlueMessage()
 {
-    var textMessage = new PIXI.Text("Меня зовут R2D2", mapStyleDroidBlueText); 
+    var textMessage = new PIXI.Text(userMapMessage["message1"][0], mapStyleDroidBlueText); 
     textMessage.x = 705; 
     textMessage.y = 245; 
     mapStage.addChild(textMessage);
@@ -265,7 +265,7 @@ function mapDroidBlueMessage()
 
 function mapBattonsBlue()
 {
-    var textArr = ["КОММАНДА", "НАСТРОЙКИ"];
+    var textArr = ["КОМАНДА", "НАСТРОЙКИ"];
     var nameArr = ["Command", "Settings"];
     
     for(var i = 0; i < textArr.length; i++)
@@ -437,7 +437,7 @@ function mapDroidRed()
 
 function mapDroidRedMessage()
 {
-    var textMessage = new PIXI.Text("Меня зовут R2D2", mapStyleDroidRedText); 
+    var textMessage = new PIXI.Text(userMapMessage["message1"][1], mapStyleDroidRedText); 
     textMessage.x = 705; 
     textMessage.y = 245; 
     mapStage.addChild(textMessage);
@@ -445,7 +445,7 @@ function mapDroidRedMessage()
 
 function mapBattonsRed()
 {
-    var textArr = ["КОММАНДА", "НАСТРОЙКИ"];
+    var textArr = ["КОМАНДА", "НАСТРОЙКИ"];
     var nameArr = ["Command", "Settings"];
     
     for(var i = 0; i < textArr.length; i++)
@@ -529,13 +529,14 @@ function onMapButtonClick()
             
             break;
         case "Settings":
-            
+            settingsCreate();
             break;
         case "BackMenu":
-            
+            menuCreate();
+            mapRemove();
             break;
         case "Invite": 
-            
+            VK.callMethod("showInviteBox");
             break;
         default:
             break;

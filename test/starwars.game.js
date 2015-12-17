@@ -62,6 +62,7 @@ var initPlanetRedStyleText = { font : 'bold 14px Arial', fill : '#FFFFFF', strok
 function initGame()
 {
     userMapPlanets = initMap();
+    userMapMessage = initMessage();
 }
 
 function initMap()
@@ -231,38 +232,38 @@ function initMap()
         new PIXI.Sprite(heroesTextures["aayla_secura"][1])
     ];
     planets["Endor"][1].name = "endor_planet";
-    planets["Endor"][1].position.x = 150; 
-    planets["Endor"][1].position.y = 550; 
+    planets["Endor"][1].position.x = 200;
+    planets["Endor"][1].position.y = 550;
     planets["Endor"][1].interactive = true; 
     planets["Endor"][1].buttonMode = true;
     planets["Endor"][1].scale.set(0.2);
-    planets["Endor"][2].position.x = 190; 
+    planets["Endor"][2].position.x = 240; 
     planets["Endor"][2].position.y = 525; 
-    planets["Endor"][3].position.x = 190; 
+    planets["Endor"][3].position.x = 240; 
     planets["Endor"][3].position.y = 525;
     planets["Endor"][4].lineStyle(1, 0xFFFFFF, 0.3);
-    planets["Endor"][4].drawCircle(190, 590, 39);
+    planets["Endor"][4].drawCircle(240, 590, 39);
     planets["Endor"][4].lineStyle(1, 0xFFFFFF, 1);
-    planets["Endor"][4].moveTo(175, 570);
-    planets["Endor"][4].lineTo(185, 545);
-    planets["Endor"][4].moveTo(185, 545);
-    planets["Endor"][4].lineTo(350, 545);
-    planets["Endor"][5].position.x = 225; 
+    planets["Endor"][4].moveTo(225, 570);
+    planets["Endor"][4].lineTo(235, 545);
+    planets["Endor"][4].moveTo(235, 545);
+    planets["Endor"][4].lineTo(400, 545);
+    planets["Endor"][5].position.x = 275; 
     planets["Endor"][5].position.y = 550;
     planets["Endor"][5].scale.set(0.18);
-    planets["Endor"][6].position.x = 275; 
+    planets["Endor"][6].position.x = 325; 
     planets["Endor"][6].position.y = 545;
     planets["Endor"][6].scale.set(0.2);
-    planets["Endor"][7].position.x = 325; 
+    planets["Endor"][7].position.x = 375; 
     planets["Endor"][7].position.y = 550;
     planets["Endor"][7].scale.set(0.19);
-    planets["Endor"][8].position.x = 225; 
+    planets["Endor"][8].position.x = 275; 
     planets["Endor"][8].position.y = 545;
     planets["Endor"][8].scale.set(0.20);
-    planets["Endor"][9].position.x = 280; 
+    planets["Endor"][9].position.x = 325; 
     planets["Endor"][9].position.y = 550;
     planets["Endor"][9].scale.set(0.18);
-    planets["Endor"][10].position.x = 325; 
+    planets["Endor"][10].position.x = 375; 
     planets["Endor"][10].position.y = 550;
     planets["Endor"][10].scale.set(0.18);
     
@@ -479,38 +480,38 @@ function initMap()
         new PIXI.Sprite(heroesTextures["saesee_tiin"][2])
     ];
     planets["Geonosis"][1].name = "geonosis_planet";
-    planets["Geonosis"][1].position.x = 750;
+    planets["Geonosis"][1].position.x = 720; // 750 -30
     planets["Geonosis"][1].position.y = 600; 
     planets["Geonosis"][1].interactive = true; 
     planets["Geonosis"][1].buttonMode = true;
     planets["Geonosis"][1].scale.set(0.2);
-    planets["Geonosis"][2].position.x = 790; 
+    planets["Geonosis"][2].position.x = 760; 
     planets["Geonosis"][2].position.y = 575; 
-    planets["Geonosis"][3].position.x = 790; 
+    planets["Geonosis"][3].position.x = 760; 
     planets["Geonosis"][3].position.y = 575;
     planets["Geonosis"][4].lineStyle(1, 0xFFFFFF, 0.3);
-    planets["Geonosis"][4].drawCircle(790, 639, 39);
+    planets["Geonosis"][4].drawCircle(760, 639, 39);
     planets["Geonosis"][4].lineStyle(1, 0xFFFFFF, 1);
-    planets["Geonosis"][4].moveTo(775, 620);
-    planets["Geonosis"][4].lineTo(785, 595);
-    planets["Geonosis"][4].moveTo(785, 595);
-    planets["Geonosis"][4].lineTo(950, 595);
-    planets["Geonosis"][5].position.x = 825; 
+    planets["Geonosis"][4].moveTo(745, 620);
+    planets["Geonosis"][4].lineTo(755, 595);
+    planets["Geonosis"][4].moveTo(755, 595);
+    planets["Geonosis"][4].lineTo(920, 595);
+    planets["Geonosis"][5].position.x = 795; 
     planets["Geonosis"][5].position.y = 600;
     planets["Geonosis"][5].scale.set(0.18);
-    planets["Geonosis"][6].position.x = 875; 
+    planets["Geonosis"][6].position.x = 845; 
     planets["Geonosis"][6].position.y = 600;
     planets["Geonosis"][6].scale.set(0.19);
-    planets["Geonosis"][7].position.x = 925; 
+    planets["Geonosis"][7].position.x = 895; 
     planets["Geonosis"][7].position.y = 600;
     planets["Geonosis"][7].scale.set(0.18);
-    planets["Geonosis"][8].position.x = 815; 
+    planets["Geonosis"][8].position.x = 785; 
     planets["Geonosis"][8].position.y = 585;
     planets["Geonosis"][8].scale.set(0.23);
-    planets["Geonosis"][9].position.x = 880; 
+    planets["Geonosis"][9].position.x = 850; 
     planets["Geonosis"][9].position.y = 600;
     planets["Geonosis"][9].scale.set(0.18);
-    planets["Geonosis"][10].position.x = 925; 
+    planets["Geonosis"][10].position.x = 890; 
     planets["Geonosis"][10].position.y = 600;
     planets["Geonosis"][10].scale.set(0.18);
     
@@ -529,38 +530,38 @@ function initMap()
     ];
     planets["Alderaan"][1].name = "alderaan_planet";
     planets["Alderaan"][1].position.x = 50; 
-    planets["Alderaan"][1].position.y = 350; 
+    planets["Alderaan"][1].position.y = 380;
     planets["Alderaan"][1].interactive = true; 
     planets["Alderaan"][1].buttonMode = true;
     planets["Alderaan"][1].scale.set(0.2);
     planets["Alderaan"][2].position.x = 90; 
-    planets["Alderaan"][2].position.y = 325; 
+    planets["Alderaan"][2].position.y = 355; 
     planets["Alderaan"][3].position.x = 90; 
-    planets["Alderaan"][3].position.y = 325;
+    planets["Alderaan"][3].position.y = 355;
     planets["Alderaan"][4].lineStyle(1, 0xFFFFFF, 0.3);
-    planets["Alderaan"][4].drawCircle(90, 390, 39);
+    planets["Alderaan"][4].drawCircle(90, 420, 39);
     planets["Alderaan"][4].lineStyle(1, 0xFFFFFF, 1);
-    planets["Alderaan"][4].moveTo(75, 370);
-    planets["Alderaan"][4].lineTo(85, 345);
-    planets["Alderaan"][4].moveTo(85, 345);
-    planets["Alderaan"][4].lineTo(250, 345);
+    planets["Alderaan"][4].moveTo(75, 400);
+    planets["Alderaan"][4].lineTo(85, 375);
+    planets["Alderaan"][4].moveTo(85, 375);
+    planets["Alderaan"][4].lineTo(250, 375);
     planets["Alderaan"][5].position.x = 125; 
-    planets["Alderaan"][5].position.y = 350;
+    planets["Alderaan"][5].position.y = 380;
     planets["Alderaan"][5].scale.set(0.18);
     planets["Alderaan"][6].position.x = 175; 
-    planets["Alderaan"][6].position.y = 345;
+    planets["Alderaan"][6].position.y = 375;
     planets["Alderaan"][6].scale.set(0.2);
     planets["Alderaan"][7].position.x = 225; 
-    planets["Alderaan"][7].position.y = 350;
+    planets["Alderaan"][7].position.y = 380;
     planets["Alderaan"][7].scale.set(0.18);
     planets["Alderaan"][8].position.x = 125; 
-    planets["Alderaan"][8].position.y = 350;
+    planets["Alderaan"][8].position.y = 380;
     planets["Alderaan"][8].scale.set(0.18);
     planets["Alderaan"][9].position.x = 175; 
-    planets["Alderaan"][9].position.y = 350;
+    planets["Alderaan"][9].position.y = 380;
     planets["Alderaan"][9].scale.set(0.17);
     planets["Alderaan"][10].position.x = 225; 
-    planets["Alderaan"][10].position.y = 350;
+    planets["Alderaan"][10].position.y = 380;
     planets["Alderaan"][10].scale.set(0.18);
     
         
@@ -818,6 +819,14 @@ function initMap()
     planets["Jakku"][10].scale.set(0.18);
     
     return planets;
+}
+
+function initMessage()
+{
+    var message = new Object();
+    message["message1"] = ["Меня зовут R2D2", "Меня зовут R3-S6"];
+    
+    return message;
 }var renderer;
 var stage;
 
@@ -850,6 +859,12 @@ var mapSprite;
 var mapStartPosX;
 var mapStartPosY;
 var mapDesktopLineGraphics;
+var mapMessageLineGraphics;
+var mapStyleDroidBlueText = { font : 'bold 14px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 }; 
+var mapStyleButtonBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
+var mapStyleDroidRedText = { font : 'bold 14px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 }; 
+var mapStyleButtonRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
+
 
 function mapCreate() 
 { 
@@ -967,11 +982,17 @@ function mapCreateInterface()
     {
         mapBorderBlue();
         mapDesktopBlue();
+        mapDroidBlue();
+        mapDroidBlueMessage();
+        mapBattonsBlue();
     }
     if(side === SIDE_SITH)
     {
         mapBorderRed();
         mapDesktopRed();
+        mapDroidRed();
+        mapDroidRedMessage();
+        mapBattonsRed();
     }
 }
 
@@ -985,18 +1006,31 @@ function mapBorderBlue()
     
     graphics.lineStyle(0);
     graphics.beginFill(0xFFFFFF, 1);
-    graphics.drawCircle(5, 600,4);
+    graphics.drawCircle(50, 605,4);
     graphics.endFill();
     
     graphics.lineStyle(2, 0xFFFFFF, 1);
-    graphics.moveTo(5,600);
+    graphics.moveTo(50,605);
+    graphics.lineTo(5, 605);
+    
+    graphics.moveTo(5,605);
     graphics.lineTo(5, 725);
-    graphics.moveTo(5,725);
-    graphics.lineTo(650, 725);
-    graphics.moveTo(650,725);
-    graphics.lineTo(670, 710);
-    graphics.moveTo(670,710);
-    graphics.lineTo(840, 710);
+    graphics.moveTo(5, 725);
+    graphics.lineTo(840, 725);
+    
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFFFF, 1);
+    graphics.drawCircle(840, 725,4);
+    graphics.endFill();
+    
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFFFF, 1);
+    graphics.drawCircle(355, 680,4);
+    graphics.endFill();
+    
+    graphics.lineStyle(2, 0xFFFFFF, 1);
+    graphics.moveTo(355, 680);
+    graphics.lineTo(355, 725);
     
     graphics.lineStyle(0);
     graphics.beginFill(0xFFFFFF, 1);
@@ -1043,6 +1077,105 @@ function mapDesktopBlue()
     mapDesktopLineGraphicsTween();
 }
 
+function mapDroidBlue()
+{
+    var textureSprite = new PIXI.Sprite(r2d2DroidBlueRightTexture); 
+    textureSprite.position.x = 765; 
+    textureSprite.position.y = 605; 
+    textureSprite.scale.set(0.3);
+    mapStage.addChild(textureSprite);
+    
+    var graphics = new PIXI.Graphics(); 
+    graphics.lineStyle(2, 0x0090F0, 0.2);
+    graphics.beginFill(0x0090F0, 0.2);
+    graphics.moveTo(792, 620);
+    graphics.lineTo(700, 455);
+    graphics.lineTo(845, 455);
+    graphics.lineTo(792, 620);
+    graphics.endFill;
+    mapStage.addChild(graphics);
+    
+    for(var i = 0; i < 72; i++)
+    {
+        graphics.lineStyle(1, 0x0090F0, 0.2);
+        graphics.moveTo(698, 239+(3*i));
+        graphics.lineTo(846, 239+(3*i));
+    }
+    mapStage.addChild(graphics);
+    
+    mapMessageLineGraphics = new PIXI.Graphics(); 
+    mapMessageLineGraphics.lineStyle(10, 0x0090F0, 0.3);
+    mapMessageLineGraphics.moveTo(698, 243);
+    mapMessageLineGraphics.lineTo(846, 243);
+    mapStage.addChild(mapMessageLineGraphics);
+    mapMessageLineGraphicsTween();
+}
+
+function mapDroidBlueMessage()
+{
+    var textMessage = new PIXI.Text(userMapMessage["message1"][0], mapStyleDroidBlueText); 
+    textMessage.x = 705; 
+    textMessage.y = 245; 
+    mapStage.addChild(textMessage);
+}
+
+function mapBattonsBlue()
+{
+    var textArr = ["КОМАНДА", "НАСТРОЙКИ"];
+    var nameArr = ["Command", "Settings"];
+    
+    for(var i = 0; i < textArr.length; i++)
+    {
+        var button = new PIXI.extras.MovieClip(animTexButtonBlue); 
+        button.name = nameArr[i];
+        button.position.x = 360 + (200 * i); 
+        button.position.y = 670; 
+        button.interactive = true; 
+        button.buttonMode = true; 
+        button.loop = false; 
+        button.animationSpeed = 0.2;
+        button.onComplete = onMapButtonUpdate;
+	button.tap = onMapButtonClick; 
+        button.click = onMapButtonClick; 
+        button.on('mouseover', onMapButtonOver);
+        button.on('mouseout', onMapButtonOut);
+
+        var text = new PIXI.Text(textArr[i], mapStyleButtonBlueText); 
+        text.x = button.width / 3.8;
+        text.y = button.height / 3;
+
+        button.addChild(text); 
+        mapStage.addChild(button);
+    }
+    
+    textArr = ["НАЗАД В МЕНЮ", "ПРИГЛАСИТЬ"];
+    nameArr = ["BackMenu", "Invite"];
+    
+    for(var i = 0; i < textArr.length; i++)
+    {
+        var button = new PIXI.extras.MovieClip(animTexButtonBlue); 
+        button.name = nameArr[i];
+        button.position.x = 10; 
+        button.position.y = 10 + (545 * i); 
+        button.interactive = true; 
+        button.buttonMode = true; 
+        button.loop = false; 
+        button.animationSpeed = 0.2;
+        button.onComplete = onMapButtonUpdate;
+	button.tap = onMapButtonClick; 
+        button.click = onMapButtonClick; 
+        button.on('mouseover', onMapButtonOver);
+        button.on('mouseout', onMapButtonOut);
+
+        var text = new PIXI.Text(textArr[i], mapStyleButtonBlueText); 
+        text.x = button.width / 3.8;
+        text.y = button.height / 3;
+
+        button.addChild(text); 
+        mapStage.addChild(button);
+    }
+}
+
 function mapBorderRed()
 {
     var graphics = new PIXI.Graphics(); 
@@ -1053,18 +1186,31 @@ function mapBorderRed()
     
     graphics.lineStyle(0);
     graphics.beginFill(0xFFFF00, 1);
-    graphics.drawCircle(5, 600,4);
+    graphics.drawCircle(50, 605,4);
     graphics.endFill();
     
     graphics.lineStyle(2, 0xFFFF00, 1);
-    graphics.moveTo(5,600);
+    graphics.moveTo(50,605);
+    graphics.lineTo(5, 605);
+    
+    graphics.moveTo(5, 605);
     graphics.lineTo(5, 725);
-    graphics.moveTo(5,725);
-    graphics.lineTo(650, 725);
-    graphics.moveTo(650,725);
-    graphics.lineTo(670, 710);
-    graphics.moveTo(670,710);
-    graphics.lineTo(840, 710);
+    graphics.moveTo(5, 725);
+    graphics.lineTo(840, 725);
+    
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFF00, 1);
+    graphics.drawCircle(840, 725,4);
+    graphics.endFill();
+    
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFF00, 1);
+    graphics.drawCircle(355, 680,4);
+    graphics.endFill();
+    
+    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.moveTo(355, 680);
+    graphics.lineTo(355, 725);
     
     graphics.lineStyle(0);
     graphics.beginFill(0xFFFF00, 1);
@@ -1111,10 +1257,160 @@ function mapDesktopRed()
     mapDesktopLineGraphicsTween();
 }
 
+function mapDroidRed()
+{
+    var textureSprite = new PIXI.Sprite(r2d2DroidRedRightTexture); 
+    textureSprite.position.x = 765; 
+    textureSprite.position.y = 605; 
+    textureSprite.scale.set(0.3);
+    mapStage.addChild(textureSprite);
+    
+    var graphics = new PIXI.Graphics(); 
+    graphics.lineStyle(2, 0xA63A24, 0.2);
+    graphics.beginFill(0xA63A24, 0.2);
+    graphics.moveTo(792, 620);
+    graphics.lineTo(700, 455);
+    graphics.lineTo(845, 455);
+    graphics.lineTo(792, 620);
+    graphics.endFill;
+    mapStage.addChild(graphics);
+    
+    for(var i = 0; i < 72; i++)
+    {
+        graphics.lineStyle(1, 0xA63A24, 0.2);
+        graphics.moveTo(698, 239+(3*i));
+        graphics.lineTo(846, 239+(3*i));
+    }
+    mapStage.addChild(graphics);
+    
+    mapMessageLineGraphics = new PIXI.Graphics(); 
+    mapMessageLineGraphics.lineStyle(10, 0xA63A24, 0.3);
+    mapMessageLineGraphics.moveTo(698, 243);
+    mapMessageLineGraphics.lineTo(846, 243);
+    mapStage.addChild(mapMessageLineGraphics);
+    mapMessageLineGraphicsTween();
+}
+
+function mapDroidRedMessage()
+{
+    var textMessage = new PIXI.Text(userMapMessage["message1"][1], mapStyleDroidRedText); 
+    textMessage.x = 705; 
+    textMessage.y = 245; 
+    mapStage.addChild(textMessage);
+}
+
+function mapBattonsRed()
+{
+    var textArr = ["КОМАНДА", "НАСТРОЙКИ"];
+    var nameArr = ["Command", "Settings"];
+    
+    for(var i = 0; i < textArr.length; i++)
+    {
+        var button = new PIXI.extras.MovieClip(animTexButtonRed); 
+        button.name = nameArr[i];
+        button.position.x = 360 + (200 * i); 
+        button.position.y = 670; 
+        button.interactive = true; 
+        button.buttonMode = true; 
+        button.loop = false; 
+        button.animationSpeed = 0.2;
+        button.onComplete = onMapButtonUpdate;
+	button.tap = onMapButtonClick; 
+        button.click = onMapButtonClick; 
+        button.on('mouseover', onMapButtonOver);
+        button.on('mouseout', onMapButtonOut);
+
+        var text = new PIXI.Text(textArr[i], mapStyleButtonRedText); 
+        text.x = button.width / 3.8;
+        text.y = button.height / 3;
+
+        button.addChild(text); 
+        mapStage.addChild(button);
+    }
+    
+    textArr = ["НАЗАД В МЕНЮ", "ПРИГЛАСИТЬ"];
+    nameArr = ["BackMenu", "Invite"];
+    
+    for(var i = 0; i < textArr.length; i++)
+    {
+        var button = new PIXI.extras.MovieClip(animTexButtonRed); 
+        button.name = nameArr[i];
+        button.position.x = 10; 
+        button.position.y = 10 + (545 * i); 
+        button.interactive = true; 
+        button.buttonMode = true; 
+        button.loop = false; 
+        button.animationSpeed = 0.2;
+        button.onComplete = onMapButtonUpdate;
+	button.tap = onMapButtonClick; 
+        button.click = onMapButtonClick; 
+        button.on('mouseover', onMapButtonOver);
+        button.on('mouseout', onMapButtonOut);
+
+        var text = new PIXI.Text(textArr[i], mapStyleButtonRedText); 
+        text.x = button.width / 3.8;
+        text.y = button.height / 3;
+
+        button.addChild(text); 
+        mapStage.addChild(button);
+    }
+}
+function onMapButtonOver()
+{
+    this.isOver = true;
+    this.gotoAndPlay(1);
+}
+
+function onMapButtonOut()
+{
+    this.isOver = false;
+    this.gotoAndStop(0);
+}
+
+function onMapButtonUpdate()
+{
+    if(this.isOver)
+    {
+        this.gotoAndPlay(1);
+    }else{
+        this.gotoAndStop(0);
+    }
+}
+
+function onMapButtonClick() 
+{
+    switch (this.name)
+    {
+        case "Command":
+            
+            break;
+        case "Settings":
+            settingsCreate();
+            break;
+        case "BackMenu":
+            menuCreate();
+            mapRemove();
+            break;
+        case "Invite": 
+            VK.callMethod("showInviteBox");
+            break;
+        default:
+            break;
+    }
+    
+}
+
 function mapDesktopLineGraphicsTween()
 {
     createjs.Tween.get(mapDesktopLineGraphics, {loop: true}) 
             .to({x: 0, y: 95}, 2500, createjs.Ease.getPowInOut(3));
+    createjs.Ticker.setFPS(60);
+}
+
+function mapMessageLineGraphicsTween()
+{
+    createjs.Tween.get(mapMessageLineGraphics, {loop: true}) 
+            .to({x: 0, y: 205}, 2500, createjs.Ease.getPowInOut(3));
     createjs.Ticker.setFPS(60);
 }var menuStage;
 var menuStarsSprite;
@@ -1328,7 +1624,7 @@ function menuDroid()
     graphics.lineTo(550, 575);
     graphics.lineTo(550, 300);
     graphics.lineTo(735, 300);
-    graphics.endFill
+    graphics.endFill;
     for(var i = 0; i < 92; i++)
     {
         graphics.lineStyle(1, 0x0090F0, 0.5);
@@ -1823,7 +2119,8 @@ function loadAnimationTextures(countFrame, nameFrame)
     return animTextures;
 }var settingsStage;
 var settingsLineAnimationGraphics;
-var settingsStyleText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
+var settingsStyleBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
+var settingsStyleRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
 
 function settingsCreate()
 {
@@ -1858,7 +2155,7 @@ function settingsBackground()
 
 function settingsWindow()
 {
-    if(side === SIDE_NONE)
+    if(side === SIDE_NONE || side === SIDE_JEDI)
     {
         var graphics = new PIXI.Graphics(); 
         graphics.lineStyle(2, 0x0080C0, 1);
@@ -1898,6 +2195,47 @@ function settingsWindow()
         graphics.endFill
         settingsStage.addChild(graphics);
     }
+    if(side === SIDE_SITH)
+    {
+        var graphics = new PIXI.Graphics(); 
+        graphics.lineStyle(2, 0xA63A24, 1);
+        graphics.beginFill(0xA63A24, 0.2);
+        graphics.moveTo(250,250);
+        graphics.lineTo(600, 250);
+        graphics.lineTo(600, 500);
+        graphics.lineTo(250, 500);
+        graphics.endFill
+        for(var i = 0; i < 55; i++)
+        {
+            if(i > 15 && i < 35)
+            {
+                
+            }else{
+                graphics.lineStyle(1, 0xA63A24, 0.5);
+                graphics.moveTo(250,280+(3*i));
+                graphics.lineTo(600, 280+(3*i));
+            }
+        }
+        settingsStage.addChild(graphics);
+        
+        settingsLineAnimationGraphics = new PIXI.Graphics(); 
+        settingsLineAnimationGraphics.lineStyle(10, 0xA63A24, 0.3);
+        settingsLineAnimationGraphics.moveTo(250,255);
+        settingsLineAnimationGraphics.lineTo(600, 255);
+        settingsStage.addChild(settingsLineAnimationGraphics);
+        settingsLineAnimationGraphicsTween();
+        
+        graphics = new PIXI.Graphics(); 
+        graphics.lineStyle(1, 0xA63A24, 1);
+        graphics.beginFill(0xA63A24, 1);
+        graphics.moveTo(400,250);
+        graphics.lineTo(425, 275);
+        graphics.lineTo(600, 275);
+        graphics.lineTo(600, 250);
+        graphics.endFill
+        settingsStage.addChild(graphics);
+    }
+    
 }
 
 function settingsLineAnimationGraphicsTween()
@@ -1909,7 +2247,10 @@ function settingsLineAnimationGraphicsTween()
 
 function settingsTitle()
 {
-    var text = new PIXI.Text("НАСТРОЙКИ", settingsStyleText); 
+    var text;
+    
+    if(side === SIDE_NONE || side === SIDE_JEDI) text = new PIXI.Text("НАСТРОЙКИ", settingsStyleBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text("НАСТРОЙКИ", settingsStyleRedText); 
     text.x = 500;
     text.y = 255;
     settingsStage.addChild(text);
@@ -1917,7 +2258,9 @@ function settingsTitle()
 
 function settingsText()
 {
-    var text = new PIXI.Text("Окно настроек позволяет включить или отключить в игре звуки и музыку.\n\n\n\n\nТак же вы можете посетить группу разработчика ВКонтакте, нажав на кнопку 'информация'.", settingsStyleText); 
+    var text;
+    if(side === SIDE_NONE || side === SIDE_JEDI) text = new PIXI.Text("Окно настроек позволяет включить или отключить в игре звуки и музыку.\n\n\n\n\nТакже вы можете посетить группу разработчика ВКонтакте, нажав на кнопку 'информация'.", settingsStyleBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text("Окно настроек позволяет включить или отключить в игре звуки и музыку.\n\n\n\n\nТакже вы можете посетить группу разработчика ВКонтакте, нажав на кнопку 'информация'.", settingsStyleRedText); 
     text.x = 255;
     text.y = 285;
     settingsStage.addChild(text);
@@ -1925,7 +2268,7 @@ function settingsText()
 
 function settingsButtonClose()
 {
-    if(side === SIDE_NONE)
+    if(side === SIDE_NONE || side === SIDE_JEDI)
     {
         var button = new PIXI.extras.MovieClip(animTexButtonBlue); 
         button.name = "button_close";
@@ -1940,7 +2283,28 @@ function settingsButtonClose()
         button.click = onSettingsButtonCloseClick; 
         button.on('mouseover', onSettingsButtonCloseOver);
         button.on('mouseout', onSettingsButtonCloseOut);
-        var text = new PIXI.Text("Закрыть", settingsStyleText); 
+        var text = new PIXI.Text("Закрыть", settingsStyleBlueText); 
+        text.x = button.width / 3;
+        text.y = button.height / 3;
+        button.addChild(text); 
+        settingsStage.addChild(button);
+    }
+    if(side === SIDE_SITH)
+    {
+        var button = new PIXI.extras.MovieClip(animTexButtonRed); 
+        button.name = "button_close";
+        button.position.x = 320; 
+        button.position.y = 450; 
+        button.interactive = true; 
+        button.buttonMode = true; 
+        button.loop = false; 
+        button.animationSpeed = 0.2;
+        button.onComplete = onSettingsButtonCloseUpdate;
+        button.tap = onSettingsButtonCloseClick; 
+        button.click = onSettingsButtonCloseClick; 
+        button.on('mouseover', onSettingsButtonCloseOver);
+        button.on('mouseout', onSettingsButtonCloseOut);
+        var text = new PIXI.Text("Закрыть", settingsStyleRedText); 
         text.x = button.width / 3;
         text.y = button.height / 3;
         button.addChild(text); 
@@ -2186,19 +2550,6 @@ function sideBorder()
 
 function sideHeroes()
 {
-    /*
-    var button = new PIXI.Sprite(sideDarthVaderTexture);
-    button.name = "DarthVader";
-    button.position.x = 25;
-    button.position.y = 75;
-    button.interactive = true;
-    button.buttonMode = true;
-    button.tap = onSideButtonClick; 
-    button.click = onSideButtonClick; 
-    button.on('mouseover', onSideButtonOver);
-    button.on('mouseout', onSideButtonOut);
-    sideStage.addChild(button);
-    */
     var button = new PIXI.extras.MovieClip(animTexSideDarthVader);
     button.name = "DarthVader";
     button.position.x = 25;
@@ -2465,4 +2816,5 @@ function textTexture()
     stage.addChild(sprite);
 }
 var userMapPlanets;     // карта планет
+var userMapMessage;     // Сообщения на карте
 var userLevels;         // Уровни

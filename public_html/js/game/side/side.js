@@ -171,19 +171,12 @@ function onSideButtonOut()
 
 function onSideButtonClick()
 {
+    
+    if(this.name === "DarthVader") side = SIDE_SITH;
+    if(this.name === "LukeSkywalker") side = SIDE_JEDI;
+    
     initGame(); // инициализация игры
-    
-    if(this.name === "DarthVader")
-    {
-        side = SIDE_SITH;
-        mapCreate();
-    }
-    if(this.name === "LukeSkywalker")
-    {
-        side = SIDE_JEDI;
-        mapCreate();
-    }
-    
+    mapCreate();
     sideRemove();
 }
 

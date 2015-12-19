@@ -96,6 +96,7 @@ function onMapSpaceMove()
 
 function mapCreatePlanets()
 {
+    var index = 0;
     for (var key in userMapPlanets)
     {
         mapSprite.addChild(userMapPlanets[key][1]);
@@ -103,23 +104,29 @@ function mapCreatePlanets()
         if(side === SIDE_JEDI)
         {
             mapSprite.addChild(userMapPlanets[key][2]);
-            if(key !== "Coruscant")
+            if(userPlanets[index].status === USER_PLANET_QUEST_AWAITING)
             {
                 mapSprite.addChild(userMapPlanets[key][5]);
                 mapSprite.addChild(userMapPlanets[key][6]);
                 mapSprite.addChild(userMapPlanets[key][7]);
+            }else{
+                mapSprite.addChild(userMapPlanets[key][11]);
             }
         }
         if(side === SIDE_SITH) 
         {
             mapSprite.addChild(userMapPlanets[key][3]);
-            if(key !== "DeathStar")
+            if(userPlanets[index].status === USER_PLANET_QUEST_AWAITING)
             {
                 mapSprite.addChild(userMapPlanets[key][8]);
                 mapSprite.addChild(userMapPlanets[key][9]);
                 mapSprite.addChild(userMapPlanets[key][10]);
+            }else{
+                mapSprite.addChild(userMapPlanets[key][12]);
             }
         }
+        
+        index++;
     }
 }
 
@@ -462,7 +469,7 @@ function mapBattonsRed()
         button.loop = false; 
         button.animationSpeed = 0.2;
         button.onComplete = onMapButtonUpdate;
-	button.tap = onMapButtonClick; 
+        button.tap = onMapButtonClick; 
         button.click = onMapButtonClick; 
         button.on('mouseover', onMapButtonOver);
         button.on('mouseout', onMapButtonOut);
@@ -489,7 +496,7 @@ function mapBattonsRed()
         button.loop = false; 
         button.animationSpeed = 0.2;
         button.onComplete = onMapButtonUpdate;
-	button.tap = onMapButtonClick; 
+        button.tap = onMapButtonClick; 
         button.click = onMapButtonClick; 
         button.on('mouseover', onMapButtonOver);
         button.on('mouseout', onMapButtonOut);

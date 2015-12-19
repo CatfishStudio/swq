@@ -6,10 +6,10 @@ var initPlanetRedStyleText = { font : 'bold 14px Arial', fill : '#FFFFFF', strok
 
 function initGame()
 {
-    userMapPlanets = initMap();
-    userMapMessage = initMessage();
-    userPersonages = initPersonages();
-    userPlanets = initPlanets();
+    userMapPlanets = initMap();                 // карта планет
+    userMapMessage = initMessage();        // сообщения
+    userPersonages = initPersonages();      // характеристики персонажей
+    userPlanets = initPlanets();                  // планеты
 }
 
 function initMap()
@@ -27,7 +27,9 @@ function initMap()
         new PIXI.Sprite(heroesTextures["darth_vader"][1]),
         new PIXI.Sprite(heroesTextures["luke_skywalker"][1]),
         new PIXI.Sprite(heroesTextures["mace_windu"][1]),
-        new PIXI.Sprite(heroesTextures["mas_amedda"][1])
+        new PIXI.Sprite(heroesTextures["mas_amedda"][1]),
+        new PIXI.Text("Орден Джедаев", initPlanetBlueStyleText),
+        new PIXI.Text("Победа Ситов", initPlanetRedStyleText)
     ];
     planets["Coruscant"][1].name = "Coruscant";
     planets["Coruscant"][1].position.x = 450;
@@ -64,6 +66,10 @@ function initMap()
     planets["Coruscant"][10].position.x = 625; 
     planets["Coruscant"][10].position.y = 575;
     planets["Coruscant"][10].scale.set(0.18);
+    planets["Coruscant"][11].position.x = 490; 
+    planets["Coruscant"][11].position.y = 570; 
+    planets["Coruscant"][12].position.x = 490; 
+    planets["Coruscant"][12].position.y = 570; 
     
     
     planets["Totooine"] = [
@@ -77,7 +83,9 @@ function initMap()
         new PIXI.Sprite(heroesTextures["watto"][1]),
         new PIXI.Sprite(heroesTextures["qui_gon_jinn"][1]),
         new PIXI.Sprite(heroesTextures["owen_lars"][1]),
-        new PIXI.Sprite(heroesTextures["tusken"][1])
+        new PIXI.Sprite(heroesTextures["tusken"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
     planets["Totooine"][1].name = "Totooine";
     planets["Totooine"][1].position.x = 300; 
@@ -114,6 +122,11 @@ function initMap()
     planets["Totooine"][10].position.x = 475; 
     planets["Totooine"][10].position.y = 400;
     planets["Totooine"][10].scale.set(0.25);
+    planets["Totooine"][11].position.x = 340; 
+    planets["Totooine"][11].position.y = 420; 
+    planets["Totooine"][12].position.x = 340; 
+    planets["Totooine"][12].position.y = 420; 
+    
     
     planets["Naboo"] = [
         "Naboo",
@@ -126,7 +139,9 @@ function initMap()
         new PIXI.Sprite(heroesTextures["b1_battle_droid"][2]),
         new PIXI.Sprite(heroesTextures["boss_nass"][2]),
         new PIXI.Sprite(heroesTextures["capitan_panaka"][1]),
-        new PIXI.Sprite(heroesTextures["royal_guards"][1])
+        new PIXI.Sprite(heroesTextures["royal_guards"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
     planets["Naboo"][1].name = "Naboo";
     planets["Naboo"][1].position.x = 630; 
@@ -163,6 +178,10 @@ function initMap()
     planets["Naboo"][10].position.x = 805; 
     planets["Naboo"][10].position.y = 240;
     planets["Naboo"][10].scale.set(0.18);
+    planets["Naboo"][11].position.x = 670; 
+    planets["Naboo"][11].position.y = 235; 
+    planets["Naboo"][12].position.x = 670; 
+    planets["Naboo"][12].position.y = 235; 
     
     
     planets["Endor"] = [
@@ -176,7 +195,9 @@ function initMap()
         new PIXI.Sprite(heroesTextures["aurra_sing"][2]),
         new PIXI.Sprite(heroesTextures["alliance_to_restore_the_republic"][2]),
         new PIXI.Sprite(heroesTextures["wicket_wysri_warrick"][1]),
-        new PIXI.Sprite(heroesTextures["aayla_secura"][1])
+        new PIXI.Sprite(heroesTextures["aayla_secura"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
     planets["Endor"][1].name = "Endor";
     planets["Endor"][1].position.x = 200;
@@ -213,6 +234,11 @@ function initMap()
     planets["Endor"][10].position.x = 375; 
     planets["Endor"][10].position.y = 550;
     planets["Endor"][10].scale.set(0.18);
+    planets["Endor"][11].position.x = 240; 
+    planets["Endor"][11].position.y = 545; 
+    planets["Endor"][12].position.x = 240; 
+    planets["Endor"][12].position.y = 545; 
+    
     
     planets["Hoth"] = [
         "Hoth",
@@ -225,7 +251,9 @@ function initMap()
         new PIXI.Sprite(heroesTextures["stormtrooper_1"][1]),
         new PIXI.Sprite(heroesTextures["general_madine"][2]),
         new PIXI.Sprite(heroesTextures["han_solo"][1]),
-        new PIXI.Sprite(heroesTextures["chewbacca"][2])
+        new PIXI.Sprite(heroesTextures["chewbacca"][2]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
     planets["Hoth"][1].name = "Hoth";
     planets["Hoth"][1].position.x = 700; 
@@ -262,6 +290,11 @@ function initMap()
     planets["Hoth"][10].position.x = 875; 
     planets["Hoth"][10].position.y = 485;
     planets["Hoth"][10].scale.set(0.18);
+    planets["Hoth"][11].position.x = 740; 
+    planets["Hoth"][11].position.y = 480; 
+    planets["Hoth"][12].position.x = 740; 
+    planets["Hoth"][12].position.y = 480; 
+    
     
     planets["Mustafar"] = [
         "Mustafar",
@@ -274,7 +307,9 @@ function initMap()
         new PIXI.Sprite(heroesTextures["separatists"][1]),
         new PIXI.Sprite(heroesTextures["obi_wan_kenobi"][2]),
         new PIXI.Sprite(heroesTextures["padme_amidala"][1]),
-        new PIXI.Sprite(heroesTextures["wat_tambor"][1])
+        new PIXI.Sprite(heroesTextures["wat_tambor"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
     planets["Mustafar"][1].name = "Mustafar";
     planets["Mustafar"][1].position.x = 600; 
@@ -311,6 +346,10 @@ function initMap()
     planets["Mustafar"][10].position.x = 775; 
     planets["Mustafar"][10].position.y = 375;
     planets["Mustafar"][10].scale.set(0.18);
+    planets["Mustafar"][11].position.x = 640; 
+    planets["Mustafar"][11].position.y = 370; 
+    planets["Mustafar"][12].position.x = 640; 
+    planets["Mustafar"][12].position.y = 370; 
     
     
     planets["Dagobah"] = [
@@ -324,7 +363,9 @@ function initMap()
         new PIXI.Sprite(heroesTextures["clone_commander_cody"][1]),
         new PIXI.Sprite(heroesTextures["yoda"][1]),
         new PIXI.Sprite(heroesTextures["barriss_offee"][1]),
-        new PIXI.Sprite(heroesTextures["kit_fisto"][1])
+        new PIXI.Sprite(heroesTextures["kit_fisto"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
     planets["Dagobah"][1].name = "Dagobah";
     planets["Dagobah"][1].position.x = 200; 
@@ -361,7 +402,11 @@ function initMap()
     planets["Dagobah"][10].position.x = 375; 
     planets["Dagobah"][10].position.y = 50;
     planets["Dagobah"][10].scale.set(0.18);
-   
+    planets["Dagobah"][11].position.x = 240; 
+    planets["Dagobah"][11].position.y = 45; 
+    planets["Dagobah"][12].position.x = 240; 
+    planets["Dagobah"][12].position.y = 45; 
+    
     
     planets["Bespin"] = [
         "Bespin",
@@ -374,7 +419,9 @@ function initMap()
         new PIXI.Sprite(heroesTextures["clone_commander_neyo"][1]),
         new PIXI.Sprite(heroesTextures["adigallia"][1]),
         new PIXI.Sprite(heroesTextures["lando_calrissian"][1]),
-        new PIXI.Sprite(heroesTextures["ki_adi_mundi"][1])
+        new PIXI.Sprite(heroesTextures["ki_adi_mundi"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
     planets["Bespin"][1].name = "Bespin";
     planets["Bespin"][1].position.x = 5;
@@ -411,7 +458,11 @@ function initMap()
     planets["Bespin"][10].position.x = 180; 
     planets["Bespin"][10].position.y = 125;
     planets["Bespin"][10].scale.set(0.18);
-
+    planets["Bespin"][11].position.x = 45; 
+    planets["Bespin"][11].position.y = 120; 
+    planets["Bespin"][12].position.x = 45; 
+    planets["Bespin"][12].position.y = 120; 
+    
    
     planets["Geonosis"] = [
         "Geonosis",
@@ -424,7 +475,9 @@ function initMap()
         new PIXI.Sprite(heroesTextures["red_battle_droid"][1]),
         new PIXI.Sprite(heroesTextures["republic_clone_army"][1]),
         new PIXI.Sprite(heroesTextures["poggle_the_lesser"][1]),
-        new PIXI.Sprite(heroesTextures["saesee_tiin"][2])
+        new PIXI.Sprite(heroesTextures["saesee_tiin"][2]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
     planets["Geonosis"][1].name = "Geonosis";
     planets["Geonosis"][1].position.x = 720; // 750 -30
@@ -461,6 +514,10 @@ function initMap()
     planets["Geonosis"][10].position.x = 890; 
     planets["Geonosis"][10].position.y = 600;
     planets["Geonosis"][10].scale.set(0.18);
+    planets["Geonosis"][11].position.x = 760; 
+    planets["Geonosis"][11].position.y = 595; 
+    planets["Geonosis"][12].position.x = 760; 
+    planets["Geonosis"][12].position.y = 595; 
     
     planets["Alderaan"] = [
         "Alderaan",
@@ -473,7 +530,9 @@ function initMap()
         new PIXI.Sprite(heroesTextures["rune_haako"][1]),
         new PIXI.Sprite(heroesTextures["bail_organa"][1]),
         new PIXI.Sprite(heroesTextures["leia_organa"][1]),
-        new PIXI.Sprite(heroesTextures["kapitan_antilles"][1])
+        new PIXI.Sprite(heroesTextures["kapitan_antilles"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
     planets["Alderaan"][1].name = "Alderaan";
     planets["Alderaan"][1].position.x = 50; 
@@ -510,6 +569,10 @@ function initMap()
     planets["Alderaan"][10].position.x = 225; 
     planets["Alderaan"][10].position.y = 380;
     planets["Alderaan"][10].scale.set(0.18);
+    planets["Alderaan"][11].position.x = 90; 
+    planets["Alderaan"][11].position.y = 375; 
+    planets["Alderaan"][12].position.x = 90; 
+    planets["Alderaan"][12].position.y = 375; 
     
         
     planets["Kamino"] = [
@@ -523,7 +586,9 @@ function initMap()
         new PIXI.Sprite(heroesTextures["clone_commander_rex"][1]),
         new PIXI.Sprite(heroesTextures["plo_koon"][1]),
         new PIXI.Sprite(heroesTextures["clone_commander_bakara"][1]),
-        new PIXI.Sprite(heroesTextures["clone_commander_neyo"][1])
+        new PIXI.Sprite(heroesTextures["clone_commander_neyo"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
     planets["Kamino"][1].name = "Kamino";
     planets["Kamino"][1].position.x = 400; 
@@ -560,7 +625,10 @@ function initMap()
     planets["Kamino"][10].position.x = 575; 
     planets["Kamino"][10].position.y = 275;
     planets["Kamino"][10].scale.set(0.18);
-   
+    planets["Kamino"][11].position.x = 440; 
+    planets["Kamino"][11].position.y = 270; 
+    planets["Kamino"][12].position.x = 440; 
+    planets["Kamino"][12].position.y = 270; 
     
     planets["DeathStar"] = [
         "DeathStar",
@@ -573,7 +641,9 @@ function initMap()
         new PIXI.Sprite(heroesTextures["commander_jerjerrod"][1]),
         new PIXI.Sprite(heroesTextures["luke_skywalker"][1]),
         new PIXI.Sprite(heroesTextures["luke_skywalker"][1]),
-        new PIXI.Sprite(heroesTextures["luke_skywalker"][1])
+        new PIXI.Sprite(heroesTextures["luke_skywalker"][1]),
+        new PIXI.Text("Победа Джедаев", initPlanetBlueStyleText),
+        new PIXI.Text("Орден Ситов", initPlanetRedStyleText)
     ];
     planets["DeathStar"][1].name = "DeathStar";
     planets["DeathStar"][1].position.x = 150;
@@ -610,6 +680,10 @@ function initMap()
     planets["DeathStar"][10].position.x = 325; 
     planets["DeathStar"][10].position.y = 245;
     planets["DeathStar"][10].scale.set(0.18);
+    planets["DeathStar"][11].position.x = 190; 
+    planets["DeathStar"][11].position.y = 240; 
+    planets["DeathStar"][12].position.x = 190; 
+    planets["DeathStar"][12].position.y = 240; 
     
     
     planets["Utapau"] = [
@@ -623,7 +697,9 @@ function initMap()
         new PIXI.Sprite(heroesTextures["clone_commander_cody"][1]),
         new PIXI.Sprite(heroesTextures["shaak_ti"][1]),
         new PIXI.Sprite(heroesTextures["tion_medon"][1]),
-        new PIXI.Sprite(heroesTextures["bib_fortuna"][1])
+        new PIXI.Sprite(heroesTextures["bib_fortuna"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
     planets["Utapau"][1].name = "Utapau";
     planets["Utapau"][1].position.x = 700; 
@@ -660,7 +736,10 @@ function initMap()
     planets["Utapau"][10].position.x = 875; 
     planets["Utapau"][10].position.y = 50;
     planets["Utapau"][10].scale.set(0.18);
-    
+    planets["Utapau"][11].position.x = 740; 
+    planets["Utapau"][11].position.y = 45; 
+    planets["Utapau"][12].position.x = 740; 
+    planets["Utapau"][12].position.y = 45; 
     
     
     planets["Saleucami"] = [
@@ -674,7 +753,9 @@ function initMap()
         new PIXI.Sprite(heroesTextures["b1_battle_droid"][1]),
         new PIXI.Sprite(heroesTextures["eeth_koth"][1]),
         new PIXI.Sprite(heroesTextures["mon_motma"][1]),
-        new PIXI.Sprite(heroesTextures["c_3po"][2])
+        new PIXI.Sprite(heroesTextures["c_3po"][2]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
     planets["Saleucami"][1].name = "Saleucami";
     planets["Saleucami"][1].position.x = 810;
@@ -693,7 +774,6 @@ function initMap()
     planets["Saleucami"][4].lineTo(845, 150);
     planets["Saleucami"][4].moveTo(845, 150);
     planets["Saleucami"][4].lineTo(1010, 150);
-    
     planets["Saleucami"][5].position.x = 885; 
     planets["Saleucami"][5].position.y = 155;
     planets["Saleucami"][5].scale.set(0.18);
@@ -703,7 +783,6 @@ function initMap()
     planets["Saleucami"][7].position.x = 985; 
     planets["Saleucami"][7].position.y = 155;
     planets["Saleucami"][7].scale.set(0.18);
-    
     planets["Saleucami"][8].position.x = 885; 
     planets["Saleucami"][8].position.y = 155;
     planets["Saleucami"][8].scale.set(0.18);
@@ -713,7 +792,10 @@ function initMap()
     planets["Saleucami"][10].position.x = 985; 
     planets["Saleucami"][10].position.y = 155;
     planets["Saleucami"][10].scale.set(0.18);
-    
+    planets["Saleucami"][11].position.x = 850; 
+    planets["Saleucami"][11].position.y = 150; 
+    planets["Saleucami"][12].position.x = 850; 
+    planets["Saleucami"][12].position.y = 150; 
     
     
     planets["Jakku"] = [
@@ -727,7 +809,9 @@ function initMap()
         new PIXI.Sprite(heroesTextures["stormtrooper_1"][1]),                                           // 7 - персонажи (тьма)
         new PIXI.Sprite(heroesTextures["rey"][1]),                                                      // 8 - персонажи (свет)
         new PIXI.Sprite(heroesTextures["finn"][1]),                                                     // 9 - персонажи (свет)
-        new PIXI.Sprite(heroesTextures["poe_dameron"][1])                                               // 10 - персонажи (свет)
+        new PIXI.Sprite(heroesTextures["poe_dameron"][1]),                                               // 10 - персонажи (свет)
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
     planets["Jakku"][1].name = "Jakku";
     planets["Jakku"][1].position.x = 450; 
@@ -764,6 +848,10 @@ function initMap()
     planets["Jakku"][10].position.x = 625; 
     planets["Jakku"][10].position.y = 75;
     planets["Jakku"][10].scale.set(0.18);
+    planets["Jakku"][11].position.x = 490; 
+    planets["Jakku"][11].position.y = 70; 
+    planets["Jakku"][12].position.x = 490; 
+    planets["Jakku"][12].position.y = 70; 
     
     return planets;
 }
@@ -813,7 +901,8 @@ function initPlanets()
         planetsArray[key].bluePersonage3 = planetsJson.data.Planets.planet[key].bluePersonage3;
         planetsArray[key].blueReward1 = planetsJson.data.Planets.planet[key].blueReward1;
         planetsArray[key].blueReward2 = planetsJson.data.Planets.planet[key].blueReward2;
-        planetsArray[key].status = planetsJson.data.Planets.planet[key].status;
+        if(side === SIDE_JEDI && planetsArray[key].id === "Coruscant") planetsArray[key].status = USER_PLANET_QUEST_COMPLETE;
+        if(side === SIDE_SITH && planetsArray[key].id === "DeathStar") planetsArray[key].status = USER_PLANET_QUEST_COMPLETE;
         planetsArray[key].description = planetsJson.data.Planets.planet[key].description;
     }
     

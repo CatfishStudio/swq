@@ -1,4 +1,6 @@
 
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
 /*
 function soundload () 
 {
@@ -25,3 +27,5 @@ function soundStopStarWarsThemeSong()
 {
     createjs.Sound.stop("StarWarsThemeSong");
 }
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */

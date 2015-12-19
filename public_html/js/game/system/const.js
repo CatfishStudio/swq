@@ -1,3 +1,6 @@
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
 var MAIN_WIDTH = 860;
 var MAIN_HEIGH = 730;
 var MAIN_BACKGROUND_COLOR = 0xFFFFFF;
@@ -13,3 +16,5 @@ var DAMAGE_MAX_HIT_2 = 12;
 var DAMAGE_MAX_HIT_3 = 12;
 var DAMAGE_MAX_HIT_4 = 5;
 var DAMAGE_MAX_HIT_5 = 3;
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */

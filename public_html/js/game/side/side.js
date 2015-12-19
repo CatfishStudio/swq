@@ -1,3 +1,6 @@
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
 var SIDE_NONE = "side_none";
 var SIDE_JEDI = "side_jedi";
 var SIDE_SITH = "side_sith";
@@ -295,3 +298,5 @@ function sideRedLineAnimationGraphicsTween()
     createjs.Ticker.setFPS(60); 
 
 }
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */

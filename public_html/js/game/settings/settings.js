@@ -1,3 +1,6 @@
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
 var settingsStage;
 var settingsLineAnimationGraphics;
 var settingsStyleBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
@@ -325,3 +328,5 @@ function onSettingsButtonsClick()
         window.open("https://vk.com/club62618339","_target");
     }
 }
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */

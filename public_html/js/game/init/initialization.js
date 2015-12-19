@@ -1,3 +1,6 @@
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
 var initPlanetBlueStyleText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 }; 
 var initPlanetRedStyleText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 }; 
 
@@ -5,6 +8,8 @@ function initGame()
 {
     userMapPlanets = initMap();
     userMapMessage = initMessage();
+    userPersonages = initPersonages();
+    userPlanets = initPlanets();
 }
 
 function initMap()
@@ -24,7 +29,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["mace_windu"][1]),
         new PIXI.Sprite(heroesTextures["mas_amedda"][1])
     ];
-    planets["Coruscant"][1].name = "coruscant_planet";
+    planets["Coruscant"][1].name = "Coruscant";
     planets["Coruscant"][1].position.x = 450;
     planets["Coruscant"][1].position.y = 575;
     planets["Coruscant"][1].interactive = true; 
@@ -74,7 +79,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["owen_lars"][1]),
         new PIXI.Sprite(heroesTextures["tusken"][1])
     ];
-    planets["Totooine"][1].name = "tatooine_planet";
+    planets["Totooine"][1].name = "Totooine";
     planets["Totooine"][1].position.x = 300; 
     planets["Totooine"][1].position.y = 425; 
     planets["Totooine"][1].interactive = true; 
@@ -123,7 +128,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["capitan_panaka"][1]),
         new PIXI.Sprite(heroesTextures["royal_guards"][1])
     ];
-    planets["Naboo"][1].name = "naboo_planet";
+    planets["Naboo"][1].name = "Naboo";
     planets["Naboo"][1].position.x = 630; 
     planets["Naboo"][1].position.y = 240; 
     planets["Naboo"][1].interactive = true; 
@@ -173,7 +178,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["wicket_wysri_warrick"][1]),
         new PIXI.Sprite(heroesTextures["aayla_secura"][1])
     ];
-    planets["Endor"][1].name = "endor_planet";
+    planets["Endor"][1].name = "Endor";
     planets["Endor"][1].position.x = 200;
     planets["Endor"][1].position.y = 550;
     planets["Endor"][1].interactive = true; 
@@ -222,7 +227,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["han_solo"][1]),
         new PIXI.Sprite(heroesTextures["chewbacca"][2])
     ];
-    planets["Hoth"][1].name = "hoth_planet";
+    planets["Hoth"][1].name = "Hoth";
     planets["Hoth"][1].position.x = 700; 
     planets["Hoth"][1].position.y = 485; // 475 +10
     planets["Hoth"][1].interactive = true; 
@@ -271,7 +276,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["padme_amidala"][1]),
         new PIXI.Sprite(heroesTextures["wat_tambor"][1])
     ];
-    planets["Mustafar"][1].name = "mustafar_planet";
+    planets["Mustafar"][1].name = "Mustafar";
     planets["Mustafar"][1].position.x = 600; 
     planets["Mustafar"][1].position.y = 375;
     planets["Mustafar"][1].interactive = true; 
@@ -321,7 +326,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["barriss_offee"][1]),
         new PIXI.Sprite(heroesTextures["kit_fisto"][1])
     ];
-    planets["Dagobah"][1].name = "dagobah_planet";
+    planets["Dagobah"][1].name = "Dagobah";
     planets["Dagobah"][1].position.x = 200; 
     planets["Dagobah"][1].position.y = 50; 
     planets["Dagobah"][1].interactive = true; 
@@ -371,7 +376,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["lando_calrissian"][1]),
         new PIXI.Sprite(heroesTextures["ki_adi_mundi"][1])
     ];
-    planets["Bespin"][1].name = "bespin_planet";
+    planets["Bespin"][1].name = "Bespin";
     planets["Bespin"][1].position.x = 5;
     planets["Bespin"][1].position.y = 125;
     planets["Bespin"][1].interactive = true; 
@@ -421,7 +426,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["poggle_the_lesser"][1]),
         new PIXI.Sprite(heroesTextures["saesee_tiin"][2])
     ];
-    planets["Geonosis"][1].name = "geonosis_planet";
+    planets["Geonosis"][1].name = "Geonosis";
     planets["Geonosis"][1].position.x = 720; // 750 -30
     planets["Geonosis"][1].position.y = 600; 
     planets["Geonosis"][1].interactive = true; 
@@ -470,7 +475,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["leia_organa"][1]),
         new PIXI.Sprite(heroesTextures["kapitan_antilles"][1])
     ];
-    planets["Alderaan"][1].name = "alderaan_planet";
+    planets["Alderaan"][1].name = "Alderaan";
     planets["Alderaan"][1].position.x = 50; 
     planets["Alderaan"][1].position.y = 380;
     planets["Alderaan"][1].interactive = true; 
@@ -520,7 +525,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["clone_commander_bakara"][1]),
         new PIXI.Sprite(heroesTextures["clone_commander_neyo"][1])
     ];
-    planets["Kamino"][1].name = "kamino_planet";
+    planets["Kamino"][1].name = "Kamino";
     planets["Kamino"][1].position.x = 400; 
     planets["Kamino"][1].position.y = 275; 
     planets["Kamino"][1].interactive = true; 
@@ -570,7 +575,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["luke_skywalker"][1]),
         new PIXI.Sprite(heroesTextures["luke_skywalker"][1])
     ];
-    planets["DeathStar"][1].name = "deathstar_planet";
+    planets["DeathStar"][1].name = "DeathStar";
     planets["DeathStar"][1].position.x = 150;
     planets["DeathStar"][1].position.y = 245; //225 + 20
     planets["DeathStar"][1].interactive = true; 
@@ -620,7 +625,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["tion_medon"][1]),
         new PIXI.Sprite(heroesTextures["bib_fortuna"][1])
     ];
-    planets["Utapau"][1].name = "utapau_planet";
+    planets["Utapau"][1].name = "Utapau";
     planets["Utapau"][1].position.x = 700; 
     planets["Utapau"][1].position.y = 50; 
     planets["Utapau"][1].interactive = true; 
@@ -671,7 +676,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["mon_motma"][1]),
         new PIXI.Sprite(heroesTextures["c_3po"][2])
     ];
-    planets["Saleucami"][1].name = "saleucami_planet";
+    planets["Saleucami"][1].name = "Saleucami";
     planets["Saleucami"][1].position.x = 810;
     planets["Saleucami"][1].position.y = 155;
     planets["Saleucami"][1].interactive = true; 
@@ -724,7 +729,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["finn"][1]),                                                     // 9 - персонажи (свет)
         new PIXI.Sprite(heroesTextures["poe_dameron"][1])                                               // 10 - персонажи (свет)
     ];
-    planets["Jakku"][1].name = "jakku_planet";
+    planets["Jakku"][1].name = "Jakku";
     planets["Jakku"][1].position.x = 450; 
     planets["Jakku"][1].position.y = 75; 
     planets["Jakku"][1].interactive = true; 
@@ -770,3 +775,49 @@ function initMessage()
     
     return message;
 }
+
+function initPersonages()
+{
+    var personageArray = [];
+    
+    for (var key in personagesJson.data.Personages.personage)
+    {
+        personageArray.push(new UserPersonage(personagesJson.data.Personages.personage[key].id, personagesJson.data.Personages.personage[key].name));
+        personageArray[key].life = personagesJson.data.Personages.personage[key].life;
+        personageArray[key].hit1 = personagesJson.data.Personages.personage[key].hit1;
+        personageArray[key].hit2 = personagesJson.data.Personages.personage[key].hit2;
+        personageArray[key].hit3 = personagesJson.data.Personages.personage[key].hit3;
+        personageArray[key].hit4 = personagesJson.data.Personages.personage[key].hit4;
+        personageArray[key].hit5 = personagesJson.data.Personages.personage[key].hit5;
+        personageArray[key].status = personagesJson.data.Personages.personage[key].status;
+        personageArray[key].description = personagesJson.data.Personages.personage[key].description;
+    }
+    
+    return personageArray;
+}
+
+function initPlanets()
+{
+    var planetsArray = [];
+    
+    for (var key in planetsJson.data.Planets.planet)
+    {
+        planetsArray.push(new UserPlanet(planetsJson.data.Planets.planet[key].id, planetsJson.data.Planets.planet[key].name));
+        planetsArray[key].redPersonage1 = planetsJson.data.Planets.planet[key].redPersonage1;
+        planetsArray[key].redPersonage2 = planetsJson.data.Planets.planet[key].redPersonage2;
+        planetsArray[key].redPersonage3 = planetsJson.data.Planets.planet[key].redPersonage3;
+        planetsArray[key].redReward1 = planetsJson.data.Planets.planet[key].redReward1;
+        planetsArray[key].redReward2 = planetsJson.data.Planets.planet[key].redReward2;
+        planetsArray[key].bluePersonage1 = planetsJson.data.Planets.planet[key].bluePersonage1;
+        planetsArray[key].bluePersonage2 = planetsJson.data.Planets.planet[key].bluePersonage2;
+        planetsArray[key].bluePersonage3 = planetsJson.data.Planets.planet[key].bluePersonage3;
+        planetsArray[key].blueReward1 = planetsJson.data.Planets.planet[key].blueReward1;
+        planetsArray[key].blueReward2 = planetsJson.data.Planets.planet[key].blueReward2;
+        planetsArray[key].status = planetsJson.data.Planets.planet[key].status;
+        planetsArray[key].description = planetsJson.data.Planets.planet[key].description;
+    }
+    
+    return planetsArray;
+}
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */

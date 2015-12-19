@@ -1,3 +1,6 @@
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
 var preloaderStage;
 var preloaderProgressAssetsText;
 var preloaderStyleText = { font : 'bold 48px Arial', fill : '#FFFF80', stroke : '#FF8000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 600 }; 
@@ -235,6 +238,9 @@ function preloaderLoadAssets()
     loader.add('wicket_wysri_warrick','./assets/image/textures/personages/wicket_wysri_warrick.png');
     loader.add('yoda','./assets/image/textures/personages/yoda.png');
     
+    loader.add('personages','./assets/data/personages.json');
+    loader.add('planets','./assets/data/planets.json');
+    
     loader.on('complete', onPreloaderAssetsLoaderComplete);
     loader.on('progress',onPreloaderAssetsLoaderProcess);
     loader.load();
@@ -362,7 +368,7 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     heroesTextures["qui_gon_jinn"] = ["Квай-Гон Джинн", res.qui_gon_jinn_lr.texture, res.qui_gon_jinn_rl.texture];
     heroesTextures["red_battle_droid"] = ["Боевой дроид", res.red_battle_droid_lr.texture, res.red_battle_droid_rl.texture];
     heroesTextures["republic_clone_army"] = ["Республиканская армия клонов", res.republic_clone_army.texture, res.republic_clone_army.texture];
-    heroesTextures["rey"] = ["Рей армия клонов", res.rey.texture, res.rey.texture];
+    heroesTextures["rey"] = ["Рей", res.rey.texture, res.rey.texture];
     heroesTextures["royal_guards"] = ["Королевский страж", res.royal_guards.texture, res.royal_guards.texture];
     heroesTextures["rune_haako"] = ["Рун Хаако", res.rune_haako_lr.texture, res.rune_haako_rl.texture];
     heroesTextures["saesee_tiin"] = ["Сэси Тийн", res.saesee_tiin_lr.texture, res.saesee_tiin_rl.texture];
@@ -381,6 +387,8 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     heroesTextures["wicket_wysri_warrick"] = ["Уикет У.Уоррик", res.wicket_wysri_warrick.texture, res.wicket_wysri_warrick.texture];
     heroesTextures["yoda"] = ["Йода", res.yoda.texture, res.yoda.texture];
     
+    personagesJson = res.personages;
+    planetsJson = res.planets;
 
     if(preloaderComplete === 2)
     {
@@ -406,3 +414,5 @@ function loadAnimationTextures(countFrame, nameFrame)
     }
     return animTextures;
 }
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */

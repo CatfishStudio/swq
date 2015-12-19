@@ -1,3 +1,6 @@
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
 var menuStage;
 var menuStarsSprite;
 var menuDeathStarSprite;
@@ -297,3 +300,5 @@ function menuBackgroundParallaxTween()
 
     createjs.Ticker.setFPS(60); 
 }
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */

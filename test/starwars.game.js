@@ -1,3 +1,6 @@
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
 var animTest = [];                      // для теста
 var testTexture;                        // для теста
 
@@ -40,9 +43,27 @@ var planetTextures;                     // текстуры планет
 
 /* Heroes */
 var heroesTextures;                     // текстуры персонажей
+
+/* personages.json */
+var personagesJson;                         // характеристики персонажей
+
+/* planets.json */
+var planetsJson;                         // характеристики планет
+
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
 var music = false;
 var sound = true;
-var language = "rus";var MAIN_WIDTH = 860;
+var language = "rus";
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
+var MAIN_WIDTH = 860;
 var MAIN_HEIGH = 730;
 var MAIN_BACKGROUND_COLOR = 0xFFFFFF;
 
@@ -56,13 +77,23 @@ var DAMAGE_MAX_HIT_1 = 6;
 var DAMAGE_MAX_HIT_2 = 12;
 var DAMAGE_MAX_HIT_3 = 12;
 var DAMAGE_MAX_HIT_4 = 5;
-var DAMAGE_MAX_HIT_5 = 3;var initPlanetBlueStyleText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 }; 
+var DAMAGE_MAX_HIT_5 = 3;
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
+var initPlanetBlueStyleText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 }; 
 var initPlanetRedStyleText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 }; 
 
 function initGame()
 {
-    userMapPlanets = initMap();
-    userMapMessage = initMessage();
+    userMapPlanets = initMap();                 // карта планет
+    userMapMessage = initMessage();             // сообщения
+    userPersonages = initPersonages();          // характеристики персонажей
+    userPlanets = initPlanets();                // планеты
+    userCommandUser = initCommandUser();        // команда пользователя
+    userCommandAI = initCommandAI();            // команда ИИ
 }
 
 function initMap()
@@ -80,9 +111,11 @@ function initMap()
         new PIXI.Sprite(heroesTextures["darth_vader"][1]),
         new PIXI.Sprite(heroesTextures["luke_skywalker"][1]),
         new PIXI.Sprite(heroesTextures["mace_windu"][1]),
-        new PIXI.Sprite(heroesTextures["mas_amedda"][1])
+        new PIXI.Sprite(heroesTextures["mas_amedda"][1]),
+        new PIXI.Text("Орден Джедаев", initPlanetBlueStyleText),
+        new PIXI.Text("Победа Ситов", initPlanetRedStyleText)
     ];
-    planets["Coruscant"][1].name = "coruscant_planet";
+    planets["Coruscant"][1].name = "Coruscant";
     planets["Coruscant"][1].position.x = 450;
     planets["Coruscant"][1].position.y = 575;
     planets["Coruscant"][1].interactive = true; 
@@ -117,6 +150,10 @@ function initMap()
     planets["Coruscant"][10].position.x = 625; 
     planets["Coruscant"][10].position.y = 575;
     planets["Coruscant"][10].scale.set(0.18);
+    planets["Coruscant"][11].position.x = 520; 
+    planets["Coruscant"][11].position.y = 570; 
+    planets["Coruscant"][12].position.x = 520; 
+    planets["Coruscant"][12].position.y = 570; 
     
     
     planets["Totooine"] = [
@@ -130,9 +167,11 @@ function initMap()
         new PIXI.Sprite(heroesTextures["watto"][1]),
         new PIXI.Sprite(heroesTextures["qui_gon_jinn"][1]),
         new PIXI.Sprite(heroesTextures["owen_lars"][1]),
-        new PIXI.Sprite(heroesTextures["tusken"][1])
+        new PIXI.Sprite(heroesTextures["tusken"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
-    planets["Totooine"][1].name = "tatooine_planet";
+    planets["Totooine"][1].name = "Totooine";
     planets["Totooine"][1].position.x = 300; 
     planets["Totooine"][1].position.y = 425; 
     planets["Totooine"][1].interactive = true; 
@@ -167,6 +206,11 @@ function initMap()
     planets["Totooine"][10].position.x = 475; 
     planets["Totooine"][10].position.y = 400;
     planets["Totooine"][10].scale.set(0.25);
+    planets["Totooine"][11].position.x = 370; 
+    planets["Totooine"][11].position.y = 420; 
+    planets["Totooine"][12].position.x = 370; 
+    planets["Totooine"][12].position.y = 420; 
+    
     
     planets["Naboo"] = [
         "Naboo",
@@ -179,9 +223,11 @@ function initMap()
         new PIXI.Sprite(heroesTextures["b1_battle_droid"][2]),
         new PIXI.Sprite(heroesTextures["boss_nass"][2]),
         new PIXI.Sprite(heroesTextures["capitan_panaka"][1]),
-        new PIXI.Sprite(heroesTextures["royal_guards"][1])
+        new PIXI.Sprite(heroesTextures["royal_guards"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
-    planets["Naboo"][1].name = "naboo_planet";
+    planets["Naboo"][1].name = "Naboo";
     planets["Naboo"][1].position.x = 630; 
     planets["Naboo"][1].position.y = 240; 
     planets["Naboo"][1].interactive = true; 
@@ -216,6 +262,10 @@ function initMap()
     planets["Naboo"][10].position.x = 805; 
     planets["Naboo"][10].position.y = 240;
     planets["Naboo"][10].scale.set(0.18);
+    planets["Naboo"][11].position.x = 700; 
+    planets["Naboo"][11].position.y = 235; 
+    planets["Naboo"][12].position.x = 700; 
+    planets["Naboo"][12].position.y = 235; 
     
     
     planets["Endor"] = [
@@ -229,9 +279,11 @@ function initMap()
         new PIXI.Sprite(heroesTextures["aurra_sing"][2]),
         new PIXI.Sprite(heroesTextures["alliance_to_restore_the_republic"][2]),
         new PIXI.Sprite(heroesTextures["wicket_wysri_warrick"][1]),
-        new PIXI.Sprite(heroesTextures["aayla_secura"][1])
+        new PIXI.Sprite(heroesTextures["aayla_secura"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
-    planets["Endor"][1].name = "endor_planet";
+    planets["Endor"][1].name = "Endor";
     planets["Endor"][1].position.x = 200;
     planets["Endor"][1].position.y = 550;
     planets["Endor"][1].interactive = true; 
@@ -266,6 +318,11 @@ function initMap()
     planets["Endor"][10].position.x = 375; 
     planets["Endor"][10].position.y = 550;
     planets["Endor"][10].scale.set(0.18);
+    planets["Endor"][11].position.x = 270; 
+    planets["Endor"][11].position.y = 545; 
+    planets["Endor"][12].position.x = 270; 
+    planets["Endor"][12].position.y = 545; 
+    
     
     planets["Hoth"] = [
         "Hoth",
@@ -278,9 +335,11 @@ function initMap()
         new PIXI.Sprite(heroesTextures["stormtrooper_1"][1]),
         new PIXI.Sprite(heroesTextures["general_madine"][2]),
         new PIXI.Sprite(heroesTextures["han_solo"][1]),
-        new PIXI.Sprite(heroesTextures["chewbacca"][2])
+        new PIXI.Sprite(heroesTextures["chewbacca"][2]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
-    planets["Hoth"][1].name = "hoth_planet";
+    planets["Hoth"][1].name = "Hoth";
     planets["Hoth"][1].position.x = 700; 
     planets["Hoth"][1].position.y = 485; // 475 +10
     planets["Hoth"][1].interactive = true; 
@@ -315,6 +374,11 @@ function initMap()
     planets["Hoth"][10].position.x = 875; 
     planets["Hoth"][10].position.y = 485;
     planets["Hoth"][10].scale.set(0.18);
+    planets["Hoth"][11].position.x = 770; 
+    planets["Hoth"][11].position.y = 480; 
+    planets["Hoth"][12].position.x = 770; 
+    planets["Hoth"][12].position.y = 480; 
+    
     
     planets["Mustafar"] = [
         "Mustafar",
@@ -327,9 +391,11 @@ function initMap()
         new PIXI.Sprite(heroesTextures["separatists"][1]),
         new PIXI.Sprite(heroesTextures["obi_wan_kenobi"][2]),
         new PIXI.Sprite(heroesTextures["padme_amidala"][1]),
-        new PIXI.Sprite(heroesTextures["wat_tambor"][1])
+        new PIXI.Sprite(heroesTextures["wat_tambor"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
-    planets["Mustafar"][1].name = "mustafar_planet";
+    planets["Mustafar"][1].name = "Mustafar";
     planets["Mustafar"][1].position.x = 600; 
     planets["Mustafar"][1].position.y = 375;
     planets["Mustafar"][1].interactive = true; 
@@ -364,6 +430,10 @@ function initMap()
     planets["Mustafar"][10].position.x = 775; 
     planets["Mustafar"][10].position.y = 375;
     planets["Mustafar"][10].scale.set(0.18);
+    planets["Mustafar"][11].position.x = 670; 
+    planets["Mustafar"][11].position.y = 370; 
+    planets["Mustafar"][12].position.x = 670; 
+    planets["Mustafar"][12].position.y = 370; 
     
     
     planets["Dagobah"] = [
@@ -377,9 +447,11 @@ function initMap()
         new PIXI.Sprite(heroesTextures["clone_commander_cody"][1]),
         new PIXI.Sprite(heroesTextures["yoda"][1]),
         new PIXI.Sprite(heroesTextures["barriss_offee"][1]),
-        new PIXI.Sprite(heroesTextures["kit_fisto"][1])
+        new PIXI.Sprite(heroesTextures["kit_fisto"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
-    planets["Dagobah"][1].name = "dagobah_planet";
+    planets["Dagobah"][1].name = "Dagobah";
     planets["Dagobah"][1].position.x = 200; 
     planets["Dagobah"][1].position.y = 50; 
     planets["Dagobah"][1].interactive = true; 
@@ -414,7 +486,11 @@ function initMap()
     planets["Dagobah"][10].position.x = 375; 
     planets["Dagobah"][10].position.y = 50;
     planets["Dagobah"][10].scale.set(0.18);
-   
+    planets["Dagobah"][11].position.x = 270; 
+    planets["Dagobah"][11].position.y = 45; 
+    planets["Dagobah"][12].position.x = 270; 
+    planets["Dagobah"][12].position.y = 45; 
+    
     
     planets["Bespin"] = [
         "Bespin",
@@ -427,9 +503,11 @@ function initMap()
         new PIXI.Sprite(heroesTextures["clone_commander_neyo"][1]),
         new PIXI.Sprite(heroesTextures["adigallia"][1]),
         new PIXI.Sprite(heroesTextures["lando_calrissian"][1]),
-        new PIXI.Sprite(heroesTextures["ki_adi_mundi"][1])
+        new PIXI.Sprite(heroesTextures["ki_adi_mundi"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
-    planets["Bespin"][1].name = "bespin_planet";
+    planets["Bespin"][1].name = "Bespin";
     planets["Bespin"][1].position.x = 5;
     planets["Bespin"][1].position.y = 125;
     planets["Bespin"][1].interactive = true; 
@@ -464,7 +542,11 @@ function initMap()
     planets["Bespin"][10].position.x = 180; 
     planets["Bespin"][10].position.y = 125;
     planets["Bespin"][10].scale.set(0.18);
-
+    planets["Bespin"][11].position.x = 45; 
+    planets["Bespin"][11].position.y = 150; 
+    planets["Bespin"][12].position.x = 45; 
+    planets["Bespin"][12].position.y = 150; 
+    
    
     planets["Geonosis"] = [
         "Geonosis",
@@ -477,9 +559,11 @@ function initMap()
         new PIXI.Sprite(heroesTextures["red_battle_droid"][1]),
         new PIXI.Sprite(heroesTextures["republic_clone_army"][1]),
         new PIXI.Sprite(heroesTextures["poggle_the_lesser"][1]),
-        new PIXI.Sprite(heroesTextures["saesee_tiin"][2])
+        new PIXI.Sprite(heroesTextures["saesee_tiin"][2]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
-    planets["Geonosis"][1].name = "geonosis_planet";
+    planets["Geonosis"][1].name = "Geonosis";
     planets["Geonosis"][1].position.x = 720; // 750 -30
     planets["Geonosis"][1].position.y = 600; 
     planets["Geonosis"][1].interactive = true; 
@@ -514,6 +598,10 @@ function initMap()
     planets["Geonosis"][10].position.x = 890; 
     planets["Geonosis"][10].position.y = 600;
     planets["Geonosis"][10].scale.set(0.18);
+    planets["Geonosis"][11].position.x = 790; 
+    planets["Geonosis"][11].position.y = 595; 
+    planets["Geonosis"][12].position.x = 790; 
+    planets["Geonosis"][12].position.y = 595; 
     
     planets["Alderaan"] = [
         "Alderaan",
@@ -526,9 +614,11 @@ function initMap()
         new PIXI.Sprite(heroesTextures["rune_haako"][1]),
         new PIXI.Sprite(heroesTextures["bail_organa"][1]),
         new PIXI.Sprite(heroesTextures["leia_organa"][1]),
-        new PIXI.Sprite(heroesTextures["kapitan_antilles"][1])
+        new PIXI.Sprite(heroesTextures["kapitan_antilles"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
-    planets["Alderaan"][1].name = "alderaan_planet";
+    planets["Alderaan"][1].name = "Alderaan";
     planets["Alderaan"][1].position.x = 50; 
     planets["Alderaan"][1].position.y = 380;
     planets["Alderaan"][1].interactive = true; 
@@ -563,6 +653,10 @@ function initMap()
     planets["Alderaan"][10].position.x = 225; 
     planets["Alderaan"][10].position.y = 380;
     planets["Alderaan"][10].scale.set(0.18);
+    planets["Alderaan"][11].position.x = 120; 
+    planets["Alderaan"][11].position.y = 375; 
+    planets["Alderaan"][12].position.x = 120; 
+    planets["Alderaan"][12].position.y = 375; 
     
         
     planets["Kamino"] = [
@@ -576,9 +670,11 @@ function initMap()
         new PIXI.Sprite(heroesTextures["clone_commander_rex"][1]),
         new PIXI.Sprite(heroesTextures["plo_koon"][1]),
         new PIXI.Sprite(heroesTextures["clone_commander_bakara"][1]),
-        new PIXI.Sprite(heroesTextures["clone_commander_neyo"][1])
+        new PIXI.Sprite(heroesTextures["clone_commander_neyo"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
-    planets["Kamino"][1].name = "kamino_planet";
+    planets["Kamino"][1].name = "Kamino";
     planets["Kamino"][1].position.x = 400; 
     planets["Kamino"][1].position.y = 275; 
     planets["Kamino"][1].interactive = true; 
@@ -613,7 +709,10 @@ function initMap()
     planets["Kamino"][10].position.x = 575; 
     planets["Kamino"][10].position.y = 275;
     planets["Kamino"][10].scale.set(0.18);
-   
+    planets["Kamino"][11].position.x = 470; 
+    planets["Kamino"][11].position.y = 270; 
+    planets["Kamino"][12].position.x = 470; 
+    planets["Kamino"][12].position.y = 270; 
     
     planets["DeathStar"] = [
         "DeathStar",
@@ -626,9 +725,11 @@ function initMap()
         new PIXI.Sprite(heroesTextures["commander_jerjerrod"][1]),
         new PIXI.Sprite(heroesTextures["luke_skywalker"][1]),
         new PIXI.Sprite(heroesTextures["luke_skywalker"][1]),
-        new PIXI.Sprite(heroesTextures["luke_skywalker"][1])
+        new PIXI.Sprite(heroesTextures["luke_skywalker"][1]),
+        new PIXI.Text("Победа Джедаев", initPlanetBlueStyleText),
+        new PIXI.Text("Орден Ситов", initPlanetRedStyleText)
     ];
-    planets["DeathStar"][1].name = "deathstar_planet";
+    planets["DeathStar"][1].name = "DeathStar";
     planets["DeathStar"][1].position.x = 150;
     planets["DeathStar"][1].position.y = 245; //225 + 20
     planets["DeathStar"][1].interactive = true; 
@@ -663,6 +764,10 @@ function initMap()
     planets["DeathStar"][10].position.x = 325; 
     planets["DeathStar"][10].position.y = 245;
     planets["DeathStar"][10].scale.set(0.18);
+    planets["DeathStar"][11].position.x = 220; 
+    planets["DeathStar"][11].position.y = 240; 
+    planets["DeathStar"][12].position.x = 220; 
+    planets["DeathStar"][12].position.y = 240; 
     
     
     planets["Utapau"] = [
@@ -676,9 +781,11 @@ function initMap()
         new PIXI.Sprite(heroesTextures["clone_commander_cody"][1]),
         new PIXI.Sprite(heroesTextures["shaak_ti"][1]),
         new PIXI.Sprite(heroesTextures["tion_medon"][1]),
-        new PIXI.Sprite(heroesTextures["bib_fortuna"][1])
+        new PIXI.Sprite(heroesTextures["bib_fortuna"][1]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
-    planets["Utapau"][1].name = "utapau_planet";
+    planets["Utapau"][1].name = "Utapau";
     planets["Utapau"][1].position.x = 700; 
     planets["Utapau"][1].position.y = 50; 
     planets["Utapau"][1].interactive = true; 
@@ -713,7 +820,10 @@ function initMap()
     planets["Utapau"][10].position.x = 875; 
     planets["Utapau"][10].position.y = 50;
     planets["Utapau"][10].scale.set(0.18);
-    
+    planets["Utapau"][11].position.x = 770; 
+    planets["Utapau"][11].position.y = 45; 
+    planets["Utapau"][12].position.x = 770; 
+    planets["Utapau"][12].position.y = 45; 
     
     
     planets["Saleucami"] = [
@@ -727,9 +837,11 @@ function initMap()
         new PIXI.Sprite(heroesTextures["b1_battle_droid"][1]),
         new PIXI.Sprite(heroesTextures["eeth_koth"][1]),
         new PIXI.Sprite(heroesTextures["mon_motma"][1]),
-        new PIXI.Sprite(heroesTextures["c_3po"][2])
+        new PIXI.Sprite(heroesTextures["c_3po"][2]),
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
-    planets["Saleucami"][1].name = "saleucami_planet";
+    planets["Saleucami"][1].name = "Saleucami";
     planets["Saleucami"][1].position.x = 810;
     planets["Saleucami"][1].position.y = 155;
     planets["Saleucami"][1].interactive = true; 
@@ -746,7 +858,6 @@ function initMap()
     planets["Saleucami"][4].lineTo(845, 150);
     planets["Saleucami"][4].moveTo(845, 150);
     planets["Saleucami"][4].lineTo(1010, 150);
-    
     planets["Saleucami"][5].position.x = 885; 
     planets["Saleucami"][5].position.y = 155;
     planets["Saleucami"][5].scale.set(0.18);
@@ -756,7 +867,6 @@ function initMap()
     planets["Saleucami"][7].position.x = 985; 
     planets["Saleucami"][7].position.y = 155;
     planets["Saleucami"][7].scale.set(0.18);
-    
     planets["Saleucami"][8].position.x = 885; 
     planets["Saleucami"][8].position.y = 155;
     planets["Saleucami"][8].scale.set(0.18);
@@ -766,7 +876,10 @@ function initMap()
     planets["Saleucami"][10].position.x = 985; 
     planets["Saleucami"][10].position.y = 155;
     planets["Saleucami"][10].scale.set(0.18);
-    
+    planets["Saleucami"][11].position.x = 880; 
+    planets["Saleucami"][11].position.y = 150; 
+    planets["Saleucami"][12].position.x = 880; 
+    planets["Saleucami"][12].position.y = 150; 
     
     
     planets["Jakku"] = [
@@ -780,9 +893,11 @@ function initMap()
         new PIXI.Sprite(heroesTextures["stormtrooper_1"][1]),                                           // 7 - персонажи (тьма)
         new PIXI.Sprite(heroesTextures["rey"][1]),                                                      // 8 - персонажи (свет)
         new PIXI.Sprite(heroesTextures["finn"][1]),                                                     // 9 - персонажи (свет)
-        new PIXI.Sprite(heroesTextures["poe_dameron"][1])                                               // 10 - персонажи (свет)
+        new PIXI.Sprite(heroesTextures["poe_dameron"][1]),                                               // 10 - персонажи (свет)
+        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
+        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
     ];
-    planets["Jakku"][1].name = "jakku_planet";
+    planets["Jakku"][1].name = "Jakku";
     planets["Jakku"][1].position.x = 450; 
     planets["Jakku"][1].position.y = 75; 
     planets["Jakku"][1].interactive = true; 
@@ -817,6 +932,10 @@ function initMap()
     planets["Jakku"][10].position.x = 625; 
     planets["Jakku"][10].position.y = 75;
     planets["Jakku"][10].scale.set(0.18);
+    planets["Jakku"][11].position.x = 520; 
+    planets["Jakku"][11].position.y = 70; 
+    planets["Jakku"][12].position.x = 520; 
+    planets["Jakku"][12].position.y = 70; 
     
     return planets;
 }
@@ -827,7 +946,94 @@ function initMessage()
     message["message1"] = ["Меня зовут R2D2", "Меня зовут R3-S6"];
     
     return message;
-}var renderer;
+}
+
+function initPersonages()
+{
+    var personageArray = [];
+    
+    for (var key in personagesJson.data.Personages.personage)
+    {
+        personageArray.push(new UserPersonage(personagesJson.data.Personages.personage[key].id, personagesJson.data.Personages.personage[key].name));
+        personageArray[key].life = personagesJson.data.Personages.personage[key].life;
+        personageArray[key].hit1 = personagesJson.data.Personages.personage[key].hit1;
+        personageArray[key].hit2 = personagesJson.data.Personages.personage[key].hit2;
+        personageArray[key].hit3 = personagesJson.data.Personages.personage[key].hit3;
+        personageArray[key].hit4 = personagesJson.data.Personages.personage[key].hit4;
+        personageArray[key].hit5 = personagesJson.data.Personages.personage[key].hit5;
+        personageArray[key].status = personagesJson.data.Personages.personage[key].status;
+        personageArray[key].description = personagesJson.data.Personages.personage[key].description;
+    }
+    
+    return personageArray;
+}
+
+function initPlanets()
+{
+    var planetsArray = [];
+    
+    for (var key in planetsJson.data.Planets.planet)
+    {
+        planetsArray.push(new UserPlanet(planetsJson.data.Planets.planet[key].id, planetsJson.data.Planets.planet[key].name));
+        planetsArray[key].redPersonage1 = planetsJson.data.Planets.planet[key].redPersonage1;
+        planetsArray[key].redPersonage2 = planetsJson.data.Planets.planet[key].redPersonage2;
+        planetsArray[key].redPersonage3 = planetsJson.data.Planets.planet[key].redPersonage3;
+        planetsArray[key].redReward1 = planetsJson.data.Planets.planet[key].redReward1;
+        planetsArray[key].redReward2 = planetsJson.data.Planets.planet[key].redReward2;
+        planetsArray[key].bluePersonage1 = planetsJson.data.Planets.planet[key].bluePersonage1;
+        planetsArray[key].bluePersonage2 = planetsJson.data.Planets.planet[key].bluePersonage2;
+        planetsArray[key].bluePersonage3 = planetsJson.data.Planets.planet[key].bluePersonage3;
+        planetsArray[key].blueReward1 = planetsJson.data.Planets.planet[key].blueReward1;
+        planetsArray[key].blueReward2 = planetsJson.data.Planets.planet[key].blueReward2;
+        if(side === SIDE_JEDI && planetsArray[key].id === "Coruscant") planetsArray[key].status = USER_PLANET_QUEST_COMPLETE;
+        if(side === SIDE_SITH && planetsArray[key].id === "DeathStar") planetsArray[key].status = USER_PLANET_QUEST_COMPLETE;
+        planetsArray[key].description = planetsJson.data.Planets.planet[key].description;
+    }
+    
+    return planetsArray;
+}
+
+function initCommandUser()
+{
+    var commandUser = [];
+    if(side === SIDE_JEDI)
+    {
+        commandUser.push("luke_skywalker");
+        commandUser.push("aayla_secura");
+        commandUser.push("ki_adi_mundi");
+    }
+    if(side === SIDE_SITH)
+    {
+        commandUser.push("anakin_skywalker");
+        commandUser.push("palpatine");
+        commandUser.push("nute_gunray"); 
+    }
+    return commandUser;
+}
+
+function initCommandAI()
+{
+    var commandAI = [];
+    if(side === SIDE_JEDI)
+    {
+        commandAI.push("luke_skywalker");
+        commandAI.push("aayla_secura");
+        commandAI.push("ki_adi_mundi");
+    }
+    if(side === SIDE_SITH)
+    {
+        commandAI.push("anakin_skywalker");
+        commandAI.push("palpatine");
+        commandAI.push("nute_gunray"); 
+    }
+    return commandAI;
+}
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
+var renderer;
 var stage;
 
 function init()
@@ -854,7 +1060,11 @@ function draw()
 
 window.addEventListener("load", init, false);
 
- var mapStage;
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
+var mapStage;
 var mapSprite;
 var mapStartPosX;
 var mapStartPosY;
@@ -873,7 +1083,7 @@ function mapCreate()
     
     mapSpace();
     mapCreatePlanets();
-    mapCreateInterface()
+    mapCreateInterface();
 } 
 
 function mapRemove() 
@@ -925,7 +1135,7 @@ function onMapSpaceMove()
         var newPosition = this.data.getLocalPosition(this.parent);
         if(mapStartPosX < newPosition.x)
         {
-            if(this.position.x < - 5) this.position.x += 5;
+            if(this.position.x < -5) this.position.x += 5;
             mapStartPosX = newPosition.x;
         }
         if(mapStartPosX > newPosition.x)
@@ -934,7 +1144,7 @@ function onMapSpaceMove()
             mapStartPosX = newPosition.x;
         }
         
-         if(mapStartPosY < newPosition.y)
+        if(mapStartPosY < newPosition.y)
         {
             if(this.position.y < -10) this.position.y += 5;
             mapStartPosY = newPosition.y;
@@ -949,6 +1159,7 @@ function onMapSpaceMove()
 
 function mapCreatePlanets()
 {
+    var index = 0;
     for (var key in userMapPlanets)
     {
         mapSprite.addChild(userMapPlanets[key][1]);
@@ -956,28 +1167,35 @@ function mapCreatePlanets()
         if(side === SIDE_JEDI)
         {
             mapSprite.addChild(userMapPlanets[key][2]);
-            if(key !== "Coruscant")
+            if(userPlanets[index].status === USER_PLANET_QUEST_AWAITING)
             {
                 mapSprite.addChild(userMapPlanets[key][5]);
                 mapSprite.addChild(userMapPlanets[key][6]);
                 mapSprite.addChild(userMapPlanets[key][7]);
+            }else{
+                mapSprite.addChild(userMapPlanets[key][11]);
             }
         }
         if(side === SIDE_SITH) 
         {
             mapSprite.addChild(userMapPlanets[key][3]);
-            if(key !== "DeathStar")
+            if(userPlanets[index].status === USER_PLANET_QUEST_AWAITING)
             {
                 mapSprite.addChild(userMapPlanets[key][8]);
                 mapSprite.addChild(userMapPlanets[key][9]);
                 mapSprite.addChild(userMapPlanets[key][10]);
+            }else{
+                mapSprite.addChild(userMapPlanets[key][12]);
             }
         }
+        
+        index++;
     }
 }
 
 function mapCreateInterface()
 {
+    showCommand();
     if(side === SIDE_JEDI)
     {
         mapBorderBlue();
@@ -994,6 +1212,7 @@ function mapCreateInterface()
         mapDroidRedMessage();
         mapBattonsRed();
     }
+    
 }
 
 function mapBorderBlue()
@@ -1315,7 +1534,7 @@ function mapBattonsRed()
         button.loop = false; 
         button.animationSpeed = 0.2;
         button.onComplete = onMapButtonUpdate;
-	button.tap = onMapButtonClick; 
+        button.tap = onMapButtonClick; 
         button.click = onMapButtonClick; 
         button.on('mouseover', onMapButtonOver);
         button.on('mouseout', onMapButtonOut);
@@ -1342,7 +1561,7 @@ function mapBattonsRed()
         button.loop = false; 
         button.animationSpeed = 0.2;
         button.onComplete = onMapButtonUpdate;
-	button.tap = onMapButtonClick; 
+        button.tap = onMapButtonClick; 
         button.click = onMapButtonClick; 
         button.on('mouseover', onMapButtonOver);
         button.on('mouseout', onMapButtonOut);
@@ -1412,7 +1631,25 @@ function mapMessageLineGraphicsTween()
     createjs.Tween.get(mapMessageLineGraphics, {loop: true}) 
             .to({x: 0, y: 205}, 2500, createjs.Ease.getPowInOut(3));
     createjs.Ticker.setFPS(60);
-}var menuStage;
+}
+
+function showCommand()
+{
+    for(var i = 0; i < userCommandUser.length; i++)
+    {
+        var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[i]][3]); 
+        textureSprite.position.x = 35 + (105 * i); 
+        textureSprite.position.y = 625; 
+        //textureSprite.scale.set(0.3);
+        mapStage.addChild(textureSprite);
+    }
+}
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
+var menuStage;
 var menuStarsSprite;
 var menuDeathStarSprite;
 var menuShip1Sprite;
@@ -1710,7 +1947,13 @@ function menuBackgroundParallaxTween()
 
 
     createjs.Ticker.setFPS(60); 
-}var preloaderStage;
+}
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
+var preloaderStage;
 var preloaderProgressAssetsText;
 var preloaderStyleText = { font : 'bold 48px Arial', fill : '#FFFF80', stroke : '#FF8000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 600 }; 
 var preloaderComplete = 0;  // количество завершенных процессов.
@@ -1947,6 +2190,11 @@ function preloaderLoadAssets()
     loader.add('wicket_wysri_warrick','./assets/image/textures/personages/wicket_wysri_warrick.png');
     loader.add('yoda','./assets/image/textures/personages/yoda.png');
     
+    loader.add('iconsAtlas','./assets/image/atlas/icons.json');
+    
+    loader.add('personages','./assets/data/personages.json');
+    loader.add('planets','./assets/data/planets.json');
+    
     loader.on('complete', onPreloaderAssetsLoaderComplete);
     loader.on('progress',onPreloaderAssetsLoaderProcess);
     loader.load();
@@ -2018,81 +2266,83 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     
     
     heroesTextures = new Object();
-    heroesTextures["aayla_secura"] = ["Эйла Секура", res.aayla_secura_lr.texture, res.aayla_secura_rl.texture];
-    heroesTextures["adigallia"] = ["Ади Галлия", res.adigallia.texture, res.adigallia.texture];
-    heroesTextures["admiral_ozzel"] = ["Кендал Оззель", res.admiral_ozzel.texture, res.admiral_ozzel.texture];
-    heroesTextures["alliance_to_restore_the_republic"] = ["Альянс повстанцев", res.alliance_to_restore_the_republic.texture, res.alliance_to_restore_the_republic.texture];
-    heroesTextures["anakin_skywalker"] = ["Энакин Скайуокер", res.anakin_skywalker.texture, res.anakin_skywalker.texture];
-    heroesTextures["aurra_sing"] = ["Орра Синг", res.aurra_sing_lr.texture, res.aurra_sing_rl.texture];
-    heroesTextures["b1_battle_droid"] = ["Боевой дроид B1", res.b1_battle_droid_lr.texture, res.b1_battle_droid_rl.texture];
-    heroesTextures["bail_organa"] = ["Бэйл Органа", res.bail_organa.texture, res.bail_organa.texture];
-    heroesTextures["barriss_offee"] = ["Бэррисс Оффи", res.barriss_offee.texture, res.barriss_offee.texture];
-    heroesTextures["beru_lars"] = ["Беру Ларс", res.beru_lars.texture, res.beru_lars.texture];
-    heroesTextures["bib_fortuna"] = ["Биб Фортуна", res.bib_fortuna.texture, res.bib_fortuna.texture];
-    heroesTextures["boba_fett"] = ["Боба Фетт", res.boba_fett.texture, res.boba_fett.texture];
-    heroesTextures["boss_nass"] = ["Босс Насс", res.boss_nass_lr.texture, res.boss_nass_rl.texture];
-    heroesTextures["c_3po"] = ["С-3РО", res.c_3po_lr.texture, res.c_3po_rl.texture];
-    heroesTextures["capitan_panaka"] = ["Капитан Панака", res.capitan_panaka.texture, res.capitan_panaka.texture];
-    heroesTextures["chewbacca"] = ["Чубака", res.chewbacca_lr.texture, res.chewbacca_rl.texture];
-    heroesTextures["clone_commander_bakara"] = ["Бакара", res.clone_commander_bakara.texture, res.clone_commander_bakara.texture];
-    heroesTextures["clone_commander_cody"] = ["Коди", res.clone_commander_cody_lr.texture, res.clone_commander_cody_rl.texture];
-    heroesTextures["clone_commander_neyo"] = ["Нейо", res.clone_commander_neyo.texture, res.clone_commander_neyo.texture];
-    heroesTextures["clone_commander_rex"] = ["Рекс", res.clone_commander_rex.texture, res.clone_commander_rex.texture];
-    heroesTextures["commander_jerjerrod"] = ["Тиаан Джерджеррод", res.commander_jerjerrod_lr.texture, res.commander_jerjerrod_rl.texture];
-    heroesTextures["darth_maul"] = ["Дарт Мол", res.darth_maul.texture, res.darth_maul.texture];
-    heroesTextures["darth_sidious"] = ["Дарт Сидиус", res.darth_sidious_lr.texture, res.darth_sidious_rl.texture];
-    heroesTextures["darth_vader"] = ["Дарт Вейдер", res.darth_vader.texture, res.darth_vader.texture];
-    heroesTextures["dooku"] = ["Граф Дуку", res.dooku_lr.texture, res.dooku_rl.texture];
-    heroesTextures["eeth_koth"] = ["Иит Кот", res.eeth_koth.texture, res.eeth_koth.texture];
-    heroesTextures["finn"] = ["Финн", res.finn_lr.texture, res.finn_rl.texture];
-    heroesTextures["general_grievous"] = ["Генерал Гривус", res.general_grievous.texture, res.general_grievous.texture];
-    heroesTextures["general_madine"] = ["Генерал Мадин", res.general_madine_lr.texture, res.general_madine_rl.texture];
-    heroesTextures["han_solo"] = ["Хан Соло", res.han_solo_lr.texture, res.han_solo_rl.texture];
-    heroesTextures["jango_fett"] = ["Джанго Фетт", res.jango_fett_lr.texture, res.jango_fett_rl.texture];
-    heroesTextures["jar_jar_binks"] = ["Джа-Джа Бинкс", res.jar_jar_binks.texture, res.jar_jar_binks.texture];
-    heroesTextures["jawas"] = ["Джавы", res.jawas.texture, res.jawas.texture];
-    heroesTextures["kapitan_antilles"] = ["Капитан Антиллес", res.kapitan_antilles.texture, res.kapitan_antilles.texture];
-    heroesTextures["ki_adi_mundi"] = ["Ки-Ади-Мунди", res.ki_adi_mundi.texture, res.ki_adi_mundi.texture];
-    heroesTextures["kit_fisto"] = ["Кит Фисто", res.kit_fisto.texture, res.kit_fisto.texture];
-    heroesTextures["kylo_ren"] = ["Кайло Рен", res.kylo_ren.texture, res.kylo_ren.texture];
-    heroesTextures["lando_calrissian"] = ["Лэндо Калриссиан", res.lando_calrissian_lr.texture, res.lando_calrissian_rl.texture];
-    heroesTextures["leia_organa"] = ["Принцесса Лея Органа", res.leia_organa_lr.texture, res.leia_organa_rl.texture];
-    heroesTextures["luke_skywalker"] = ["Люк Скайуокер", res.luke_skywalker.texture, res.luke_skywalker.texture];
-    heroesTextures["mace_windu"] = ["Мейс Винду", res.mace_windu_lr.texture, res.mace_windu_rl.texture];
-    heroesTextures["mas_amedda"] = ["Мас Амедда", res.mas_amedda.texture, res.mas_amedda.texture];
-    heroesTextures["maximilian_veers"] = ["Максимилиан Вирс", res.maximilian_veers.texture, res.maximilian_veers.texture];
-    heroesTextures["mon_motma"] = ["Мон Мотма", res.mon_motma_lr.texture, res.mon_motma_rl.texture];
-    heroesTextures["nute_gunray"] = ["Нут Ганрей", res.nute_gunray.texture, res.nute_gunray.texture];
-    heroesTextures["obi_wan_kenobi"] = ["Оби-Ван Кеноби", res.obi_wan_kenobi.texture, res.obi_wan_kenobi.texture];
-    heroesTextures["owen_lars"] = ["Оуэн Ларс", res.owen_lars.texture, res.owen_lars.texture];
-    heroesTextures["padme_amidala"] = ["Падме Амидала", res.padme_amidala.texture, res.padme_amidala.texture];
-    heroesTextures["palpatine"] = ["Палпатин", res.palpatine.texture, res.palpatine.texture];
-    heroesTextures["phasma"] = ["Фазма", res.phasma.texture, res.phasma.texture];   
-    heroesTextures["plo_koon"] = ["Пло Кун", res.plo_koon.texture, res.plo_koon.texture];
-    heroesTextures["poe_dameron"] = ["По Дамерон", res.poe_dameron.texture, res.poe_dameron.texture];
-    heroesTextures["poggle_the_lesser"] = ["Поггль Меньший", res.poggle_the_lesser.texture, res.poggle_the_lesser.texture];
-    heroesTextures["qui_gon_jinn"] = ["Квай-Гон Джинн", res.qui_gon_jinn_lr.texture, res.qui_gon_jinn_rl.texture];
-    heroesTextures["red_battle_droid"] = ["Боевой дроид", res.red_battle_droid_lr.texture, res.red_battle_droid_rl.texture];
-    heroesTextures["republic_clone_army"] = ["Республиканская армия клонов", res.republic_clone_army.texture, res.republic_clone_army.texture];
-    heroesTextures["rey"] = ["Рей армия клонов", res.rey.texture, res.rey.texture];
-    heroesTextures["royal_guards"] = ["Королевский страж", res.royal_guards.texture, res.royal_guards.texture];
-    heroesTextures["rune_haako"] = ["Рун Хаако", res.rune_haako_lr.texture, res.rune_haako_rl.texture];
-    heroesTextures["saesee_tiin"] = ["Сэси Тийн", res.saesee_tiin_lr.texture, res.saesee_tiin_rl.texture];
-    heroesTextures["separatists"] = ["Сепаратисты", res.separatists.texture, res.separatists.texture];
-    heroesTextures["shaak_ti"] = ["Шаак Ти", res.shaak_ti.texture, res.shaak_ti.texture];
-    heroesTextures["shmi_skywalker"] = ["Шми Скайуокер", res.shmi_skywalker.texture, res.shmi_skywalker.texture];
-    heroesTextures["sio_bibble"] = ["Сио Биббл", res.sio_bibble.texture, res.sio_bibble.texture];
-    heroesTextures["stormtrooper_1"] = ["Штурмовик", res.stormtrooper.texture, res.stormtrooper.texture];
-    heroesTextures["stormtrooper_2"] = ["Штурмовик", res.stormtrooper_lr.texture, res.stormtrooper_rl.texture];
-    heroesTextures["stormtroopers"] = ["Имперские штурмовики", res.stormtroopers.texture, res.stormtroopers.texture];
-    heroesTextures["tion_medon"] = ["Тион Медон", res.tion_medon.texture, res.tion_medon.texture];
-    heroesTextures["trade_federation"] = ["Торговая Федерация", res.trade_federation.texture, res.trade_federation.texture];
-    heroesTextures["tusken"] = ["Таскенские рейдеры", res.tusken.texture, res.tusken.texture];
-    heroesTextures["wat_tambor"] = ["Уот Тамбор", res.wat_tambor_lr.texture, res.wat_tambor_rl.texture];
-    heroesTextures["watto"] = ["Уотто", res.watto.texture, res.watto.texture];
-    heroesTextures["wicket_wysri_warrick"] = ["Уикет У.Уоррик", res.wicket_wysri_warrick.texture, res.wicket_wysri_warrick.texture];
-    heroesTextures["yoda"] = ["Йода", res.yoda.texture, res.yoda.texture];
+    heroesTextures["aayla_secura"] = ["Эйла Секура", res.aayla_secura_lr.texture, res.aayla_secura_rl.texture, PIXI.Texture.fromFrame("aayla_secura_icon.png")];
+    heroesTextures["adigallia"] = ["Ади Галлия", res.adigallia.texture, res.adigallia.texture, PIXI.Texture.fromFrame("adigallia_icon.png")];
+    heroesTextures["admiral_ozzel"] = ["Кендал Оззель", res.admiral_ozzel.texture, res.admiral_ozzel.texture, PIXI.Texture.fromFrame("admiral_ozzel_icon.png")];
+    heroesTextures["alliance_to_restore_the_republic"] = ["Альянс повстанцев", res.alliance_to_restore_the_republic.texture, res.alliance_to_restore_the_republic.texture, PIXI.Texture.fromFrame("alliance_to_restore_the_republic_icon.png")];
+    heroesTextures["anakin_skywalker"] = ["Энакин Скайуокер", res.anakin_skywalker.texture, res.anakin_skywalker.texture, PIXI.Texture.fromFrame("anakin_skywalker_icon.png")];
+    heroesTextures["aurra_sing"] = ["Орра Синг", res.aurra_sing_lr.texture, res.aurra_sing_rl.texture, PIXI.Texture.fromFrame("aurra_sing_icon.png")];
+    heroesTextures["b1_battle_droid"] = ["Боевой дроид B1", res.b1_battle_droid_lr.texture, res.b1_battle_droid_rl.texture, PIXI.Texture.fromFrame("b1_battle_droid_icon.png")];
+    heroesTextures["bail_organa"] = ["Бэйл Органа", res.bail_organa.texture, res.bail_organa.texture, PIXI.Texture.fromFrame("bail_organa_icon.png")];
+    heroesTextures["barriss_offee"] = ["Бэррисс Оффи", res.barriss_offee.texture, res.barriss_offee.texture, PIXI.Texture.fromFrame("barriss_offee_icon.png")];
+    heroesTextures["beru_lars"] = ["Беру Ларс", res.beru_lars.texture, res.beru_lars.texture, PIXI.Texture.fromFrame("beru_lars_icon.png")];
+    heroesTextures["bib_fortuna"] = ["Биб Фортуна", res.bib_fortuna.texture, res.bib_fortuna.texture, PIXI.Texture.fromFrame("bib_fortuna_icon.png")];
+    heroesTextures["boba_fett"] = ["Боба Фетт", res.boba_fett.texture, res.boba_fett.texture, PIXI.Texture.fromFrame("boba_fett_icon.png")];
+    heroesTextures["boss_nass"] = ["Босс Насс", res.boss_nass_lr.texture, res.boss_nass_rl.texture, PIXI.Texture.fromFrame("boss_nass_icon.png")];
+    heroesTextures["c_3po"] = ["С-3РО", res.c_3po_lr.texture, res.c_3po_rl.texture, PIXI.Texture.fromFrame("c_3po_icon.png")];
+    heroesTextures["capitan_panaka"] = ["Капитан Панака", res.capitan_panaka.texture, res.capitan_panaka.texture, PIXI.Texture.fromFrame("capitan_panaka_icon.png")];
+    heroesTextures["chewbacca"] = ["Чубака", res.chewbacca_lr.texture, res.chewbacca_rl.texture, PIXI.Texture.fromFrame("chewbacca_icon.png")];
+    heroesTextures["clone_commander_bakara"] = ["Бакара", res.clone_commander_bakara.texture, res.clone_commander_bakara.texture, PIXI.Texture.fromFrame("clone_commander_bakara_icon.png")];
+    heroesTextures["clone_commander_cody"] = ["Коди", res.clone_commander_cody_lr.texture, res.clone_commander_cody_rl.texture, PIXI.Texture.fromFrame("clone_commander_cody_icon.png")];
+    heroesTextures["clone_commander_neyo"] = ["Нейо", res.clone_commander_neyo.texture, res.clone_commander_neyo.texture, PIXI.Texture.fromFrame("clone_commander_neyo_icon.png")];
+    heroesTextures["clone_commander_rex"] = ["Рекс", res.clone_commander_rex.texture, res.clone_commander_rex.texture, PIXI.Texture.fromFrame("clone_commander_rex_icon.png")];
+    heroesTextures["commander_jerjerrod"] = ["Тиаан Джерджеррод", res.commander_jerjerrod_lr.texture, res.commander_jerjerrod_rl.texture, PIXI.Texture.fromFrame("commander_jerjerrod_icon.png")];
+    heroesTextures["darth_maul"] = ["Дарт Мол", res.darth_maul.texture, res.darth_maul.texture, PIXI.Texture.fromFrame("darth_maul_icon.png")];
+    heroesTextures["darth_sidious"] = ["Дарт Сидиус", res.darth_sidious_lr.texture, res.darth_sidious_rl.texture, PIXI.Texture.fromFrame("darth_sidious_icon.png")];
+    heroesTextures["darth_vader"] = ["Дарт Вейдер", res.darth_vader.texture, res.darth_vader.texture, PIXI.Texture.fromFrame("darth_vader_icon.png")];
+    heroesTextures["dooku"] = ["Граф Дуку", res.dooku_lr.texture, res.dooku_rl.texture, PIXI.Texture.fromFrame("dooku_icon.png")];
+    heroesTextures["eeth_koth"] = ["Иит Кот", res.eeth_koth.texture, res.eeth_koth.texture, PIXI.Texture.fromFrame("eeth_koth_icon.png")];
+    heroesTextures["finn"] = ["Финн", res.finn_lr.texture, res.finn_rl.texture, PIXI.Texture.fromFrame("finn_icon.png")];
+    heroesTextures["general_grievous"] = ["Генерал Гривус", res.general_grievous.texture, res.general_grievous.texture, PIXI.Texture.fromFrame("general_grievous_icon.png")];
+    heroesTextures["general_madine"] = ["Генерал Мадин", res.general_madine_lr.texture, res.general_madine_rl.texture, PIXI.Texture.fromFrame("general_madine_icon.png")];
+    heroesTextures["han_solo"] = ["Хан Соло", res.han_solo_lr.texture, res.han_solo_rl.texture, PIXI.Texture.fromFrame("han_solo_icon.png")];
+    heroesTextures["jango_fett"] = ["Джанго Фетт", res.jango_fett_lr.texture, res.jango_fett_rl.texture, PIXI.Texture.fromFrame("jango_fett_icon.png")];
+    heroesTextures["jar_jar_binks"] = ["Джа-Джа Бинкс", res.jar_jar_binks.texture, res.jar_jar_binks.texture, PIXI.Texture.fromFrame("jar_jar_binks_icon.png")];
+    heroesTextures["jawas"] = ["Джавы", res.jawas.texture, res.jawas.texture, PIXI.Texture.fromFrame("jawas_icon.png")];
+    heroesTextures["kapitan_antilles"] = ["Капитан Антиллес", res.kapitan_antilles.texture, res.kapitan_antilles.texture, PIXI.Texture.fromFrame("kapitan_antilles_icon.png")];
+    heroesTextures["ki_adi_mundi"] = ["Ки-Ади-Мунди", res.ki_adi_mundi.texture, res.ki_adi_mundi.texture, PIXI.Texture.fromFrame("ki_adi_mundi_icon.png")];
+    heroesTextures["kit_fisto"] = ["Кит Фисто", res.kit_fisto.texture, res.kit_fisto.texture, PIXI.Texture.fromFrame("kit_fisto_icon.png")];
+    heroesTextures["kylo_ren"] = ["Кайло Рен", res.kylo_ren.texture, res.kylo_ren.texture, PIXI.Texture.fromFrame("kylo_ren_icon.png")];
+    heroesTextures["lando_calrissian"] = ["Лэндо Калриссиан", res.lando_calrissian_lr.texture, res.lando_calrissian_rl.texture, PIXI.Texture.fromFrame("lando_calrissian_icon.png")];
+    heroesTextures["leia_organa"] = ["Принцесса Лея Органа", res.leia_organa_lr.texture, res.leia_organa_rl.texture, PIXI.Texture.fromFrame("leia_organa_icon.png")];
+    heroesTextures["luke_skywalker"] = ["Люк Скайуокер", res.luke_skywalker.texture, res.luke_skywalker.texture, PIXI.Texture.fromFrame("luke_skywalker_icon.png")];
+    heroesTextures["mace_windu"] = ["Мейс Винду", res.mace_windu_lr.texture, res.mace_windu_rl.texture, PIXI.Texture.fromFrame("mace_windu_icon.png")];
+    heroesTextures["mas_amedda"] = ["Мас Амедда", res.mas_amedda.texture, res.mas_amedda.texture, PIXI.Texture.fromFrame("mas_amedda_icon.png")];
+    heroesTextures["maximilian_veers"] = ["Максимилиан Вирс", res.maximilian_veers.texture, res.maximilian_veers.texture, PIXI.Texture.fromFrame("maximilian_veers_icon.png")];
+    heroesTextures["mon_motma"] = ["Мон Мотма", res.mon_motma_lr.texture, res.mon_motma_rl.texture, PIXI.Texture.fromFrame("mon_motma_icon.png")];
+    heroesTextures["nute_gunray"] = ["Нут Ганрей", res.nute_gunray.texture, res.nute_gunray.texture, PIXI.Texture.fromFrame("nute_gunray_icon.png")];
+    heroesTextures["obi_wan_kenobi"] = ["Оби-Ван Кеноби", res.obi_wan_kenobi.texture, res.obi_wan_kenobi.texture, PIXI.Texture.fromFrame("obi_wan_kenobi_icon.png")];
+    heroesTextures["owen_lars"] = ["Оуэн Ларс", res.owen_lars.texture, res.owen_lars.texture, PIXI.Texture.fromFrame("owen_lars_icon.png")];
+    heroesTextures["padme_amidala"] = ["Падме Амидала", res.padme_amidala.texture, res.padme_amidala.texture, PIXI.Texture.fromFrame("padme_amidala_icon.png")];
+    heroesTextures["palpatine"] = ["Палпатин", res.palpatine.texture, res.palpatine.texture, PIXI.Texture.fromFrame("palpatine_icon.png")];
+    heroesTextures["phasma"] = ["Фазма", res.phasma.texture, res.phasma.texture, PIXI.Texture.fromFrame("phasma_icon.png")];   
+    heroesTextures["plo_koon"] = ["Пло Кун", res.plo_koon.texture, res.plo_koon.texture, PIXI.Texture.fromFrame("plo_koon_icon.png")];
+    heroesTextures["poe_dameron"] = ["По Дамерон", res.poe_dameron.texture, res.poe_dameron.texture, PIXI.Texture.fromFrame("poe_dameron_icon.png")];
+    heroesTextures["poggle_the_lesser"] = ["Поггль Меньший", res.poggle_the_lesser.texture, res.poggle_the_lesser.texture, PIXI.Texture.fromFrame("poggle_the_lesser_icon.png")];
+    heroesTextures["qui_gon_jinn"] = ["Квай-Гон Джинн", res.qui_gon_jinn_lr.texture, res.qui_gon_jinn_rl.texture, PIXI.Texture.fromFrame("qui_gon_jinn_icon.png")];
+    heroesTextures["red_battle_droid"] = ["Боевой дроид", res.red_battle_droid_lr.texture, res.red_battle_droid_rl.texture, PIXI.Texture.fromFrame("red_battle_droid_icon.png")];
+    heroesTextures["republic_clone_army"] = ["Республиканская армия клонов", res.republic_clone_army.texture, res.republic_clone_army.texture, PIXI.Texture.fromFrame("republic_clone_army_icon.png")];
+    heroesTextures["rey"] = ["Рей", res.rey.texture, res.rey.texture, PIXI.Texture.fromFrame("rey_icon.png")];
+    heroesTextures["royal_guards"] = ["Королевский страж", res.royal_guards.texture, res.royal_guards.texture, PIXI.Texture.fromFrame("royal_guards_icon.png")];
+    heroesTextures["rune_haako"] = ["Рун Хаако", res.rune_haako_lr.texture, res.rune_haako_rl.texture, PIXI.Texture.fromFrame("rune_haako_icon.png")];
+    heroesTextures["saesee_tiin"] = ["Сэси Тийн", res.saesee_tiin_lr.texture, res.saesee_tiin_rl.texture, PIXI.Texture.fromFrame("saesee_tiin_icon.png")];
+    heroesTextures["separatists"] = ["Сепаратисты", res.separatists.texture, res.separatists.texture, PIXI.Texture.fromFrame("separatists_icon.png")];
+    heroesTextures["shaak_ti"] = ["Шаак Ти", res.shaak_ti.texture, res.shaak_ti.texture, PIXI.Texture.fromFrame("shaak_ti_icon.png")];
+    heroesTextures["shmi_skywalker"] = ["Шми Скайуокер", res.shmi_skywalker.texture, res.shmi_skywalker.texture, PIXI.Texture.fromFrame("shmi_skywalker_icon.png")];
+    heroesTextures["sio_bibble"] = ["Сио Биббл", res.sio_bibble.texture, res.sio_bibble.texture, PIXI.Texture.fromFrame("sio_bibble_icon.png")];
+    heroesTextures["stormtrooper_1"] = ["Штурмовик", res.stormtrooper.texture, res.stormtrooper.texture, PIXI.Texture.fromFrame("stormtrooper_icon.png")];
+    heroesTextures["stormtrooper_2"] = ["Штурмовик", res.stormtrooper_lr.texture, res.stormtrooper_rl.texture, PIXI.Texture.fromFrame("stormtrooper_icon.png")];
+    heroesTextures["stormtroopers"] = ["Имперские штурмовики", res.stormtroopers.texture, res.stormtroopers.texture, PIXI.Texture.fromFrame("stormtroopers_icon.png")];
+    heroesTextures["tion_medon"] = ["Тион Медон", res.tion_medon.texture, res.tion_medon.texture, PIXI.Texture.fromFrame("tion_medon_icon.png")];
+    heroesTextures["trade_federation"] = ["Торговая Федерация", res.trade_federation.texture, res.trade_federation.texture, PIXI.Texture.fromFrame("trade_federation_icon.png")];
+    heroesTextures["tusken"] = ["Таскенские рейдеры", res.tusken.texture, res.tusken.texture, PIXI.Texture.fromFrame("tusken_icon.png")];
+    heroesTextures["wat_tambor"] = ["Уот Тамбор", res.wat_tambor_lr.texture, res.wat_tambor_rl.texture, PIXI.Texture.fromFrame("wat_tambor_icon.png")];
+    heroesTextures["watto"] = ["Уотто", res.watto.texture, res.watto.texture, PIXI.Texture.fromFrame("watto_icon.png")];
+    heroesTextures["wicket_wysri_warrick"] = ["Уикет У.Уоррик", res.wicket_wysri_warrick.texture, res.wicket_wysri_warrick.texture, PIXI.Texture.fromFrame("wicket_wysri_warrick_icon.png")];
+    heroesTextures["yoda"] = ["Йода", res.yoda.texture, res.yoda.texture, PIXI.Texture.fromFrame("yoda_icon.png")];
     
+    personagesJson = res.personages;
+    planetsJson = res.planets;
 
     if(preloaderComplete === 2)
     {
@@ -2117,7 +2367,13 @@ function loadAnimationTextures(countFrame, nameFrame)
         animTextures.push(texture);
     }
     return animTextures;
-}var settingsStage;
+}
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
+var settingsStage;
 var settingsLineAnimationGraphics;
 var settingsStyleBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
 var settingsStyleRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
@@ -2444,6 +2700,11 @@ function onSettingsButtonsClick()
         window.open("https://vk.com/club62618339","_target");
     }
 }
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
 var SIDE_NONE = "side_none";
 var SIDE_JEDI = "side_jedi";
 var SIDE_SITH = "side_sith";
@@ -2614,19 +2875,12 @@ function onSideButtonOut()
 
 function onSideButtonClick()
 {
+    
+    if(this.name === "DarthVader") side = SIDE_SITH;
+    if(this.name === "LukeSkywalker") side = SIDE_JEDI;
+    
     initGame(); // инициализация игры
-    
-    if(this.name === "DarthVader")
-    {
-        side = SIDE_SITH;
-        mapCreate();
-    }
-    if(this.name === "LukeSkywalker")
-    {
-        side = SIDE_JEDI;
-        mapCreate();
-    }
-    
+    mapCreate();
     sideRemove();
 }
 
@@ -2742,6 +2996,10 @@ function sideRedLineAnimationGraphicsTween()
 
 }
 
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
 /*
 function soundload () 
 {
@@ -2767,7 +3025,13 @@ function soundPlayStarWarsThemeSong()
 function soundStopStarWarsThemeSong()
 {
     createjs.Sound.stop("StarWarsThemeSong");
-}var testStage;
+}
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
+var testStage;
 
 function testCreate()
 {
@@ -2815,6 +3079,57 @@ function textTexture()
     sprite.position.y = 250;
     stage.addChild(sprite);
 }
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
 var userMapPlanets;     // карта планет
 var userMapMessage;     // Сообщения на карте
-var userLevels;         // Уровни
+//var userLevels;         // Уровни
+
+var userCommandUser;
+var userCommandAI;
+
+var userPersonages;      // список персонажей в игре
+var userPlanets;        // Прогресс игры в отношении планет
+
+var USER_PLANET_QUEST_AWAITING = "user_planet_quest_awaiting";
+var USER_PLANET_QUEST_COMPLETE = "user_planet_quest_complete";
+
+var UserPlanet = function(id, name)
+{
+    this.id = id;
+    this.name = name;
+    this.redPersonage1 = null;
+    this.redPersonage2 = null;
+    this.redPersonage3 = null;
+    this.redReward1 = null;
+    this.redReward2 = null;
+    this.bluePersonage1 = null;
+    this.bluePersonage2 = null;
+    this.bluePersonage3 = null;
+    this.blueReward1 = null;
+    this.blueReward2 = null;
+    this.status = USER_PLANET_QUEST_AWAITING;
+    this.description = "";
+};
+
+var USER_PERSONAGE_AVAILABLE = "user_personage_available";
+var USER_PERSONAGE_NOT_AVAILABLE = "user_personage_not_available";
+
+var UserPersonage = function(id, name)
+{
+    this.id = id;
+    this.name = name;
+    this.life = 0;
+    this.hit1 = 0;
+    this.hit2 = 0;
+    this.hit3 = 0;
+    this.hit4 = 0;
+    this.hit5 = 0;
+    this.status = USER_PERSONAGE_NOT_AVAILABLE;
+    this.description = "";
+};
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */

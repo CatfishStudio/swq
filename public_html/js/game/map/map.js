@@ -18,6 +18,8 @@ function mapCreate()
     mapStage = new PIXI.Container();
     stage.addChild(mapStage);
     
+    checkAvailablePersonage();
+    
     mapSpace();
     mapCreatePlanets();
     mapCreateInterface();
@@ -96,7 +98,6 @@ function onMapSpaceMove()
 
 function mapCreatePlanets()
 {
-    var index = 0;
     for (var key in userMapPlanets)
     {
         mapSprite.addChild(userMapPlanets[key][1]);
@@ -104,7 +105,7 @@ function mapCreatePlanets()
         if(side === SIDE_JEDI)
         {
             mapSprite.addChild(userMapPlanets[key][2]);
-            if(userPlanets[index].status === USER_PLANET_QUEST_AWAITING)
+            if(userPlanets[key].status === USER_PLANET_QUEST_AWAITING)
             {
                 mapSprite.addChild(userMapPlanets[key][5]);
                 mapSprite.addChild(userMapPlanets[key][6]);
@@ -116,7 +117,7 @@ function mapCreatePlanets()
         if(side === SIDE_SITH) 
         {
             mapSprite.addChild(userMapPlanets[key][3]);
-            if(userPlanets[index].status === USER_PLANET_QUEST_AWAITING)
+            if(userPlanets[key].status === USER_PLANET_QUEST_AWAITING)
             {
                 mapSprite.addChild(userMapPlanets[key][8]);
                 mapSprite.addChild(userMapPlanets[key][9]);
@@ -125,13 +126,12 @@ function mapCreatePlanets()
                 mapSprite.addChild(userMapPlanets[key][12]);
             }
         }
-        
-        index++;
     }
 }
 
 function mapCreateInterface()
 {
+    showCommand();
     if(side === SIDE_JEDI)
     {
         mapBorderBlue();
@@ -148,6 +148,7 @@ function mapCreateInterface()
         mapDroidRedMessage();
         mapBattonsRed();
     }
+    
 }
 
 function mapBorderBlue()
@@ -566,6 +567,31 @@ function mapMessageLineGraphicsTween()
     createjs.Tween.get(mapMessageLineGraphics, {loop: true}) 
             .to({x: 0, y: 205}, 2500, createjs.Ease.getPowInOut(3));
     createjs.Ticker.setFPS(60);
+}
+
+
+function checkAvailablePersonage()
+{
+    for(var key in userCommandUser)
+    {
+        for(var planetID in userPlanets)
+        {
+            console.log(userPlanets[planetID].redReward1);
+        }
+    }
+}
+
+function showCommand()
+{
+    var index = 0;
+    for(var key in userCommandUser)
+    {
+        var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
+        textureSprite.position.x = 35 + (105 * index); 
+        textureSprite.position.y = 625; 
+        mapStage.addChild(textureSprite);
+        index++;
+    }
 }
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

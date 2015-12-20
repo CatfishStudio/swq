@@ -7,9 +7,11 @@ var initPlanetRedStyleText = { font : 'bold 14px Arial', fill : '#FFFFFF', strok
 function initGame()
 {
     userMapPlanets = initMap();                 // карта планет
-    userMapMessage = initMessage();        // сообщения
-    userPersonages = initPersonages();      // характеристики персонажей
-    userPlanets = initPlanets();                  // планеты
+    userMapMessage = initMessage();             // сообщения
+    userPersonages = initPersonages();          // характеристики персонажей
+    userPlanets = initPlanets();                // планеты
+    userCommandUser = initCommandUser();        // команда пользователя
+    userCommandAI = initCommandAI();            // команда ИИ
 }
 
 function initMap()
@@ -66,9 +68,9 @@ function initMap()
     planets["Coruscant"][10].position.x = 625; 
     planets["Coruscant"][10].position.y = 575;
     planets["Coruscant"][10].scale.set(0.18);
-    planets["Coruscant"][11].position.x = 490; 
+    planets["Coruscant"][11].position.x = 520; 
     planets["Coruscant"][11].position.y = 570; 
-    planets["Coruscant"][12].position.x = 490; 
+    planets["Coruscant"][12].position.x = 520; 
     planets["Coruscant"][12].position.y = 570; 
     
     
@@ -122,9 +124,9 @@ function initMap()
     planets["Totooine"][10].position.x = 475; 
     planets["Totooine"][10].position.y = 400;
     planets["Totooine"][10].scale.set(0.25);
-    planets["Totooine"][11].position.x = 340; 
+    planets["Totooine"][11].position.x = 370; 
     planets["Totooine"][11].position.y = 420; 
-    planets["Totooine"][12].position.x = 340; 
+    planets["Totooine"][12].position.x = 370; 
     planets["Totooine"][12].position.y = 420; 
     
     
@@ -178,9 +180,9 @@ function initMap()
     planets["Naboo"][10].position.x = 805; 
     planets["Naboo"][10].position.y = 240;
     planets["Naboo"][10].scale.set(0.18);
-    planets["Naboo"][11].position.x = 670; 
+    planets["Naboo"][11].position.x = 700; 
     planets["Naboo"][11].position.y = 235; 
-    planets["Naboo"][12].position.x = 670; 
+    planets["Naboo"][12].position.x = 700; 
     planets["Naboo"][12].position.y = 235; 
     
     
@@ -234,9 +236,9 @@ function initMap()
     planets["Endor"][10].position.x = 375; 
     planets["Endor"][10].position.y = 550;
     planets["Endor"][10].scale.set(0.18);
-    planets["Endor"][11].position.x = 240; 
+    planets["Endor"][11].position.x = 270; 
     planets["Endor"][11].position.y = 545; 
-    planets["Endor"][12].position.x = 240; 
+    planets["Endor"][12].position.x = 270; 
     planets["Endor"][12].position.y = 545; 
     
     
@@ -290,9 +292,9 @@ function initMap()
     planets["Hoth"][10].position.x = 875; 
     planets["Hoth"][10].position.y = 485;
     planets["Hoth"][10].scale.set(0.18);
-    planets["Hoth"][11].position.x = 740; 
+    planets["Hoth"][11].position.x = 770; 
     planets["Hoth"][11].position.y = 480; 
-    planets["Hoth"][12].position.x = 740; 
+    planets["Hoth"][12].position.x = 770; 
     planets["Hoth"][12].position.y = 480; 
     
     
@@ -346,9 +348,9 @@ function initMap()
     planets["Mustafar"][10].position.x = 775; 
     planets["Mustafar"][10].position.y = 375;
     planets["Mustafar"][10].scale.set(0.18);
-    planets["Mustafar"][11].position.x = 640; 
+    planets["Mustafar"][11].position.x = 670; 
     planets["Mustafar"][11].position.y = 370; 
-    planets["Mustafar"][12].position.x = 640; 
+    planets["Mustafar"][12].position.x = 670; 
     planets["Mustafar"][12].position.y = 370; 
     
     
@@ -402,9 +404,9 @@ function initMap()
     planets["Dagobah"][10].position.x = 375; 
     planets["Dagobah"][10].position.y = 50;
     planets["Dagobah"][10].scale.set(0.18);
-    planets["Dagobah"][11].position.x = 240; 
+    planets["Dagobah"][11].position.x = 270; 
     planets["Dagobah"][11].position.y = 45; 
-    planets["Dagobah"][12].position.x = 240; 
+    planets["Dagobah"][12].position.x = 270; 
     planets["Dagobah"][12].position.y = 45; 
     
     
@@ -459,9 +461,9 @@ function initMap()
     planets["Bespin"][10].position.y = 125;
     planets["Bespin"][10].scale.set(0.18);
     planets["Bespin"][11].position.x = 45; 
-    planets["Bespin"][11].position.y = 120; 
+    planets["Bespin"][11].position.y = 150; 
     planets["Bespin"][12].position.x = 45; 
-    planets["Bespin"][12].position.y = 120; 
+    planets["Bespin"][12].position.y = 150; 
     
    
     planets["Geonosis"] = [
@@ -514,9 +516,9 @@ function initMap()
     planets["Geonosis"][10].position.x = 890; 
     planets["Geonosis"][10].position.y = 600;
     planets["Geonosis"][10].scale.set(0.18);
-    planets["Geonosis"][11].position.x = 760; 
+    planets["Geonosis"][11].position.x = 790; 
     planets["Geonosis"][11].position.y = 595; 
-    planets["Geonosis"][12].position.x = 760; 
+    planets["Geonosis"][12].position.x = 790; 
     planets["Geonosis"][12].position.y = 595; 
     
     planets["Alderaan"] = [
@@ -569,9 +571,9 @@ function initMap()
     planets["Alderaan"][10].position.x = 225; 
     planets["Alderaan"][10].position.y = 380;
     planets["Alderaan"][10].scale.set(0.18);
-    planets["Alderaan"][11].position.x = 90; 
+    planets["Alderaan"][11].position.x = 120; 
     planets["Alderaan"][11].position.y = 375; 
-    planets["Alderaan"][12].position.x = 90; 
+    planets["Alderaan"][12].position.x = 120; 
     planets["Alderaan"][12].position.y = 375; 
     
         
@@ -625,9 +627,9 @@ function initMap()
     planets["Kamino"][10].position.x = 575; 
     planets["Kamino"][10].position.y = 275;
     planets["Kamino"][10].scale.set(0.18);
-    planets["Kamino"][11].position.x = 440; 
+    planets["Kamino"][11].position.x = 470; 
     planets["Kamino"][11].position.y = 270; 
-    planets["Kamino"][12].position.x = 440; 
+    planets["Kamino"][12].position.x = 470; 
     planets["Kamino"][12].position.y = 270; 
     
     planets["DeathStar"] = [
@@ -680,9 +682,9 @@ function initMap()
     planets["DeathStar"][10].position.x = 325; 
     planets["DeathStar"][10].position.y = 245;
     planets["DeathStar"][10].scale.set(0.18);
-    planets["DeathStar"][11].position.x = 190; 
+    planets["DeathStar"][11].position.x = 220; 
     planets["DeathStar"][11].position.y = 240; 
-    planets["DeathStar"][12].position.x = 190; 
+    planets["DeathStar"][12].position.x = 220; 
     planets["DeathStar"][12].position.y = 240; 
     
     
@@ -736,9 +738,9 @@ function initMap()
     planets["Utapau"][10].position.x = 875; 
     planets["Utapau"][10].position.y = 50;
     planets["Utapau"][10].scale.set(0.18);
-    planets["Utapau"][11].position.x = 740; 
+    planets["Utapau"][11].position.x = 770; 
     planets["Utapau"][11].position.y = 45; 
-    planets["Utapau"][12].position.x = 740; 
+    planets["Utapau"][12].position.x = 770; 
     planets["Utapau"][12].position.y = 45; 
     
     
@@ -792,9 +794,9 @@ function initMap()
     planets["Saleucami"][10].position.x = 985; 
     planets["Saleucami"][10].position.y = 155;
     planets["Saleucami"][10].scale.set(0.18);
-    planets["Saleucami"][11].position.x = 850; 
+    planets["Saleucami"][11].position.x = 880; 
     planets["Saleucami"][11].position.y = 150; 
-    planets["Saleucami"][12].position.x = 850; 
+    planets["Saleucami"][12].position.x = 880; 
     planets["Saleucami"][12].position.y = 150; 
     
     
@@ -848,9 +850,9 @@ function initMap()
     planets["Jakku"][10].position.x = 625; 
     planets["Jakku"][10].position.y = 75;
     planets["Jakku"][10].scale.set(0.18);
-    planets["Jakku"][11].position.x = 490; 
+    planets["Jakku"][11].position.x = 520; 
     planets["Jakku"][11].position.y = 70; 
-    planets["Jakku"][12].position.x = 490; 
+    planets["Jakku"][12].position.x = 520; 
     planets["Jakku"][12].position.y = 70; 
     
     return planets;
@@ -866,47 +868,93 @@ function initMessage()
 
 function initPersonages()
 {
-    var personageArray = [];
-    
+    var personageObj = new Object();
     for (var key in personagesJson.data.Personages.personage)
     {
-        personageArray.push(new UserPersonage(personagesJson.data.Personages.personage[key].id, personagesJson.data.Personages.personage[key].name));
-        personageArray[key].life = personagesJson.data.Personages.personage[key].life;
-        personageArray[key].hit1 = personagesJson.data.Personages.personage[key].hit1;
-        personageArray[key].hit2 = personagesJson.data.Personages.personage[key].hit2;
-        personageArray[key].hit3 = personagesJson.data.Personages.personage[key].hit3;
-        personageArray[key].hit4 = personagesJson.data.Personages.personage[key].hit4;
-        personageArray[key].hit5 = personagesJson.data.Personages.personage[key].hit5;
-        personageArray[key].status = personagesJson.data.Personages.personage[key].status;
-        personageArray[key].description = personagesJson.data.Personages.personage[key].description;
+        personageObj[personagesJson.data.Personages.personage[key].id] = new UserPersonage(personagesJson.data.Personages.personage[key].id, personagesJson.data.Personages.personage[key].name);
+        personageObj[personagesJson.data.Personages.personage[key].id].life = personagesJson.data.Personages.personage[key].life;
+        personageObj[personagesJson.data.Personages.personage[key].id].hit1 = personagesJson.data.Personages.personage[key].hit1;
+        personageObj[personagesJson.data.Personages.personage[key].id].hit2 = personagesJson.data.Personages.personage[key].hit2;
+        personageObj[personagesJson.data.Personages.personage[key].id].hit3 = personagesJson.data.Personages.personage[key].hit3;
+        personageObj[personagesJson.data.Personages.personage[key].id].hit4 = personagesJson.data.Personages.personage[key].hit4;
+        personageObj[personagesJson.data.Personages.personage[key].id].hit5 = personagesJson.data.Personages.personage[key].hit5;
+        personageObj[personagesJson.data.Personages.personage[key].id].status = personagesJson.data.Personages.personage[key].status;
+        personageObj[personagesJson.data.Personages.personage[key].id].description = personagesJson.data.Personages.personage[key].description;
     }
-    
-    return personageArray;
+    return personageObj;
 }
 
 function initPlanets()
 {
-    var planetsArray = [];
-    
+    var planetsObj = new Object();
     for (var key in planetsJson.data.Planets.planet)
     {
-        planetsArray.push(new UserPlanet(planetsJson.data.Planets.planet[key].id, planetsJson.data.Planets.planet[key].name));
-        planetsArray[key].redPersonage1 = planetsJson.data.Planets.planet[key].redPersonage1;
-        planetsArray[key].redPersonage2 = planetsJson.data.Planets.planet[key].redPersonage2;
-        planetsArray[key].redPersonage3 = planetsJson.data.Planets.planet[key].redPersonage3;
-        planetsArray[key].redReward1 = planetsJson.data.Planets.planet[key].redReward1;
-        planetsArray[key].redReward2 = planetsJson.data.Planets.planet[key].redReward2;
-        planetsArray[key].bluePersonage1 = planetsJson.data.Planets.planet[key].bluePersonage1;
-        planetsArray[key].bluePersonage2 = planetsJson.data.Planets.planet[key].bluePersonage2;
-        planetsArray[key].bluePersonage3 = planetsJson.data.Planets.planet[key].bluePersonage3;
-        planetsArray[key].blueReward1 = planetsJson.data.Planets.planet[key].blueReward1;
-        planetsArray[key].blueReward2 = planetsJson.data.Planets.planet[key].blueReward2;
-        if(side === SIDE_JEDI && planetsArray[key].id === "Coruscant") planetsArray[key].status = USER_PLANET_QUEST_COMPLETE;
-        if(side === SIDE_SITH && planetsArray[key].id === "DeathStar") planetsArray[key].status = USER_PLANET_QUEST_COMPLETE;
-        planetsArray[key].description = planetsJson.data.Planets.planet[key].description;
+        planetsObj[planetsJson.data.Planets.planet[key].id] = new UserPlanet(planetsJson.data.Planets.planet[key].id, planetsJson.data.Planets.planet[key].name);
+        planetsObj[planetsJson.data.Planets.planet[key].id].redPersonage1 = planetsJson.data.Planets.planet[key].redPersonage1;
+        planetsObj[planetsJson.data.Planets.planet[key].id].redPersonage2 = planetsJson.data.Planets.planet[key].redPersonage2;
+        planetsObj[planetsJson.data.Planets.planet[key].id].redPersonage3 = planetsJson.data.Planets.planet[key].redPersonage3;
+        planetsObj[planetsJson.data.Planets.planet[key].id].redReward1 = planetsJson.data.Planets.planet[key].redReward1;
+        planetsObj[planetsJson.data.Planets.planet[key].id].redReward2 = planetsJson.data.Planets.planet[key].redReward2;
+        planetsObj[planetsJson.data.Planets.planet[key].id].bluePersonage1 = planetsJson.data.Planets.planet[key].bluePersonage1;
+        planetsObj[planetsJson.data.Planets.planet[key].id].bluePersonage2 = planetsJson.data.Planets.planet[key].bluePersonage2;
+        planetsObj[planetsJson.data.Planets.planet[key].id].bluePersonage3 = planetsJson.data.Planets.planet[key].bluePersonage3;
+        planetsObj[planetsJson.data.Planets.planet[key].id].blueReward1 = planetsJson.data.Planets.planet[key].blueReward1;
+        planetsObj[planetsJson.data.Planets.planet[key].id].blueReward2 = planetsJson.data.Planets.planet[key].blueReward2;
+        if(side === SIDE_JEDI && planetsObj[planetsJson.data.Planets.planet[key].id].id === "Coruscant") planetsObj[planetsJson.data.Planets.planet[key].id].status = USER_PLANET_QUEST_COMPLETE;
+        if(side === SIDE_SITH && planetsObj[planetsJson.data.Planets.planet[key].id].id === "DeathStar") planetsObj[planetsJson.data.Planets.planet[key].id].status = USER_PLANET_QUEST_COMPLETE;
+        planetsObj[planetsJson.data.Planets.planet[key].id].description = planetsJson.data.Planets.planet[key].description;
     }
+   
+   return planetsObj;
+}
+
+function initCommandUser()
+{
+    var commandUser = new Object();
     
-    return planetsArray;
+    if(side === SIDE_JEDI)
+    {
+        //commandUser["personage1"] = "luke_skywalker";
+        //commandUser["personage2"] = "aayla_secura";
+        //commandUser["personage3"] = "ki_adi_mundi";
+        commandUser["personage1"] = userPlanets["Coruscant"].bluePersonage1;
+        commandUser["personage2"] = userPlanets["Coruscant"].bluePersonage2;
+        commandUser["personage3"] = userPlanets["Coruscant"].bluePersonage3;
+    }
+    if(side === SIDE_SITH)
+    {
+        //commandUser["personage1"] = "anakin_skywalker";
+        //commandUser["personage2"] = "palpatine";
+        //commandUser["personage3"] = "nute_gunray";
+        commandUser["personage1"] = userPlanets["DeathStar"].redPersonage1;
+        commandUser["personage2"] = userPlanets["DeathStar"].redPersonage2;
+        commandUser["personage3"] = userPlanets["DeathStar"].redPersonage3;
+    }
+    return commandUser;
+}
+
+function initCommandAI()
+{
+    var commandAI = new Object();
+    if(side === SIDE_JEDI)
+    {
+        //commandAI["personage1"] = "anakin_skywalker";
+        //commandAI["personage2"] = "palpatine";
+        //commandAI["personage3"] = "nute_gunray"; 
+        commandAI["personage1"] = userPlanets["DeathStar"].redPersonage1;
+        commandAI["personage2"] = userPlanets["DeathStar"].redPersonage2;
+        commandAI["personage3"] = userPlanets["DeathStar"].redPersonage3;
+    }
+    if(side === SIDE_SITH)
+    {
+        //commandAI["personage1"] = "luke_skywalker";
+        //commandAI["personage2"] = "aayla_secura";
+        //commandAI["personage3"] = "ki_adi_mundi";
+        commandAI["personage1"] = userPlanets["Coruscant"].bluePersonage1;
+        commandAI["personage2"] = userPlanets["Coruscant"].bluePersonage2;
+        commandAI["personage3"] = userPlanets["Coruscant"].bluePersonage3;
+    }
+    return commandAI;
 }
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

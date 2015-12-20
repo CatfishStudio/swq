@@ -5,11 +5,11 @@ var userMapPlanets;     // карта планет
 var userMapMessage;     // Сообщения на карте
 //var userLevels;         // Уровни
 
-//var userCommandUser;
-//var userCommandAI;
+var userCommandUser;
+var userCommandAI;
 
 var userPersonages;      // список персонажей в игре
-var userPlanets;        // Прогресс игры в отношении планет
+var userPlanets;         // Прогресс игры в отношении планет
 
 var USER_PLANET_QUEST_AWAITING = "user_planet_quest_awaiting";
 var USER_PLANET_QUEST_COMPLETE = "user_planet_quest_complete";

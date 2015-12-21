@@ -100,29 +100,87 @@ function mapCreatePlanets()
 {
     for (var key in userMapPlanets)
     {
-        mapSprite.addChild(userMapPlanets[key][1]);
-        mapSprite.addChild(userMapPlanets[key][4]);
         if(side === SIDE_JEDI)
         {
-            mapSprite.addChild(userMapPlanets[key][2]);
             if(userPlanets[key].status === USER_PLANET_QUEST_AWAITING)
             {
+                mapSprite.addChild(userMapPlanets[key][1]);
+                mapSprite.addChild(userMapPlanets[key][4]);
+                mapSprite.addChild(userMapPlanets[key][2]);
                 mapSprite.addChild(userMapPlanets[key][5]);
                 mapSprite.addChild(userMapPlanets[key][6]);
                 mapSprite.addChild(userMapPlanets[key][7]);
-            }else{
+            }
+            if(userPlanets[key].status === USER_PLANET_QUEST_COMPLETE_JEDI)
+            {
+                var graphics = new PIXI.Graphics();
+                graphics.beginFill(0x0000FF, 0.25);
+                graphics.lineStyle(1, 0x0000FF, 0.8);
+                graphics.drawCircle(userMapPlanets[key][2].position.x + 2, userMapPlanets[key][2].position.y + 65, 50);
+                graphics.lineStyle(1, 0x0000FF, 1);
+                graphics.endFill();
+                mapSprite.addChild(graphics);
+            
+                mapSprite.addChild(userMapPlanets[key][1]);
+                mapSprite.addChild(userMapPlanets[key][4]);
+                mapSprite.addChild(userMapPlanets[key][2]);
                 mapSprite.addChild(userMapPlanets[key][11]);
+            }
+            if(userPlanets[key].status === USER_PLANET_QUEST_COMPLETE_SITH)
+            {
+                var graphics = new PIXI.Graphics();
+                graphics.beginFill(0xFF0000, 0.25);
+                graphics.lineStyle(1, 0xFF0000, 0.3);
+                graphics.drawCircle(userMapPlanets[key][2].position.x + 2, userMapPlanets[key][2].position.y + 65, 50);
+                graphics.lineStyle(1, 0xFF0000, 1);
+                graphics.endFill();
+                mapSprite.addChild(graphics);
+            
+                mapSprite.addChild(userMapPlanets[key][1]);
+                mapSprite.addChild(userMapPlanets[key][4]);
+                mapSprite.addChild(userMapPlanets[key][2]);
+                mapSprite.addChild(userMapPlanets[key][12]);
             }
         }
         if(side === SIDE_SITH) 
         {
-            mapSprite.addChild(userMapPlanets[key][3]);
             if(userPlanets[key].status === USER_PLANET_QUEST_AWAITING)
             {
+                mapSprite.addChild(userMapPlanets[key][1]);
+                mapSprite.addChild(userMapPlanets[key][4]);
+                mapSprite.addChild(userMapPlanets[key][3]);
                 mapSprite.addChild(userMapPlanets[key][8]);
                 mapSprite.addChild(userMapPlanets[key][9]);
                 mapSprite.addChild(userMapPlanets[key][10]);
-            }else{
+            }
+            if(userPlanets[key].status === USER_PLANET_QUEST_COMPLETE_JEDI)
+            {
+                var graphics = new PIXI.Graphics();
+                graphics.beginFill(0x0000FF, 0.25);
+                graphics.lineStyle(1, 0x0000FF, 0.8);
+                graphics.drawCircle(userMapPlanets[key][2].position.x + 2, userMapPlanets[key][2].position.y + 65, 50);
+                graphics.lineStyle(1, 0x0000FF, 1);
+                graphics.endFill();
+                mapSprite.addChild(graphics);
+                
+                mapSprite.addChild(userMapPlanets[key][1]);
+                mapSprite.addChild(userMapPlanets[key][4]);
+                mapSprite.addChild(userMapPlanets[key][3]);
+                mapSprite.addChild(userMapPlanets[key][11]);
+            }
+            if(userPlanets[key].status === USER_PLANET_QUEST_COMPLETE_SITH)
+            {
+                var graphics = new PIXI.Graphics();
+                graphics.beginFill(0xFF0000, 0.25);
+                graphics.lineStyle(1, 0xFF0000, 0.3);
+                graphics.drawCircle(userMapPlanets[key][2].position.x + 2, userMapPlanets[key][2].position.y + 65, 50);
+                graphics.lineStyle(1, 0xFF0000, 1);
+                graphics.endFill();
+                mapSprite.addChild(graphics);
+                
+                mapSprite.addChild(userMapPlanets[key][1]);
+                mapSprite.addChild(userMapPlanets[key][4]);
+                mapSprite.addChild(userMapPlanets[key][3]);
                 mapSprite.addChild(userMapPlanets[key][12]);
             }
         }

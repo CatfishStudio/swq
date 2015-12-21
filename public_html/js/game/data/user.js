@@ -12,7 +12,8 @@ var userPersonages;      // список персонажей в игре
 var userPlanets;         // Прогресс игры в отношении планет
 
 var USER_PLANET_QUEST_AWAITING = "user_planet_quest_awaiting";
-var USER_PLANET_QUEST_COMPLETE = "user_planet_quest_complete";
+var USER_PLANET_QUEST_COMPLETE_JEDI = "user_planet_quest_complete_jedi";
+var USER_PLANET_QUEST_COMPLETE_SITH = "user_planet_quest_complete_sith";
 
 var UserPlanet = function(id, name)
 {
@@ -21,13 +22,9 @@ var UserPlanet = function(id, name)
     this.redPersonage1 = null;
     this.redPersonage2 = null;
     this.redPersonage3 = null;
-    this.redReward1 = null;
-    this.redReward2 = null;
     this.bluePersonage1 = null;
     this.bluePersonage2 = null;
     this.bluePersonage3 = null;
-    this.blueReward1 = null;
-    this.blueReward2 = null;
     this.status = USER_PLANET_QUEST_AWAITING;
     this.description = "";
 };

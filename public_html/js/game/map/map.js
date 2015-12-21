@@ -7,11 +7,13 @@ var mapStartPosX;
 var mapStartPosY;
 var mapDesktopLineGraphics;
 var mapMessageLineGraphics;
-var mapStyleDroidBlueText = { font : 'bold 14px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 }; 
+var mapStyleDroidBlueText = { font : 'bold 12px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 145 }; 
 var mapStyleButtonBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
-var mapStyleDroidRedText = { font : 'bold 14px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 }; 
+var mapStyleDroidRedText = { font : 'bold 12px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 145 }; 
 var mapStyleButtonRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
-
+var mapTextMessage;
+var mapTargetPlanetBlue;
+var mapTargetPlanetRed;
 
 function mapCreate() 
 { 
@@ -23,6 +25,7 @@ function mapCreate()
     mapSpace();
     mapCreatePlanets();
     mapCreateInterface();
+    mapCreateTargets();
 } 
 
 function mapRemove() 
@@ -100,6 +103,11 @@ function mapCreatePlanets()
 {
     for (var key in userMapPlanets)
     {
+        userMapPlanets[key][1].tap = onMapPlanetClick;
+        userMapPlanets[key][1].click = onMapPlanetClick;
+        userMapPlanets[key][1].on('mouseover', onMapPlanetOver);
+        userMapPlanets[key][1].on('mouseout', onMapPlanetOut);
+        
         if(side === SIDE_JEDI)
         {
             if(userPlanets[key].status === USER_PLANET_QUEST_AWAITING)
@@ -116,7 +124,7 @@ function mapCreatePlanets()
                 var graphics = new PIXI.Graphics();
                 graphics.beginFill(0x0000FF, 0.25);
                 graphics.lineStyle(1, 0x0000FF, 0.8);
-                graphics.drawCircle(userMapPlanets[key][2].position.x + 2, userMapPlanets[key][2].position.y + 65, 50);
+                graphics.drawCircle(userMapPlanets[key][2].position.x + 1, userMapPlanets[key][2].position.y + 65, 50);
                 graphics.lineStyle(1, 0x0000FF, 1);
                 graphics.endFill();
                 mapSprite.addChild(graphics);
@@ -131,7 +139,7 @@ function mapCreatePlanets()
                 var graphics = new PIXI.Graphics();
                 graphics.beginFill(0xFF0000, 0.25);
                 graphics.lineStyle(1, 0xFF0000, 0.3);
-                graphics.drawCircle(userMapPlanets[key][2].position.x + 2, userMapPlanets[key][2].position.y + 65, 50);
+                graphics.drawCircle(userMapPlanets[key][2].position.x + 1, userMapPlanets[key][2].position.y + 65, 50);
                 graphics.lineStyle(1, 0xFF0000, 1);
                 graphics.endFill();
                 mapSprite.addChild(graphics);
@@ -158,7 +166,7 @@ function mapCreatePlanets()
                 var graphics = new PIXI.Graphics();
                 graphics.beginFill(0x0000FF, 0.25);
                 graphics.lineStyle(1, 0x0000FF, 0.8);
-                graphics.drawCircle(userMapPlanets[key][2].position.x + 2, userMapPlanets[key][2].position.y + 65, 50);
+                graphics.drawCircle(userMapPlanets[key][2].position.x + 1, userMapPlanets[key][2].position.y + 65, 50);
                 graphics.lineStyle(1, 0x0000FF, 1);
                 graphics.endFill();
                 mapSprite.addChild(graphics);
@@ -173,7 +181,7 @@ function mapCreatePlanets()
                 var graphics = new PIXI.Graphics();
                 graphics.beginFill(0xFF0000, 0.25);
                 graphics.lineStyle(1, 0xFF0000, 0.3);
-                graphics.drawCircle(userMapPlanets[key][2].position.x + 2, userMapPlanets[key][2].position.y + 65, 50);
+                graphics.drawCircle(userMapPlanets[key][2].position.x + 1, userMapPlanets[key][2].position.y + 65, 50);
                 graphics.lineStyle(1, 0xFF0000, 1);
                 graphics.endFill();
                 mapSprite.addChild(graphics);
@@ -185,6 +193,23 @@ function mapCreatePlanets()
             }
         }
     }
+}
+
+function onMapPlanetClick()
+{
+    
+}
+
+function onMapPlanetOver(event)
+{
+    if(side === SIDE_JEDI) mapTextMessage.text = userMapMessage[event.target.name][0];
+    if(side === SIDE_SITH) mapTextMessage.text = userMapMessage[event.target.name][1];
+}
+
+function onMapPlanetOut()
+{
+    if(side === SIDE_JEDI) mapTextMessage.text = userMapMessage["LastNews"][0];
+    if(side === SIDE_SITH) mapTextMessage.text = userMapMessage["LastNews"][1];
 }
 
 function mapCreateInterface()
@@ -326,10 +351,10 @@ function mapDroidBlue()
 
 function mapDroidBlueMessage()
 {
-    var textMessage = new PIXI.Text(userMapMessage["message1"][0], mapStyleDroidBlueText); 
-    textMessage.x = 705; 
-    textMessage.y = 245; 
-    mapStage.addChild(textMessage);
+    mapTextMessage = new PIXI.Text(userMapMessage["LastNews"][0], mapStyleDroidBlueText); 
+    mapTextMessage.x = 705; 
+    mapTextMessage.y = 245; 
+    mapStage.addChild(mapTextMessage);
 }
 
 function mapBattonsBlue()
@@ -506,10 +531,10 @@ function mapDroidRed()
 
 function mapDroidRedMessage()
 {
-    var textMessage = new PIXI.Text(userMapMessage["message1"][1], mapStyleDroidRedText); 
-    textMessage.x = 705; 
-    textMessage.y = 245; 
-    mapStage.addChild(textMessage);
+    mapTextMessage = new PIXI.Text(userMapMessage["LastNews"][1], mapStyleDroidRedText); 
+    mapTextMessage.x = 705; 
+    mapTextMessage.y = 245; 
+    mapStage.addChild(mapTextMessage);
 }
 
 function mapBattonsRed()
@@ -634,7 +659,7 @@ function checkAvailablePersonage()
     {
         for(var planetID in userPlanets)
         {
-            console.log(userPlanets[planetID].redReward1);
+            console.log(userPlanets[planetID].status);
         }
     }
 }
@@ -650,6 +675,40 @@ function showCommand()
         mapStage.addChild(textureSprite);
         index++;
     }
+}
+
+function mapCreateTargets()
+{
+    mapTargetPlanetBlue = new PIXI.Graphics();
+    mapTargetPlanetBlue.lineStyle(2, 0xFF0000, 0.2);
+    mapTargetPlanetBlue.beginFill(0xFF0000, 0.2);
+    mapTargetPlanetBlue.moveTo(0, -5);
+    mapTargetPlanetBlue.lineTo(-15, -55);
+    mapTargetPlanetBlue.lineTo(15, -55);
+    mapTargetPlanetBlue.lineTo(0, -5);
+    mapTargetPlanetBlue.endFill;
+    
+    mapTargetPlanetBlue.lineStyle(2, 0xFF0000, 0.2);
+    mapTargetPlanetBlue.beginFill(0xFF0000, 0.2);
+    mapTargetPlanetBlue.moveTo(0, 5);
+    mapTargetPlanetBlue.lineTo(-15, 55);
+    mapTargetPlanetBlue.lineTo(15, 55);
+    mapTargetPlanetBlue.lineTo(0, 5);
+    mapTargetPlanetBlue.endFill;
+    
+    mapTargetPlanetBlue.position.x = 100;
+    mapTargetPlanetBlue.position.y = 100;
+        
+    mapStage.addChild(mapTargetPlanetBlue);
+    
+    mapTargetBlueTween();
+}
+
+function mapTargetBlueTween()
+{
+    createjs.Tween.get(mapTargetPlanetBlue, {loop: true}) 
+            .to({rotation: 3.15 }, 2500, createjs.Ease.getPowInOut(1));
+    createjs.Ticker.setFPS(60);
 }
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

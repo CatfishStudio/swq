@@ -55,7 +55,7 @@ var planetsJson;                         // характеристики пла�
 
 /* == НАЧАЛО ФАЙЛА ========================================================= */
 
-var music = false;
+var music = true;
 var sound = true;
 var language = "rus";
 
@@ -168,8 +168,8 @@ function initMap()
         new PIXI.Sprite(heroesTextures["qui_gon_jinn"][1]),
         new PIXI.Sprite(heroesTextures["owen_lars"][1]),
         new PIXI.Sprite(heroesTextures["tusken"][1]),
-        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
-        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
+        new PIXI.Text("Союзник Джедай", initPlanetBlueStyleText),
+        new PIXI.Text("Пренадлежит Ситам", initPlanetRedStyleText)
     ];
     planets["Totooine"][1].name = "Totooine";
     planets["Totooine"][1].position.x = 300; 
@@ -224,8 +224,8 @@ function initMap()
         new PIXI.Sprite(heroesTextures["boss_nass"][2]),
         new PIXI.Sprite(heroesTextures["capitan_panaka"][1]),
         new PIXI.Sprite(heroesTextures["royal_guards"][1]),
-        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
-        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
+        new PIXI.Text("Союзник Джедай", initPlanetBlueStyleText),
+        new PIXI.Text("Пренадлежит Ситам", initPlanetRedStyleText)
     ];
     planets["Naboo"][1].name = "Naboo";
     planets["Naboo"][1].position.x = 630; 
@@ -280,8 +280,8 @@ function initMap()
         new PIXI.Sprite(heroesTextures["alliance_to_restore_the_republic"][2]),
         new PIXI.Sprite(heroesTextures["wicket_wysri_warrick"][1]),
         new PIXI.Sprite(heroesTextures["aayla_secura"][1]),
-        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
-        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
+        new PIXI.Text("Союзник Джедай", initPlanetBlueStyleText),
+        new PIXI.Text("Пренадлежит Ситам", initPlanetRedStyleText)
     ];
     planets["Endor"][1].name = "Endor";
     planets["Endor"][1].position.x = 200;
@@ -336,8 +336,8 @@ function initMap()
         new PIXI.Sprite(heroesTextures["general_madine"][2]),
         new PIXI.Sprite(heroesTextures["han_solo"][1]),
         new PIXI.Sprite(heroesTextures["chewbacca"][2]),
-        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
-        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
+        new PIXI.Text("Союзник Джедай", initPlanetBlueStyleText),
+        new PIXI.Text("Пренадлежит Ситам", initPlanetRedStyleText)
     ];
     planets["Hoth"][1].name = "Hoth";
     planets["Hoth"][1].position.x = 700; 
@@ -392,8 +392,8 @@ function initMap()
         new PIXI.Sprite(heroesTextures["obi_wan_kenobi"][2]),
         new PIXI.Sprite(heroesTextures["padme_amidala"][1]),
         new PIXI.Sprite(heroesTextures["wat_tambor"][1]),
-        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
-        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
+        new PIXI.Text("Союзник Джедай", initPlanetBlueStyleText),
+        new PIXI.Text("Пренадлежит Ситам", initPlanetRedStyleText)
     ];
     planets["Mustafar"][1].name = "Mustafar";
     planets["Mustafar"][1].position.x = 600; 
@@ -448,8 +448,8 @@ function initMap()
         new PIXI.Sprite(heroesTextures["yoda"][1]),
         new PIXI.Sprite(heroesTextures["barriss_offee"][1]),
         new PIXI.Sprite(heroesTextures["kit_fisto"][1]),
-        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
-        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
+        new PIXI.Text("Союзник Джедай", initPlanetBlueStyleText),
+        new PIXI.Text("Пренадлежит Ситам", initPlanetRedStyleText)
     ];
     planets["Dagobah"][1].name = "Dagobah";
     planets["Dagobah"][1].position.x = 200; 
@@ -504,8 +504,8 @@ function initMap()
         new PIXI.Sprite(heroesTextures["adigallia"][1]),
         new PIXI.Sprite(heroesTextures["lando_calrissian"][1]),
         new PIXI.Sprite(heroesTextures["ki_adi_mundi"][1]),
-        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
-        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
+        new PIXI.Text("Союзник Джедай", initPlanetBlueStyleText),
+        new PIXI.Text("Пренадлежит Ситам", initPlanetRedStyleText)
     ];
     planets["Bespin"][1].name = "Bespin";
     planets["Bespin"][1].position.x = 5;
@@ -560,8 +560,8 @@ function initMap()
         new PIXI.Sprite(heroesTextures["republic_clone_army"][1]),
         new PIXI.Sprite(heroesTextures["poggle_the_lesser"][1]),
         new PIXI.Sprite(heroesTextures["saesee_tiin"][2]),
-        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
-        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
+        new PIXI.Text("Союзник Джедай", initPlanetBlueStyleText),
+        new PIXI.Text("Пренадлежит Ситам", initPlanetRedStyleText)
     ];
     planets["Geonosis"][1].name = "Geonosis";
     planets["Geonosis"][1].position.x = 720; // 750 -30
@@ -615,8 +615,8 @@ function initMap()
         new PIXI.Sprite(heroesTextures["bail_organa"][1]),
         new PIXI.Sprite(heroesTextures["leia_organa"][1]),
         new PIXI.Sprite(heroesTextures["kapitan_antilles"][1]),
-        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
-        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
+        new PIXI.Text("Союзник Джедай", initPlanetBlueStyleText),
+        new PIXI.Text("Пренадлежит Ситам", initPlanetRedStyleText)
     ];
     planets["Alderaan"][1].name = "Alderaan";
     planets["Alderaan"][1].position.x = 50; 
@@ -671,8 +671,8 @@ function initMap()
         new PIXI.Sprite(heroesTextures["plo_koon"][1]),
         new PIXI.Sprite(heroesTextures["clone_commander_bakara"][1]),
         new PIXI.Sprite(heroesTextures["clone_commander_neyo"][1]),
-        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
-        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
+        new PIXI.Text("Союзник Джедай", initPlanetBlueStyleText),
+        new PIXI.Text("Пренадлежит Ситам", initPlanetRedStyleText)
     ];
     planets["Kamino"][1].name = "Kamino";
     planets["Kamino"][1].position.x = 400; 
@@ -726,7 +726,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["luke_skywalker"][1]),
         new PIXI.Sprite(heroesTextures["luke_skywalker"][1]),
         new PIXI.Sprite(heroesTextures["luke_skywalker"][1]),
-        new PIXI.Text("Победа Джедаев", initPlanetBlueStyleText),
+        new PIXI.Text("Союзник Джедай", initPlanetBlueStyleText),
         new PIXI.Text("Орден Ситов", initPlanetRedStyleText)
     ];
     planets["DeathStar"][1].name = "DeathStar";
@@ -782,8 +782,8 @@ function initMap()
         new PIXI.Sprite(heroesTextures["shaak_ti"][1]),
         new PIXI.Sprite(heroesTextures["tion_medon"][1]),
         new PIXI.Sprite(heroesTextures["bib_fortuna"][1]),
-        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
-        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
+        new PIXI.Text("Союзник Джедай", initPlanetBlueStyleText),
+        new PIXI.Text("Пренадлежит Ситам", initPlanetRedStyleText)
     ];
     planets["Utapau"][1].name = "Utapau";
     planets["Utapau"][1].position.x = 700; 
@@ -838,8 +838,8 @@ function initMap()
         new PIXI.Sprite(heroesTextures["eeth_koth"][1]),
         new PIXI.Sprite(heroesTextures["mon_motma"][1]),
         new PIXI.Sprite(heroesTextures["c_3po"][2]),
-        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
-        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
+        new PIXI.Text("Союзник Джедай", initPlanetBlueStyleText),
+        new PIXI.Text("Пренадлежит Ситам", initPlanetRedStyleText)
     ];
     planets["Saleucami"][1].name = "Saleucami";
     planets["Saleucami"][1].position.x = 810;
@@ -893,9 +893,9 @@ function initMap()
         new PIXI.Sprite(heroesTextures["stormtrooper_1"][1]),                                           // 7 - персонажи (тьма)
         new PIXI.Sprite(heroesTextures["rey"][1]),                                                      // 8 - персонажи (свет)
         new PIXI.Sprite(heroesTextures["finn"][1]),                                                     // 9 - персонажи (свет)
-        new PIXI.Sprite(heroesTextures["poe_dameron"][1]),                                               // 10 - персонажи (свет)
-        new PIXI.Text("Планета союзник", initPlanetBlueStyleText),
-        new PIXI.Text("Планета захвачена", initPlanetRedStyleText)
+        new PIXI.Sprite(heroesTextures["poe_dameron"][1]),                                              // 10 - персонажи (свет)
+        new PIXI.Text("Союзник Джедай", initPlanetBlueStyleText),                                       // 11
+        new PIXI.Text("Пренадлежит Ситам", initPlanetRedStyleText)                                      // 12
     ];
     planets["Jakku"][1].name = "Jakku";
     planets["Jakku"][1].position.x = 450; 
@@ -943,88 +943,97 @@ function initMap()
 function initMessage()
 {
     var message = new Object();
-    message["message1"] = ["Меня зовут R2D2", "Меня зовут R3-S6"];
+    message["LastNews"] = ["Меня зовут R2D2, рад вас приветствовать.\n\nВ данное время Корусант является основной целью Ситов. Необходимо остановить их любой ценой.\n\nВыберите планету, выполните миссию и получите союзника в свою команду.", "Меня зовут R3-S6, приветствую тебя мой повелитель."];
+    message["Coruscant"] = ["Корусант", "Корусант"];
+    message["Totooine"] = ["Татуин", "Татуин"];
+    message["Naboo"] = ["Набу", "Набу"];
+    message["Endor"] = ["Эндор", "Эндор"];
+    message["Hoth"] = ["Хот", "Хот"];
+    message["Mustafar"] = ["Мустафар", "Мустафар"];
+    message["Dagobah"] = ["Дагоба", "Дагоба"];
+    message["Bespin"] = ["Беспин", "Беспин"];
+    message["Geonosis"] = ["Джеонозис", "Джеонозис"];
+    message["Alderaan"] = ["Альдераан", "Альдераан"];
+    message["Kamino"] = ["Камино", "Камино"];
+    message["DeathStar"] = ["Звезда смерти", "Звезда смерти"];
+    message["Utapau"] = ["Утапау", "Утапау"];
+    message["Saleucami"] = ["Салукемай", "Салукемай"];
+    message["Jakku"] = ["Джакку", "Джакку"];
+    
     
     return message;
 }
 
 function initPersonages()
 {
-    var personageArray = [];
-    
+    var personageObj = new Object();
     for (var key in personagesJson.data.Personages.personage)
     {
-        personageArray.push(new UserPersonage(personagesJson.data.Personages.personage[key].id, personagesJson.data.Personages.personage[key].name));
-        personageArray[key].life = personagesJson.data.Personages.personage[key].life;
-        personageArray[key].hit1 = personagesJson.data.Personages.personage[key].hit1;
-        personageArray[key].hit2 = personagesJson.data.Personages.personage[key].hit2;
-        personageArray[key].hit3 = personagesJson.data.Personages.personage[key].hit3;
-        personageArray[key].hit4 = personagesJson.data.Personages.personage[key].hit4;
-        personageArray[key].hit5 = personagesJson.data.Personages.personage[key].hit5;
-        personageArray[key].status = personagesJson.data.Personages.personage[key].status;
-        personageArray[key].description = personagesJson.data.Personages.personage[key].description;
+        personageObj[personagesJson.data.Personages.personage[key].id] = new UserPersonage(personagesJson.data.Personages.personage[key].id, personagesJson.data.Personages.personage[key].name);
+        personageObj[personagesJson.data.Personages.personage[key].id].life = personagesJson.data.Personages.personage[key].life;
+        personageObj[personagesJson.data.Personages.personage[key].id].hit1 = personagesJson.data.Personages.personage[key].hit1;
+        personageObj[personagesJson.data.Personages.personage[key].id].hit2 = personagesJson.data.Personages.personage[key].hit2;
+        personageObj[personagesJson.data.Personages.personage[key].id].hit3 = personagesJson.data.Personages.personage[key].hit3;
+        personageObj[personagesJson.data.Personages.personage[key].id].hit4 = personagesJson.data.Personages.personage[key].hit4;
+        personageObj[personagesJson.data.Personages.personage[key].id].hit5 = personagesJson.data.Personages.personage[key].hit5;
+        personageObj[personagesJson.data.Personages.personage[key].id].status = personagesJson.data.Personages.personage[key].status;
+        personageObj[personagesJson.data.Personages.personage[key].id].description = personagesJson.data.Personages.personage[key].description;
     }
-    
-    return personageArray;
+    return personageObj;
 }
 
 function initPlanets()
 {
-    var planetsArray = [];
-    
+    var planetsObj = new Object();
     for (var key in planetsJson.data.Planets.planet)
     {
-        planetsArray.push(new UserPlanet(planetsJson.data.Planets.planet[key].id, planetsJson.data.Planets.planet[key].name));
-        planetsArray[key].redPersonage1 = planetsJson.data.Planets.planet[key].redPersonage1;
-        planetsArray[key].redPersonage2 = planetsJson.data.Planets.planet[key].redPersonage2;
-        planetsArray[key].redPersonage3 = planetsJson.data.Planets.planet[key].redPersonage3;
-        planetsArray[key].redReward1 = planetsJson.data.Planets.planet[key].redReward1;
-        planetsArray[key].redReward2 = planetsJson.data.Planets.planet[key].redReward2;
-        planetsArray[key].bluePersonage1 = planetsJson.data.Planets.planet[key].bluePersonage1;
-        planetsArray[key].bluePersonage2 = planetsJson.data.Planets.planet[key].bluePersonage2;
-        planetsArray[key].bluePersonage3 = planetsJson.data.Planets.planet[key].bluePersonage3;
-        planetsArray[key].blueReward1 = planetsJson.data.Planets.planet[key].blueReward1;
-        planetsArray[key].blueReward2 = planetsJson.data.Planets.planet[key].blueReward2;
-        if(side === SIDE_JEDI && planetsArray[key].id === "Coruscant") planetsArray[key].status = USER_PLANET_QUEST_COMPLETE;
-        if(side === SIDE_SITH && planetsArray[key].id === "DeathStar") planetsArray[key].status = USER_PLANET_QUEST_COMPLETE;
-        planetsArray[key].description = planetsJson.data.Planets.planet[key].description;
+        planetsObj[planetsJson.data.Planets.planet[key].id] = new UserPlanet(planetsJson.data.Planets.planet[key].id, planetsJson.data.Planets.planet[key].name);
+        planetsObj[planetsJson.data.Planets.planet[key].id].redPersonage1 = planetsJson.data.Planets.planet[key].redPersonage1;
+        planetsObj[planetsJson.data.Planets.planet[key].id].redPersonage2 = planetsJson.data.Planets.planet[key].redPersonage2;
+        planetsObj[planetsJson.data.Planets.planet[key].id].redPersonage3 = planetsJson.data.Planets.planet[key].redPersonage3;
+        planetsObj[planetsJson.data.Planets.planet[key].id].bluePersonage1 = planetsJson.data.Planets.planet[key].bluePersonage1;
+        planetsObj[planetsJson.data.Planets.planet[key].id].bluePersonage2 = planetsJson.data.Planets.planet[key].bluePersonage2;
+        planetsObj[planetsJson.data.Planets.planet[key].id].bluePersonage3 = planetsJson.data.Planets.planet[key].bluePersonage3;
+        planetsObj[planetsJson.data.Planets.planet[key].id].status = planetsJson.data.Planets.planet[key].status;
+        planetsObj[planetsJson.data.Planets.planet[key].id].description = planetsJson.data.Planets.planet[key].description;
     }
-    
-    return planetsArray;
+   
+   return planetsObj;
 }
 
 function initCommandUser()
 {
-    var commandUser = [];
+    var commandUser = new Object();
+    
     if(side === SIDE_JEDI)
     {
-        commandUser.push("luke_skywalker");
-        commandUser.push("aayla_secura");
-        commandUser.push("ki_adi_mundi");
+        commandUser["personage1"] = userPlanets["Coruscant"].bluePersonage1;
+        commandUser["personage2"] = userPlanets["Coruscant"].bluePersonage2;
+        commandUser["personage3"] = userPlanets["Coruscant"].bluePersonage3;
     }
     if(side === SIDE_SITH)
     {
-        commandUser.push("anakin_skywalker");
-        commandUser.push("palpatine");
-        commandUser.push("nute_gunray"); 
+        commandUser["personage1"] = userPlanets["DeathStar"].redPersonage1;
+        commandUser["personage2"] = userPlanets["DeathStar"].redPersonage2;
+        commandUser["personage3"] = userPlanets["DeathStar"].redPersonage3;
     }
     return commandUser;
 }
 
 function initCommandAI()
 {
-    var commandAI = [];
+    var commandAI = new Object();
     if(side === SIDE_JEDI)
     {
-        commandAI.push("luke_skywalker");
-        commandAI.push("aayla_secura");
-        commandAI.push("ki_adi_mundi");
+        commandAI["personage1"] = userPlanets["DeathStar"].redPersonage1;
+        commandAI["personage2"] = userPlanets["DeathStar"].redPersonage2;
+        commandAI["personage3"] = userPlanets["DeathStar"].redPersonage3;
     }
     if(side === SIDE_SITH)
     {
-        commandAI.push("anakin_skywalker");
-        commandAI.push("palpatine");
-        commandAI.push("nute_gunray"); 
+        commandAI["personage1"] = userPlanets["Coruscant"].bluePersonage1;
+        commandAI["personage2"] = userPlanets["Coruscant"].bluePersonage2;
+        commandAI["personage3"] = userPlanets["Coruscant"].bluePersonage3;
     }
     return commandAI;
 }
@@ -1070,16 +1079,18 @@ var mapStartPosX;
 var mapStartPosY;
 var mapDesktopLineGraphics;
 var mapMessageLineGraphics;
-var mapStyleDroidBlueText = { font : 'bold 14px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 }; 
+var mapStyleDroidBlueText = { font : 'bold 12px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 145 }; 
 var mapStyleButtonBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
-var mapStyleDroidRedText = { font : 'bold 14px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 }; 
+var mapStyleDroidRedText = { font : 'bold 12px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 145 }; 
 var mapStyleButtonRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
-
+var mapTextMessage;
 
 function mapCreate() 
 { 
     mapStage = new PIXI.Container();
     stage.addChild(mapStage);
+    
+    checkAvailablePersonage();
     
     mapSpace();
     mapCreatePlanets();
@@ -1159,38 +1170,115 @@ function onMapSpaceMove()
 
 function mapCreatePlanets()
 {
-    var index = 0;
     for (var key in userMapPlanets)
     {
-        mapSprite.addChild(userMapPlanets[key][1]);
-        mapSprite.addChild(userMapPlanets[key][4]);
+        userMapPlanets[key][1].tap = onMapPlanetClick;
+        userMapPlanets[key][1].click = onMapPlanetClick;
+        userMapPlanets[key][1].on('mouseover', onMapPlanetOver);
+        userMapPlanets[key][1].on('mouseout', onMapPlanetOut);
+        
         if(side === SIDE_JEDI)
         {
-            mapSprite.addChild(userMapPlanets[key][2]);
-            if(userPlanets[index].status === USER_PLANET_QUEST_AWAITING)
+            if(userPlanets[key].status === USER_PLANET_QUEST_AWAITING)
             {
+                mapSprite.addChild(userMapPlanets[key][1]);
+                mapSprite.addChild(userMapPlanets[key][4]);
+                mapSprite.addChild(userMapPlanets[key][2]);
                 mapSprite.addChild(userMapPlanets[key][5]);
                 mapSprite.addChild(userMapPlanets[key][6]);
                 mapSprite.addChild(userMapPlanets[key][7]);
-            }else{
+            }
+            if(userPlanets[key].status === USER_PLANET_QUEST_COMPLETE_JEDI)
+            {
+                var graphics = new PIXI.Graphics();
+                graphics.beginFill(0x0000FF, 0.25);
+                graphics.lineStyle(1, 0x0000FF, 0.8);
+                graphics.drawCircle(userMapPlanets[key][2].position.x + 2, userMapPlanets[key][2].position.y + 65, 50);
+                graphics.lineStyle(1, 0x0000FF, 1);
+                graphics.endFill();
+                mapSprite.addChild(graphics);
+            
+                mapSprite.addChild(userMapPlanets[key][1]);
+                mapSprite.addChild(userMapPlanets[key][4]);
+                mapSprite.addChild(userMapPlanets[key][2]);
                 mapSprite.addChild(userMapPlanets[key][11]);
+            }
+            if(userPlanets[key].status === USER_PLANET_QUEST_COMPLETE_SITH)
+            {
+                var graphics = new PIXI.Graphics();
+                graphics.beginFill(0xFF0000, 0.25);
+                graphics.lineStyle(1, 0xFF0000, 0.3);
+                graphics.drawCircle(userMapPlanets[key][2].position.x + 2.5, userMapPlanets[key][2].position.y + 65, 50);
+                graphics.lineStyle(1, 0xFF0000, 1);
+                graphics.endFill();
+                mapSprite.addChild(graphics);
+            
+                mapSprite.addChild(userMapPlanets[key][1]);
+                mapSprite.addChild(userMapPlanets[key][4]);
+                mapSprite.addChild(userMapPlanets[key][2]);
+                mapSprite.addChild(userMapPlanets[key][12]);
             }
         }
         if(side === SIDE_SITH) 
         {
-            mapSprite.addChild(userMapPlanets[key][3]);
-            if(userPlanets[index].status === USER_PLANET_QUEST_AWAITING)
+            if(userPlanets[key].status === USER_PLANET_QUEST_AWAITING)
             {
+                mapSprite.addChild(userMapPlanets[key][1]);
+                mapSprite.addChild(userMapPlanets[key][4]);
+                mapSprite.addChild(userMapPlanets[key][3]);
                 mapSprite.addChild(userMapPlanets[key][8]);
                 mapSprite.addChild(userMapPlanets[key][9]);
                 mapSprite.addChild(userMapPlanets[key][10]);
-            }else{
+            }
+            if(userPlanets[key].status === USER_PLANET_QUEST_COMPLETE_JEDI)
+            {
+                var graphics = new PIXI.Graphics();
+                graphics.beginFill(0x0000FF, 0.25);
+                graphics.lineStyle(1, 0x0000FF, 0.8);
+                graphics.drawCircle(userMapPlanets[key][2].position.x + 2.5, userMapPlanets[key][2].position.y + 65, 50);
+                graphics.lineStyle(1, 0x0000FF, 1);
+                graphics.endFill();
+                mapSprite.addChild(graphics);
+                
+                mapSprite.addChild(userMapPlanets[key][1]);
+                mapSprite.addChild(userMapPlanets[key][4]);
+                mapSprite.addChild(userMapPlanets[key][3]);
+                mapSprite.addChild(userMapPlanets[key][11]);
+            }
+            if(userPlanets[key].status === USER_PLANET_QUEST_COMPLETE_SITH)
+            {
+                var graphics = new PIXI.Graphics();
+                graphics.beginFill(0xFF0000, 0.25);
+                graphics.lineStyle(1, 0xFF0000, 0.3);
+                graphics.drawCircle(userMapPlanets[key][2].position.x + 2, userMapPlanets[key][2].position.y + 65, 50);
+                graphics.lineStyle(1, 0xFF0000, 1);
+                graphics.endFill();
+                mapSprite.addChild(graphics);
+                
+                mapSprite.addChild(userMapPlanets[key][1]);
+                mapSprite.addChild(userMapPlanets[key][4]);
+                mapSprite.addChild(userMapPlanets[key][3]);
                 mapSprite.addChild(userMapPlanets[key][12]);
             }
         }
-        
-        index++;
     }
+}
+
+function onMapPlanetClick()
+{
+    
+}
+
+function onMapPlanetOver(event)
+{
+    if(side === SIDE_JEDI) mapTextMessage.text = userMapMessage[event.target.name][0];
+    if(side === SIDE_SITH) mapTextMessage.text = userMapMessage[event.target.name][1];
+}
+
+function onMapPlanetOut()
+{
+    if(side === SIDE_JEDI) mapTextMessage.text = userMapMessage["LastNews"][0];
+    if(side === SIDE_SITH) mapTextMessage.text = userMapMessage["LastNews"][1];
 }
 
 function mapCreateInterface()
@@ -1332,10 +1420,10 @@ function mapDroidBlue()
 
 function mapDroidBlueMessage()
 {
-    var textMessage = new PIXI.Text(userMapMessage["message1"][0], mapStyleDroidBlueText); 
-    textMessage.x = 705; 
-    textMessage.y = 245; 
-    mapStage.addChild(textMessage);
+    mapTextMessage = new PIXI.Text(userMapMessage["LastNews"][0], mapStyleDroidBlueText); 
+    mapTextMessage.x = 705; 
+    mapTextMessage.y = 245; 
+    mapStage.addChild(mapTextMessage);
 }
 
 function mapBattonsBlue()
@@ -1512,10 +1600,10 @@ function mapDroidRed()
 
 function mapDroidRedMessage()
 {
-    var textMessage = new PIXI.Text(userMapMessage["message1"][1], mapStyleDroidRedText); 
-    textMessage.x = 705; 
-    textMessage.y = 245; 
-    mapStage.addChild(textMessage);
+    mapTextMessage = new PIXI.Text(userMapMessage["LastNews"][1], mapStyleDroidRedText); 
+    mapTextMessage.x = 705; 
+    mapTextMessage.y = 245; 
+    mapStage.addChild(mapTextMessage);
 }
 
 function mapBattonsRed()
@@ -1633,15 +1721,28 @@ function mapMessageLineGraphicsTween()
     createjs.Ticker.setFPS(60);
 }
 
+
+function checkAvailablePersonage()
+{
+    for(var key in userCommandUser)
+    {
+        for(var planetID in userPlanets)
+        {
+            console.log(userPlanets[planetID].redReward1);
+        }
+    }
+}
+
 function showCommand()
 {
-    for(var i = 0; i < userCommandUser.length; i++)
+    var index = 0;
+    for(var key in userCommandUser)
     {
-        var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[i]][3]); 
-        textureSprite.position.x = 35 + (105 * i); 
+        var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
+        textureSprite.position.x = 35 + (105 * index); 
         textureSprite.position.y = 625; 
-        //textureSprite.scale.set(0.3);
         mapStage.addChild(textureSprite);
+        index++;
     }
 }
 
@@ -1819,9 +1920,9 @@ function onMenuButtonClick()
             settingsCreate();
             break;
         case "button_2":        // Позвать друзей ВК
-            //VK.callMethod("showInviteBox");
-            testCreate();
-            menuRemove();
+            VK.callMethod("showInviteBox");
+            //testCreate();
+            //menuRemove();
             break;
         
         default:
@@ -3092,10 +3193,11 @@ var userCommandUser;
 var userCommandAI;
 
 var userPersonages;      // список персонажей в игре
-var userPlanets;        // Прогресс игры в отношении планет
+var userPlanets;         // Прогресс игры в отношении планет
 
 var USER_PLANET_QUEST_AWAITING = "user_planet_quest_awaiting";
-var USER_PLANET_QUEST_COMPLETE = "user_planet_quest_complete";
+var USER_PLANET_QUEST_COMPLETE_JEDI = "user_planet_quest_complete_jedi";
+var USER_PLANET_QUEST_COMPLETE_SITH = "user_planet_quest_complete_sith";
 
 var UserPlanet = function(id, name)
 {
@@ -3104,13 +3206,9 @@ var UserPlanet = function(id, name)
     this.redPersonage1 = null;
     this.redPersonage2 = null;
     this.redPersonage3 = null;
-    this.redReward1 = null;
-    this.redReward2 = null;
     this.bluePersonage1 = null;
     this.bluePersonage2 = null;
     this.bluePersonage3 = null;
-    this.blueReward1 = null;
-    this.blueReward2 = null;
     this.status = USER_PLANET_QUEST_AWAITING;
     this.description = "";
 };

@@ -30,7 +30,7 @@ function initMap()
         new PIXI.Sprite(heroesTextures["luke_skywalker"][1]),
         new PIXI.Sprite(heroesTextures["mace_windu"][1]),
         new PIXI.Sprite(heroesTextures["mas_amedda"][1]),
-        new PIXI.Text("Орден Джедаев", initPlanetBlueStyleText),
+        new PIXI.Text("Орден Джедай", initPlanetBlueStyleText),
         new PIXI.Text("Победа Ситов", initPlanetRedStyleText)
     ];
     planets["Coruscant"][1].name = "Coruscant";
@@ -644,8 +644,8 @@ function initMap()
         new PIXI.Sprite(heroesTextures["luke_skywalker"][1]),
         new PIXI.Sprite(heroesTextures["luke_skywalker"][1]),
         new PIXI.Sprite(heroesTextures["luke_skywalker"][1]),
-        new PIXI.Text("Союзник Джедай", initPlanetBlueStyleText),
-        new PIXI.Text("Пренадлежит Ситам", initPlanetRedStyleText)
+        new PIXI.Text("Победа Джедай", initPlanetBlueStyleText),
+        new PIXI.Text("Орден Ситов", initPlanetRedStyleText)
     ];
     planets["DeathStar"][1].name = "DeathStar";
     planets["DeathStar"][1].position.x = 150;
@@ -861,7 +861,23 @@ function initMap()
 function initMessage()
 {
     var message = new Object();
-    message["message1"] = ["Меня зовут R2D2", "Меня зовут R3-S6"];
+    message["LastNews"] = ["Меня зовут R2D2, рад вас приветствовать.\n\nВ данное время Корусант является основной целью Ситов. Необходимо остановить их любой ценой.\n\nВыберите планету, выполните миссию и получите союзника в свою команду.", "Меня зовут R3-S6, приветствую тебя мой повелитель."];
+    message["Coruscant"] = ["Корусант", "Корусант"];
+    message["Totooine"] = ["Татуин", "Татуин"];
+    message["Naboo"] = ["Набу", "Набу"];
+    message["Endor"] = ["Эндор", "Эндор"];
+    message["Hoth"] = ["Хот", "Хот"];
+    message["Mustafar"] = ["Мустафар", "Мустафар"];
+    message["Dagobah"] = ["Дагоба", "Дагоба"];
+    message["Bespin"] = ["Беспин", "Беспин"];
+    message["Geonosis"] = ["Джеонозис", "Джеонозис"];
+    message["Alderaan"] = ["Альдераан", "Альдераан"];
+    message["Kamino"] = ["Камино", "Камино"];
+    message["DeathStar"] = ["Звезда смерти", "Звезда смерти"];
+    message["Utapau"] = ["Утапау", "Утапау"];
+    message["Saleucami"] = ["Салукемай", "Салукемай"];
+    message["Jakku"] = ["Джакку", "Джакку"];
+    
     
     return message;
 }

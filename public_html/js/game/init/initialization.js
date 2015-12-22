@@ -12,6 +12,7 @@ function initGame()
     userPlanets = initPlanets();                // планеты
     userCommandUser = initCommandUser();        // команда пользователя
     userCommandAI = initCommandAI();            // команда ИИ
+    initCharacteristics();                      // инициализация характеристик персонажей
 }
 
 function initMap()
@@ -954,6 +955,164 @@ function initCommandAI()
         commandAI["personage3"] = userPlanets["Coruscant"].bluePersonage3;
     }
     return commandAI;
+}
+
+function initRandomIndex()
+{
+	var indexRandom = Math.random() / 0.1;
+	var index = Math.round(indexRandom);
+	return index;
+}
+
+function initCharacteristic(valueArray)
+{
+    var index = initRandomIndex();
+    if (index >= 0 && index <= 3) return valueArray[0];
+    if (index >= 4 && index <= 7) return valueArray[1];
+    if (index >= 8 && index <= 10) return valueArray[2];
+}
+
+function initCharacteristics()
+{
+    var characteristicsBlue = new Object();
+    characteristicsBlue["planet-1"] = [2,3,4];
+    characteristicsBlue["planet-2"] = [4,5,6];
+    characteristicsBlue["planet-3"] = [6,7,8];
+    characteristicsBlue["planet-4"] = [8,9,10];
+    characteristicsBlue["planet-5"] = [10,11,12];
+    characteristicsBlue["planet-6"] = [12,13,14];
+    characteristicsBlue["planet-7"] = [14,15,16];
+    characteristicsBlue["planet-8"] = [16,17,18];
+    characteristicsBlue["planet-9"] = [19,20,21];
+    characteristicsBlue["planet-10"] = [21,22,23];
+    characteristicsBlue["planet-11"] = [23,24,25];
+    characteristicsBlue["planet-12"] = [25,26,27];
+    characteristicsBlue["planet-13"] = [27,28,29];    
+    characteristicsBlue["planet-14"] = [29,30,31];
+    characteristicsBlue["planet-15"] = [31,32,33];  
+    
+    var characteristicsRed = new Object();
+    characteristicsRed["planet-1"] = [2,3,4];
+    characteristicsRed["planet-2"] = [4,5,6];
+    characteristicsRed["planet-3"] = [6,7,8];
+    characteristicsRed["planet-4"] = [8,9,10];
+    characteristicsRed["planet-5"] = [10,11,12];
+    characteristicsRed["planet-6"] = [12,13,14];
+    characteristicsRed["planet-7"] = [14,15,16];
+    characteristicsRed["planet-8"] = [16,17,18];
+    characteristicsRed["planet-9"] = [19,20,21];
+    characteristicsRed["planet-10"] = [21,22,23];
+    characteristicsRed["planet-11"] = [23,24,25];
+    characteristicsRed["planet-12"] = [25,26,27];
+    characteristicsRed["planet-13"] = [27,28,29];    
+    characteristicsRed["planet-14"] = [29,30,31];
+    characteristicsRed["planet-15"] = [31,32,33]; 
+    
+   
+    for(var key in userPlanets)
+    {
+        var characterBlueArr = [];
+        
+        if(side === SIDE_JEDI && key === "Coruscant")
+        {
+            characterBlueArr = characteristicsBlue["planet-1"];
+            delete characteristicsBlue["planet-1"];
+        }else{
+            if(side === SIDE_JEDI && key === "DeathStar")
+            {
+                characterBlueArr = characteristicsBlue["planet-15"];
+                delete characteristicsBlue["planet-15"];
+            }else{
+                
+                var count = Object.keys(characteristicsBlue).length;
+                var index = initRandomIndex();
+                var result;
+                
+                if(index > count) result = index - count;
+                else result = count - index;
+                if(result >= count || Object.keys(characteristicsBlue)[result] === "planet-1" || Object.keys(characteristicsBlue)[result] === "planet-15") result = 0;
+                
+                characterBlueArr = characteristicsBlue[Object.keys(characteristicsBlue)[result]];
+                delete characteristicsBlue[Object.keys(characteristicsBlue)[result]];
+                
+                
+            }
+        }
+        
+        
+        userPersonages[userPlanets[key].bluePersonage1].hit1 = initCharacteristic(characterBlueArr);
+        userPersonages[userPlanets[key].bluePersonage1].hit2 = initCharacteristic(characterBlueArr);
+        userPersonages[userPlanets[key].bluePersonage1].hit3 = initCharacteristic(characterBlueArr);
+        userPersonages[userPlanets[key].bluePersonage1].hit4 = initCharacteristic(characterBlueArr);
+        userPersonages[userPlanets[key].bluePersonage1].hit5 = initCharacteristic(characterBlueArr);
+        
+        userPersonages[userPlanets[key].bluePersonage2].hit1 = initCharacteristic(characterBlueArr);
+        userPersonages[userPlanets[key].bluePersonage2].hit2 = initCharacteristic(characterBlueArr);
+        userPersonages[userPlanets[key].bluePersonage2].hit3 = initCharacteristic(characterBlueArr);
+        userPersonages[userPlanets[key].bluePersonage2].hit4 = initCharacteristic(characterBlueArr);
+        userPersonages[userPlanets[key].bluePersonage2].hit5 = initCharacteristic(characterBlueArr);
+        
+        userPersonages[userPlanets[key].bluePersonage3].hit1 = initCharacteristic(characterBlueArr);
+        userPersonages[userPlanets[key].bluePersonage3].hit2 = initCharacteristic(characterBlueArr);
+        userPersonages[userPlanets[key].bluePersonage3].hit3 = initCharacteristic(characterBlueArr);
+        userPersonages[userPlanets[key].bluePersonage3].hit4 = initCharacteristic(characterBlueArr);
+        userPersonages[userPlanets[key].bluePersonage3].hit5 = initCharacteristic(characterBlueArr);
+        
+        var characterRedArr = [];
+        if(side === SIDE_SITH && key === "DeathStar")
+        {
+            characterRedArr = characteristicsRed["planet-1"];
+            delete characteristicsRed["planet-1"];
+            console.log("PLANET-1");
+        }else{
+            if(side === SIDE_SITH && key === "Coruscant") 
+            {
+                characterRedArr = characteristicsRed["planet-15"];
+                delete characteristicsRed["planet-15"];
+                console.log("PLANET-15");
+            }else{
+                
+                var count = Object.keys(characteristicsRed).length;
+                var index = initRandomIndex();
+                var result;
+                
+                if(index > count) result = index - count;
+                else result = count - index;
+                if(result >= count || Object.keys(characteristicsRed)[result] === "planet-1" || Object.keys(characteristicsRed)[result] === "planet-15") result = 0;
+                
+                
+                console.log(result);
+                console.log(count);
+                console.log(Object.keys(characteristicsRed)[result]);
+
+                
+                characterRedArr = characteristicsRed[Object.keys(characteristicsRed)[result]];
+                delete characteristicsRed[Object.keys(characteristicsRed)[result]];
+                
+            }
+        }
+        
+        userPersonages[userPlanets[key].redPersonage1].hit1 = initCharacteristic(characterRedArr);
+        userPersonages[userPlanets[key].redPersonage1].hit2 = initCharacteristic(characterRedArr);
+        userPersonages[userPlanets[key].redPersonage1].hit3 = initCharacteristic(characterRedArr);
+        userPersonages[userPlanets[key].redPersonage1].hit4 = initCharacteristic(characterRedArr);
+        userPersonages[userPlanets[key].redPersonage1].hit5 = initCharacteristic(characterRedArr);
+        
+        userPersonages[userPlanets[key].redPersonage2].hit1 = initCharacteristic(characterRedArr);
+        userPersonages[userPlanets[key].redPersonage2].hit2 = initCharacteristic(characterRedArr);
+        userPersonages[userPlanets[key].redPersonage2].hit3 = initCharacteristic(characterRedArr);
+        userPersonages[userPlanets[key].redPersonage2].hit4 = initCharacteristic(characterRedArr);
+        userPersonages[userPlanets[key].redPersonage2].hit5 = initCharacteristic(characterRedArr);
+        
+        userPersonages[userPlanets[key].redPersonage3].hit1 = initCharacteristic(characterRedArr);
+        userPersonages[userPlanets[key].redPersonage3].hit2 = initCharacteristic(characterRedArr);
+        userPersonages[userPlanets[key].redPersonage3].hit3 = initCharacteristic(characterRedArr);
+        userPersonages[userPlanets[key].redPersonage3].hit4 = initCharacteristic(characterRedArr);
+        userPersonages[userPlanets[key].redPersonage3].hit5 = initCharacteristic(characterRedArr);
+
+    }
+    
+    
 }
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

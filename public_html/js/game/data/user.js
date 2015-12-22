@@ -1,15 +1,20 @@
 
 /* == НАЧАЛО ФАЙЛА ========================================================= */
 
-var userMapPlanets;     // карта планет
-var userMapMessage;     // Сообщения на карте
-//var userLevels;         // Уровни
+var userMapPlanets;     // карта планет (объект)
+var userMapMessage;     // Сообщения на карте (объект)
+//var userLevels;         // Уровни (объект)
 
-var userCommandUser;
-var userCommandAI;
+var userCommandUser;    // команда пользователя (объект)
+var userCommandAI;      // команда ИИ (объект)
 
-var userPersonages;      // список персонажей в игре
-var userPlanets;         // Прогресс игры в отношении планет
+var userPersonages;      // список персонажей в игре (объект)
+var userPlanets;         // Прогресс игры в отношении планет (объект)
+
+//var userExperiencePoints = 0;			// Очки опыта
+//var userTotalPointsPlayerTournament = 0;	// Общие очки игрока за всю игру
+//var userlTotalPointsPlayerLevel = 0;            // Общие очки игрока за уровен
+//var userExperiencePointsAI = 0;			// Очки опыта ИИ
 
 var USER_PLANET_QUEST_AWAITING = "user_planet_quest_awaiting";
 var USER_PLANET_QUEST_COMPLETE_JEDI = "user_planet_quest_complete_jedi";

@@ -197,7 +197,7 @@ function mapCreatePlanets()
 
 function onMapPlanetClick()
 {
-    
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 
 function onMapPlanetOver(event)
@@ -660,6 +660,7 @@ function checkAvailablePersonage()
         for(var planetID in userPlanets)
         {
             console.log(userPlanets[planetID].status);
+            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
     }
 }

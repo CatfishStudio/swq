@@ -659,10 +659,41 @@ function checkAvailablePersonage()
     {
         for(var planetID in userPlanets)
         {
-            console.log(userPlanets[planetID].status);
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if( (side === SIDE_JEDI)
+			&& (userPlanets[planetID].bluePersonage1 === key || userPlanets[planetID].bluePersonage2 === key || userPlanets[planetID].bluePersonage3 === key) 
+			&& (userPlanets[planetID].status === USER_PLANET_QUEST_AWAITING || userPlanets[planetID].status === USER_PLANET_QUEST_COMPLETE_SITH)) 
+			{
+				userCommandUser[key] = null;
+			}
+			if( (side === SIDE_SITH)
+			&& (userPlanets[planetID].redPersonage1 === key || userPlanets[planetID].redPersonage2 === key || userPlanets[planetID].redPersonage3 === key) 
+			&& (userPlanets[planetID].status === USER_PLANET_QUEST_AWAITING || userPlanets[planetID].status === USER_PLANET_QUEST_COMPLETE_JEDI)) 
+			{
+				userCommandUser[key] = null;
+			}
         }
     }
+	
+	for(var key in userCommandAI)
+    {
+        for(var planetID in userPlanets)
+        {
+            if( (side === SIDE_JEDI)
+			&& (userPlanets[planetID].redPersonage1 === key || userPlanets[planetID].redPersonage2 === key || userPlanets[planetID].redPersonage3 === key) 
+			&& (userPlanets[planetID].status === USER_PLANET_QUEST_AWAITING || userPlanets[planetID].status === USER_PLANET_QUEST_COMPLETE_JEDI)) 
+			{
+				userCommandAI[key] = null;
+			}
+			if( (side === SIDE_SITH)
+			&& (userPlanets[planetID].bluePersonage1 === key || userPlanets[planetID].bluePersonage2 === key || userPlanets[planetID].bluePersonage3 === key) 
+			&& (userPlanets[planetID].status === USER_PLANET_QUEST_AWAITING || userPlanets[planetID].status === USER_PLANET_QUEST_COMPLETE_SITH)) 
+			{
+				userCommandAI[key] = null;
+			}
+        }
+    }
+	
+	
 }
 
 function showCommand()

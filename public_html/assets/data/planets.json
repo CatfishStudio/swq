@@ -14,6 +14,18 @@
         "description": "Корусант, так же известный как Центр Империи или Королева Ядра — сверкающая планета, расположенная в сердце галактики, Корусант тысячелетиями был политическим центром Галактики, где принимались самые важные решения, затрагивающие жизни триллионов. С зари межзвездной истории за одним единственным словом «Корусант» скрывалось бесспорное средоточие власти, силы, законности, истории и культуры. В различные времена планета была столицей государств галактического масштаба: Галактической Республики, Галактической Империи, Новой Республики, центром оккупации юужань-вонгов и Галактического Союза."
       },
       {
+        "id": "DeathStar",
+        "name": "Звезда смерти",
+        "redPersonage1": "darth_vader",
+        "redPersonage2": "darth_sidious",
+        "redPersonage3": "commander_jerjerrod",
+        "bluePersonage1": "luke_skywalker",
+        "bluePersonage2": "luke_skywalker",
+        "bluePersonage3": "luke_skywalker",
+        "status": "user_planet_quest_complete_sith",
+        "description": ""
+      },
+      {
         "id": "Totooine",
         "name": "Татуин",
         "redPersonage1": "tusken",
@@ -131,18 +143,6 @@
         "bluePersonage2": "clone_commander_bakara",
         "bluePersonage3": "clone_commander_neyo",
         "status": "user_planet_quest_awaiting",
-        "description": ""
-      },
-      {
-        "id": "DeathStar",
-        "name": "Звезда смерти",
-        "redPersonage1": "darth_vader",
-        "redPersonage2": "darth_sidious",
-        "redPersonage3": "commander_jerjerrod",
-        "bluePersonage1": "luke_skywalker",
-        "bluePersonage2": "luke_skywalker",
-        "bluePersonage3": "luke_skywalker",
-        "status": "user_planet_quest_complete_sith",
         "description": ""
       },
       {

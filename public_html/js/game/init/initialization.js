@@ -976,6 +976,7 @@ function initCharacteristics()
 {
     var characteristicsBlue = new Object();
     characteristicsBlue["planet-1"] = [2,3,4];
+    characteristicsBlue["planet-15"] = [31,32,33]; 
     characteristicsBlue["planet-2"] = [4,5,6];
     characteristicsBlue["planet-3"] = [6,7,8];
     characteristicsBlue["planet-4"] = [8,9,10];
@@ -989,10 +990,11 @@ function initCharacteristics()
     characteristicsBlue["planet-12"] = [25,26,27];
     characteristicsBlue["planet-13"] = [27,28,29];    
     characteristicsBlue["planet-14"] = [29,30,31];
-    characteristicsBlue["planet-15"] = [31,32,33];  
+     
     
     var characteristicsRed = new Object();
     characteristicsRed["planet-1"] = [2,3,4];
+    characteristicsRed["planet-15"] = [31,32,33];
     characteristicsRed["planet-2"] = [4,5,6];
     characteristicsRed["planet-3"] = [6,7,8];
     characteristicsRed["planet-4"] = [8,9,10];
@@ -1006,8 +1008,6 @@ function initCharacteristics()
     characteristicsRed["planet-12"] = [25,26,27];
     characteristicsRed["planet-13"] = [27,28,29];    
     characteristicsRed["planet-14"] = [29,30,31];
-    characteristicsRed["planet-15"] = [31,32,33]; 
-    
    
     for(var key in userPlanets)
     {
@@ -1030,7 +1030,7 @@ function initCharacteristics()
                 
                 if(index > count) result = index - count;
                 else result = count - index;
-                if(result >= count || Object.keys(characteristicsBlue)[result] === "planet-1" || Object.keys(characteristicsBlue)[result] === "planet-15") result = 0;
+                if(result >= count) result = 0;
                 
                 characterBlueArr = characteristicsBlue[Object.keys(characteristicsBlue)[result]];
                 delete characteristicsBlue[Object.keys(characteristicsBlue)[result]];
@@ -1063,13 +1063,11 @@ function initCharacteristics()
         {
             characterRedArr = characteristicsRed["planet-1"];
             delete characteristicsRed["planet-1"];
-            console.log("PLANET-1");
         }else{
             if(side === SIDE_SITH && key === "Coruscant") 
             {
                 characterRedArr = characteristicsRed["planet-15"];
                 delete characteristicsRed["planet-15"];
-                console.log("PLANET-15");
             }else{
                 
                 var count = Object.keys(characteristicsRed).length;
@@ -1078,13 +1076,8 @@ function initCharacteristics()
                 
                 if(index > count) result = index - count;
                 else result = count - index;
-                if(result >= count || Object.keys(characteristicsRed)[result] === "planet-1" || Object.keys(characteristicsRed)[result] === "planet-15") result = 0;
+                if(result >= count) result = 0;
                 
-                
-                console.log(result);
-                console.log(count);
-                console.log(Object.keys(characteristicsRed)[result]);
-
                 
                 characterRedArr = characteristicsRed[Object.keys(characteristicsRed)[result]];
                 delete characteristicsRed[Object.keys(characteristicsRed)[result]];

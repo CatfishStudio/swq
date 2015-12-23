@@ -20,12 +20,14 @@ function mapCreate()
     mapStage = new PIXI.Container();
     stage.addChild(mapStage);
     
-    checkAvailablePersonage();
+    mapCheckAvailablePersonage();   // определение доступности персонажей команды
     
-    mapSpace();
-    mapCreatePlanets();
-    mapCreateInterface();
-    mapCreateTargets();
+    mapSpace();                     // построение вселенной
+    mapCreatePlanets();             // построение планет
+    mapCreateInterface();           // построение интерфейса
+    mapCreateTargets();             // построение анимации указывающей на цель
+    
+    mapDestinationSearch();         // поиск ближайшей цели
 } 
 
 function mapRemove() 
@@ -653,7 +655,7 @@ function mapMessageLineGraphicsTween()
 }
 
 
-function checkAvailablePersonage()
+function mapCheckAvailablePersonage()
 {
     for(var key in userCommandUser)
     {
@@ -715,28 +717,103 @@ function showCommand()
 
 function mapCreateTargets()
 {
+    mapTargetPlanetRed = new PIXI.Graphics();
+    mapTargetPlanetRed.lineStyle(2, 0xFF0000, 0.5);
+    mapTargetPlanetRed.beginFill(0xFF0000, 0.2);
+    mapTargetPlanetRed.moveTo(0, -5);
+    mapTargetPlanetRed.lineTo(-15, -55);
+    mapTargetPlanetRed.lineTo(15, -55);
+    mapTargetPlanetRed.lineTo(0, -5);
+    mapTargetPlanetRed.endFill;
+    
+    mapTargetPlanetRed.lineStyle(2, 0xFF0000, 0.5);
+    mapTargetPlanetRed.beginFill(0xFF0000, 0.2);
+    mapTargetPlanetRed.moveTo(0, 5);
+    mapTargetPlanetRed.lineTo(-15, 55);
+    mapTargetPlanetRed.lineTo(15, 55);
+    mapTargetPlanetRed.lineTo(0, 5);
+    mapTargetPlanetRed.endFill;
+    
+    mapTargetPlanetRed.lineStyle(2, 0xFF0000, 0.5);
+    mapTargetPlanetRed.beginFill(0xFF0000, 0.2);
+    mapTargetPlanetRed.moveTo(-5, 0);
+    mapTargetPlanetRed.lineTo(-55, -15);
+    mapTargetPlanetRed.lineTo(-55, 15);
+    mapTargetPlanetRed.lineTo(-5, 0);
+    mapTargetPlanetRed.endFill;
+    
+    mapTargetPlanetRed.lineStyle(2, 0xFF0000, 0.5);
+    mapTargetPlanetRed.beginFill(0xFF0000, 0.2);
+    mapTargetPlanetRed.moveTo(5, 0);
+    mapTargetPlanetRed.lineTo(55, -15);
+    mapTargetPlanetRed.lineTo(55, 15);
+    mapTargetPlanetRed.lineTo(5, 0);
+    mapTargetPlanetRed.endFill;
+    
+    mapTargetPlanetRed.position.x = 100;
+    mapTargetPlanetRed.position.y = 100;
+    mapTargetPlanetRed.visible = false;
+    mapSprite.addChild(mapTargetPlanetRed);
+    
     mapTargetPlanetBlue = new PIXI.Graphics();
-    mapTargetPlanetBlue.lineStyle(2, 0xFF0000, 0.2);
-    mapTargetPlanetBlue.beginFill(0xFF0000, 0.2);
+    mapTargetPlanetBlue.lineStyle(2, 0x0000FF, 0.5);
+    mapTargetPlanetBlue.beginFill(0x0000FF, 0.5);
     mapTargetPlanetBlue.moveTo(0, -5);
     mapTargetPlanetBlue.lineTo(-15, -55);
     mapTargetPlanetBlue.lineTo(15, -55);
     mapTargetPlanetBlue.lineTo(0, -5);
     mapTargetPlanetBlue.endFill;
     
-    mapTargetPlanetBlue.lineStyle(2, 0xFF0000, 0.2);
-    mapTargetPlanetBlue.beginFill(0xFF0000, 0.2);
+    mapTargetPlanetBlue.lineStyle(2, 0x0000FF, 0.5);
+    mapTargetPlanetBlue.beginFill(0x0000FF, 0.5);
     mapTargetPlanetBlue.moveTo(0, 5);
     mapTargetPlanetBlue.lineTo(-15, 55);
     mapTargetPlanetBlue.lineTo(15, 55);
     mapTargetPlanetBlue.lineTo(0, 5);
     mapTargetPlanetBlue.endFill;
     
+    mapTargetPlanetBlue.lineStyle(2, 0x0000FF, 0.5);
+    mapTargetPlanetBlue.beginFill(0x0000FF, 0.5);
+    mapTargetPlanetBlue.moveTo(-5, 0);
+    mapTargetPlanetBlue.lineTo(-55, -15);
+    mapTargetPlanetBlue.lineTo(-55, 15);
+    mapTargetPlanetBlue.lineTo(-5, 0);
+    mapTargetPlanetBlue.endFill;
+    
+    mapTargetPlanetBlue.lineStyle(2, 0x0000FF, 0.5);
+    mapTargetPlanetBlue.beginFill(0x0000FF, 0.5);
+    mapTargetPlanetBlue.moveTo(5, 0);
+    mapTargetPlanetBlue.lineTo(55, -15);
+    mapTargetPlanetBlue.lineTo(55, 15);
+    mapTargetPlanetBlue.lineTo(5, 0);
+    mapTargetPlanetBlue.endFill;
+    
     mapTargetPlanetBlue.position.x = 100;
     mapTargetPlanetBlue.position.y = 100;
-        
-    mapStage.addChild(mapTargetPlanetBlue);
-    
+    mapTargetPlanetBlue.visible = false;
+    mapSprite.addChild(mapTargetPlanetBlue);
+}
+
+function mapRedTargetsShow(planetName)
+{
+    mapTargetPlanetRed.position.x = userMapPlanets[planetName][1].position.x + 40;
+    mapTargetPlanetRed.position.y = userMapPlanets[planetName][1].position.y + 40;
+    mapTargetPlanetRed.visible = true;
+    mapTargetRedTween();
+}
+
+function mapTargetRedTween()
+{
+    createjs.Tween.get(mapTargetPlanetRed, {loop: true}) 
+            .to({rotation: 3.15 }, 2500, createjs.Ease.getPowInOut(1));
+    createjs.Ticker.setFPS(60);
+}
+
+function mapBlueTargetsShow(planetName)
+{
+    mapTargetPlanetBlue.position.x = userMapPlanets[planetName][1].position.x + 40;
+    mapTargetPlanetBlue.position.y = userMapPlanets[planetName][1].position.y + 40;
+    mapTargetPlanetBlue.visible = true;
     mapTargetBlueTween();
 }
 
@@ -745,6 +822,118 @@ function mapTargetBlueTween()
     createjs.Tween.get(mapTargetPlanetBlue, {loop: true}) 
             .to({rotation: 3.15 }, 2500, createjs.Ease.getPowInOut(1));
     createjs.Ticker.setFPS(60);
+}
+
+function mapDestinationSearch()
+{
+    var commands = new Object();
+    commands["user"] = 0;
+    commands["ai"] = 0;
+    
+    for(var key in userCommandUser)
+    {
+        if(userCommandUser[key] !== null)
+        {
+            commands["user"] += userPersonages[userCommandUser[key]].hit1;
+            commands["user"] += userPersonages[userCommandUser[key]].hit2;
+            commands["user"] += userPersonages[userCommandUser[key]].hit3;
+            commands["user"] += userPersonages[userCommandUser[key]].hit4;
+            commands["user"] += userPersonages[userCommandUser[key]].hit5;
+        }
+    }
+    commands["user"] /= 10;
+    
+    for(var key in userCommandAI)
+    {
+        if(userCommandAI[key] !== null)
+        {
+            commands["ai"] += userPersonages[userCommandAI[key]].hit1;
+            commands["ai"] += userPersonages[userCommandAI[key]].hit2;
+            commands["ai"] += userPersonages[userCommandAI[key]].hit3;
+            commands["ai"] += userPersonages[userCommandAI[key]].hit4;
+            commands["ai"] += userPersonages[userCommandAI[key]].hit5;
+        }
+    }
+    commands["ai"] /= 10;
+    
+    var target = new Object();
+    target["planetUser"] = "";
+    target["indexUser"] = 1000;
+    target["planetAI"] = "";
+    target["indexAI"] = 1000;
+    
+    for(var key in userPlanets)
+    {
+        if(side === SIDE_JEDI)
+        {
+           if(userPlanets[key].status !== USER_PLANET_QUEST_COMPLETE_JEDI)
+           {
+                var hitCount = 0;
+                hitCount += userPersonages[userPlanets[key].redPersonage1].hit1 
+                        + userPersonages[userPlanets[key].redPersonage1].hit2 
+                        + userPersonages[userPlanets[key].redPersonage1].hit3 
+                        + userPersonages[userPlanets[key].redPersonage1].hit4
+                        + userPersonages[userPlanets[key].redPersonage1].hit5;
+                hitCount += userPersonages[userPlanets[key].redPersonage2].hit1
+                        + userPersonages[userPlanets[key].redPersonage2].hit2
+                        + userPersonages[userPlanets[key].redPersonage2].hit3
+                        + userPersonages[userPlanets[key].redPersonage2].hit4
+                        + userPersonages[userPlanets[key].redPersonage2].hit5;
+                hitCount += userPersonages[userPlanets[key].redPersonage3].hit1
+                        + userPersonages[userPlanets[key].redPersonage3].hit2
+                        + userPersonages[userPlanets[key].redPersonage3].hit3
+                        + userPersonages[userPlanets[key].redPersonage3].hit4
+                        + userPersonages[userPlanets[key].redPersonage3].hit5;
+                hitCount /= 10;
+                if(hitCount < target["indexUser"])
+                {
+                   target["planetUser"] = userPlanets[key].id; 
+                   target["indexUser"] = hitCount;
+                }
+           }
+           if(userPlanets[key].status !== USER_PLANET_QUEST_COMPLETE_SITH)
+           {
+                var hitCount = 0;
+                hitCount += userPersonages[userPlanets[key].bluePersonage1].hit1 
+                        + userPersonages[userPlanets[key].bluePersonage1].hit2 
+                        + userPersonages[userPlanets[key].bluePersonage1].hit3 
+                        + userPersonages[userPlanets[key].bluePersonage1].hit4
+                        + userPersonages[userPlanets[key].bluePersonage1].hit5;
+                hitCount += userPersonages[userPlanets[key].bluePersonage2].hit1
+                        + userPersonages[userPlanets[key].bluePersonage2].hit2
+                        + userPersonages[userPlanets[key].bluePersonage2].hit3
+                        + userPersonages[userPlanets[key].bluePersonage2].hit4
+                        + userPersonages[userPlanets[key].bluePersonage2].hit5;
+                hitCount += userPersonages[userPlanets[key].bluePersonage3].hit1
+                        + userPersonages[userPlanets[key].bluePersonage3].hit2
+                        + userPersonages[userPlanets[key].bluePersonage3].hit3
+                        + userPersonages[userPlanets[key].bluePersonage3].hit4
+                        + userPersonages[userPlanets[key].bluePersonage3].hit5;
+                hitCount /= 10;
+                console.log(userPlanets[key].id + " : " + userPersonages[userPlanets[key].bluePersonage1].name);
+                if(hitCount < target["indexAI"])
+                {
+                   target["planetAI"] = userPlanets[key].id; 
+                   target["indexAI"] = hitCount;
+                }
+           }
+           
+        }
+    }
+
+    if(side === SIDE_JEDI)
+    {
+        mapBlueTargetsShow(target["planetUser"]);
+        mapRedTargetsShow(target["planetAI"]);
+    }
+    if(side === SIDE_SITH)
+    {
+        mapRedTargetsShow(target["planetUser"]);
+        mapBlueTargetsShow(target["planetAI"]);
+    }
+    
+    
+    
 }
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

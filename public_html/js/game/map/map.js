@@ -660,36 +660,37 @@ function checkAvailablePersonage()
         for(var planetID in userPlanets)
         {
             if( (side === SIDE_JEDI)
-			&& (userPlanets[planetID].bluePersonage1 === key || userPlanets[planetID].bluePersonage2 === key || userPlanets[planetID].bluePersonage3 === key) 
-			&& (userPlanets[planetID].status === USER_PLANET_QUEST_AWAITING || userPlanets[planetID].status === USER_PLANET_QUEST_COMPLETE_SITH)) 
-			{
-				userCommandUser[key] = null;
-			}
-			if( (side === SIDE_SITH)
-			&& (userPlanets[planetID].redPersonage1 === key || userPlanets[planetID].redPersonage2 === key || userPlanets[planetID].redPersonage3 === key) 
-			&& (userPlanets[planetID].status === USER_PLANET_QUEST_AWAITING || userPlanets[planetID].status === USER_PLANET_QUEST_COMPLETE_JEDI)) 
-			{
-				userCommandUser[key] = null;
-			}
+            && (userPlanets[planetID].bluePersonage1 === userCommandUser[key] || userPlanets[planetID].bluePersonage2 === userCommandUser[key] || userPlanets[planetID].bluePersonage3 === userCommandUser[key]) 
+            && (userPlanets[planetID].status === USER_PLANET_QUEST_AWAITING || userPlanets[planetID].status === USER_PLANET_QUEST_COMPLETE_SITH)) 
+            {
+                userCommandUser[key] = null;
+                
+            }
+            if( (side === SIDE_SITH)
+            && (userPlanets[planetID].redPersonage1 === userCommandUser[key] || userPlanets[planetID].redPersonage2 === userCommandUser[key] || userPlanets[planetID].redPersonage3 === userCommandUser[key]) 
+            && (userPlanets[planetID].status === USER_PLANET_QUEST_AWAITING || userPlanets[planetID].status === USER_PLANET_QUEST_COMPLETE_JEDI)) 
+            {
+                userCommandUser[key] = null;
+            }
         }
     }
 	
-	for(var key in userCommandAI)
+    for(var key in userCommandAI)
     {
         for(var planetID in userPlanets)
         {
             if( (side === SIDE_JEDI)
-			&& (userPlanets[planetID].redPersonage1 === key || userPlanets[planetID].redPersonage2 === key || userPlanets[planetID].redPersonage3 === key) 
-			&& (userPlanets[planetID].status === USER_PLANET_QUEST_AWAITING || userPlanets[planetID].status === USER_PLANET_QUEST_COMPLETE_JEDI)) 
-			{
-				userCommandAI[key] = null;
-			}
-			if( (side === SIDE_SITH)
-			&& (userPlanets[planetID].bluePersonage1 === key || userPlanets[planetID].bluePersonage2 === key || userPlanets[planetID].bluePersonage3 === key) 
-			&& (userPlanets[planetID].status === USER_PLANET_QUEST_AWAITING || userPlanets[planetID].status === USER_PLANET_QUEST_COMPLETE_SITH)) 
-			{
-				userCommandAI[key] = null;
-			}
+            && (userPlanets[planetID].redPersonage1 === userCommandAI[key] || userPlanets[planetID].redPersonage2 === userCommandAI[key] || userPlanets[planetID].redPersonage3 === userCommandAI[key]) 
+            && (userPlanets[planetID].status === USER_PLANET_QUEST_AWAITING || userPlanets[planetID].status === USER_PLANET_QUEST_COMPLETE_JEDI)) 
+            {
+                userCommandAI[key] = null;
+            }
+            if( (side === SIDE_SITH)
+            && (userPlanets[planetID].bluePersonage1 === userCommandAI[key] || userPlanets[planetID].bluePersonage2 === userCommandAI[key] || userPlanets[planetID].bluePersonage3 === userCommandAI[key]) 
+            && (userPlanets[planetID].status === USER_PLANET_QUEST_AWAITING || userPlanets[planetID].status === USER_PLANET_QUEST_COMPLETE_SITH)) 
+            {
+                userCommandAI[key] = null;
+            }
         }
     }
 	
@@ -701,10 +702,13 @@ function showCommand()
     var index = 0;
     for(var key in userCommandUser)
     {
-        var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
-        textureSprite.position.x = 35 + (105 * index); 
-        textureSprite.position.y = 625; 
-        mapStage.addChild(textureSprite);
+        if(userCommandUser[key] !== null)
+        {
+            var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
+            textureSprite.position.x = 35 + (105 * index); 
+            textureSprite.position.y = 625; 
+            mapStage.addChild(textureSprite);
+        }
         index++;
     }
 }

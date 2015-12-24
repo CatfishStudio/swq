@@ -662,14 +662,14 @@ function mapCheckAvailablePersonage()
         for(var planetID in userPlanets)
         {
             if( (side === SIDE_JEDI)
-            && (userPlanets[planetID].bluePersonage1 === userCommandUser[key] || userPlanets[planetID].bluePersonage2 === userCommandUser[key] || userPlanets[planetID].bluePersonage3 === userCommandUser[key]) 
+            && (userPlanets[planetID].blueRewardPersonage1 === userCommandUser[key] || userPlanets[planetID].blueRewardPersonage2 === userCommandUser[key] || userPlanets[planetID].blueRewardPersonage3 === userCommandUser[key]) 
             && (userPlanets[planetID].status === USER_PLANET_QUEST_AWAITING || userPlanets[planetID].status === USER_PLANET_QUEST_COMPLETE_SITH)) 
             {
                 userCommandUser[key] = null;
                 
             }
             if( (side === SIDE_SITH)
-            && (userPlanets[planetID].redPersonage1 === userCommandUser[key] || userPlanets[planetID].redPersonage2 === userCommandUser[key] || userPlanets[planetID].redPersonage3 === userCommandUser[key]) 
+            && (userPlanets[planetID].redRewardPersonage1 === userCommandUser[key] || userPlanets[planetID].redRewardPersonage2 === userCommandUser[key] || userPlanets[planetID].redRewardPersonage3 === userCommandUser[key]) 
             && (userPlanets[planetID].status === USER_PLANET_QUEST_AWAITING || userPlanets[planetID].status === USER_PLANET_QUEST_COMPLETE_JEDI)) 
             {
                 userCommandUser[key] = null;
@@ -826,6 +826,7 @@ function mapTargetBlueTween()
 
 function mapDestinationSearch()
 {
+	/*
     var commands = new Object();
     commands["user"] = 0;
     commands["ai"] = 0;
@@ -855,7 +856,8 @@ function mapDestinationSearch()
         }
     }
     commands["ai"] /= 10;
-    
+    */
+	
     var target = new Object();
     target["planetUser"] = "";
     target["indexUser"] = 1000;
@@ -864,28 +866,28 @@ function mapDestinationSearch()
     
     for(var key in userPlanets)
     {
-        if(side === SIDE_JEDI)
+        if(side === SIDE_JEDI || side === SIDE_SITH)
         {
            if(userPlanets[key].status !== USER_PLANET_QUEST_COMPLETE_JEDI)
            {
                 var hitCount = 0;
-                hitCount += userPersonages[userPlanets[key].redPersonage1].hit1 
-                        + userPersonages[userPlanets[key].redPersonage1].hit2 
-                        + userPersonages[userPlanets[key].redPersonage1].hit3 
-                        + userPersonages[userPlanets[key].redPersonage1].hit4
-                        + userPersonages[userPlanets[key].redPersonage1].hit5;
-                hitCount += userPersonages[userPlanets[key].redPersonage2].hit1
-                        + userPersonages[userPlanets[key].redPersonage2].hit2
-                        + userPersonages[userPlanets[key].redPersonage2].hit3
-                        + userPersonages[userPlanets[key].redPersonage2].hit4
-                        + userPersonages[userPlanets[key].redPersonage2].hit5;
-                hitCount += userPersonages[userPlanets[key].redPersonage3].hit1
-                        + userPersonages[userPlanets[key].redPersonage3].hit2
-                        + userPersonages[userPlanets[key].redPersonage3].hit3
-                        + userPersonages[userPlanets[key].redPersonage3].hit4
-                        + userPersonages[userPlanets[key].redPersonage3].hit5;
+                hitCount += userPersonages[userPlanets[key].redPersonage1].hitAttack1 
+                        + userPersonages[userPlanets[key].redPersonage1].hitAttack2 
+                        + userPersonages[userPlanets[key].redPersonage1].hitAttack3 
+                        + userPersonages[userPlanets[key].redPersonage1].hitAttack4
+                        + userPersonages[userPlanets[key].redPersonage1].hitAttack5;
+                hitCount += userPersonages[userPlanets[key].redPersonage2].hitAttack1
+                        + userPersonages[userPlanets[key].redPersonage2].hitAttack2
+                        + userPersonages[userPlanets[key].redPersonage2].hitAttack3
+                        + userPersonages[userPlanets[key].redPersonage2].hitAttack4
+                        + userPersonages[userPlanets[key].redPersonage2].hitAttack5;
+                hitCount += userPersonages[userPlanets[key].redPersonage3].hitAttack1
+                        + userPersonages[userPlanets[key].redPersonage3].hitAttack2
+                        + userPersonages[userPlanets[key].redPersonage3].hitAttack3
+                        + userPersonages[userPlanets[key].redPersonage3].hitAttack4
+                        + userPersonages[userPlanets[key].redPersonage3].hitAttack5;
                 hitCount /= 10;
-                if(hitCount < target["indexUser"])
+				if(hitCount < target["indexUser"])
                 {
                    target["planetUser"] = userPlanets[key].id; 
                    target["indexUser"] = hitCount;
@@ -894,32 +896,31 @@ function mapDestinationSearch()
            if(userPlanets[key].status !== USER_PLANET_QUEST_COMPLETE_SITH)
            {
                 var hitCount = 0;
-                hitCount += userPersonages[userPlanets[key].bluePersonage1].hit1 
-                        + userPersonages[userPlanets[key].bluePersonage1].hit2 
-                        + userPersonages[userPlanets[key].bluePersonage1].hit3 
-                        + userPersonages[userPlanets[key].bluePersonage1].hit4
-                        + userPersonages[userPlanets[key].bluePersonage1].hit5;
-                hitCount += userPersonages[userPlanets[key].bluePersonage2].hit1
-                        + userPersonages[userPlanets[key].bluePersonage2].hit2
-                        + userPersonages[userPlanets[key].bluePersonage2].hit3
-                        + userPersonages[userPlanets[key].bluePersonage2].hit4
-                        + userPersonages[userPlanets[key].bluePersonage2].hit5;
-                hitCount += userPersonages[userPlanets[key].bluePersonage3].hit1
-                        + userPersonages[userPlanets[key].bluePersonage3].hit2
-                        + userPersonages[userPlanets[key].bluePersonage3].hit3
-                        + userPersonages[userPlanets[key].bluePersonage3].hit4
-                        + userPersonages[userPlanets[key].bluePersonage3].hit5;
+                hitCount += userPersonages[userPlanets[key].bluePersonage1].hitAttack1 
+                        + userPersonages[userPlanets[key].bluePersonage1].hitAttack2 
+                        + userPersonages[userPlanets[key].bluePersonage1].hitAttack3 
+                        + userPersonages[userPlanets[key].bluePersonage1].hitAttack4
+                        + userPersonages[userPlanets[key].bluePersonage1].hitAttack5;
+                hitCount += userPersonages[userPlanets[key].bluePersonage2].hitAttack1
+                        + userPersonages[userPlanets[key].bluePersonage2].hitAttack2
+                        + userPersonages[userPlanets[key].bluePersonage2].hitAttack3
+                        + userPersonages[userPlanets[key].bluePersonage2].hitAttack4
+                        + userPersonages[userPlanets[key].bluePersonage2].hitAttack5;
+                hitCount += userPersonages[userPlanets[key].bluePersonage3].hitAttack1
+                        + userPersonages[userPlanets[key].bluePersonage3].hitAttack2
+                        + userPersonages[userPlanets[key].bluePersonage3].hitAttack3
+                        + userPersonages[userPlanets[key].bluePersonage3].hitAttack4
+                        + userPersonages[userPlanets[key].bluePersonage3].hitAttack5;
                 hitCount /= 10;
-                console.log(userPlanets[key].id + " : " + userPersonages[userPlanets[key].bluePersonage1].name);
                 if(hitCount < target["indexAI"])
                 {
                    target["planetAI"] = userPlanets[key].id; 
                    target["indexAI"] = hitCount;
                 }
-           }
-           
+			}
         }
-    }
+		
+	}
 
     if(side === SIDE_JEDI)
     {

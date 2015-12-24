@@ -22,16 +22,23 @@ var USER_PLANET_QUEST_COMPLETE_SITH = "user_planet_quest_complete_sith";
 
 var UserPlanet = function(id, name)
 {
-    this.id = id;
-    this.name = name;
-    this.redPersonage1 = null;
-    this.redPersonage2 = null;
-    this.redPersonage3 = null;
-    this.bluePersonage1 = null;
-    this.bluePersonage2 = null;
-    this.bluePersonage3 = null;
-    this.status = USER_PLANET_QUEST_AWAITING;
-    this.description = "";
+    this.id = id;                       // идентификатор планеты
+    this.name = name;                   // имя планеты
+    this.bluePersonage1 = null;         // персонаж планеты
+    this.bluePersonage2 = null;         // персонаж планеты
+    this.bluePersonage3 = null;         // персонаж планеты
+    this.blueRewardPersonage1 = null;   // союзник
+    this.blueRewardPersonage2 = null;   // союзник
+    this.blueRewardPersonage3 = null;   // союзник
+    this.redPersonage1 = null;          // персонаж планеты
+    this.redPersonage2 = null;          // персонаж планеты
+    this.redPersonage3 = null;          // персонаж планеты
+    this.redRewardPersonage1 = null;    // союзник
+    this.redRewardPersonage2 = null;    // союзник
+    this.redRewardPersonage3 = null;    // союзник
+    
+    this.status = USER_PLANET_QUEST_AWAITING;   // статус
+    this.description = "";              // описнаие
 };
 
 var USER_PERSONAGE_AVAILABLE = "user_personage_available";
@@ -39,16 +46,16 @@ var USER_PERSONAGE_NOT_AVAILABLE = "user_personage_not_available";
 
 var UserPersonage = function(id, name)
 {
-    this.id = id;
-    this.name = name;
-    this.life = 0;
-    this.hit1 = 0;
-    this.hit2 = 0;
-    this.hit3 = 0;
-    this.hit4 = 0;
-    this.hit5 = 0;
-    this.status = USER_PERSONAGE_NOT_AVAILABLE;
-    this.description = "";
+    this.id = id;                       // идентификатор персонажа
+    this.name = name;                   // имя персонажа
+    this.life = 0;                      // здоровье персонажа
+    this.hit1 = 0;                      // показатель
+    this.hit2 = 0;                      // показатель
+    this.hit3 = 0;                      // показатель
+    this.hit4 = 0;                      // показатель
+    this.hit5 = 0;                      // показатель
+    this.status = USER_PERSONAGE_NOT_AVAILABLE; // статус (выбран / не выбран)
+    this.description = "";              // описание
 };
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

@@ -907,12 +907,21 @@ function initPlanets()
     for (var key in planetsJson.data.Planets.planet)
     {
         planetsObj[planetsJson.data.Planets.planet[key].id] = new UserPlanet(planetsJson.data.Planets.planet[key].id, planetsJson.data.Planets.planet[key].name);
-        planetsObj[planetsJson.data.Planets.planet[key].id].redPersonage1 = planetsJson.data.Planets.planet[key].redPersonage1;
-        planetsObj[planetsJson.data.Planets.planet[key].id].redPersonage2 = planetsJson.data.Planets.planet[key].redPersonage2;
-        planetsObj[planetsJson.data.Planets.planet[key].id].redPersonage3 = planetsJson.data.Planets.planet[key].redPersonage3;
+        
         planetsObj[planetsJson.data.Planets.planet[key].id].bluePersonage1 = planetsJson.data.Planets.planet[key].bluePersonage1;
         planetsObj[planetsJson.data.Planets.planet[key].id].bluePersonage2 = planetsJson.data.Planets.planet[key].bluePersonage2;
         planetsObj[planetsJson.data.Planets.planet[key].id].bluePersonage3 = planetsJson.data.Planets.planet[key].bluePersonage3;
+        planetsObj[planetsJson.data.Planets.planet[key].id].blueRewardPersonage1 = planetsJson.data.Planets.planet[key].bluePersonage1;
+        planetsObj[planetsJson.data.Planets.planet[key].id].blueRewardPersonage2 = planetsJson.data.Planets.planet[key].bluePersonage2;
+        planetsObj[planetsJson.data.Planets.planet[key].id].blueRewardPersonage3 = planetsJson.data.Planets.planet[key].bluePersonage3;
+        
+        planetsObj[planetsJson.data.Planets.planet[key].id].redPersonage1 = planetsJson.data.Planets.planet[key].redPersonage1;
+        planetsObj[planetsJson.data.Planets.planet[key].id].redPersonage2 = planetsJson.data.Planets.planet[key].redPersonage2;
+        planetsObj[planetsJson.data.Planets.planet[key].id].redPersonage3 = planetsJson.data.Planets.planet[key].redPersonage3;
+        planetsObj[planetsJson.data.Planets.planet[key].id].redRewardPersonage1 = planetsJson.data.Planets.planet[key].redPersonage1;
+        planetsObj[planetsJson.data.Planets.planet[key].id].redRewardPersonage2 = planetsJson.data.Planets.planet[key].redPersonage2;
+        planetsObj[planetsJson.data.Planets.planet[key].id].redRewardPersonage3 = planetsJson.data.Planets.planet[key].redPersonage3;
+        
         planetsObj[planetsJson.data.Planets.planet[key].id].status = planetsJson.data.Planets.planet[key].status;
         planetsObj[planetsJson.data.Planets.planet[key].id].description = planetsJson.data.Planets.planet[key].description;
     }
@@ -972,7 +981,8 @@ function initCharacteristic(valueArray)
     if (index >= 8 && index <= 10) return valueArray[2];
 }
 
-function initCharacteristics()
+/*
+function XXX()
 {
     var characteristicsBlue = new Object();
     characteristicsBlue["planet-1"] = [2,3,4];
@@ -1107,5 +1117,163 @@ function initCharacteristics()
     
     
 }
+*/
+
+function initCharacteristics()
+{
+    var characteristicsUser = new Object();
+    characteristicsUser["planet-1"] = [2,3,4];
+    characteristicsUser["planet-2"] = [4,5,6];
+    characteristicsUser["planet-3"] = [6,7,8];
+    characteristicsUser["planet-4"] = [8,9,10];
+    characteristicsUser["planet-5"] = [10,11,12];
+    characteristicsUser["planet-6"] = [12,13,14];
+    characteristicsUser["planet-7"] = [14,15,16];
+    characteristicsUser["planet-8"] = [16,17,18];
+    characteristicsUser["planet-9"] = [19,20,21];
+    characteristicsUser["planet-10"] = [21,22,23];
+    characteristicsUser["planet-11"] = [23,24,25];
+    characteristicsUser["planet-12"] = [25,26,27];
+    characteristicsUser["planet-13"] = [27,28,29];    
+    characteristicsUser["planet-14"] = [29,30,31];
+    characteristicsUser["planet-15"] = [31,32,33]; 
+    
+    var characteristicsAI = new Object();
+    characteristicsAI["planet-1"] = [2,3,4];
+    characteristicsAI["planet-2"] = [4,5,6];
+    characteristicsAI["planet-3"] = [6,7,8];
+    characteristicsAI["planet-4"] = [8,9,10];
+    characteristicsAI["planet-5"] = [10,11,12];
+    characteristicsAI["planet-6"] = [12,13,14];
+    characteristicsAI["planet-7"] = [14,15,16];
+    characteristicsAI["planet-8"] = [16,17,18];
+    characteristicsAI["planet-9"] = [19,20,21];
+    characteristicsAI["planet-10"] = [21,22,23];
+    characteristicsAI["planet-11"] = [23,24,25];
+    characteristicsAI["planet-12"] = [25,26,27];
+    characteristicsAI["planet-13"] = [27,28,29];    
+    characteristicsAI["planet-14"] = [29,30,31];
+    characteristicsAI["planet-15"] = [31,32,33]; 
+    
+    if(side === SIDE_JEDI)
+    {
+        for(var key in userPlanets)
+        {
+            var bluePersonage = [];
+            var blueRewardPersonage = [];
+            var redPersonage = [];
+            var redRewardPersonage = [];
+            
+            if(key === "Coruscant")
+            {
+                bluePersonage = characteristicsUser["planet-15"];       // моя защита от ИИ
+                blueRewardPersonage = characteristicsUser["planet-1"];  // моя команда
+                
+                redPersonage = characteristicsAI["planet-1"];           // не имеет значения
+                redRewardPersonage = characteristicsAI["planet-15"];    // союзники ИИ
+            }else{
+                if(key === "DeathStar")
+                {
+                    bluePersonage = characteristicsUser["planet-1"];        // не имеет значения
+                    blueRewardPersonage = characteristicsUser["planet-15"]; // мои соющники
+
+                    redPersonage = characteristicsAI["planet-15"];          // защита ИИ от меня
+                    redRewardPersonage = characteristicsAI["planet-1"];     // не имеет значения
+
+                    delete characteristicsUser["planet-1"];
+                    delete characteristicsUser["planet-15"];
+                    delete characteristicsAI["planet-1"];
+                    delete characteristicsAI["planet-15"];
+                }else{
+                    var count = Object.keys(characteristicsUser).length;
+                    var index = initRandomIndex();
+                    var result;
+
+                    if(index > count) result = index - count;
+                    else result = count - index;
+                    if(result >= count) result = 0;
+
+
+                    bluePersonage = characteristicsUser[Object.keys(characteristicsUser)[result]];
+                    
+                    //blueRewardPersonage
+                    
+                    delete characteristicsUser[Object.keys(characteristicsUser)[result]];
+                }
+            }
+            
+            userPersonages[userPlanets[key].bluePersonage1].hit1 = initCharacteristic(bluePersonage);
+            userPersonages[userPlanets[key].bluePersonage1].hit2 = initCharacteristic(bluePersonage);
+            userPersonages[userPlanets[key].bluePersonage1].hit3 = initCharacteristic(bluePersonage);
+            userPersonages[userPlanets[key].bluePersonage1].hit4 = initCharacteristic(bluePersonage);
+            userPersonages[userPlanets[key].bluePersonage1].hit5 = initCharacteristic(bluePersonage);
+            userPersonages[userPlanets[key].bluePersonage2].hit1 = initCharacteristic(bluePersonage);
+            userPersonages[userPlanets[key].bluePersonage2].hit2 = initCharacteristic(bluePersonage);
+            userPersonages[userPlanets[key].bluePersonage2].hit3 = initCharacteristic(bluePersonage);
+            userPersonages[userPlanets[key].bluePersonage2].hit4 = initCharacteristic(bluePersonage);
+            userPersonages[userPlanets[key].bluePersonage2].hit5 = initCharacteristic(bluePersonage);
+            userPersonages[userPlanets[key].bluePersonage3].hit1 = initCharacteristic(bluePersonage);
+            userPersonages[userPlanets[key].bluePersonage3].hit2 = initCharacteristic(bluePersonage);
+            userPersonages[userPlanets[key].bluePersonage3].hit3 = initCharacteristic(bluePersonage);
+            userPersonages[userPlanets[key].bluePersonage3].hit4 = initCharacteristic(bluePersonage);
+            userPersonages[userPlanets[key].bluePersonage3].hit5 = initCharacteristic(bluePersonage);
+            
+            userPersonages[userPlanets[key].blueRewardPersonage1].hit1 = initCharacteristic(blueRewardPersonage);
+            userPersonages[userPlanets[key].blueRewardPersonage1].hit2 = initCharacteristic(blueRewardPersonage);
+            userPersonages[userPlanets[key].blueRewardPersonage1].hit3 = initCharacteristic(blueRewardPersonage);
+            userPersonages[userPlanets[key].blueRewardPersonage1].hit4 = initCharacteristic(blueRewardPersonage);
+            userPersonages[userPlanets[key].blueRewardPersonage1].hit5 = initCharacteristic(blueRewardPersonage);
+            userPersonages[userPlanets[key].blueRewardPersonage2].hit1 = initCharacteristic(blueRewardPersonage);
+            userPersonages[userPlanets[key].blueRewardPersonage2].hit2 = initCharacteristic(blueRewardPersonage);
+            userPersonages[userPlanets[key].blueRewardPersonage2].hit3 = initCharacteristic(blueRewardPersonage);
+            userPersonages[userPlanets[key].blueRewardPersonage2].hit4 = initCharacteristic(blueRewardPersonage);
+            userPersonages[userPlanets[key].blueRewardPersonage2].hit5 = initCharacteristic(blueRewardPersonage);
+            userPersonages[userPlanets[key].blueRewardPersonage3].hit1 = initCharacteristic(blueRewardPersonage);
+            userPersonages[userPlanets[key].blueRewardPersonage3].hit2 = initCharacteristic(blueRewardPersonage);
+            userPersonages[userPlanets[key].blueRewardPersonage3].hit3 = initCharacteristic(blueRewardPersonage);
+            userPersonages[userPlanets[key].blueRewardPersonage3].hit4 = initCharacteristic(blueRewardPersonage);
+            userPersonages[userPlanets[key].blueRewardPersonage3].hit5 = initCharacteristic(blueRewardPersonage);
+            
+            userPersonages[userPlanets[key].redPersonage1].hit1 = initCharacteristic(redPersonage);
+            userPersonages[userPlanets[key].redPersonage1].hit2 = initCharacteristic(redPersonage);
+            userPersonages[userPlanets[key].redPersonage1].hit3 = initCharacteristic(redPersonage);
+            userPersonages[userPlanets[key].redPersonage1].hit4 = initCharacteristic(redPersonage);
+            userPersonages[userPlanets[key].redPersonage1].hit5 = initCharacteristic(redPersonage);
+            userPersonages[userPlanets[key].redPersonage2].hit1 = initCharacteristic(redPersonage);
+            userPersonages[userPlanets[key].redPersonage2].hit2 = initCharacteristic(redPersonage);
+            userPersonages[userPlanets[key].redPersonage2].hit3 = initCharacteristic(redPersonage);
+            userPersonages[userPlanets[key].redPersonage2].hit4 = initCharacteristic(redPersonage);
+            userPersonages[userPlanets[key].redPersonage2].hit5 = initCharacteristic(redPersonage);
+            userPersonages[userPlanets[key].redPersonage3].hit1 = initCharacteristic(redPersonage);
+            userPersonages[userPlanets[key].redPersonage3].hit2 = initCharacteristic(redPersonage);
+            userPersonages[userPlanets[key].redPersonage3].hit3 = initCharacteristic(redPersonage);
+            userPersonages[userPlanets[key].redPersonage3].hit4 = initCharacteristic(redPersonage);
+            userPersonages[userPlanets[key].redPersonage3].hit5 = initCharacteristic(redPersonage);
+            
+            userPersonages[userPlanets[key].redRewardPersonage1].hit1 = initCharacteristic(redRewardPersonage);
+            userPersonages[userPlanets[key].redRewardPersonage1].hit2 = initCharacteristic(redRewardPersonage);
+            userPersonages[userPlanets[key].redRewardPersonage1].hit3 = initCharacteristic(redRewardPersonage);
+            userPersonages[userPlanets[key].redRewardPersonage1].hit4 = initCharacteristic(redRewardPersonage);
+            userPersonages[userPlanets[key].redRewardPersonage1].hit5 = initCharacteristic(redRewardPersonage);
+            userPersonages[userPlanets[key].redRewardPersonage2].hit1 = initCharacteristic(redRewardPersonage);
+            userPersonages[userPlanets[key].redRewardPersonage2].hit2 = initCharacteristic(redRewardPersonage);
+            userPersonages[userPlanets[key].redRewardPersonage2].hit3 = initCharacteristic(redRewardPersonage);
+            userPersonages[userPlanets[key].redRewardPersonage2].hit4 = initCharacteristic(redRewardPersonage);
+            userPersonages[userPlanets[key].redRewardPersonage2].hit5 = initCharacteristic(redRewardPersonage);
+            userPersonages[userPlanets[key].redRewardPersonage3].hit1 = initCharacteristic(redRewardPersonage);
+            userPersonages[userPlanets[key].redRewardPersonage3].hit2 = initCharacteristic(redRewardPersonage);
+            userPersonages[userPlanets[key].redRewardPersonage3].hit3 = initCharacteristic(redRewardPersonage);
+            userPersonages[userPlanets[key].redRewardPersonage3].hit4 = initCharacteristic(redRewardPersonage);
+            userPersonages[userPlanets[key].redRewardPersonage3].hit5 = initCharacteristic(redRewardPersonage);
+            
+        }
+    }
+    
+    
+    
+    
+    
+}
+
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

@@ -13,8 +13,9 @@ var userPlanets;         // Прогресс игры в отношении пл
 
 //var userExperiencePoints = 0;			// Очки опыта
 //var userTotalPointsPlayerTournament = 0;	// Общие очки игрока за всю игру
-//var userlTotalPointsPlayerLevel = 0;            // Общие очки игрока за уровен
-//var userExperiencePointsAI = 0;			// Очки опыта ИИ
+//var userlTotalPointsPlayerLevel = 0;          // Общие очки игрока за уровен
+//var userExperiencePointsAI = 0;		// Очки опыта ИИ
+var userTotalBattle = 0;                        // Общее количество роведённых битв (связь с сообщениями R2D2)
 
 var USER_PLANET_QUEST_AWAITING = "user_planet_quest_awaiting";
 var USER_PLANET_QUEST_COMPLETE_JEDI = "user_planet_quest_complete_jedi";

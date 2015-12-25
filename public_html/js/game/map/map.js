@@ -354,8 +354,8 @@ function mapDroidBlue()
 function mapDroidBlueMessage()
 {
     mapTextMessage = new PIXI.Text(userMapMessage["LastNews"][0], mapStyleDroidBlueText); 
-    mapTextMessage.x = 705; 
-    mapTextMessage.y = 245; 
+    mapTextMessage.x = 700; 
+    mapTextMessage.y = 240; 
     mapStage.addChild(mapTextMessage);
 }
 
@@ -534,8 +534,8 @@ function mapDroidRed()
 function mapDroidRedMessage()
 {
     mapTextMessage = new PIXI.Text(userMapMessage["LastNews"][1], mapStyleDroidRedText); 
-    mapTextMessage.x = 705; 
-    mapTextMessage.y = 245; 
+    mapTextMessage.x = 700; 
+    mapTextMessage.y = 240; 
     mapStage.addChild(mapTextMessage);
 }
 
@@ -826,38 +826,6 @@ function mapTargetBlueTween()
 
 function mapDestinationSearch()
 {
-	/*
-    var commands = new Object();
-    commands["user"] = 0;
-    commands["ai"] = 0;
-    
-    for(var key in userCommandUser)
-    {
-        if(userCommandUser[key] !== null)
-        {
-            commands["user"] += userPersonages[userCommandUser[key]].hit1;
-            commands["user"] += userPersonages[userCommandUser[key]].hit2;
-            commands["user"] += userPersonages[userCommandUser[key]].hit3;
-            commands["user"] += userPersonages[userCommandUser[key]].hit4;
-            commands["user"] += userPersonages[userCommandUser[key]].hit5;
-        }
-    }
-    commands["user"] /= 10;
-    
-    for(var key in userCommandAI)
-    {
-        if(userCommandAI[key] !== null)
-        {
-            commands["ai"] += userPersonages[userCommandAI[key]].hit1;
-            commands["ai"] += userPersonages[userCommandAI[key]].hit2;
-            commands["ai"] += userPersonages[userCommandAI[key]].hit3;
-            commands["ai"] += userPersonages[userCommandAI[key]].hit4;
-            commands["ai"] += userPersonages[userCommandAI[key]].hit5;
-        }
-    }
-    commands["ai"] /= 10;
-    */
-	
     var target = new Object();
     target["planetUser"] = "";
     target["indexUser"] = 1000;
@@ -917,20 +885,26 @@ function mapDestinationSearch()
                    target["planetAI"] = userPlanets[key].id; 
                    target["indexAI"] = hitCount;
                 }
-			}
+            }
         }
-		
-	}
+    }
 
     if(side === SIDE_JEDI)
     {
         mapBlueTargetsShow(target["planetUser"]);
         mapRedTargetsShow(target["planetAI"]);
+        if(userTotalBattle === 0) userMapMessage["LastNews"][0] += " В данное время Дарт Вейдер напали на " + userPlanets[target["planetAI"]].name + " вы можите попытаться помешать ему. \n\nИли выполните миссию " + userPlanets[target["planetUser"]].name + " и получите нового союзника.";
+        else userMapMessage["LastNews"][0] = "На планете " + userPlanets[target["planetUser"]].name + " нуждаются в нашей помощи. Выполните миссию "  + userPlanets[target["planetUser"]].name + " и вам будет доступен новый союзник. \n\nТак же мы получаем сигнал с планеты " + userPlanets[target["planetAI"]].name + " о вторжении Дарт Вейдера. Вы можите предпринять попытку отбить нападение на " + userPlanets[target["planetAI"]].name + ".";
+        mapTextMessage.text = userMapMessage["LastNews"][0];
     }
     if(side === SIDE_SITH)
     {
+        console.log("OK");
         mapRedTargetsShow(target["planetUser"]);
         mapBlueTargetsShow(target["planetAI"]);
+        if(userTotalBattle === 0) userMapMessage["LastNews"][1] += " Они направелись на " + userPlanets[target["planetAI"]].name + " можем помешать им. \n\nИли напасть на " + userPlanets[target["planetUser"]].name + " и получите нового союзника.";
+        else userMapMessage["LastNews"][1] = "Оборона планеты " + userPlanets[target["planetUser"]].name + " слаба мы с лёгкостью захватим её и вам будет доступен новый союзник. \n\nТак же наш шпион докладывает что Джедаи направились на " + userPlanets[target["planetAI"]].name + " можем помешать им.";
+        mapTextMessage.text = userMapMessage["LastNews"][1];
     }
     
     

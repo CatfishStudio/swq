@@ -18,7 +18,6 @@ var mapTargetPlanetRed;
 function mapCreate() 
 { 
     mapStage = new PIXI.Container();
-    stage.addChild(mapStage);
     
     mapCheckAvailablePersonage();   // определение доступности персонажей команды
     
@@ -28,6 +27,8 @@ function mapCreate()
     mapCreateTargets();             // построение анимации указывающей на цель
     
     mapDestinationSearch();         // поиск ближайшей цели
+    
+    stage.addChild(mapStage);
 } 
 
 function mapRemove() 
@@ -622,7 +623,8 @@ function onMapButtonClick()
     switch (this.name)
     {
         case "Command":
-            
+            cmdCreate();
+            mapRemove();
             break;
         case "Settings":
             settingsCreate();

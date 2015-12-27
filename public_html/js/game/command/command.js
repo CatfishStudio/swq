@@ -7,6 +7,8 @@ var cmdLineAnimPersonageDesktopGraphics;
 var cmdMessageLineGraphics;
 var cmdStyleButtonBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
 var cmdStyleButtonRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
+var cmdListCommand = [];
+var cmdListPersonage = [];
 
 function cmdCreate()
 {
@@ -19,7 +21,7 @@ function cmdCreate()
             cmdBorderBlue();
             cmdDroidBlue();
             cmdBattonsBlue();
-           
+			cmdBlueCommand();
         }
         if(side === SIDE_SITH)
         {
@@ -451,6 +453,64 @@ function cmdMessageLineGraphicsTween()
     createjs.Tween.get(cmdMessageLineGraphics, {loop: true}) 
             .to({x: 0, y: 138}, 2000, createjs.Ease.getPowInOut(3));
     createjs.Ticker.setFPS(60);
+}
+
+function cmdBlueCommand(select = 0)
+{
+	if(cmdListCommand.length === 0)
+	{
+		cmdListCommand = [];
+	}else{
+		for(var i = 0; i < cmdListCommand.length; i++)
+		{
+			cmdStage.removeChild(cmdListCommand[i]);
+		}
+		cmdListCommand = [];
+	}
+		
+	var index = 0;
+    for(var key in userCommandUser)
+    {
+        if(userCommandUser[key] !== null)
+        {
+			var graphics = new PIXI.Graphics(); 
+			if(index === select) graphics.lineStyle(2, 0xFFFFFF, 0.5);
+			else graphics.lineStyle(2, 0x0000FF, 0.2);
+			graphics.beginFill(0x0000FF, 0.2);
+			graphics.drawRect(690, 60 + (100 * index), 75, 75);
+			graphics.endFill;
+			
+			var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
+			textureSprite.index = index;
+            textureSprite.position.x = 690; 
+            textureSprite.position.y = 60  + (100 * index); 
+			textureSprite.interactive = true; 
+			textureSprite.buttonMode = true;
+			textureSprite.tap = onCmdBlueIconCommandClick; 
+			textureSprite.click = onCmdBlueIconCommandClick; 
+    				
+            graphics.addChild(textureSprite);
+			
+			cmdListCommand.push(graphics);
+			cmdStage.addChild(cmdListCommand[index]);
+        } else{
+			var graphics = new PIXI.Graphics(); 
+			if(index === select) graphics.lineStyle(2, 0xFFFFFF, 0.5);
+			else graphics.lineStyle(2, 0x0000FF, 0.2);
+			graphics.beginFill(0x0000FF, 0.2);
+			graphics.drawRect(690, 60 + (100 * index), 75, 75);
+			graphics.endFill;
+			
+			cmdListCommand.push(graphics);
+			cmdStage.addChild(cmdListCommand[index]);
+		}
+        index++;
+    }
+}
+
+function onCmdBlueIconCommandClick()
+{
+	cmdBlueCommand(this.index);
 }
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

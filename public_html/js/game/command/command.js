@@ -7,38 +7,43 @@ var cmdLineAnimPersonageDesktopGraphics;
 var cmdMessageLineGraphics;
 var cmdStyleButtonBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
 var cmdStyleButtonRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
+var cmdStyledescriptionBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 500 }; 
+var cmdStyledescriptionRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 500 }; 
+
 var cmdListCommand = [];
 var cmdListPersonage = [];
+var cmdDesktopStage;
 
 function cmdCreate()
 {
-	cmdStage = new PIXI.Container();
-	
-        if(side === SIDE_JEDI)
-        {
-            cmdBackgroundBlue(); 
-            cmdDesktopBlue();
-            cmdBorderBlue();
-            cmdDroidBlue();
-            cmdBattonsBlue();
-			cmdBlueCommand();
-        }
-        if(side === SIDE_SITH)
-        {
-            cmdBackgroundRed();
-            cmdDesktopRed();
-            cmdBorderRed();
-            cmdDroidRed();
-            cmdBattonsRed();
-        }
-	
-	stage.addChild(cmdStage);
+    cmdStage = new PIXI.Container();
+
+    if(side === SIDE_JEDI)
+    {
+        cmdBackgroundBlue(); 
+        cmdDesktopBlue();
+        cmdBorderBlue();
+        cmdDroidBlue();
+        cmdBattonsBlue();
+        cmdBlueCommand();
+    }
+    if(side === SIDE_SITH)
+    {
+        cmdBackgroundRed();
+        cmdDesktopRed();
+        cmdBorderRed();
+        cmdDroidRed();
+        cmdBattonsRed();
+        cmdRedCommand();
+    }
+
+    stage.addChild(cmdStage);
 }
 
 function cmdRemove()
 {
-	stage.removeChild(cmdStage);
-	cmdStage = null;
+    stage.removeChild(cmdStage);
+    cmdStage = null;
 }
 
 function cmdBackgroundBlue()
@@ -107,7 +112,7 @@ function cmdBorderBlue()
     
     cmdStage.addChild(graphics);
     
-    var text = new PIXI.Text("КОМАНДА", cmdStyleButtonBlueText); 
+    var text = new PIXI.Text("КОМАНДА. Очки опыта: " + userExperiencePoints, cmdStyleButtonBlueText); 
     text.x = 655;
     text.y = 30;
     cmdStage.addChild(text);
@@ -455,55 +460,69 @@ function cmdMessageLineGraphicsTween()
     createjs.Ticker.setFPS(60);
 }
 
-function cmdBlueCommand(select = 0)
+function cmdBlueCommand(select)
 {
-	if(cmdListCommand.length === 0)
-	{
-		cmdListCommand = [];
-	}else{
-		for(var i = 0; i < cmdListCommand.length; i++)
-		{
-			cmdStage.removeChild(cmdListCommand[i]);
-		}
-		cmdListCommand = [];
-	}
+    if (select === undefined) {
+        select = 0;
+    }
+    
+    if(cmdListCommand.length === 0)
+    {
+            cmdListCommand = [];
+    }else{
+        for(var i = 0; i < cmdListCommand.length; i++)
+        {
+            cmdStage.removeChild(cmdListCommand[i]);
+        }
+        cmdListCommand = [];
+    }
 		
-	var index = 0;
+    var index = 0;
     for(var key in userCommandUser)
     {
         if(userCommandUser[key] !== null)
         {
-			var graphics = new PIXI.Graphics(); 
-			if(index === select) graphics.lineStyle(2, 0xFFFFFF, 0.5);
-			else graphics.lineStyle(2, 0x0000FF, 0.2);
-			graphics.beginFill(0x0000FF, 0.2);
-			graphics.drawRect(690, 60 + (100 * index), 75, 75);
-			graphics.endFill;
-			
-			var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
-			textureSprite.index = index;
+            var graphics = new PIXI.Graphics(); 
+            graphics.lineStyle(2, 0x0000FF, 0.2);
+            graphics.beginFill(0x0000FF, 0.2);
+            graphics.drawRect(690, 60 + (100 * index), 75, 75);
+            graphics.endFill;
+
+            var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
+            textureSprite.index = index;
+            textureSprite.tag = "IN_COMMAND";
             textureSprite.position.x = 690; 
             textureSprite.position.y = 60  + (100 * index); 
-			textureSprite.interactive = true; 
-			textureSprite.buttonMode = true;
-			textureSprite.tap = onCmdBlueIconCommandClick; 
-			textureSprite.click = onCmdBlueIconCommandClick; 
-    				
+            textureSprite.interactive = true; 
+            textureSprite.buttonMode = true;
+            textureSprite.tap = onCmdBlueIconCommandClick; 
+            textureSprite.click = onCmdBlueIconCommandClick; 
             graphics.addChild(textureSprite);
-			
-			cmdListCommand.push(graphics);
-			cmdStage.addChild(cmdListCommand[index]);
+            
+            var border = new PIXI.Graphics();
+            if(index === select)
+            {
+                border.lineStyle(2, 0xFFFFFF, 0.5);
+                cmdBluePersonageShow(userCommandUser[key], "IN_COMMAND");
+            } else {
+                border.lineStyle(2, 0x0000FF, 0.2);
+            }
+            border.drawRect(690, 60 + (100 * index), 75, 75);
+            graphics.addChild(border);
+            
+            cmdListCommand.push(graphics);
+            cmdStage.addChild(cmdListCommand[index]);
         } else{
-			var graphics = new PIXI.Graphics(); 
-			if(index === select) graphics.lineStyle(2, 0xFFFFFF, 0.5);
-			else graphics.lineStyle(2, 0x0000FF, 0.2);
-			graphics.beginFill(0x0000FF, 0.2);
-			graphics.drawRect(690, 60 + (100 * index), 75, 75);
-			graphics.endFill;
-			
-			cmdListCommand.push(graphics);
-			cmdStage.addChild(cmdListCommand[index]);
-		}
+            var graphics = new PIXI.Graphics(); 
+            if(index === select) graphics.lineStyle(2, 0xFFFFFF, 0.5);
+            else graphics.lineStyle(2, 0x0000FF, 0.2);
+            graphics.beginFill(0x0000FF, 0.2);
+            graphics.drawRect(690, 60 + (100 * index), 75, 75);
+            graphics.endFill;
+
+            cmdListCommand.push(graphics);
+            cmdStage.addChild(cmdListCommand[index]);
+        }
         index++;
     }
 }
@@ -512,5 +531,231 @@ function onCmdBlueIconCommandClick()
 {
 	cmdBlueCommand(this.index);
 }
+
+function cmdBluePersonageShow(id, status)
+{
+    cmdStage.removeChild(cmdDesktopStage);
+    
+    cmdDesktopStage = new PIXI.Container();
+    var text = new PIXI.Text(userPersonages[id].name, cmdStyleButtonBlueText); 
+    text.x = 50; text.y = 30;
+    cmdDesktopStage.addChild(text);
+    
+    text = new PIXI.Text("Характеристики:", cmdStyleButtonBlueText); 
+    text.x = 300; text.y = 100;
+    cmdDesktopStage.addChild(text);
+    
+    text = new PIXI.Text("Кристал света:", cmdStyleButtonBlueText); 
+    text.x = 300; text.y = 150;
+    cmdDesktopStage.addChild(text);
+    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense1, cmdStyleButtonBlueText); 
+    text.x = 450; text.y = 150;
+    cmdDesktopStage.addChild(text);
+    
+    text = new PIXI.Text("Кристал тьмы:", cmdStyleButtonBlueText); 
+    text.x = 300; text.y = 175;
+    cmdDesktopStage.addChild(text);
+    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense2, cmdStyleButtonBlueText); 
+    text.x = 450; text.y = 175;
+    cmdDesktopStage.addChild(text);
+    
+    text = new PIXI.Text("Кристал жизни:", cmdStyleButtonBlueText); 
+    text.x = 300; text.y = 200;
+    cmdDesktopStage.addChild(text);
+    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense3, cmdStyleButtonBlueText); 
+    text.x = 450; text.y = 200;
+    cmdDesktopStage.addChild(text);
+    
+    text = new PIXI.Text("Кристал ловкости:", cmdStyleButtonBlueText); 
+    text.x = 300; text.y = 225;
+    cmdDesktopStage.addChild(text);
+    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense4, cmdStyleButtonBlueText); 
+    text.x = 450; text.y = 225;
+    cmdDesktopStage.addChild(text);
+    
+    text = new PIXI.Text("Кристал интелекта:", cmdStyleButtonBlueText); 
+    text.x = 300; text.y = 250;
+    cmdDesktopStage.addChild(text);
+    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense5, cmdStyleButtonBlueText); 
+    text.x = 450; text.y = 250;
+    cmdDesktopStage.addChild(text);
+    
+    var sprite = new PIXI.Sprite(heroesTextures[id][1]);
+    sprite.position.x = 25;
+    sprite.position.y = 50;
+    cmdDesktopStage.addChild(sprite);
+    
+    text = new PIXI.Text(userPersonages[id].description, cmdStyledescriptionBlueText); 
+    text.x = 50;
+    text.y = 550 - text.height;
+    cmdDesktopStage.addChild(text);
+    
+    if(status === "IN_COMMAND")
+    {
+        
+    }
+    
+    cmdStage.addChild(cmdDesktopStage);
+}
+
+
+
+
+
+
+
+
+
+
+
+function cmdRedCommand(select)
+{
+    if (select === undefined) {
+        select = 0;
+    }
+    
+    if(cmdListCommand.length === 0)
+    {
+            cmdListCommand = [];
+    }else{
+        for(var i = 0; i < cmdListCommand.length; i++)
+        {
+            cmdStage.removeChild(cmdListCommand[i]);
+        }
+        cmdListCommand = [];
+    }
+		
+    var index = 0;
+    for(var key in userCommandUser)
+    {
+        if(userCommandUser[key] !== null)
+        {
+            var graphics = new PIXI.Graphics(); 
+            graphics.lineStyle(2, 0xFF0000, 0.2);
+            graphics.beginFill(0xFF0000, 0.2);
+            graphics.drawRect(690, 60 + (100 * index), 75, 75);
+            graphics.endFill;
+
+            var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
+            textureSprite.index = index;
+            textureSprite.tag = "IN_COMMAND";
+            textureSprite.position.x = 690; 
+            textureSprite.position.y = 60  + (100 * index); 
+            textureSprite.interactive = true; 
+            textureSprite.buttonMode = true;
+            textureSprite.tap = onCmdRedIconCommandClick; 
+            textureSprite.click = onCmdRedIconCommandClick; 
+            graphics.addChild(textureSprite);
+            
+            var border = new PIXI.Graphics();
+            if(index === select)
+            {
+                border.lineStyle(2, 0xFFFFFF, 0.5);
+                cmdRedPersonageShow(userCommandUser[key], "IN_COMMAND");
+            } else {
+                border.lineStyle(2, 0x0000FF, 0.2);
+            }
+            border.drawRect(690, 60 + (100 * index), 75, 75);
+            graphics.addChild(border);
+            
+            cmdListCommand.push(graphics);
+            cmdStage.addChild(cmdListCommand[index]);
+        } else{
+            var graphics = new PIXI.Graphics(); 
+            if(index === select) graphics.lineStyle(2, 0xFFFFFF, 0.5);
+            else graphics.lineStyle(2, 0xFF0000, 0.2);
+            graphics.beginFill(0xFF0000, 0.2);
+            graphics.drawRect(690, 60 + (100 * index), 75, 75);
+            graphics.endFill;
+
+            cmdListCommand.push(graphics);
+            cmdStage.addChild(cmdListCommand[index]);
+        }
+        index++;
+    }
+}
+
+function onCmdRedIconCommandClick()
+{
+	cmdRedCommand(this.index);
+}
+
+function cmdRedPersonageShow(id, status)
+{
+    cmdStage.removeChild(cmdDesktopStage);
+    
+    cmdDesktopStage = new PIXI.Container();
+    var text = new PIXI.Text(userPersonages[id].name, cmdStyleButtonRedText); 
+    text.x = 50; text.y = 30;
+    cmdDesktopStage.addChild(text);
+    
+    text = new PIXI.Text("Характеристики:", cmdStyleButtonRedText); 
+    text.x = 300; text.y = 100;
+    cmdDesktopStage.addChild(text);
+    
+    text = new PIXI.Text("Кристал света:", cmdStyleButtonRedText); 
+    text.x = 300; text.y = 150;
+    cmdDesktopStage.addChild(text);
+    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense1, cmdStyleButtonRedText); 
+    text.x = 450; text.y = 150;
+    cmdDesktopStage.addChild(text);
+    
+    text = new PIXI.Text("Кристал тьмы:", cmdStyleButtonRedText); 
+    text.x = 300; text.y = 175;
+    cmdDesktopStage.addChild(text);
+    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense2, cmdStyleButtonRedText); 
+    text.x = 450; text.y = 175;
+    cmdDesktopStage.addChild(text);
+    
+    text = new PIXI.Text("Кристал жизни:", cmdStyleButtonRedText); 
+    text.x = 300; text.y = 200;
+    cmdDesktopStage.addChild(text);
+    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense3, cmdStyleButtonRedText); 
+    text.x = 450; text.y = 200;
+    cmdDesktopStage.addChild(text);
+    
+    text = new PIXI.Text("Кристал ловкости:", cmdStyleButtonRedText); 
+    text.x = 300; text.y = 225;
+    cmdDesktopStage.addChild(text);
+    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense4, cmdStyleButtonRedText); 
+    text.x = 450; text.y = 225;
+    cmdDesktopStage.addChild(text);
+    
+    text = new PIXI.Text("Кристал интелекта:", cmdStyleButtonRedText); 
+    text.x = 300; text.y = 250;
+    cmdDesktopStage.addChild(text);
+    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense5, cmdStyleButtonRedText); 
+    text.x = 450; text.y = 250;
+    cmdDesktopStage.addChild(text);
+    
+    var sprite = new PIXI.Sprite(heroesTextures[id][1]);
+    sprite.position.x = 25;
+    sprite.position.y = 50;
+    cmdDesktopStage.addChild(sprite);
+    
+    text = new PIXI.Text(userPersonages[id].description, cmdStyledescriptionRedText); 
+    text.x = 50;
+    text.y = 550 - text.height;
+    cmdDesktopStage.addChild(text);
+    
+    if(status === "IN_COMMAND")
+    {
+        
+    }
+    
+    cmdStage.addChild(cmdDesktopStage);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

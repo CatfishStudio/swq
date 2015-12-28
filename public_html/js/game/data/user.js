@@ -11,7 +11,7 @@ var userCommandAI;      // команда ИИ (объект)
 var userPersonages;      // список персонажей в игре (объект)
 var userPlanets;         // Прогресс игры в отношении планет (объект)
 
-//var userExperiencePoints = 0;			// Очки опыта
+var userExperiencePoints = 0;			// Очки опыта
 //var userTotalPointsPlayerTournament = 0;	// Общие очки игрока за всю игру
 //var userlTotalPointsPlayerLevel = 0;          // Общие очки игрока за уровен
 //var userExperiencePointsAI = 0;		// Очки опыта ИИ
@@ -55,7 +55,7 @@ var UserPersonage = function(id, name)
     this.hitAttack3 = 0;                      // показатель атаки
     this.hitAttack4 = 0;                      // показатель атаки
     this.hitAttack5 = 0;                      // показатель атаки
-	this.hitDefense1 = 0;                      // показатель защиты
+    this.hitDefense1 = 0;                      // показатель защиты
     this.hitDefense2 = 0;                      // показатель защиты
     this.hitDefense3 = 0;                      // показатель защиты
     this.hitDefense4 = 0;                      // показатель защиты

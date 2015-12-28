@@ -895,7 +895,7 @@ function mapDestinationSearch()
     {
         mapBlueTargetsShow(target["planetUser"]);
         mapRedTargetsShow(target["planetAI"]);
-        if(userTotalBattle === 0) userMapMessage["LastNews"][0] += " В данное время Дарт Вейдер напали на " + userPlanets[target["planetAI"]].name + " вы можите попытаться помешать ему. \n\nИли выполните миссию " + userPlanets[target["planetUser"]].name + " и получите нового союзника.";
+        if(userTotalBattle === 0) userMapMessage["LastNews"][0] = "Меня зовут R2D2, рад вас приветствовать.\n\nКорусант является основной целью Ситов." + " В данное время Дарт Вейдер напали на " + userPlanets[target["planetAI"]].name + " вы можите попытаться помешать ему. \n\nИли выполните миссию " + userPlanets[target["planetUser"]].name + " и получите нового союзника.";
         else userMapMessage["LastNews"][0] = "На планете " + userPlanets[target["planetUser"]].name + " нуждаются в нашей помощи. Выполните миссию "  + userPlanets[target["planetUser"]].name + " и вам будет доступен новый союзник. \n\nТак же мы получаем сигнал с планеты " + userPlanets[target["planetAI"]].name + " о вторжении Дарт Вейдера. Вы можите предпринять попытку отбить нападение на " + userPlanets[target["planetAI"]].name + ".";
         mapTextMessage.text = userMapMessage["LastNews"][0];
     }
@@ -904,7 +904,7 @@ function mapDestinationSearch()
         console.log("OK");
         mapRedTargetsShow(target["planetUser"]);
         mapBlueTargetsShow(target["planetAI"]);
-        if(userTotalBattle === 0) userMapMessage["LastNews"][1] += " Они направелись на " + userPlanets[target["planetAI"]].name + " можем помешать им. \n\nИли напасть на " + userPlanets[target["planetUser"]].name + " и получите нового союзника.";
+        if(userTotalBattle === 0) userMapMessage["LastNews"][1] = "Меня зовут R3-S6, приветствую тебя мой повелитель. \n\nДжедаи хотят разрушить Звезду смерти и помешать нашим планам." + " Они направелись на " + userPlanets[target["planetAI"]].name + " можем помешать им. \n\nИли напасть на " + userPlanets[target["planetUser"]].name + " и получите нового союзника.";
         else userMapMessage["LastNews"][1] = "Оборона планеты " + userPlanets[target["planetUser"]].name + " слаба мы с лёгкостью захватим её и вам будет доступен новый союзник. \n\nТак же наш шпион докладывает что Джедаи направились на " + userPlanets[target["planetAI"]].name + " можем помешать им.";
         mapTextMessage.text = userMapMessage["LastNews"][1];
     }

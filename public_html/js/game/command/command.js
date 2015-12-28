@@ -396,70 +396,6 @@ function cmdDroidRed()
     cmdMessageLineGraphicsTween();
 }
 
-
-function onCmdButtonOver()
-{
-    this.isOver = true;
-    this.gotoAndPlay(1);
-}
-
-function onCmdButtonOut()
-{
-    this.isOver = false;
-    this.gotoAndStop(0);
-}
-
-function onCmdButtonUpdate()
-{
-    if(this.isOver)
-    {
-        this.gotoAndPlay(1);
-    }else{
-        this.gotoAndStop(0);
-    }
-}
-
-function onCmdButtonClick() 
-{
-    switch (this.name)
-    {
-        case "Closed":
-            mapCreate();
-            cmdRemove();
-            break;
-        
-        case "Invite": 
-            VK.callMethod("showInviteBox");
-            break;
-        default:
-            break;
-    }
-    
-}
-
-function cmdAnimSpaceTween()
-{
-    createjs.Tween.get(cmdSpaceBackground, {loop: true}) 
-        .to({rotation: -0.015}, 2500, createjs.Ease.getPowInOut(3))
-        .to({rotation: 0.015}, 2500, createjs.Ease.getPowInOut(3))
-        .to({rotation: 0.0}, 2500, createjs.Ease.getPowInOut(3));
-    createjs.Ticker.setFPS(60);
-}
-
-function cmdLineAnimPersonageDesktopGraphicsTween()
-{
-    createjs.Tween.get(cmdLineAnimPersonageDesktopGraphics, {loop: true}) 
-        .to({x: 0, y: 545}, 2500, createjs.Ease.getPowInOut(3));
-    createjs.Ticker.setFPS(60);
-}
-
-function cmdMessageLineGraphicsTween()
-{
-    createjs.Tween.get(cmdMessageLineGraphics, {loop: true}) 
-            .to({x: 0, y: 138}, 2000, createjs.Ease.getPowInOut(3));
-    createjs.Ticker.setFPS(60);
-}
-
 function cmdBlueCommand(select)
 {
     if (select === undefined) {
@@ -590,23 +526,59 @@ function cmdBluePersonageShow(id, status)
     text.y = 550 - text.height;
     cmdDesktopStage.addChild(text);
     
-    if(status === "IN_COMMAND")
-    {
-        
-    }
+    if(status === "IN_COMMAND") cmdBlueButtonRemovePersonage();
+    else cmdBlueButtonSelectPersonage();
     
     cmdStage.addChild(cmdDesktopStage);
 }
 
+function cmdBlueButtonRemovePersonage()
+{
+    var button = new PIXI.extras.MovieClip(animTexButtonBlue);
+    button.name = "Remove";
+    button.position.x = 350; 
+    button.position.y = 25; 
+    button.interactive = true; 
+    button.buttonMode = true; 
+    button.loop = false; 
+    button.animationSpeed = 0.2;
+    button.onComplete = onCmdButtonUpdate;
+    button.tap = onCmdButtonClick; 
+    button.click = onCmdButtonClick; 
+    button.on('mouseover', onCmdButtonOver);
+    button.on('mouseout', onCmdButtonOut);
+    
+    var text = new PIXI.Text("УБРАТЬ ИЗ СПИСКА", cmdStyleButtonBlueText); 
+    text.x = button.width / 6.5;
+    text.y = button.height / 3;
 
+    button.addChild(text); 
+    cmdDesktopStage.addChild(button);
+}
 
+function cmdBlueButtonSelectPersonage()
+{
+    var button = new PIXI.extras.MovieClip(animTexButtonBlue);
+    button.name = "Select";
+    button.position.x = 350; 
+    button.position.y = 25; 
+    button.interactive = true; 
+    button.buttonMode = true; 
+    button.loop = false; 
+    button.animationSpeed = 0.2;
+    button.onComplete = onCmdButtonUpdate;
+    button.tap = onCmdButtonClick; 
+    button.click = onCmdButtonClick; 
+    button.on('mouseover', onCmdButtonOver);
+    button.on('mouseout', onCmdButtonOut);
+    
+    var text = new PIXI.Text("ДОБАВИТЬ В СПИСОК", cmdStyleButtonBlueText); 
+    text.x = button.width / 6.5;
+    text.y = button.height / 3;
 
-
-
-
-
-
-
+    button.addChild(text); 
+    cmdDesktopStage.addChild(button);
+}
 
 function cmdRedCommand(select)
 {
@@ -738,22 +710,123 @@ function cmdRedPersonageShow(id, status)
     text.y = 550 - text.height;
     cmdDesktopStage.addChild(text);
     
-    if(status === "IN_COMMAND")
-    {
-        
-    }
+    if(status === "IN_COMMAND") cmdRedButtonRemovePersonage();
+    else cmdRedButtonSelectPersonage();
     
     cmdStage.addChild(cmdDesktopStage);
 }
 
+function cmdRedButtonRemovePersonage()
+{
+    var button = new PIXI.extras.MovieClip(animTexButtonRed);
+    button.name = "Remove";
+    button.position.x = 350; 
+    button.position.y = 25; 
+    button.interactive = true; 
+    button.buttonMode = true; 
+    button.loop = false; 
+    button.animationSpeed = 0.2;
+    button.onComplete = onCmdButtonUpdate;
+    button.tap = onCmdButtonClick; 
+    button.click = onCmdButtonClick; 
+    button.on('mouseover', onCmdButtonOver);
+    button.on('mouseout', onCmdButtonOut);
+    
+    var text = new PIXI.Text("УБРАТЬ ИЗ СПИСКА", cmdStyleButtonBlueText); 
+    text.x = button.width / 6.5;
+    text.y = button.height / 3;
+
+    button.addChild(text); 
+    cmdDesktopStage.addChild(button);
+}
+
+function cmdRedButtonSelectPersonage()
+{
+    var button = new PIXI.extras.MovieClip(animTexButtonRed);
+    button.name = "Select";
+    button.position.x = 350; 
+    button.position.y = 25; 
+    button.interactive = true; 
+    button.buttonMode = true; 
+    button.loop = false; 
+    button.animationSpeed = 0.2;
+    button.onComplete = onCmdButtonUpdate;
+    button.tap = onCmdButtonClick; 
+    button.click = onCmdButtonClick; 
+    button.on('mouseover', onCmdButtonOver);
+    button.on('mouseout', onCmdButtonOut);
+    
+    var text = new PIXI.Text("ДОБАВИТЬ В СПИСОК", cmdStyleButtonBlueText); 
+    text.x = button.width / 6.5;
+    text.y = button.height / 3;
+
+    button.addChild(text); 
+    cmdDesktopStage.addChild(button);
+}
 
 
+function onCmdButtonOver()
+{
+    this.isOver = true;
+    this.gotoAndPlay(1);
+}
 
+function onCmdButtonOut()
+{
+    this.isOver = false;
+    this.gotoAndStop(0);
+}
 
+function onCmdButtonUpdate()
+{
+    if(this.isOver)
+    {
+        this.gotoAndPlay(1);
+    }else{
+        this.gotoAndStop(0);
+    }
+}
 
+function onCmdButtonClick() 
+{
+    switch (this.name)
+    {
+        case "Closed":
+            mapCreate();
+            cmdRemove();
+            break;
+        
+        case "Invite": 
+            VK.callMethod("showInviteBox");
+            break;
+        default:
+            break;
+    }
+    
+}
 
+function cmdAnimSpaceTween()
+{
+    createjs.Tween.get(cmdSpaceBackground, {loop: true}) 
+        .to({rotation: -0.015}, 2500, createjs.Ease.getPowInOut(3))
+        .to({rotation: 0.015}, 2500, createjs.Ease.getPowInOut(3))
+        .to({rotation: 0.0}, 2500, createjs.Ease.getPowInOut(3));
+    createjs.Ticker.setFPS(60);
+}
 
+function cmdLineAnimPersonageDesktopGraphicsTween()
+{
+    createjs.Tween.get(cmdLineAnimPersonageDesktopGraphics, {loop: true}) 
+        .to({x: 0, y: 545}, 2500, createjs.Ease.getPowInOut(3));
+    createjs.Ticker.setFPS(60);
+}
 
+function cmdMessageLineGraphicsTween()
+{
+    createjs.Tween.get(cmdMessageLineGraphics, {loop: true}) 
+            .to({x: 0, y: 138}, 2000, createjs.Ease.getPowInOut(3));
+    createjs.Ticker.setFPS(60);
+}
 
 
 

@@ -36,7 +36,8 @@ function cmdCreate()
         cmdBattonsRed();
         cmdRedCommand();
     }
-
+    cmdTapeCreate();
+    
     stage.addChild(cmdStage);
 }
 
@@ -795,10 +796,12 @@ function onCmdButtonClick()
             mapCreate();
             cmdRemove();
             break;
-        
-        case "Invite": 
-            VK.callMethod("showInviteBox");
+        case "Select":
+            
             break;
+        case "Remove":
+            
+            break;    
         default:
             break;
     }
@@ -828,7 +831,63 @@ function cmdMessageLineGraphicsTween()
     createjs.Ticker.setFPS(60);
 }
 
+function cmdTapeCreate()
+{
+    var tapeStage = new PIXI.Container();
+    
+    var mask = new PIXI.Graphics();
+    mask.lineStyle(2, 0xFF00FF, 1);
+    mask.beginFill(0xFF00FF, 0.2);
+    mask.moveTo(70, 610);
+    mask.lineTo(500, 610);
+    mask.lineTo(500, 705);
+    mask.lineTo(70, 705);
+    mask.endFill;
+    
+    tapeStage.mask = mask;
+    cmdStage.addChild(tapeStage);
+    
+    var index = 0;
+    for(var key in userPersonages)
+    {
+        if(userPersonages[key].status === USER_PERSONAGE_AVAILABLE)
+        {
+            var graphics = new PIXI.Graphics(); 
+            graphics.lineStyle(2, 0x0000FF, 0.2);
+            graphics.beginFill(0x0000FF, 0.2);
+            graphics.drawRect(80 + (100 * index), 620, 75, 75);
+            graphics.endFill;
 
+            var textureSprite = new PIXI.Sprite(heroesTextures[key][3]); 
+            textureSprite.index = index;
+            textureSprite.tag = "IN_COMMAND";
+            textureSprite.position.x = 80 + (100 * index); 
+            textureSprite.position.y = 620; 
+            textureSprite.interactive = true; 
+            textureSprite.buttonMode = true;
+            textureSprite.tap = onCmdBlueIconCommandClick; 
+            textureSprite.click = onCmdBlueIconCommandClick; 
+            graphics.addChild(textureSprite);
+            
+            /*
+            var border = new PIXI.Graphics();
+            if(index === select)
+            {
+                border.lineStyle(2, 0xFFFFFF, 0.5);
+                cmdBluePersonageShow(userCommandUser[key], "IN_COMMAND");
+            } else {
+                border.lineStyle(2, 0x0000FF, 0.2);
+            }
+            border.drawRect(690, 60 + (100 * index), 75, 75);
+            graphics.addChild(border);
+            */
+            tapeStage.addChild(graphics);
+            
+            index++;
+        }
+    }
+    
+}
 
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

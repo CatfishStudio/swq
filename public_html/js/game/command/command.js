@@ -13,6 +13,7 @@ var cmdStyledescriptionRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', s
 var cmdListCommand = [];
 var cmdListPersonage = [];
 var cmdDesktopStage;
+var cmdTapeStage;
 
 function cmdCreate()
 {
@@ -24,7 +25,8 @@ function cmdCreate()
         cmdDesktopBlue();
         cmdBorderBlue();
         cmdDroidBlue();
-        cmdTapeCreate();
+        cmdTapeMask();
+        cmdTapeBlue();
         cmdBattonsBlue();
         cmdBlueCommand();
     }
@@ -468,6 +470,7 @@ function cmdBlueCommand(select)
 function onCmdBlueIconCommandClick()
 {
 	cmdBlueCommand(this.index);
+        cmdTapeBlue(-1);
 }
 
 function cmdBluePersonageShow(id, status)
@@ -575,7 +578,7 @@ function cmdBlueButtonSelectPersonage()
     button.on('mouseout', onCmdButtonOut);
     
     var text = new PIXI.Text("ДОБАВИТЬ В СПИСОК", cmdStyleButtonBlueText); 
-    text.x = button.width / 6.5;
+    text.x = button.width / 8.0;
     text.y = button.height / 3;
 
     button.addChild(text); 
@@ -759,7 +762,7 @@ function cmdRedButtonSelectPersonage()
     button.on('mouseout', onCmdButtonOut);
     
     var text = new PIXI.Text("ДОБАВИТЬ В СПИСОК", cmdStyleButtonBlueText); 
-    text.x = button.width / 6.5;
+    text.x = button.width / 8.0;
     text.y = button.height / 3;
 
     button.addChild(text); 
@@ -832,9 +835,9 @@ function cmdMessageLineGraphicsTween()
     createjs.Ticker.setFPS(60);
 }
 
-function cmdTapeCreate()
+function cmdTapeMask()
 {
-    var tapeStage = new PIXI.Container();
+    cmdTapeStage = new PIXI.Container();
     
     var mask = new PIXI.Graphics();
     mask.lineStyle(2, 0xFF00FF, 1);
@@ -845,8 +848,26 @@ function cmdTapeCreate()
     mask.lineTo(70, 705);
     mask.endFill;
     
-    tapeStage.mask = mask;
-    cmdStage.addChild(tapeStage);
+    cmdTapeStage.mask = mask;
+    cmdStage.addChild(cmdTapeStage);
+}
+
+function cmdTapeBlue(select)
+{
+    if (select === undefined) {
+        select = -1;
+    }
+    
+    if(cmdListCommand.length === 0)
+    {
+            cmdListPersonage = [];
+    }else{
+        for(var i = 0; i < cmdListPersonage.length; i++)
+        {
+            cmdTapeStage.removeChild(cmdListPersonage[i]);
+        }
+        cmdListPersonage = [];
+    }
     
     var index = 0;
     for(var key in userPersonages)
@@ -861,28 +882,27 @@ function cmdTapeCreate()
 
             var textureSprite = new PIXI.Sprite(heroesTextures[key][3]); 
             textureSprite.index = index;
-            textureSprite.tag = "IN_COMMAND";
+            textureSprite.tag = "NOT_COMMAND";
+            textureSprite.key = key;
             textureSprite.position.x = 80 + (100 * index); 
             textureSprite.position.y = 620; 
             textureSprite.interactive = true; 
             textureSprite.buttonMode = true;
-            textureSprite.tap = onCmdBlueIconCommandClick; 
-            textureSprite.click = onCmdBlueIconCommandClick; 
+            textureSprite.tap = onCmdBlueIconPersonageClick; 
+            textureSprite.click = onCmdBlueIconPersonageClick; 
             graphics.addChild(textureSprite);
             
-            /*
             var border = new PIXI.Graphics();
-            if(index === select)
+            if(select === index)
             {
-                border.lineStyle(2, 0xFFFFFF, 0.5);
-                cmdBluePersonageShow(userCommandUser[key], "IN_COMMAND");
-            } else {
-                border.lineStyle(2, 0x0000FF, 0.2);
-            }
-            border.drawRect(690, 60 + (100 * index), 75, 75);
+                border.lineStyle(2, 0xFFFFFF, 0.3);
+                cmdBluePersonageShow(key, "NOT_COMMAND");
+            } else border.lineStyle(2, 0x0000FF, 0.2);
+            border.drawRect(80 + (100 * index), 620, 75, 75);
             graphics.addChild(border);
-            */
-            tapeStage.addChild(graphics);
+            cmdTapeStage.addChild(graphics);
+            
+            cmdListPersonage.push(graphics);
             
             index++;
         }
@@ -896,8 +916,13 @@ function cmdTapeCreate()
     graphics.beginFill(0xFF0000, 0.25);
     graphics.drawRect(501, 610, 500, 95);
     graphics.endFill();
-    tapeStage.addChild(graphics);
-    
+    cmdTapeStage.addChild(graphics);
+}
+
+function onCmdBlueIconPersonageClick()
+{
+    cmdTapeBlue(this.index);
+    cmdBlueCommand(-1);
 }
 
 

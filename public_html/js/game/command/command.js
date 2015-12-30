@@ -24,6 +24,7 @@ function cmdCreate()
         cmdDesktopBlue();
         cmdBorderBlue();
         cmdDroidBlue();
+        cmdTapeCreate();
         cmdBattonsBlue();
         cmdBlueCommand();
     }
@@ -36,7 +37,7 @@ function cmdCreate()
         cmdBattonsRed();
         cmdRedCommand();
     }
-    cmdTapeCreate();
+    
     
     stage.addChild(cmdStage);
 }
@@ -800,7 +801,7 @@ function onCmdButtonClick()
             
             break;
         case "Remove":
-            
+
             break;    
         default:
             break;
@@ -886,6 +887,16 @@ function cmdTapeCreate()
             index++;
         }
     }
+    
+    /* Всё что не отображается в маске будет не активно */
+    var graphics = new PIXI.Graphics(); 
+    graphics.hitArea = new PIXI.Rectangle(501, 610, 500, 95);
+    graphics.interactive = true;
+    graphics.lineStyle(1, 0x000000, 0.25);
+    graphics.beginFill(0xFF0000, 0.25);
+    graphics.drawRect(501, 610, 500, 95);
+    graphics.endFill();
+    tapeStage.addChild(graphics);
     
 }
 

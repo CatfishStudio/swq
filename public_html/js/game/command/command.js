@@ -25,10 +25,11 @@ function cmdCreate()
         cmdDesktopBlue();
         cmdBorderBlue();
         cmdDroidBlue();
+        cmdBlueCommand();
         cmdTapeMask();
         cmdTapeBlue();
         cmdBattonsBlue();
-        cmdBlueCommand();
+        
     }
     if(side === SIDE_SITH)
     {
@@ -36,8 +37,11 @@ function cmdCreate()
         cmdDesktopRed();
         cmdBorderRed();
         cmdDroidRed();
-        cmdBattonsRed();
         cmdRedCommand();
+        
+        
+        cmdBattonsRed();
+        
     }
     
     
@@ -430,7 +434,6 @@ function cmdBlueCommand(select)
 
             var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
             textureSprite.index = index;
-            textureSprite.tag = "IN_COMMAND";
             textureSprite.position.x = 690; 
             textureSprite.position.y = 60  + (100 * index); 
             textureSprite.interactive = true; 
@@ -615,7 +618,6 @@ function cmdRedCommand(select)
 
             var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
             textureSprite.index = index;
-            textureSprite.tag = "IN_COMMAND";
             textureSprite.position.x = 690; 
             textureSprite.position.y = 60  + (100 * index); 
             textureSprite.interactive = true; 
@@ -804,7 +806,7 @@ function onCmdButtonClick()
             
             break;
         case "Remove":
-
+            
             break;    
         default:
             break;
@@ -870,6 +872,116 @@ function cmdTapeBlue(select)
     }
     
     var index = 0;
+    for(var planet in userPlanets)
+    {
+        if(userPlanets[planet].status === USER_PLANET_QUEST_COMPLETE_JEDI)
+        {
+            //console.log(cmdListCommand[index].children[0].tag);
+            
+            if(userPersonages[userPlanets[planet].bluePersonage1].status === USER_PERSONAGE_AVAILABLE && userPersonages[userPlanets[planet].bluePersonage1].command === false)
+            {
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(2, 0x0000FF, 0.2);
+                graphics.beginFill(0x0000FF, 0.2);
+                graphics.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.endFill;
+                
+                var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].bluePersonage1][3]); 
+                textureSprite.index = index;
+                textureSprite.key = userPlanets[planet].bluePersonage1;
+                textureSprite.position.x = 80 + (100 * index); 
+                textureSprite.position.y = 620; 
+                textureSprite.interactive = true; 
+                textureSprite.buttonMode = true;
+                textureSprite.tap = onCmdBlueIconPersonageClick; 
+                textureSprite.click = onCmdBlueIconPersonageClick; 
+                graphics.addChild(textureSprite);
+
+                var border = new PIXI.Graphics();
+                if(select === index)
+                {
+                    border.lineStyle(2, 0xFFFFFF, 0.3);
+                    cmdBluePersonageShow(userPlanets[planet].bluePersonage1, "NOT_COMMAND");
+                } else border.lineStyle(2, 0x0000FF, 0.2);
+                border.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.addChild(border);
+                cmdTapeStage.addChild(graphics);
+
+                cmdListPersonage.push(graphics);
+
+                index++;
+            }
+            if(userPersonages[userPlanets[planet].bluePersonage2].status === USER_PERSONAGE_AVAILABLE && userPersonages[userPlanets[planet].bluePersonage2].command === false)
+            {
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(2, 0x0000FF, 0.2);
+                graphics.beginFill(0x0000FF, 0.2);
+                graphics.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.endFill;
+
+                var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].bluePersonage2][3]); 
+                textureSprite.index = index;
+                textureSprite.key = userPlanets[planet].bluePersonage2;
+                textureSprite.position.x = 80 + (100 * index); 
+                textureSprite.position.y = 620; 
+                textureSprite.interactive = true; 
+                textureSprite.buttonMode = true;
+                textureSprite.tap = onCmdBlueIconPersonageClick; 
+                textureSprite.click = onCmdBlueIconPersonageClick; 
+                graphics.addChild(textureSprite);
+
+                var border = new PIXI.Graphics();
+                if(select === index)
+                {
+                    border.lineStyle(2, 0xFFFFFF, 0.3);
+                    cmdBluePersonageShow(userPlanets[planet].bluePersonage2, "NOT_COMMAND");
+                } else border.lineStyle(2, 0x0000FF, 0.2);
+                border.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.addChild(border);
+                cmdTapeStage.addChild(graphics);
+
+                cmdListPersonage.push(graphics);
+
+                index++;
+            }
+            if(userPersonages[userPlanets[planet].bluePersonage3].status === USER_PERSONAGE_AVAILABLE && userPersonages[userPlanets[planet].bluePersonage3].command === false)
+            {
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(2, 0x0000FF, 0.2);
+                graphics.beginFill(0x0000FF, 0.2);
+                graphics.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.endFill;
+
+                var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].bluePersonage3][3]); 
+                textureSprite.index = index;
+                textureSprite.key = userPlanets[planet].bluePersonage2;
+                textureSprite.position.x = 80 + (100 * index); 
+                textureSprite.position.y = 620; 
+                textureSprite.interactive = true; 
+                textureSprite.buttonMode = true;
+                textureSprite.tap = onCmdBlueIconPersonageClick; 
+                textureSprite.click = onCmdBlueIconPersonageClick; 
+                graphics.addChild(textureSprite);
+
+                var border = new PIXI.Graphics();
+                if(select === index)
+                {
+                    border.lineStyle(2, 0xFFFFFF, 0.3);
+                    cmdBluePersonageShow(userPlanets[planet].bluePersonage3, "NOT_COMMAND");
+                } else border.lineStyle(2, 0x0000FF, 0.2);
+                border.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.addChild(border);
+                cmdTapeStage.addChild(graphics);
+
+                cmdListPersonage.push(graphics);
+
+                index++;
+            }
+        }
+    }
+    
+    /*
+    var index = 0;
     for(var key in userPersonages)
     {
         if(userPersonages[key].status === USER_PERSONAGE_AVAILABLE)
@@ -907,7 +1019,8 @@ function cmdTapeBlue(select)
             index++;
         }
     }
-    
+    */
+   
     /* Всё что не отображается в маске будет не активно */
     var graphics = new PIXI.Graphics(); 
     graphics.hitArea = new PIXI.Rectangle(501, 610, 500, 95);

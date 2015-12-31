@@ -61,6 +61,7 @@ var UserPersonage = function(id, name)
     this.hitDefense4 = 0;                      // показатель защиты
     this.hitDefense5 = 0;                      // показатель защиты
     this.status = USER_PERSONAGE_NOT_AVAILABLE; // статус (выбран / не выбран)
+    this.command = false;               // входит в комманду или нет
     this.description = "";              // описание
 };
 

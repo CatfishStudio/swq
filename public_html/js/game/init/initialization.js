@@ -941,14 +941,26 @@ function initCommandUser()
     if(side === SIDE_JEDI)
     {
         commandUser["personage1"] = userPlanets["Coruscant"].bluePersonage1;
+        userPersonages[userPlanets["Coruscant"].bluePersonage1].status = USER_PERSONAGE_AVAILABLE;
+        userPersonages[userPlanets["Coruscant"].bluePersonage1].command = true;
         commandUser["personage2"] = userPlanets["Coruscant"].bluePersonage2;
+        userPersonages[userPlanets["Coruscant"].bluePersonage2].status = USER_PERSONAGE_AVAILABLE;
+        userPersonages[userPlanets["Coruscant"].bluePersonage2].command = true;
         commandUser["personage3"] = userPlanets["Coruscant"].bluePersonage3;
+        userPersonages[userPlanets["Coruscant"].bluePersonage3].status = USER_PERSONAGE_AVAILABLE;
+        userPersonages[userPlanets["Coruscant"].bluePersonage3].command = true;
     }
     if(side === SIDE_SITH)
     {
         commandUser["personage1"] = userPlanets["DeathStar"].redPersonage1;
+        userPersonages[userPlanets["DeathStar"].redPersonage1].status = USER_PERSONAGE_AVAILABLE;
+        userPersonages[userPlanets["DeathStar"].redPersonage1].command = true;
         commandUser["personage2"] = userPlanets["DeathStar"].redPersonage2;
+        userPersonages[userPlanets["DeathStar"].redPersonage2].status = USER_PERSONAGE_AVAILABLE;
+        userPersonages[userPlanets["DeathStar"].redPersonage2].command = true;
         commandUser["personage3"] = userPlanets["DeathStar"].redPersonage3;
+        userPersonages[userPlanets["DeathStar"].redPersonage3].status = USER_PERSONAGE_AVAILABLE;
+        userPersonages[userPlanets["DeathStar"].redPersonage3].command = true;
     }
     return commandUser;
 }

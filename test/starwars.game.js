@@ -67,6 +67,9 @@ var cmdStyledescriptionRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', s
 var cmdListCommand = [];
 var cmdListPersonage = [];
 var cmdDesktopStage;
+var cmdTapeStage;
+var cmdSelectPersonageID;
+var cmdSelectPersonageIndex;
 
 function cmdCreate()
 {
@@ -78,8 +81,11 @@ function cmdCreate()
         cmdDesktopBlue();
         cmdBorderBlue();
         cmdDroidBlue();
-        cmdBattonsBlue();
         cmdBlueCommand();
+        cmdTapeMask();
+        cmdTapeBlue();
+        cmdBattonsBlue();
+        
     }
     if(side === SIDE_SITH)
     {
@@ -87,10 +93,14 @@ function cmdCreate()
         cmdDesktopRed();
         cmdBorderRed();
         cmdDroidRed();
-        cmdBattonsRed();
         cmdRedCommand();
+        
+        
+        cmdBattonsRed();
+        
     }
-
+    
+    
     stage.addChild(cmdStage);
 }
 
@@ -450,70 +460,6 @@ function cmdDroidRed()
     cmdMessageLineGraphicsTween();
 }
 
-
-function onCmdButtonOver()
-{
-    this.isOver = true;
-    this.gotoAndPlay(1);
-}
-
-function onCmdButtonOut()
-{
-    this.isOver = false;
-    this.gotoAndStop(0);
-}
-
-function onCmdButtonUpdate()
-{
-    if(this.isOver)
-    {
-        this.gotoAndPlay(1);
-    }else{
-        this.gotoAndStop(0);
-    }
-}
-
-function onCmdButtonClick() 
-{
-    switch (this.name)
-    {
-        case "Closed":
-            mapCreate();
-            cmdRemove();
-            break;
-        
-        case "Invite": 
-            VK.callMethod("showInviteBox");
-            break;
-        default:
-            break;
-    }
-    
-}
-
-function cmdAnimSpaceTween()
-{
-    createjs.Tween.get(cmdSpaceBackground, {loop: true}) 
-        .to({rotation: -0.015}, 2500, createjs.Ease.getPowInOut(3))
-        .to({rotation: 0.015}, 2500, createjs.Ease.getPowInOut(3))
-        .to({rotation: 0.0}, 2500, createjs.Ease.getPowInOut(3));
-    createjs.Ticker.setFPS(60);
-}
-
-function cmdLineAnimPersonageDesktopGraphicsTween()
-{
-    createjs.Tween.get(cmdLineAnimPersonageDesktopGraphics, {loop: true}) 
-        .to({x: 0, y: 545}, 2500, createjs.Ease.getPowInOut(3));
-    createjs.Ticker.setFPS(60);
-}
-
-function cmdMessageLineGraphicsTween()
-{
-    createjs.Tween.get(cmdMessageLineGraphics, {loop: true}) 
-            .to({x: 0, y: 138}, 2000, createjs.Ease.getPowInOut(3));
-    createjs.Ticker.setFPS(60);
-}
-
 function cmdBlueCommand(select)
 {
     if (select === undefined) {
@@ -543,8 +489,8 @@ function cmdBlueCommand(select)
             graphics.endFill;
 
             var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
+            textureSprite.name = userCommandUser[key];
             textureSprite.index = index;
-            textureSprite.tag = "IN_COMMAND";
             textureSprite.position.x = 690; 
             textureSprite.position.y = 60  + (100 * index); 
             textureSprite.interactive = true; 
@@ -583,7 +529,10 @@ function cmdBlueCommand(select)
 
 function onCmdBlueIconCommandClick()
 {
-	cmdBlueCommand(this.index);
+        cmdSelectPersonageID = this.name;
+        cmdSelectPersonageIndex = this.index;
+        cmdBlueCommand(this.index);
+        cmdTapeBlue(-1);
 }
 
 function cmdBluePersonageShow(id, status)
@@ -644,23 +593,59 @@ function cmdBluePersonageShow(id, status)
     text.y = 550 - text.height;
     cmdDesktopStage.addChild(text);
     
-    if(status === "IN_COMMAND")
-    {
-        
-    }
+    if(status === "IN_COMMAND") cmdBlueButtonRemovePersonage();
+    else cmdBlueButtonSelectPersonage();
     
     cmdStage.addChild(cmdDesktopStage);
 }
 
+function cmdBlueButtonRemovePersonage()
+{
+    var button = new PIXI.extras.MovieClip(animTexButtonBlue);
+    button.name = "Remove";
+    button.position.x = 350; 
+    button.position.y = 25; 
+    button.interactive = true; 
+    button.buttonMode = true; 
+    button.loop = false; 
+    button.animationSpeed = 0.2;
+    button.onComplete = onCmdButtonUpdate;
+    button.tap = onCmdButtonClick; 
+    button.click = onCmdButtonClick; 
+    button.on('mouseover', onCmdButtonOver);
+    button.on('mouseout', onCmdButtonOut);
+    
+    var text = new PIXI.Text("УБРАТЬ ИЗ СПИСКА", cmdStyleButtonBlueText); 
+    text.x = button.width / 6.5;
+    text.y = button.height / 3;
 
+    button.addChild(text); 
+    cmdDesktopStage.addChild(button);
+}
 
+function cmdBlueButtonSelectPersonage()
+{
+    var button = new PIXI.extras.MovieClip(animTexButtonBlue);
+    button.name = "Select";
+    button.position.x = 350; 
+    button.position.y = 25; 
+    button.interactive = true; 
+    button.buttonMode = true; 
+    button.loop = false; 
+    button.animationSpeed = 0.2;
+    button.onComplete = onCmdButtonUpdate;
+    button.tap = onCmdButtonClick; 
+    button.click = onCmdButtonClick; 
+    button.on('mouseover', onCmdButtonOver);
+    button.on('mouseout', onCmdButtonOut);
+    
+    var text = new PIXI.Text("ДОБАВИТЬ В СПИСОК", cmdStyleButtonBlueText); 
+    text.x = button.width / 8.0;
+    text.y = button.height / 3;
 
-
-
-
-
-
-
+    button.addChild(text); 
+    cmdDesktopStage.addChild(button);
+}
 
 function cmdRedCommand(select)
 {
@@ -691,8 +676,8 @@ function cmdRedCommand(select)
             graphics.endFill;
 
             var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
+            textureSprite.name = userCommandUser[key];
             textureSprite.index = index;
-            textureSprite.tag = "IN_COMMAND";
             textureSprite.position.x = 690; 
             textureSprite.position.y = 60  + (100 * index); 
             textureSprite.interactive = true; 
@@ -731,6 +716,8 @@ function cmdRedCommand(select)
 
 function onCmdRedIconCommandClick()
 {
+        cmdSelectPersonageID = this.name;
+        cmdSelectPersonageIndex = this.index;
 	cmdRedCommand(this.index);
 }
 
@@ -792,22 +779,371 @@ function cmdRedPersonageShow(id, status)
     text.y = 550 - text.height;
     cmdDesktopStage.addChild(text);
     
-    if(status === "IN_COMMAND")
-    {
-        
-    }
+    if(status === "IN_COMMAND") cmdRedButtonRemovePersonage();
+    else cmdRedButtonSelectPersonage();
     
     cmdStage.addChild(cmdDesktopStage);
 }
 
+function cmdRedButtonRemovePersonage()
+{
+    var button = new PIXI.extras.MovieClip(animTexButtonRed);
+    button.name = "Remove";
+    button.position.x = 350; 
+    button.position.y = 25; 
+    button.interactive = true; 
+    button.buttonMode = true; 
+    button.loop = false; 
+    button.animationSpeed = 0.2;
+    button.onComplete = onCmdButtonUpdate;
+    button.tap = onCmdButtonClick; 
+    button.click = onCmdButtonClick; 
+    button.on('mouseover', onCmdButtonOver);
+    button.on('mouseout', onCmdButtonOut);
+    
+    var text = new PIXI.Text("УБРАТЬ ИЗ СПИСКА", cmdStyleButtonBlueText); 
+    text.x = button.width / 6.5;
+    text.y = button.height / 3;
+
+    button.addChild(text); 
+    cmdDesktopStage.addChild(button);
+}
+
+function cmdRedButtonSelectPersonage()
+{
+    var button = new PIXI.extras.MovieClip(animTexButtonRed);
+    button.name = "Select";
+    button.position.x = 350; 
+    button.position.y = 25; 
+    button.interactive = true; 
+    button.buttonMode = true; 
+    button.loop = false; 
+    button.animationSpeed = 0.2;
+    button.onComplete = onCmdButtonUpdate;
+    button.tap = onCmdButtonClick; 
+    button.click = onCmdButtonClick; 
+    button.on('mouseover', onCmdButtonOver);
+    button.on('mouseout', onCmdButtonOut);
+    
+    var text = new PIXI.Text("ДОБАВИТЬ В СПИСОК", cmdStyleButtonBlueText); 
+    text.x = button.width / 8.0;
+    text.y = button.height / 3;
+
+    button.addChild(text); 
+    cmdDesktopStage.addChild(button);
+}
 
 
+function onCmdButtonOver()
+{
+    this.isOver = true;
+    this.gotoAndPlay(1);
+}
 
+function onCmdButtonOut()
+{
+    this.isOver = false;
+    this.gotoAndStop(0);
+}
 
+function onCmdButtonUpdate()
+{
+    if(this.isOver)
+    {
+        this.gotoAndPlay(1);
+    }else{
+        this.gotoAndStop(0);
+    }
+}
 
+function onCmdButtonClick() 
+{
+    switch (this.name)
+    {
+        case "Closed":
+            mapCreate();
+            cmdRemove();
+            break;
+        case "Select":
+            cmdSelectCommandPersonage();
+            break;
+        case "Remove":
+            cmdRemoveCommandPersonage();
+            break;    
+        default:
+            break;
+    }
+    
+}
 
+function cmdAnimSpaceTween()
+{
+    createjs.Tween.get(cmdSpaceBackground, {loop: true}) 
+        .to({rotation: -0.015}, 2500, createjs.Ease.getPowInOut(3))
+        .to({rotation: 0.015}, 2500, createjs.Ease.getPowInOut(3))
+        .to({rotation: 0.0}, 2500, createjs.Ease.getPowInOut(3));
+    createjs.Ticker.setFPS(60);
+}
 
+function cmdLineAnimPersonageDesktopGraphicsTween()
+{
+    createjs.Tween.get(cmdLineAnimPersonageDesktopGraphics, {loop: true}) 
+        .to({x: 0, y: 545}, 2500, createjs.Ease.getPowInOut(3));
+    createjs.Ticker.setFPS(60);
+}
 
+function cmdMessageLineGraphicsTween()
+{
+    createjs.Tween.get(cmdMessageLineGraphics, {loop: true}) 
+            .to({x: 0, y: 138}, 2000, createjs.Ease.getPowInOut(3));
+    createjs.Ticker.setFPS(60);
+}
+
+function cmdTapeMask()
+{
+    cmdTapeStage = new PIXI.Container();
+    
+    var mask = new PIXI.Graphics();
+    mask.lineStyle(2, 0xFF00FF, 1);
+    mask.beginFill(0xFF00FF, 0.2);
+    mask.moveTo(70, 610);
+    mask.lineTo(500, 610);
+    mask.lineTo(500, 705);
+    mask.lineTo(70, 705);
+    mask.endFill;
+    
+    cmdTapeStage.mask = mask;
+    cmdStage.addChild(cmdTapeStage);
+}
+
+function cmdTapeBlue(select)
+{
+    if (select === undefined) {
+        select = -1;
+    }
+    
+    if(cmdListCommand.length === 0)
+    {
+            cmdListPersonage = [];
+    }else{
+        for(var i = 0; i < cmdListPersonage.length; i++)
+        {
+            cmdTapeStage.removeChild(cmdListPersonage[i]);
+        }
+        cmdListPersonage = [];
+    }
+    
+    var index = 0;
+    for(var planet in userPlanets)
+    {
+        if(userPlanets[planet].status === USER_PLANET_QUEST_COMPLETE_JEDI)
+        {
+            //console.log(cmdListCommand[index].children[0].tag);
+            
+            if(userPersonages[userPlanets[planet].bluePersonage1].status === USER_PERSONAGE_AVAILABLE && userPersonages[userPlanets[planet].bluePersonage1].command === false)
+            {
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(2, 0x0000FF, 0.2);
+                graphics.beginFill(0x0000FF, 0.2);
+                graphics.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.endFill;
+                
+                var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].bluePersonage1][3]); 
+                textureSprite.name = userPlanets[planet].bluePersonage1;
+                textureSprite.index = index;
+                textureSprite.key = userPlanets[planet].bluePersonage1;
+                textureSprite.position.x = 80 + (100 * index); 
+                textureSprite.position.y = 620; 
+                textureSprite.interactive = true; 
+                textureSprite.buttonMode = true;
+                textureSprite.tap = onCmdBlueIconPersonageClick; 
+                textureSprite.click = onCmdBlueIconPersonageClick; 
+                graphics.addChild(textureSprite);
+
+                var border = new PIXI.Graphics();
+                if(select === index)
+                {
+                    border.lineStyle(2, 0xFFFFFF, 0.3);
+                    cmdBluePersonageShow(userPlanets[planet].bluePersonage1, "NOT_COMMAND");
+                } else border.lineStyle(2, 0x0000FF, 0.2);
+                border.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.addChild(border);
+                cmdTapeStage.addChild(graphics);
+
+                cmdListPersonage.push(graphics);
+
+                index++;
+            }
+            if(userPersonages[userPlanets[planet].bluePersonage2].status === USER_PERSONAGE_AVAILABLE && userPersonages[userPlanets[planet].bluePersonage2].command === false)
+            {
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(2, 0x0000FF, 0.2);
+                graphics.beginFill(0x0000FF, 0.2);
+                graphics.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.endFill;
+
+                var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].bluePersonage2][3]); 
+                textureSprite.name = userPlanets[planet].bluePersonage2;
+                textureSprite.index = index;
+                textureSprite.key = userPlanets[planet].bluePersonage2;
+                textureSprite.position.x = 80 + (100 * index); 
+                textureSprite.position.y = 620; 
+                textureSprite.interactive = true; 
+                textureSprite.buttonMode = true;
+                textureSprite.tap = onCmdBlueIconPersonageClick; 
+                textureSprite.click = onCmdBlueIconPersonageClick; 
+                graphics.addChild(textureSprite);
+
+                var border = new PIXI.Graphics();
+                if(select === index)
+                {
+                    border.lineStyle(2, 0xFFFFFF, 0.3);
+                    cmdBluePersonageShow(userPlanets[planet].bluePersonage2, "NOT_COMMAND");
+                } else border.lineStyle(2, 0x0000FF, 0.2);
+                border.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.addChild(border);
+                cmdTapeStage.addChild(graphics);
+
+                cmdListPersonage.push(graphics);
+
+                index++;
+            }
+            if(userPersonages[userPlanets[planet].bluePersonage3].status === USER_PERSONAGE_AVAILABLE && userPersonages[userPlanets[planet].bluePersonage3].command === false)
+            {
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(2, 0x0000FF, 0.2);
+                graphics.beginFill(0x0000FF, 0.2);
+                graphics.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.endFill;
+
+                var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].bluePersonage3][3]); 
+                textureSprite.name = userPlanets[planet].bluePersonage3;
+                textureSprite.index = index;
+                textureSprite.key = userPlanets[planet].bluePersonage3;
+                textureSprite.position.x = 80 + (100 * index); 
+                textureSprite.position.y = 620; 
+                textureSprite.interactive = true; 
+                textureSprite.buttonMode = true;
+                textureSprite.tap = onCmdBlueIconPersonageClick; 
+                textureSprite.click = onCmdBlueIconPersonageClick; 
+                graphics.addChild(textureSprite);
+
+                var border = new PIXI.Graphics();
+                if(select === index)
+                {
+                    border.lineStyle(2, 0xFFFFFF, 0.3);
+                    cmdBluePersonageShow(userPlanets[planet].bluePersonage3, "NOT_COMMAND");
+                } else border.lineStyle(2, 0x0000FF, 0.2);
+                border.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.addChild(border);
+                cmdTapeStage.addChild(graphics);
+
+                cmdListPersonage.push(graphics);
+
+                index++;
+            }
+        }
+    }
+    
+    /*
+    var index = 0;
+    for(var key in userPersonages)
+    {
+        if(userPersonages[key].status === USER_PERSONAGE_AVAILABLE)
+        {
+            var graphics = new PIXI.Graphics(); 
+            graphics.lineStyle(2, 0x0000FF, 0.2);
+            graphics.beginFill(0x0000FF, 0.2);
+            graphics.drawRect(80 + (100 * index), 620, 75, 75);
+            graphics.endFill;
+
+            var textureSprite = new PIXI.Sprite(heroesTextures[key][3]); 
+            textureSprite.index = index;
+            textureSprite.tag = "NOT_COMMAND";
+            textureSprite.key = key;
+            textureSprite.position.x = 80 + (100 * index); 
+            textureSprite.position.y = 620; 
+            textureSprite.interactive = true; 
+            textureSprite.buttonMode = true;
+            textureSprite.tap = onCmdBlueIconPersonageClick; 
+            textureSprite.click = onCmdBlueIconPersonageClick; 
+            graphics.addChild(textureSprite);
+            
+            var border = new PIXI.Graphics();
+            if(select === index)
+            {
+                border.lineStyle(2, 0xFFFFFF, 0.3);
+                cmdBluePersonageShow(key, "NOT_COMMAND");
+            } else border.lineStyle(2, 0x0000FF, 0.2);
+            border.drawRect(80 + (100 * index), 620, 75, 75);
+            graphics.addChild(border);
+            cmdTapeStage.addChild(graphics);
+            
+            cmdListPersonage.push(graphics);
+            
+            index++;
+        }
+    }
+    */
+   
+    /* Всё что не отображается в маске будет не активно */
+    var graphics = new PIXI.Graphics(); 
+    graphics.hitArea = new PIXI.Rectangle(501, 610, 500, 95);
+    graphics.interactive = true;
+    graphics.lineStyle(1, 0x000000, 0.25);
+    graphics.beginFill(0xFF0000, 0.25);
+    graphics.drawRect(501, 610, 500, 95);
+    graphics.endFill();
+    cmdTapeStage.addChild(graphics);
+}
+
+function onCmdBlueIconPersonageClick()
+{
+    cmdSelectPersonageID = this.name;
+    cmdSelectPersonageIndex = this.index;
+    cmdTapeBlue(this.index);
+    cmdBlueCommand(-1);
+}
+
+function cmdRemoveCommandPersonage()
+{
+    if(side === SIDE_JEDI)
+    {
+        userPersonages[cmdSelectPersonageID].command = false;
+        if(cmdSelectPersonageIndex === 0) userCommandUser["personage1"] = null;
+        if(cmdSelectPersonageIndex === 1) userCommandUser["personage2"] = null;
+        if(cmdSelectPersonageIndex === 2) userCommandUser["personage3"] = null;
+        cmdBlueCommand();
+        cmdTapeBlue();
+        
+    }
+    if(side === SIDE_SITH)
+    {
+        
+    }
+}
+
+function cmdSelectCommandPersonage()
+{
+    if(side === SIDE_JEDI)
+    {
+        userPersonages[cmdSelectPersonageID].command = true;
+        for(var key in userCommandUser)
+        {
+            if(userCommandUser[key] === null)
+            {
+                userCommandUser[key] = cmdSelectPersonageID;
+                break;
+            }
+        }
+        cmdBlueCommand();
+        cmdTapeBlue();
+    }
+    if(side === SIDE_SITH)
+    {
+        
+    }
+}
 
 
 
@@ -1772,14 +2108,26 @@ function initCommandUser()
     if(side === SIDE_JEDI)
     {
         commandUser["personage1"] = userPlanets["Coruscant"].bluePersonage1;
+        userPersonages[userPlanets["Coruscant"].bluePersonage1].status = USER_PERSONAGE_AVAILABLE;
+        userPersonages[userPlanets["Coruscant"].bluePersonage1].command = true;
         commandUser["personage2"] = userPlanets["Coruscant"].bluePersonage2;
+        userPersonages[userPlanets["Coruscant"].bluePersonage2].status = USER_PERSONAGE_AVAILABLE;
+        userPersonages[userPlanets["Coruscant"].bluePersonage2].command = true;
         commandUser["personage3"] = userPlanets["Coruscant"].bluePersonage3;
+        userPersonages[userPlanets["Coruscant"].bluePersonage3].status = USER_PERSONAGE_AVAILABLE;
+        userPersonages[userPlanets["Coruscant"].bluePersonage3].command = true;
     }
     if(side === SIDE_SITH)
     {
         commandUser["personage1"] = userPlanets["DeathStar"].redPersonage1;
+        userPersonages[userPlanets["DeathStar"].redPersonage1].status = USER_PERSONAGE_AVAILABLE;
+        userPersonages[userPlanets["DeathStar"].redPersonage1].command = true;
         commandUser["personage2"] = userPlanets["DeathStar"].redPersonage2;
+        userPersonages[userPlanets["DeathStar"].redPersonage2].status = USER_PERSONAGE_AVAILABLE;
+        userPersonages[userPlanets["DeathStar"].redPersonage2].command = true;
         commandUser["personage3"] = userPlanets["DeathStar"].redPersonage3;
+        userPersonages[userPlanets["DeathStar"].redPersonage3].status = USER_PERSONAGE_AVAILABLE;
+        userPersonages[userPlanets["DeathStar"].redPersonage3].command = true;
     }
     return commandUser;
 }
@@ -3169,7 +3517,7 @@ function mapDestinationSearch()
     {
         mapBlueTargetsShow(target["planetUser"]);
         mapRedTargetsShow(target["planetAI"]);
-        if(userTotalBattle === 0) userMapMessage["LastNews"][0] += " В данное время Дарт Вейдер напали на " + userPlanets[target["planetAI"]].name + " вы можите попытаться помешать ему. \n\nИли выполните миссию " + userPlanets[target["planetUser"]].name + " и получите нового союзника.";
+        if(userTotalBattle === 0) userMapMessage["LastNews"][0] = "Меня зовут R2D2, рад вас приветствовать.\n\nКорусант является основной целью Ситов." + " В данное время Дарт Вейдер напали на " + userPlanets[target["planetAI"]].name + " вы можите попытаться помешать ему. \n\nИли выполните миссию " + userPlanets[target["planetUser"]].name + " и получите нового союзника.";
         else userMapMessage["LastNews"][0] = "На планете " + userPlanets[target["planetUser"]].name + " нуждаются в нашей помощи. Выполните миссию "  + userPlanets[target["planetUser"]].name + " и вам будет доступен новый союзник. \n\nТак же мы получаем сигнал с планеты " + userPlanets[target["planetAI"]].name + " о вторжении Дарт Вейдера. Вы можите предпринять попытку отбить нападение на " + userPlanets[target["planetAI"]].name + ".";
         mapTextMessage.text = userMapMessage["LastNews"][0];
     }
@@ -3178,7 +3526,7 @@ function mapDestinationSearch()
         console.log("OK");
         mapRedTargetsShow(target["planetUser"]);
         mapBlueTargetsShow(target["planetAI"]);
-        if(userTotalBattle === 0) userMapMessage["LastNews"][1] += " Они направелись на " + userPlanets[target["planetAI"]].name + " можем помешать им. \n\nИли напасть на " + userPlanets[target["planetUser"]].name + " и получите нового союзника.";
+        if(userTotalBattle === 0) userMapMessage["LastNews"][1] = "Меня зовут R3-S6, приветствую тебя мой повелитель. \n\nДжедаи хотят разрушить Звезду смерти и помешать нашим планам." + " Они направелись на " + userPlanets[target["planetAI"]].name + " можем помешать им. \n\nИли напасть на " + userPlanets[target["planetUser"]].name + " и получите нового союзника.";
         else userMapMessage["LastNews"][1] = "Оборона планеты " + userPlanets[target["planetUser"]].name + " слаба мы с лёгкостью захватим её и вам будет доступен новый союзник. \n\nТак же наш шпион докладывает что Джедаи направились на " + userPlanets[target["planetAI"]].name + " можем помешать им.";
         mapTextMessage.text = userMapMessage["LastNews"][1];
     }
@@ -4686,6 +5034,7 @@ var UserPersonage = function(id, name)
     this.hitDefense4 = 0;                      // показатель защиты
     this.hitDefense5 = 0;                      // показатель защиты
     this.status = USER_PERSONAGE_NOT_AVAILABLE; // статус (выбран / не выбран)
+    this.command = false;               // входит в комманду или нет
     this.description = "";              // описание
 };
 

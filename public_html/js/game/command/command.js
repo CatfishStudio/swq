@@ -14,6 +14,7 @@ var cmdListCommand = [];
 var cmdListPersonage = [];
 var cmdDesktopStage;
 var cmdTapeStage;
+var cmdTapePanelButtonsStage;
 var cmdSelectPersonageID;
 var cmdSelectPersonageIndex;
 
@@ -30,8 +31,8 @@ function cmdCreate()
         cmdBlueCommand();
         cmdTapeMask();
         cmdTapeBlue();
+        cmdTapeButton();
         cmdBattonsBlue();
-        
     }
     if(side === SIDE_SITH)
     {
@@ -42,6 +43,7 @@ function cmdCreate()
         cmdRedCommand();
         cmdTapeMask();
         cmdTapeRed();
+        cmdTapeButton();
         cmdBattonsRed();
         
     }
@@ -486,7 +488,6 @@ function onCmdBlueIconCommandClick()
 function cmdBluePersonageShow(id)
 {
     cmdStage.removeChild(cmdDesktopStage);
-    console.log(id);
     if(id !== null)
     {
         cmdDesktopStage = new PIXI.Container();
@@ -526,7 +527,7 @@ function cmdBluePersonageShow(id)
         text.x = 450; text.y = 225;
         cmdDesktopStage.addChild(text);
 
-        text = new PIXI.Text("Кристал интелекта:", cmdStyleButtonBlueText); 
+        text = new PIXI.Text("Кристал интеллекта:", cmdStyleButtonBlueText); 
         text.x = 300; text.y = 250;
         cmdDesktopStage.addChild(text);
         text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense5, cmdStyleButtonBlueText); 
@@ -718,7 +719,7 @@ function cmdRedPersonageShow(id)
         text.x = 450; text.y = 225;
         cmdDesktopStage.addChild(text);
 
-        text = new PIXI.Text("Кристал интелекта:", cmdStyleButtonRedText); 
+        text = new PIXI.Text("Кристал интеллекта:", cmdStyleButtonRedText); 
         text.x = 300; text.y = 250;
         cmdDesktopStage.addChild(text);
         text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense5, cmdStyleButtonRedText); 
@@ -1232,7 +1233,65 @@ function cmdSelectCommandPersonage()
     }
 }
 
+function cmdTapeButton()
+{
+    cmdStage.removeChild(cmdTapePanelButtonsStage);
+    
+    if(cmdTapeStage.width > 100)
+    {
+        var color;
+        if(side === SIDE_JEDI) color = 0x0000FF;
+        else color = 0xFF0000;
+        
+        cmdTapePanelButtonsStage = new PIXI.Container();
+        var tapeButtonGraphics = new PIXI.Graphics();
+        tapeButtonGraphics.name = "TapeLeft";
+        tapeButtonGraphics.lineStyle(2, color, 1);
+        tapeButtonGraphics.beginFill(color, 1);
+        tapeButtonGraphics.moveTo(40, 655);
+        tapeButtonGraphics.lineTo(65, 630);
+        tapeButtonGraphics.lineTo(65, 680);
+        tapeButtonGraphics.lineTo(40, 655);
+        tapeButtonGraphics.endFill();
+        tapeButtonGraphics.interactive = true; 
+        tapeButtonGraphics.buttonMode = true; 
+        tapeButtonGraphics.tap = onCmdTapeButtonClick; 
+        tapeButtonGraphics.click = onCmdTapeButtonClick;
+        cmdTapePanelButtonsStage.addChild(tapeButtonGraphics);
 
+        tapeButtonGraphics = new PIXI.Graphics();
+        tapeButtonGraphics.name = "TapeRight";
+        tapeButtonGraphics.lineStyle(2, color, 1);
+        tapeButtonGraphics.beginFill(color, 1);
+        tapeButtonGraphics.moveTo(535, 655);
+        tapeButtonGraphics.lineTo(515, 630);
+        tapeButtonGraphics.lineTo(515, 680);
+        tapeButtonGraphics.lineTo(535, 655);
+        tapeButtonGraphics.endFill();
+        tapeButtonGraphics.interactive = true; 
+        tapeButtonGraphics.buttonMode = true; 
+        tapeButtonGraphics.tap = onCmdTapeButtonClick; 
+        tapeButtonGraphics.click = onCmdTapeButtonClick;
+       cmdTapePanelButtonsStage.addChild(tapeButtonGraphics);
+        
+        cmdStage.addChild(cmdTapePanelButtonsStage);
+    }
+}
 
+function onCmdTapeButtonClick()
+{
+     switch (this.name)
+    {
+        case "TapeLeft":
+            cmdTapeStage.position.x -= 100;
+            break;
+        case "TapeRight":
+            cmdTapeStage.position.x += 100;
+            break;
+        default:
+            break;
+    }
+   
+}
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

@@ -901,7 +901,6 @@ function mapDestinationSearch()
     }
     if(side === SIDE_SITH)
     {
-        console.log("OK");
         mapRedTargetsShow(target["planetUser"]);
         mapBlueTargetsShow(target["planetAI"]);
         if(userTotalBattle === 0) userMapMessage["LastNews"][1] = "Меня зовут R3-S6, приветствую тебя мой повелитель. \n\nДжедаи хотят разрушить Звезду смерти и помешать нашим планам." + " Они направелись на " + userPlanets[target["planetAI"]].name + " можем помешать им. \n\nИли напасть на " + userPlanets[target["planetUser"]].name + " и получите нового союзника.";

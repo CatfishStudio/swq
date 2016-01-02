@@ -872,6 +872,18 @@ function cmdTapeMask()
     
     cmdTapeStage.mask = mask;
     cmdStage.addChild(cmdTapeStage);
+    
+    /* Всё что не отображается в маске будет не активно */
+    var graphics = new PIXI.Graphics(); 
+    graphics.hitArea = new PIXI.Rectangle(501, 610, 500, 95);
+    graphics.interactive = true;
+    graphics.lineStyle(1, 0x000000, 0.0);
+    graphics.beginFill(0xFF0000, 0.0);
+    graphics.drawRect(501, 610, 500, 95);
+    graphics.endFill();
+    //cmdTapeStage.addChild(graphics);
+    cmdStage.addChild(graphics);
+
 }
 
 function cmdTapeBlue(select)
@@ -1011,15 +1023,7 @@ function cmdTapeBlue(select)
         }
     }
     
-    /* Всё что не отображается в маске будет не активно */
-    var graphics = new PIXI.Graphics(); 
-    graphics.hitArea = new PIXI.Rectangle(501, 610, 500, 95);
-    graphics.interactive = true;
-    graphics.lineStyle(1, 0x000000, 0.25);
-    graphics.beginFill(0xFF0000, 0.25);
-    graphics.drawRect(501, 610, 500, 95);
-    graphics.endFill();
-    cmdTapeStage.addChild(graphics);
+    cmdTapeButton();
 }
 
 function onCmdBlueIconPersonageClick()
@@ -1167,15 +1171,7 @@ function cmdTapeRed(select)
         }
     }
     
-    /* Всё что не отображается в маске будет не активно */
-    var graphics = new PIXI.Graphics(); 
-    graphics.hitArea = new PIXI.Rectangle(501, 610, 500, 95);
-    graphics.interactive = true;
-    graphics.lineStyle(1, 0x000000, 0.25);
-    graphics.beginFill(0xFF0000, 0.25);
-    graphics.drawRect(501, 610, 500, 95);
-    graphics.endFill();
-    cmdTapeStage.addChild(graphics);
+    cmdTapeButton();
 }
 
 function onCmdRedIconPersonageClick()
@@ -1236,8 +1232,8 @@ function cmdSelectCommandPersonage()
 function cmdTapeButton()
 {
     cmdStage.removeChild(cmdTapePanelButtonsStage);
-    
-    if(cmdTapeStage.width > 100)
+    console.log(cmdTapeStage.position.x + " " + cmdTapeStage.width);
+    if(cmdListPersonage.length > 2)
     {
         var color;
         if(side === SIDE_JEDI) color = 0x0000FF;
@@ -1264,17 +1260,19 @@ function cmdTapeButton()
         tapeButtonGraphics.lineStyle(2, color, 1);
         tapeButtonGraphics.beginFill(color, 1);
         tapeButtonGraphics.moveTo(535, 655);
-        tapeButtonGraphics.lineTo(515, 630);
-        tapeButtonGraphics.lineTo(515, 680);
+        tapeButtonGraphics.lineTo(510, 630);
+        tapeButtonGraphics.lineTo(510, 680);
         tapeButtonGraphics.lineTo(535, 655);
         tapeButtonGraphics.endFill();
         tapeButtonGraphics.interactive = true; 
         tapeButtonGraphics.buttonMode = true; 
         tapeButtonGraphics.tap = onCmdTapeButtonClick; 
         tapeButtonGraphics.click = onCmdTapeButtonClick;
-       cmdTapePanelButtonsStage.addChild(tapeButtonGraphics);
+        cmdTapePanelButtonsStage.addChild(tapeButtonGraphics);
         
         cmdStage.addChild(cmdTapePanelButtonsStage);
+    }else{
+        cmdTapeStage.position.x = 0;
     }
 }
 
@@ -1283,10 +1281,10 @@ function onCmdTapeButtonClick()
      switch (this.name)
     {
         case "TapeLeft":
-            cmdTapeStage.position.x -= 100;
+            if(cmdTapeStage.position.x >= ((cmdTapeStage.width - 100) * -1)) cmdTapeStage.position.x -= 100;
             break;
         case "TapeRight":
-            cmdTapeStage.position.x += 100;
+            if(cmdTapeStage.position.x <= -100) cmdTapeStage.position.x += 100;
             break;
         default:
             break;

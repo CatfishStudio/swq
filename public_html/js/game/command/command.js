@@ -9,6 +9,8 @@ var cmdStyleButtonBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', strok
 var cmdStyleButtonRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
 var cmdStyledescriptionBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 495 }; 
 var cmdStyledescriptionRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 495 }; 
+var cmdStyleDroidBlueText = { font : 'bold 14px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }; 
+var cmdStyleDroidRedText = { font : 'bold 14px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }; 
 var cmdExperiencePointsText;
 
 var cmdListCommand = [];
@@ -230,6 +232,11 @@ function cmdDroidBlue()
     cmdMessageLineGraphics.lineTo(840, 380);
     cmdStage.addChild(cmdMessageLineGraphics);
     cmdMessageLineGraphicsTween();
+    
+    cmdTextMessage = new PIXI.Text("Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", cmdStyleDroidBlueText); 
+    cmdTextMessage.x = 565; 
+    cmdTextMessage.y = 375; 
+    cmdStage.addChild(cmdTextMessage);
 }
 
 function cmdBackgroundRed()
@@ -405,6 +412,11 @@ function cmdDroidRed()
     cmdMessageLineGraphics.lineTo(840, 380);
     cmdStage.addChild(cmdMessageLineGraphics);
     cmdMessageLineGraphicsTween();
+    
+    cmdTextMessage = new PIXI.Text("Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", cmdStyleDroidRedText); 
+    cmdTextMessage.x = 565; 
+    cmdTextMessage.y = 375; 
+    cmdStage.addChild(cmdTextMessage);
 }
 
 function cmdBlueCommand(select)

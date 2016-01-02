@@ -630,8 +630,8 @@ function onMapButtonClick()
             settingsCreate();
             break;
         case "BackMenu":
-            menuCreate();
-            mapRemove();
+            backmenuCreate();
+            
             break;
         case "Invite": 
             VK.callMethod("showInviteBox");

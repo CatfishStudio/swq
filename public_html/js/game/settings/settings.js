@@ -48,7 +48,7 @@ function settingsWindow()
         graphics.lineTo(600, 250);
         graphics.lineTo(600, 500);
         graphics.lineTo(250, 500);
-        graphics.endFill
+        graphics.endFill();
         for(var i = 0; i < 55; i++)
         {
             if(i > 15 && i < 35)
@@ -76,7 +76,7 @@ function settingsWindow()
         graphics.lineTo(425, 275);
         graphics.lineTo(600, 275);
         graphics.lineTo(600, 250);
-        graphics.endFill
+        graphics.endFill();
         settingsStage.addChild(graphics);
     }
     if(side === SIDE_SITH)
@@ -88,7 +88,7 @@ function settingsWindow()
         graphics.lineTo(600, 250);
         graphics.lineTo(600, 500);
         graphics.lineTo(250, 500);
-        graphics.endFill
+        graphics.endFill();
         for(var i = 0; i < 55; i++)
         {
             if(i > 15 && i < 35)
@@ -116,7 +116,7 @@ function settingsWindow()
         graphics.lineTo(425, 275);
         graphics.lineTo(600, 275);
         graphics.lineTo(600, 250);
-        graphics.endFill
+        graphics.endFill();
         settingsStage.addChild(graphics);
     }
     

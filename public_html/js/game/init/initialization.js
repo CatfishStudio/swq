@@ -13,6 +13,12 @@ function initGame()
     userCommandUser = initCommandUser();        // команда пользователя
     userCommandAI = initCommandAI();            // команда ИИ
     initCharacteristics();                      // инициализация характеристик персонажей
+    
+    userExperiencePoints = 0;			// Очки опыта
+    userTotalPointsPlayerTournament = 0;	// Общие очки игрока за всю игру
+    userlTotalPointsPlayerLevel = 0;            // Общие очки игрока за уровен
+    userExperiencePointsAI = 0; 		// Очки опыта ИИ
+    userTotalBattle = 0;                        // Общее количество проведённых битв (связь с сообщениями R2D2)
 }
 
 function initMap()

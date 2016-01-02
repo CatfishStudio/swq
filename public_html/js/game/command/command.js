@@ -9,6 +9,7 @@ var cmdStyleButtonBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', strok
 var cmdStyleButtonRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
 var cmdStyledescriptionBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 495 }; 
 var cmdStyledescriptionRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 495 }; 
+var cmdExperiencePointsText;
 
 var cmdListCommand = [];
 var cmdListPersonage = [];
@@ -45,9 +46,7 @@ function cmdCreate()
         cmdTapeRed();
         cmdTapeButton();
         cmdBattonsRed();
-        
     }
-    
     
     stage.addChild(cmdStage);
 }
@@ -124,10 +123,10 @@ function cmdBorderBlue()
     
     cmdStage.addChild(graphics);
     
-    var text = new PIXI.Text("КОМАНДА. Очки опыта: " + userExperiencePoints, cmdStyleButtonBlueText); 
-    text.x = 655;
-    text.y = 30;
-    cmdStage.addChild(text);
+    cmdExperiencePointsText = new PIXI.Text("КОМАНДА. Очки опыта: " + userExperiencePoints, cmdStyleButtonBlueText); 
+    cmdExperiencePointsText.x = 655;
+    cmdExperiencePointsText.y = 30;
+    cmdStage.addChild(cmdExperiencePointsText);
 }
 
 function cmdBattonsBlue()
@@ -299,10 +298,10 @@ function cmdBorderRed()
     
     cmdStage.addChild(graphics);
     
-    var text = new PIXI.Text("КОМАНДА", cmdStyleButtonRedText); 
-    text.x = 655;
-    text.y = 30;
-    cmdStage.addChild(text);
+    cmdExperiencePointsText = new PIXI.Text("КОМАНДА. Очки опыта: " + userExperiencePoints, cmdStyleButtonRedText); 
+    cmdExperiencePointsText.x = 655;
+    cmdExperiencePointsText.y = 30;
+    cmdStage.addChild(cmdExperiencePointsText);
 }
 
 function cmdBattonsRed()
@@ -547,6 +546,8 @@ function cmdBluePersonageShow(id)
         if(userPersonages[userPersonages[id].id].command === true) cmdBlueButtonRemovePersonage();
         else cmdBlueButtonSelectPersonage();
 
+        cmdExperiencePointsButtons();
+
         cmdStage.addChild(cmdDesktopStage);
     }
 }
@@ -739,6 +740,8 @@ function cmdRedPersonageShow(id)
         if(userPersonages[userPersonages[id].id].command === true) cmdRedButtonRemovePersonage();
         else cmdRedButtonSelectPersonage();
 
+        cmdExperiencePointsButtons();
+
         cmdStage.addChild(cmdDesktopStage);
     }
 }
@@ -759,7 +762,7 @@ function cmdRedButtonRemovePersonage()
     button.on('mouseover', onCmdButtonOver);
     button.on('mouseout', onCmdButtonOut);
     
-    var text = new PIXI.Text("УБРАТЬ ИЗ СПИСКА", cmdStyleButtonBlueText); 
+    var text = new PIXI.Text("УБРАТЬ ИЗ СПИСКА", cmdStyleButtonRedText); 
     text.x = button.width / 6.5;
     text.y = button.height / 3;
 
@@ -1232,8 +1235,8 @@ function cmdSelectCommandPersonage()
 function cmdTapeButton()
 {
     cmdStage.removeChild(cmdTapePanelButtonsStage);
-    console.log(cmdTapeStage.position.x + " " + cmdTapeStage.width);
-    if(cmdListPersonage.length > 2)
+    
+    if(cmdListPersonage.length > 4)
     {
         var color;
         if(side === SIDE_JEDI) color = 0x0000FF;
@@ -1278,7 +1281,7 @@ function cmdTapeButton()
 
 function onCmdTapeButtonClick()
 {
-     switch (this.name)
+    switch (this.name)
     {
         case "TapeLeft":
             if(cmdTapeStage.position.x >= ((cmdTapeStage.width - 100) * -1)) cmdTapeStage.position.x -= 100;
@@ -1289,7 +1292,89 @@ function onCmdTapeButtonClick()
         default:
             break;
     }
-   
+}
+
+function cmdExperiencePointsButtons()
+{
+    if(userExperiencePoints > 0)
+    {
+        var color1, color2;
+        if(side === SIDE_JEDI)
+        {
+            color1 = 0x0000FF;
+            color2 = 0xFFFFFF;
+        }
+        if(side === SIDE_SITH)
+        {
+            color1 = 0xFF0000;
+            color2 = 0xFFFF00;
+        }
+        
+        for(var i = 0; i < 5; i++)
+        {
+            var graphics = new PIXI.Graphics();
+            graphics.name = "Add" + i;
+            graphics.lineStyle(1, color1, 1);
+            graphics.beginFill(color1, 0.5);
+            graphics.drawRect(525, 152 + (25 * i), 15, 15);
+            graphics.endFill();
+            graphics.lineStyle(1, color2, 1);
+            graphics.moveTo(532.5, 153 + (25 * i));
+            graphics.lineTo(532.5, 165 + (25 * i));
+            graphics.moveTo(526, 159 + (25 * i));
+            graphics.lineTo(538, 159 + (25 * i));
+            graphics.interactive = true; 
+            graphics.buttonMode = true; 
+            graphics.tap = onCmdButtonPlusClick; 
+            graphics.click = onCmdButtonPlusClick; 
+            
+            cmdDesktopStage.addChild(graphics);
+        }
+    }
+}
+
+function onCmdButtonPlusClick()
+{
+    switch (this.name)
+    {
+        case "Add0":
+            userPersonages[cmdSelectPersonageID].hitDefense1 += 1;
+            userExperiencePoints--;
+            cmdExperiencePointsText.text = "КОМАНДА. Очки опыта: " + userExperiencePoints;
+            if(side === SIDE_JEDI) cmdBluePersonageShow(cmdSelectPersonageID);
+            if(side === SIDE_SITH) cmdRedPersonageShow(cmdSelectPersonageID);
+            break;
+        case "Add1":
+            userPersonages[cmdSelectPersonageID].hitDefense2 += 1;
+            userExperiencePoints--;
+            cmdExperiencePointsText.text = "КОМАНДА. Очки опыта: " + userExperiencePoints;
+            if(side === SIDE_JEDI) cmdBluePersonageShow(cmdSelectPersonageID);
+            if(side === SIDE_SITH) cmdRedPersonageShow(cmdSelectPersonageID);
+            break;
+        case "Add2":
+            userPersonages[cmdSelectPersonageID].hitDefense3 += 1;
+            userExperiencePoints--;
+            cmdExperiencePointsText.text = "КОМАНДА. Очки опыта: " + userExperiencePoints;
+            if(side === SIDE_JEDI) cmdBluePersonageShow(cmdSelectPersonageID);
+            if(side === SIDE_SITH) cmdRedPersonageShow(cmdSelectPersonageID);
+            break;
+        case "Add3":
+            userPersonages[cmdSelectPersonageID].hitDefense4 += 1;
+            userExperiencePoints--;
+            cmdExperiencePointsText.text = "КОМАНДА. Очки опыта: " + userExperiencePoints;
+            if(side === SIDE_JEDI) cmdBluePersonageShow(cmdSelectPersonageID);
+            if(side === SIDE_SITH) cmdRedPersonageShow(cmdSelectPersonageID);
+            break;
+        case "Add4":
+            userPersonages[cmdSelectPersonageID].hitDefense5 += 1;
+            userExperiencePoints--;
+            cmdExperiencePointsText.text = "КОМАНДА. Очки опыта: " + userExperiencePoints;
+            if(side === SIDE_JEDI) cmdBluePersonageShow(cmdSelectPersonageID);
+            if(side === SIDE_SITH) cmdRedPersonageShow(cmdSelectPersonageID);
+            break;
+        default:
+            break;
+    }
 }
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

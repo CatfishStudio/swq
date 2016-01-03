@@ -200,7 +200,12 @@ function mapCreatePlanets()
 
 function onMapPlanetClick()
 {
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!
+    if(userCommandUser["personage1"] === null && userCommandUser["personage2"] === null && userCommandUser["personage3"] === null)
+    {
+        msgCreate("ПРЕДУПРЕЖДЕНИЕ", "В вашей комманде нет не одного персонажа. \nВы не можите начать битву пока в команде не будет хотя бы один персонаж!");
+    }else{
+        
+    }
 }
 
 function onMapPlanetOver(event)
@@ -217,7 +222,7 @@ function onMapPlanetOut()
 
 function mapCreateInterface()
 {
-    showCommand();
+    mapShowCommand();
     if(side === SIDE_JEDI)
     {
         mapBorderBlue();
@@ -701,7 +706,7 @@ function mapCheckAvailablePersonage()
 	
 }
 
-function showCommand()
+function mapShowCommand()
 {
     var index = 0;
     for(var key in userCommandUser)

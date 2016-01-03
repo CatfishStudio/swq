@@ -17,6 +17,8 @@ function menuCreate()
     menuStage = new PIXI.Container(); 
     stage.addChild(menuStage); 
     
+    side = SIDE_NONE;
+    
     soundPlayStarWarsThemeSong();
     
     menuStars();

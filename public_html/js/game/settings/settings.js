@@ -30,8 +30,8 @@ function settingsBackground()
     var graphics = new PIXI.Graphics(); 
     graphics.hitArea = new PIXI.Rectangle(0, 0, MAIN_WIDTH, MAIN_HEIGH);
     graphics.interactive = true;
-    graphics.lineStyle(1, 0x000000, 0.25);
-    graphics.beginFill(0x000000, 0.25);
+    graphics.lineStyle(1, 0x000000, 0.05);
+    graphics.beginFill(0x000000, 0.05);
     graphics.drawRect(0, 0, MAIN_WIDTH, MAIN_HEIGH);
     graphics.endFill();
     settingsStage.addChild(graphics);

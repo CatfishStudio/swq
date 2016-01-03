@@ -158,21 +158,6 @@ function cmdBattonsBlue()
 function cmdDesktopBlue()
 {
     var graphics = new PIXI.Graphics();
-
-    graphics.lineStyle(2, 0x0000FF, 1);
-    graphics.beginFill(0x0000FF, 0.2);
-    graphics.moveTo(25, 20);
-    graphics.lineTo(550, 20);
-    graphics.lineTo(550, 575);
-    graphics.lineTo(25, 575);
-    graphics.endFill;
-
-    for(var i = 0; i < 185; i++)
-    {
-        graphics.lineStyle(1, 0x0000FF, 0.5);
-        graphics.moveTo(25, 20+(3*i));
-        graphics.lineTo(550, 20+(3*i));
-    }
     
     graphics.lineStyle(2, 0x0000FF, 1);
     graphics.beginFill(0x0000FF, 0.2);
@@ -192,12 +177,6 @@ function cmdDesktopBlue()
     
     cmdStage.addChild(graphics);
 
-    cmdLineAnimPersonageDesktopGraphics = new PIXI.Graphics(); 
-    cmdLineAnimPersonageDesktopGraphics.lineStyle(10, 0x0000FF, 0.3);
-    cmdLineAnimPersonageDesktopGraphics.moveTo(25, 25);
-    cmdLineAnimPersonageDesktopGraphics.lineTo(550, 25);
-    cmdStage.addChild(cmdLineAnimPersonageDesktopGraphics);
-    cmdLineAnimPersonageDesktopGraphicsTween();
 }
 
 function cmdDroidBlue()
@@ -338,21 +317,6 @@ function cmdBattonsRed()
 function cmdDesktopRed()
 {
     var graphics = new PIXI.Graphics();
-
-    graphics.lineStyle(2, 0x800000, 1);
-    graphics.beginFill(0x800000, 0.2);
-    graphics.moveTo(25, 20);
-    graphics.lineTo(550, 20);
-    graphics.lineTo(550, 575);
-    graphics.lineTo(25, 575);
-    graphics.endFill;
-
-    for(var i = 0; i < 185; i++)
-    {
-        graphics.lineStyle(1, 0x800000, 0.5);
-        graphics.moveTo(25, 20+(3*i));
-        graphics.lineTo(550, 20+(3*i));
-    }
     
     graphics.lineStyle(2, 0x800000, 1);
     graphics.beginFill(0x800000, 0.2);
@@ -372,12 +336,6 @@ function cmdDesktopRed()
     
     cmdStage.addChild(graphics);
 
-    cmdLineAnimPersonageDesktopGraphics = new PIXI.Graphics(); 
-    cmdLineAnimPersonageDesktopGraphics.lineStyle(10, 0x800000, 0.3);
-    cmdLineAnimPersonageDesktopGraphics.moveTo(25, 25);
-    cmdLineAnimPersonageDesktopGraphics.lineTo(550, 25);
-    cmdStage.addChild(cmdLineAnimPersonageDesktopGraphics);
-    cmdLineAnimPersonageDesktopGraphicsTween();
 }
 
 function cmdDroidRed()
@@ -502,6 +460,38 @@ function cmdBluePersonageShow(id)
     if(id !== null)
     {
         cmdDesktopStage = new PIXI.Container();
+        
+        var graphics = new PIXI.Graphics();
+        graphics.lineStyle(2, 0x0000FF, 1);
+        graphics.beginFill(0x0000FF, 0.2);
+        graphics.moveTo(25, 20);
+        graphics.lineTo(550, 20);
+        graphics.lineTo(550, 575);
+        graphics.lineTo(25, 575);
+        graphics.endFill;
+        cmdDesktopStage.addChild(graphics);
+        
+        var sprite = new PIXI.Sprite(heroesTextures[id][1]);
+        sprite.position.x = 25;
+        sprite.position.y = 50;
+        cmdDesktopStage.addChild(sprite);
+        
+        graphics = new PIXI.Graphics();
+        for(var i = 0; i < 185; i++)
+        {
+            graphics.lineStyle(1, 0x0000FF, 0.5);
+            graphics.moveTo(25, 20+(3*i));
+            graphics.lineTo(550, 20+(3*i));
+        }
+        cmdDesktopStage.addChild(graphics);
+        
+        cmdLineAnimPersonageDesktopGraphics = new PIXI.Graphics(); 
+        cmdLineAnimPersonageDesktopGraphics.lineStyle(10, 0x0000FF, 0.3);
+        cmdLineAnimPersonageDesktopGraphics.moveTo(25, 25);
+        cmdLineAnimPersonageDesktopGraphics.lineTo(550, 25);
+        cmdDesktopStage.addChild(cmdLineAnimPersonageDesktopGraphics);
+        cmdLineAnimPersonageDesktopGraphicsTween();
+        
         var text = new PIXI.Text(userPersonages[id].name, cmdStyleButtonBlueText); 
         text.x = 50; text.y = 30;
         cmdDesktopStage.addChild(text);
@@ -545,22 +535,33 @@ function cmdBluePersonageShow(id)
         text.x = 450; text.y = 250;
         cmdDesktopStage.addChild(text);
 
-        var sprite = new PIXI.Sprite(heroesTextures[id][1]);
-        sprite.position.x = 25;
-        sprite.position.y = 50;
-        cmdDesktopStage.addChild(sprite);
-
         text = new PIXI.Text(userPersonages[id].description, cmdStyledescriptionBlueText); 
         text.x = 50;
         text.y = 550 - text.height;
         cmdDesktopStage.addChild(text);
-
+        
         if(userPersonages[userPersonages[id].id].command === true) cmdBlueButtonRemovePersonage();
         else cmdBlueButtonSelectPersonage();
 
         cmdExperiencePointsButtons();
 
         cmdStage.addChild(cmdDesktopStage);
+    }else{
+        var graphics = new PIXI.Graphics();
+        graphics.lineStyle(2, 0x0000FF, 1);
+        graphics.beginFill(0x0000FF, 0.2);
+        graphics.moveTo(25, 20);
+        graphics.lineTo(550, 20);
+        graphics.lineTo(550, 575);
+        graphics.lineTo(25, 575);
+        graphics.endFill;
+        for(var i = 0; i < 185; i++)
+        {
+            graphics.lineStyle(1, 0x0000FF, 0.5);
+            graphics.moveTo(25, 20+(3*i));
+            graphics.lineTo(550, 20+(3*i));
+        }
+        cmdDesktopStage.addChild(graphics);
     }
 }
 
@@ -693,9 +694,42 @@ function onCmdRedIconCommandClick()
 function cmdRedPersonageShow(id)
 {
     cmdStage.removeChild(cmdDesktopStage);
+    
     if(id !== null)
     {
         cmdDesktopStage = new PIXI.Container();
+        
+        var graphics = new PIXI.Graphics();
+        graphics.lineStyle(2, 0x800000, 1);
+        graphics.beginFill(0x800000, 0.2);
+        graphics.moveTo(25, 20);
+        graphics.lineTo(550, 20);
+        graphics.lineTo(550, 575);
+        graphics.lineTo(25, 575);
+        graphics.endFill;
+        cmdDesktopStage.addChild(graphics);
+        
+        var sprite = new PIXI.Sprite(heroesTextures[id][1]);
+        sprite.position.x = 25;
+        sprite.position.y = 50;
+        cmdDesktopStage.addChild(sprite);
+        
+        var graphics = new PIXI.Graphics();
+        for(var i = 0; i < 185; i++)
+        {
+            graphics.lineStyle(1, 0x800000, 0.5);
+            graphics.moveTo(25, 20+(3*i));
+            graphics.lineTo(550, 20+(3*i));
+        }
+        cmdDesktopStage.addChild(graphics);
+        
+        cmdLineAnimPersonageDesktopGraphics = new PIXI.Graphics(); 
+        cmdLineAnimPersonageDesktopGraphics.lineStyle(10, 0x800000, 0.3);
+        cmdLineAnimPersonageDesktopGraphics.moveTo(25, 25);
+        cmdLineAnimPersonageDesktopGraphics.lineTo(550, 25);
+        cmdDesktopStage.addChild(cmdLineAnimPersonageDesktopGraphics);
+        cmdLineAnimPersonageDesktopGraphicsTween();
+
         var text = new PIXI.Text(userPersonages[id].name, cmdStyleButtonRedText); 
         text.x = 50; text.y = 30;
         cmdDesktopStage.addChild(text);
@@ -739,11 +773,6 @@ function cmdRedPersonageShow(id)
         text.x = 450; text.y = 250;
         cmdDesktopStage.addChild(text);
 
-        var sprite = new PIXI.Sprite(heroesTextures[id][1]);
-        sprite.position.x = 25;
-        sprite.position.y = 50;
-        cmdDesktopStage.addChild(sprite);
-
         text = new PIXI.Text(userPersonages[id].description, cmdStyledescriptionRedText); 
         text.x = 50;
         text.y = 550 - text.height;
@@ -755,6 +784,24 @@ function cmdRedPersonageShow(id)
         cmdExperiencePointsButtons();
 
         cmdStage.addChild(cmdDesktopStage);
+    }else{
+        cmdDesktopStage = new PIXI.Container();
+        var graphics = new PIXI.Graphics();
+        graphics.lineStyle(2, 0x800000, 1);
+        graphics.beginFill(0x800000, 0.2);
+        graphics.moveTo(25, 20);
+        graphics.lineTo(550, 20);
+        graphics.lineTo(550, 575);
+        graphics.lineTo(25, 575);
+        graphics.endFill;
+
+        for(var i = 0; i < 185; i++)
+        {
+            graphics.lineStyle(1, 0x800000, 0.5);
+            graphics.moveTo(25, 20+(3*i));
+            graphics.lineTo(550, 20+(3*i));
+        }
+        cmdDesktopStage.addChild(graphics);
     }
 }
 

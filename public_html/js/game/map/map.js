@@ -204,7 +204,8 @@ function onMapPlanetClick()
     {
         msgCreate("ПРЕДУПРЕЖДЕНИЕ", "В вашей комманде нет не одного персонажа. \nВы не можите начать битву пока в команде не будет хотя бы один персонаж!");
     }else{
-        
+        mapSprite.move = false;
+        sbattleCreate(this.name);
     }
 }
 
@@ -862,7 +863,7 @@ function mapDestinationSearch()
                         + userPersonages[userPlanets[key].redPersonage3].hitAttack4
                         + userPersonages[userPlanets[key].redPersonage3].hitAttack5;
                 hitCount /= 10;
-				if(hitCount < target["indexUser"])
+		if(hitCount < target["indexUser"])
                 {
                    target["planetUser"] = userPlanets[key].id; 
                    target["indexUser"] = hitCount;
@@ -906,8 +907,11 @@ function mapDestinationSearch()
     }
     if(side === SIDE_SITH)
     {
-        mapRedTargetsShow(target["planetUser"]);
-        mapBlueTargetsShow(target["planetAI"]);
+        //mapRedTargetsShow(target["planetUser"]);
+        //mapBlueTargetsShow(target["planetAI"]);
+        mapBlueTargetsShow(target["planetUser"]);
+        mapRedTargetsShow(target["planetAI"]);
+        
         if(userTotalBattle === 0) userMapMessage["LastNews"][1] = "Меня зовут R3-S6, приветствую тебя мой повелитель. \n\nДжедаи хотят разрушить Звезду смерти и помешать нашим планам." + " Они направелись на " + userPlanets[target["planetAI"]].name + " можем помешать им. \n\nИли напасть на " + userPlanets[target["planetUser"]].name + " и получите нового союзника.";
         else userMapMessage["LastNews"][1] = "Оборона планеты " + userPlanets[target["planetUser"]].name + " слаба мы с лёгкостью захватим её и вам будет доступен новый союзник. \n\nТак же наш шпион докладывает что Джедаи направились на " + userPlanets[target["planetAI"]].name + " можем помешать им.";
         mapTextMessage.text = userMapMessage["LastNews"][1];

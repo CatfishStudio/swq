@@ -162,11 +162,9 @@ function preloaderLoadAssets()
     loader.add('chewbacca_lr','./assets/image/textures/personages/chewbacca_lr.png');
     loader.add('chewbacca_rl','./assets/image/textures/personages/chewbacca_rl.png');
     loader.add('clone_commander_bakara','./assets/image/textures/personages/clone_commander_bakara.png');
-    loader.add('clone_commander_bakara_2','./assets/image/textures/personages/clone_commander_bakara.png');
     loader.add('clone_commander_cody_lr','./assets/image/textures/personages/clone_commander_cody_lr.png');
     loader.add('clone_commander_cody_rl','./assets/image/textures/personages/clone_commander_cody_rl.png');
     loader.add('clone_commander_neyo','./assets/image/textures/personages/clone_commander_neyo.png');
-    loader.add('clone_commander_neyo_2','./assets/image/textures/personages/clone_commander_neyo.png');
     loader.add('clone_commander_rex','./assets/image/textures/personages/clone_commander_rex.png');
     loader.add('commander_jerjerrod_lr','./assets/image/textures/personages/commander_jerjerrod_lr.png');
     loader.add('commander_jerjerrod_rl','./assets/image/textures/personages/commander_jerjerrod_rl.png');
@@ -217,7 +215,6 @@ function preloaderLoadAssets()
     loader.add('red_battle_droid_lr','./assets/image/textures/personages/red_battle_droid_lr.png');
     loader.add('red_battle_droid_rl','./assets/image/textures/personages/red_battle_droid_rl.png');
     loader.add('republic_clone_army','./assets/image/textures/personages/republic_clone_army.png');
-    loader.add('republic_clone_army_2','./assets/image/textures/personages/republic_clone_army.png');
     loader.add('rey','./assets/image/textures/personages/rey.png');
     loader.add('royal_guards','./assets/image/textures/personages/royal_guards.png');
     loader.add('rune_haako_lr','./assets/image/textures/personages/rune_haako_lr.png');
@@ -235,7 +232,6 @@ function preloaderLoadAssets()
     loader.add('tion_medon','./assets/image/textures/personages/tion_medon.png');
     loader.add('trade_federation','./assets/image/textures/personages/trade_federation.png');
     loader.add('tusken','./assets/image/textures/personages/tusken.png');
-    loader.add('tusken_2','./assets/image/textures/personages/tusken.png');
     loader.add('wat_tambor_lr','./assets/image/textures/personages/wat_tambor_lr.png');
     loader.add('wat_tambor_rl','./assets/image/textures/personages/wat_tambor_rl.png');
     loader.add('watto','./assets/image/textures/personages/watto.png');
@@ -337,9 +333,11 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     heroesTextures["capitan_panaka"] = ["Капитан Панака", res.capitan_panaka.texture, res.capitan_panaka.texture, PIXI.Texture.fromFrame("capitan_panaka_icon.png")];
     heroesTextures["chewbacca"] = ["Чубака", res.chewbacca_lr.texture, res.chewbacca_rl.texture, PIXI.Texture.fromFrame("chewbacca_icon.png")];
     heroesTextures["clone_commander_bakara"] = ["Бакара", res.clone_commander_bakara.texture, res.clone_commander_bakara.texture, PIXI.Texture.fromFrame("clone_commander_bakara_icon.png")];
+    heroesTextures["clone_commander_bakara_2"] = ["Бакара", res.clone_commander_bakara.texture, res.clone_commander_bakara.texture, PIXI.Texture.fromFrame("clone_commander_bakara_icon.png")];
     heroesTextures["clone_commander_cody"] = ["Коди", res.clone_commander_cody_lr.texture, res.clone_commander_cody_rl.texture, PIXI.Texture.fromFrame("clone_commander_cody_icon.png")];
     heroesTextures["clone_commander_cody_2"] = ["Коди", res.clone_commander_cody_lr.texture, res.clone_commander_cody_rl.texture, PIXI.Texture.fromFrame("clone_commander_cody_icon.png")];
     heroesTextures["clone_commander_neyo"] = ["Нейо", res.clone_commander_neyo.texture, res.clone_commander_neyo.texture, PIXI.Texture.fromFrame("clone_commander_neyo_icon.png")];
+    heroesTextures["clone_commander_neyo_2"] = ["Нейо", res.clone_commander_neyo.texture, res.clone_commander_neyo.texture, PIXI.Texture.fromFrame("clone_commander_neyo_icon.png")];
     heroesTextures["clone_commander_rex"] = ["Рекс", res.clone_commander_rex.texture, res.clone_commander_rex.texture, PIXI.Texture.fromFrame("clone_commander_rex_icon.png")];
     heroesTextures["clone_commander_rex_2"] = ["Рекс", res.clone_commander_rex.texture, res.clone_commander_rex.texture, PIXI.Texture.fromFrame("clone_commander_rex_icon.png")];
     heroesTextures["commander_jerjerrod"] = ["Тиаан Джерджеррод", res.commander_jerjerrod_lr.texture, res.commander_jerjerrod_rl.texture, PIXI.Texture.fromFrame("commander_jerjerrod_icon.png")];
@@ -379,6 +377,7 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     heroesTextures["qui_gon_jinn"] = ["Квай-Гон Джинн", res.qui_gon_jinn_lr.texture, res.qui_gon_jinn_rl.texture, PIXI.Texture.fromFrame("qui_gon_jinn_icon.png")];
     heroesTextures["red_battle_droid"] = ["Боевой дроид", res.red_battle_droid_lr.texture, res.red_battle_droid_rl.texture, PIXI.Texture.fromFrame("red_battle_droid_icon.png")];
     heroesTextures["republic_clone_army"] = ["Республиканская армия клонов", res.republic_clone_army.texture, res.republic_clone_army.texture, PIXI.Texture.fromFrame("republic_clone_army_icon.png")];
+    heroesTextures["republic_clone_army_2"] = ["Республиканская армия клонов", res.republic_clone_army.texture, res.republic_clone_army.texture, PIXI.Texture.fromFrame("republic_clone_army_icon.png")];
     heroesTextures["rey"] = ["Рей", res.rey.texture, res.rey.texture, PIXI.Texture.fromFrame("rey_icon.png")];
     heroesTextures["royal_guards"] = ["Королевский страж", res.royal_guards.texture, res.royal_guards.texture, PIXI.Texture.fromFrame("royal_guards_icon.png")];
     heroesTextures["rune_haako"] = ["Рун Хаако", res.rune_haako_lr.texture, res.rune_haako_rl.texture, PIXI.Texture.fromFrame("rune_haako_icon.png")];
@@ -398,6 +397,7 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     heroesTextures["tion_medon"] = ["Тион Медон", res.tion_medon.texture, res.tion_medon.texture, PIXI.Texture.fromFrame("tion_medon_icon.png")];
     heroesTextures["trade_federation"] = ["Торговая Федерация", res.trade_federation.texture, res.trade_federation.texture, PIXI.Texture.fromFrame("trade_federation_icon.png")];
     heroesTextures["tusken"] = ["Таскенские рейдеры", res.tusken.texture, res.tusken.texture, PIXI.Texture.fromFrame("tusken_icon.png")];
+    heroesTextures["tusken_2"] = ["Таскенские рейдеры", res.tusken.texture, res.tusken.texture, PIXI.Texture.fromFrame("tusken_icon.png")];
     heroesTextures["wat_tambor"] = ["Уот Тамбор", res.wat_tambor_lr.texture, res.wat_tambor_rl.texture, PIXI.Texture.fromFrame("wat_tambor_icon.png")];
     heroesTextures["watto"] = ["Уотто", res.watto.texture, res.watto.texture, PIXI.Texture.fromFrame("watto_icon.png")];
     heroesTextures["wicket_wysri_warrick"] = ["Уикет У.Уоррик", res.wicket_wysri_warrick.texture, res.wicket_wysri_warrick.texture, PIXI.Texture.fromFrame("wicket_wysri_warrick_icon.png")];

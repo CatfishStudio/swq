@@ -198,6 +198,8 @@ function sbattleText()
     }
     hitCountAI /= 10;
     
+    console.log("НАЧАЛО БИТВЫ: " + sbattlePlanetID + " = " + hitCountAI);
+  
     var text;
     if(side === SIDE_JEDI)
     {

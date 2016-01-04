@@ -55,19 +55,296 @@ var planetsJson;                         // характеристики пла�
 
 /* == НАЧАЛО ФАЙЛА ========================================================= */
 
+var backmenuStage;
+var backmenuLineAnimationGraphics;
+var backmenuStyleBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
+var backmenuStyleRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
+var backmenuButtonStyleBlueText = { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
+var backmenuButtonStyleRedText = { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
+
+
+function backmenuCreate()
+{
+    backmenuStage = new PIXI.Container();
+    stage.addChild(backmenuStage);
+    
+    backmenuBackground();
+    backmenuWindow();
+    backmenuTitle();
+    backmenuText();
+    backmenuButtons();
+}
+
+function backmenuRemove()
+{
+    stage.removeChild(backmenuStage);
+    backmenuStage = null;
+}
+
+function backmenuBackground()
+{
+    var graphics = new PIXI.Graphics(); 
+    graphics.hitArea = new PIXI.Rectangle(0, 0, MAIN_WIDTH, MAIN_HEIGH);
+    graphics.interactive = true;
+    graphics.lineStyle(1, 0x000000, 0.05);
+    graphics.beginFill(0x000000, 0.05);
+    graphics.drawRect(0, 0, MAIN_WIDTH, MAIN_HEIGH);
+    graphics.endFill();
+    backmenuStage.addChild(graphics);
+}
+
+function backmenuWindow()
+{
+    if(side === SIDE_NONE || side === SIDE_JEDI)
+    {
+        var graphics = new PIXI.Graphics(); 
+        graphics.lineStyle(2, 0x0080C0, 1);
+        graphics.beginFill(0x0080C0, 0.2);
+        graphics.moveTo(250,250);
+        graphics.lineTo(600, 250);
+        graphics.lineTo(600, 500);
+        graphics.lineTo(250, 500);
+        graphics.endFill();
+        for(var i = 0; i < 40; i++)
+        {
+            graphics.lineStyle(1, 0x0090F0, 0.5);
+            graphics.moveTo(250,280+(3*i));
+            graphics.lineTo(600, 280+(3*i));
+        }
+        backmenuStage.addChild(graphics);
+        
+        backmenuLineAnimationGraphics = new PIXI.Graphics(); 
+        backmenuLineAnimationGraphics.lineStyle(10, 0x0090F0, 0.3);
+        backmenuLineAnimationGraphics.moveTo(250,255);
+        backmenuLineAnimationGraphics.lineTo(600, 255);
+        backmenuStage.addChild(backmenuLineAnimationGraphics);
+        backmenuLineAnimationGraphicsTween();
+        
+        graphics = new PIXI.Graphics(); 
+        graphics.lineStyle(1, 0x0080C0, 1);
+        graphics.beginFill(0x0080C0, 1);
+        graphics.moveTo(400,250);
+        graphics.lineTo(425, 275);
+        graphics.lineTo(600, 275);
+        graphics.lineTo(600, 250);
+        graphics.endFill();
+        backmenuStage.addChild(graphics);
+    }
+    if(side === SIDE_SITH)
+    {
+        var graphics = new PIXI.Graphics(); 
+        graphics.lineStyle(2, 0xA63A24, 1);
+        graphics.beginFill(0xA63A24, 0.2);
+        graphics.moveTo(250,250);
+        graphics.lineTo(600, 250);
+        graphics.lineTo(600, 500);
+        graphics.lineTo(250, 500);
+        graphics.endFill();
+        for(var i = 0; i < 40; i++)
+        {
+            graphics.lineStyle(1, 0xA63A24, 0.5);
+            graphics.moveTo(250,280+(3*i));
+            graphics.lineTo(600, 280+(3*i));
+        }
+        backmenuStage.addChild(graphics);
+        
+        backmenuLineAnimationGraphics = new PIXI.Graphics(); 
+        backmenuLineAnimationGraphics.lineStyle(10, 0xA63A24, 0.3);
+        backmenuLineAnimationGraphics.moveTo(250,255);
+        backmenuLineAnimationGraphics.lineTo(600, 255);
+        backmenuStage.addChild(backmenuLineAnimationGraphics);
+        backmenuLineAnimationGraphicsTween();
+        
+        graphics = new PIXI.Graphics(); 
+        graphics.lineStyle(1, 0xA63A24, 1);
+        graphics.beginFill(0xA63A24, 1);
+        graphics.moveTo(400,250);
+        graphics.lineTo(425, 275);
+        graphics.lineTo(600, 275);
+        graphics.lineTo(600, 250);
+        graphics.endFill();
+        backmenuStage.addChild(graphics);
+    }
+}
+
+function backmenuLineAnimationGraphicsTween()
+{
+    createjs.Tween.get(backmenuLineAnimationGraphics, {loop: true}) 
+        .to({x: 0, y: 240}, 2500, createjs.Ease.getPowInOut(3));
+    createjs.Ticker.setFPS(60);
+}
+
+function backmenuTitle()
+{
+    var text;
+    
+    if(side === SIDE_NONE || side === SIDE_JEDI) text = new PIXI.Text("ПРЕДУПРЕЖДЕНИЕ", backmenuStyleBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text("ПРЕДУПРЕЖДЕНИЕ", backmenuStyleRedText); 
+    text.x = 450;
+    text.y = 255;
+    backmenuStage.addChild(text);
+}
+
+function backmenuText()
+{
+    var text;
+    if(side === SIDE_NONE || side === SIDE_JEDI) text = new PIXI.Text("\n    Вы собираетесь выйти в главное меню.\n    В таком случае прогресс будет потерян.\n\n\n     Продолжить выход в основное меню?", backmenuStyleBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text("\n    Вы собираетесь выйти в главное меню.\n    В таком случае прогресс будет потерян.\n\n\n     Продолжить выход в основное меню?", backmenuStyleRedText); 
+    text.x = 255;
+    text.y = 285;
+    backmenuStage.addChild(text);
+}
+
+function backmenuButtons()
+{
+    if(side === SIDE_NONE || side === SIDE_JEDI)
+    {
+        var button = new PIXI.extras.MovieClip(animTexButtonBlue); 
+        button.name = "yes";
+        button.position.x = 255; 
+        button.position.y = 450; 
+        button.scale.set(0.8);
+        button.interactive = true; 
+        button.buttonMode = true; 
+        button.loop = false; 
+        button.animationSpeed = 0.2;
+        button.onComplete = onBackmenuButtonButtonUpdate;
+        button.tap = onBackmenuButtonButtonClick; 
+        button.click = onBackmenuButtonButtonClick; 
+        button.on('mouseover', onBackmenuButtonButtonOver);
+        button.on('mouseout', onBackmenuButtonButtonOut);
+        var text = new PIXI.Text("Да", backmenuButtonStyleBlueText); 
+        text.x = button.width / 2;
+        text.y = button.height / 3.5;
+        button.addChild(text); 
+        backmenuStage.addChild(button);
+        
+        button = new PIXI.extras.MovieClip(animTexButtonBlue); 
+        button.name = "no";
+        button.position.x = 435; 
+        button.position.y = 450; 
+        button.scale.set(0.8);
+        button.interactive = true; 
+        button.buttonMode = true; 
+        button.loop = false; 
+        button.animationSpeed = 0.2;
+        button.onComplete = onBackmenuButtonButtonUpdate;
+        button.tap = onBackmenuButtonButtonClick; 
+        button.click = onBackmenuButtonButtonClick; 
+        button.on('mouseover', onBackmenuButtonButtonOver);
+        button.on('mouseout', onBackmenuButtonButtonOut);
+        var text = new PIXI.Text("Нет", backmenuButtonStyleBlueText); 
+        text.x = button.width / 2;
+        text.y = button.height / 3.5;
+        button.addChild(text); 
+        backmenuStage.addChild(button);
+    }
+    if(side === SIDE_SITH)
+    {
+        var button = new PIXI.extras.MovieClip(animTexButtonRed); 
+        button.name = "yes";
+        button.position.x = 255; 
+        button.position.y = 450; 
+        button.scale.set(0.8);
+        button.interactive = true; 
+        button.buttonMode = true; 
+        button.loop = false; 
+        button.animationSpeed = 0.2;
+        button.onComplete = onBackmenuButtonButtonUpdate;
+        button.tap = onBackmenuButtonButtonClick; 
+        button.click = onBackmenuButtonButtonClick; 
+        button.on('mouseover', onBackmenuButtonButtonOver);
+        button.on('mouseout', onBackmenuButtonButtonOut);
+        var text = new PIXI.Text("Да", backmenuButtonStyleRedText); 
+        text.x = button.width / 2;
+        text.y = button.height / 3.5;
+        button.addChild(text); 
+        backmenuStage.addChild(button);
+        
+        button = new PIXI.extras.MovieClip(animTexButtonRed); 
+        button.name = "no";
+        button.position.x = 435; 
+        button.position.y = 450; 
+        button.scale.set(0.8);
+        button.interactive = true; 
+        button.buttonMode = true; 
+        button.loop = false; 
+        button.animationSpeed = 0.2;
+        button.onComplete = onBackmenuButtonButtonUpdate;
+        button.tap = onBackmenuButtonButtonClick; 
+        button.click = onBackmenuButtonButtonClick; 
+        button.on('mouseover', onBackmenuButtonButtonOver);
+        button.on('mouseout', onBackmenuButtonButtonOut);
+        var text = new PIXI.Text("Нет", backmenuButtonStyleRedText); 
+        text.x = button.width / 2;
+        text.y = button.height / 3.5;
+        button.addChild(text); 
+        backmenuStage.addChild(button);
+    }
+}
+
+function onBackmenuButtonButtonOver()
+{
+    this.isOver = true;
+    this.gotoAndPlay(1);
+}
+
+function onBackmenuButtonButtonOut()
+{
+    this.isOver = false;
+    this.gotoAndStop(0);
+}
+
+function onBackmenuButtonButtonUpdate()
+{
+    if(this.isOver)
+    {
+        this.gotoAndPlay(1);
+    }else{
+        this.gotoAndStop(0);
+    }
+}
+
+function onBackmenuButtonButtonClick() 
+{
+    switch (this.name)
+    {
+        case "yes":
+            backmenuRemove();
+            menuCreate();
+            mapRemove();
+            break;
+        case "no":
+            backmenuRemove();
+            break;
+        default:
+            break;
+    }
+}
+
+
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
 var cmdStage;
 var cmdSpaceBackground;
 var cmdLineAnimPersonageDesktopGraphics;
 var cmdMessageLineGraphics;
 var cmdStyleButtonBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
 var cmdStyleButtonRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
-var cmdStyledescriptionBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 500 }; 
-var cmdStyledescriptionRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 500 }; 
+var cmdStyledescriptionBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 495 }; 
+var cmdStyledescriptionRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 495 }; 
+var cmdStyleDroidBlueText = { font : 'bold 14px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }; 
+var cmdStyleDroidRedText = { font : 'bold 14px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }; 
+var cmdExperiencePointsText;
 
 var cmdListCommand = [];
 var cmdListPersonage = [];
 var cmdDesktopStage;
 var cmdTapeStage;
+var cmdTapePanelButtonsStage;
 var cmdSelectPersonageID;
 var cmdSelectPersonageIndex;
 
@@ -84,8 +361,8 @@ function cmdCreate()
         cmdBlueCommand();
         cmdTapeMask();
         cmdTapeBlue();
+        cmdTapeButton();
         cmdBattonsBlue();
-        
     }
     if(side === SIDE_SITH)
     {
@@ -94,12 +371,11 @@ function cmdCreate()
         cmdBorderRed();
         cmdDroidRed();
         cmdRedCommand();
-        
-        
+        cmdTapeMask();
+        cmdTapeRed();
+        cmdTapeButton();
         cmdBattonsRed();
-        
     }
-    
     
     stage.addChild(cmdStage);
 }
@@ -176,10 +452,10 @@ function cmdBorderBlue()
     
     cmdStage.addChild(graphics);
     
-    var text = new PIXI.Text("КОМАНДА. Очки опыта: " + userExperiencePoints, cmdStyleButtonBlueText); 
-    text.x = 655;
-    text.y = 30;
-    cmdStage.addChild(text);
+    cmdExperiencePointsText = new PIXI.Text("КОМАНДА. Очки опыта: " + userExperiencePoints, cmdStyleButtonBlueText); 
+    cmdExperiencePointsText.x = 655;
+    cmdExperiencePointsText.y = 30;
+    cmdStage.addChild(cmdExperiencePointsText);
 }
 
 function cmdBattonsBlue()
@@ -209,21 +485,6 @@ function cmdBattonsBlue()
 function cmdDesktopBlue()
 {
     var graphics = new PIXI.Graphics();
-
-    graphics.lineStyle(2, 0x0000FF, 1);
-    graphics.beginFill(0x0000FF, 0.2);
-    graphics.moveTo(25, 20);
-    graphics.lineTo(550, 20);
-    graphics.lineTo(550, 575);
-    graphics.lineTo(25, 575);
-    graphics.endFill;
-
-    for(var i = 0; i < 185; i++)
-    {
-        graphics.lineStyle(1, 0x0000FF, 0.5);
-        graphics.moveTo(25, 20+(3*i));
-        graphics.lineTo(550, 20+(3*i));
-    }
     
     graphics.lineStyle(2, 0x0000FF, 1);
     graphics.beginFill(0x0000FF, 0.2);
@@ -243,12 +504,6 @@ function cmdDesktopBlue()
     
     cmdStage.addChild(graphics);
 
-    cmdLineAnimPersonageDesktopGraphics = new PIXI.Graphics(); 
-    cmdLineAnimPersonageDesktopGraphics.lineStyle(10, 0x0000FF, 0.3);
-    cmdLineAnimPersonageDesktopGraphics.moveTo(25, 25);
-    cmdLineAnimPersonageDesktopGraphics.lineTo(550, 25);
-    cmdStage.addChild(cmdLineAnimPersonageDesktopGraphics);
-    cmdLineAnimPersonageDesktopGraphicsTween();
 }
 
 function cmdDroidBlue()
@@ -283,6 +538,11 @@ function cmdDroidBlue()
     cmdMessageLineGraphics.lineTo(840, 380);
     cmdStage.addChild(cmdMessageLineGraphics);
     cmdMessageLineGraphicsTween();
+    
+    cmdTextMessage = new PIXI.Text("Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", cmdStyleDroidBlueText); 
+    cmdTextMessage.x = 565; 
+    cmdTextMessage.y = 375; 
+    cmdStage.addChild(cmdTextMessage);
 }
 
 function cmdBackgroundRed()
@@ -351,10 +611,10 @@ function cmdBorderRed()
     
     cmdStage.addChild(graphics);
     
-    var text = new PIXI.Text("КОМАНДА", cmdStyleButtonRedText); 
-    text.x = 655;
-    text.y = 30;
-    cmdStage.addChild(text);
+    cmdExperiencePointsText = new PIXI.Text("КОМАНДА. Очки опыта: " + userExperiencePoints, cmdStyleButtonRedText); 
+    cmdExperiencePointsText.x = 655;
+    cmdExperiencePointsText.y = 30;
+    cmdStage.addChild(cmdExperiencePointsText);
 }
 
 function cmdBattonsRed()
@@ -384,21 +644,6 @@ function cmdBattonsRed()
 function cmdDesktopRed()
 {
     var graphics = new PIXI.Graphics();
-
-    graphics.lineStyle(2, 0x800000, 1);
-    graphics.beginFill(0x800000, 0.2);
-    graphics.moveTo(25, 20);
-    graphics.lineTo(550, 20);
-    graphics.lineTo(550, 575);
-    graphics.lineTo(25, 575);
-    graphics.endFill;
-
-    for(var i = 0; i < 185; i++)
-    {
-        graphics.lineStyle(1, 0x800000, 0.5);
-        graphics.moveTo(25, 20+(3*i));
-        graphics.lineTo(550, 20+(3*i));
-    }
     
     graphics.lineStyle(2, 0x800000, 1);
     graphics.beginFill(0x800000, 0.2);
@@ -418,12 +663,6 @@ function cmdDesktopRed()
     
     cmdStage.addChild(graphics);
 
-    cmdLineAnimPersonageDesktopGraphics = new PIXI.Graphics(); 
-    cmdLineAnimPersonageDesktopGraphics.lineStyle(10, 0x800000, 0.3);
-    cmdLineAnimPersonageDesktopGraphics.moveTo(25, 25);
-    cmdLineAnimPersonageDesktopGraphics.lineTo(550, 25);
-    cmdStage.addChild(cmdLineAnimPersonageDesktopGraphics);
-    cmdLineAnimPersonageDesktopGraphicsTween();
 }
 
 function cmdDroidRed()
@@ -458,6 +697,11 @@ function cmdDroidRed()
     cmdMessageLineGraphics.lineTo(840, 380);
     cmdStage.addChild(cmdMessageLineGraphics);
     cmdMessageLineGraphicsTween();
+    
+    cmdTextMessage = new PIXI.Text("Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", cmdStyleDroidRedText); 
+    cmdTextMessage.x = 565; 
+    cmdTextMessage.y = 375; 
+    cmdStage.addChild(cmdTextMessage);
 }
 
 function cmdBlueCommand(select)
@@ -476,7 +720,8 @@ function cmdBlueCommand(select)
         }
         cmdListCommand = [];
     }
-		
+    
+    var selectIndex = select;
     var index = 0;
     for(var key in userCommandUser)
     {
@@ -500,10 +745,12 @@ function cmdBlueCommand(select)
             graphics.addChild(textureSprite);
             
             var border = new PIXI.Graphics();
-            if(index === select)
+            if(index === selectIndex)
             {
                 border.lineStyle(2, 0xFFFFFF, 0.5);
-                cmdBluePersonageShow(userCommandUser[key], "IN_COMMAND");
+                cmdBluePersonageShow(userCommandUser[key]);
+                cmdSelectPersonageID = userCommandUser[key];
+                cmdSelectPersonageIndex = index;
             } else {
                 border.lineStyle(2, 0x0000FF, 0.2);
             }
@@ -514,14 +761,13 @@ function cmdBlueCommand(select)
             cmdStage.addChild(cmdListCommand[index]);
         } else{
             var graphics = new PIXI.Graphics(); 
-            if(index === select) graphics.lineStyle(2, 0xFFFFFF, 0.5);
-            else graphics.lineStyle(2, 0x0000FF, 0.2);
+            graphics.lineStyle(2, 0x0000FF, 0.2);
             graphics.beginFill(0x0000FF, 0.2);
             graphics.drawRect(690, 60 + (100 * index), 75, 75);
             graphics.endFill;
-
             cmdListCommand.push(graphics);
             cmdStage.addChild(cmdListCommand[index]);
+            if(select === 0 && selectIndex < 2) selectIndex++;
         }
         index++;
     }
@@ -535,68 +781,115 @@ function onCmdBlueIconCommandClick()
         cmdTapeBlue(-1);
 }
 
-function cmdBluePersonageShow(id, status)
+function cmdBluePersonageShow(id)
 {
     cmdStage.removeChild(cmdDesktopStage);
-    
-    cmdDesktopStage = new PIXI.Container();
-    var text = new PIXI.Text(userPersonages[id].name, cmdStyleButtonBlueText); 
-    text.x = 50; text.y = 30;
-    cmdDesktopStage.addChild(text);
-    
-    text = new PIXI.Text("Характеристики:", cmdStyleButtonBlueText); 
-    text.x = 300; text.y = 100;
-    cmdDesktopStage.addChild(text);
-    
-    text = new PIXI.Text("Кристал света:", cmdStyleButtonBlueText); 
-    text.x = 300; text.y = 150;
-    cmdDesktopStage.addChild(text);
-    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense1, cmdStyleButtonBlueText); 
-    text.x = 450; text.y = 150;
-    cmdDesktopStage.addChild(text);
-    
-    text = new PIXI.Text("Кристал тьмы:", cmdStyleButtonBlueText); 
-    text.x = 300; text.y = 175;
-    cmdDesktopStage.addChild(text);
-    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense2, cmdStyleButtonBlueText); 
-    text.x = 450; text.y = 175;
-    cmdDesktopStage.addChild(text);
-    
-    text = new PIXI.Text("Кристал жизни:", cmdStyleButtonBlueText); 
-    text.x = 300; text.y = 200;
-    cmdDesktopStage.addChild(text);
-    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense3, cmdStyleButtonBlueText); 
-    text.x = 450; text.y = 200;
-    cmdDesktopStage.addChild(text);
-    
-    text = new PIXI.Text("Кристал ловкости:", cmdStyleButtonBlueText); 
-    text.x = 300; text.y = 225;
-    cmdDesktopStage.addChild(text);
-    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense4, cmdStyleButtonBlueText); 
-    text.x = 450; text.y = 225;
-    cmdDesktopStage.addChild(text);
-    
-    text = new PIXI.Text("Кристал интелекта:", cmdStyleButtonBlueText); 
-    text.x = 300; text.y = 250;
-    cmdDesktopStage.addChild(text);
-    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense5, cmdStyleButtonBlueText); 
-    text.x = 450; text.y = 250;
-    cmdDesktopStage.addChild(text);
-    
-    var sprite = new PIXI.Sprite(heroesTextures[id][1]);
-    sprite.position.x = 25;
-    sprite.position.y = 50;
-    cmdDesktopStage.addChild(sprite);
-    
-    text = new PIXI.Text(userPersonages[id].description, cmdStyledescriptionBlueText); 
-    text.x = 50;
-    text.y = 550 - text.height;
-    cmdDesktopStage.addChild(text);
-    
-    if(status === "IN_COMMAND") cmdBlueButtonRemovePersonage();
-    else cmdBlueButtonSelectPersonage();
-    
-    cmdStage.addChild(cmdDesktopStage);
+    if(id !== null)
+    {
+        cmdDesktopStage = new PIXI.Container();
+        
+        var graphics = new PIXI.Graphics();
+        graphics.lineStyle(2, 0x0000FF, 1);
+        graphics.beginFill(0x0000FF, 0.2);
+        graphics.moveTo(25, 20);
+        graphics.lineTo(550, 20);
+        graphics.lineTo(550, 575);
+        graphics.lineTo(25, 575);
+        graphics.endFill;
+        cmdDesktopStage.addChild(graphics);
+        
+        var sprite = new PIXI.Sprite(heroesTextures[id][1]);
+        sprite.position.x = 25;
+        sprite.position.y = 50;
+        cmdDesktopStage.addChild(sprite);
+        
+        graphics = new PIXI.Graphics();
+        for(var i = 0; i < 185; i++)
+        {
+            graphics.lineStyle(1, 0x0000FF, 0.5);
+            graphics.moveTo(25, 20+(3*i));
+            graphics.lineTo(550, 20+(3*i));
+        }
+        cmdDesktopStage.addChild(graphics);
+        
+        cmdLineAnimPersonageDesktopGraphics = new PIXI.Graphics(); 
+        cmdLineAnimPersonageDesktopGraphics.lineStyle(10, 0x0000FF, 0.3);
+        cmdLineAnimPersonageDesktopGraphics.moveTo(25, 25);
+        cmdLineAnimPersonageDesktopGraphics.lineTo(550, 25);
+        cmdDesktopStage.addChild(cmdLineAnimPersonageDesktopGraphics);
+        cmdLineAnimPersonageDesktopGraphicsTween();
+        
+        var text = new PIXI.Text(userPersonages[id].name, cmdStyleButtonBlueText); 
+        text.x = 50; text.y = 30;
+        cmdDesktopStage.addChild(text);
+
+        text = new PIXI.Text("Характеристики:", cmdStyleButtonBlueText); 
+        text.x = 300; text.y = 100;
+        cmdDesktopStage.addChild(text);
+
+        text = new PIXI.Text("Кристал света:", cmdStyleButtonBlueText); 
+        text.x = 300; text.y = 150;
+        cmdDesktopStage.addChild(text);
+        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense1, cmdStyleButtonBlueText); 
+        text.x = 450; text.y = 150;
+        cmdDesktopStage.addChild(text);
+
+        text = new PIXI.Text("Кристал тьмы:", cmdStyleButtonBlueText); 
+        text.x = 300; text.y = 175;
+        cmdDesktopStage.addChild(text);
+        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense2, cmdStyleButtonBlueText); 
+        text.x = 450; text.y = 175;
+        cmdDesktopStage.addChild(text);
+
+        text = new PIXI.Text("Кристал жизни:", cmdStyleButtonBlueText); 
+        text.x = 300; text.y = 200;
+        cmdDesktopStage.addChild(text);
+        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense3, cmdStyleButtonBlueText); 
+        text.x = 450; text.y = 200;
+        cmdDesktopStage.addChild(text);
+
+        text = new PIXI.Text("Кристал ловкости:", cmdStyleButtonBlueText); 
+        text.x = 300; text.y = 225;
+        cmdDesktopStage.addChild(text);
+        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense4, cmdStyleButtonBlueText); 
+        text.x = 450; text.y = 225;
+        cmdDesktopStage.addChild(text);
+
+        text = new PIXI.Text("Кристал интеллекта:", cmdStyleButtonBlueText); 
+        text.x = 300; text.y = 250;
+        cmdDesktopStage.addChild(text);
+        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense5, cmdStyleButtonBlueText); 
+        text.x = 450; text.y = 250;
+        cmdDesktopStage.addChild(text);
+
+        text = new PIXI.Text(userPersonages[id].description, cmdStyledescriptionBlueText); 
+        text.x = 50;
+        text.y = 550 - text.height;
+        cmdDesktopStage.addChild(text);
+        
+        if(userPersonages[userPersonages[id].id].command === true) cmdBlueButtonRemovePersonage();
+        else cmdBlueButtonSelectPersonage();
+
+        cmdExperiencePointsButtons();
+
+        cmdStage.addChild(cmdDesktopStage);
+    }else{
+        var graphics = new PIXI.Graphics();
+        graphics.lineStyle(2, 0x0000FF, 1);
+        graphics.beginFill(0x0000FF, 0.2);
+        graphics.moveTo(25, 20);
+        graphics.lineTo(550, 20);
+        graphics.lineTo(550, 575);
+        graphics.lineTo(25, 575);
+        graphics.endFill;
+        for(var i = 0; i < 185; i++)
+        {
+            graphics.lineStyle(1, 0x0000FF, 0.5);
+            graphics.moveTo(25, 20+(3*i));
+            graphics.lineTo(550, 20+(3*i));
+        }
+        cmdDesktopStage.addChild(graphics);
+    }
 }
 
 function cmdBlueButtonRemovePersonage()
@@ -663,7 +956,8 @@ function cmdRedCommand(select)
         }
         cmdListCommand = [];
     }
-		
+
+    var selectIndex = select;
     var index = 0;
     for(var key in userCommandUser)
     {
@@ -687,10 +981,12 @@ function cmdRedCommand(select)
             graphics.addChild(textureSprite);
             
             var border = new PIXI.Graphics();
-            if(index === select)
+            if(index === selectIndex)
             {
                 border.lineStyle(2, 0xFFFFFF, 0.5);
-                cmdRedPersonageShow(userCommandUser[key], "IN_COMMAND");
+                cmdRedPersonageShow(userCommandUser[key]);
+                cmdSelectPersonageID = userCommandUser[key];
+                cmdSelectPersonageIndex = index;
             } else {
                 border.lineStyle(2, 0x0000FF, 0.2);
             }
@@ -701,14 +997,14 @@ function cmdRedCommand(select)
             cmdStage.addChild(cmdListCommand[index]);
         } else{
             var graphics = new PIXI.Graphics(); 
-            if(index === select) graphics.lineStyle(2, 0xFFFFFF, 0.5);
-            else graphics.lineStyle(2, 0xFF0000, 0.2);
+            graphics.lineStyle(2, 0xFF0000, 0.2);
             graphics.beginFill(0xFF0000, 0.2);
             graphics.drawRect(690, 60 + (100 * index), 75, 75);
             graphics.endFill;
 
             cmdListCommand.push(graphics);
             cmdStage.addChild(cmdListCommand[index]);
+            if(select === 0 && selectIndex < 2) selectIndex++;
         }
         index++;
     }
@@ -719,70 +1015,121 @@ function onCmdRedIconCommandClick()
         cmdSelectPersonageID = this.name;
         cmdSelectPersonageIndex = this.index;
 	cmdRedCommand(this.index);
+        cmdTapeRed(-1);
 }
 
-function cmdRedPersonageShow(id, status)
+function cmdRedPersonageShow(id)
 {
     cmdStage.removeChild(cmdDesktopStage);
     
-    cmdDesktopStage = new PIXI.Container();
-    var text = new PIXI.Text(userPersonages[id].name, cmdStyleButtonRedText); 
-    text.x = 50; text.y = 30;
-    cmdDesktopStage.addChild(text);
-    
-    text = new PIXI.Text("Характеристики:", cmdStyleButtonRedText); 
-    text.x = 300; text.y = 100;
-    cmdDesktopStage.addChild(text);
-    
-    text = new PIXI.Text("Кристал света:", cmdStyleButtonRedText); 
-    text.x = 300; text.y = 150;
-    cmdDesktopStage.addChild(text);
-    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense1, cmdStyleButtonRedText); 
-    text.x = 450; text.y = 150;
-    cmdDesktopStage.addChild(text);
-    
-    text = new PIXI.Text("Кристал тьмы:", cmdStyleButtonRedText); 
-    text.x = 300; text.y = 175;
-    cmdDesktopStage.addChild(text);
-    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense2, cmdStyleButtonRedText); 
-    text.x = 450; text.y = 175;
-    cmdDesktopStage.addChild(text);
-    
-    text = new PIXI.Text("Кристал жизни:", cmdStyleButtonRedText); 
-    text.x = 300; text.y = 200;
-    cmdDesktopStage.addChild(text);
-    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense3, cmdStyleButtonRedText); 
-    text.x = 450; text.y = 200;
-    cmdDesktopStage.addChild(text);
-    
-    text = new PIXI.Text("Кристал ловкости:", cmdStyleButtonRedText); 
-    text.x = 300; text.y = 225;
-    cmdDesktopStage.addChild(text);
-    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense4, cmdStyleButtonRedText); 
-    text.x = 450; text.y = 225;
-    cmdDesktopStage.addChild(text);
-    
-    text = new PIXI.Text("Кристал интелекта:", cmdStyleButtonRedText); 
-    text.x = 300; text.y = 250;
-    cmdDesktopStage.addChild(text);
-    text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense5, cmdStyleButtonRedText); 
-    text.x = 450; text.y = 250;
-    cmdDesktopStage.addChild(text);
-    
-    var sprite = new PIXI.Sprite(heroesTextures[id][1]);
-    sprite.position.x = 25;
-    sprite.position.y = 50;
-    cmdDesktopStage.addChild(sprite);
-    
-    text = new PIXI.Text(userPersonages[id].description, cmdStyledescriptionRedText); 
-    text.x = 50;
-    text.y = 550 - text.height;
-    cmdDesktopStage.addChild(text);
-    
-    if(status === "IN_COMMAND") cmdRedButtonRemovePersonage();
-    else cmdRedButtonSelectPersonage();
-    
-    cmdStage.addChild(cmdDesktopStage);
+    if(id !== null)
+    {
+        cmdDesktopStage = new PIXI.Container();
+        
+        var graphics = new PIXI.Graphics();
+        graphics.lineStyle(2, 0x800000, 1);
+        graphics.beginFill(0x800000, 0.2);
+        graphics.moveTo(25, 20);
+        graphics.lineTo(550, 20);
+        graphics.lineTo(550, 575);
+        graphics.lineTo(25, 575);
+        graphics.endFill;
+        cmdDesktopStage.addChild(graphics);
+        
+        var sprite = new PIXI.Sprite(heroesTextures[id][1]);
+        sprite.position.x = 25;
+        sprite.position.y = 50;
+        cmdDesktopStage.addChild(sprite);
+        
+        var graphics = new PIXI.Graphics();
+        for(var i = 0; i < 185; i++)
+        {
+            graphics.lineStyle(1, 0x800000, 0.5);
+            graphics.moveTo(25, 20+(3*i));
+            graphics.lineTo(550, 20+(3*i));
+        }
+        cmdDesktopStage.addChild(graphics);
+        
+        cmdLineAnimPersonageDesktopGraphics = new PIXI.Graphics(); 
+        cmdLineAnimPersonageDesktopGraphics.lineStyle(10, 0x800000, 0.3);
+        cmdLineAnimPersonageDesktopGraphics.moveTo(25, 25);
+        cmdLineAnimPersonageDesktopGraphics.lineTo(550, 25);
+        cmdDesktopStage.addChild(cmdLineAnimPersonageDesktopGraphics);
+        cmdLineAnimPersonageDesktopGraphicsTween();
+
+        var text = new PIXI.Text(userPersonages[id].name, cmdStyleButtonRedText); 
+        text.x = 50; text.y = 30;
+        cmdDesktopStage.addChild(text);
+
+        text = new PIXI.Text("Характеристики:", cmdStyleButtonRedText); 
+        text.x = 300; text.y = 100;
+        cmdDesktopStage.addChild(text);
+
+        text = new PIXI.Text("Кристал света:", cmdStyleButtonRedText); 
+        text.x = 300; text.y = 150;
+        cmdDesktopStage.addChild(text);
+        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense1, cmdStyleButtonRedText); 
+        text.x = 450; text.y = 150;
+        cmdDesktopStage.addChild(text);
+
+        text = new PIXI.Text("Кристал тьмы:", cmdStyleButtonRedText); 
+        text.x = 300; text.y = 175;
+        cmdDesktopStage.addChild(text);
+        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense2, cmdStyleButtonRedText); 
+        text.x = 450; text.y = 175;
+        cmdDesktopStage.addChild(text);
+
+        text = new PIXI.Text("Кристал жизни:", cmdStyleButtonRedText); 
+        text.x = 300; text.y = 200;
+        cmdDesktopStage.addChild(text);
+        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense3, cmdStyleButtonRedText); 
+        text.x = 450; text.y = 200;
+        cmdDesktopStage.addChild(text);
+
+        text = new PIXI.Text("Кристал ловкости:", cmdStyleButtonRedText); 
+        text.x = 300; text.y = 225;
+        cmdDesktopStage.addChild(text);
+        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense4, cmdStyleButtonRedText); 
+        text.x = 450; text.y = 225;
+        cmdDesktopStage.addChild(text);
+
+        text = new PIXI.Text("Кристал интеллекта:", cmdStyleButtonRedText); 
+        text.x = 300; text.y = 250;
+        cmdDesktopStage.addChild(text);
+        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense5, cmdStyleButtonRedText); 
+        text.x = 450; text.y = 250;
+        cmdDesktopStage.addChild(text);
+
+        text = new PIXI.Text(userPersonages[id].description, cmdStyledescriptionRedText); 
+        text.x = 50;
+        text.y = 550 - text.height;
+        cmdDesktopStage.addChild(text);
+
+        if(userPersonages[userPersonages[id].id].command === true) cmdRedButtonRemovePersonage();
+        else cmdRedButtonSelectPersonage();
+
+        cmdExperiencePointsButtons();
+
+        cmdStage.addChild(cmdDesktopStage);
+    }else{
+        cmdDesktopStage = new PIXI.Container();
+        var graphics = new PIXI.Graphics();
+        graphics.lineStyle(2, 0x800000, 1);
+        graphics.beginFill(0x800000, 0.2);
+        graphics.moveTo(25, 20);
+        graphics.lineTo(550, 20);
+        graphics.lineTo(550, 575);
+        graphics.lineTo(25, 575);
+        graphics.endFill;
+
+        for(var i = 0; i < 185; i++)
+        {
+            graphics.lineStyle(1, 0x800000, 0.5);
+            graphics.moveTo(25, 20+(3*i));
+            graphics.lineTo(550, 20+(3*i));
+        }
+        cmdDesktopStage.addChild(graphics);
+    }
 }
 
 function cmdRedButtonRemovePersonage()
@@ -801,7 +1148,7 @@ function cmdRedButtonRemovePersonage()
     button.on('mouseover', onCmdButtonOver);
     button.on('mouseout', onCmdButtonOut);
     
-    var text = new PIXI.Text("УБРАТЬ ИЗ СПИСКА", cmdStyleButtonBlueText); 
+    var text = new PIXI.Text("УБРАТЬ ИЗ СПИСКА", cmdStyleButtonRedText); 
     text.x = button.width / 6.5;
     text.y = button.height / 3;
 
@@ -914,12 +1261,28 @@ function cmdTapeMask()
     
     cmdTapeStage.mask = mask;
     cmdStage.addChild(cmdTapeStage);
+    
+    /* Всё что не отображается в маске будет не активно */
+    var graphics = new PIXI.Graphics(); 
+    graphics.hitArea = new PIXI.Rectangle(501, 610, 500, 95);
+    graphics.interactive = true;
+    graphics.lineStyle(1, 0x000000, 0.0);
+    graphics.beginFill(0xFF0000, 0.0);
+    graphics.drawRect(501, 610, 500, 95);
+    graphics.endFill();
+    //cmdTapeStage.addChild(graphics);
+    cmdStage.addChild(graphics);
+
 }
 
 function cmdTapeBlue(select)
 {
+    var countRemove = 0;
     if (select === undefined) {
-        select = -1;
+        for(var key in userCommandUser)
+            if(userCommandUser[key] === null) countRemove++;
+        if(countRemove === 3) select = 0;
+        else select = -1;
     }
     
     if(cmdListCommand.length === 0)
@@ -938,8 +1301,6 @@ function cmdTapeBlue(select)
     {
         if(userPlanets[planet].status === USER_PLANET_QUEST_COMPLETE_JEDI)
         {
-            //console.log(cmdListCommand[index].children[0].tag);
-            
             if(userPersonages[userPlanets[planet].bluePersonage1].status === USER_PERSONAGE_AVAILABLE && userPersonages[userPlanets[planet].bluePersonage1].command === false)
             {
                 var graphics = new PIXI.Graphics(); 
@@ -964,7 +1325,9 @@ function cmdTapeBlue(select)
                 if(select === index)
                 {
                     border.lineStyle(2, 0xFFFFFF, 0.3);
-                    cmdBluePersonageShow(userPlanets[planet].bluePersonage1, "NOT_COMMAND");
+                    cmdBluePersonageShow(userPlanets[planet].bluePersonage1);
+                    cmdSelectPersonageID = userPlanets[planet].bluePersonage1;
+                    cmdSelectPersonageIndex = index;
                 } else border.lineStyle(2, 0x0000FF, 0.2);
                 border.drawRect(80 + (100 * index), 620, 75, 75);
                 graphics.addChild(border);
@@ -998,7 +1361,9 @@ function cmdTapeBlue(select)
                 if(select === index)
                 {
                     border.lineStyle(2, 0xFFFFFF, 0.3);
-                    cmdBluePersonageShow(userPlanets[planet].bluePersonage2, "NOT_COMMAND");
+                    cmdBluePersonageShow(userPlanets[planet].bluePersonage2);
+                    cmdSelectPersonageID = userPlanets[planet].bluePersonage2;
+                    cmdSelectPersonageIndex = index;
                 } else border.lineStyle(2, 0x0000FF, 0.2);
                 border.drawRect(80 + (100 * index), 620, 75, 75);
                 graphics.addChild(border);
@@ -1032,7 +1397,9 @@ function cmdTapeBlue(select)
                 if(select === index)
                 {
                     border.lineStyle(2, 0xFFFFFF, 0.3);
-                    cmdBluePersonageShow(userPlanets[planet].bluePersonage3, "NOT_COMMAND");
+                    cmdBluePersonageShow(userPlanets[planet].bluePersonage3);
+                    cmdSelectPersonageID = userPlanets[planet].bluePersonage3;
+                    cmdSelectPersonageIndex = index;
                 } else border.lineStyle(2, 0x0000FF, 0.2);
                 border.drawRect(80 + (100 * index), 620, 75, 75);
                 graphics.addChild(border);
@@ -1045,56 +1412,7 @@ function cmdTapeBlue(select)
         }
     }
     
-    /*
-    var index = 0;
-    for(var key in userPersonages)
-    {
-        if(userPersonages[key].status === USER_PERSONAGE_AVAILABLE)
-        {
-            var graphics = new PIXI.Graphics(); 
-            graphics.lineStyle(2, 0x0000FF, 0.2);
-            graphics.beginFill(0x0000FF, 0.2);
-            graphics.drawRect(80 + (100 * index), 620, 75, 75);
-            graphics.endFill;
-
-            var textureSprite = new PIXI.Sprite(heroesTextures[key][3]); 
-            textureSprite.index = index;
-            textureSprite.tag = "NOT_COMMAND";
-            textureSprite.key = key;
-            textureSprite.position.x = 80 + (100 * index); 
-            textureSprite.position.y = 620; 
-            textureSprite.interactive = true; 
-            textureSprite.buttonMode = true;
-            textureSprite.tap = onCmdBlueIconPersonageClick; 
-            textureSprite.click = onCmdBlueIconPersonageClick; 
-            graphics.addChild(textureSprite);
-            
-            var border = new PIXI.Graphics();
-            if(select === index)
-            {
-                border.lineStyle(2, 0xFFFFFF, 0.3);
-                cmdBluePersonageShow(key, "NOT_COMMAND");
-            } else border.lineStyle(2, 0x0000FF, 0.2);
-            border.drawRect(80 + (100 * index), 620, 75, 75);
-            graphics.addChild(border);
-            cmdTapeStage.addChild(graphics);
-            
-            cmdListPersonage.push(graphics);
-            
-            index++;
-        }
-    }
-    */
-   
-    /* Всё что не отображается в маске будет не активно */
-    var graphics = new PIXI.Graphics(); 
-    graphics.hitArea = new PIXI.Rectangle(501, 610, 500, 95);
-    graphics.interactive = true;
-    graphics.lineStyle(1, 0x000000, 0.25);
-    graphics.beginFill(0xFF0000, 0.25);
-    graphics.drawRect(501, 610, 500, 95);
-    graphics.endFill();
-    cmdTapeStage.addChild(graphics);
+    cmdTapeButton();
 }
 
 function onCmdBlueIconPersonageClick()
@@ -1103,6 +1421,154 @@ function onCmdBlueIconPersonageClick()
     cmdSelectPersonageIndex = this.index;
     cmdTapeBlue(this.index);
     cmdBlueCommand(-1);
+}
+
+function cmdTapeRed(select)
+{
+    var countRemove = 0;
+    if (select === undefined) {
+        for(var key in userCommandUser)
+            if(userCommandUser[key] === null) countRemove++;
+        if(countRemove === 3) select = 0;
+        else select = -1;
+    }
+    
+    if(cmdListCommand.length === 0)
+    {
+            cmdListPersonage = [];
+    }else{
+        for(var i = 0; i < cmdListPersonage.length; i++)
+        {
+            cmdTapeStage.removeChild(cmdListPersonage[i]);
+        }
+        cmdListPersonage = [];
+    }
+    
+    var index = 0;
+    for(var planet in userPlanets)
+    {
+        if(userPlanets[planet].status === USER_PLANET_QUEST_COMPLETE_SITH)
+        {
+            if(userPersonages[userPlanets[planet].redPersonage1].status === USER_PERSONAGE_AVAILABLE && userPersonages[userPlanets[planet].redPersonage1].command === false)
+            {
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(2, 0xFF0000, 0.2);
+                graphics.beginFill(0xFF0000, 0.2);
+                graphics.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.endFill;
+                
+                var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].redPersonage1][3]); 
+                textureSprite.name = userPlanets[planet].redPersonage1;
+                textureSprite.index = index;
+                textureSprite.key = userPlanets[planet].redPersonage1;
+                textureSprite.position.x = 80 + (100 * index); 
+                textureSprite.position.y = 620; 
+                textureSprite.interactive = true; 
+                textureSprite.buttonMode = true;
+                textureSprite.tap = onCmdRedIconPersonageClick; 
+                textureSprite.click = onCmdRedIconPersonageClick; 
+                graphics.addChild(textureSprite);
+
+                var border = new PIXI.Graphics();
+                if(select === index)
+                {
+                    border.lineStyle(2, 0xFFFFFF, 0.3);
+                    cmdRedPersonageShow(userPlanets[planet].redPersonage1);
+                    cmdSelectPersonageID = userPlanets[planet].redPersonage1;
+                    cmdSelectPersonageIndex = index;
+                } else border.lineStyle(2, 0xFF0000, 0.2);
+                border.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.addChild(border);
+                cmdTapeStage.addChild(graphics);
+
+                cmdListPersonage.push(graphics);
+
+                index++;
+            }
+            if(userPersonages[userPlanets[planet].redPersonage2].status === USER_PERSONAGE_AVAILABLE && userPersonages[userPlanets[planet].redPersonage2].command === false)
+            {
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(2, 0xFF0000, 0.2);
+                graphics.beginFill(0xFF0000, 0.2);
+                graphics.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.endFill;
+
+                var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].redPersonage2][3]); 
+                textureSprite.name = userPlanets[planet].redPersonage2;
+                textureSprite.index = index;
+                textureSprite.key = userPlanets[planet].redPersonage2;
+                textureSprite.position.x = 80 + (100 * index); 
+                textureSprite.position.y = 620; 
+                textureSprite.interactive = true; 
+                textureSprite.buttonMode = true;
+                textureSprite.tap = onCmdRedIconPersonageClick; 
+                textureSprite.click = onCmdRedIconPersonageClick; 
+                graphics.addChild(textureSprite);
+
+                var border = new PIXI.Graphics();
+                if(select === index)
+                {
+                    border.lineStyle(2, 0xFFFFFF, 0.3);
+                    cmdRedPersonageShow(userPlanets[planet].redPersonage2);
+                    cmdSelectPersonageID = userPlanets[planet].redPersonage2;
+                    cmdSelectPersonageIndex = index;
+                } else border.lineStyle(2, 0xFF0000, 0.2);
+                border.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.addChild(border);
+                cmdTapeStage.addChild(graphics);
+
+                cmdListPersonage.push(graphics);
+
+                index++;
+            }
+            if(userPersonages[userPlanets[planet].redPersonage3].status === USER_PERSONAGE_AVAILABLE && userPersonages[userPlanets[planet].redPersonage3].command === false)
+            {
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(2, 0xFF0000, 0.2);
+                graphics.beginFill(0xFF0000, 0.2);
+                graphics.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.endFill;
+
+                var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].redPersonage3][3]); 
+                textureSprite.name = userPlanets[planet].redPersonage3;
+                textureSprite.index = index;
+                textureSprite.key = userPlanets[planet].redPersonage3;
+                textureSprite.position.x = 80 + (100 * index); 
+                textureSprite.position.y = 620; 
+                textureSprite.interactive = true; 
+                textureSprite.buttonMode = true;
+                textureSprite.tap = onCmdRedIconPersonageClick; 
+                textureSprite.click = onCmdRedIconPersonageClick; 
+                graphics.addChild(textureSprite);
+
+                var border = new PIXI.Graphics();
+                if(select === index)
+                {
+                    border.lineStyle(2, 0xFFFFFF, 0.3);
+                    cmdRedPersonageShow(userPlanets[planet].redPersonage3);
+                    cmdSelectPersonageID = userPlanets[planet].redPersonage3;
+                    cmdSelectPersonageIndex = index;
+                } else border.lineStyle(2, 0xFF0000, 0.2);
+                border.drawRect(80 + (100 * index), 620, 75, 75);
+                graphics.addChild(border);
+                cmdTapeStage.addChild(graphics);
+
+                cmdListPersonage.push(graphics);
+
+                index++;
+            }
+        }
+    }
+    
+    cmdTapeButton();
+}
+
+function onCmdRedIconPersonageClick()
+{
+    cmdSelectPersonageID = this.name;
+    cmdSelectPersonageIndex = this.index;
+    cmdTapeRed(this.index);
+    cmdRedCommand(-1);
 }
 
 function cmdRemoveCommandPersonage()
@@ -1119,34 +1585,183 @@ function cmdRemoveCommandPersonage()
     }
     if(side === SIDE_SITH)
     {
-        
+        userPersonages[cmdSelectPersonageID].command = false;
+        if(cmdSelectPersonageIndex === 0) userCommandUser["personage1"] = null;
+        if(cmdSelectPersonageIndex === 1) userCommandUser["personage2"] = null;
+        if(cmdSelectPersonageIndex === 2) userCommandUser["personage3"] = null;
+        cmdRedCommand();
+        cmdTapeRed(); 
     }
 }
 
 function cmdSelectCommandPersonage()
 {
+    userPersonages[cmdSelectPersonageID].command = true;
+    for(var key in userCommandUser)
+    {
+        if(userCommandUser[key] === null)
+        {
+            userCommandUser[key] = cmdSelectPersonageID;
+            break;
+        }
+    }
     if(side === SIDE_JEDI)
     {
-        userPersonages[cmdSelectPersonageID].command = true;
-        for(var key in userCommandUser)
-        {
-            if(userCommandUser[key] === null)
-            {
-                userCommandUser[key] = cmdSelectPersonageID;
-                break;
-            }
-        }
         cmdBlueCommand();
         cmdTapeBlue();
     }
     if(side === SIDE_SITH)
     {
         
+        cmdRedCommand();
+        cmdTapeRed();
     }
 }
 
+function cmdTapeButton()
+{
+    cmdStage.removeChild(cmdTapePanelButtonsStage);
+    
+    if(cmdListPersonage.length > 4)
+    {
+        var color;
+        if(side === SIDE_JEDI) color = 0x0000FF;
+        else color = 0xFF0000;
+        
+        cmdTapePanelButtonsStage = new PIXI.Container();
+        var tapeButtonGraphics = new PIXI.Graphics();
+        tapeButtonGraphics.name = "TapeLeft";
+        tapeButtonGraphics.lineStyle(2, color, 1);
+        tapeButtonGraphics.beginFill(color, 1);
+        tapeButtonGraphics.moveTo(40, 655);
+        tapeButtonGraphics.lineTo(65, 630);
+        tapeButtonGraphics.lineTo(65, 680);
+        tapeButtonGraphics.lineTo(40, 655);
+        tapeButtonGraphics.endFill();
+        tapeButtonGraphics.interactive = true; 
+        tapeButtonGraphics.buttonMode = true; 
+        tapeButtonGraphics.tap = onCmdTapeButtonClick; 
+        tapeButtonGraphics.click = onCmdTapeButtonClick;
+        cmdTapePanelButtonsStage.addChild(tapeButtonGraphics);
 
+        tapeButtonGraphics = new PIXI.Graphics();
+        tapeButtonGraphics.name = "TapeRight";
+        tapeButtonGraphics.lineStyle(2, color, 1);
+        tapeButtonGraphics.beginFill(color, 1);
+        tapeButtonGraphics.moveTo(535, 655);
+        tapeButtonGraphics.lineTo(510, 630);
+        tapeButtonGraphics.lineTo(510, 680);
+        tapeButtonGraphics.lineTo(535, 655);
+        tapeButtonGraphics.endFill();
+        tapeButtonGraphics.interactive = true; 
+        tapeButtonGraphics.buttonMode = true; 
+        tapeButtonGraphics.tap = onCmdTapeButtonClick; 
+        tapeButtonGraphics.click = onCmdTapeButtonClick;
+        cmdTapePanelButtonsStage.addChild(tapeButtonGraphics);
+        
+        cmdStage.addChild(cmdTapePanelButtonsStage);
+    }else{
+        cmdTapeStage.position.x = 0;
+    }
+}
 
+function onCmdTapeButtonClick()
+{
+    switch (this.name)
+    {
+        case "TapeLeft":
+            if(cmdTapeStage.position.x >= ((cmdTapeStage.width - 100) * -1)) cmdTapeStage.position.x -= 100;
+            break;
+        case "TapeRight":
+            if(cmdTapeStage.position.x <= -100) cmdTapeStage.position.x += 100;
+            break;
+        default:
+            break;
+    }
+}
+
+function cmdExperiencePointsButtons()
+{
+    if(userExperiencePoints > 0)
+    {
+        var color1, color2;
+        if(side === SIDE_JEDI)
+        {
+            color1 = 0x0000FF;
+            color2 = 0xFFFFFF;
+        }
+        if(side === SIDE_SITH)
+        {
+            color1 = 0xFF0000;
+            color2 = 0xFFFF00;
+        }
+        
+        for(var i = 0; i < 5; i++)
+        {
+            var graphics = new PIXI.Graphics();
+            graphics.name = "Add" + i;
+            graphics.lineStyle(1, color1, 1);
+            graphics.beginFill(color1, 0.5);
+            graphics.drawRect(525, 152 + (25 * i), 15, 15);
+            graphics.endFill();
+            graphics.lineStyle(1, color2, 1);
+            graphics.moveTo(532.5, 153 + (25 * i));
+            graphics.lineTo(532.5, 165 + (25 * i));
+            graphics.moveTo(526, 159 + (25 * i));
+            graphics.lineTo(538, 159 + (25 * i));
+            graphics.interactive = true; 
+            graphics.buttonMode = true; 
+            graphics.tap = onCmdButtonPlusClick; 
+            graphics.click = onCmdButtonPlusClick; 
+            
+            cmdDesktopStage.addChild(graphics);
+        }
+    }
+}
+
+function onCmdButtonPlusClick()
+{
+    switch (this.name)
+    {
+        case "Add0":
+            userPersonages[cmdSelectPersonageID].hitDefense1 += 1;
+            userExperiencePoints--;
+            cmdExperiencePointsText.text = "КОМАНДА. Очки опыта: " + userExperiencePoints;
+            if(side === SIDE_JEDI) cmdBluePersonageShow(cmdSelectPersonageID);
+            if(side === SIDE_SITH) cmdRedPersonageShow(cmdSelectPersonageID);
+            break;
+        case "Add1":
+            userPersonages[cmdSelectPersonageID].hitDefense2 += 1;
+            userExperiencePoints--;
+            cmdExperiencePointsText.text = "КОМАНДА. Очки опыта: " + userExperiencePoints;
+            if(side === SIDE_JEDI) cmdBluePersonageShow(cmdSelectPersonageID);
+            if(side === SIDE_SITH) cmdRedPersonageShow(cmdSelectPersonageID);
+            break;
+        case "Add2":
+            userPersonages[cmdSelectPersonageID].hitDefense3 += 1;
+            userExperiencePoints--;
+            cmdExperiencePointsText.text = "КОМАНДА. Очки опыта: " + userExperiencePoints;
+            if(side === SIDE_JEDI) cmdBluePersonageShow(cmdSelectPersonageID);
+            if(side === SIDE_SITH) cmdRedPersonageShow(cmdSelectPersonageID);
+            break;
+        case "Add3":
+            userPersonages[cmdSelectPersonageID].hitDefense4 += 1;
+            userExperiencePoints--;
+            cmdExperiencePointsText.text = "КОМАНДА. Очки опыта: " + userExperiencePoints;
+            if(side === SIDE_JEDI) cmdBluePersonageShow(cmdSelectPersonageID);
+            if(side === SIDE_SITH) cmdRedPersonageShow(cmdSelectPersonageID);
+            break;
+        case "Add4":
+            userPersonages[cmdSelectPersonageID].hitDefense5 += 1;
+            userExperiencePoints--;
+            cmdExperiencePointsText.text = "КОМАНДА. Очки опыта: " + userExperiencePoints;
+            if(side === SIDE_JEDI) cmdBluePersonageShow(cmdSelectPersonageID);
+            if(side === SIDE_SITH) cmdRedPersonageShow(cmdSelectPersonageID);
+            break;
+        default:
+            break;
+    }
+}
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */
 
@@ -1180,6 +1795,15 @@ function initGame()
     userCommandUser = initCommandUser();        // команда пользователя
     userCommandAI = initCommandAI();            // команда ИИ
     initCharacteristics();                      // инициализация характеристик персонажей
+    
+    //testRedCharacteristics();
+    //testBlueCharacteristics();
+    
+    userExperiencePoints = 0;			// Очки опыта
+    userTotalPointsPlayerTournament = 0;	// Общие очки игрока за всю игру
+    userlTotalPointsPlayerLevel = 0;            // Общие очки игрока за уровен
+    userExperiencePointsAI = 0; 		// Очки опыта ИИ
+    userTotalBattle = 0;                        // Общее количество проведённых битв (связь с сообщениями R2D2)
 }
 
 function initMap()
@@ -2165,143 +2789,6 @@ function initCharacteristic(valueArray)
     if (index >= 8 && index <= 10) return valueArray[2];
 }
 
-/*
-function XXX()
-{
-    var characteristicsBlue = new Object();
-    characteristicsBlue["planet-1"] = [2,3,4];
-    characteristicsBlue["planet-15"] = [31,32,33]; 
-    characteristicsBlue["planet-2"] = [4,5,6];
-    characteristicsBlue["planet-3"] = [6,7,8];
-    characteristicsBlue["planet-4"] = [8,9,10];
-    characteristicsBlue["planet-5"] = [10,11,12];
-    characteristicsBlue["planet-6"] = [12,13,14];
-    characteristicsBlue["planet-7"] = [14,15,16];
-    characteristicsBlue["planet-8"] = [16,17,18];
-    characteristicsBlue["planet-9"] = [19,20,21];
-    characteristicsBlue["planet-10"] = [21,22,23];
-    characteristicsBlue["planet-11"] = [23,24,25];
-    characteristicsBlue["planet-12"] = [25,26,27];
-    characteristicsBlue["planet-13"] = [27,28,29];    
-    characteristicsBlue["planet-14"] = [29,30,31];
-     
-    
-    var characteristicsRed = new Object();
-    characteristicsRed["planet-1"] = [2,3,4];
-    characteristicsRed["planet-15"] = [31,32,33];
-    characteristicsRed["planet-2"] = [4,5,6];
-    characteristicsRed["planet-3"] = [6,7,8];
-    characteristicsRed["planet-4"] = [8,9,10];
-    characteristicsRed["planet-5"] = [10,11,12];
-    characteristicsRed["planet-6"] = [12,13,14];
-    characteristicsRed["planet-7"] = [14,15,16];
-    characteristicsRed["planet-8"] = [16,17,18];
-    characteristicsRed["planet-9"] = [19,20,21];
-    characteristicsRed["planet-10"] = [21,22,23];
-    characteristicsRed["planet-11"] = [23,24,25];
-    characteristicsRed["planet-12"] = [25,26,27];
-    characteristicsRed["planet-13"] = [27,28,29];    
-    characteristicsRed["planet-14"] = [29,30,31];
-   
-    for(var key in userPlanets)
-    {
-        var characterBlueArr = [];
-        
-        if(side === SIDE_JEDI && key === "Coruscant")
-        {
-            characterBlueArr = characteristicsBlue["planet-1"];
-            delete characteristicsBlue["planet-1"];
-        }else{
-            if(side === SIDE_JEDI && key === "DeathStar")
-            {
-                characterBlueArr = characteristicsBlue["planet-15"];
-                delete characteristicsBlue["planet-15"];
-            }else{
-                
-                var count = Object.keys(characteristicsBlue).length;
-                var index = initRandomIndex();
-                var result;
-                
-                if(index > count) result = index - count;
-                else result = count - index;
-                if(result >= count) result = 0;
-                
-                characterBlueArr = characteristicsBlue[Object.keys(characteristicsBlue)[result]];
-                delete characteristicsBlue[Object.keys(characteristicsBlue)[result]];
-                
-                
-            }
-        }
-        
-        
-        userPersonages[userPlanets[key].bluePersonage1].hit1 = initCharacteristic(characterBlueArr);
-        userPersonages[userPlanets[key].bluePersonage1].hit2 = initCharacteristic(characterBlueArr);
-        userPersonages[userPlanets[key].bluePersonage1].hit3 = initCharacteristic(characterBlueArr);
-        userPersonages[userPlanets[key].bluePersonage1].hit4 = initCharacteristic(characterBlueArr);
-        userPersonages[userPlanets[key].bluePersonage1].hit5 = initCharacteristic(characterBlueArr);
-        
-        userPersonages[userPlanets[key].bluePersonage2].hit1 = initCharacteristic(characterBlueArr);
-        userPersonages[userPlanets[key].bluePersonage2].hit2 = initCharacteristic(characterBlueArr);
-        userPersonages[userPlanets[key].bluePersonage2].hit3 = initCharacteristic(characterBlueArr);
-        userPersonages[userPlanets[key].bluePersonage2].hit4 = initCharacteristic(characterBlueArr);
-        userPersonages[userPlanets[key].bluePersonage2].hit5 = initCharacteristic(characterBlueArr);
-        
-        userPersonages[userPlanets[key].bluePersonage3].hit1 = initCharacteristic(characterBlueArr);
-        userPersonages[userPlanets[key].bluePersonage3].hit2 = initCharacteristic(characterBlueArr);
-        userPersonages[userPlanets[key].bluePersonage3].hit3 = initCharacteristic(characterBlueArr);
-        userPersonages[userPlanets[key].bluePersonage3].hit4 = initCharacteristic(characterBlueArr);
-        userPersonages[userPlanets[key].bluePersonage3].hit5 = initCharacteristic(characterBlueArr);
-        
-        var characterRedArr = [];
-        if(side === SIDE_SITH && key === "DeathStar")
-        {
-            characterRedArr = characteristicsRed["planet-1"];
-            delete characteristicsRed["planet-1"];
-        }else{
-            if(side === SIDE_SITH && key === "Coruscant") 
-            {
-                characterRedArr = characteristicsRed["planet-15"];
-                delete characteristicsRed["planet-15"];
-            }else{
-                
-                var count = Object.keys(characteristicsRed).length;
-                var index = initRandomIndex();
-                var result;
-                
-                if(index > count) result = index - count;
-                else result = count - index;
-                if(result >= count) result = 0;
-                
-                
-                characterRedArr = characteristicsRed[Object.keys(characteristicsRed)[result]];
-                delete characteristicsRed[Object.keys(characteristicsRed)[result]];
-                
-            }
-        }
-        
-        userPersonages[userPlanets[key].redPersonage1].hit1 = initCharacteristic(characterRedArr);
-        userPersonages[userPlanets[key].redPersonage1].hit2 = initCharacteristic(characterRedArr);
-        userPersonages[userPlanets[key].redPersonage1].hit3 = initCharacteristic(characterRedArr);
-        userPersonages[userPlanets[key].redPersonage1].hit4 = initCharacteristic(characterRedArr);
-        userPersonages[userPlanets[key].redPersonage1].hit5 = initCharacteristic(characterRedArr);
-        
-        userPersonages[userPlanets[key].redPersonage2].hit1 = initCharacteristic(characterRedArr);
-        userPersonages[userPlanets[key].redPersonage2].hit2 = initCharacteristic(characterRedArr);
-        userPersonages[userPlanets[key].redPersonage2].hit3 = initCharacteristic(characterRedArr);
-        userPersonages[userPlanets[key].redPersonage2].hit4 = initCharacteristic(characterRedArr);
-        userPersonages[userPlanets[key].redPersonage2].hit5 = initCharacteristic(characterRedArr);
-        
-        userPersonages[userPlanets[key].redPersonage3].hit1 = initCharacteristic(characterRedArr);
-        userPersonages[userPlanets[key].redPersonage3].hit2 = initCharacteristic(characterRedArr);
-        userPersonages[userPlanets[key].redPersonage3].hit3 = initCharacteristic(characterRedArr);
-        userPersonages[userPlanets[key].redPersonage3].hit4 = initCharacteristic(characterRedArr);
-        userPersonages[userPlanets[key].redPersonage3].hit5 = initCharacteristic(characterRedArr);
-
-    }
-    
-    
-}
-*/
 
 function initCharacteristics()
 {
@@ -2372,27 +2859,26 @@ function initCharacteristics()
                     var count = Object.keys(characteristicsUser).length;
                     var index;
                     var resultUser;
-					var resultAI;
+                    var resultAI;
 
-					index = initRandomIndex();
+                    index = initRandomIndex();
                     if(index > count) resultUser = index - count;
                     else resultUser = count - index;
                     if(resultUser >= count) resultUser = 0;
 					
-					index = initRandomIndex();
+                    index = initRandomIndex();
                     if(index > count) resultAI = index - count;
                     else resultAI = count - index;
                     if(resultAI >= count) resultAI = 0;
 
-
                     bluePersonage = characteristicsUser[Object.keys(characteristicsUser)[resultUser]];	// моя защита
                     redPersonage = characteristicsAI[Object.keys(characteristicsAI)[resultAI]];	// защита ИИ
                     
-					blueRewardPersonage = characteristicsAI[Object.keys(characteristicsAI)[resultAI]]; 	// мои соющники = защита ИИ
-					redRewardPersonage = characteristicsUser[Object.keys(characteristicsUser)[resultUser]];		// союзники ИИ = моя защита
+                    blueRewardPersonage = characteristicsAI[Object.keys(characteristicsAI)[resultAI]]; 	// мои соющники = защита ИИ
+                    redRewardPersonage = characteristicsUser[Object.keys(characteristicsUser)[resultUser]];		// союзники ИИ = моя защита
                     
                     delete characteristicsUser[Object.keys(characteristicsUser)[resultUser]];
-					delete characteristicsAI[Object.keys(characteristicsAI)[resultAI]];
+                    delete characteristicsAI[Object.keys(characteristicsAI)[resultAI]];
                 }
             }
             
@@ -2443,8 +2929,8 @@ function initCharacteristics()
             userPersonages[userPlanets[key].redPersonage3].hitAttack3 = initCharacteristic(redPersonage);
             userPersonages[userPlanets[key].redPersonage3].hitAttack4 = initCharacteristic(redPersonage);
             userPersonages[userPlanets[key].redPersonage3].hitAttack5 = initCharacteristic(redPersonage);
-			
-			userPersonages[userPlanets[key].redRewardPersonage1].hitDefense1 = initCharacteristic(redRewardPersonage);
+            
+            userPersonages[userPlanets[key].redRewardPersonage1].hitDefense1 = initCharacteristic(redRewardPersonage);
             userPersonages[userPlanets[key].redRewardPersonage1].hitDefense2 = initCharacteristic(redRewardPersonage);
             userPersonages[userPlanets[key].redRewardPersonage1].hitDefense3 = initCharacteristic(redRewardPersonage);
             userPersonages[userPlanets[key].redRewardPersonage1].hitDefense4 = initCharacteristic(redRewardPersonage);
@@ -2459,65 +2945,75 @@ function initCharacteristics()
             userPersonages[userPlanets[key].redRewardPersonage3].hitDefense3 = initCharacteristic(redRewardPersonage);
             userPersonages[userPlanets[key].redRewardPersonage3].hitDefense4 = initCharacteristic(redRewardPersonage);
             userPersonages[userPlanets[key].redRewardPersonage3].hitDefense5 = initCharacteristic(redRewardPersonage);
-			
-		}
+            
+            /*
+            var hitCountAI = 0;
+            hitCountAI = userPersonages[userPlanets[key].redPersonage1].hitAttack1 + userPersonages[userPlanets[key].redPersonage1].hitAttack2 + userPersonages[userPlanets[key].redPersonage1].hitAttack3 + userPersonages[userPlanets[key].redPersonage1].hitAttack4 + userPersonages[userPlanets[key].redPersonage1].hitAttack5;
+            hitCountAI += userPersonages[userPlanets[key].redPersonage2].hitAttack1 + userPersonages[userPlanets[key].redPersonage2].hitAttack2 + userPersonages[userPlanets[key].redPersonage2].hitAttack3 + userPersonages[userPlanets[key].redPersonage2].hitAttack4 + userPersonages[userPlanets[key].redPersonage2].hitAttack5;
+            hitCountAI += userPersonages[userPlanets[key].redPersonage3].hitAttack1 + userPersonages[userPlanets[key].redPersonage3].hitAttack2 + userPersonages[userPlanets[key].redPersonage3].hitAttack3 + userPersonages[userPlanets[key].redPersonage3].hitAttack4 + userPersonages[userPlanets[key].redPersonage3].hitAttack5;
+            hitCountAI /= 10;
+            console.log(key + " = " + hitCountAI);
+            /*
+            testRedCharacteristics();
+            */
+        }
     }
     
     if(side === SIDE_SITH)
     {
         for(var key in userPlanets)
         {
-			var redPersonage = [];
-			var redRewardPersonage = [];
-			var bluePersonage = [];
-			var blueRewardPersonage = [];
-			
-			if(key === "DeathStar")
+            var redPersonage = [];
+            var redRewardPersonage = [];
+            var bluePersonage = [];
+            var blueRewardPersonage = [];
+
+            if(key === "DeathStar")
             {
-				redPersonage = characteristicsUser["planet-15"];           // моя защита
+                redPersonage = characteristicsUser["planet-15"];           // моя защита
                 redRewardPersonage = characteristicsUser["planet-1"];    // моя команда
 				
-				bluePersonage = characteristicsAI["planet-1"];       // не имеет значения
+                bluePersonage = characteristicsAI["planet-1"];       // не имеет значения
                 blueRewardPersonage = characteristicsAI["planet-15"];  // союзники ИИ
-				
-				delete characteristicsUser["planet-1"];
-				delete characteristicsUser["planet-15"];
-				delete characteristicsAI["planet-1"];
-				delete characteristicsAI["planet-15"];
-			}else{
-				if(key === "Coruscant")
+
+                delete characteristicsUser["planet-1"];
+                delete characteristicsUser["planet-15"];
+                delete characteristicsAI["planet-1"];
+                delete characteristicsAI["planet-15"];
+            }else{
+                if(key === "Coruscant")
                 {
-					redPersonage = characteristicsUser["planet-1"];          // не имеет значения
+                    redPersonage = characteristicsUser["planet-1"];          // не имеет значения
                     redRewardPersonage = characteristicsUser["planet-15"];     // мои соющники
 
-					bluePersonage = characteristicsAI["planet-15"];          // защита ИИ
+                    bluePersonage = characteristicsAI["planet-15"];          // защита ИИ
                     blueRewardPersonage = characteristicsAI["planet-1"];     // не имеет значения
-				}else{
-					var count = Object.keys(characteristicsUser).length;
+                }else{
+                    var count = Object.keys(characteristicsUser).length;
                     var index;
                     var resultUser;
-					var resultAI;
+                    var resultAI;
 
-					index = initRandomIndex();
+                    index = initRandomIndex();
                     if(index > count) resultUser = index - count;
                     else resultUser = count - index;
                     if(resultUser >= count) resultUser = 0;
 					
-					index = initRandomIndex();
+                    index = initRandomIndex();
                     if(index > count) resultAI = index - count;
                     else resultAI = count - index;
                     if(resultAI >= count) resultAI = 0;
 
-					redPersonage = characteristicsUser[Object.keys(characteristicsUser)[resultUser]];	// моя защита
+                    redPersonage = characteristicsUser[Object.keys(characteristicsUser)[resultUser]];	// моя защита
                     bluePersonage = characteristicsAI[Object.keys(characteristicsAI)[resultAI]];	// защита ИИ
                     
-					redRewardPersonage = characteristicsAI[Object.keys(characteristicsAI)[resultAI]]; 	// мои соющники = защита ИИ
-					blueRewardPersonage = characteristicsUser[Object.keys(characteristicsUser)[resultUser]];		// союзники ИИ = моя защита
+                    redRewardPersonage = characteristicsAI[Object.keys(characteristicsAI)[resultAI]]; 	// мои соющники = защита ИИ
+                    blueRewardPersonage = characteristicsUser[Object.keys(characteristicsUser)[resultUser]];		// союзники ИИ = моя защита
                     
                     delete characteristicsUser[Object.keys(characteristicsUser)[resultUser]];
-					delete characteristicsAI[Object.keys(characteristicsAI)[resultAI]];
-				}
-			}
+                    delete characteristicsAI[Object.keys(characteristicsAI)[resultAI]];
+                }
+            }
 			
             userPersonages[userPlanets[key].bluePersonage1].hitAttack1 = initCharacteristic(bluePersonage);
             userPersonages[userPlanets[key].bluePersonage1].hitAttack2 = initCharacteristic(bluePersonage);
@@ -2567,7 +3063,7 @@ function initCharacteristics()
             userPersonages[userPlanets[key].redPersonage3].hitAttack4 = initCharacteristic(redPersonage);
             userPersonages[userPlanets[key].redPersonage3].hitAttack5 = initCharacteristic(redPersonage);
 			
-			userPersonages[userPlanets[key].redRewardPersonage1].hitDefense1 = initCharacteristic(redRewardPersonage);
+            userPersonages[userPlanets[key].redRewardPersonage1].hitDefense1 = initCharacteristic(redRewardPersonage);
             userPersonages[userPlanets[key].redRewardPersonage1].hitDefense2 = initCharacteristic(redRewardPersonage);
             userPersonages[userPlanets[key].redRewardPersonage1].hitDefense3 = initCharacteristic(redRewardPersonage);
             userPersonages[userPlanets[key].redRewardPersonage1].hitDefense4 = initCharacteristic(redRewardPersonage);
@@ -2582,9 +3078,19 @@ function initCharacteristics()
             userPersonages[userPlanets[key].redRewardPersonage3].hitDefense3 = initCharacteristic(redRewardPersonage);
             userPersonages[userPlanets[key].redRewardPersonage3].hitDefense4 = initCharacteristic(redRewardPersonage);
             userPersonages[userPlanets[key].redRewardPersonage3].hitDefense5 = initCharacteristic(redRewardPersonage);
-			
-		}
-	}
+            
+            /*
+            var hitCountAI = 0;
+            hitCountAI = userPersonages[userPlanets[key].bluePersonage1].hitAttack1 + userPersonages[userPlanets[key].bluePersonage1].hitAttack2 + userPersonages[userPlanets[key].bluePersonage1].hitAttack3 + userPersonages[userPlanets[key].bluePersonage1].hitAttack4 + userPersonages[userPlanets[key].bluePersonage1].hitAttack5;
+            hitCountAI += userPersonages[userPlanets[key].bluePersonage2].hitAttack1 + userPersonages[userPlanets[key].bluePersonage2].hitAttack2 + userPersonages[userPlanets[key].bluePersonage2].hitAttack3 + userPersonages[userPlanets[key].bluePersonage2].hitAttack4 + userPersonages[userPlanets[key].bluePersonage2].hitAttack5;
+            hitCountAI += userPersonages[userPlanets[key].bluePersonage3].hitAttack1 + userPersonages[userPlanets[key].bluePersonage3].hitAttack2 + userPersonages[userPlanets[key].bluePersonage3].hitAttack3 + userPersonages[userPlanets[key].bluePersonage3].hitAttack4 + userPersonages[userPlanets[key].bluePersonage3].hitAttack5;
+            hitCountAI /= 10;
+            console.log(key + " = " + hitCountAI);
+            /*
+            testBlueCharacteristics();
+            */
+        }
+    }
 }
 
 
@@ -2822,7 +3328,13 @@ function mapCreatePlanets()
 
 function onMapPlanetClick()
 {
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!
+    if(userCommandUser["personage1"] === null && userCommandUser["personage2"] === null && userCommandUser["personage3"] === null)
+    {
+        msgCreate("ПРЕДУПРЕЖДЕНИЕ", "В вашей комманде нет не одного персонажа. \nВы не можите начать битву пока в команде не будет хотя бы один персонаж!");
+    }else{
+        mapSprite.move = false;
+        sbattleCreate(this.name);
+    }
 }
 
 function onMapPlanetOver(event)
@@ -2839,7 +3351,7 @@ function onMapPlanetOut()
 
 function mapCreateInterface()
 {
-    showCommand();
+    mapShowCommand();
     if(side === SIDE_JEDI)
     {
         mapBorderBlue();
@@ -3252,8 +3764,8 @@ function onMapButtonClick()
             settingsCreate();
             break;
         case "BackMenu":
-            menuCreate();
-            mapRemove();
+            backmenuCreate();
+            
             break;
         case "Invite": 
             VK.callMethod("showInviteBox");
@@ -3323,7 +3835,7 @@ function mapCheckAvailablePersonage()
 	
 }
 
-function showCommand()
+function mapShowCommand()
 {
     var index = 0;
     for(var key in userCommandUser)
@@ -3479,7 +3991,7 @@ function mapDestinationSearch()
                         + userPersonages[userPlanets[key].redPersonage3].hitAttack4
                         + userPersonages[userPlanets[key].redPersonage3].hitAttack5;
                 hitCount /= 10;
-				if(hitCount < target["indexUser"])
+		if(hitCount < target["indexUser"])
                 {
                    target["planetUser"] = userPlanets[key].id; 
                    target["indexUser"] = hitCount;
@@ -3523,9 +4035,11 @@ function mapDestinationSearch()
     }
     if(side === SIDE_SITH)
     {
-        console.log("OK");
-        mapRedTargetsShow(target["planetUser"]);
-        mapBlueTargetsShow(target["planetAI"]);
+        //mapRedTargetsShow(target["planetUser"]);
+        //mapBlueTargetsShow(target["planetAI"]);
+        mapBlueTargetsShow(target["planetUser"]);
+        mapRedTargetsShow(target["planetAI"]);
+        
         if(userTotalBattle === 0) userMapMessage["LastNews"][1] = "Меня зовут R3-S6, приветствую тебя мой повелитель. \n\nДжедаи хотят разрушить Звезду смерти и помешать нашим планам." + " Они направелись на " + userPlanets[target["planetAI"]].name + " можем помешать им. \n\nИли напасть на " + userPlanets[target["planetUser"]].name + " и получите нового союзника.";
         else userMapMessage["LastNews"][1] = "Оборона планеты " + userPlanets[target["planetUser"]].name + " слаба мы с лёгкостью захватим её и вам будет доступен новый союзник. \n\nТак же наш шпион докладывает что Джедаи направились на " + userPlanets[target["planetAI"]].name + " можем помешать им.";
         mapTextMessage.text = userMapMessage["LastNews"][1];
@@ -3554,6 +4068,8 @@ function menuCreate()
 {
     menuStage = new PIXI.Container(); 
     stage.addChild(menuStage); 
+    
+    side = SIDE_NONE;
     
     soundPlayStarWarsThemeSong();
     
@@ -3843,6 +4359,230 @@ function menuBackgroundParallaxTween()
 
 /* == НАЧАЛО ФАЙЛА ========================================================= */
 
+var msgStage;
+var msgLineAnimationGraphics;
+var msgStyleBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
+var msgStyleRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
+var msgStyleBlueTitle = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200, align: "left"}; 
+var msgStyleRedTitle = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200, align: "left" }; 
+
+var msgTitleText;
+var msgMessageText;
+
+function msgCreate(title, messageText)
+{
+    msgStage = new PIXI.Container();
+    stage.addChild(msgStage);
+    
+    msgTitleText = title;
+    msgMessageText = messageText;
+    
+    msgBackground();
+    msgWindow();
+    msgTitle();
+    msgText();
+    msgButtonClose();
+}
+
+function msgRemove()
+{
+    stage.removeChild(msgStage);
+    msgStage = null;
+}
+
+function msgBackground()
+{
+    var graphics = new PIXI.Graphics(); 
+    graphics.hitArea = new PIXI.Rectangle(0, 0, MAIN_WIDTH, MAIN_HEIGH);
+    graphics.interactive = true;
+    graphics.lineStyle(1, 0x000000, 0.05);
+    graphics.beginFill(0x000000, 0.05);
+    graphics.drawRect(0, 0, MAIN_WIDTH, MAIN_HEIGH);
+    graphics.endFill();
+    msgStage.addChild(graphics);
+}
+
+function msgWindow()
+{
+    if(side === SIDE_NONE || side === SIDE_JEDI)
+    {
+        var graphics = new PIXI.Graphics(); 
+        graphics.lineStyle(2, 0x0080C0, 1);
+        graphics.beginFill(0x0080C0, 0.2);
+        graphics.moveTo(250,250);
+        graphics.lineTo(600, 250);
+        graphics.lineTo(600, 500);
+        graphics.lineTo(250, 500);
+        graphics.endFill();
+        for(var i = 0; i < 55; i++)
+        {
+            graphics.lineStyle(1, 0x0090F0, 0.5);
+            graphics.moveTo(250,280+(3*i));
+            graphics.lineTo(600, 280+(3*i));
+
+        }
+        msgStage.addChild(graphics);
+        
+        msgLineAnimationGraphics = new PIXI.Graphics(); 
+        msgLineAnimationGraphics.lineStyle(10, 0x0090F0, 0.3);
+        msgLineAnimationGraphics.moveTo(250,255);
+        msgLineAnimationGraphics.lineTo(600, 255);
+        msgStage.addChild(msgLineAnimationGraphics);
+        msgLineAnimationGraphicsTween();
+        
+        graphics = new PIXI.Graphics(); 
+        graphics.lineStyle(1, 0x0080C0, 1);
+        graphics.beginFill(0x0080C0, 1);
+        graphics.moveTo(400,250);
+        graphics.lineTo(425, 275);
+        graphics.lineTo(600, 275);
+        graphics.lineTo(600, 250);
+        graphics.endFill();
+        msgStage.addChild(graphics);
+    }
+    if(side === SIDE_SITH)
+    {
+        var graphics = new PIXI.Graphics(); 
+        graphics.lineStyle(2, 0xA63A24, 1);
+        graphics.beginFill(0xA63A24, 0.2);
+        graphics.moveTo(250,250);
+        graphics.lineTo(600, 250);
+        graphics.lineTo(600, 500);
+        graphics.lineTo(250, 500);
+        graphics.endFill();
+        for(var i = 0; i < 55; i++)
+        {
+            graphics.lineStyle(1, 0xA63A24, 0.5);
+            graphics.moveTo(250,280+(3*i));
+            graphics.lineTo(600, 280+(3*i));
+        }
+        msgStage.addChild(graphics);
+        
+        msgLineAnimationGraphics = new PIXI.Graphics(); 
+        msgLineAnimationGraphics.lineStyle(10, 0xA63A24, 0.3);
+        msgLineAnimationGraphics.moveTo(250,255);
+        msgLineAnimationGraphics.lineTo(600, 255);
+        msgStage.addChild(msgLineAnimationGraphics);
+        msgLineAnimationGraphicsTween();
+        
+        graphics = new PIXI.Graphics(); 
+        graphics.lineStyle(1, 0xA63A24, 1);
+        graphics.beginFill(0xA63A24, 1);
+        graphics.moveTo(400,250);
+        graphics.lineTo(425, 275);
+        graphics.lineTo(600, 275);
+        graphics.lineTo(600, 250);
+        graphics.endFill();
+        msgStage.addChild(graphics);
+    }
+}
+
+
+function msgLineAnimationGraphicsTween()
+{
+    createjs.Tween.get(msgLineAnimationGraphics, {loop: true}) 
+        .to({x: 0, y: 240}, 2500, createjs.Ease.getPowInOut(3));
+    createjs.Ticker.setFPS(60);
+}
+
+function msgTitle()
+{
+    var text;
+    
+    if(side === SIDE_NONE || side === SIDE_JEDI) text = new PIXI.Text(msgTitleText, msgStyleBlueTitle); 
+    if(side === SIDE_SITH) text = new PIXI.Text(msgTitleText, msgStyleRedTitle); 
+    text.x = 450;
+    text.y = 255;
+    msgStage.addChild(text);
+}
+
+function msgText()
+{
+    var text;
+    if(side === SIDE_NONE || side === SIDE_JEDI) text = new PIXI.Text(msgMessageText, settingsStyleBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text(msgMessageText, settingsStyleRedText); 
+    text.x = 255;
+    text.y = 285;
+    msgStage.addChild(text);
+}
+
+function msgButtonClose()
+{
+    if(side === SIDE_NONE || side === SIDE_JEDI)
+    {
+        var button = new PIXI.extras.MovieClip(animTexButtonBlue); 
+        button.name = "button_close";
+        button.position.x = 320; 
+        button.position.y = 450; 
+        button.interactive = true; 
+        button.buttonMode = true; 
+        button.loop = false; 
+        button.animationSpeed = 0.2;
+        button.onComplete = onMsgButtonCloseUpdate;
+        button.tap = onMsgButtonCloseClick; 
+        button.click = onMsgButtonCloseClick; 
+        button.on('mouseover', onMsgButtonCloseOver);
+        button.on('mouseout', onMsgButtonCloseOut);
+        var text = new PIXI.Text("Закрыть", msgStyleBlueText); 
+        text.x = button.width / 3;
+        text.y = button.height / 3;
+        button.addChild(text); 
+        msgStage.addChild(button);
+    }
+    if(side === SIDE_SITH)
+    {
+        var button = new PIXI.extras.MovieClip(animTexButtonRed); 
+        button.name = "button_close";
+        button.position.x = 320; 
+        button.position.y = 450; 
+        button.interactive = true; 
+        button.buttonMode = true; 
+        button.loop = false; 
+        button.animationSpeed = 0.2;
+        button.onComplete = onMsgButtonCloseUpdate;
+        button.tap = onMsgButtonCloseClick; 
+        button.click = onMsgButtonCloseClick; 
+        button.on('mouseover', onMsgButtonCloseOver);
+        button.on('mouseout', onMsgButtonCloseOut);
+        var text = new PIXI.Text("Закрыть", msgStyleRedText); 
+        text.x = button.width / 3;
+        text.y = button.height / 3;
+        button.addChild(text); 
+        msgStage.addChild(button);
+    }
+}
+
+function onMsgButtonCloseOver()
+{
+    this.isOver = true;
+    this.gotoAndPlay(1);
+}
+
+function onMsgButtonCloseOut()
+{
+    this.isOver = false;
+    this.gotoAndStop(0);
+}
+
+function onMsgButtonCloseUpdate()
+{
+    if(this.isOver)
+    {
+        this.gotoAndPlay(1);
+    }else{
+        this.gotoAndStop(0);
+    }
+}
+
+function onMsgButtonCloseClick() 
+{
+    msgRemove();
+}
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
 var preloaderStage;
 var preloaderProgressAssetsText;
 var preloaderStyleText = { font : 'bold 48px Arial', fill : '#FFFF80', stroke : '#FF8000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 600 }; 
@@ -4004,9 +4744,11 @@ function preloaderLoadAssets()
     loader.add('chewbacca_lr','./assets/image/textures/personages/chewbacca_lr.png');
     loader.add('chewbacca_rl','./assets/image/textures/personages/chewbacca_rl.png');
     loader.add('clone_commander_bakara','./assets/image/textures/personages/clone_commander_bakara.png');
+    loader.add('clone_commander_bakara_2','./assets/image/textures/personages/clone_commander_bakara.png');
     loader.add('clone_commander_cody_lr','./assets/image/textures/personages/clone_commander_cody_lr.png');
     loader.add('clone_commander_cody_rl','./assets/image/textures/personages/clone_commander_cody_rl.png');
     loader.add('clone_commander_neyo','./assets/image/textures/personages/clone_commander_neyo.png');
+    loader.add('clone_commander_neyo_2','./assets/image/textures/personages/clone_commander_neyo.png');
     loader.add('clone_commander_rex','./assets/image/textures/personages/clone_commander_rex.png');
     loader.add('commander_jerjerrod_lr','./assets/image/textures/personages/commander_jerjerrod_lr.png');
     loader.add('commander_jerjerrod_rl','./assets/image/textures/personages/commander_jerjerrod_rl.png');
@@ -4057,6 +4799,7 @@ function preloaderLoadAssets()
     loader.add('red_battle_droid_lr','./assets/image/textures/personages/red_battle_droid_lr.png');
     loader.add('red_battle_droid_rl','./assets/image/textures/personages/red_battle_droid_rl.png');
     loader.add('republic_clone_army','./assets/image/textures/personages/republic_clone_army.png');
+    loader.add('republic_clone_army_2','./assets/image/textures/personages/republic_clone_army.png');
     loader.add('rey','./assets/image/textures/personages/rey.png');
     loader.add('royal_guards','./assets/image/textures/personages/royal_guards.png');
     loader.add('rune_haako_lr','./assets/image/textures/personages/rune_haako_lr.png');
@@ -4074,6 +4817,7 @@ function preloaderLoadAssets()
     loader.add('tion_medon','./assets/image/textures/personages/tion_medon.png');
     loader.add('trade_federation','./assets/image/textures/personages/trade_federation.png');
     loader.add('tusken','./assets/image/textures/personages/tusken.png');
+    loader.add('tusken_2','./assets/image/textures/personages/tusken.png');
     loader.add('wat_tambor_lr','./assets/image/textures/personages/wat_tambor_lr.png');
     loader.add('wat_tambor_rl','./assets/image/textures/personages/wat_tambor_rl.png');
     loader.add('watto','./assets/image/textures/personages/watto.png');
@@ -4163,6 +4907,8 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     heroesTextures["anakin_skywalker"] = ["Энакин Скайуокер", res.anakin_skywalker.texture, res.anakin_skywalker.texture, PIXI.Texture.fromFrame("anakin_skywalker_icon.png")];
     heroesTextures["aurra_sing"] = ["Орра Синг", res.aurra_sing_lr.texture, res.aurra_sing_rl.texture, PIXI.Texture.fromFrame("aurra_sing_icon.png")];
     heroesTextures["b1_battle_droid"] = ["Боевой дроид B1", res.b1_battle_droid_lr.texture, res.b1_battle_droid_rl.texture, PIXI.Texture.fromFrame("b1_battle_droid_icon.png")];
+    heroesTextures["b1_battle_droid_2"] = ["Боевой дроид B1", res.b1_battle_droid_lr.texture, res.b1_battle_droid_rl.texture, PIXI.Texture.fromFrame("b1_battle_droid_icon.png")];
+    heroesTextures["b1_battle_droid_3"] = ["Боевой дроид B1", res.b1_battle_droid_lr.texture, res.b1_battle_droid_rl.texture, PIXI.Texture.fromFrame("b1_battle_droid_icon.png")];
     heroesTextures["bail_organa"] = ["Бэйл Органа", res.bail_organa.texture, res.bail_organa.texture, PIXI.Texture.fromFrame("bail_organa_icon.png")];
     heroesTextures["barriss_offee"] = ["Бэррисс Оффи", res.barriss_offee.texture, res.barriss_offee.texture, PIXI.Texture.fromFrame("barriss_offee_icon.png")];
     heroesTextures["beru_lars"] = ["Беру Ларс", res.beru_lars.texture, res.beru_lars.texture, PIXI.Texture.fromFrame("beru_lars_icon.png")];
@@ -4174,8 +4920,10 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     heroesTextures["chewbacca"] = ["Чубака", res.chewbacca_lr.texture, res.chewbacca_rl.texture, PIXI.Texture.fromFrame("chewbacca_icon.png")];
     heroesTextures["clone_commander_bakara"] = ["Бакара", res.clone_commander_bakara.texture, res.clone_commander_bakara.texture, PIXI.Texture.fromFrame("clone_commander_bakara_icon.png")];
     heroesTextures["clone_commander_cody"] = ["Коди", res.clone_commander_cody_lr.texture, res.clone_commander_cody_rl.texture, PIXI.Texture.fromFrame("clone_commander_cody_icon.png")];
+    heroesTextures["clone_commander_cody_2"] = ["Коди", res.clone_commander_cody_lr.texture, res.clone_commander_cody_rl.texture, PIXI.Texture.fromFrame("clone_commander_cody_icon.png")];
     heroesTextures["clone_commander_neyo"] = ["Нейо", res.clone_commander_neyo.texture, res.clone_commander_neyo.texture, PIXI.Texture.fromFrame("clone_commander_neyo_icon.png")];
     heroesTextures["clone_commander_rex"] = ["Рекс", res.clone_commander_rex.texture, res.clone_commander_rex.texture, PIXI.Texture.fromFrame("clone_commander_rex_icon.png")];
+    heroesTextures["clone_commander_rex_2"] = ["Рекс", res.clone_commander_rex.texture, res.clone_commander_rex.texture, PIXI.Texture.fromFrame("clone_commander_rex_icon.png")];
     heroesTextures["commander_jerjerrod"] = ["Тиаан Джерджеррод", res.commander_jerjerrod_lr.texture, res.commander_jerjerrod_rl.texture, PIXI.Texture.fromFrame("commander_jerjerrod_icon.png")];
     heroesTextures["darth_maul"] = ["Дарт Мол", res.darth_maul.texture, res.darth_maul.texture, PIXI.Texture.fromFrame("darth_maul_icon.png")];
     heroesTextures["darth_sidious"] = ["Дарт Сидиус", res.darth_sidious_lr.texture, res.darth_sidious_rl.texture, PIXI.Texture.fromFrame("darth_sidious_icon.png")];
@@ -4184,6 +4932,7 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     heroesTextures["eeth_koth"] = ["Иит Кот", res.eeth_koth.texture, res.eeth_koth.texture, PIXI.Texture.fromFrame("eeth_koth_icon.png")];
     heroesTextures["finn"] = ["Финн", res.finn_lr.texture, res.finn_rl.texture, PIXI.Texture.fromFrame("finn_icon.png")];
     heroesTextures["general_grievous"] = ["Генерал Гривус", res.general_grievous.texture, res.general_grievous.texture, PIXI.Texture.fromFrame("general_grievous_icon.png")];
+    heroesTextures["general_grievous_2"] = ["Генерал Гривус", res.general_grievous.texture, res.general_grievous.texture, PIXI.Texture.fromFrame("general_grievous_icon.png")];
     heroesTextures["general_madine"] = ["Генерал Мадин", res.general_madine_lr.texture, res.general_madine_rl.texture, PIXI.Texture.fromFrame("general_madine_icon.png")];
     heroesTextures["han_solo"] = ["Хан Соло", res.han_solo_lr.texture, res.han_solo_rl.texture, PIXI.Texture.fromFrame("han_solo_icon.png")];
     heroesTextures["jango_fett"] = ["Джанго Фетт", res.jango_fett_lr.texture, res.jango_fett_rl.texture, PIXI.Texture.fromFrame("jango_fett_icon.png")];
@@ -4217,12 +4966,17 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     heroesTextures["rune_haako"] = ["Рун Хаако", res.rune_haako_lr.texture, res.rune_haako_rl.texture, PIXI.Texture.fromFrame("rune_haako_icon.png")];
     heroesTextures["saesee_tiin"] = ["Сэси Тийн", res.saesee_tiin_lr.texture, res.saesee_tiin_rl.texture, PIXI.Texture.fromFrame("saesee_tiin_icon.png")];
     heroesTextures["separatists"] = ["Сепаратисты", res.separatists.texture, res.separatists.texture, PIXI.Texture.fromFrame("separatists_icon.png")];
+    heroesTextures["separatists_2"] = ["Сепаратисты", res.separatists.texture, res.separatists.texture, PIXI.Texture.fromFrame("separatists_icon.png")];
     heroesTextures["shaak_ti"] = ["Шаак Ти", res.shaak_ti.texture, res.shaak_ti.texture, PIXI.Texture.fromFrame("shaak_ti_icon.png")];
     heroesTextures["shmi_skywalker"] = ["Шми Скайуокер", res.shmi_skywalker.texture, res.shmi_skywalker.texture, PIXI.Texture.fromFrame("shmi_skywalker_icon.png")];
     heroesTextures["sio_bibble"] = ["Сио Биббл", res.sio_bibble.texture, res.sio_bibble.texture, PIXI.Texture.fromFrame("sio_bibble_icon.png")];
     heroesTextures["stormtrooper_1"] = ["Штурмовик", res.stormtrooper.texture, res.stormtrooper.texture, PIXI.Texture.fromFrame("stormtrooper_icon.png")];
+    heroesTextures["stormtrooper_1_2"] = ["Штурмовик", res.stormtrooper.texture, res.stormtrooper.texture, PIXI.Texture.fromFrame("stormtrooper_icon.png")];
+    heroesTextures["stormtrooper_1_3"] = ["Штурмовик", res.stormtrooper.texture, res.stormtrooper.texture, PIXI.Texture.fromFrame("stormtrooper_icon.png")];
     heroesTextures["stormtrooper_2"] = ["Штурмовик", res.stormtrooper_lr.texture, res.stormtrooper_rl.texture, PIXI.Texture.fromFrame("stormtrooper_icon.png")];
     heroesTextures["stormtroopers"] = ["Имперские штурмовики", res.stormtroopers.texture, res.stormtroopers.texture, PIXI.Texture.fromFrame("stormtroopers_icon.png")];
+    heroesTextures["stormtroopers_2"] = ["Имперские штурмовики", res.stormtroopers.texture, res.stormtroopers.texture, PIXI.Texture.fromFrame("stormtroopers_icon.png")];
+    heroesTextures["stormtroopers_3"] = ["Имперские штурмовики", res.stormtroopers.texture, res.stormtroopers.texture, PIXI.Texture.fromFrame("stormtroopers_icon.png")];
     heroesTextures["tion_medon"] = ["Тион Медон", res.tion_medon.texture, res.tion_medon.texture, PIXI.Texture.fromFrame("tion_medon_icon.png")];
     heroesTextures["trade_federation"] = ["Торговая Федерация", res.trade_federation.texture, res.trade_federation.texture, PIXI.Texture.fromFrame("trade_federation_icon.png")];
     heroesTextures["tusken"] = ["Таскенские рейдеры", res.tusken.texture, res.tusken.texture, PIXI.Texture.fromFrame("tusken_icon.png")];
@@ -4292,8 +5046,8 @@ function settingsBackground()
     var graphics = new PIXI.Graphics(); 
     graphics.hitArea = new PIXI.Rectangle(0, 0, MAIN_WIDTH, MAIN_HEIGH);
     graphics.interactive = true;
-    graphics.lineStyle(1, 0x000000, 0.25);
-    graphics.beginFill(0x000000, 0.25);
+    graphics.lineStyle(1, 0x000000, 0.05);
+    graphics.beginFill(0x000000, 0.05);
     graphics.drawRect(0, 0, MAIN_WIDTH, MAIN_HEIGH);
     graphics.endFill();
     settingsStage.addChild(graphics);
@@ -4310,7 +5064,7 @@ function settingsWindow()
         graphics.lineTo(600, 250);
         graphics.lineTo(600, 500);
         graphics.lineTo(250, 500);
-        graphics.endFill
+        graphics.endFill();
         for(var i = 0; i < 55; i++)
         {
             if(i > 15 && i < 35)
@@ -4338,7 +5092,7 @@ function settingsWindow()
         graphics.lineTo(425, 275);
         graphics.lineTo(600, 275);
         graphics.lineTo(600, 250);
-        graphics.endFill
+        graphics.endFill();
         settingsStage.addChild(graphics);
     }
     if(side === SIDE_SITH)
@@ -4350,7 +5104,7 @@ function settingsWindow()
         graphics.lineTo(600, 250);
         graphics.lineTo(600, 500);
         graphics.lineTo(250, 500);
-        graphics.endFill
+        graphics.endFill();
         for(var i = 0; i < 55; i++)
         {
             if(i > 15 && i < 35)
@@ -4378,7 +5132,7 @@ function settingsWindow()
         graphics.lineTo(425, 275);
         graphics.lineTo(600, 275);
         graphics.lineTo(600, 250);
-        graphics.endFill
+        graphics.endFill();
         settingsStage.addChild(graphics);
     }
     
@@ -4921,6 +5675,367 @@ function soundStopStarWarsThemeSong()
 
 /* == НАЧАЛО ФАЙЛА ========================================================= */
 
+var sbattleStage;
+var sbattleLineAnimationGraphics;
+var sbattleStyleBlueText = { font : 'bold 18px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340, align: "center"}; 
+var sbattleStyleRedText = { font : 'bold 18px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340, align: "center"}; 
+var sbattleButtonStyleBlueText = { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
+var sbattleButtonStyleRedText = { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
+var sbattlePlanetID
+
+function sbattleCreate(planetTargetID)
+{
+    sbattleStage = new PIXI.Container();
+    stage.addChild(sbattleStage);
+    sbattlePlanetID = planetTargetID;
+    
+    sbattleBackground();
+    sbattleWindow();
+    sbattleTitle();
+    sbattleText();
+    sbattleButtons();
+}
+
+function sbattleRemove()
+{
+    stage.removeChild(sbattleStage);
+    sbattleStage = null;
+}
+
+function sbattleBackground()
+{
+    var graphics = new PIXI.Graphics(); 
+    graphics.hitArea = new PIXI.Rectangle(0, 0, MAIN_WIDTH, MAIN_HEIGH);
+    graphics.interactive = true;
+    graphics.lineStyle(1, 0x000000, 0.05);
+    graphics.beginFill(0x000000, 0.05);
+    graphics.drawRect(0, 0, MAIN_WIDTH, MAIN_HEIGH);
+    graphics.endFill();
+    sbattleStage.addChild(graphics);
+}
+
+function sbattleWindow()
+{
+    if(side === SIDE_JEDI)
+    {
+        var graphics = new PIXI.Graphics(); 
+        graphics.lineStyle(2, 0xFFFFFF, 1);
+        graphics.drawRoundedRect(200, 150, 460, 260, 15);
+        graphics.lineStyle(2, 0x0000FF, 1);
+        graphics.beginFill(0x00000F, 0.5);
+        graphics.drawRoundedRect(210, 160, 440, 240, 5);
+        graphics.endFill();
+        sbattleStage.addChild(graphics);
+        
+        var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser["personage1"]][1]); 
+        textureSprite.position.x = 220; 
+        textureSprite.position.y = 165; 
+        textureSprite.scale.set(0.5);
+        sbattleStage.addChild(textureSprite);
+        
+        textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[sbattlePlanetID].redPersonage1][2]); 
+        textureSprite.position.x = 510; 
+        textureSprite.position.y = 165; 
+        textureSprite.scale.set(0.5);
+        sbattleStage.addChild(textureSprite);
+        
+        graphics = new PIXI.Graphics();
+        for(var i = 0; i < 80; i++)
+        {
+            graphics.lineStyle(1, 0x0000FF, 0.5);
+            graphics.moveTo(210, 160+(3*i));
+            graphics.lineTo(650, 160+(3*i));
+        }
+        sbattleStage.addChild(graphics);
+        
+        sbattleLineAnimationGraphics = new PIXI.Graphics(); 
+        sbattleLineAnimationGraphics.lineStyle(10, 0x0000FF, 0.3);
+        sbattleLineAnimationGraphics.moveTo(210, 165);
+        sbattleLineAnimationGraphics.lineTo(650, 165);
+        sbattleStage.addChild(sbattleLineAnimationGraphics);
+        sbattleLineAnimationGraphicsTween();
+    }
+    if(side === SIDE_SITH)
+    {
+        var graphics = new PIXI.Graphics(); 
+        graphics.lineStyle(2, 0xFFFF00, 1);
+        graphics.drawRoundedRect(200, 150, 460, 260, 15);
+        graphics.lineStyle(2, 0xFF0000, 1);
+        graphics.beginFill(0x800000, 0.5);
+        graphics.drawRoundedRect(210, 160, 440, 240, 5);
+        graphics.endFill();
+        sbattleStage.addChild(graphics);
+        
+        var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser["personage1"]][1]); 
+        textureSprite.position.x = 220; 
+        textureSprite.position.y = 165; 
+        textureSprite.scale.set(0.5);
+        sbattleStage.addChild(textureSprite);
+        
+        textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[sbattlePlanetID].bluePersonage1][2]); 
+        textureSprite.position.x = 510; 
+        textureSprite.position.y = 165; 
+        textureSprite.scale.set(0.5);
+        sbattleStage.addChild(textureSprite);
+        
+        graphics = new PIXI.Graphics();
+        for(var i = 0; i < 80; i++)
+        {
+            graphics.lineStyle(1, 0xA63A24, 0.5);
+            graphics.moveTo(210, 160+(3*i));
+            graphics.lineTo(650, 160+(3*i));
+        }
+        sbattleStage.addChild(graphics);
+       
+        sbattleLineAnimationGraphics = new PIXI.Graphics(); 
+        sbattleLineAnimationGraphics.lineStyle(10, 0xA63A24, 0.3);
+        sbattleLineAnimationGraphics.moveTo(210, 165);
+        sbattleLineAnimationGraphics.lineTo(650, 165);
+        sbattleStage.addChild(sbattleLineAnimationGraphics);
+        sbattleLineAnimationGraphicsTween();
+    }
+}
+
+function sbattleLineAnimationGraphicsTween()
+{
+    createjs.Tween.get(sbattleLineAnimationGraphics, {loop: true}) 
+        .to({x: 0, y: 230}, 2500, createjs.Ease.getPowInOut(3));
+    createjs.Ticker.setFPS(60);
+}
+
+function sbattleTitle()
+{
+    var text;
+    if(side === SIDE_JEDI) text = new PIXI.Text("БИТВА", sbattleButtonStyleBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text("БИТВА", sbattleButtonStyleRedText); 
+    text.x = 390;
+    text.y = 180;
+    sbattleStage.addChild(text);
+}
+
+function sbattleText()
+{
+    var hitCountUser = 0;
+    hitCountUser += userPersonages[userCommandUser["personage1"]].hitDefense1 
+            + userPersonages[userCommandUser["personage1"]].hitDefense2 
+            + userPersonages[userCommandUser["personage1"]].hitDefense3 
+            + userPersonages[userCommandUser["personage1"]].hitDefense4
+            + userPersonages[userCommandUser["personage1"]].hitDefense5;
+    hitCountUser += userPersonages[userCommandUser["personage2"]].hitDefense1 
+            + userPersonages[userCommandUser["personage2"]].hitDefense2 
+            + userPersonages[userCommandUser["personage2"]].hitDefense3 
+            + userPersonages[userCommandUser["personage2"]].hitDefense4
+            + userPersonages[userCommandUser["personage2"]].hitDefense5;
+    hitCountUser += userPersonages[userCommandUser["personage3"]].hitDefense1 
+            + userPersonages[userCommandUser["personage3"]].hitDefense2 
+            + userPersonages[userCommandUser["personage3"]].hitDefense3 
+            + userPersonages[userCommandUser["personage3"]].hitDefense4
+            + userPersonages[userCommandUser["personage3"]].hitDefense5;
+    hitCountUser /= 10;
+    
+    var hitCountAI = 0;
+    if(side === SIDE_JEDI)
+    {
+        hitCountAI += userPersonages[userPlanets[sbattlePlanetID].redPersonage1].hitAttack1 
+                + userPersonages[userPlanets[sbattlePlanetID].redPersonage1].hitAttack2 
+                + userPersonages[userPlanets[sbattlePlanetID].redPersonage1].hitAttack3 
+                + userPersonages[userPlanets[sbattlePlanetID].redPersonage1].hitAttack4
+                + userPersonages[userPlanets[sbattlePlanetID].redPersonage1].hitAttack5;
+        hitCountAI += userPersonages[userPlanets[sbattlePlanetID].redPersonage2].hitAttack1 
+                + userPersonages[userPlanets[sbattlePlanetID].redPersonage2].hitAttack2 
+                + userPersonages[userPlanets[sbattlePlanetID].redPersonage2].hitAttack3 
+                + userPersonages[userPlanets[sbattlePlanetID].redPersonage2].hitAttack4
+                + userPersonages[userPlanets[sbattlePlanetID].redPersonage2].hitAttack5;
+        hitCountAI += userPersonages[userPlanets[sbattlePlanetID].redPersonage3].hitAttack1 
+                + userPersonages[userPlanets[sbattlePlanetID].redPersonage3].hitAttack2 
+                + userPersonages[userPlanets[sbattlePlanetID].redPersonage3].hitAttack3 
+                + userPersonages[userPlanets[sbattlePlanetID].redPersonage3].hitAttack4
+                + userPersonages[userPlanets[sbattlePlanetID].redPersonage3].hitAttack5;
+    }
+    if(side === SIDE_SITH)
+    {
+        hitCountAI += userPersonages[userPlanets[sbattlePlanetID].bluePersonage1].hitAttack1 
+                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage1].hitAttack2 
+                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage1].hitAttack3 
+                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage1].hitAttack4
+                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage1].hitAttack5;
+        hitCountAI += userPersonages[userPlanets[sbattlePlanetID].bluePersonage2].hitAttack1 
+                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage2].hitAttack2 
+                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage2].hitAttack3 
+                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage2].hitAttack4
+                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage2].hitAttack5;
+        hitCountAI += userPersonages[userPlanets[sbattlePlanetID].bluePersonage3].hitAttack1 
+                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage3].hitAttack2 
+                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage3].hitAttack3 
+                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage3].hitAttack4
+                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage3].hitAttack5;
+    }
+    hitCountAI /= 10;
+    
+    console.log("НАЧАЛО БИТВЫ: " + sbattlePlanetID + " = " + hitCountAI);
+  
+    var text;
+    if(side === SIDE_JEDI)
+    {
+        text = new PIXI.Text("Сила: " + hitCountUser, sbattleStyleBlueText); 
+        text.x = (MAIN_WIDTH / 2) - (text.width / 2) - 150;
+        text.y = 350;
+        sbattleStage.addChild(text);
+        text = new PIXI.Text("Сила: " + hitCountAI, sbattleStyleBlueText); 
+        text.x = (MAIN_WIDTH / 2) - (text.width / 2) + 150;
+        text.y = 350;
+        sbattleStage.addChild(text);
+    }
+    if(side === SIDE_SITH)
+    {
+        text = new PIXI.Text("Сила: " + hitCountUser, sbattleStyleRedText); 
+        text.x = (MAIN_WIDTH / 2) - (text.width / 2) - 150;
+        text.y = 350;
+        sbattleStage.addChild(text);
+        text = new PIXI.Text("Сила: " + hitCountAI, sbattleStyleRedText); 
+        text.x = (MAIN_WIDTH / 2) - (text.width / 2) + 150;
+        text.y = 350;
+        sbattleStage.addChild(text);
+    }
+    
+    
+    if(side === SIDE_JEDI) text = new PIXI.Text(heroesTextures[userCommandUser["personage1"]][0] + "\nVS\n" + heroesTextures[userPlanets[sbattlePlanetID].redPersonage1][0], sbattleStyleBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text(heroesTextures[userCommandUser["personage1"]][0] + "\nVS\n" + heroesTextures[userPlanets[sbattlePlanetID].bluePersonage1][0], sbattleStyleRedText); 
+    text.x = (MAIN_WIDTH / 2) - (text.width / 2);
+    text.y = 225;
+    sbattleStage.addChild(text);
+    
+}
+
+function sbattleButtons()
+{
+    if(side === SIDE_JEDI)
+    {
+        var button = new PIXI.extras.MovieClip(animTexButtonBlue); 
+        button.name = "yes";
+        button.position.x = (MAIN_WIDTH / 2) -  (button.width / 2.5); 
+        button.position.y = 300; 
+        button.scale.set(0.8);
+        button.interactive = true; 
+        button.buttonMode = true; 
+        button.loop = false; 
+        button.animationSpeed = 0.2;
+        button.onComplete = onSBattleButtonButtonUpdate;
+        button.tap = onSBattleButtonButtonClick; 
+        button.click = onSBattleButtonButtonClick; 
+        button.on('mouseover', onSBattleButtonButtonOver);
+        button.on('mouseout', onSBattleButtonButtonOut);
+        var text = new PIXI.Text("Начать", sbattleButtonStyleBlueText); 
+        text.x = (button.width / 2) - (text.width / 3.0);
+        text.y = button.height / 3.5;
+        button.addChild(text); 
+        sbattleStage.addChild(button);
+        
+        button = new PIXI.extras.MovieClip(animTexButtonBlue); 
+        button.name = "no";
+        button.position.x = (MAIN_WIDTH / 2) -  (button.width / 2.5);
+        button.position.y = 350; 
+        button.scale.set(0.8);
+        button.interactive = true; 
+        button.buttonMode = true; 
+        button.loop = false; 
+        button.animationSpeed = 0.2;
+        button.onComplete = onSBattleButtonButtonUpdate;
+        button.tap = onSBattleButtonButtonClick; 
+        button.click = onSBattleButtonButtonClick; 
+        button.on('mouseover', onSBattleButtonButtonOver);
+        button.on('mouseout', onSBattleButtonButtonOut);
+        var text = new PIXI.Text("Отмена", sbattleButtonStyleBlueText); 
+        text.x = (button.width / 2) - (text.width / 3.0);
+        text.y = button.height / 3.5;
+        button.addChild(text); 
+        sbattleStage.addChild(button);
+    }
+    if(side === SIDE_SITH)
+    {
+        var button = new PIXI.extras.MovieClip(animTexButtonRed); 
+        button.name = "yes";
+        button.position.x = (MAIN_WIDTH / 2) -  (button.width / 2.5); 
+        button.position.y = 300; 
+        button.scale.set(0.8);
+        button.interactive = true; 
+        button.buttonMode = true; 
+        button.loop = false; 
+        button.animationSpeed = 0.2;
+        button.onComplete = onSBattleButtonButtonUpdate;
+        button.tap = onSBattleButtonButtonClick; 
+        button.click = onSBattleButtonButtonClick; 
+        button.on('mouseover', onSBattleButtonButtonOver);
+        button.on('mouseout', onSBattleButtonButtonOut);
+        var text = new PIXI.Text("Начать", sbattleButtonStyleRedText); 
+        text.x = (button.width / 2) - (text.width / 3.0);
+        text.y = button.height / 3.5;
+        button.addChild(text); 
+        sbattleStage.addChild(button);
+        
+        button = new PIXI.extras.MovieClip(animTexButtonRed); 
+        button.name = "no";
+        button.position.x = (MAIN_WIDTH / 2) -  (button.width / 2.5); 
+        button.position.y = 350; 
+        button.scale.set(0.8);
+        button.interactive = true; 
+        button.buttonMode = true; 
+        button.loop = false; 
+        button.animationSpeed = 0.2;
+        button.onComplete = onSBattleButtonButtonUpdate;
+        button.tap = onSBattleButtonButtonClick; 
+        button.click = onSBattleButtonButtonClick; 
+        button.on('mouseover', onSBattleButtonButtonOver);
+        button.on('mouseout', onSBattleButtonButtonOut);
+        var text = new PIXI.Text("Отмена", sbattleButtonStyleRedText); 
+        text.x = (button.width / 2) - (text.width / 3.0);
+        text.y = button.height / 3.5;
+        button.addChild(text); 
+        sbattleStage.addChild(button);
+    }
+}
+
+function onSBattleButtonButtonOver()
+{
+    this.isOver = true;
+    this.gotoAndPlay(1);
+}
+
+function onSBattleButtonButtonOut()
+{
+    this.isOver = false;
+    this.gotoAndStop(0);
+}
+
+function onSBattleButtonButtonUpdate()
+{
+    if(this.isOver)
+    {
+        this.gotoAndPlay(1);
+    }else{
+        this.gotoAndStop(0);
+    }
+}
+
+function onSBattleButtonButtonClick() 
+{
+    switch (this.name)
+    {
+        case "yes":
+            
+            break;
+        case "no":
+            sbattleRemove();
+            break;
+        default:
+            break;
+    }
+}
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
 var testStage;
 
 function testCreate()
@@ -4970,6 +6085,32 @@ function textTexture()
     stage.addChild(sprite);
 }
 
+function testRedCharacteristics()
+{
+    for(var key in userPlanets)
+    {
+        var hitCountAI = 0;
+        hitCountAI = userPersonages[userPlanets[key].redPersonage1].hitAttack1 + userPersonages[userPlanets[key].redPersonage1].hitAttack2 + userPersonages[userPlanets[key].redPersonage1].hitAttack3 + userPersonages[userPlanets[key].redPersonage1].hitAttack4 + userPersonages[userPlanets[key].redPersonage1].hitAttack5;
+        hitCountAI += userPersonages[userPlanets[key].redPersonage2].hitAttack1 + userPersonages[userPlanets[key].redPersonage2].hitAttack2 + userPersonages[userPlanets[key].redPersonage2].hitAttack3 + userPersonages[userPlanets[key].redPersonage2].hitAttack4 + userPersonages[userPlanets[key].redPersonage2].hitAttack5;
+        hitCountAI += userPersonages[userPlanets[key].redPersonage3].hitAttack1 + userPersonages[userPlanets[key].redPersonage3].hitAttack2 + userPersonages[userPlanets[key].redPersonage3].hitAttack3 + userPersonages[userPlanets[key].redPersonage3].hitAttack4 + userPersonages[userPlanets[key].redPersonage3].hitAttack5;
+        hitCountAI /= 10;
+        console.log("ТЕСТ[red]: " + key + " = " + hitCountAI);
+    }
+}
+
+function testBlueCharacteristics()
+{
+    for(var key in userPlanets)
+    {
+        var hitCountAI = 0;
+        hitCountAI = userPersonages[userPlanets[key].bluePersonage1].hitAttack1 + userPersonages[userPlanets[key].bluePersonage1].hitAttack2 + userPersonages[userPlanets[key].bluePersonage1].hitAttack3 + userPersonages[userPlanets[key].bluePersonage1].hitAttack4 + userPersonages[userPlanets[key].bluePersonage1].hitAttack5;
+        hitCountAI += userPersonages[userPlanets[key].bluePersonage2].hitAttack1 + userPersonages[userPlanets[key].bluePersonage2].hitAttack2 + userPersonages[userPlanets[key].bluePersonage2].hitAttack3 + userPersonages[userPlanets[key].bluePersonage2].hitAttack4 + userPersonages[userPlanets[key].bluePersonage2].hitAttack5;
+        hitCountAI += userPersonages[userPlanets[key].bluePersonage3].hitAttack1 + userPersonages[userPlanets[key].bluePersonage3].hitAttack2 + userPersonages[userPlanets[key].bluePersonage3].hitAttack3 + userPersonages[userPlanets[key].bluePersonage3].hitAttack4 + userPersonages[userPlanets[key].bluePersonage3].hitAttack5;
+        hitCountAI /= 10;
+        console.log("ТЕСТ[blue]: " + key + " = " + hitCountAI);
+    }
+}
+
 /* == КОНЕЦ ФАЙЛА ========================================================== */
 
 /* == НАЧАЛО ФАЙЛА ========================================================= */
@@ -4985,10 +6126,10 @@ var userPersonages;      // список персонажей в игре (об�
 var userPlanets;         // Прогресс игры в отношении планет (объект)
 
 var userExperiencePoints = 0;			// Очки опыта
-//var userTotalPointsPlayerTournament = 0;	// Общие очки игрока за всю игру
-//var userlTotalPointsPlayerLevel = 0;          // Общие очки игрока за уровен
-//var userExperiencePointsAI = 0;		// Очки опыта ИИ
-var userTotalBattle = 0;                        // Общее количество роведённых битв (связь с сообщениями R2D2)
+var userTotalPointsPlayerTournament = 0;	// Общие очки игрока за всю игру
+var userlTotalPointsPlayerLevel = 0;            // Общие очки игрока за уровен
+var userExperiencePointsAI = 0; 		// Очки опыта ИИ
+var userTotalBattle = 0;                        // Общее количество проведённых битв (связь с сообщениями R2D2)
 
 var USER_PLANET_QUEST_AWAITING = "user_planet_quest_awaiting";
 var USER_PLANET_QUEST_COMPLETE_JEDI = "user_planet_quest_complete_jedi";

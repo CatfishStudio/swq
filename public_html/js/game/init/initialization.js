@@ -14,7 +14,8 @@ function initGame()
     userCommandAI = initCommandAI();            // команда ИИ
     initCharacteristics();                      // инициализация характеристик персонажей
     
-    testRedCharacteristics();
+    //testRedCharacteristics();
+    //testBlueCharacteristics();
     
     userExperiencePoints = 0;			// Очки опыта
     userTotalPointsPlayerTournament = 0;	// Общие очки игрока за всю игру
@@ -1163,14 +1164,16 @@ function initCharacteristics()
             userPersonages[userPlanets[key].redRewardPersonage3].hitDefense4 = initCharacteristic(redRewardPersonage);
             userPersonages[userPlanets[key].redRewardPersonage3].hitDefense5 = initCharacteristic(redRewardPersonage);
             
+            /*
             var hitCountAI = 0;
             hitCountAI = userPersonages[userPlanets[key].redPersonage1].hitAttack1 + userPersonages[userPlanets[key].redPersonage1].hitAttack2 + userPersonages[userPlanets[key].redPersonage1].hitAttack3 + userPersonages[userPlanets[key].redPersonage1].hitAttack4 + userPersonages[userPlanets[key].redPersonage1].hitAttack5;
             hitCountAI += userPersonages[userPlanets[key].redPersonage2].hitAttack1 + userPersonages[userPlanets[key].redPersonage2].hitAttack2 + userPersonages[userPlanets[key].redPersonage2].hitAttack3 + userPersonages[userPlanets[key].redPersonage2].hitAttack4 + userPersonages[userPlanets[key].redPersonage2].hitAttack5;
             hitCountAI += userPersonages[userPlanets[key].redPersonage3].hitAttack1 + userPersonages[userPlanets[key].redPersonage3].hitAttack2 + userPersonages[userPlanets[key].redPersonage3].hitAttack3 + userPersonages[userPlanets[key].redPersonage3].hitAttack4 + userPersonages[userPlanets[key].redPersonage3].hitAttack5;
             hitCountAI /= 10;
             console.log(key + " = " + hitCountAI);
-            
+            /*
             testRedCharacteristics();
+            */
         }
     }
     
@@ -1293,7 +1296,17 @@ function initCharacteristics()
             userPersonages[userPlanets[key].redRewardPersonage3].hitDefense3 = initCharacteristic(redRewardPersonage);
             userPersonages[userPlanets[key].redRewardPersonage3].hitDefense4 = initCharacteristic(redRewardPersonage);
             userPersonages[userPlanets[key].redRewardPersonage3].hitDefense5 = initCharacteristic(redRewardPersonage);
-			
+            
+            /*
+            var hitCountAI = 0;
+            hitCountAI = userPersonages[userPlanets[key].bluePersonage1].hitAttack1 + userPersonages[userPlanets[key].bluePersonage1].hitAttack2 + userPersonages[userPlanets[key].bluePersonage1].hitAttack3 + userPersonages[userPlanets[key].bluePersonage1].hitAttack4 + userPersonages[userPlanets[key].bluePersonage1].hitAttack5;
+            hitCountAI += userPersonages[userPlanets[key].bluePersonage2].hitAttack1 + userPersonages[userPlanets[key].bluePersonage2].hitAttack2 + userPersonages[userPlanets[key].bluePersonage2].hitAttack3 + userPersonages[userPlanets[key].bluePersonage2].hitAttack4 + userPersonages[userPlanets[key].bluePersonage2].hitAttack5;
+            hitCountAI += userPersonages[userPlanets[key].bluePersonage3].hitAttack1 + userPersonages[userPlanets[key].bluePersonage3].hitAttack2 + userPersonages[userPlanets[key].bluePersonage3].hitAttack3 + userPersonages[userPlanets[key].bluePersonage3].hitAttack4 + userPersonages[userPlanets[key].bluePersonage3].hitAttack5;
+            hitCountAI /= 10;
+            console.log(key + " = " + hitCountAI);
+            /*
+            testBlueCharacteristics();
+            */
         }
     }
 }

@@ -1,6 +1,6 @@
 
 /*
- * {
+  {
   "Level": {
     "LevelNumber": "1",
     "LevelType": "LEVEL_TYPE_ALL",

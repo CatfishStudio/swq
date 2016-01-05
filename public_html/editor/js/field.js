@@ -36,6 +36,7 @@ function createField()
             graphics.tap = onCellClick;
             graphics.click = onCellClick;
             windowStage.addChild(graphics);
+            index++;
         }
     }
 }

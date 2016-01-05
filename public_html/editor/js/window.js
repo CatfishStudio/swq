@@ -1,4 +1,5 @@
 var windowStage;
+var styleText = { font : 'bold 18px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 150 }; 
 var selectCell = CELL_TYPE_DROP;
 
 
@@ -12,6 +13,7 @@ function windowCreate()
     createField(windowStage);
     windowPanelCellType();
     windowPanelHits();
+    buttons();
 }
 
 function windowRemove()
@@ -147,4 +149,71 @@ function windowPanelHits()
     graphics.tap = onCellTypeClick;
     graphics.click = onCellTypeClick;
     windowStage.addChild(graphics);
+}
+
+function buttons()
+{
+    var graphics = new PIXI.Graphics();
+    graphics.name = "perform";
+    graphics.lineStyle(2, 0x0090F0, 1);
+    graphics.beginFill(0x555555, 0.05);
+    graphics.drawRect(0, 0, 150, 25);
+    graphics.endFill();
+    graphics.position.x = 500;
+    graphics.position.y = 50;
+    graphics.interactive = true;
+    graphics.buttonMode = true;
+    graphics.tap = onButtonClick;
+    graphics.click = onButtonClick;
+    
+    var text = new PIXI.Text("Сформировать", styleText); 
+    text.x = 502;
+    text.y = 52;
+    windowStage.addChild(text);
+    windowStage.addChild(graphics);
+}
+
+function onButtonClick()
+{
+    if(this.name === "perform")
+    {
+        var textJSON = "";
+        textJSON += "{\n";
+        textJSON += "\"Level\": {\n";
+        textJSON += "\"LevelNumber\": \"1\",\n";
+        textJSON += "\"LevelType\": \"LEVEL_TYPE_ALL\",\n";
+        textJSON += "\"cell\": [\n";
+        
+        for(var i = 0; i < field.length; i++)
+        {
+            if(i !== (field.length - 1))
+            {
+                textJSON += "{\n";
+                textJSON += "\"cellType\": " + "\"" + field[i][0] + "\",\n";
+                textJSON += "\"cellObject\": " + "\"" + field[i][1] + "\",\n";
+                textJSON += "\"cellColumn\": " + "\"" + field[i][2] + "\",\n";
+                textJSON += "\"cellRow\": " + "\"" + field[i][3] + "\"\n";
+                textJSON += "},\n";
+            }else{
+                textJSON += "{\n";
+                textJSON += "\"cellType\": " + "\"" + field[i][0] + "\",\n";
+                textJSON += "\"cellObject\": " + "\"" + field[i][1] + "\",\n";
+                textJSON += "\"cellColumn\": " + "\"" + field[i][2] + "\",\n";
+                textJSON += "\"cellRow\": " + "\"" + field[i][3] + "\"\n";
+                textJSON += "}\n";
+            }
+        }
+        
+        textJSON += "]\n";
+        textJSON += "}\n";
+        textJSON += "}\n";
+        
+        //console.log(textJSON);
+        //document.write(textJSON);
+        
+        var  newwindow=window.open();
+        newdocument=newwindow.document;
+        newdocument.write(textJSON);
+        newdocument.close();
+    }
 }

@@ -1,3 +1,28 @@
+
+/*
+ * {
+  "Level": {
+    "LevelNumber": "1",
+    "LevelType": "LEVEL_TYPE_ALL",
+    "cell": [
+      {
+        "cellType": "CELL_TYPE_CLEAR",
+        "cellObject": "HIT_5",
+        "cellColumn": "0",
+        "cellRow": "0"
+      },
+      ...
+      {
+        "cellType": "CELL_TYPE_CLEAR",
+        "cellObject": "HIT_4",
+        "cellColumn": "5",
+        "cellRow": "5"
+      }
+    ]
+  }
+}
+ */
+
 var LEVEL_TYPE_ALL = "LEVEL_TYPE_ALL";
 var CELL_TYPE_CLEAR = "CELL_TYPE_CLEAR";
 var CELL_TYPE_DROP = "CELL_TYPE_DROP";

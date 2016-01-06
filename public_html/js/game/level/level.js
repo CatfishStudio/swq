@@ -30,26 +30,28 @@ function levelBackground(planetID)
     levelStarsSprite.position.y = 0; 
     levelStarsSprite.scale.set(1.0); 
     levelStage.addChild(levelStarsSprite);
-    /*
-    levelPlanetSprite = new PIXI.Sprite(planetTextures[levelPlanetID][3]); 
-    levelPlanetSprite.position.x = 300; 
-    levelPlanetSprite.position.y = 100; 
-    var planet = new PIXI.Sprite(planetTextures[levelPlanetID][1]); 
-    planet.position.x = 15; 
-    planet.position.y = 22;
-    levelPlanetSprite.addChild(planet);
-    */
-  
+      
     levelPlanetSprite = new PIXI.Sprite(planetTextures[levelPlanetID][1]); 
     levelPlanetSprite.position.x = 300; 
-    levelPlanetSprite.position.y = 100; 
-    
+    levelPlanetSprite.position.y = 100;
+    console.log(levelPlanetSprite.scale);
     levelStage.addChild(levelPlanetSprite);
 }
 
 function levelBackgroundParallaxTween()
 {
-    
+    createjs.Tween.get(levelStarsSprite, {loop: true}) 
+            .to({x: -50, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: -50, y: -50}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: 0, y: -50}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: 0, y: 0}, 10000, createjs.Ease.getPowInOut(3));
+
+    createjs.Tween.get(levelPlanetSprite, {loop: true}) 
+            .to({x: 200, y: 100}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: 200, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: 300, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: 300, y: 100}, 10000, createjs.Ease.getPowInOut(3));
+            
 }
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

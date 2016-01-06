@@ -204,8 +204,22 @@ function onMapPlanetClick()
     {
         msgCreate("ПРЕДУПРЕЖДЕНИЕ", "В вашей комманде нет не одного персонажа. \nВы не можите начать битву пока в команде не будет хотя бы один персонаж!");
     }else{
-        mapSprite.move = false;
-        sbattleCreate(this.name);
+        if(side === SIDE_JEDI)
+        {
+            if(userPlanets[this.name].status !== USER_PLANET_QUEST_COMPLETE_JEDI)
+            {
+                mapSprite.move = false;
+                sbattleCreate(this.name);
+            }
+        }
+        if(side === SIDE_SITH)
+        {
+            if(userPlanets[this.name].status !== USER_PLANET_QUEST_COMPLETE_SITH)
+            {
+                mapSprite.move = false;
+                sbattleCreate(this.name);
+            }
+        }
     }
 }
 

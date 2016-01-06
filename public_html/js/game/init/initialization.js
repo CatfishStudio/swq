@@ -921,7 +921,6 @@ function initPlanets()
     for (var key in planetsJson.data.Planets.planet)
     {
         planetsObj[planetsJson.data.Planets.planet[key].id] = new UserPlanet(planetsJson.data.Planets.planet[key].id, planetsJson.data.Planets.planet[key].name);
-        
         planetsObj[planetsJson.data.Planets.planet[key].id].bluePersonage1 = planetsJson.data.Planets.planet[key].bluePersonage1;
         planetsObj[planetsJson.data.Planets.planet[key].id].bluePersonage2 = planetsJson.data.Planets.planet[key].bluePersonage2;
         planetsObj[planetsJson.data.Planets.planet[key].id].bluePersonage3 = planetsJson.data.Planets.planet[key].bluePersonage3;

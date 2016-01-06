@@ -7,7 +7,7 @@ var sbattleStyleBlueText = { font : 'bold 18px Arial', fill : '#C4DEFB', stroke 
 var sbattleStyleRedText = { font : 'bold 18px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340, align: "center"}; 
 var sbattleButtonStyleBlueText = { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
 var sbattleButtonStyleRedText = { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
-var sbattlePlanetID
+var sbattlePlanetID;
 
 function sbattleCreate(planetTargetID)
 {
@@ -348,7 +348,9 @@ function onSBattleButtonButtonClick()
     switch (this.name)
     {
         case "yes":
-            
+            levelCreate(sbattlePlanetID);
+            sbattleRemove();
+            mapRemove();
             break;
         case "no":
             sbattleRemove();

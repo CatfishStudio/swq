@@ -16,7 +16,10 @@ function levelCreate(planetID)
     
     levelBackground();
     levelBackgroundParallaxTween();
-    levelBorder();
+    if(side === SIDE_JEDI)
+    {
+        levelBorderBlue();
+    }
 }
 
 function levelRemove()
@@ -71,14 +74,15 @@ function levelBackgroundParallaxTween()
             .to({alpha: 0.0}, 10000, createjs.Ease.getPowInOut(3));
 }
 
-function levelBorder()
+function levelBorderBlue()
 {
     var graphics = new PIXI.Graphics(); 
 
     graphics.lineStyle(2, 0x0000FF, 1);
     graphics.beginFill(0x000000, 0);
     graphics.drawRect(10, 10, 840, 710);
-
+    graphics.endFill();
+    
     graphics.lineStyle(0);
     graphics.beginFill(0xFFFFFF, 1);
     graphics.drawCircle(5, 600,4);
@@ -119,7 +123,17 @@ function levelBorder()
     graphics.drawCircle(855, 150,4);
     graphics.endFill();
 
+    graphics.lineStyle(2, 0xFFFFFF, 1);
+    graphics.beginFill(0x0000FF, 0.2);
+    graphics.drawRoundedRect(((MAIN_WIDTH / 2) - (500 / 2)), ((MAIN_HEIGH / 2) - (500 / 2)), 500, 500, 25);
+    graphics.endFill();
+    
     levelStage.addChild(graphics);
+    
+    
+    
 }
+
+
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

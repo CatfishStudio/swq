@@ -243,6 +243,39 @@ function preloaderLoadAssets()
     loader.add('personages','./assets/data/personages.json');
     loader.add('planets','./assets/data/planets.json');
     
+    loader.add('level_0_0','./assets/data/levels/level_0_0.json');
+    loader.add('level_0_1','./assets/data/levels/level_0_1.json');
+    loader.add('level_0_2','./assets/data/levels/level_0_2.json');
+    loader.add('level_0_3','./assets/data/levels/level_0_3.json');
+    loader.add('level_0_4','./assets/data/levels/level_0_4.json');
+    loader.add('level_0_5','./assets/data/levels/level_0_5.json');
+    loader.add('level_0_6','./assets/data/levels/level_0_6.json');
+    loader.add('level_0_7','./assets/data/levels/level_0_7.json');
+    loader.add('level_0_8','./assets/data/levels/level_0_8.json');
+    loader.add('level_0_9','./assets/data/levels/level_0_9.json');
+    
+    loader.add('level_1_0','./assets/data/levels/level_1_0.json');
+    loader.add('level_1_1','./assets/data/levels/level_1_1.json');
+    loader.add('level_1_2','./assets/data/levels/level_1_2.json');
+    loader.add('level_1_3','./assets/data/levels/level_1_3.json');
+    loader.add('level_1_4','./assets/data/levels/level_1_4.json');
+    loader.add('level_1_5','./assets/data/levels/level_1_5.json');
+    loader.add('level_1_6','./assets/data/levels/level_1_6.json');
+    loader.add('level_1_7','./assets/data/levels/level_1_7.json');
+    loader.add('level_1_8','./assets/data/levels/level_1_8.json');
+    loader.add('level_1_9','./assets/data/levels/level_1_9.json');
+    
+    loader.add('level_2_0','./assets/data/levels/level_2_0.json');
+    loader.add('level_2_1','./assets/data/levels/level_2_1.json');
+    loader.add('level_2_2','./assets/data/levels/level_2_2.json');
+    loader.add('level_2_3','./assets/data/levels/level_2_3.json');
+    loader.add('level_2_4','./assets/data/levels/level_2_4.json');
+    loader.add('level_2_5','./assets/data/levels/level_2_5.json');
+    loader.add('level_2_6','./assets/data/levels/level_2_6.json');
+    loader.add('level_2_7','./assets/data/levels/level_2_7.json');
+    loader.add('level_2_8','./assets/data/levels/level_2_8.json');
+    loader.add('level_2_9','./assets/data/levels/level_2_9.json');
+    
     loader.on('complete', onPreloaderAssetsLoaderComplete);
     loader.on('progress',onPreloaderAssetsLoaderProcess);
     loader.load();
@@ -405,6 +438,38 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     
     personagesJson = res.personages;
     planetsJson = res.planets;
+    
+    fieldLevelsJson = new Object();
+    fieldLevelsJson["level_0_0"] = res.level_0_0;
+    fieldLevelsJson["level_0_1"] = res.level_0_1;
+    fieldLevelsJson["level_0_2"] = res.level_0_2;
+    fieldLevelsJson["level_0_3"] = res.level_0_3;
+    fieldLevelsJson["level_0_4"] = res.level_0_4;
+    fieldLevelsJson["level_0_5"] = res.level_0_5;
+    fieldLevelsJson["level_0_6"] = res.level_0_6;
+    fieldLevelsJson["level_0_7"] = res.level_0_7;
+    fieldLevelsJson["level_0_8"] = res.level_0_8;
+    fieldLevelsJson["level_0_9"] = res.level_0_9;
+    fieldLevelsJson["level_1_0"] = res.level_1_0;
+    fieldLevelsJson["level_1_1"] = res.level_1_1;
+    fieldLevelsJson["level_1_2"] = res.level_1_2;
+    fieldLevelsJson["level_1_3"] = res.level_1_3;
+    fieldLevelsJson["level_1_4"] = res.level_1_4;
+    fieldLevelsJson["level_1_5"] = res.level_1_5;
+    fieldLevelsJson["level_1_6"] = res.level_1_6;
+    fieldLevelsJson["level_1_7"] = res.level_1_7;
+    fieldLevelsJson["level_1_8"] = res.level_1_8;
+    fieldLevelsJson["level_1_9"] = res.level_1_9;
+    fieldLevelsJson["level_2_0"] = res.level_2_0;
+    fieldLevelsJson["level_2_1"] = res.level_2_1;
+    fieldLevelsJson["level_2_2"] = res.level_2_2;
+    fieldLevelsJson["level_2_3"] = res.level_2_3;
+    fieldLevelsJson["level_2_4"] = res.level_2_4;
+    fieldLevelsJson["level_2_5"] = res.level_2_5;
+    fieldLevelsJson["level_2_6"] = res.level_2_6;
+    fieldLevelsJson["level_2_7"] = res.level_2_7;
+    fieldLevelsJson["level_2_8"] = res.level_2_8;
+    fieldLevelsJson["level_2_9"] = res.level_2_9;
 
     if(preloaderComplete === 2)
     {

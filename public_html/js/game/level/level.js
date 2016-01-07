@@ -16,6 +16,7 @@ function levelCreate(planetID)
     
     levelBackground();
     levelBackgroundParallaxTween();
+    timerCreate();
     if(side === SIDE_JEDI)
     {
         levelBorderBlue();

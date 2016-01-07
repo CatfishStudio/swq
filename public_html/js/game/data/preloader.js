@@ -100,6 +100,8 @@ function preloaderLoadAssets()
     loader.add('mapSpaceBlueTexture','./assets/image/textures/space_blue.jpg');
     loader.add('mapSpaceRedTexture','./assets/image/textures/space_red.jpg');
 
+    loader.add('flashAtlas','./assets/image/atlas/flash.json');
+    loader.add('levelAtlas','./assets/image/atlas/level.json');
 
     loader.add('buttonBlueAtlas','./assets/image/atlas/button_blue.json');
     loader.add('buttonRedAtlas','./assets/image/atlas/button_red.json');
@@ -314,6 +316,14 @@ function onPreloaderAssetsLoaderComplete(loader, res)
 
     mapSpaceBlueTexture = res.mapSpaceBlueTexture.texture;              // space_blue.jpg
     mapSpaceRedTexture = res.mapSpaceRedTexture.texture;                // space_red.jpg
+
+    hit1Texture = PIXI.Texture.fromFrame('hit_1.png');
+    hit2Texture = PIXI.Texture.fromFrame('hit_2.png');
+    hit3Texture = PIXI.Texture.fromFrame('hit_3.png');
+    hit4Texture = PIXI.Texture.fromFrame('hit_4.png');
+    hit5Texture = PIXI.Texture.fromFrame('hit_5.png');
+    
+    animTexFlash = loadAnimationTextures(11, 'flash_');
 
     animTexButtonBlue = loadAnimationTextures(11, 'button_blue_');
     animTexButtonRed = loadAnimationTextures(11, 'button_red_');

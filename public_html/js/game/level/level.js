@@ -7,12 +7,18 @@ var levelStarsSprite;
 var levelPlanetSprite;
 var levelLandscapeSprite;
 
+var levelStatus;
+var LEVEL_STATUS_BATTLE = "LEVEL_STATUS_BATTLE";
+var LEVEL_STATUS_END_BATTLE_WIN_USER = "LEVEL_STATUS_END_BATTLE_WIN_USER";
+var LEVEL_STATUS_END_BATTLE_WIN_AI = "LEVEL_STATUS_END_BATTLE_WIN_AI";
+
 function levelCreate(planetID)
 {
     levelStage = new PIXI.Container();
     stage.addChild(levelStage);
     
     levelPlanetID = planetID;
+    levelStatus = LEVEL_STATUS_BATTLE;
     
     levelBackground();
     levelBackgroundParallaxTween();
@@ -21,6 +27,8 @@ function levelCreate(planetID)
     {
         levelBorderBlue();
     }
+    
+    levelFieldCreate();
 }
 
 function levelRemove()
@@ -135,6 +143,13 @@ function levelBorderBlue()
     
 }
 
+/* Создание игрового поля ========================================================== */
+function levelFieldCreate()
+{
+    createMatchField(userLevels[levelPlanetID]);
+    levelStage.addChild(matchStage);
+}
+/* =========================================================================== */
 
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

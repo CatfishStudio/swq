@@ -19,6 +19,14 @@ var sideDarthVaderTexture;              // side_darth_vader.png
 var sideLukeSkywalkerTexture;           // side_luke_skywalker.png
 var mapSpaceBlueTexture;                // space_blue.jpg
 var mapSpaceRedTexture;                 // space_red.jpg
+var hit1Texture;                                // hit_1.png
+var hit2Texture;                                // hit_2.png
+var hit3Texture;                                // hit_3.png
+var hit4Texture;                                // hit_4.png
+var hit5Texture;                                // hit_5.png
+
+/* flash.json */
+var animTexFlash = [];
 
 /* button_blue.json */
 var animTexButtonBlue = [];

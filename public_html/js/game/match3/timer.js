@@ -99,7 +99,7 @@ function onTimerComplete()
     }
 }
 
-function qtimerStart()
+function timerStart()
 {
     /*
     if(modeAI === true)

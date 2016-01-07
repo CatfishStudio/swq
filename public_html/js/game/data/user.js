@@ -3,7 +3,7 @@
 
 var userMapPlanets;     // карта планет (объект)
 var userMapMessage;     // Сообщения на карте (объект)
-//var userLevels;         // Уровни (объект)
+var userLevels;         // Уровни (объект)
 
 var userCommandUser;    // команда пользователя (объект)
 var userCommandAI;      // команда ИИ (объект)

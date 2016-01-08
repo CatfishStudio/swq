@@ -1544,8 +1544,8 @@ function matchActionAI()
 function matchAnimationRemoveUnit(posX, posY)
 {
 	var anim = new PIXI.extras.MovieClip(animTexFlash);
-	anim.position.x = posX - 45;
-	anim.position.y = posY - 30;
+	anim.position.x = posX - 55;
+	anim.position.y = posY - 55;
 	anim.loop = false;
 	anim.animationSpeed = 0.2;
 	anim.onComplete = onMatchAnimationRemoveUnitComplete;

@@ -323,7 +323,7 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     hit4Texture = PIXI.Texture.fromFrame('hit_4.png');
     hit5Texture = PIXI.Texture.fromFrame('hit_5.png');
     
-    animTexFlash = loadAnimationTextures(11, 'flash_');
+    animTexFlash = loadAnimationTextures(13, 'flash_');
 
     animTexButtonBlue = loadAnimationTextures(11, 'button_blue_');
     animTexButtonRed = loadAnimationTextures(11, 'button_red_');

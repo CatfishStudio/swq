@@ -59,15 +59,15 @@ function sideBorder()
     graphics.lineTo(430, 10);
     
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(5, 600,4);
     graphics.endFill();
     
-    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.lineStyle(2, 0xFFFF80, 1);
     graphics.moveTo(5,600);
     graphics.lineTo(5, 725);
     
-    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.lineStyle(2, 0xFFFF80, 1);
     graphics.moveTo(5,725);
     graphics.lineTo(25, 725);
     graphics.moveTo(25,725);
@@ -93,12 +93,12 @@ function sideBorder()
     graphics.moveTo(855,5);
     graphics.lineTo(430, 5);
     
-    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.lineStyle(2, 0xFFFF80, 1);
     graphics.moveTo(430,5);
     graphics.lineTo(5, 5);
     
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(5,5,4);
     graphics.endFill();
     

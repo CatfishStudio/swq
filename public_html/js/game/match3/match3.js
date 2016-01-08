@@ -668,6 +668,8 @@ function matchMoveDownNewUnits()
                             createjs.Tween.get(matchMatrixUnit["i"+i+":j"+j], {loop: false})
                                     .to({alpha: 1.0}, 500)
                                     .to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 500, createjs.Ease.getPowInOut(4))
+                                    .to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1] - 5}, 100, createjs.Ease.getPowInOut(4))
+                                    .to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 50, createjs.Ease.getPowInOut(4))
                                     .call(onCompleteMatchMoveDownNewUnits, this); // событие выполнено
                             createjs.Ticker.setFPS(60);	
                     }else{
@@ -710,6 +712,8 @@ function matchMoveDownNewUnits()
                                     createjs.Tween.get(matchMatrixUnit["i"+i+":j"+j], {loop: false})
                                             .to({alpha: 1.0}, 500)
                                             .to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 500, createjs.Ease.getPowInOut(4))
+                                            .to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1] - 5}, 100, createjs.Ease.getPowInOut(4))
+                                            .to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 50, createjs.Ease.getPowInOut(4))
                                             .call(onCompleteMatchMoveDownNewUnits, this); // событие выполнено
                                     createjs.Ticker.setFPS(60);
                             }

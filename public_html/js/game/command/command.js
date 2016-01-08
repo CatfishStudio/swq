@@ -101,14 +101,14 @@ function cmdBorderBlue()
 
     graphics.lineStyle(0);
     graphics.beginFill(0xFFFFFF, 1);
-    graphics.drawCircle(20, 20,4);
+    graphics.drawCircle(20, 15,4);
     graphics.endFill();
 
     graphics.lineStyle(2, 0xFFFFFF, 1);
-    graphics.moveTo(20, 20);
-    graphics.lineTo(550, 20);
+    graphics.moveTo(20, 15);
+    graphics.lineTo(550, 15);
     
-    graphics.moveTo(550, 20);
+    graphics.moveTo(550, 15);
     graphics.lineTo(570, 5);
     
     graphics.moveTo(570, 5);
@@ -236,11 +236,11 @@ function cmdBorderRed()
     graphics.drawRect(10, 10, 840, 710);
 
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(555, 600,4);
     graphics.endFill();
 
-    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.lineStyle(2, 0xFFFF80, 1);
     graphics.moveTo(555, 600);
     graphics.lineTo(5, 600);
     
@@ -254,20 +254,20 @@ function cmdBorderRed()
     graphics.lineTo(650, 665);
 
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(650, 665,4);
     graphics.endFill();
 
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
-    graphics.drawCircle(20, 20,4);
+    graphics.beginFill(0xFFFF80, 1);
+    graphics.drawCircle(20, 15,4);
     graphics.endFill();
 
-    graphics.lineStyle(2, 0xFFFF00, 1);
-    graphics.moveTo(20, 20);
-    graphics.lineTo(550, 20);
+    graphics.lineStyle(2, 0xFFFF80, 1);
+    graphics.moveTo(20, 15);
+    graphics.lineTo(550, 15);
     
-    graphics.moveTo(550, 20);
+    graphics.moveTo(550, 15);
     graphics.lineTo(570, 5);
     
     graphics.moveTo(570, 5);
@@ -278,7 +278,7 @@ function cmdBorderRed()
     graphics.lineTo(650, 50);
 
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(650, 50,4);
     graphics.endFill();
     

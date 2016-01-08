@@ -84,7 +84,7 @@ function sbattleWindow()
     if(side === SIDE_SITH)
     {
         var graphics = new PIXI.Graphics(); 
-        graphics.lineStyle(2, 0xFFFF00, 1);
+        graphics.lineStyle(2, 0xFFFF80, 1);
         graphics.drawRoundedRect(200, 150, 460, 260, 15);
         graphics.lineStyle(2, 0xFF0000, 1);
         graphics.beginFill(0x800000, 0.5);

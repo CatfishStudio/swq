@@ -101,7 +101,7 @@ function preloaderLoadAssets()
     loader.add('mapSpaceRedTexture','./assets/image/textures/space_red.jpg');
 
     loader.add('flashAtlas','./assets/image/atlas/flash.json');
-    loader.add('levelAtlas','./assets/image/atlas/level.json');
+    loader.add('crystalsAtlas','./assets/image/atlas/crystals.json');
 
     loader.add('buttonBlueAtlas','./assets/image/atlas/button_blue.json');
     loader.add('buttonRedAtlas','./assets/image/atlas/button_red.json');

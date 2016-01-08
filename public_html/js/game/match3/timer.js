@@ -44,7 +44,7 @@ function timerCreate()
     }
     if(side === SIDE_SITH)
     {
-        graphics.lineStyle(2, 0xFFFF00, 1);
+        graphics.lineStyle(2, 0xFFFF80, 1);
         graphics.beginFill(0x800000, 0.75);
     }
     graphics.drawRoundedRect(0, 0, 50, 50, 15);

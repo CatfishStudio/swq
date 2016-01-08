@@ -19,6 +19,14 @@ var sideDarthVaderTexture;              // side_darth_vader.png
 var sideLukeSkywalkerTexture;           // side_luke_skywalker.png
 var mapSpaceBlueTexture;                // space_blue.jpg
 var mapSpaceRedTexture;                 // space_red.jpg
+var hit1Texture;                                // hit_1.png
+var hit2Texture;                                // hit_2.png
+var hit3Texture;                                // hit_3.png
+var hit4Texture;                                // hit_4.png
+var hit5Texture;                                // hit_5.png
+
+/* flash.json */
+var animTexFlash = [];
 
 /* button_blue.json */
 var animTexButtonBlue = [];
@@ -49,6 +57,8 @@ var personagesJson;                         // характеристики пе
 
 /* planets.json */
 var planetsJson;                         // характеристики планет
+
+var fieldLevelsJson;                     // массив json (игровое поле)
 
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */
@@ -428,14 +438,14 @@ function cmdBorderBlue()
 
     graphics.lineStyle(0);
     graphics.beginFill(0xFFFFFF, 1);
-    graphics.drawCircle(20, 20,4);
+    graphics.drawCircle(20, 15,4);
     graphics.endFill();
 
     graphics.lineStyle(2, 0xFFFFFF, 1);
-    graphics.moveTo(20, 20);
-    graphics.lineTo(550, 20);
+    graphics.moveTo(20, 15);
+    graphics.lineTo(550, 15);
     
-    graphics.moveTo(550, 20);
+    graphics.moveTo(550, 15);
     graphics.lineTo(570, 5);
     
     graphics.moveTo(570, 5);
@@ -563,11 +573,11 @@ function cmdBorderRed()
     graphics.drawRect(10, 10, 840, 710);
 
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(555, 600,4);
     graphics.endFill();
 
-    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.lineStyle(2, 0xFFFF80, 1);
     graphics.moveTo(555, 600);
     graphics.lineTo(5, 600);
     
@@ -581,20 +591,20 @@ function cmdBorderRed()
     graphics.lineTo(650, 665);
 
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(650, 665,4);
     graphics.endFill();
 
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
-    graphics.drawCircle(20, 20,4);
+    graphics.beginFill(0xFFFF80, 1);
+    graphics.drawCircle(20, 15,4);
     graphics.endFill();
 
-    graphics.lineStyle(2, 0xFFFF00, 1);
-    graphics.moveTo(20, 20);
-    graphics.lineTo(550, 20);
+    graphics.lineStyle(2, 0xFFFF80, 1);
+    graphics.moveTo(20, 15);
+    graphics.lineTo(550, 15);
     
-    graphics.moveTo(550, 20);
+    graphics.moveTo(550, 15);
     graphics.lineTo(570, 5);
     
     graphics.moveTo(570, 5);
@@ -605,7 +615,7 @@ function cmdBorderRed()
     graphics.lineTo(650, 50);
 
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(650, 50,4);
     graphics.endFill();
     
@@ -1794,6 +1804,7 @@ function initGame()
     userPlanets = initPlanets();                // планеты
     userCommandUser = initCommandUser();        // команда пользователя
     userCommandAI = initCommandAI();            // команда ИИ
+    userLevels = initLevels();                  // Уровни
     initCharacteristics();                      // инициализация характеристик персонажей
     
     //testRedCharacteristics();
@@ -2703,7 +2714,6 @@ function initPlanets()
     for (var key in planetsJson.data.Planets.planet)
     {
         planetsObj[planetsJson.data.Planets.planet[key].id] = new UserPlanet(planetsJson.data.Planets.planet[key].id, planetsJson.data.Planets.planet[key].name);
-        
         planetsObj[planetsJson.data.Planets.planet[key].id].bluePersonage1 = planetsJson.data.Planets.planet[key].bluePersonage1;
         planetsObj[planetsJson.data.Planets.planet[key].id].bluePersonage2 = planetsJson.data.Planets.planet[key].bluePersonage2;
         planetsObj[planetsJson.data.Planets.planet[key].id].bluePersonage3 = planetsJson.data.Planets.planet[key].bluePersonage3;
@@ -3093,6 +3103,240 @@ function initCharacteristics()
     }
 }
 
+function initLevels()
+{
+    var levels = new Object();
+    var index1 = 0;
+    var index2 = 0;
+    var planets = ["Coruscant", "Totooine", "Naboo", "Endor", "Hoth", "Mustafar", "Dagobah", "Bespin", "Geonosis", "Alderaan", "Kamino", "DeathStar", "Utapau", "Saleucami", "Jakku"];
+    
+    for(var i in planets)
+    {
+        do{
+            index1 = initRandomIndex();
+            if(index1 < 5) index1 = 1;
+            else index1 = 2;
+            index2 = initRandomIndex();
+        } while(fieldLevelsJson["level_" + index1 + "_" + index2] === undefined)
+        
+        levels[planets[i]] = fieldLevelsJson["level_" + index1 + "_" + index2];
+        delete fieldLevelsJson["level_" + index1 + "_" + index2];
+    }
+    return levels;
+}
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
+var levelStage;
+var levelPlanetID;
+var levelStarsSprite;
+var levelPlanetSprite;
+var levelLandscapeSprite;
+
+var levelStatus;
+var LEVEL_STATUS_BATTLE = "LEVEL_STATUS_BATTLE";
+var LEVEL_STATUS_END_BATTLE_WIN_USER = "LEVEL_STATUS_END_BATTLE_WIN_USER";
+var LEVEL_STATUS_END_BATTLE_WIN_AI = "LEVEL_STATUS_END_BATTLE_WIN_AI";
+
+function levelCreate(planetID)
+{
+    levelStage = new PIXI.Container();
+    stage.addChild(levelStage);
+    
+    levelPlanetID = planetID;
+    levelStatus = LEVEL_STATUS_BATTLE;
+    
+    levelBackground();
+    levelBackgroundParallaxTween();
+    timerCreate();
+    if(side === SIDE_JEDI)
+    {
+        levelBorderBlue();
+    }
+    if(side === SIDE_SITH)
+    {
+        levelBorderRed();
+    }
+    
+    levelFieldCreate();
+}
+
+function levelRemove()
+{
+    stage.removeChild(levelStage);
+    levelStage = null;
+}
+
+function levelBackground(planetID)
+{
+    levelStarsSprite = new PIXI.Sprite(stars1Texture); 
+    levelStarsSprite.position.x = 0; 
+    levelStarsSprite.position.y = 0; 
+    levelStage.addChild(levelStarsSprite);
+      
+    levelPlanetSprite = new PIXI.Sprite(planetTextures[levelPlanetID][1]); 
+    levelPlanetSprite.position.x = 300; 
+    levelPlanetSprite.position.y = 100;
+    levelStage.addChild(levelPlanetSprite);
+    
+    levelLandscapeSprite = new PIXI.Sprite(planetTextures[levelPlanetID][2]);
+    levelLandscapeSprite.position.x = 0; 
+    levelLandscapeSprite.position.y = 0; 
+    levelLandscapeSprite.alpha = 0.0;
+    levelStage.addChild(levelLandscapeSprite);
+}
+
+function levelBackgroundParallaxTween()
+{
+    createjs.Tween.get(levelStarsSprite, {loop: true}) 
+            .to({x: -50, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: -50, y: -50}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: 0, y: -50}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: 0, y: 0}, 10000, createjs.Ease.getPowInOut(3));
+
+    createjs.Tween.get(levelPlanetSprite, {loop: true}) 
+            .to({x: 200, y: 100}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: 200, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: 300, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: 300, y: 100}, 10000, createjs.Ease.getPowInOut(3));
+            
+    createjs.Tween.get(levelLandscapeSprite, {loop: true}) 
+            .to({x: -50, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: -50, y: -50}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: 0, y: -50}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: 0, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+            .to({alpha: 1.0}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: -50, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: -50, y: -50}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: 0, y: -50}, 10000, createjs.Ease.getPowInOut(3))
+            .to({x: 0, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+            .to({alpha: 0.0}, 10000, createjs.Ease.getPowInOut(3));
+}
+
+function levelBorderBlue()
+{
+    var graphics = new PIXI.Graphics(); 
+
+    graphics.lineStyle(2, 0x0000FF, 1);
+    graphics.beginFill(0x000000, 0);
+    graphics.drawRect(10, 10, 840, 710);
+    graphics.endFill();
+    
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFFFF, 1);
+    graphics.drawCircle(5, 600,4);
+    graphics.endFill();
+
+    graphics.lineStyle(2, 0xFFFFFF, 1);
+    graphics.moveTo(5,600);
+    graphics.lineTo(5, 725);
+    graphics.moveTo(5,725);
+    graphics.lineTo(650, 725);
+    graphics.moveTo(650,725);
+    graphics.lineTo(670, 710);
+    graphics.moveTo(670,710);
+    graphics.lineTo(840, 710);
+
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFFFF, 1);
+    graphics.drawCircle(840, 710,4);
+    graphics.endFill();
+
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFFFF, 1);
+    graphics.drawCircle(20, 20,4);
+    graphics.endFill();
+
+    graphics.lineStyle(2, 0xFFFFFF, 1);
+    graphics.moveTo(20,20);
+    graphics.lineTo(370, 20);
+    graphics.moveTo(370,20);
+    graphics.lineTo(390, 5);
+    graphics.moveTo(390,5);
+    graphics.lineTo(855, 5);
+    graphics.moveTo(855,5);
+    graphics.lineTo(855, 150);
+
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFFFF, 1);
+    graphics.drawCircle(855, 150,4);
+    graphics.endFill();
+
+    graphics.lineStyle(2, 0xFFFFFF, 1);
+    graphics.beginFill(0x0000FF, 0.0);
+    graphics.drawRoundedRect(((MAIN_WIDTH / 2) - (500 / 2)), ((MAIN_HEIGH / 2) - (500 / 2)), 500, 500, 25);
+    graphics.endFill();
+    
+    levelStage.addChild(graphics);
+}
+
+function levelBorderRed()
+{
+    var graphics = new PIXI.Graphics(); 
+
+    graphics.lineStyle(2, 0xFF0000, 1);
+    graphics.beginFill(0x000000, 0);
+    graphics.drawRect(10, 10, 840, 710);
+    graphics.endFill();
+    
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFF80, 1);
+    graphics.drawCircle(5, 600,4);
+    graphics.endFill();
+
+    graphics.lineStyle(2, 0xFFFF80, 1);
+    graphics.moveTo(5,600);
+    graphics.lineTo(5, 725);
+    graphics.moveTo(5,725);
+    graphics.lineTo(650, 725);
+    graphics.moveTo(650,725);
+    graphics.lineTo(670, 710);
+    graphics.moveTo(670,710);
+    graphics.lineTo(840, 710);
+
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFF80, 1);
+    graphics.drawCircle(840, 710,4);
+    graphics.endFill();
+
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFF80, 1);
+    graphics.drawCircle(20, 20,4);
+    graphics.endFill();
+
+    graphics.lineStyle(2, 0xFFFF80, 1);
+    graphics.moveTo(20,20);
+    graphics.lineTo(370, 20);
+    graphics.moveTo(370,20);
+    graphics.lineTo(390, 5);
+    graphics.moveTo(390,5);
+    graphics.lineTo(855, 5);
+    graphics.moveTo(855,5);
+    graphics.lineTo(855, 150);
+
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFF80, 1);
+    graphics.drawCircle(855, 150,4);
+    graphics.endFill();
+
+    graphics.lineStyle(2, 0xFFFF80, 1);
+    graphics.beginFill(0xFF0000, 0.0);
+    graphics.drawRoundedRect(((MAIN_WIDTH / 2) - (500 / 2)), ((MAIN_HEIGH / 2) - (500 / 2)), 500, 500, 25);
+    graphics.endFill();
+    
+    levelStage.addChild(graphics);
+}
+
+/* Создание игрового поля ========================================================== */
+function levelFieldCreate()
+{
+    createMatchField(userLevels[levelPlanetID]);
+    levelStage.addChild(matchStage);
+}
+/* =========================================================================== */
+
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */
 
@@ -3332,8 +3576,22 @@ function onMapPlanetClick()
     {
         msgCreate("ПРЕДУПРЕЖДЕНИЕ", "В вашей комманде нет не одного персонажа. \nВы не можите начать битву пока в команде не будет хотя бы один персонаж!");
     }else{
-        mapSprite.move = false;
-        sbattleCreate(this.name);
+        if(side === SIDE_JEDI)
+        {
+            if(userPlanets[this.name].status !== USER_PLANET_QUEST_COMPLETE_JEDI)
+            {
+                mapSprite.move = false;
+                sbattleCreate(this.name);
+            }
+        }
+        if(side === SIDE_SITH)
+        {
+            if(userPlanets[this.name].status !== USER_PLANET_QUEST_COMPLETE_SITH)
+            {
+                mapSprite.move = false;
+                sbattleCreate(this.name);
+            }
+        }
     }
 }
 
@@ -3560,11 +3818,11 @@ function mapBorderRed()
     graphics.drawRect(10, 10, 840, 710);
     
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(50, 605,4);
     graphics.endFill();
     
-    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.lineStyle(2, 0xFFFF80, 1);
     graphics.moveTo(50,605);
     graphics.lineTo(5, 605);
     
@@ -3574,32 +3832,32 @@ function mapBorderRed()
     graphics.lineTo(840, 725);
     
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(840, 725,4);
     graphics.endFill();
     
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(355, 680,4);
     graphics.endFill();
     
-    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.lineStyle(2, 0xFFFF80, 1);
     graphics.moveTo(355, 680);
     graphics.lineTo(355, 725);
     
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(855, 550, 4);
     graphics.endFill();
     
-    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.lineStyle(2, 0xFFFF80, 1);
     graphics.moveTo(855,550);
     graphics.lineTo(855, 5);
     graphics.moveTo(855,5);
     graphics.lineTo(5, 5);
     
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(5, 5, 4);
     graphics.endFill();
     
@@ -4047,6 +4305,1567 @@ function mapDestinationSearch()
     
     
     
+}
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
+var MATCH_COLUMNS = 6;
+var MATCH_ROWS = 6;
+var MATCH_CELL_WIDTH = 82;
+var MATCH_CELL_HEIGHT = 82;
+var MATCH_CELL_TYPE_DROP = "CELL_TYPE_DROP";
+var MATCH_CELL_TYPE_CLEAR = "CELL_TYPE_CLEAR";
+var MATCH_CELL_TYPE_EMPTY = "CELL_TYPE_EMPTY";
+var MATCH_HIT_0 = "HIT_0";
+var MATCH_HIT_1 = "HIT_1";
+var MATCH_HIT_2 = "HIT_2";
+var MATCH_HIT_3 = "HIT_3";
+var MATCH_HIT_4 = "HIT_4";
+var MATCH_HIT_5 = "HIT_5";
+
+
+var matchStage;						// главный stage
+var matchMatrixCell = new Object();                     // Матрица ячеек игрового поля
+var matchMatrixUnit = new Object();                     // Матрица юнитов на игровом поле
+
+var matchMatrixFrontPosition = new Object();            // Матрица позиций x,y юнитов игрового поля
+var matchMatrixBackPosition = new Object();		// Матрица позиций x,y юнитов за пределами игрового поля
+
+var matchMoveDownProcesses = new Object();		// запущенные процессы спуска юнитов
+
+var matchSelectUnit1 = null;                            // выбранный первый юнит
+var matchSelectUnit2 = null;                            // выбран второй юнит
+
+var matchFieldBlocked = false;                          // блокирование игрового поля
+
+var modeAI = false;					// режим искуственного интелекта (по умолчанию отключен в начале)
+
+var matchLevelJSON = null;                              // json игрового поля
+
+/* Инициализация матриц позиций ================================================================ */
+function initMatchMatrixPosition()
+{
+    matchMatrixFrontPosition = new Object();
+    matchMatrixBackPosition = new Object();
+    for(var i = 0; i < MATCH_COLUMNS; i++)
+    {
+        for(var j = 0; j < MATCH_ROWS; j++)
+        {
+            matchMatrixFrontPosition["i"+i+":j"+j] = [184 + (MATCH_CELL_WIDTH * i), 120 + (MATCH_CELL_HEIGHT * j)]; // x,y
+            matchMatrixBackPosition["i"+i+":j"+j] = [180 + (MATCH_CELL_WIDTH * i), -372 + (MATCH_CELL_HEIGHT * j)]; // x,y
+        }
+    }
+}
+
+/* Создание игрового поля ====================================================================== */
+function createMatchField(levelJSON)
+{
+    matchLevelJSON = levelJSON;
+    
+    initMatchMatrixPosition();
+
+    matchStage = new PIXI.Container();
+    matchMatrixCell = new Object();
+    matchMatrixUnit = new Object();
+
+    /* ячейки */
+    var index = 0;
+    for(var iCell = 0; iCell < MATCH_COLUMNS; iCell++)
+    {
+            for(var jCell = 0; jCell < MATCH_ROWS; jCell++)
+            {
+                    if(levelJSON.data.Level.cell[index].cellType !== MATCH_CELL_TYPE_DROP)
+                    {
+                            var graphics = new PIXI.Graphics();
+                            if(side === SIDE_JEDI)
+                            {
+                                graphics.lineStyle(1, 0x0080FF, 0.25);
+                                graphics.beginFill(0x0080FF, 0.25);
+                            }
+                            if(side === SIDE_SITH)
+                            {
+                                graphics.lineStyle(1, 0x880000, 0.25);
+                                graphics.beginFill(0x880000, 0.25);
+                            }
+                            graphics.drawRoundedRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT, 15);
+                            graphics.endFill();
+                            graphics.cellType = levelJSON.data.Level.cell[index].cellType;
+                            graphics.position.x = matchMatrixFrontPosition["i"+iCell+":j"+jCell][0];
+                            graphics.position.y = matchMatrixFrontPosition["i"+iCell+":j"+jCell][1];
+                            matchMatrixCell["i"+iCell+":j"+jCell] = graphics;
+                            matchStage.addChild(matchMatrixCell["i"+iCell+":j"+jCell]);
+                    }else{
+                            matchMatrixCell["i"+iCell+":j"+jCell] = null;
+                    }
+                    index++;
+            }
+    }
+
+    /* Юниты */
+    index = 0;
+    var sprite;
+    for(var iUnit = 0; iUnit < MATCH_COLUMNS; iUnit++)
+    {
+            for(var jUnit = 0; jUnit < MATCH_ROWS; jUnit++)
+            {
+                    if(levelJSON.data.Level.cell[index].cellObject !== MATCH_HIT_0)
+                    {
+                            if(levelJSON.data.Level.cell[index].cellObject === MATCH_HIT_1) sprite = new PIXI.Sprite(hit1Texture);
+                            if(levelJSON.data.Level.cell[index].cellObject === MATCH_HIT_2) sprite = new PIXI.Sprite(hit2Texture);
+                            if(levelJSON.data.Level.cell[index].cellObject === MATCH_HIT_3) sprite = new PIXI.Sprite(hit3Texture);
+                            if(levelJSON.data.Level.cell[index].cellObject === MATCH_HIT_4) sprite = new PIXI.Sprite(hit4Texture);
+                            if(levelJSON.data.Level.cell[index].cellObject === MATCH_HIT_5) sprite = new PIXI.Sprite(hit5Texture);
+                            sprite.name = "i"+iUnit+":j"+jUnit;
+                            sprite.position.x = matchMatrixFrontPosition["i"+iUnit+":j"+jUnit][0];
+                            sprite.position.y = matchMatrixFrontPosition["i"+iUnit+":j"+jUnit][1];
+                            sprite.interactive = true;
+                            sprite.buttonMode = true;
+
+                            sprite.unitType = levelJSON.data.Level.cell[index].cellObject;
+                            sprite.flagRemove = false;
+                            sprite.posColumnI = iUnit;
+                            sprite.posRowJ = jUnit;
+
+                            sprite.click = onMatchUnitClick;
+                            sprite.tap = onMatchUnitClick;
+
+                            matchMatrixUnit["i"+iUnit+":j"+jUnit] = sprite;
+                            matchStage.addChild(matchMatrixUnit["i"+iUnit+":j"+jUnit]);
+                   }else{
+                            sprite = new PIXI.Sprite(hit1Texture);
+                            sprite.name = "i"+iUnit+":j"+jUnit;
+                            sprite.position.x = matchMatrixFrontPosition["i"+iUnit+":j"+jUnit][0];
+                            sprite.position.y = matchMatrixFrontPosition["i"+iUnit+":j"+jUnit][1];
+                            sprite.unitType = MATCH_HIT_0;
+                            sprite.flagRemove = false;
+                            sprite.posColumnI = iUnit;
+                            sprite.posRowJ = jUnit;
+                            matchMatrixUnit["i"+iUnit+":j"+jUnit] = sprite;
+                    }
+                    index++;
+            }
+    }
+}
+
+/* Событие: нажатие на юнит */
+function onMatchUnitClick() 
+{
+    if(matchFieldBlocked === false)
+    {
+            matchCellColorSelect(this.unitType, this.posColumnI, this.posRowJ);
+            if(matchSelectUnit1 === null) 
+            {
+                    matchSelectUnit1 = this;
+            }else{
+                    if(matchSelectUnit2 === null) 
+                    {
+                            matchSelectUnit2 = this;
+                            matchExchangeUnits(); // меняем юниты местами
+                    }
+            }
+    }
+}
+
+/* Определение цвета ячеек Cell игрового поля ================================================= */
+function matchCellColorSelect(unitType, colI, rowJ)
+{
+    matchMatrixCell["i"+colI+":j"+rowJ].clear();
+    if(side === SIDE_JEDI) matchMatrixCell["i"+colI+":j"+rowJ].lineStyle(1, 0x0080FF, 0.25);
+    if(side === SIDE_SITH) matchMatrixCell["i"+colI+":j"+rowJ].lineStyle(1, 0x880000, 0.25);
+    if(unitType === MATCH_HIT_1) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0xFFFF80, 0.50);
+    if(unitType === MATCH_HIT_2) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0xFF0000, 0.50);
+    if(unitType === MATCH_HIT_3) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0xFF00FF, 0.50);
+    if(unitType === MATCH_HIT_4) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0x0080FF, 0.50);
+    if(unitType === MATCH_HIT_5) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0x00FF80, 0.50);
+    matchMatrixCell["i"+colI+":j"+rowJ].drawRoundedRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT, 15);
+    matchMatrixCell["i"+colI+":j"+rowJ].endFill();
+}
+
+function matchCellColorBack()
+{
+    if(matchSelectUnit1 !== null)
+    {
+            matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].clear();
+            if(side === SIDE_JEDI)
+            {
+                matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].lineStyle(1, 0x0080FF, 0.25);
+                matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].beginFill(0x0080FF, 0.25);
+            }
+            if(side === SIDE_SITH)
+            {
+                matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].lineStyle(1, 0x880000, 0.25);
+                matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].beginFill(0x880000, 0.25);
+            }
+            matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].drawRoundedRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT, 15);
+            matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].endFill();
+    }
+    if(matchSelectUnit2 !== null)
+    {
+            matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].clear();
+            if(side === SIDE_JEDI)
+            {
+                matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].lineStyle(1, 0x0080FF, 0.25);
+                matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].beginFill(0x0080FF, 0.25);
+            }
+            if(side === SIDE_SITH)
+            {
+                matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].lineStyle(1, 0x880000, 0.25);
+                matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].beginFill(0x880000, 0.25);
+            }
+            matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].drawRoundedRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT, 15);
+            matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].endFill();
+    }
+}
+
+/* Обмен местами в массиве выбранных пользователем  объектов =================================== */
+function matchExchangeUnits()
+{
+    matchFieldBlocked = true; // поле заблокированно
+
+    var iUnit1 = matchSelectUnit1.posColumnI;
+    var jUnit1 = matchSelectUnit1.posRowJ;
+    var iUnit2 = matchSelectUnit2.posColumnI;
+    var jUnit2 = matchSelectUnit2.posRowJ;
+
+    if(iUnit2 > (iUnit1 - 2) && iUnit2 < (iUnit1 + 2) && jUnit2 > (jUnit1 - 2) && jUnit2 < (jUnit1 + 2) && ((iUnit2 === iUnit1 && jUnit2 !== jUnit1) || (jUnit2 === jUnit1 && iUnit2 !== iUnit1)))
+    {
+            matchMatrixUnit["i"+iUnit1+":j"+jUnit1] = matchSelectUnit2;
+            matchMatrixUnit["i"+iUnit1+":j"+jUnit1].posColumnI = iUnit1;
+            matchMatrixUnit["i"+iUnit1+":j"+jUnit1].posRowJ = jUnit1;
+            matchMatrixUnit["i"+iUnit1+":j"+jUnit1].name = "i"+iUnit1+":j"+jUnit1;
+
+            matchMatrixUnit["i"+iUnit2+":j"+jUnit2] = matchSelectUnit1;
+            matchMatrixUnit["i"+iUnit2+":j"+jUnit2].posColumnI = iUnit2;
+            matchMatrixUnit["i"+iUnit2+":j"+jUnit2].posRowJ = jUnit2;
+            matchMatrixUnit["i"+iUnit2+":j"+jUnit2].name = "i"+iUnit2+":j"+jUnit2;
+
+            createjs.Tween.get(matchMatrixUnit["i"+iUnit1+":j"+jUnit1], {loop: false})
+                    .to({x: matchMatrixFrontPosition["i"+iUnit1+":j"+jUnit1][0], y: matchMatrixFrontPosition["i"+iUnit1+":j"+jUnit1][1]}, 500, createjs.Ease.getPowInOut(4));
+            createjs.Tween.get(matchMatrixUnit["i"+iUnit2+":j"+jUnit2], {loop: false})
+                    .to({x: matchMatrixFrontPosition["i"+iUnit2+":j"+jUnit2][0], y: matchMatrixFrontPosition["i"+iUnit2+":j"+jUnit2][1]}, 500, createjs.Ease.getPowInOut(4))
+                    .call(onCompleteMatchExchangeUnits); // событие выполнено
+            createjs.Ticker.setFPS(60);	
+
+    }else{
+            matchCellColorBack();
+            matchSelectUnitsClear();
+    }
+}
+
+function onCompleteMatchExchangeUnits()
+{
+    matchCellColorBack();
+    matchCheckField(false);
+}
+
+function matchBackExchangeUnits()
+{
+    var iUnit1 = matchSelectUnit1.posColumnI;
+    var jUnit1 = matchSelectUnit1.posRowJ;
+    var iUnit2 = matchSelectUnit2.posColumnI;
+    var jUnit2 = matchSelectUnit2.posRowJ;
+
+    matchMatrixUnit["i"+iUnit1+":j"+jUnit1] = matchSelectUnit2;
+    matchMatrixUnit["i"+iUnit1+":j"+jUnit1].posColumnI = iUnit1;
+    matchMatrixUnit["i"+iUnit1+":j"+jUnit1].posRowJ = jUnit1;
+    matchMatrixUnit["i"+iUnit1+":j"+jUnit1].name = "i"+iUnit1+":j"+jUnit1;
+
+    matchMatrixUnit["i"+iUnit2+":j"+jUnit2] = matchSelectUnit1;
+    matchMatrixUnit["i"+iUnit2+":j"+jUnit2].posColumnI = iUnit2;
+    matchMatrixUnit["i"+iUnit2+":j"+jUnit2].posRowJ = jUnit2;
+    matchMatrixUnit["i"+iUnit2+":j"+jUnit2].name = "i"+iUnit2+":j"+jUnit2;
+
+    createjs.Tween.get(matchMatrixUnit["i"+iUnit1+":j"+jUnit1], {loop: false})
+            .to({x: matchMatrixFrontPosition["i"+iUnit1+":j"+jUnit1][0], y: matchMatrixFrontPosition["i"+iUnit1+":j"+jUnit1][1]}, 500, createjs.Ease.getPowInOut(4));
+    createjs.Tween.get(matchMatrixUnit["i"+iUnit2+":j"+jUnit2], {loop: false})
+            .to({x: matchMatrixFrontPosition["i"+iUnit2+":j"+jUnit2][0], y: matchMatrixFrontPosition["i"+iUnit2+":j"+jUnit2][1]}, 500, createjs.Ease.getPowInOut(4))
+            .call(matchSelectUnitsClear); // очистка и разблокиров поля
+    createjs.Ticker.setFPS(60);	
+}
+
+function matchSelectUnitsClear()
+{
+    matchSelectUnit1 = null;
+    matchSelectUnit2 = null;
+    matchFieldBlocked = false; // поле разблокированно
+}
+
+
+/* Поиск групп ============================================================================== */
+function matchCheckField(afterDown)
+{
+    matchMoveDownProcesses = new Object();
+    if(matchCheckFieldFull()) // группы были найдены
+    {
+            timerStop();			// останавливаем таймер
+            matchMoveDownUnits();	// спускаем юниты
+    }else{ // группы не найдены
+            if(afterDown === false) // первый спуск юнитов
+            {
+                    matchBackExchangeUnits(); 	// возвращаем выбранные юниты на места
+            }else{ 
+                    matchSelectUnitsClear();	// очистка и разблокиров поля
+                    if(levelStatus === LEVEL_STATUS_BATTLE) timerStart();				// запускаем таймер
+            }
+    }
+}
+
+
+/* Общая проверка колонок и строк (3-и и более в ряд) */
+function matchCheckFieldFull()
+{
+    var resultCheck = false;
+    /* i - столбец; j - строка */
+    for(var i = 0; i < MATCH_COLUMNS; i++)
+    {
+            if(matchCheckColumn(i) === true) resultCheck = true;
+    }
+    for(var j = 0; j < MATCH_ROWS; j++)
+    {
+            if(matchCheckRow(j) === true) resultCheck = true;	
+    }
+    return resultCheck;
+}
+
+/* Проверка колонки (3-и и более в ряд) */
+function matchCheckColumn(column)
+{
+	var resultCheckColumn = false;
+	/* просматриваем  в столбце (по строкам) */
+	for(var j = 0; j < MATCH_ROWS; j++)
+	{
+		if(j < MATCH_ROWS - 2)
+		{
+			if(matchMatrixUnit["i"+column+":j"+j].unitType !== MATCH_HIT_0)
+			{
+				/* Группа из 3-х объектов */
+				if(matchMatrixUnit["i"+column+":j"+j].unitType === matchMatrixUnit["i"+column+":j"+(j+1)].unitType && matchMatrixUnit["i"+column+":j"+j].unitType === matchMatrixUnit["i"+column+":j"+(j+2)].unitType)
+				{
+					resultCheckColumn = true;
+
+					/* Группа из 4-х кристалов */
+					if(j < MATCH_ROWS - 3)
+					{
+						if(matchMatrixUnit["i"+column+":j"+j].unitType === matchMatrixUnit["i"+column+":j"+(j+3)].unitType)
+						{
+							/* Группа из 5-ти кристалов */
+							if(j < MATCH_ROWS - 4)
+							{
+								if(matchMatrixUnit["i"+column+":j"+j].unitType === matchMatrixUnit["i"+column+":j"+(j+4)].unitType)
+								{
+									/* Удаляем группу из 5 юнитов */
+									matchRemoveUnit(column, j, "col", matchMatrixUnit["i"+column+":j"+j].unitType, 5);
+								}else{
+									/* Удаляем группу из 4 юнитов */
+									matchRemoveUnit(column, j, "col", matchMatrixUnit["i"+column+":j"+j].unitType, 4);
+								}
+							}else{
+								/* Удаляем группу из 4 юнитов */
+								matchRemoveUnit(column, j, "col", matchMatrixUnit["i"+column+":j"+j].unitType, 4);
+							}
+						}else{
+							/* Удаляем группу из 3 юнитов */
+							matchRemoveUnit(column, j, "col", matchMatrixUnit["i"+column+":j"+j].unitType, 3);
+						}
+					}else{
+						/* Удаляем группу из 3 юнитов */
+						matchRemoveUnit(column, j, "col", matchMatrixUnit["i"+column+":j"+j].unitType, 3);
+					}
+				}
+			}
+		}else{
+			break;
+		}
+	}
+	return resultCheckColumn;
+}
+
+/* Проверка строки (3-и и более в ряд) */
+function matchCheckRow(row)
+{
+	var resultCheckRow = false;
+	/* просматриваем в строке (по столбцам) */
+	for(var i = 0; i < MATCH_COLUMNS; i++)
+	{
+		if(i < MATCH_COLUMNS - 2)
+		{
+			if(matchMatrixUnit["i"+i+":j"+row].unitType !== MATCH_HIT_0)
+			{
+				/* Группа из 3-х объектов */
+				if(matchMatrixUnit["i"+i+":j"+row].unitType === matchMatrixUnit["i"+(i+1)+":j"+row].unitType && matchMatrixUnit["i"+i+":j"+row].unitType === matchMatrixUnit["i"+(i+2)+":j"+row].unitType)
+				{
+					resultCheckRow = true;
+
+					/* Группа из 4-х кристалов */
+					if(i < MATCH_COLUMNS - 3)
+					{
+						if(matchMatrixUnit["i"+i+":j"+row].unitType === matchMatrixUnit["i"+(i+3)+":j"+row].unitType)
+						{
+							/* Группа из 5-ти кристалов */
+							if(i < MATCH_COLUMNS - 4)
+							{
+								if(matchMatrixUnit["i"+i+":j"+row].unitType === matchMatrixUnit["i"+(i+4)+":j"+row].unitType)
+								{
+									/* Удаляем группу из 5 юнитов */
+									matchRemoveUnit(i, row, "row", matchMatrixUnit["i"+i+":j"+row].unitType, 5);
+								}else{
+									/* Удаляем группу из 4 юнитов */
+									matchRemoveUnit(i, row, "row", matchMatrixUnit["i"+i+":j"+row].unitType, 4);
+								}
+							}else{
+								/* Удаляем группу из 4 юнитов */
+								matchRemoveUnit(i, row, "row", matchMatrixUnit["i"+i+":j"+row].unitType, 4);
+							}
+						}else{
+							/* Удаляем группу из 3 юнитов */
+							matchRemoveUnit(i, row, "row", matchMatrixUnit["i"+i+":j"+row].unitType, 3);
+						}
+					}else{
+						/* Удаляем группу из 3 юнитов */
+						matchRemoveUnit(i, row, "row", matchMatrixUnit["i"+i+":j"+row].unitType, 3);
+					}
+				}
+			}
+		}else{
+			break;
+		}
+	}
+	return resultCheckRow;
+}
+
+/* Удаление юнитов */
+function matchRemoveUnit(col, row, check, hitType, hitCount)
+{
+
+	if(levelStatus === LEVEL_STATUS_BATTLE)
+	{
+		/* ПРОГРЕСС: Обрабтка LifeBar */
+		//levelReduceLifeBar(hitType, hitCount, modeAI); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		/* АНИМАЦИЯ: Анимация бойцов */
+		//levelUpdateAnimation(modeAI, hitType);
+	}
+	
+	/*Отмечаем юниты для удаления */
+	if(check === "row")
+	{
+		if(hitCount === 3)
+		{
+			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+col+":j"+row].position.x, matchMatrixUnit["i"+col+":j"+row].position.y); // анимация вспышка.
+			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
+			matchMatrixUnit["i"+col+":j"+row].position.x = matchMatrixBackPosition["i"+col+":j"+row][0];
+			matchMatrixUnit["i"+col+":j"+row].position.y = matchMatrixBackPosition["i"+col+":j"+row][1];
+			matchMoveDownProcesses["i"+col+":j"+row] = true;
+			matchMatrixUnit["i"+(col+1)+":j"+row].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+(col+1)+":j"+row].position.x, matchMatrixUnit["i"+(col+1)+":j"+row].position.y); // анимация вспышка.
+			matchMatrixUnit["i"+(col+1)+":j"+row].flagRemove = true;
+			matchMatrixUnit["i"+(col+1)+":j"+row].position.x = matchMatrixBackPosition["i"+(col+1)+":j"+row][0];
+			matchMatrixUnit["i"+(col+1)+":j"+row].position.y = matchMatrixBackPosition["i"+(col+1)+":j"+row][1];
+			matchMoveDownProcesses["i"+(col+1)+":j"+row] = true;
+			matchMatrixUnit["i"+(col+2)+":j"+row].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+(col+2)+":j"+row].position.x, matchMatrixUnit["i"+(col+2)+":j"+row].position.y); // анимация вспышка.
+			matchMatrixUnit["i"+(col+2)+":j"+row].flagRemove = true;
+			matchMatrixUnit["i"+(col+2)+":j"+row].position.x = matchMatrixBackPosition["i"+(col+2)+":j"+row][0];
+			matchMatrixUnit["i"+(col+2)+":j"+row].position.y = matchMatrixBackPosition["i"+(col+2)+":j"+row][1];
+			matchMoveDownProcesses["i"+(col+2)+":j"+row] = true;
+			
+		}
+		if(hitCount === 4)
+		{
+			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+col+":j"+row].position.x, matchMatrixUnit["i"+col+":j"+row].position.y);
+			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
+			matchMatrixUnit["i"+col+":j"+row].position.x = matchMatrixBackPosition["i"+col+":j"+row][0];
+			matchMatrixUnit["i"+col+":j"+row].position.y = matchMatrixBackPosition["i"+col+":j"+row][1];
+			matchMoveDownProcesses["i"+col+":j"+row] = true;
+			matchMatrixUnit["i"+(col+1)+":j"+row].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+(col+1)+":j"+row].position.x, matchMatrixUnit["i"+(col+1)+":j"+row].position.y);
+			matchMatrixUnit["i"+(col+1)+":j"+row].flagRemove = true;
+			matchMatrixUnit["i"+(col+1)+":j"+row].position.x = matchMatrixBackPosition["i"+(col+1)+":j"+row][0];
+			matchMatrixUnit["i"+(col+1)+":j"+row].position.y = matchMatrixBackPosition["i"+(col+1)+":j"+row][1];
+			matchMoveDownProcesses["i"+(col+1)+":j"+row] = true;
+			matchMatrixUnit["i"+(col+2)+":j"+row].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+(col+2)+":j"+row].position.x, matchMatrixUnit["i"+(col+2)+":j"+row].position.y);
+			matchMatrixUnit["i"+(col+2)+":j"+row].flagRemove = true;
+			matchMatrixUnit["i"+(col+2)+":j"+row].position.x = matchMatrixBackPosition["i"+(col+2)+":j"+row][0];
+			matchMatrixUnit["i"+(col+2)+":j"+row].position.y = matchMatrixBackPosition["i"+(col+2)+":j"+row][1];
+			matchMoveDownProcesses["i"+(col+2)+":j"+row] = true;
+			matchMatrixUnit["i"+(col+3)+":j"+row].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+(col+3)+":j"+row].position.x, matchMatrixUnit["i"+(col+3)+":j"+row].position.y);
+			matchMatrixUnit["i"+(col+3)+":j"+row].flagRemove = true;
+			matchMatrixUnit["i"+(col+3)+":j"+row].position.x = matchMatrixBackPosition["i"+(col+3)+":j"+row][0];
+			matchMatrixUnit["i"+(col+3)+":j"+row].position.y = matchMatrixBackPosition["i"+(col+3)+":j"+row][1];
+			matchMoveDownProcesses["i"+(col+3)+":j"+row] = true;
+		}
+		if(hitCount === 5)
+		{
+			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+col+":j"+row].position.x, matchMatrixUnit["i"+col+":j"+row].position.y);
+			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
+			matchMatrixUnit["i"+col+":j"+row].position.x = matchMatrixBackPosition["i"+col+":j"+row][0];
+			matchMatrixUnit["i"+col+":j"+row].position.y = matchMatrixBackPosition["i"+col+":j"+row][1];
+			matchMoveDownProcesses["i"+col+":j"+row] = true;
+			matchMatrixUnit["i"+(col+1)+":j"+row].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+(col+1)+":j"+row].position.x, matchMatrixUnit["i"+(col+1)+":j"+row].position.y);
+			matchMatrixUnit["i"+(col+1)+":j"+row].flagRemove = true;
+			matchMatrixUnit["i"+(col+1)+":j"+row].position.x = matchMatrixBackPosition["i"+(col+1)+":j"+row][0];
+			matchMatrixUnit["i"+(col+1)+":j"+row].position.y = matchMatrixBackPosition["i"+(col+1)+":j"+row][1];
+			matchMoveDownProcesses["i"+(col+1)+":j"+row] = true;
+			matchMatrixUnit["i"+(col+2)+":j"+row].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+(col+2)+":j"+row].position.x, matchMatrixUnit["i"+(col+2)+":j"+row].position.y);
+			matchMatrixUnit["i"+(col+2)+":j"+row].flagRemove = true;
+			matchMatrixUnit["i"+(col+2)+":j"+row].position.x = matchMatrixBackPosition["i"+(col+2)+":j"+row][0];
+			matchMatrixUnit["i"+(col+2)+":j"+row].position.y = matchMatrixBackPosition["i"+(col+2)+":j"+row][1];
+			matchMoveDownProcesses["i"+(col+2)+":j"+row] = true;
+			matchMatrixUnit["i"+(col+3)+":j"+row].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+(col+3)+":j"+row].position.x, matchMatrixUnit["i"+(col+3)+":j"+row].position.y);
+			matchMatrixUnit["i"+(col+3)+":j"+row].flagRemove = true;
+			matchMatrixUnit["i"+(col+3)+":j"+row].position.x = matchMatrixBackPosition["i"+(col+3)+":j"+row][0];
+			matchMatrixUnit["i"+(col+3)+":j"+row].position.y = matchMatrixBackPosition["i"+(col+3)+":j"+row][1];
+			matchMoveDownProcesses["i"+(col+3)+":j"+row] = true;
+			matchMatrixUnit["i"+(col+4)+":j"+row].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+(col+4)+":j"+row].position.x, matchMatrixUnit["i"+(col+4)+":j"+row].position.y);
+			matchMatrixUnit["i"+(col+4)+":j"+row].flagRemove = true;
+			matchMatrixUnit["i"+(col+4)+":j"+row].position.x = matchMatrixBackPosition["i"+(col+4)+":j"+row][0];
+			matchMatrixUnit["i"+(col+4)+":j"+row].position.y = matchMatrixBackPosition["i"+(col+4)+":j"+row][1];
+			matchMoveDownProcesses["i"+(col+4)+":j"+row] = true;
+		}
+	}
+	if(check === "col")
+	{
+		if(hitCount === 3)
+		{
+			
+			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+col+":j"+row].position.x, matchMatrixUnit["i"+col+":j"+row].position.y);
+			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
+			matchMatrixUnit["i"+col+":j"+row].position.x = matchMatrixBackPosition["i"+col+":j"+row][0];
+			matchMatrixUnit["i"+col+":j"+row].position.y = matchMatrixBackPosition["i"+col+":j"+row][1];
+			matchMoveDownProcesses["i"+col+":j"+row] = true;
+			matchMatrixUnit["i"+col+":j"+(row+1)].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+col+":j"+(row+1)].position.x, matchMatrixUnit["i"+col+":j"+(row+1)].position.y);
+			matchMatrixUnit["i"+col+":j"+(row+1)].flagRemove = true;
+			matchMatrixUnit["i"+col+":j"+(row+1)].position.x = matchMatrixBackPosition["i"+col+":j"+(row+1)][0];
+			matchMatrixUnit["i"+col+":j"+(row+1)].position.y = matchMatrixBackPosition["i"+col+":j"+(row+1)][1];
+			matchMoveDownProcesses["i"+col+":j"+(row+1)] = true;
+			matchMatrixUnit["i"+col+":j"+(row+2)].alpha = 0.0;	
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+col+":j"+(row+2)].position.x, matchMatrixUnit["i"+col+":j"+(row+2)].position.y);
+			matchMatrixUnit["i"+col+":j"+(row+2)].flagRemove = true;
+			matchMatrixUnit["i"+col+":j"+(row+2)].position.x = matchMatrixBackPosition["i"+col+":j"+(row+2)][0];
+			matchMatrixUnit["i"+col+":j"+(row+2)].position.y = matchMatrixBackPosition["i"+col+":j"+(row+2)][1];
+			matchMoveDownProcesses["i"+col+":j"+(row+2)] = true;
+		}
+		if(hitCount === 4)
+		{
+			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+col+":j"+row].position.x, matchMatrixUnit["i"+col+":j"+row].position.y);
+			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
+			matchMatrixUnit["i"+col+":j"+row].position.x = matchMatrixBackPosition["i"+col+":j"+row][0];
+			matchMatrixUnit["i"+col+":j"+row].position.y = matchMatrixBackPosition["i"+col+":j"+row][1];
+			matchMoveDownProcesses["i"+col+":j"+row] = true;
+			matchMatrixUnit["i"+col+":j"+(row+1)].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+col+":j"+(row+1)].position.x, matchMatrixUnit["i"+col+":j"+(row+1)].position.y);
+			matchMatrixUnit["i"+col+":j"+(row+1)].flagRemove = true;
+			matchMatrixUnit["i"+col+":j"+(row+1)].position.x = matchMatrixBackPosition["i"+col+":j"+(row+1)][0];
+			matchMatrixUnit["i"+col+":j"+(row+1)].position.y = matchMatrixBackPosition["i"+col+":j"+(row+1)][1];
+			matchMoveDownProcesses["i"+col+":j"+(row+1)] = true;
+			matchMatrixUnit["i"+col+":j"+(row+2)].alpha = 0.0;	
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+col+":j"+(row+2)].position.x, matchMatrixUnit["i"+col+":j"+(row+2)].position.y);
+			matchMatrixUnit["i"+col+":j"+(row+2)].flagRemove = true;
+			matchMatrixUnit["i"+col+":j"+(row+2)].position.x = matchMatrixBackPosition["i"+col+":j"+(row+2)][0];
+			matchMatrixUnit["i"+col+":j"+(row+2)].position.y = matchMatrixBackPosition["i"+col+":j"+(row+2)][1];
+			matchMoveDownProcesses["i"+col+":j"+(row+2)] = true;
+			matchMatrixUnit["i"+col+":j"+(row+3)].alpha = 0.0;	
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+col+":j"+(row+3)].position.x, matchMatrixUnit["i"+col+":j"+(row+3)].position.y);			
+			matchMatrixUnit["i"+col+":j"+(row+3)].flagRemove = true;
+			matchMatrixUnit["i"+col+":j"+(row+3)].position.x = matchMatrixBackPosition["i"+col+":j"+(row+3)][0];
+			matchMatrixUnit["i"+col+":j"+(row+3)].position.y = matchMatrixBackPosition["i"+col+":j"+(row+3)][1];
+			matchMoveDownProcesses["i"+col+":j"+(row+3)] = true;
+		}
+		if(hitCount === 5)
+		{
+			matchMatrixUnit["i"+col+":j"+row].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+col+":j"+row].position.x, matchMatrixUnit["i"+col+":j"+row].position.y);
+			matchMatrixUnit["i"+col+":j"+row].flagRemove = true;
+			matchMatrixUnit["i"+col+":j"+row].position.x = matchMatrixBackPosition["i"+col+":j"+row][0];
+			matchMatrixUnit["i"+col+":j"+row].position.y = matchMatrixBackPosition["i"+col+":j"+row][1];
+			matchMoveDownProcesses["i"+col+":j"+row] = true;
+			matchMatrixUnit["i"+col+":j"+(row+1)].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+col+":j"+(row+1)].position.x, matchMatrixUnit["i"+col+":j"+(row+1)].position.y);
+			matchMatrixUnit["i"+col+":j"+(row+1)].flagRemove = true;
+			matchMatrixUnit["i"+col+":j"+(row+1)].position.x = matchMatrixBackPosition["i"+col+":j"+(row+1)][0];
+			matchMatrixUnit["i"+col+":j"+(row+1)].position.y = matchMatrixBackPosition["i"+col+":j"+(row+1)][1];
+			matchMoveDownProcesses["i"+col+":j"+(row+1)] = true;
+			matchMatrixUnit["i"+col+":j"+(row+2)].alpha = 0.0;	
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+col+":j"+(row+2)].position.x, matchMatrixUnit["i"+col+":j"+(row+2)].position.y);
+			matchMatrixUnit["i"+col+":j"+(row+2)].flagRemove = true;
+			matchMatrixUnit["i"+col+":j"+(row+2)].position.x = matchMatrixBackPosition["i"+col+":j"+(row+2)][0];
+			matchMatrixUnit["i"+col+":j"+(row+2)].position.y = matchMatrixBackPosition["i"+col+":j"+(row+2)][1];
+			matchMoveDownProcesses["i"+col+":j"+(row+2)] = true;
+			matchMatrixUnit["i"+col+":j"+(row+3)].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+col+":j"+(row+3)].position.x, matchMatrixUnit["i"+col+":j"+(row+3)].position.y);			
+			matchMatrixUnit["i"+col+":j"+(row+3)].flagRemove = true;
+			matchMatrixUnit["i"+col+":j"+(row+3)].position.x = matchMatrixBackPosition["i"+col+":j"+(row+3)][0];
+			matchMatrixUnit["i"+col+":j"+(row+3)].position.y = matchMatrixBackPosition["i"+col+":j"+(row+3)][1];
+			matchMoveDownProcesses["i"+col+":j"+(row+3)] = true;
+			matchMatrixUnit["i"+col+":j"+(row+4)].alpha = 0.0;
+			matchAnimationRemoveUnit(matchMatrixUnit["i"+col+":j"+(row+4)].position.x, matchMatrixUnit["i"+col+":j"+(row+4)].position.y);
+			matchMatrixUnit["i"+col+":j"+(row+4)].flagRemove = true;
+			matchMatrixUnit["i"+col+":j"+(row+4)].position.x = matchMatrixBackPosition["i"+col+":j"+(row+4)][0];
+			matchMatrixUnit["i"+col+":j"+(row+4)].position.y = matchMatrixBackPosition["i"+col+":j"+(row+4)][1];
+			matchMoveDownProcesses["i"+col+":j"+(row+4)] = true;
+		}
+	}
+}
+
+/* Спуск юнитов вниз на свободные позиции */
+function matchMoveDownUnits()
+{
+	for(var i = 0; i < MATCH_COLUMNS; i++)
+	{
+		for(var j = MATCH_ROWS-1; j >= 0; j--)
+		{
+			if(matchMatrixUnit["i"+i+":j"+j].flagRemove === true && matchMatrixUnit["i"+i+":j"+j].unitType !== MATCH_HIT_0)
+			{
+				/* Спускаем вниз оставщиеся юниты */
+				for(var k = j; k >= 0; k--)
+				{
+					if(matchMatrixUnit["i"+i+":j"+k].flagRemove === false && matchMatrixUnit["i"+i+":j"+k].unitType !== MATCH_HIT_0)
+					{
+						var removeUnit = matchMatrixUnit["i"+i+":j"+j]; // удалённый юнит
+
+						matchMatrixUnit["i"+i+":j"+j] = matchMatrixUnit["i"+i+":j"+k]; // перемещаем не удалённый юнит
+						matchMatrixUnit["i"+i+":j"+j].name = "i"+i+":j"+j;
+						matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
+						matchMatrixUnit["i"+i+":j"+j].posColumnI = i;
+						matchMatrixUnit["i"+i+":j"+j].posRowJ = j;
+						matchMoveDownProcesses["i"+i+":j"+j] = true;
+
+						matchMatrixUnit["i"+i+":j"+k] = removeUnit;	// удалённый юнит ставим на место перемещённой
+						matchMatrixUnit["i"+i+":j"+k].name = "i"+i+":j"+k;
+						matchMatrixUnit["i"+i+":j"+k].flagRemove = true;
+						matchMatrixUnit["i"+i+":j"+k].posColumnI = i;
+						matchMatrixUnit["i"+i+":j"+k].posRowJ = k;
+						matchMoveDownProcesses["i"+i+":j"+k] = true;
+						
+						break;
+					}
+				}
+			}
+		}
+	}
+	matchMoveDownNewUnits();
+}
+
+
+function onCompleteMatchMoveDownUnits()
+{
+    matchMoveDownNewUnits();
+}
+
+function matchMoveDownNewUnits()
+{
+    for(var i = 0; i < MATCH_COLUMNS; i++)
+    {
+            for(var j = MATCH_ROWS-1; j >= 0; j--)
+            {
+                    if(matchMoveDownProcesses["i"+i+":j"+j] === true && matchMatrixUnit["i"+i+":j"+j].flagRemove === false && matchMatrixUnit["i"+i+":j"+j].unitType !== MATCH_HIT_0)
+                    {
+                            matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
+                            /* Спускаем удалённые юниты */
+                            createjs.Tween.get(matchMatrixUnit["i"+i+":j"+j], {loop: false})
+                                    .to({alpha: 1.0}, 500)
+                                    .to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 500, createjs.Ease.getPowInOut(4))
+                                    .to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1] - 5}, 100, createjs.Ease.getPowInOut(4))
+                                    .to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 50, createjs.Ease.getPowInOut(4))
+                                    .call(onCompleteMatchMoveDownNewUnits, this); // событие выполнено
+                            createjs.Ticker.setFPS(60);	
+                    }else{
+                            if(matchMoveDownProcesses["i"+i+":j"+j] === true && matchMatrixUnit["i"+i+":j"+j].flagRemove === true && matchMatrixUnit["i"+i+":j"+j].unitType !== MATCH_HIT_0)
+                            {
+                                    var indexRandom = Math.random() / 0.1;
+                                    var index = Math.round(indexRandom);
+                                    if (index >= 0 && index <= 2) 
+                                    {
+                                            matchMatrixUnit["i"+i+":j"+j].texture = hit1Texture;
+                                            matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_1;
+                                            matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
+                                    }
+                                    if (index > 2 && index <= 4)
+                                    {
+                                            matchMatrixUnit["i"+i+":j"+j].texture = hit2Texture;
+                                            matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_2;
+                                            matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
+                                    }
+                                    if (index > 4 && index <= 6)
+                                    {
+                                            matchMatrixUnit["i"+i+":j"+j].texture = hit3Texture;
+                                            matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_3;
+                                            matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
+                                    }
+                                    if (index > 6 && index <= 8)
+                                    {
+                                            matchMatrixUnit["i"+i+":j"+j].texture = hit4Texture;
+                                            matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_4;
+                                            matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
+                                    }
+                                    if (index > 8 && index <= 10)
+                                    {
+                                            matchMatrixUnit["i"+i+":j"+j].texture = hit5Texture;
+                                            matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_5;
+                                            matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
+                                    }
+
+                                    /* Спускаем удалённые юниты */
+                                    createjs.Tween.get(matchMatrixUnit["i"+i+":j"+j], {loop: false})
+                                            .to({alpha: 1.0}, 500)
+                                            .to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 500, createjs.Ease.getPowInOut(4))
+                                            .to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1] - 5}, 100, createjs.Ease.getPowInOut(4))
+                                            .to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 50, createjs.Ease.getPowInOut(4))
+                                            .call(onCompleteMatchMoveDownNewUnits, this); // событие выполнено
+                                    createjs.Ticker.setFPS(60);
+                            }
+                    }
+            }
+    }
+}
+
+function onCompleteMatchMoveDownNewUnits()
+{
+    var result = false;
+    matchMoveDownProcesses[this.name] = false;
+    for(var key in matchMoveDownProcesses)
+    {
+            if(matchMoveDownProcesses[key] === true){
+                    result = true;
+                    break;	
+            } 
+    }
+    if(result == false) // анимация завершена
+    {
+            if(matchCheckCombinations() === true) // Возможные ходы определены
+            {
+                    matchCheckField(true);	// проверка групп 3-и в ряд
+            }else{	// нет возможности ходов
+                    matchUpdateField(); // обновление игрового поля
+            }
+    }
+}
+
+/* Определение возможности хода и перестановка в случае отсутствия такой возможности ========== */
+function matchCheckCombinations()
+{
+	/*	   0  1  2  3  4  5
+	* 	0:[0][0][0][0][1][0]
+		1:[0][0][1][1][0][1]
+		2:[0][0][0][0][1][0]
+		3:[0][0][0][0][0][0]
+		4:[0][0][0][0][0][0]
+		5:[0][0][0][0][0][0]
+	 * */
+	// Проверка строк и колонок
+	for(var i = 0; i < MATCH_COLUMNS; i++)
+	{
+		for(var j = 0; j < MATCH_ROWS; j++)
+		{
+			if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0)
+			{
+				// ПРОВЕРКА СТРОКИ
+				if(j == 0)
+				{
+					//[1][1][X][1]
+					if((i + 3) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+3)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) { return true; }
+						}
+					}
+					//[1][X][1][1]
+					if((i + 3) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+3)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) { return true; }
+						}
+					}
+					//[0][1][X][1]
+					//[0][0][1][0]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) { return true; }
+						}
+					}
+					//[0][1][1][X]
+					//[0][0][0][1]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType) { return true; }
+						}
+					}
+					//[0][X][1][1]
+					//[0][1][0][0]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) { return true; }
+						}
+					}
+				}else{
+					//[1][1][X][1]
+					if((i + 3) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+3)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) { return true; }
+						}
+					}
+					//[1][X][1][1]
+					if((i + 3) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+3)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) { return true; }
+						}
+					}
+					//[0][1][1][X]
+					//[0][0][0][1]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType) { return true; }
+						}
+					}
+					//[0][0][0][1]
+					//[0][1][1][X]
+					if((i + 2) < MATCH_COLUMNS && (j - 1) >=0){
+						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+(j-1)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j-1)].unitType) { return true; }
+						}
+					}
+					//[0][X][1][1]
+					//[0][1][0][0]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) { return true; }
+						}
+					}
+					//[0][1][0][0]
+					//[0][X][1][1]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType) { return true; }
+						}
+					}
+					//[0][0][1][0]
+					//[0][1][X][1]
+					if((i + 2) < MATCH_COLUMNS && (j - 1) >= 0){
+						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j-1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j-1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) { return true; }
+						}
+					}
+					//[0][1][X][1]
+					//[0][0][1][0]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) { return true; }
+						}
+					}
+				}
+
+				// ПРОВЕРКА КОЛОНКИ
+				if(i == 0)
+				{
+					//[1]
+					//[1]
+					//[X]
+					//[1]
+					if((j + 3) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+3)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) { return true; }
+						}
+					}
+					//[1]
+					//[X]
+					//[1]
+					//[1]
+					if((j + 3) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+3)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) { return true; }
+						}
+					}
+					//[1][0]
+					//[X][1]
+					//[1][0]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+					//[1][0]
+					//[1][0]
+					//[X][1]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+					//[X][1]
+					//[1][0]
+					//[1][0]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+				}else{
+					//[1]
+					//[1]
+					//[X]
+					//[1]
+					if((j + 3) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+3)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) { return true; }
+						}
+					}
+					//[1]
+					//[X]
+					//[1]
+					//[1]
+					if((j + 3) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+3)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) { return true; }
+						}
+					}
+					//[1][0]
+					//[X][1]
+					//[1][0]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+					//[0][1]
+					//[1][X]
+					//[0][1]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i - 1) >= 0){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i-1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i-1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+					//[1][0]
+					//[1][0]
+					//[X][1]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+					//[X][1]
+					//[1][0]
+					//[1][0]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+					//[0][1]
+					//[0][1]
+					//[1][X]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i - 1) >= 0){
+						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i-1)+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i-1)+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+					//[1][X]
+					//[0][1]
+					//[0][1]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i - 1) >= 0){
+						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i-1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+(i-1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+(i-1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) { return true; }
+						}
+					}
+				}
+			}
+		}
+	}
+	return false;
+}
+
+
+/* Обновление игрового поля если нет комбинаций ===================================================== */
+function matchUpdateField()
+{
+	matchMoveDownProcesses = new Object();
+        
+        var indexRandom = Math.random() / 0.1;
+	var indexLevel = Math.round(indexRandom);
+        
+	var index = 0;
+	for(var i = 0; i < MATCH_COLUMNS; i++)
+	{
+		for(var j = 0; j < MATCH_ROWS; j++)
+		{
+			if(matchLevelJSON.data.Level.cell[index].cellObject !== MATCH_HIT_0)
+			{
+				//matchMatrixUnit["i"+i+":j"+j].alpha = 0.0;
+				matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
+				matchMatrixUnit["i"+i+":j"+j].position.x = matchMatrixBackPosition["i"+i+":j"+j][0];
+				matchMatrixUnit["i"+i+":j"+j].position.y = matchMatrixBackPosition["i"+i+":j"+j][1];
+				matchMoveDownProcesses["i"+i+":j"+j] = true;
+				
+				if(fieldLevelsJson["level_0_" + indexLevel].data.Level.cell[index].cellObject === MATCH_HIT_1)
+				{
+					matchMatrixUnit["i"+i+":j"+j].texture = hit1Texture;
+					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_1;
+				}
+				if(fieldLevelsJson["level_0_" + indexLevel].data.Level.cell[index].cellObject === MATCH_HIT_2)
+				{
+					matchMatrixUnit["i"+i+":j"+j].texture = hit2Texture;
+					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_2;
+				}
+				if(fieldLevelsJson["level_0_" + indexLevel].data.Level.cell[index].cellObject === MATCH_HIT_3)
+				{
+					matchMatrixUnit["i"+i+":j"+j].texture = hit3Texture;
+					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_3;
+				}
+				if(fieldLevelsJson["level_0_" + indexLevel].data.Level.cell[index].cellObject === MATCH_HIT_4)
+				{
+					matchMatrixUnit["i"+i+":j"+j].texture = hit4Texture;
+					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_4;
+				}
+				if(fieldLevelsJson["level_0_" + indexLevel].data.Level.cell[index].cellObject === MATCH_HIT_5)
+				{
+					matchMatrixUnit["i"+i+":j"+j].texture = hit5Texture;
+					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_5;
+				}
+				
+				/* Спускаем удалённые юниты */
+				createjs.Tween.get(matchMatrixUnit["i"+i+":j"+j], {loop: false})
+					.to({alpha: 1.0}, 500)
+					.to({x: matchMatrixFrontPosition["i"+i+":j"+j][0], y: matchMatrixFrontPosition["i"+i+":j"+j][1]}, 500, createjs.Ease.getPowInOut(4))
+					.call(onCompleteMatchMoveDownNewUnits, matchMatrixUnit["i"+i+":j"+j]); // событие выполнено
+				createjs.Ticker.setFPS(60);
+			}
+			index++;
+		}
+	}
+}
+
+/* Ход искусственного интеллекта ============================================================== */
+function matchGetPriorityUnit(unitType)
+{
+	if(unitType === MATCH_HIT_1) {return 1;}
+	if(unitType === MATCH_HIT_2) {return 2;}
+	if(unitType === MATCH_HIT_3)
+	{
+		var typeRandom = Math.random() / 0.1;
+		var uType = Math.round(typeRandom);
+		return uType;
+	}
+	if(unitType === MATCH_HIT_4) {return 4;}
+	if(unitType === MATCH_HIT_5) {return 5;}
+	return 0;
+}
+
+function matchActionAI()
+{
+	/*	   0  1  2  3  4  5
+	* 	0:[0][0][0][0][1][0]
+		1:[0][0][1][1][0][1]
+		2:[0][0][0][0][1][0]
+		3:[0][0][0][0][0][0]
+		4:[0][0][0][0][0][0]
+		5:[0][0][0][0][0][0]
+	 * */
+	 var priorityUnit = 0;
+	 var lastpriorityUnit = 0;
+
+	// Проверка строк и колонок
+	for(var i = 0; i < MATCH_COLUMNS; i++)
+	{
+		for(var j = 0; j < MATCH_ROWS; j++)
+		{
+			if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0)
+			{
+				// ПРОВЕРКА СТРОКИ
+				if(j == 0)
+				{
+					//[1][1][X][1]
+					if((i + 3) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+3)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i+2)+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+3)+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[1][X][1][1]
+					if((i + 3) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+3)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) 
+							{ 
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[0][1][X][1]
+					//[0][0][1][0]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i+1)+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[0][1][1][X]
+					//[0][0][0][1]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i+2)+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+2)+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[0][X][1][1]
+					//[0][1][0][0]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+(j+1)].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+				}else{
+					//[1][1][X][1]
+					if((i + 3) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+3)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i+2)+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+3)+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[1][X][1][1]
+					if((i + 3) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+3)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+3)+":j"+j].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[0][1][1][X]
+					//[0][0][0][1]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i+2)+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+2)+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[0][0][0][1]
+					//[0][1][1][X]
+					if((i + 2) < MATCH_COLUMNS && (j - 1) >=0){
+						if(matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+(j-1)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j-1)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i+2)+":j"+(j-1)];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+2)+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[0][X][1][1]
+					//[0][1][0][0]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+1)+":j"+j].unitType && matchMatrixUnit["i"+i+":j"+(j+1)].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+(j+1)].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[0][1][0][0]
+					//[0][X][1][1]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+(j+1)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[0][0][1][0]
+					//[0][1][X][1]
+					if((i + 2) < MATCH_COLUMNS && (j - 1) >= 0){
+						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j-1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j-1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i+1)+":j"+(j-1)];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[0][1][X][1]
+					//[0][0][1][0]
+					if((i + 2) < MATCH_COLUMNS && (j + 1) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+2)+":j"+j].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+2)+":j"+j].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i+1)+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+				}
+
+				// ПРОВЕРКА КОЛОНКИ
+				if(i == 0)
+				{
+					//[1]
+					//[1]
+					//[X]
+					//[1]
+					if((j + 3) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+3)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+(j+2)];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+3)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[1]
+					//[X]
+					//[1]
+					//[1]
+					if((j + 3) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+3)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[1][0]
+					//[X][1]
+					//[1][0]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+(j+1)];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[1][0]
+					//[1][0]
+					//[X][1]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+(j+2)];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+(j+2)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[X][1]
+					//[1][0]
+					//[1][0]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+(i+1)+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+				}else{
+					//[1]
+					//[1]
+					//[X]
+					//[1]
+					if((j + 3) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+3)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+(j+2)];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+3)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[1]
+					//[X]
+					//[1]
+					//[1]
+					if((j + 3) < MATCH_ROWS){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+3)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+3)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[1][0]
+					//[X][1]
+					//[1][0]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+(j+1)];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[0][1]
+					//[1][X]
+					//[0][1]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i - 1) >= 0){
+						if(matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i-1)+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i-1)+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i-1)+":j"+(j+1)];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+1)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[1][0]
+					//[1][0]
+					//[X][1]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i+1)+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+(j+2)];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+(j+2)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[X][1]
+					//[1][0]
+					//[1][0]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i + 1) < MATCH_COLUMNS){
+						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i+1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+(i+1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+(i+1)+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+i+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+(i+1)+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[0][1]
+					//[0][1]
+					//[1][X]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i - 1) >= 0){
+						if(matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i-1)+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+i+":j"+j].unitType == matchMatrixUnit["i"+(i-1)+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+i+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i-1)+":j"+(j+2)];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+(j+2)];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+					//[1][X]
+					//[0][1]
+					//[0][1]
+					//[0][0]
+					if((j + 2) < MATCH_ROWS && (i - 1) >= 0){
+						if(matchMatrixUnit["i"+i+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+(i-1)+":j"+j].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+1)].unitType != MATCH_HIT_0 && matchMatrixUnit["i"+i+":j"+(j+2)].unitType != MATCH_HIT_0){
+							if(matchMatrixUnit["i"+(i-1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+1)].unitType && matchMatrixUnit["i"+(i-1)+":j"+j].unitType == matchMatrixUnit["i"+i+":j"+(j+2)].unitType) 
+							{
+								priorityUnit = matchGetPriorityUnit(matchMatrixUnit["i"+(i-1)+":j"+j].unitType);
+								if(priorityUnit > lastpriorityUnit)	
+								{
+									matchSelectUnit1 = matchMatrixUnit["i"+(i-1)+":j"+j];
+									matchSelectUnit2 = matchMatrixUnit["i"+i+":j"+j];
+									lastpriorityUnit = priorityUnit;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	if(matchSelectUnit1 !== null && matchSelectUnit2 !== null)
+	{
+		matchExchangeUnits(); // меняем юниты местами
+	}else{
+		matchActionAI();
+	}
+}
+
+/* Анимация удаление юнитов */
+function matchAnimationRemoveUnit(posX, posY)
+{
+	var anim = new PIXI.extras.MovieClip(animTexFlash);
+	anim.position.x = posX - 45;
+	anim.position.y = posY - 30;
+	anim.loop = false;
+	anim.animationSpeed = 0.2;
+	anim.onComplete = onMatchAnimationRemoveUnitComplete;
+	anim.play();
+	matchStage.addChild(anim);
+}
+
+function onMatchAnimationRemoveUnitComplete()
+{
+	matchStage.removeChild(this);
 }
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */
@@ -4682,6 +6501,8 @@ function preloaderLoadAssets()
     loader.add('mapSpaceBlueTexture','./assets/image/textures/space_blue.jpg');
     loader.add('mapSpaceRedTexture','./assets/image/textures/space_red.jpg');
 
+    loader.add('flashAtlas','./assets/image/atlas/flash.json');
+    loader.add('crystalsAtlas','./assets/image/atlas/crystals.json');
 
     loader.add('buttonBlueAtlas','./assets/image/atlas/button_blue.json');
     loader.add('buttonRedAtlas','./assets/image/atlas/button_red.json');
@@ -4744,11 +6565,9 @@ function preloaderLoadAssets()
     loader.add('chewbacca_lr','./assets/image/textures/personages/chewbacca_lr.png');
     loader.add('chewbacca_rl','./assets/image/textures/personages/chewbacca_rl.png');
     loader.add('clone_commander_bakara','./assets/image/textures/personages/clone_commander_bakara.png');
-    loader.add('clone_commander_bakara_2','./assets/image/textures/personages/clone_commander_bakara.png');
     loader.add('clone_commander_cody_lr','./assets/image/textures/personages/clone_commander_cody_lr.png');
     loader.add('clone_commander_cody_rl','./assets/image/textures/personages/clone_commander_cody_rl.png');
     loader.add('clone_commander_neyo','./assets/image/textures/personages/clone_commander_neyo.png');
-    loader.add('clone_commander_neyo_2','./assets/image/textures/personages/clone_commander_neyo.png');
     loader.add('clone_commander_rex','./assets/image/textures/personages/clone_commander_rex.png');
     loader.add('commander_jerjerrod_lr','./assets/image/textures/personages/commander_jerjerrod_lr.png');
     loader.add('commander_jerjerrod_rl','./assets/image/textures/personages/commander_jerjerrod_rl.png');
@@ -4799,7 +6618,6 @@ function preloaderLoadAssets()
     loader.add('red_battle_droid_lr','./assets/image/textures/personages/red_battle_droid_lr.png');
     loader.add('red_battle_droid_rl','./assets/image/textures/personages/red_battle_droid_rl.png');
     loader.add('republic_clone_army','./assets/image/textures/personages/republic_clone_army.png');
-    loader.add('republic_clone_army_2','./assets/image/textures/personages/republic_clone_army.png');
     loader.add('rey','./assets/image/textures/personages/rey.png');
     loader.add('royal_guards','./assets/image/textures/personages/royal_guards.png');
     loader.add('rune_haako_lr','./assets/image/textures/personages/rune_haako_lr.png');
@@ -4817,7 +6635,6 @@ function preloaderLoadAssets()
     loader.add('tion_medon','./assets/image/textures/personages/tion_medon.png');
     loader.add('trade_federation','./assets/image/textures/personages/trade_federation.png');
     loader.add('tusken','./assets/image/textures/personages/tusken.png');
-    loader.add('tusken_2','./assets/image/textures/personages/tusken.png');
     loader.add('wat_tambor_lr','./assets/image/textures/personages/wat_tambor_lr.png');
     loader.add('wat_tambor_rl','./assets/image/textures/personages/wat_tambor_rl.png');
     loader.add('watto','./assets/image/textures/personages/watto.png');
@@ -4828,6 +6645,39 @@ function preloaderLoadAssets()
     
     loader.add('personages','./assets/data/personages.json');
     loader.add('planets','./assets/data/planets.json');
+    
+    loader.add('level_0_0','./assets/data/levels/level_0_0.json');
+    loader.add('level_0_1','./assets/data/levels/level_0_1.json');
+    loader.add('level_0_2','./assets/data/levels/level_0_2.json');
+    loader.add('level_0_3','./assets/data/levels/level_0_3.json');
+    loader.add('level_0_4','./assets/data/levels/level_0_4.json');
+    loader.add('level_0_5','./assets/data/levels/level_0_5.json');
+    loader.add('level_0_6','./assets/data/levels/level_0_6.json');
+    loader.add('level_0_7','./assets/data/levels/level_0_7.json');
+    loader.add('level_0_8','./assets/data/levels/level_0_8.json');
+    loader.add('level_0_9','./assets/data/levels/level_0_9.json');
+    
+    loader.add('level_1_0','./assets/data/levels/level_1_0.json');
+    loader.add('level_1_1','./assets/data/levels/level_1_1.json');
+    loader.add('level_1_2','./assets/data/levels/level_1_2.json');
+    loader.add('level_1_3','./assets/data/levels/level_1_3.json');
+    loader.add('level_1_4','./assets/data/levels/level_1_4.json');
+    loader.add('level_1_5','./assets/data/levels/level_1_5.json');
+    loader.add('level_1_6','./assets/data/levels/level_1_6.json');
+    loader.add('level_1_7','./assets/data/levels/level_1_7.json');
+    loader.add('level_1_8','./assets/data/levels/level_1_8.json');
+    loader.add('level_1_9','./assets/data/levels/level_1_9.json');
+    
+    loader.add('level_2_0','./assets/data/levels/level_2_0.json');
+    loader.add('level_2_1','./assets/data/levels/level_2_1.json');
+    loader.add('level_2_2','./assets/data/levels/level_2_2.json');
+    loader.add('level_2_3','./assets/data/levels/level_2_3.json');
+    loader.add('level_2_4','./assets/data/levels/level_2_4.json');
+    loader.add('level_2_5','./assets/data/levels/level_2_5.json');
+    loader.add('level_2_6','./assets/data/levels/level_2_6.json');
+    loader.add('level_2_7','./assets/data/levels/level_2_7.json');
+    loader.add('level_2_8','./assets/data/levels/level_2_8.json');
+    loader.add('level_2_9','./assets/data/levels/level_2_9.json');
     
     loader.on('complete', onPreloaderAssetsLoaderComplete);
     loader.on('progress',onPreloaderAssetsLoaderProcess);
@@ -4867,6 +6717,14 @@ function onPreloaderAssetsLoaderComplete(loader, res)
 
     mapSpaceBlueTexture = res.mapSpaceBlueTexture.texture;              // space_blue.jpg
     mapSpaceRedTexture = res.mapSpaceRedTexture.texture;                // space_red.jpg
+
+    hit1Texture = PIXI.Texture.fromFrame('hit_1.png');
+    hit2Texture = PIXI.Texture.fromFrame('hit_2.png');
+    hit3Texture = PIXI.Texture.fromFrame('hit_3.png');
+    hit4Texture = PIXI.Texture.fromFrame('hit_4.png');
+    hit5Texture = PIXI.Texture.fromFrame('hit_5.png');
+    
+    animTexFlash = loadAnimationTextures(11, 'flash_');
 
     animTexButtonBlue = loadAnimationTextures(11, 'button_blue_');
     animTexButtonRed = loadAnimationTextures(11, 'button_red_');
@@ -4919,9 +6777,11 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     heroesTextures["capitan_panaka"] = ["Капитан Панака", res.capitan_panaka.texture, res.capitan_panaka.texture, PIXI.Texture.fromFrame("capitan_panaka_icon.png")];
     heroesTextures["chewbacca"] = ["Чубака", res.chewbacca_lr.texture, res.chewbacca_rl.texture, PIXI.Texture.fromFrame("chewbacca_icon.png")];
     heroesTextures["clone_commander_bakara"] = ["Бакара", res.clone_commander_bakara.texture, res.clone_commander_bakara.texture, PIXI.Texture.fromFrame("clone_commander_bakara_icon.png")];
+    heroesTextures["clone_commander_bakara_2"] = ["Бакара", res.clone_commander_bakara.texture, res.clone_commander_bakara.texture, PIXI.Texture.fromFrame("clone_commander_bakara_icon.png")];
     heroesTextures["clone_commander_cody"] = ["Коди", res.clone_commander_cody_lr.texture, res.clone_commander_cody_rl.texture, PIXI.Texture.fromFrame("clone_commander_cody_icon.png")];
     heroesTextures["clone_commander_cody_2"] = ["Коди", res.clone_commander_cody_lr.texture, res.clone_commander_cody_rl.texture, PIXI.Texture.fromFrame("clone_commander_cody_icon.png")];
     heroesTextures["clone_commander_neyo"] = ["Нейо", res.clone_commander_neyo.texture, res.clone_commander_neyo.texture, PIXI.Texture.fromFrame("clone_commander_neyo_icon.png")];
+    heroesTextures["clone_commander_neyo_2"] = ["Нейо", res.clone_commander_neyo.texture, res.clone_commander_neyo.texture, PIXI.Texture.fromFrame("clone_commander_neyo_icon.png")];
     heroesTextures["clone_commander_rex"] = ["Рекс", res.clone_commander_rex.texture, res.clone_commander_rex.texture, PIXI.Texture.fromFrame("clone_commander_rex_icon.png")];
     heroesTextures["clone_commander_rex_2"] = ["Рекс", res.clone_commander_rex.texture, res.clone_commander_rex.texture, PIXI.Texture.fromFrame("clone_commander_rex_icon.png")];
     heroesTextures["commander_jerjerrod"] = ["Тиаан Джерджеррод", res.commander_jerjerrod_lr.texture, res.commander_jerjerrod_rl.texture, PIXI.Texture.fromFrame("commander_jerjerrod_icon.png")];
@@ -4961,6 +6821,7 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     heroesTextures["qui_gon_jinn"] = ["Квай-Гон Джинн", res.qui_gon_jinn_lr.texture, res.qui_gon_jinn_rl.texture, PIXI.Texture.fromFrame("qui_gon_jinn_icon.png")];
     heroesTextures["red_battle_droid"] = ["Боевой дроид", res.red_battle_droid_lr.texture, res.red_battle_droid_rl.texture, PIXI.Texture.fromFrame("red_battle_droid_icon.png")];
     heroesTextures["republic_clone_army"] = ["Республиканская армия клонов", res.republic_clone_army.texture, res.republic_clone_army.texture, PIXI.Texture.fromFrame("republic_clone_army_icon.png")];
+    heroesTextures["republic_clone_army_2"] = ["Республиканская армия клонов", res.republic_clone_army.texture, res.republic_clone_army.texture, PIXI.Texture.fromFrame("republic_clone_army_icon.png")];
     heroesTextures["rey"] = ["Рей", res.rey.texture, res.rey.texture, PIXI.Texture.fromFrame("rey_icon.png")];
     heroesTextures["royal_guards"] = ["Королевский страж", res.royal_guards.texture, res.royal_guards.texture, PIXI.Texture.fromFrame("royal_guards_icon.png")];
     heroesTextures["rune_haako"] = ["Рун Хаако", res.rune_haako_lr.texture, res.rune_haako_rl.texture, PIXI.Texture.fromFrame("rune_haako_icon.png")];
@@ -4980,6 +6841,7 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     heroesTextures["tion_medon"] = ["Тион Медон", res.tion_medon.texture, res.tion_medon.texture, PIXI.Texture.fromFrame("tion_medon_icon.png")];
     heroesTextures["trade_federation"] = ["Торговая Федерация", res.trade_federation.texture, res.trade_federation.texture, PIXI.Texture.fromFrame("trade_federation_icon.png")];
     heroesTextures["tusken"] = ["Таскенские рейдеры", res.tusken.texture, res.tusken.texture, PIXI.Texture.fromFrame("tusken_icon.png")];
+    heroesTextures["tusken_2"] = ["Таскенские рейдеры", res.tusken.texture, res.tusken.texture, PIXI.Texture.fromFrame("tusken_icon.png")];
     heroesTextures["wat_tambor"] = ["Уот Тамбор", res.wat_tambor_lr.texture, res.wat_tambor_rl.texture, PIXI.Texture.fromFrame("wat_tambor_icon.png")];
     heroesTextures["watto"] = ["Уотто", res.watto.texture, res.watto.texture, PIXI.Texture.fromFrame("watto_icon.png")];
     heroesTextures["wicket_wysri_warrick"] = ["Уикет У.Уоррик", res.wicket_wysri_warrick.texture, res.wicket_wysri_warrick.texture, PIXI.Texture.fromFrame("wicket_wysri_warrick_icon.png")];
@@ -4987,6 +6849,38 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     
     personagesJson = res.personages;
     planetsJson = res.planets;
+    
+    fieldLevelsJson = new Object();
+    fieldLevelsJson["level_0_0"] = res.level_0_0;
+    fieldLevelsJson["level_0_1"] = res.level_0_1;
+    fieldLevelsJson["level_0_2"] = res.level_0_2;
+    fieldLevelsJson["level_0_3"] = res.level_0_3;
+    fieldLevelsJson["level_0_4"] = res.level_0_4;
+    fieldLevelsJson["level_0_5"] = res.level_0_5;
+    fieldLevelsJson["level_0_6"] = res.level_0_6;
+    fieldLevelsJson["level_0_7"] = res.level_0_7;
+    fieldLevelsJson["level_0_8"] = res.level_0_8;
+    fieldLevelsJson["level_0_9"] = res.level_0_9;
+    fieldLevelsJson["level_1_0"] = res.level_1_0;
+    fieldLevelsJson["level_1_1"] = res.level_1_1;
+    fieldLevelsJson["level_1_2"] = res.level_1_2;
+    fieldLevelsJson["level_1_3"] = res.level_1_3;
+    fieldLevelsJson["level_1_4"] = res.level_1_4;
+    fieldLevelsJson["level_1_5"] = res.level_1_5;
+    fieldLevelsJson["level_1_6"] = res.level_1_6;
+    fieldLevelsJson["level_1_7"] = res.level_1_7;
+    fieldLevelsJson["level_1_8"] = res.level_1_8;
+    fieldLevelsJson["level_1_9"] = res.level_1_9;
+    fieldLevelsJson["level_2_0"] = res.level_2_0;
+    fieldLevelsJson["level_2_1"] = res.level_2_1;
+    fieldLevelsJson["level_2_2"] = res.level_2_2;
+    fieldLevelsJson["level_2_3"] = res.level_2_3;
+    fieldLevelsJson["level_2_4"] = res.level_2_4;
+    fieldLevelsJson["level_2_5"] = res.level_2_5;
+    fieldLevelsJson["level_2_6"] = res.level_2_6;
+    fieldLevelsJson["level_2_7"] = res.level_2_7;
+    fieldLevelsJson["level_2_8"] = res.level_2_8;
+    fieldLevelsJson["level_2_9"] = res.level_2_9;
 
     if(preloaderComplete === 2)
     {
@@ -5407,15 +7301,15 @@ function sideBorder()
     graphics.lineTo(430, 10);
     
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(5, 600,4);
     graphics.endFill();
     
-    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.lineStyle(2, 0xFFFF80, 1);
     graphics.moveTo(5,600);
     graphics.lineTo(5, 725);
     
-    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.lineStyle(2, 0xFFFF80, 1);
     graphics.moveTo(5,725);
     graphics.lineTo(25, 725);
     graphics.moveTo(25,725);
@@ -5441,12 +7335,12 @@ function sideBorder()
     graphics.moveTo(855,5);
     graphics.lineTo(430, 5);
     
-    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.lineStyle(2, 0xFFFF80, 1);
     graphics.moveTo(430,5);
     graphics.lineTo(5, 5);
     
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(5,5,4);
     graphics.endFill();
     
@@ -5681,7 +7575,7 @@ var sbattleStyleBlueText = { font : 'bold 18px Arial', fill : '#C4DEFB', stroke 
 var sbattleStyleRedText = { font : 'bold 18px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340, align: "center"}; 
 var sbattleButtonStyleBlueText = { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
 var sbattleButtonStyleRedText = { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
-var sbattlePlanetID
+var sbattlePlanetID;
 
 function sbattleCreate(planetTargetID)
 {
@@ -5758,7 +7652,7 @@ function sbattleWindow()
     if(side === SIDE_SITH)
     {
         var graphics = new PIXI.Graphics(); 
-        graphics.lineStyle(2, 0xFFFF00, 1);
+        graphics.lineStyle(2, 0xFFFF80, 1);
         graphics.drawRoundedRect(200, 150, 460, 260, 15);
         graphics.lineStyle(2, 0xFF0000, 1);
         graphics.beginFill(0x800000, 0.5);
@@ -5872,7 +7766,7 @@ function sbattleText()
     }
     hitCountAI /= 10;
     
-    console.log("НАЧАЛО БИТВЫ: " + sbattlePlanetID + " = " + hitCountAI);
+    //console.log("НАЧАЛО БИТВЫ: " + sbattlePlanetID + " = " + hitCountAI);
   
     var text;
     if(side === SIDE_JEDI)
@@ -6022,7 +7916,9 @@ function onSBattleButtonButtonClick()
     switch (this.name)
     {
         case "yes":
-            
+            levelCreate(sbattlePlanetID);
+            sbattleRemove();
+            mapRemove();
             break;
         case "no":
             sbattleRemove();
@@ -6115,9 +8011,152 @@ function testBlueCharacteristics()
 
 /* == НАЧАЛО ФАЙЛА ========================================================= */
 
+var TIMER_MAX_VALUE = 10;
+var TIMER_MIN_VALUE = 0;
+
+var timerStage;
+var timerText;
+var timerCount;
+var timerPause;
+var timer;
+
+var timerStyleBlueText = {
+    font : 'bold 36px Arial',
+    fill : '#FFFFFF', 
+    stroke : '#0090F0',
+    strokeThickness : 3,
+    wordWrap : true,
+    wordWrapWidth : 440
+};
+var timerStyleRedText = {
+    font : 'bold 36px Arial',
+    fill : '#FFFFFF', 
+    stroke : '#880000',
+    strokeThickness : 3,
+    wordWrap : true,
+    wordWrapWidth : 440
+};
+
+function timerCreate()
+{
+    timerPause = false;
+    timerCount = TIMER_MAX_VALUE;
+    
+    timerStage = new PIXI.Container();
+    timerStage.position.x = (MAIN_WIDTH / 2 - 25);
+    timerStage.position.y = 35;
+    
+    var graphics = new PIXI.Graphics();
+    if(side === SIDE_JEDI)
+    {
+        graphics.lineStyle(2, 0xFFFFFF, 1);
+        graphics.beginFill(0x0000FF, 0.75);
+    }
+    if(side === SIDE_SITH)
+    {
+        graphics.lineStyle(2, 0xFFFF80, 1);
+        graphics.beginFill(0x800000, 0.75);
+    }
+    graphics.drawRoundedRect(0, 0, 50, 50, 15);
+    graphics.endFill();
+    timerStage.addChild(graphics);
+    
+    if(side === SIDE_JEDI) timerText = new PIXI.Text(timerCount, timerStyleBlueText);
+    if(side === SIDE_SITH) timerText = new PIXI.Text(timerCount, timerStyleRedText);
+    timerText.x = 2.5;
+    timerText.y = 2.5;
+    timerStage.addChild(timerText);
+
+    stage.addChild(timerStage);
+
+    if(timerPause === false) timer = setInterval(onTimerComplete, 1000);
+    
+}
+
+function timerRemove()
+{
+    timerStop();
+    stage.removeChild(timerStage);
+    timerStage = null;
+}
+
+function onTimerComplete()
+{
+    if(timerCount === TIMER_MIN_VALUE){	// таймер = минимум
+        /*
+        levelResetBlock("ALL");
+
+        if(modeAI === true)
+        {
+                matchFieldBlocked = false; 	// поле разблокированно
+                modeAI = false;				// ИИ отключен
+                // console.log("[HIT]: USER наносит удар!");
+        }else{
+                matchFieldBlocked = true;	// поле заблокированно
+                modeAI = true;				// ИИ включен
+                matchCellColorBack();
+                matchSelectUnit1 = null;
+                matchSelectUnit2 = null;
+                // console.log("[HIT]: AI наносит удар!");
+        }
+        */
+        timerCount = TIMER_MAX_VALUE;	// устанавливаем максимальное значение таймера
+        timerText.text = timerCount;	// показываем секунды
+    }else{
+        timerCount--;						// уменьшение таймера
+        timerText.text = " " + timerCount;	// показываем секунды
+        //if(modeAI === true && qtimerCount === 8) { matchActionAI();}
+    }
+}
+
+function timerStart()
+{
+    /*
+    if(modeAI === true)
+    {
+            matchFieldBlocked = false; 	// поле разблокированно
+            modeAI = false;					// ИИ отключен
+            levelResetBlock("USER");		// убираем блок с Пользователя
+            // console.log("[HIT START]: USER наносит удар!");
+    }else{
+            matchFieldBlocked = true;		// поле заблокированно
+            modeAI = true;					// ИИ включен
+            levelResetBlock("AI");			// убираем блок с ИИЫ
+            matchCellColorBack();
+            matchSelectUnit1 = null;
+            matchSelectUnit2 = null;
+            // console.log("[HIT START]: AI наносит удар!");
+    }
+    */
+    timerCount = TIMER_MAX_VALUE;	// устанавливаем максимальное значение таймера
+    timerText.text = timerCount;	// показываем секунды
+    if(timerPause === false) timer = setInterval(onTimerComplete, 1000);	// запуск таймера
+}
+
+function timerStop()
+{
+    clearInterval(timer);
+}
+
+function timerPauseBegin()
+{
+        timerPause = true;
+        //if(levelStage !== null) clearInterval(timer);
+}
+
+function timerPauseEnd()
+{
+        timerPause = false;
+	//if(levelStage !== null) timer = setInterval(onTimerComplete, 1000);
+}
+
+/* == КОНЕЦ ФАЙЛА ========================================================== */
+
+/* == НАЧАЛО ФАЙЛА ========================================================= */
+
 var userMapPlanets;     // карта планет (объект)
 var userMapMessage;     // Сообщения на карте (объект)
-//var userLevels;         // Уровни (объект)
+var userLevels;         // Уровни (объект)
 
 var userCommandUser;    // команда пользователя (объект)
 var userCommandAI;      // команда ИИ (объект)

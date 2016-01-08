@@ -446,11 +446,11 @@ function mapBorderRed()
     graphics.drawRect(10, 10, 840, 710);
     
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(50, 605,4);
     graphics.endFill();
     
-    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.lineStyle(2, 0xFFFF80, 1);
     graphics.moveTo(50,605);
     graphics.lineTo(5, 605);
     
@@ -460,32 +460,32 @@ function mapBorderRed()
     graphics.lineTo(840, 725);
     
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(840, 725,4);
     graphics.endFill();
     
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(355, 680,4);
     graphics.endFill();
     
-    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.lineStyle(2, 0xFFFF80, 1);
     graphics.moveTo(355, 680);
     graphics.lineTo(355, 725);
     
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(855, 550, 4);
     graphics.endFill();
     
-    graphics.lineStyle(2, 0xFFFF00, 1);
+    graphics.lineStyle(2, 0xFFFF80, 1);
     graphics.moveTo(855,550);
     graphics.lineTo(855, 5);
     graphics.moveTo(855,5);
     graphics.lineTo(5, 5);
     
     graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF00, 1);
+    graphics.beginFill(0xFFFF80, 1);
     graphics.drawCircle(5, 5, 4);
     graphics.endFill();
     

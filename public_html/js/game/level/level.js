@@ -27,6 +27,10 @@ function levelCreate(planetID)
     {
         levelBorderBlue();
     }
+    if(side === SIDE_SITH)
+    {
+        levelBorderRed();
+    }
     
     levelFieldCreate();
 }
@@ -138,9 +142,63 @@ function levelBorderBlue()
     graphics.endFill();
     
     levelStage.addChild(graphics);
+}
+
+function levelBorderRed()
+{
+    var graphics = new PIXI.Graphics(); 
+
+    graphics.lineStyle(2, 0xFF0000, 1);
+    graphics.beginFill(0x000000, 0);
+    graphics.drawRect(10, 10, 840, 710);
+    graphics.endFill();
     
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFF80, 1);
+    graphics.drawCircle(5, 600,4);
+    graphics.endFill();
+
+    graphics.lineStyle(2, 0xFFFF80, 1);
+    graphics.moveTo(5,600);
+    graphics.lineTo(5, 725);
+    graphics.moveTo(5,725);
+    graphics.lineTo(650, 725);
+    graphics.moveTo(650,725);
+    graphics.lineTo(670, 710);
+    graphics.moveTo(670,710);
+    graphics.lineTo(840, 710);
+
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFF80, 1);
+    graphics.drawCircle(840, 710,4);
+    graphics.endFill();
+
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFF80, 1);
+    graphics.drawCircle(20, 20,4);
+    graphics.endFill();
+
+    graphics.lineStyle(2, 0xFFFF80, 1);
+    graphics.moveTo(20,20);
+    graphics.lineTo(370, 20);
+    graphics.moveTo(370,20);
+    graphics.lineTo(390, 5);
+    graphics.moveTo(390,5);
+    graphics.lineTo(855, 5);
+    graphics.moveTo(855,5);
+    graphics.lineTo(855, 150);
+
+    graphics.lineStyle(0);
+    graphics.beginFill(0xFFFF80, 1);
+    graphics.drawCircle(855, 150,4);
+    graphics.endFill();
+
+    graphics.lineStyle(2, 0xFFFF80, 1);
+    graphics.beginFill(0xFF0000, 0.0);
+    graphics.drawRoundedRect(((MAIN_WIDTH / 2) - (500 / 2)), ((MAIN_HEIGH / 2) - (500 / 2)), 500, 500, 25);
+    graphics.endFill();
     
-    
+    levelStage.addChild(graphics);
 }
 
 /* Создание игрового поля ========================================================== */

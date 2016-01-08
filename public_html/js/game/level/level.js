@@ -133,7 +133,7 @@ function levelBorderBlue()
     graphics.endFill();
 
     graphics.lineStyle(2, 0xFFFFFF, 1);
-    graphics.beginFill(0x0000FF, 0.2);
+    graphics.beginFill(0x0000FF, 0.0);
     graphics.drawRoundedRect(((MAIN_WIDTH / 2) - (500 / 2)), ((MAIN_HEIGH / 2) - (500 / 2)), 500, 500, 25);
     graphics.endFill();
     

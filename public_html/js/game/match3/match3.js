@@ -32,6 +32,8 @@ var matchFieldBlocked = false;                          // блокирован�
 
 var modeAI = false;					// режим искуственного интелекта (по умолчанию отключен в начале)
 
+var matchLevelJSON = null;                              // json игрового поля
+
 /* Инициализация матриц позиций ================================================================ */
 function initMatchMatrixPosition()
 {
@@ -41,7 +43,7 @@ function initMatchMatrixPosition()
     {
         for(var j = 0; j < MATCH_ROWS; j++)
         {
-            matchMatrixFrontPosition["i"+i+":j"+j] = [180 + (MATCH_CELL_WIDTH * i), 120 + (MATCH_CELL_HEIGHT * j)]; // x,y
+            matchMatrixFrontPosition["i"+i+":j"+j] = [184 + (MATCH_CELL_WIDTH * i), 120 + (MATCH_CELL_HEIGHT * j)]; // x,y
             matchMatrixBackPosition["i"+i+":j"+j] = [180 + (MATCH_CELL_WIDTH * i), -372 + (MATCH_CELL_HEIGHT * j)]; // x,y
         }
     }
@@ -50,6 +52,8 @@ function initMatchMatrixPosition()
 /* Создание игрового поля ====================================================================== */
 function createMatchField(levelJSON)
 {
+    matchLevelJSON = levelJSON;
+    
     initMatchMatrixPosition();
 
     matchStage = new PIXI.Container();
@@ -65,9 +69,17 @@ function createMatchField(levelJSON)
                     if(levelJSON.data.Level.cell[index].cellType !== MATCH_CELL_TYPE_DROP)
                     {
                             var graphics = new PIXI.Graphics();
-                            graphics.lineStyle(2, 0x000000, 1);
-                            graphics.beginFill(0x000000, 0.75);
-                            graphics.drawRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT);
+                            if(side === SIDE_JEDI)
+                            {
+                                graphics.lineStyle(1, 0x0080FF, 0.25);
+                                graphics.beginFill(0x0080FF, 0.25);
+                            }
+                            if(side === SIDE_SITH)
+                            {
+                                graphics.lineStyle(1, 0x880000, 0.25);
+                                graphics.beginFill(0x880000, 0.25);
+                            }
+                            graphics.drawRoundedRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT, 15);
                             graphics.endFill();
                             graphics.cellType = levelJSON.data.Level.cell[index].cellType;
                             graphics.position.x = matchMatrixFrontPosition["i"+iCell+":j"+jCell][0];
@@ -150,13 +162,14 @@ function onMatchUnitClick()
 function matchCellColorSelect(unitType, colI, rowJ)
 {
     matchMatrixCell["i"+colI+":j"+rowJ].clear();
-    matchMatrixCell["i"+colI+":j"+rowJ].lineStyle(2, 0x000000, 1);
+    if(side === SIDE_JEDI) matchMatrixCell["i"+colI+":j"+rowJ].lineStyle(1, 0x0080FF, 0.25);
+    if(side === SIDE_SITH) matchMatrixCell["i"+colI+":j"+rowJ].lineStyle(1, 0x880000, 0.25);
     if(unitType === MATCH_HIT_1) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0xFFFF80, 0.50);
     if(unitType === MATCH_HIT_2) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0xFF0000, 0.50);
     if(unitType === MATCH_HIT_3) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0xFF00FF, 0.50);
     if(unitType === MATCH_HIT_4) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0x0080FF, 0.50);
     if(unitType === MATCH_HIT_5) matchMatrixCell["i"+colI+":j"+rowJ].beginFill(0x00FF80, 0.50);
-    matchMatrixCell["i"+colI+":j"+rowJ].drawRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT);
+    matchMatrixCell["i"+colI+":j"+rowJ].drawRoundedRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT, 15);
     matchMatrixCell["i"+colI+":j"+rowJ].endFill();
 }
 
@@ -165,17 +178,33 @@ function matchCellColorBack()
     if(matchSelectUnit1 !== null)
     {
             matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].clear();
-            matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].lineStyle(2, 0x000000, 1);
-            matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].beginFill(0x000000, 0.75);
-            matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].drawRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT);
+            if(side === SIDE_JEDI)
+            {
+                matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].lineStyle(1, 0x0080FF, 0.25);
+                matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].beginFill(0x0080FF, 0.25);
+            }
+            if(side === SIDE_SITH)
+            {
+                matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].lineStyle(1, 0x880000, 0.25);
+                matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].beginFill(0x880000, 0.25);
+            }
+            matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].drawRoundedRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT, 15);
             matchMatrixCell["i"+matchSelectUnit1.posColumnI+":j"+matchSelectUnit1.posRowJ].endFill();
     }
     if(matchSelectUnit2 !== null)
     {
             matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].clear();
-            matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].lineStyle(2, 0x000000, 1);
-            matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].beginFill(0x000000, 0.75);
-            matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].drawRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT);
+            if(side === SIDE_JEDI)
+            {
+                matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].lineStyle(1, 0x0080FF, 0.25);
+                matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].beginFill(0x0080FF, 0.25);
+            }
+            if(side === SIDE_SITH)
+            {
+                matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].lineStyle(1, 0x880000, 0.25);
+                matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].beginFill(0x880000, 0.25);
+            }
+            matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].drawRoundedRect(0, 0, MATCH_CELL_WIDTH, MATCH_CELL_HEIGHT, 15);
             matchMatrixCell["i"+matchSelectUnit2.posColumnI+":j"+matchSelectUnit2.posRowJ].endFill();
     }
 }
@@ -955,13 +984,16 @@ function matchCheckCombinations()
 function matchUpdateField()
 {
 	matchMoveDownProcesses = new Object();
-
+        
+        var indexRandom = Math.random() / 0.1;
+	var indexLevel = Math.round(indexRandom);
+        
 	var index = 0;
 	for(var i = 0; i < MATCH_COLUMNS; i++)
 	{
 		for(var j = 0; j < MATCH_ROWS; j++)
 		{
-			if(qGlobalLevels[qGlobalTournamentProgress - 1].levelField.data.Level.cell[index].cellObject !== MATCH_HIT_0)
+			if(matchLevelJSON.data.Level.cell[index].cellObject !== MATCH_HIT_0)
 			{
 				//matchMatrixUnit["i"+i+":j"+j].alpha = 0.0;
 				matchMatrixUnit["i"+i+":j"+j].flagRemove = false;
@@ -969,27 +1001,27 @@ function matchUpdateField()
 				matchMatrixUnit["i"+i+":j"+j].position.y = matchMatrixBackPosition["i"+i+":j"+j][1];
 				matchMoveDownProcesses["i"+i+":j"+j] = true;
 				
-				if(fieldLevels[13].data.Level.cell[index].cellObject === MATCH_HIT_1)
+				if(fieldLevelsJson["level_0_" + indexLevel].data.Level.cell[index].cellObject === MATCH_HIT_1)
 				{
 					matchMatrixUnit["i"+i+":j"+j].texture = hit1Texture;
 					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_1;
 				}
-				if(fieldLevels[13].data.Level.cell[index].cellObject === MATCH_HIT_2)
+				if(fieldLevelsJson["level_0_" + indexLevel].data.Level.cell[index].cellObject === MATCH_HIT_2)
 				{
 					matchMatrixUnit["i"+i+":j"+j].texture = hit2Texture;
 					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_2;
 				}
-				if(fieldLevels[13].data.Level.cell[index].cellObject === MATCH_HIT_3)
+				if(fieldLevelsJson["level_0_" + indexLevel].data.Level.cell[index].cellObject === MATCH_HIT_3)
 				{
 					matchMatrixUnit["i"+i+":j"+j].texture = hit3Texture;
 					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_3;
 				}
-				if(fieldLevels[13].data.Level.cell[index].cellObject === MATCH_HIT_4)
+				if(fieldLevelsJson["level_0_" + indexLevel].data.Level.cell[index].cellObject === MATCH_HIT_4)
 				{
 					matchMatrixUnit["i"+i+":j"+j].texture = hit4Texture;
 					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_4;
 				}
-				if(fieldLevels[13].data.Level.cell[index].cellObject === MATCH_HIT_5)
+				if(fieldLevelsJson["level_0_" + indexLevel].data.Level.cell[index].cellObject === MATCH_HIT_5)
 				{
 					matchMatrixUnit["i"+i+":j"+j].texture = hit5Texture;
 					matchMatrixUnit["i"+i+":j"+j].unitType = MATCH_HIT_5;
@@ -1002,11 +1034,9 @@ function matchUpdateField()
 					.call(onCompleteMatchMoveDownNewUnits, matchMatrixUnit["i"+i+":j"+j]); // событие выполнено
 				createjs.Ticker.setFPS(60);
 			}
-			//// console.log("MATCH [FIELD][Unit Update]["+matchMatrixUnit["i"+i+":j"+j].name+"]: " + matchMatrixUnit["i"+i+":j"+j].unitType + " | " + matchMatrixUnit["i"+i+":j"+j].flagRemove);
 			index++;
 		}
 	}
-	//// console.log("MATCH [FIELD]: UPDATE!");
 }
 
 /* Ход искусственного интеллекта ============================================================== */

@@ -7,14 +7,16 @@ var sbattleStyleBlueText = { font : 'bold 18px Arial', fill : '#C4DEFB', stroke 
 var sbattleStyleRedText = { font : 'bold 18px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340, align: "center"}; 
 var sbattleButtonStyleBlueText = { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
 var sbattleButtonStyleRedText = { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }; 
-var sbattlePlanetID;
+var sbattleUserPlanetID;
+var sbattleAIPlanetID;
 
-function sbattleCreate(planetTargetID)
+function sbattleCreate(planetUserTargetID, planetAITargetID)
 {
     sbattleStage = new PIXI.Container();
     stage.addChild(sbattleStage);
-    sbattlePlanetID = planetTargetID;
-    
+    sbattleUserPlanetID = planetUserTargetID;
+    sbattleAIPlanetID = planetAITargetID
+            
     sbattleBackground();
     sbattleWindow();
     sbattleTitle();
@@ -53,13 +55,27 @@ function sbattleWindow()
         graphics.endFill();
         sbattleStage.addChild(graphics);
         
-        var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser["personage1"]][1]); 
+        var textureSprite; 
+        if(userCommandUser["personage1"] != undefined) textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser["personage1"]][1]);
+        else{
+            if(userCommandUser["personage2"] != undefined) textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser["personage2"]][1]);
+            else textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser["personage3"]][1]);
+        }
         textureSprite.position.x = 220; 
         textureSprite.position.y = 165; 
         textureSprite.scale.set(0.5);
         sbattleStage.addChild(textureSprite);
         
-        textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[sbattlePlanetID].redPersonage1][2]); 
+        if(sbattleUserPlanetID !== sbattleAIPlanetID)
+        {
+            textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[sbattleUserPlanetID].redPersonage1][2]);
+        } else {
+            if(userCommandAI["personage1"] != undefined) textureSprite = new PIXI.Sprite(heroesTextures[userCommandAI["personage1"]][2]);
+            else{
+                if(userCommandAI["personage2"] != undefined) textureSprite = new PIXI.Sprite(heroesTextures[userCommandAI["personage2"]][2]);
+                else textureSprite = new PIXI.Sprite(heroesTextures[userCommandAI["personage3"]][2]);
+            }
+        } 
         textureSprite.position.x = 510; 
         textureSprite.position.y = 165; 
         textureSprite.scale.set(0.5);
@@ -92,13 +108,27 @@ function sbattleWindow()
         graphics.endFill();
         sbattleStage.addChild(graphics);
         
-        var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser["personage1"]][1]); 
+        var textureSprite; 
+        if(userCommandUser["personage1"] != undefined) textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser["personage1"]][1]);
+        else{
+            if(userCommandUser["personage2"] != undefined) textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser["personage2"]][1]);
+            else textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser["personage3"]][1]);
+        }
         textureSprite.position.x = 220; 
         textureSprite.position.y = 165; 
         textureSprite.scale.set(0.5);
         sbattleStage.addChild(textureSprite);
         
-        textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[sbattlePlanetID].bluePersonage1][2]); 
+        if(sbattleUserPlanetID !== sbattleAIPlanetID)
+        {
+            textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[sbattleUserPlanetID].bluePersonage1][2]);
+        } else {
+            if(userCommandAI["personage1"] != undefined) textureSprite = new PIXI.Sprite(heroesTextures[userCommandAI["personage1"]][2]);
+            else{
+                if(userCommandAI["personage2"] != undefined) textureSprite = new PIXI.Sprite(heroesTextures[userCommandAI["personage2"]][2]);
+                else textureSprite = new PIXI.Sprite(heroesTextures[userCommandAI["personage3"]][2]);
+            }
+        } 
         textureSprite.position.x = 510; 
         textureSprite.position.y = 165; 
         textureSprite.scale.set(0.5);
@@ -142,59 +172,142 @@ function sbattleTitle()
 function sbattleText()
 {
     var hitCountUser = 0;
-    hitCountUser += userPersonages[userCommandUser["personage1"]].hitDefense1 
+    if(userPersonages[userCommandUser["personage1"]] != undefined)
+    {
+        hitCountUser += userPersonages[userCommandUser["personage1"]].hitDefense1 
             + userPersonages[userCommandUser["personage1"]].hitDefense2 
             + userPersonages[userCommandUser["personage1"]].hitDefense3 
             + userPersonages[userCommandUser["personage1"]].hitDefense4
             + userPersonages[userCommandUser["personage1"]].hitDefense5;
-    hitCountUser += userPersonages[userCommandUser["personage2"]].hitDefense1 
+    }
+    if(userPersonages[userCommandUser["personage2"]] != undefined)
+    {
+        hitCountUser += userPersonages[userCommandUser["personage2"]].hitDefense1 
             + userPersonages[userCommandUser["personage2"]].hitDefense2 
             + userPersonages[userCommandUser["personage2"]].hitDefense3 
             + userPersonages[userCommandUser["personage2"]].hitDefense4
             + userPersonages[userCommandUser["personage2"]].hitDefense5;
-    hitCountUser += userPersonages[userCommandUser["personage3"]].hitDefense1 
+    }
+    if(userPersonages[userCommandUser["personage3"]] != undefined)
+    {
+        hitCountUser += userPersonages[userCommandUser["personage3"]].hitDefense1 
             + userPersonages[userCommandUser["personage3"]].hitDefense2 
             + userPersonages[userCommandUser["personage3"]].hitDefense3 
             + userPersonages[userCommandUser["personage3"]].hitDefense4
             + userPersonages[userCommandUser["personage3"]].hitDefense5;
+    }
     hitCountUser /= 10;
     
     var hitCountAI = 0;
     if(side === SIDE_JEDI)
     {
-        hitCountAI += userPersonages[userPlanets[sbattlePlanetID].redPersonage1].hitAttack1 
-                + userPersonages[userPlanets[sbattlePlanetID].redPersonage1].hitAttack2 
-                + userPersonages[userPlanets[sbattlePlanetID].redPersonage1].hitAttack3 
-                + userPersonages[userPlanets[sbattlePlanetID].redPersonage1].hitAttack4
-                + userPersonages[userPlanets[sbattlePlanetID].redPersonage1].hitAttack5;
-        hitCountAI += userPersonages[userPlanets[sbattlePlanetID].redPersonage2].hitAttack1 
-                + userPersonages[userPlanets[sbattlePlanetID].redPersonage2].hitAttack2 
-                + userPersonages[userPlanets[sbattlePlanetID].redPersonage2].hitAttack3 
-                + userPersonages[userPlanets[sbattlePlanetID].redPersonage2].hitAttack4
-                + userPersonages[userPlanets[sbattlePlanetID].redPersonage2].hitAttack5;
-        hitCountAI += userPersonages[userPlanets[sbattlePlanetID].redPersonage3].hitAttack1 
-                + userPersonages[userPlanets[sbattlePlanetID].redPersonage3].hitAttack2 
-                + userPersonages[userPlanets[sbattlePlanetID].redPersonage3].hitAttack3 
-                + userPersonages[userPlanets[sbattlePlanetID].redPersonage3].hitAttack4
-                + userPersonages[userPlanets[sbattlePlanetID].redPersonage3].hitAttack5;
+        if(sbattleUserPlanetID !== sbattleAIPlanetID)
+        {
+            if(userPersonages[userPlanets[sbattleUserPlanetID].redPersonage1] != undefined)
+            {
+                hitCountAI += userPersonages[userPlanets[sbattleUserPlanetID].redPersonage1].hitAttack1 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].redPersonage1].hitAttack2 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].redPersonage1].hitAttack3 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].redPersonage1].hitAttack4
+                    + userPersonages[userPlanets[sbattleUserPlanetID].redPersonage1].hitAttack5;
+            }
+            if(userPersonages[userPlanets[sbattleUserPlanetID].redPersonage2] != undefined)
+            {
+                hitCountAI += userPersonages[userPlanets[sbattleUserPlanetID].redPersonage2].hitAttack1 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].redPersonage2].hitAttack2 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].redPersonage2].hitAttack3 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].redPersonage2].hitAttack4
+                    + userPersonages[userPlanets[sbattleUserPlanetID].redPersonage2].hitAttack5;
+            }
+            if(userPersonages[userPlanets[sbattleUserPlanetID].redPersonage3] != undefined)
+            {
+                hitCountAI += userPersonages[userPlanets[sbattleUserPlanetID].redPersonage3].hitAttack1 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].redPersonage3].hitAttack2 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].redPersonage3].hitAttack3 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].redPersonage3].hitAttack4
+                    + userPersonages[userPlanets[sbattleUserPlanetID].redPersonage3].hitAttack5;
+            }
+        }else{
+            if(userPersonages[userCommandAI["personage1"]] != undefined)
+            {
+                hitCountAI += userPersonages[userCommandAI["personage1"]].hitDefense1 
+                    + userPersonages[userCommandAI["personage1"]].hitDefense2 
+                    + userPersonages[userCommandAI["personage1"]].hitDefense3 
+                    + userPersonages[userCommandAI["personage1"]].hitDefense3
+                    + userPersonages[userCommandAI["personage1"]].hitDefense4;
+            }
+            if(userPersonages[userCommandAI["personage2"]] != undefined)
+            {
+                hitCountAI += userPersonages[userCommandAI["personage2"]].hitDefense1 
+                    + userPersonages[userCommandAI["personage2"]].hitDefense2 
+                    + userPersonages[userCommandAI["personage2"]].hitDefense3 
+                    + userPersonages[userCommandAI["personage2"]].hitDefense4
+                    + userPersonages[userCommandAI["personage2"]].hitDefense5;
+            }
+            if(userPersonages[userCommandAI["personage3"]] != undefined)
+            {
+                hitCountAI += userPersonages[userCommandAI["personage3"]].hitDefense1 
+                    + userPersonages[userCommandAI["personage3"]].hitDefense2 
+                    + userPersonages[userCommandAI["personage3"]].hitDefense3 
+                    + userPersonages[userCommandAI["personage3"]].hitDefense4
+                    + userPersonages[userCommandAI["personage3"]].hitDefense5;
+            }
+        }
     }
     if(side === SIDE_SITH)
     {
-        hitCountAI += userPersonages[userPlanets[sbattlePlanetID].bluePersonage1].hitAttack1 
-                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage1].hitAttack2 
-                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage1].hitAttack3 
-                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage1].hitAttack4
-                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage1].hitAttack5;
-        hitCountAI += userPersonages[userPlanets[sbattlePlanetID].bluePersonage2].hitAttack1 
-                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage2].hitAttack2 
-                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage2].hitAttack3 
-                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage2].hitAttack4
-                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage2].hitAttack5;
-        hitCountAI += userPersonages[userPlanets[sbattlePlanetID].bluePersonage3].hitAttack1 
-                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage3].hitAttack2 
-                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage3].hitAttack3 
-                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage3].hitAttack4
-                + userPersonages[userPlanets[sbattlePlanetID].bluePersonage3].hitAttack5;
+        if(sbattleUserPlanetID !== sbattleAIPlanetID)
+        {
+            if(userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage1] != undefined)
+            {
+                hitCountAI += userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage1].hitAttack1 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage1].hitAttack2 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage1].hitAttack3 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage1].hitAttack4
+                    + userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage1].hitAttack5;
+            }
+            if(userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage2] != undefined)
+            {
+                hitCountAI += userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage2].hitAttack1 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage2].hitAttack2 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage2].hitAttack3 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage2].hitAttack4
+                    + userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage2].hitAttack5;
+            }
+            if(userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage3] != undefined)
+            {
+                hitCountAI += userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage3].hitAttack1 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage3].hitAttack2 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage3].hitAttack3 
+                    + userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage3].hitAttack4
+                    + userPersonages[userPlanets[sbattleUserPlanetID].bluePersonage3].hitAttack5;
+            }
+        }else{
+            if(userPersonages[userCommandAI["personage1"]] != undefined)
+            {
+                hitCountAI += userPersonages[userCommandAI["personage1"]].hitDefense1 
+                    + userPersonages[userCommandAI["personage1"]].hitDefense2 
+                    + userPersonages[userCommandAI["personage1"]].hitDefense3 
+                    + userPersonages[userCommandAI["personage1"]].hitDefense3
+                    + userPersonages[userCommandAI["personage1"]].hitDefense4;
+            }
+            if(userPersonages[userCommandAI["personage2"]] != undefined)
+            {
+                hitCountAI += userPersonages[userCommandAI["personage2"]].hitDefense1 
+                    + userPersonages[userCommandAI["personage2"]].hitDefense2 
+                    + userPersonages[userCommandAI["personage2"]].hitDefense3 
+                    + userPersonages[userCommandAI["personage2"]].hitDefense4
+                    + userPersonages[userCommandAI["personage2"]].hitDefense5;
+            }
+            if(userPersonages[userCommandAI["personage3"]] != undefined)
+            {
+                hitCountAI += userPersonages[userCommandAI["personage3"]].hitDefense1 
+                    + userPersonages[userCommandAI["personage3"]].hitDefense2 
+                    + userPersonages[userCommandAI["personage3"]].hitDefense3 
+                    + userPersonages[userCommandAI["personage3"]].hitDefense4
+                    + userPersonages[userCommandAI["personage3"]].hitDefense5;
+            }
+        }
     }
     hitCountAI /= 10;
     
@@ -224,9 +337,40 @@ function sbattleText()
         sbattleStage.addChild(text);
     }
     
-    
-    if(side === SIDE_JEDI) text = new PIXI.Text(heroesTextures[userCommandUser["personage1"]][0] + "\nVS\n" + heroesTextures[userPlanets[sbattlePlanetID].redPersonage1][0], sbattleStyleBlueText); 
-    if(side === SIDE_SITH) text = new PIXI.Text(heroesTextures[userCommandUser["personage1"]][0] + "\nVS\n" + heroesTextures[userPlanets[sbattlePlanetID].bluePersonage1][0], sbattleStyleRedText); 
+    if(side === SIDE_JEDI)
+    {
+        if(sbattleUserPlanetID !== sbattleAIPlanetID)
+        {
+            if(userCommandUser["personage1"] != undefined) text = new PIXI.Text(heroesTextures[userCommandUser["personage1"]][0] + "\nVS\n" + heroesTextures[userPlanets[sbattleUserPlanetID].redPersonage1][0], sbattleStyleBlueText); 
+            else{
+                if(userCommandUser["personage2"] != undefined) text = new PIXI.Text(heroesTextures[userCommandUser["personage2"]][0] + "\nVS\n" + heroesTextures[userPlanets[sbattleUserPlanetID].redPersonage1][0], sbattleStyleBlueText); 
+                else  text = new PIXI.Text(heroesTextures[userCommandUser["personage3"]][0] + "\nVS\n" + heroesTextures[userPlanets[sbattleUserPlanetID].redPersonage1][0], sbattleStyleBlueText); 
+            }    
+        }else{
+            if(userCommandUser["personage1"] != undefined) text = new PIXI.Text(heroesTextures[userCommandUser["personage1"]][0] + "\nVS\n" + heroesTextures[userCommandAI["personage1"]][0], sbattleStyleBlueText);
+            else{
+                if(userCommandUser["personage2"] != undefined) text = new PIXI.Text(heroesTextures[userCommandUser["personage2"]][0] + "\nVS\n" + heroesTextures[userCommandAI["personage1"]][0], sbattleStyleBlueText);
+                else text = new PIXI.Text(heroesTextures[userCommandUser["personage3"]][0] + "\nVS\n" + heroesTextures[userCommandAI["personage1"]][0], sbattleStyleBlueText);
+            }
+        }
+    }
+    if(side === SIDE_SITH)
+    {
+        if(sbattleUserPlanetID !== sbattleAIPlanetID)
+        {
+            if(userCommandUser["personage1"] != undefined) text = new PIXI.Text(heroesTextures[userCommandUser["personage1"]][0] + "\nVS\n" + heroesTextures[userPlanets[sbattleUserPlanetID].bluePersonage1][0], sbattleStyleRedText); 
+            else{
+                if(userCommandUser["personage2"] != undefined) text = new PIXI.Text(heroesTextures[userCommandUser["personage2"]][0] + "\nVS\n" + heroesTextures[userPlanets[sbattleUserPlanetID].bluePersonage1][0], sbattleStyleRedText); 
+                else text = new PIXI.Text(heroesTextures[userCommandUser["personage3"]][0] + "\nVS\n" + heroesTextures[userPlanets[sbattleUserPlanetID].bluePersonage1][0], sbattleStyleRedText); 
+            }
+        }else{
+            if(userCommandUser["personage1"] != undefined) text = new PIXI.Text(heroesTextures[userCommandUser["personage1"]][0] + "\nVS\n" + heroesTextures[userCommandAI["personage1"]][0], sbattleStyleRedText); 
+            else{
+                if(userCommandUser["personage2"] != undefined) text = new PIXI.Text(heroesTextures[userCommandUser["personage2"]][0] + "\nVS\n" + heroesTextures[userCommandAI["personage1"]][0], sbattleStyleRedText); 
+                else text = new PIXI.Text(heroesTextures[userCommandUser["personage3"]][0] + "\nVS\n" + heroesTextures[userCommandAI["personage1"]][0], sbattleStyleRedText); 
+            }
+        }
+    }
     text.x = (MAIN_WIDTH / 2) - (text.width / 2);
     text.y = 225;
     sbattleStage.addChild(text);
@@ -348,7 +492,8 @@ function onSBattleButtonButtonClick()
     switch (this.name)
     {
         case "yes":
-            levelCreate(sbattlePlanetID);
+            if(sbattleUserPlanetID !== sbattleAIPlanetID) levelCreate(sbattleUserPlanetID, false);
+            else levelCreate(sbattleUserPlanetID, true);
             sbattleRemove();
             mapRemove();
             break;

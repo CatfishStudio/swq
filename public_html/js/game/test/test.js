@@ -10,7 +10,7 @@ function testCreate()
         
         testBackground();
         testAnimation();
-        textTexture();
+        //textTexture();
 }
 
 function testRemove()

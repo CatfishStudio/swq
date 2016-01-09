@@ -3140,6 +3140,11 @@ var LEVEL_STATUS_BATTLE = "LEVEL_STATUS_BATTLE";
 var LEVEL_STATUS_END_BATTLE_WIN_USER = "LEVEL_STATUS_END_BATTLE_WIN_USER";
 var LEVEL_STATUS_END_BATTLE_WIN_AI = "LEVEL_STATUS_END_BATTLE_WIN_AI";
 
+var levelCommandUser = [];  // команда пользователя (userCommandUser)
+var levelCommandAI = [];    // команда ИИ (userCommandAI)
+var levelIndexUser = 0;     // индекс персонажа в команде пользователя
+var levelIndexAI = 0;       // индекс персонажа в команде ИИ
+
 function levelCreate(planetID)
 {
     levelStage = new PIXI.Container();
@@ -3147,6 +3152,10 @@ function levelCreate(planetID)
     
     levelPlanetID = planetID;
     levelStatus = LEVEL_STATUS_BATTLE;
+    levelCommandUser = [];
+    levelCommandAI = [];
+    levelIndexUser = 0;
+    levelIndexAI = 0;
     
     levelBackground();
     levelBackgroundParallaxTween();
@@ -3230,13 +3239,13 @@ function levelBorderBlue()
     graphics.endFill();
 
     graphics.lineStyle(2, 0xFFFFFF, 1);
-    graphics.moveTo(5,600);
+    graphics.moveTo(5, 600);
     graphics.lineTo(5, 725);
-    graphics.moveTo(5,725);
-    graphics.lineTo(650, 725);
-    graphics.moveTo(650,725);
-    graphics.lineTo(670, 710);
-    graphics.moveTo(670,710);
+    graphics.moveTo(5, 725);
+    graphics.lineTo(470, 725);
+    graphics.moveTo(470, 725);
+    graphics.lineTo(490, 710);
+    graphics.moveTo(490, 710);
     graphics.lineTo(840, 710);
 
     graphics.lineStyle(0);
@@ -3252,7 +3261,7 @@ function levelBorderBlue()
     graphics.lineStyle(2, 0xFFFFFF, 1);
     graphics.moveTo(20,20);
     graphics.lineTo(370, 20);
-    graphics.moveTo(370,20);
+    graphics.moveTo(370, 20);
     graphics.lineTo(390, 5);
     graphics.moveTo(390,5);
     graphics.lineTo(855, 5);
@@ -3336,7 +3345,6 @@ function levelFieldCreate()
     levelStage.addChild(matchStage);
 }
 /* =========================================================================== */
-
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */
 
@@ -4365,7 +4373,7 @@ function createMatchField(levelJSON)
     matchLevelJSON = levelJSON;
     
     initMatchMatrixPosition();
-
+    
     matchStage = new PIXI.Container();
     matchMatrixCell = new Object();
     matchMatrixUnit = new Object();
@@ -4447,6 +4455,7 @@ function createMatchField(levelJSON)
                     index++;
             }
     }
+    matchMask();
 }
 
 /* Событие: нажатие на юнит */
@@ -5854,8 +5863,8 @@ function matchActionAI()
 function matchAnimationRemoveUnit(posX, posY)
 {
 	var anim = new PIXI.extras.MovieClip(animTexFlash);
-	anim.position.x = posX - 45;
-	anim.position.y = posY - 30;
+	anim.position.x = posX - 55;
+	anim.position.y = posY - 55;
 	anim.loop = false;
 	anim.animationSpeed = 0.2;
 	anim.onComplete = onMatchAnimationRemoveUnitComplete;
@@ -5866,6 +5875,25 @@ function matchAnimationRemoveUnit(posX, posY)
 function onMatchAnimationRemoveUnitComplete()
 {
 	matchStage.removeChild(this);
+}
+
+/* Наложение маски на игровое поле */
+function matchMask()
+{
+	var posX = (MAIN_WIDTH / 2) - (500 / 2);
+	var posY = (MAIN_HEIGH / 2) - (500 / 2);
+	var thing = new PIXI.Graphics();
+	thing.position.x = 0;
+	thing.position.y = 0;
+	thing.lineStyle(0);
+	thing.clear();
+        thing.beginFill(0x8bc5ff, 0.4);
+        thing.moveTo(posX, posY);
+        thing.lineTo(posX, posY);
+        thing.lineTo(posX + 500, posY);
+        thing.lineTo(posX + 500, posY + 500);
+        thing.lineTo(posX, posY + 500);
+        matchStage.mask = thing;
 }
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */
@@ -6698,7 +6726,7 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     preloaderPercentTextures = 50;
     preloaderProgressAssetsText.text = "Загрузка " + (preloaderPercentTextures + preloaderPercentSounds) + "%";
     
-    animTest = loadAnimationTextures(8, 'dv_');
+    animTest = loadAnimationTextures(5, 'img_');
     testTexture = res.testTexture.texture;
     
     deathstarTexture = res.deathstarTexture.texture;			// deathstar.png
@@ -6724,7 +6752,7 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     hit4Texture = PIXI.Texture.fromFrame('hit_4.png');
     hit5Texture = PIXI.Texture.fromFrame('hit_5.png');
     
-    animTexFlash = loadAnimationTextures(11, 'flash_');
+    animTexFlash = loadAnimationTextures(13, 'flash_');
 
     animTexButtonBlue = loadAnimationTextures(11, 'button_blue_');
     animTexButtonRed = loadAnimationTextures(11, 'button_red_');
@@ -7941,7 +7969,7 @@ function testCreate()
         
         testBackground();
         testAnimation();
-        textTexture();
+        //textTexture();
 }
 
 function testRemove()

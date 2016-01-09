@@ -297,7 +297,7 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     preloaderPercentTextures = 50;
     preloaderProgressAssetsText.text = "Загрузка " + (preloaderPercentTextures + preloaderPercentSounds) + "%";
     
-    animTest = loadAnimationTextures(8, 'dv_');
+    animTest = loadAnimationTextures(5, 'img_');
     testTexture = res.testTexture.texture;
     
     deathstarTexture = res.deathstarTexture.texture;			// deathstar.png

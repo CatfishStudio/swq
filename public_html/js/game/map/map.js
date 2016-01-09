@@ -14,6 +14,7 @@ var mapStyleButtonRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke
 var mapTextMessage;
 var mapTargetPlanetBlue;
 var mapTargetPlanetRed;
+var mapTargetAI;    // текущая цель ИИ
 
 function mapCreate() 
 { 
@@ -209,7 +210,7 @@ function onMapPlanetClick()
             if(userPlanets[this.name].status !== USER_PLANET_QUEST_COMPLETE_JEDI)
             {
                 mapSprite.move = false;
-                sbattleCreate(this.name);
+                sbattleCreate(this.name, mapTargetAI);
             }
         }
         if(side === SIDE_SITH)
@@ -217,7 +218,7 @@ function onMapPlanetClick()
             if(userPlanets[this.name].status !== USER_PLANET_QUEST_COMPLETE_SITH)
             {
                 mapSprite.move = false;
-                sbattleCreate(this.name);
+                sbattleCreate(this.name, mapTargetAI);
             }
         }
     }
@@ -321,7 +322,7 @@ function mapDesktopBlue()
     graphics.lineTo(350, 610);
     graphics.lineTo(350, 715);
     graphics.lineTo(15, 715);
-    graphics.endFill
+    graphics.endFill();
     for(var i = 0; i < 35; i++)
     {
         graphics.lineStyle(1, 0x0000FF, 0.5);
@@ -501,7 +502,7 @@ function mapDesktopRed()
     graphics.lineTo(350, 610);
     graphics.lineTo(350, 715);
     graphics.lineTo(15, 715);
-    graphics.endFill
+    graphics.endFill();
     for(var i = 0; i < 35; i++)
     {
         graphics.lineStyle(1, 0x800000, 0.5);
@@ -856,7 +857,7 @@ function mapDestinationSearch()
     
     for(var key in userPlanets)
     {
-        if(side === SIDE_JEDI || side === SIDE_SITH)
+        if(side === SIDE_JEDI)
         {
            if(userPlanets[key].status !== USER_PLANET_QUEST_COMPLETE_JEDI)
            {
@@ -909,23 +910,76 @@ function mapDestinationSearch()
                 }
             }
         }
+        
+        if(side === SIDE_SITH)
+        {
+           if(userPlanets[key].status !== USER_PLANET_QUEST_COMPLETE_SITH)
+           {
+                var hitCount = 0;
+                hitCount += userPersonages[userPlanets[key].bluePersonage1].hitAttack1 
+                        + userPersonages[userPlanets[key].bluePersonage1].hitAttack2 
+                        + userPersonages[userPlanets[key].bluePersonage1].hitAttack3 
+                        + userPersonages[userPlanets[key].bluePersonage1].hitAttack4
+                        + userPersonages[userPlanets[key].bluePersonage1].hitAttack5;
+                hitCount += userPersonages[userPlanets[key].bluePersonage2].hitAttack1
+                        + userPersonages[userPlanets[key].bluePersonage2].hitAttack2
+                        + userPersonages[userPlanets[key].bluePersonage2].hitAttack3
+                        + userPersonages[userPlanets[key].bluePersonage2].hitAttack4
+                        + userPersonages[userPlanets[key].bluePersonage2].hitAttack5;
+                hitCount += userPersonages[userPlanets[key].bluePersonage3].hitAttack1
+                        + userPersonages[userPlanets[key].bluePersonage3].hitAttack2
+                        + userPersonages[userPlanets[key].bluePersonage3].hitAttack3
+                        + userPersonages[userPlanets[key].bluePersonage3].hitAttack4
+                        + userPersonages[userPlanets[key].bluePersonage3].hitAttack5;
+                hitCount /= 10;
+		if(hitCount < target["indexUser"])
+                {
+                   target["planetUser"] = userPlanets[key].id; 
+                   target["indexUser"] = hitCount;
+                }
+           }
+           if(userPlanets[key].status !== USER_PLANET_QUEST_COMPLETE_JEDI)
+           {
+                var hitCount = 0;
+                hitCount += userPersonages[userPlanets[key].redPersonage1].hitAttack1 
+                        + userPersonages[userPlanets[key].redPersonage1].hitAttack2 
+                        + userPersonages[userPlanets[key].redPersonage1].hitAttack3 
+                        + userPersonages[userPlanets[key].redPersonage1].hitAttack4
+                        + userPersonages[userPlanets[key].redPersonage1].hitAttack5;
+                hitCount += userPersonages[userPlanets[key].redPersonage2].hitAttack1
+                        + userPersonages[userPlanets[key].redPersonage2].hitAttack2
+                        + userPersonages[userPlanets[key].redPersonage2].hitAttack3
+                        + userPersonages[userPlanets[key].redPersonage2].hitAttack4
+                        + userPersonages[userPlanets[key].redPersonage2].hitAttack5;
+                hitCount += userPersonages[userPlanets[key].redPersonage3].hitAttack1
+                        + userPersonages[userPlanets[key].redPersonage3].hitAttack2
+                        + userPersonages[userPlanets[key].redPersonage3].hitAttack3
+                        + userPersonages[userPlanets[key].redPersonage3].hitAttack4
+                        + userPersonages[userPlanets[key].redPersonage3].hitAttack5;
+                hitCount /= 10;
+                if(hitCount < target["indexAI"])
+                {
+                   target["planetAI"] = userPlanets[key].id; 
+                   target["indexAI"] = hitCount;
+                }
+            }
+        }
     }
 
     if(side === SIDE_JEDI)
     {
         mapBlueTargetsShow(target["planetUser"]);
         mapRedTargetsShow(target["planetAI"]);
+        mapTargetAI = target["planetAI"];
         if(userTotalBattle === 0) userMapMessage["LastNews"][0] = "Меня зовут R2D2, рад вас приветствовать.\n\nКорусант является основной целью Ситов." + " В данное время Дарт Вейдер напали на " + userPlanets[target["planetAI"]].name + " вы можите попытаться помешать ему. \n\nИли выполните миссию " + userPlanets[target["planetUser"]].name + " и получите нового союзника.";
         else userMapMessage["LastNews"][0] = "На планете " + userPlanets[target["planetUser"]].name + " нуждаются в нашей помощи. Выполните миссию "  + userPlanets[target["planetUser"]].name + " и вам будет доступен новый союзник. \n\nТак же мы получаем сигнал с планеты " + userPlanets[target["planetAI"]].name + " о вторжении Дарт Вейдера. Вы можите предпринять попытку отбить нападение на " + userPlanets[target["planetAI"]].name + ".";
         mapTextMessage.text = userMapMessage["LastNews"][0];
     }
     if(side === SIDE_SITH)
     {
-        //mapRedTargetsShow(target["planetUser"]);
-        //mapBlueTargetsShow(target["planetAI"]);
-        mapBlueTargetsShow(target["planetUser"]);
-        mapRedTargetsShow(target["planetAI"]);
-        
+        mapBlueTargetsShow(target["planetAI"]);
+        mapRedTargetsShow(target["planetUser"]);
+        mapTargetAI = target["planetAI"];
         if(userTotalBattle === 0) userMapMessage["LastNews"][1] = "Меня зовут R3-S6, приветствую тебя мой повелитель. \n\nДжедаи хотят разрушить Звезду смерти и помешать нашим планам." + " Они направелись на " + userPlanets[target["planetAI"]].name + " можем помешать им. \n\nИли напасть на " + userPlanets[target["planetUser"]].name + " и получите нового союзника.";
         else userMapMessage["LastNews"][1] = "Оборона планеты " + userPlanets[target["planetUser"]].name + " слаба мы с лёгкостью захватим её и вам будет доступен новый союзник. \n\nТак же наш шпион докладывает что Джедаи направились на " + userPlanets[target["planetAI"]].name + " можем помешать им.";
         mapTextMessage.text = userMapMessage["LastNews"][1];

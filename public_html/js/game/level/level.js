@@ -12,13 +12,23 @@ var LEVEL_STATUS_BATTLE = "LEVEL_STATUS_BATTLE";
 var LEVEL_STATUS_END_BATTLE_WIN_USER = "LEVEL_STATUS_END_BATTLE_WIN_USER";
 var LEVEL_STATUS_END_BATTLE_WIN_AI = "LEVEL_STATUS_END_BATTLE_WIN_AI";
 
-function levelCreate(planetID)
+var levelCommandUser = [];  // команда пользователя (userCommandUser)
+var levelCommandAI = [];    // команда ИИ (userCommandAI)
+var levelIndexUser = 0;     // индекс персонажа в команде пользователя
+var levelIndexAI = 0;       // индекс персонажа в команде ИИ
+var levelIntercept = false; // перехват планеты (да или нет)
+
+function levelCreate(planetID, intercept)
 {
     levelStage = new PIXI.Container();
     stage.addChild(levelStage);
     
     levelPlanetID = planetID;
     levelStatus = LEVEL_STATUS_BATTLE;
+    levelCommandUser = [];
+    levelCommandAI = [];
+    levelIndexUser = 0;
+    levelIndexAI = 0;
     
     levelBackground();
     levelBackgroundParallaxTween();
@@ -26,12 +36,15 @@ function levelCreate(planetID)
     if(side === SIDE_JEDI)
     {
         levelBorderBlue();
+        levelDesktopBlue();
     }
     if(side === SIDE_SITH)
     {
         levelBorderRed();
+        levelDesktopRed();
     }
-    
+    levelShowCommandUser();
+    levelShowCommandAI();
     levelFieldCreate();
 }
 
@@ -102,13 +115,13 @@ function levelBorderBlue()
     graphics.endFill();
 
     graphics.lineStyle(2, 0xFFFFFF, 1);
-    graphics.moveTo(5,600);
+    graphics.moveTo(5, 600);
     graphics.lineTo(5, 725);
-    graphics.moveTo(5,725);
-    graphics.lineTo(650, 725);
-    graphics.moveTo(650,725);
-    graphics.lineTo(670, 710);
-    graphics.moveTo(670,710);
+    graphics.moveTo(5, 725);
+    graphics.lineTo(470, 725);
+    graphics.moveTo(470, 725);
+    graphics.lineTo(490, 710);
+    graphics.moveTo(490, 710);
     graphics.lineTo(840, 710);
 
     graphics.lineStyle(0);
@@ -124,7 +137,7 @@ function levelBorderBlue()
     graphics.lineStyle(2, 0xFFFFFF, 1);
     graphics.moveTo(20,20);
     graphics.lineTo(370, 20);
-    graphics.moveTo(370,20);
+    graphics.moveTo(370, 20);
     graphics.lineTo(390, 5);
     graphics.moveTo(390,5);
     graphics.lineTo(855, 5);
@@ -159,13 +172,13 @@ function levelBorderRed()
     graphics.endFill();
 
     graphics.lineStyle(2, 0xFFFF80, 1);
-    graphics.moveTo(5,600);
+    graphics.moveTo(5, 600);
     graphics.lineTo(5, 725);
-    graphics.moveTo(5,725);
-    graphics.lineTo(650, 725);
-    graphics.moveTo(650,725);
-    graphics.lineTo(670, 710);
-    graphics.moveTo(670,710);
+    graphics.moveTo(5, 725);
+    graphics.lineTo(470, 725);
+    graphics.moveTo(470, 725);
+    graphics.lineTo(490, 710);
+    graphics.moveTo(490, 710);
     graphics.lineTo(840, 710);
 
     graphics.lineStyle(0);
@@ -199,6 +212,84 @@ function levelBorderRed()
     graphics.endFill();
     
     levelStage.addChild(graphics);
+}
+
+function levelDesktopBlue()
+{
+    var graphics = new PIXI.Graphics(); 
+    graphics.lineStyle(2, 0x0000FF, 1);
+    graphics.beginFill(0x0080FF, 0.2);
+    graphics.moveTo(25, 22);
+    graphics.lineTo(370, 22);
+    graphics.lineTo(370, 110);
+    graphics.lineTo(25, 110);
+    graphics.endFill();
+    levelStage.addChild(graphics);
+    
+    graphics = new PIXI.Graphics(); 
+    graphics.lineStyle(2, 0x800000, 1);
+    graphics.beginFill(0x800000, 0.2);
+    graphics.moveTo(490, 620);
+    graphics.lineTo(835, 620);
+    graphics.lineTo(835, 708);
+    graphics.lineTo(490, 708);
+    graphics.endFill();
+    levelStage.addChild(graphics);
+}
+
+function levelDesktopRed()
+{
+    var graphics = new PIXI.Graphics(); 
+    graphics.lineStyle(2, 0x800000, 1);
+    graphics.beginFill(0x800000, 0.2);
+    graphics.moveTo(25, 22);
+    graphics.lineTo(370, 22);
+    graphics.lineTo(370, 110);
+    graphics.lineTo(25, 110);
+    graphics.endFill();
+    levelStage.addChild(graphics);
+    
+    graphics = new PIXI.Graphics(); 
+    graphics.lineStyle(2, 0x0000FF, 1);
+    graphics.beginFill(0x0080FF, 0.2);
+    graphics.moveTo(490, 620);
+    graphics.lineTo(835, 620);
+    graphics.lineTo(835, 708);
+    graphics.lineTo(490, 708);
+    graphics.endFill();
+    levelStage.addChild(graphics);
+}
+
+function levelShowCommandUser()
+{
+    var index = 0;
+    for(var key in userCommandUser)
+    {
+        if(userCommandUser[key] !== null)
+        {
+            var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
+            textureSprite.position.x = 55 + (105 * index); 
+            textureSprite.position.y = 30; 
+            levelStage.addChild(textureSprite);
+        }
+        index++;
+    }
+}
+
+function levelShowCommandAI()
+{
+    var index = 0;
+    for(var key in userCommandAI)
+    {
+        if(userCommandAI[key] !== null)
+        {
+            var textureSprite = new PIXI.Sprite(heroesTextures[userCommandAI[key]][3]); 
+            textureSprite.position.x = 520 + (105 * index); 
+            textureSprite.position.y = 628; 
+            levelStage.addChild(textureSprite);
+        }
+        index++;
+    }
 }
 
 /* Создание игрового поля ========================================================== */

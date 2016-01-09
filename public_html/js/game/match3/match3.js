@@ -55,7 +55,7 @@ function createMatchField(levelJSON)
     matchLevelJSON = levelJSON;
     
     initMatchMatrixPosition();
-
+    
     matchStage = new PIXI.Container();
     matchMatrixCell = new Object();
     matchMatrixUnit = new Object();
@@ -137,6 +137,7 @@ function createMatchField(levelJSON)
                     index++;
             }
     }
+    matchMask();
 }
 
 /* Событие: нажатие на юнит */
@@ -1556,6 +1557,25 @@ function matchAnimationRemoveUnit(posX, posY)
 function onMatchAnimationRemoveUnitComplete()
 {
 	matchStage.removeChild(this);
+}
+
+/* Наложение маски на игровое поле */
+function matchMask()
+{
+	var posX = (MAIN_WIDTH / 2) - (500 / 2);
+	var posY = (MAIN_HEIGH / 2) - (500 / 2);
+	var thing = new PIXI.Graphics();
+	thing.position.x = 0;
+	thing.position.y = 0;
+	thing.lineStyle(0);
+	thing.clear();
+        thing.beginFill(0x8bc5ff, 0.4);
+        thing.moveTo(posX, posY);
+        thing.lineTo(posX, posY);
+        thing.lineTo(posX + 500, posY);
+        thing.lineTo(posX + 500, posY + 500);
+        thing.lineTo(posX, posY + 500);
+        matchStage.mask = thing;
 }
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

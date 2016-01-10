@@ -16,9 +16,14 @@ var levelCommandUser = [];  // команда пользователя (userComm
 var levelCommandAI = [];    // команда ИИ (userCommandAI)
 var levelIndexUser = 0;     // индекс персонажа в команде пользователя
 var levelIndexAI = 0;       // индекс персонажа в команде ИИ
-var levelIntercept = false; // перехват планеты (да или нет)
 var levelBorderPersonageUser;
 var levelBorderPersonageAI;
+var levelPersonageUserSprite;
+var levelPersonageAISprite;
+
+var levelLineUserAnimationGraphics;
+var levelLineAIAnimationGraphics;
+
 
 function levelCreate(planetID, intercept)
 {
@@ -60,6 +65,8 @@ function levelRemove()
 
 function levelInitCommands(intercept)
 {
+    levelDisplayUser = [];
+    levelDisplayAI = [];
     if(intercept === true)
     {
         levelCommandUser = [];
@@ -342,10 +349,52 @@ function levelShowCommandUser()
     if(side === SIDE_SITH) levelBorderPersonageUser.lineStyle(2, 0xFFFF80, 1);
     levelBorderPersonageUser.drawRect(55, 30, 75, 75);
     levelStage.addChild(levelBorderPersonageUser);
+    
+    var graphics = new PIXI.Graphics(); 
+    if(side === SIDE_JEDI)
+    {
+        graphics.lineStyle(2, 0x0000FF, 1);
+        graphics.beginFill(0x0080FF, 0.2);
+    }
+    if(side === SIDE_SITH)
+    {
+        graphics.lineStyle(2, 0x800000, 1);
+        graphics.beginFill(0x800000, 0.2);
+    }
+    graphics.moveTo(25, 115);
+    graphics.lineTo(170, 115);
+    graphics.lineTo(170, 400);
+    graphics.lineTo(25, 400);
+    graphics.endFill();
+    levelStage.addChild(graphics);
+    
+    levelPersonageUserSprite = new PIXI.Sprite(heroesTextures[levelCommandUser[levelIndexUser].id][1]); 
+    levelPersonageUserSprite.position.x = 30; 
+    levelPersonageUserSprite.position.y = 140; 
+    levelPersonageUserSprite.scale.set(0.5);
+    levelStage.addChild(levelPersonageUserSprite);
+    
+    graphics = new PIXI.Graphics();
+    for(var i = 0; i < 95; i++)
+    {
+        if(side === SIDE_JEDI) graphics.lineStyle(1, 0x0000FF, 0.5);
+        if(side === SIDE_SITH) graphics.lineStyle(1, 0x800000, 0.5);
+        graphics.moveTo(25, 115+(3*i));
+        graphics.lineTo(170, 115+(3*i));
+    }
+    levelStage.addChild(graphics);
+    
+    levelLineUserAnimationGraphics = new PIXI.Graphics(); 
+    if(side === SIDE_JEDI) levelLineUserAnimationGraphics.lineStyle(10, 0x0000FF, 0.3);
+    if(side === SIDE_SITH) levelLineUserAnimationGraphics.lineStyle(10, 0x800000, 0.3);
+    levelLineUserAnimationGraphics.moveTo(25, 120);
+    levelLineUserAnimationGraphics.lineTo(170, 120);
+    levelStage.addChild(levelLineUserAnimationGraphics);
 }
 
 function levelShowCommandAI()
 {
+    /* персонажи */
     for(var i in levelCommandAI)
     {
         var textureSprite = new PIXI.Sprite(heroesTextures[levelCommandAI[i].id][3]); 
@@ -368,14 +417,67 @@ function levelShowCommandAI()
         levelStage.addChild(graphics);
     }
     
+    /* рамка */
     levelBorderPersonageAI = new PIXI.Graphics();
     if(side === SIDE_JEDI) levelBorderPersonageAI.lineStyle(2, 0xFFFF80, 1);
     if(side === SIDE_SITH) levelBorderPersonageAI.lineStyle(2, 0xFFFFFF, 1);
     levelBorderPersonageAI.drawRect(520, 628, 75, 75);
     levelStage.addChild(levelBorderPersonageAI);
     
-    levelIndexAI = 1;
-    levelSelectPersonageAI();
+    /* дисплей фон */
+    var graphics = new PIXI.Graphics(); 
+    if(side === SIDE_SITH)
+    {
+        graphics.lineStyle(2, 0x0000FF, 1);
+        graphics.beginFill(0x0080FF, 0.2);
+    }
+    if(side === SIDE_JEDI)
+    {
+        graphics.lineStyle(2, 0x800000, 1);
+        graphics.beginFill(0x800000, 0.2);
+    }
+    graphics.moveTo(690, 330);
+    graphics.lineTo(835, 330);
+    graphics.lineTo(835, 615);
+    graphics.lineTo(690, 615);
+    graphics.endFill();
+    levelStage.addChild(graphics);
+    
+    /* персонаж во весь рост */
+    levelPersonageAISprite = new PIXI.Sprite(heroesTextures[levelCommandAI[levelIndexAI].id][2]); 
+    levelPersonageAISprite.position.x = 695; 
+    levelPersonageAISprite.position.y = 350; 
+    levelPersonageAISprite.scale.set(0.5);
+    levelStage.addChild(levelPersonageAISprite);
+    
+    /* фон полоски */
+    graphics = new PIXI.Graphics();
+    for(var i = 0; i < 95; i++)
+    {
+        if(side === SIDE_SITH) graphics.lineStyle(1, 0x0000FF, 0.5);
+        if(side === SIDE_JEDI) graphics.lineStyle(1, 0x800000, 0.5);
+        graphics.moveTo(690, 330+(3*i));
+        graphics.lineTo(835, 330+(3*i));
+    }
+    levelStage.addChild(graphics);
+    
+    /* бегущая полоска */
+    levelLineAIAnimationGraphics = new PIXI.Graphics(); 
+    if(side === SIDE_SITH) levelLineAIAnimationGraphics.lineStyle(10, 0x0000FF, 0.3);
+    if(side === SIDE_JEDI) levelLineAIAnimationGraphics.lineStyle(10, 0x800000, 0.3);
+    levelLineAIAnimationGraphics.moveTo(690, 335);
+    levelLineAIAnimationGraphics.lineTo(835, 335);
+    levelStage.addChild(levelLineAIAnimationGraphics);
+    levelLineAnimationGraphicsTween();
+}
+
+function levelLineAnimationGraphicsTween()
+{
+    createjs.Tween.get(levelLineUserAnimationGraphics, {loop: true}) 
+        .to({x: 0, y: 275}, 2500, createjs.Ease.getPowInOut(3));
+    createjs.Tween.get(levelLineAIAnimationGraphics, {loop: true}) 
+        .to({x: 0, y: 275}, 2500, createjs.Ease.getPowInOut(3));
+    createjs.Ticker.setFPS(60);
 }
 
 function levelSelectPersonageUser()

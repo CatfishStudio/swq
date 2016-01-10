@@ -12,6 +12,10 @@ var LEVEL_STATUS_BATTLE = "LEVEL_STATUS_BATTLE";
 var LEVEL_STATUS_END_BATTLE_WIN_USER = "LEVEL_STATUS_END_BATTLE_WIN_USER";
 var LEVEL_STATUS_END_BATTLE_WIN_AI = "LEVEL_STATUS_END_BATTLE_WIN_AI";
 
+var levelStyleButtonBlueText = { font : 'bold 18px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
+var levelStyleButtonRedText = { font : 'bold 18px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
+
+var levelIntercept = false;
 var levelCommandUser = [];  // команда пользователя (userCommandUser)
 var levelCommandAI = [];    // команда ИИ (userCommandAI)
 var levelIndexUser = 0;     // индекс персонажа в команде пользователя
@@ -20,6 +24,18 @@ var levelBorderPersonageUser;
 var levelBorderPersonageAI;
 var levelPersonageUserSprite;
 var levelPersonageAISprite;
+var levelUserHit1;
+var levelUserHit2;
+var levelUserHit3;
+var levelUserHit4;
+var levelUserHit5;
+var levelUserLife;
+var levelAIHit1;
+var levelAIHit2;
+var levelAIHit3;
+var levelAIHit4;
+var levelAIHit5;
+var levelAILife;
 
 var levelLineUserAnimationGraphics;
 var levelLineAIAnimationGraphics;
@@ -30,6 +46,7 @@ function levelCreate(planetID, intercept)
     levelStage = new PIXI.Container();
     stage.addChild(levelStage);
     
+    levelIntercept = intercept;
     levelPlanetID = planetID;
     levelStatus = LEVEL_STATUS_BATTLE;
     levelCommandUser = [];
@@ -320,7 +337,7 @@ function levelDesktopRed()
 
 function levelShowCommandUser()
 {
-    
+    /* персонажи */
     for(var i in levelCommandUser)
     {
         var textureSprite = new PIXI.Sprite(heroesTextures[levelCommandUser[i].id][3]); 
@@ -344,12 +361,14 @@ function levelShowCommandUser()
         levelStage.addChild(graphics);
     }
     
+    /* рамка */
     levelBorderPersonageUser = new PIXI.Graphics();
     if(side === SIDE_JEDI) levelBorderPersonageUser.lineStyle(2, 0xFFFFFF, 1);
     if(side === SIDE_SITH) levelBorderPersonageUser.lineStyle(2, 0xFFFF80, 1);
     levelBorderPersonageUser.drawRect(55, 30, 75, 75);
     levelStage.addChild(levelBorderPersonageUser);
     
+    /* дисплей фон */
     var graphics = new PIXI.Graphics(); 
     if(side === SIDE_JEDI)
     {
@@ -368,12 +387,14 @@ function levelShowCommandUser()
     graphics.endFill();
     levelStage.addChild(graphics);
     
+    /* персонаж во весь рост */
     levelPersonageUserSprite = new PIXI.Sprite(heroesTextures[levelCommandUser[levelIndexUser].id][1]); 
     levelPersonageUserSprite.position.x = 30; 
     levelPersonageUserSprite.position.y = 140; 
     levelPersonageUserSprite.scale.set(0.5);
     levelStage.addChild(levelPersonageUserSprite);
     
+    /* фон полоски */
     graphics = new PIXI.Graphics();
     for(var i = 0; i < 95; i++)
     {
@@ -384,12 +405,103 @@ function levelShowCommandUser()
     }
     levelStage.addChild(graphics);
     
+    /* бегущая полоска */
     levelLineUserAnimationGraphics = new PIXI.Graphics(); 
     if(side === SIDE_JEDI) levelLineUserAnimationGraphics.lineStyle(10, 0x0000FF, 0.3);
     if(side === SIDE_SITH) levelLineUserAnimationGraphics.lineStyle(10, 0x800000, 0.3);
     levelLineUserAnimationGraphics.moveTo(25, 120);
     levelLineUserAnimationGraphics.lineTo(170, 120);
     levelStage.addChild(levelLineUserAnimationGraphics);
+    
+    /* харктеристики */
+    levelUserHit1 = levelCommandUser[levelIndexUser].hitDefense1;
+    levelUserHit2 = levelCommandUser[levelIndexUser].hitDefense2;
+    levelUserHit3 = levelCommandUser[levelIndexUser].hitDefense3;
+    levelUserHit4 = levelCommandUser[levelIndexUser].hitDefense4;
+    levelUserHit5 = levelCommandUser[levelIndexUser].hitDefense5;
+    levelUserLife = 9999;
+    
+    graphics = new PIXI.Graphics(); 
+    if(side === SIDE_JEDI)
+    {
+        graphics.lineStyle(2, 0x0000FF, 1);
+        graphics.beginFill(0x0080FF, 0.2);
+    }
+    if(side === SIDE_SITH)
+    {
+        graphics.lineStyle(2, 0x800000, 1);
+        graphics.beginFill(0x800000, 0.2);
+    }
+    graphics.moveTo(25, 405);
+    graphics.lineTo(170, 405);
+    graphics.lineTo(170, 520);
+    graphics.lineTo(25, 520);
+    graphics.endFill();
+    levelStage.addChild(graphics);
+    
+    var sprite = new PIXI.Sprite(hit1Texture);
+    sprite.position.x = 30; sprite.position.y = 410; sprite.scale.set(0.3);
+    levelStage.addChild(sprite);
+    var text; 
+    if(side === SIDE_JEDI) text = new PIXI.Text("- " + levelUserHit1, levelStyleButtonBlueText);
+    if(side === SIDE_SITH) text = new PIXI.Text("- " + levelUserHit1, levelStyleButtonRedText);
+    text.x = 55; text.y = 410;
+    levelStage.addChild(text);
+    
+    sprite = new PIXI.Sprite(hit2Texture);
+    sprite.position.x = 100; sprite.position.y = 410; sprite.scale.set(0.3);
+    levelStage.addChild(sprite);
+    if(side === SIDE_JEDI) text = new PIXI.Text("- " + levelUserHit2, levelStyleButtonBlueText);
+    if(side === SIDE_SITH) text = new PIXI.Text("- " + levelUserHit2, levelStyleButtonRedText); 
+    text.x = 125; text.y = 410;
+    levelStage.addChild(text);
+    
+    sprite = new PIXI.Sprite(hit3Texture);
+    sprite.position.x = 30; sprite.position.y = 450; sprite.scale.set(0.3);
+    levelStage.addChild(sprite);
+    if(side === SIDE_JEDI) text = new PIXI.Text("+ " + levelUserHit3, levelStyleButtonBlueText);
+    if(side === SIDE_SITH) text = new PIXI.Text("+ " + levelUserHit3, levelStyleButtonRedText); 
+    text.x = 55; text.y = 450;
+    levelStage.addChild(text);
+    
+    sprite = new PIXI.Sprite(hit4Texture);
+    sprite.position.x = 100; sprite.position.y = 450; sprite.scale.set(0.3);
+    levelStage.addChild(sprite);
+    if(side === SIDE_JEDI) text = new PIXI.Text("- " + levelUserHit4, levelStyleButtonBlueText);
+    if(side === SIDE_SITH) text = new PIXI.Text("- " + levelUserHit4, levelStyleButtonRedText);
+    text.x = 125; text.y = 450;
+    levelStage.addChild(text);
+    
+    sprite = new PIXI.Sprite(hit5Texture);
+    sprite.position.x = 30; sprite.position.y = 490; sprite.scale.set(0.3);
+    levelStage.addChild(sprite);
+    if(side === SIDE_JEDI) text = new PIXI.Text("- " + levelUserHit5, levelStyleButtonBlueText);
+    if(side === SIDE_SITH) text = new PIXI.Text("- " + levelUserHit5, levelStyleButtonRedText); 
+    text.x = 55; text.y = 490;
+    levelStage.addChild(text);
+    
+    graphics = new PIXI.Graphics(); 
+    if(side === SIDE_JEDI)
+    {
+        graphics.lineStyle(2, 0x0000FF, 1);
+        graphics.beginFill(0x0080FF, 0.2);
+    }
+    if(side === SIDE_SITH)
+    {
+        graphics.lineStyle(2, 0x800000, 1);
+        graphics.beginFill(0x800000, 0.2);
+    }
+    graphics.moveTo(25, 525);
+    graphics.lineTo(170, 525);
+    graphics.lineTo(170, 555);
+    graphics.lineTo(25, 555);
+    graphics.endFill();
+    levelStage.addChild(graphics);
+    
+    if(side === SIDE_JEDI) text = new PIXI.Text("Здоровье: " + levelUserLife, levelStyleButtonBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text("Здоровье: " + levelUserLife, levelStyleButtonRedText); 
+    text.x = 27; text.y = 530;
+    levelStage.addChild(text);
 }
 
 function levelShowCommandAI()
@@ -469,6 +581,106 @@ function levelShowCommandAI()
     levelLineAIAnimationGraphics.lineTo(835, 335);
     levelStage.addChild(levelLineAIAnimationGraphics);
     levelLineAnimationGraphicsTween();
+    
+    /* харктеристики */
+    if(levelIntercept === true)
+    {
+        levelAIHit1 = levelCommandAI[levelIndexAI].hitDefense1;
+        levelAIHit2 = levelCommandAI[levelIndexAI].hitDefense2;
+        levelAIHit3 = levelCommandAI[levelIndexAI].hitDefense3;
+        levelAIHit4 = levelCommandAI[levelIndexAI].hitDefense4;
+        levelAIHit5 = levelCommandAI[levelIndexAI].hitDefense5;
+        levelAILife = 8999;
+    }else{
+        levelAIHit1 = levelCommandAI[levelIndexAI].hitAttack1;
+        levelAIHit2 = levelCommandAI[levelIndexAI].hitAttack2;
+        levelAIHit3 = levelCommandAI[levelIndexAI].hitAttack3;
+        levelAIHit4 = levelCommandAI[levelIndexAI].hitAttack4;
+        levelAIHit5 = levelCommandAI[levelIndexAI].hitAttack5;
+        levelAILife = 8999;
+    }
+    
+    graphics = new PIXI.Graphics(); 
+    if(side === SIDE_SITH)
+    {
+        graphics.lineStyle(2, 0x0000FF, 1);
+        graphics.beginFill(0x0080FF, 0.2);
+    }
+    if(side === SIDE_JEDI)
+    {
+        graphics.lineStyle(2, 0x800000, 1);
+        graphics.beginFill(0x800000, 0.2);
+    }
+    graphics.moveTo(690, 325);
+    graphics.lineTo(835, 325);
+    graphics.lineTo(835, 210);
+    graphics.lineTo(690, 210);
+    graphics.endFill();
+    levelStage.addChild(graphics);
+    
+    var sprite = new PIXI.Sprite(hit1Texture);
+    sprite.position.x = 695; sprite.position.y = 215; sprite.scale.set(0.3);
+    levelStage.addChild(sprite);
+    var text;
+    if(side === SIDE_SITH) text = new PIXI.Text("- " + levelAIHit1, levelStyleButtonBlueText);
+    if(side === SIDE_JEDI) text = new PIXI.Text("- " + levelAIHit1, levelStyleButtonRedText); 
+    text.x = 720; text.y = 215;
+    levelStage.addChild(text);
+    
+    sprite = new PIXI.Sprite(hit2Texture);
+    sprite.position.x = 765; sprite.position.y = 215; sprite.scale.set(0.3);
+    levelStage.addChild(sprite);
+    if(side === SIDE_SITH) text = new PIXI.Text("- " + levelAIHit2, levelStyleButtonBlueText);
+    if(side === SIDE_JEDI) text = new PIXI.Text("- " + levelAIHit2, levelStyleButtonRedText);  
+    text.x = 790; text.y = 215;
+    levelStage.addChild(text);
+    
+    sprite = new PIXI.Sprite(hit3Texture);
+    sprite.position.x = 695; sprite.position.y = 250; sprite.scale.set(0.3);
+    levelStage.addChild(sprite);
+    if(side === SIDE_SITH) text = new PIXI.Text("+ " + levelAIHit3, levelStyleButtonBlueText);
+    if(side === SIDE_JEDI) text = new PIXI.Text("+ " + levelAIHit3, levelStyleButtonRedText);  
+    text.x = 720; text.y = 250;
+    levelStage.addChild(text);
+    
+    sprite = new PIXI.Sprite(hit4Texture);
+    sprite.position.x = 765; sprite.position.y = 250; sprite.scale.set(0.3);
+    levelStage.addChild(sprite);
+    if(side === SIDE_SITH) text = new PIXI.Text("- " + levelAIHit4, levelStyleButtonBlueText);
+    if(side === SIDE_JEDI) text = new PIXI.Text("- " + levelAIHit4, levelStyleButtonRedText); 
+    text.x = 790; text.y = 250;
+    levelStage.addChild(text);
+    
+    sprite = new PIXI.Sprite(hit5Texture);
+    sprite.position.x = 695; sprite.position.y = 290; sprite.scale.set(0.3);
+    levelStage.addChild(sprite);
+    if(side === SIDE_SITH) text = new PIXI.Text("- " + levelAIHit5, levelStyleButtonBlueText);
+    if(side === SIDE_JEDI) text = new PIXI.Text("- " + levelAIHit5, levelStyleButtonRedText);  
+    text.x = 720; text.y = 290;
+    levelStage.addChild(text);
+    
+    graphics = new PIXI.Graphics(); 
+    if(side === SIDE_SITH)
+    {
+        graphics.lineStyle(2, 0x0000FF, 1);
+        graphics.beginFill(0x0080FF, 0.2);
+    }
+    if(side === SIDE_JEDI)
+    {
+        graphics.lineStyle(2, 0x800000, 1);
+        graphics.beginFill(0x800000, 0.2);
+    }
+    graphics.moveTo(690, 205);
+    graphics.lineTo(835, 205);
+    graphics.lineTo(835, 175);
+    graphics.lineTo(690, 175);
+    graphics.endFill();
+    levelStage.addChild(graphics);
+    
+    if(side === SIDE_SITH) text = new PIXI.Text("Здоровье: " + levelAILife, levelStyleButtonBlueText); 
+    if(side === SIDE_JEDI) text = new PIXI.Text("Здоровье: " + levelAILife, levelStyleButtonRedText); 
+    text.x = 692; text.y = 180;
+    levelStage.addChild(text);
 }
 
 function levelLineAnimationGraphicsTween()

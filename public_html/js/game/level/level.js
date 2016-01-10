@@ -14,6 +14,8 @@ var LEVEL_STATUS_END_BATTLE_WIN_AI = "LEVEL_STATUS_END_BATTLE_WIN_AI";
 
 var levelStyleButtonBlueText = { font : 'bold 18px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
 var levelStyleButtonRedText = { font : 'bold 18px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
+var levelStyleDroidBlueText = { font : 'bold 14px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }; 
+var levelStyleDroidRedText = { font : 'bold 14px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }; 
 
 var levelIntercept = false;
 var levelCommandUser = [];  // команда пользователя (userCommandUser)
@@ -39,7 +41,7 @@ var levelAILife;
 
 var levelLineUserAnimationGraphics;
 var levelLineAIAnimationGraphics;
-
+var levelMessageLineGraphics;
 
 function levelCreate(planetID, intercept)
 {
@@ -63,11 +65,13 @@ function levelCreate(planetID, intercept)
     {
         levelBorderBlue();
         levelDesktopBlue();
+        levelDroidBlue();
     }
     if(side === SIDE_SITH)
     {
         levelBorderRed();
         levelDesktopRed();
+        levelDroidRed();
     }
     levelShowCommandUser();
     levelShowCommandAI();
@@ -186,11 +190,13 @@ function levelBorderBlue()
     
     graphics.lineStyle(0);
     graphics.beginFill(0xFFFFFF, 1);
-    graphics.drawCircle(5, 600,4);
+    graphics.drawCircle(170, 562,4);
     graphics.endFill();
 
     graphics.lineStyle(2, 0xFFFFFF, 1);
-    graphics.moveTo(5, 600);
+    graphics.moveTo(170, 562);
+    graphics.lineTo(5, 562);
+    graphics.moveTo(5, 562);
     graphics.lineTo(5, 725);
     graphics.moveTo(5, 725);
     graphics.lineTo(470, 725);
@@ -217,11 +223,13 @@ function levelBorderBlue()
     graphics.moveTo(390,5);
     graphics.lineTo(855, 5);
     graphics.moveTo(855,5);
-    graphics.lineTo(855, 150);
+    graphics.lineTo(855, 170);
+    graphics.moveTo(855, 170);
+    graphics.lineTo(690, 170);
 
     graphics.lineStyle(0);
     graphics.beginFill(0xFFFFFF, 1);
-    graphics.drawCircle(855, 150,4);
+    graphics.drawCircle(690, 170,4);
     graphics.endFill();
 
     graphics.lineStyle(2, 0xFFFFFF, 1);
@@ -243,11 +251,13 @@ function levelBorderRed()
     
     graphics.lineStyle(0);
     graphics.beginFill(0xFFFF80, 1);
-    graphics.drawCircle(5, 600,4);
+    graphics.drawCircle(170, 562, 4);
     graphics.endFill();
 
     graphics.lineStyle(2, 0xFFFF80, 1);
-    graphics.moveTo(5, 600);
+    graphics.moveTo(170, 562);
+    graphics.lineTo(5, 562);
+    graphics.moveTo(5, 562);
     graphics.lineTo(5, 725);
     graphics.moveTo(5, 725);
     graphics.lineTo(470, 725);
@@ -269,16 +279,18 @@ function levelBorderRed()
     graphics.lineStyle(2, 0xFFFF80, 1);
     graphics.moveTo(20,20);
     graphics.lineTo(370, 20);
-    graphics.moveTo(370,20);
+    graphics.moveTo(370, 20);
     graphics.lineTo(390, 5);
     graphics.moveTo(390,5);
     graphics.lineTo(855, 5);
     graphics.moveTo(855,5);
-    graphics.lineTo(855, 150);
+    graphics.lineTo(855, 170);
+    graphics.moveTo(855, 170);
+    graphics.lineTo(690, 170);
 
     graphics.lineStyle(0);
     graphics.beginFill(0xFFFF80, 1);
-    graphics.drawCircle(855, 150,4);
+    graphics.drawCircle(690, 170,4);
     graphics.endFill();
 
     graphics.lineStyle(2, 0xFFFF80, 1);
@@ -683,12 +695,89 @@ function levelShowCommandAI()
     levelStage.addChild(text);
 }
 
+
+function levelDroidBlue()
+{
+    var textureSprite = new PIXI.Sprite(r2d2DroidBlueRightTexture); 
+    textureSprite.position.x = 765; 
+    textureSprite.position.y = 50; 
+    textureSprite.scale.set(0.3);
+    levelStage.addChild(textureSprite);
+    
+    var graphics = new PIXI.Graphics(); 
+    graphics.lineStyle(2, 0x0090F0, 0.2);
+    graphics.beginFill(0x0090F0, 0.2);
+    graphics.moveTo(795, 65);
+    graphics.lineTo(760, 20);
+    graphics.lineTo(760, 110);
+    graphics.lineTo(795, 65);
+    graphics.endFill;
+    
+    for(var i = 0; i < 31; i++)
+    {
+        graphics.lineStyle(1, 0x0090F0, 0.2);
+        graphics.moveTo(480, 20+(3*i));
+        graphics.lineTo(760, 20+(3*i));
+    }
+    levelStage.addChild(graphics);
+    
+    levelMessageLineGraphics = new PIXI.Graphics(); 
+    levelMessageLineGraphics.lineStyle(10, 0x0090F0, 0.3);
+    levelMessageLineGraphics.moveTo(480, 25);
+    levelMessageLineGraphics.lineTo(760, 25);
+    levelStage.addChild(levelMessageLineGraphics);
+    
+    var text = new PIXI.Text("Миссия " + userPlanets[levelPlanetID].name + "\nПобедите всех своих соперников.\nДля этого наносите удары собирая кристалы три в ряд.\nУдары наносите по очереди.", levelStyleDroidBlueText); 
+    text.x = 490; 
+    text.y = 23; 
+    levelStage.addChild(text);
+}
+
+function levelDroidRed()
+{
+    var textureSprite = new PIXI.Sprite(r2d2DroidRedRightTexture); 
+    textureSprite.position.x = 765; 
+    textureSprite.position.y = 50; 
+    textureSprite.scale.set(0.3);
+    levelStage.addChild(textureSprite);
+    
+    var graphics = new PIXI.Graphics(); 
+    graphics.lineStyle(2, 0xA63A24, 0.2);
+    graphics.beginFill(0xA63A24, 0.2);
+    graphics.moveTo(795, 65);
+    graphics.lineTo(760, 20);
+    graphics.lineTo(760, 110);
+    graphics.lineTo(795, 65);
+    graphics.endFill;
+    
+    for(var i = 0; i < 31; i++)
+    {
+        graphics.lineStyle(1, 0xA63A24, 0.2);
+        graphics.moveTo(480, 20+(3*i));
+        graphics.lineTo(760, 20+(3*i));
+    }
+    levelStage.addChild(graphics);
+    
+    levelMessageLineGraphics = new PIXI.Graphics(); 
+    levelMessageLineGraphics.lineStyle(10, 0xA63A24, 0.3);
+    levelMessageLineGraphics.moveTo(480, 25);
+    levelMessageLineGraphics.lineTo(760, 25);
+    levelStage.addChild(levelMessageLineGraphics);
+    
+    var text = new PIXI.Text("Миссия " + userPlanets[levelPlanetID].name + "\nПобедите всех своих соперников.\nДля этого наносите удары собирая кристалы три в ряд.\nУдары наносите по очереди.", levelStyleDroidRedText); 
+    text.x = 490; 
+    text.y = 23; 
+    levelStage.addChild(text);
+}
+
 function levelLineAnimationGraphicsTween()
 {
     createjs.Tween.get(levelLineUserAnimationGraphics, {loop: true}) 
         .to({x: 0, y: 275}, 2500, createjs.Ease.getPowInOut(3));
     createjs.Tween.get(levelLineAIAnimationGraphics, {loop: true}) 
         .to({x: 0, y: 275}, 2500, createjs.Ease.getPowInOut(3));
+    createjs.Tween.get(levelMessageLineGraphics, {loop: true}) 
+        .to({x: 0, y: 80}, 2000, createjs.Ease.getPowInOut(3));
     createjs.Ticker.setFPS(60);
 }
 
@@ -707,7 +796,7 @@ function levelSelectPersonageAI()
     levelBorderPersonageAI.y = position[levelIndexAI][1];
     position = null;
 }
-
+    
 /* Создание игрового поля ========================================================== */
 function levelFieldCreate()
 {

@@ -640,7 +640,7 @@ function cmdRedCommand(select)
             graphics.lineStyle(2, 0xFF0000, 0.2);
             graphics.beginFill(0xFF0000, 0.2);
             graphics.drawRect(690, 60 + (100 * index), 75, 75);
-            graphics.endFill;
+            graphics.endFill();
 
             var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
             textureSprite.name = userCommandUser[key];
@@ -673,7 +673,7 @@ function cmdRedCommand(select)
             graphics.lineStyle(2, 0xFF0000, 0.2);
             graphics.beginFill(0xFF0000, 0.2);
             graphics.drawRect(690, 60 + (100 * index), 75, 75);
-            graphics.endFill;
+            graphics.endFill();
 
             cmdListCommand.push(graphics);
             cmdStage.addChild(cmdListCommand[index]);
@@ -706,7 +706,7 @@ function cmdRedPersonageShow(id)
         graphics.lineTo(550, 20);
         graphics.lineTo(550, 575);
         graphics.lineTo(25, 575);
-        graphics.endFill;
+        graphics.endFill();
         cmdDesktopStage.addChild(graphics);
         
         var sprite = new PIXI.Sprite(heroesTextures[id][1]);
@@ -793,7 +793,7 @@ function cmdRedPersonageShow(id)
         graphics.lineTo(550, 20);
         graphics.lineTo(550, 575);
         graphics.lineTo(25, 575);
-        graphics.endFill;
+        graphics.endFill();
 
         for(var i = 0; i < 185; i++)
         {
@@ -930,7 +930,7 @@ function cmdTapeMask()
     mask.lineTo(500, 610);
     mask.lineTo(500, 705);
     mask.lineTo(70, 705);
-    mask.endFill;
+    mask.endFill();
     
     cmdTapeStage.mask = mask;
     cmdStage.addChild(cmdTapeStage);
@@ -980,7 +980,7 @@ function cmdTapeBlue(select)
                 graphics.lineStyle(2, 0x0000FF, 0.2);
                 graphics.beginFill(0x0000FF, 0.2);
                 graphics.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.endFill;
+                graphics.endFill();
                 
                 var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].bluePersonage1][3]); 
                 textureSprite.name = userPlanets[planet].bluePersonage1;
@@ -1016,7 +1016,7 @@ function cmdTapeBlue(select)
                 graphics.lineStyle(2, 0x0000FF, 0.2);
                 graphics.beginFill(0x0000FF, 0.2);
                 graphics.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.endFill;
+                graphics.endFill();
 
                 var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].bluePersonage2][3]); 
                 textureSprite.name = userPlanets[planet].bluePersonage2;
@@ -1052,7 +1052,7 @@ function cmdTapeBlue(select)
                 graphics.lineStyle(2, 0x0000FF, 0.2);
                 graphics.beginFill(0x0000FF, 0.2);
                 graphics.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.endFill;
+                graphics.endFill();
 
                 var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].bluePersonage3][3]); 
                 textureSprite.name = userPlanets[planet].bluePersonage3;
@@ -1128,7 +1128,7 @@ function cmdTapeRed(select)
                 graphics.lineStyle(2, 0xFF0000, 0.2);
                 graphics.beginFill(0xFF0000, 0.2);
                 graphics.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.endFill;
+                graphics.endFill();
                 
                 var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].redPersonage1][3]); 
                 textureSprite.name = userPlanets[planet].redPersonage1;
@@ -1164,7 +1164,7 @@ function cmdTapeRed(select)
                 graphics.lineStyle(2, 0xFF0000, 0.2);
                 graphics.beginFill(0xFF0000, 0.2);
                 graphics.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.endFill;
+                graphics.endFill();
 
                 var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].redPersonage2][3]); 
                 textureSprite.name = userPlanets[planet].redPersonage2;
@@ -1200,7 +1200,7 @@ function cmdTapeRed(select)
                 graphics.lineStyle(2, 0xFF0000, 0.2);
                 graphics.beginFill(0xFF0000, 0.2);
                 graphics.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.endFill;
+                graphics.endFill();
 
                 var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].redPersonage3][3]); 
                 textureSprite.name = userPlanets[planet].redPersonage3;

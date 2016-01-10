@@ -17,6 +17,8 @@ var levelCommandAI = [];    // команда ИИ (userCommandAI)
 var levelIndexUser = 0;     // индекс персонажа в команде пользователя
 var levelIndexAI = 0;       // индекс персонажа в команде ИИ
 var levelIntercept = false; // перехват планеты (да или нет)
+var levelBorderPersonageUser;
+var levelBorderPersonageAI;
 
 function levelCreate(planetID, intercept)
 {
@@ -318,7 +320,28 @@ function levelShowCommandUser()
         textureSprite.position.x = 55 + (105 * i); 
         textureSprite.position.y = 30; 
         levelStage.addChild(textureSprite);
+        
+        var graphics = new PIXI.Graphics();
+        if(side === SIDE_JEDI) graphics.lineStyle(2, 0x0000FF, 0.2);
+        if(side === SIDE_SITH) graphics.lineStyle(2, 0xFF0000, 0.2);
+        graphics.drawRect(55 + (105 * i), 30, 75, 75);
+        
+        for(var j = 0; j < 25; j++)
+        {
+            if(side === SIDE_JEDI) graphics.lineStyle(1, 0x0000FF, 0.2);
+            if(side === SIDE_SITH) graphics.lineStyle(1, 0xFF0000, 0.2);
+            graphics.moveTo(55 + (105 * i), 30 +(3*j));
+            graphics.lineTo(55 + (105 * i) + 75, 30 +(3*j));
+            
+        }
+        levelStage.addChild(graphics);
     }
+    
+    levelBorderPersonageUser = new PIXI.Graphics();
+    if(side === SIDE_JEDI) levelBorderPersonageUser.lineStyle(2, 0xFFFFFF, 1);
+    if(side === SIDE_SITH) levelBorderPersonageUser.lineStyle(2, 0xFFFF80, 1);
+    levelBorderPersonageUser.drawRect(55, 30, 75, 75);
+    levelStage.addChild(levelBorderPersonageUser);
 }
 
 function levelShowCommandAI()
@@ -329,7 +352,46 @@ function levelShowCommandAI()
         textureSprite.position.x = 520 + (105 * i); 
         textureSprite.position.y = 628; 
         levelStage.addChild(textureSprite);
+        
+        var graphics = new PIXI.Graphics();
+        if(side === SIDE_JEDI) graphics.lineStyle(2, 0xFF0000, 0.2);
+        if(side === SIDE_SITH) graphics.lineStyle(2, 0x0000FF, 0.2);
+        graphics.drawRect(520 + (105 * i), 628, 75, 75);
+        
+        for(var j = 0; j < 25; j++)
+        {
+            if(side === SIDE_JEDI) graphics.lineStyle(1, 0xFF0000, 0.2);
+            if(side === SIDE_SITH) graphics.lineStyle(1, 0x0000FF, 0.2);
+            graphics.moveTo(520 + (105 * i), 628 +(3*j));
+            graphics.lineTo(520 + (105 * i) + 75, 628 +(3*j));
+        }
+        levelStage.addChild(graphics);
     }
+    
+    levelBorderPersonageAI = new PIXI.Graphics();
+    if(side === SIDE_JEDI) levelBorderPersonageAI.lineStyle(2, 0xFFFF80, 1);
+    if(side === SIDE_SITH) levelBorderPersonageAI.lineStyle(2, 0xFFFFFF, 1);
+    levelBorderPersonageAI.drawRect(520, 628, 75, 75);
+    levelStage.addChild(levelBorderPersonageAI);
+    
+    levelIndexAI = 1;
+    levelSelectPersonageAI();
+}
+
+function levelSelectPersonageUser()
+{
+    var position = [[0,0],[105,0],[210,0]];
+    levelBorderPersonageUser.x = position[levelIndexUser][0];
+    levelBorderPersonageUser.y = position[levelIndexUser][1];
+    position = null;
+}
+
+function levelSelectPersonageAI()
+{
+    var position = [[0,0],[105,0],[210,0]];
+    levelBorderPersonageAI.x = position[levelIndexAI][0];
+    levelBorderPersonageAI.y = position[levelIndexAI][1];
+    position = null;
 }
 
 /* Создание игрового поля ========================================================== */

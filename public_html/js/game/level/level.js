@@ -30,6 +30,8 @@ function levelCreate(planetID, intercept)
     levelIndexUser = 0;
     levelIndexAI = 0;
     
+    levelInitCommands(intercept);
+    
     levelBackground();
     levelBackgroundParallaxTween();
     timerCreate();
@@ -52,6 +54,53 @@ function levelRemove()
 {
     stage.removeChild(levelStage);
     levelStage = null;
+}
+
+function levelInitCommands(intercept)
+{
+    if(intercept === true)
+    {
+        levelCommandUser = [];
+        for(var key in userCommandUser)
+        {
+            if(userCommandUser[key] !== null)
+            {
+                levelCommandUser.push(userPersonages[userCommandUser[key]]);
+            }
+        }
+
+        levelCommandAI = [];
+        for(var key in userCommandAI)
+        {
+            if(userCommandAI[key] !== null)
+            {
+                levelCommandAI.push(userPersonages[userCommandAI[key]]);
+            }
+        }
+    }else{
+        levelCommandUser = [];
+        for(var key in userCommandUser)
+        {
+            if(userCommandUser[key] !== null)
+            {
+                levelCommandUser.push(userPersonages[userCommandUser[key]]);
+            }
+        }
+        if(side === SIDE_JEDI)
+        {
+            levelCommandAI = [];
+            levelCommandAI.push(userPersonages[userPlanets[levelPlanetID].redPersonage1]);
+            levelCommandAI.push(userPersonages[userPlanets[levelPlanetID].redPersonage2]);
+            levelCommandAI.push(userPersonages[userPlanets[levelPlanetID].redPersonage3]);
+        }
+        if(side === SIDE_SITH)
+        {
+            levelCommandAI = [];
+            levelCommandAI.push(userPersonages[userPlanets[levelPlanetID].bluePersonage1]);
+            levelCommandAI.push(userPersonages[userPlanets[levelPlanetID].bluePersonage2]);
+            levelCommandAI.push(userPersonages[userPlanets[levelPlanetID].bluePersonage3]);
+        }
+    }
 }
 
 function levelBackground(planetID)
@@ -262,33 +311,24 @@ function levelDesktopRed()
 
 function levelShowCommandUser()
 {
-    var index = 0;
-    for(var key in userCommandUser)
+    
+    for(var i in levelCommandUser)
     {
-        if(userCommandUser[key] !== null)
-        {
-            var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
-            textureSprite.position.x = 55 + (105 * index); 
-            textureSprite.position.y = 30; 
-            levelStage.addChild(textureSprite);
-        }
-        index++;
+        var textureSprite = new PIXI.Sprite(heroesTextures[levelCommandUser[i].id][3]); 
+        textureSprite.position.x = 55 + (105 * i); 
+        textureSprite.position.y = 30; 
+        levelStage.addChild(textureSprite);
     }
 }
 
 function levelShowCommandAI()
 {
-    var index = 0;
-    for(var key in userCommandAI)
+    for(var i in levelCommandAI)
     {
-        if(userCommandAI[key] !== null)
-        {
-            var textureSprite = new PIXI.Sprite(heroesTextures[userCommandAI[key]][3]); 
-            textureSprite.position.x = 520 + (105 * index); 
-            textureSprite.position.y = 628; 
-            levelStage.addChild(textureSprite);
-        }
-        index++;
+        var textureSprite = new PIXI.Sprite(heroesTextures[levelCommandAI[i].id][3]); 
+        textureSprite.position.x = 520 + (105 * i); 
+        textureSprite.position.y = 628; 
+        levelStage.addChild(textureSprite);
     }
 }
 

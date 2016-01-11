@@ -1313,11 +1313,17 @@ function initCharacteristics()
 
 function initLevels()
 {
-    var levels = new Object();
     var index1 = 0;
     var index2 = 0;
     var planets = ["Coruscant", "Totooine", "Naboo", "Endor", "Hoth", "Mustafar", "Dagobah", "Bespin", "Geonosis", "Alderaan", "Kamino", "DeathStar", "Utapau", "Saleucami", "Jakku"];
     
+    var levelsJson = new Object();
+    for(var key in fieldLevelsJson)
+    {
+       levelsJson[key] = fieldLevelsJson[key];
+    }
+   
+    var levels = new Object();
     for(var i in planets)
     {
         do{
@@ -1325,10 +1331,10 @@ function initLevels()
             if(index1 < 5) index1 = 1;
             else index1 = 2;
             index2 = initRandomIndex();
-        } while(fieldLevelsJson["level_" + index1 + "_" + index2] === undefined)
+        } while(levelsJson["level_" + index1 + "_" + index2] === undefined)
         
         levels[planets[i]] = fieldLevelsJson["level_" + index1 + "_" + index2];
-        delete fieldLevelsJson["level_" + index1 + "_" + index2];
+        delete levelsJson["level_" + index1 + "_" + index2];
     }
     return levels;
 }

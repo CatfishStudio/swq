@@ -499,40 +499,61 @@ function cmdBluePersonageShow(id)
         text = new PIXI.Text("Характеристики:", cmdStyleButtonBlueText); 
         text.x = 300; text.y = 100;
         cmdDesktopStage.addChild(text);
+        
+        var life = (userPersonages[userPersonages[id].id].hitDefense1 + userPersonages[userPersonages[id].id].hitDefense2 + userPersonages[userPersonages[id].id].hitDefense3 + userPersonages[userPersonages[id].id].hitDefense4 + userPersonages[userPersonages[id].id].hitDefense5) / 10 * 50;
+        life = Math.round(life);
+        text = new PIXI.Text("Здоровье: " + life, cmdStyleButtonBlueText); 
+        text.x = 330; text.y = 130;
+        cmdDesktopStage.addChild(text);
 
-        text = new PIXI.Text("Кристал света:", cmdStyleButtonBlueText); 
-        text.x = 300; text.y = 150;
+        sprite = new PIXI.Sprite(hit1Texture);
+        sprite.position.x = 300; sprite.position.y = 150; sprite.scale.set(0.3);
+        cmdDesktopStage.addChild(sprite);
+        text = new PIXI.Text("Кристал ловкости:", cmdStyleButtonBlueText); 
+        text.x = 330; text.y = 155;
         cmdDesktopStage.addChild(text);
         text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense1, cmdStyleButtonBlueText); 
-        text.x = 450; text.y = 150;
+        text.x = 480; text.y = 155;
         cmdDesktopStage.addChild(text);
 
+        sprite = new PIXI.Sprite(hit2Texture);
+        sprite.position.x = 300; sprite.position.y = 175; sprite.scale.set(0.3);
+        cmdDesktopStage.addChild(sprite);
         text = new PIXI.Text("Кристал тьмы:", cmdStyleButtonBlueText); 
-        text.x = 300; text.y = 175;
+        text.x = 330; text.y = 180;
         cmdDesktopStage.addChild(text);
         text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense2, cmdStyleButtonBlueText); 
-        text.x = 450; text.y = 175;
+        text.x = 480; text.y = 180;
         cmdDesktopStage.addChild(text);
 
+        sprite = new PIXI.Sprite(hit3Texture);
+        sprite.position.x = 300; sprite.position.y = 200; sprite.scale.set(0.3);
+        cmdDesktopStage.addChild(sprite);
         text = new PIXI.Text("Кристал жизни:", cmdStyleButtonBlueText); 
-        text.x = 300; text.y = 200;
+        text.x = 330; text.y = 205;
         cmdDesktopStage.addChild(text);
         text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense3, cmdStyleButtonBlueText); 
-        text.x = 450; text.y = 200;
+        text.x = 480; text.y = 205;
         cmdDesktopStage.addChild(text);
 
-        text = new PIXI.Text("Кристал ловкости:", cmdStyleButtonBlueText); 
-        text.x = 300; text.y = 225;
+        sprite = new PIXI.Sprite(hit4Texture);
+        sprite.position.x = 300; sprite.position.y = 225; sprite.scale.set(0.3);
+        cmdDesktopStage.addChild(sprite);
+        text = new PIXI.Text("Кристал света:", cmdStyleButtonBlueText); 
+        text.x = 330; text.y = 230;
         cmdDesktopStage.addChild(text);
         text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense4, cmdStyleButtonBlueText); 
-        text.x = 450; text.y = 225;
+        text.x = 480; text.y = 230;
         cmdDesktopStage.addChild(text);
 
+        sprite = new PIXI.Sprite(hit5Texture);
+        sprite.position.x = 300; sprite.position.y = 250; sprite.scale.set(0.3);
+        cmdDesktopStage.addChild(sprite);
         text = new PIXI.Text("Кристал интеллекта:", cmdStyleButtonBlueText); 
-        text.x = 300; text.y = 250;
+        text.x = 330; text.y = 255;
         cmdDesktopStage.addChild(text);
         text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense5, cmdStyleButtonBlueText); 
-        text.x = 450; text.y = 250;
+        text.x = 480; text.y = 255;
         cmdDesktopStage.addChild(text);
 
         text = new PIXI.Text(userPersonages[id].description, cmdStyledescriptionBlueText); 
@@ -737,40 +758,61 @@ function cmdRedPersonageShow(id)
         text = new PIXI.Text("Характеристики:", cmdStyleButtonRedText); 
         text.x = 300; text.y = 100;
         cmdDesktopStage.addChild(text);
-
-        text = new PIXI.Text("Кристал света:", cmdStyleButtonRedText); 
-        text.x = 300; text.y = 150;
+        
+        var life = (userPersonages[userPersonages[id].id].hitDefense1 + userPersonages[userPersonages[id].id].hitDefense2 + userPersonages[userPersonages[id].id].hitDefense3 + userPersonages[userPersonages[id].id].hitDefense4 + userPersonages[userPersonages[id].id].hitDefense5) / 10 * 50;
+        life = Math.round(life);
+        text = new PIXI.Text("Здоровье: " + life, cmdStyleButtonRedText); 
+        text.x = 330; text.y = 130;
+        cmdDesktopStage.addChild(text);
+        
+        sprite = new PIXI.Sprite(hit1Texture);
+        sprite.position.x = 300; sprite.position.y = 150; sprite.scale.set(0.3);
+        cmdDesktopStage.addChild(sprite);
+        text = new PIXI.Text("Кристал ловкости:", cmdStyleButtonRedText); 
+        text.x = 330; text.y = 155;
         cmdDesktopStage.addChild(text);
         text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense1, cmdStyleButtonRedText); 
-        text.x = 450; text.y = 150;
+        text.x = 480; text.y = 155;
         cmdDesktopStage.addChild(text);
-
+        
+        sprite = new PIXI.Sprite(hit2Texture);
+        sprite.position.x = 300; sprite.position.y = 175; sprite.scale.set(0.3);
+        cmdDesktopStage.addChild(sprite);
         text = new PIXI.Text("Кристал тьмы:", cmdStyleButtonRedText); 
-        text.x = 300; text.y = 175;
+        text.x = 330; text.y = 180;
         cmdDesktopStage.addChild(text);
         text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense2, cmdStyleButtonRedText); 
-        text.x = 450; text.y = 175;
+        text.x = 480; text.y = 180;
         cmdDesktopStage.addChild(text);
-
+        
+        sprite = new PIXI.Sprite(hit3Texture);
+        sprite.position.x = 300; sprite.position.y = 200; sprite.scale.set(0.3);
+        cmdDesktopStage.addChild(sprite);
         text = new PIXI.Text("Кристал жизни:", cmdStyleButtonRedText); 
-        text.x = 300; text.y = 200;
+        text.x = 330; text.y = 205;
         cmdDesktopStage.addChild(text);
         text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense3, cmdStyleButtonRedText); 
-        text.x = 450; text.y = 200;
+        text.x = 480; text.y = 205;
         cmdDesktopStage.addChild(text);
 
-        text = new PIXI.Text("Кристал ловкости:", cmdStyleButtonRedText); 
-        text.x = 300; text.y = 225;
+        sprite = new PIXI.Sprite(hit4Texture);
+        sprite.position.x = 300; sprite.position.y = 225; sprite.scale.set(0.3);
+        cmdDesktopStage.addChild(sprite);
+        text = new PIXI.Text("Кристал света:", cmdStyleButtonRedText); 
+        text.x = 330; text.y = 230;
         cmdDesktopStage.addChild(text);
         text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense4, cmdStyleButtonRedText); 
-        text.x = 450; text.y = 225;
+        text.x = 480; text.y = 230;
         cmdDesktopStage.addChild(text);
-
+        
+        sprite = new PIXI.Sprite(hit5Texture);
+        sprite.position.x = 300; sprite.position.y = 250; sprite.scale.set(0.3);
+        cmdDesktopStage.addChild(sprite);
         text = new PIXI.Text("Кристал интеллекта:", cmdStyleButtonRedText); 
-        text.x = 300; text.y = 250;
+        text.x = 330; text.y = 255;
         cmdDesktopStage.addChild(text);
         text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense5, cmdStyleButtonRedText); 
-        text.x = 450; text.y = 250;
+        text.x = 480; text.y = 255;
         cmdDesktopStage.addChild(text);
 
         text = new PIXI.Text(userPersonages[id].description, cmdStyledescriptionRedText); 

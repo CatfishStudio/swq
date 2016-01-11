@@ -17,7 +17,6 @@ var levelStyleButtonRedText = { font : 'bold 18px Arial', fill : '#FFFFFF', stro
 var levelStyleDroidBlueText = { font : 'bold 14px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }; 
 var levelStyleDroidRedText = { font : 'bold 14px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }; 
 
-var levelIntercept = false;
 var levelCommandUser = [];  // команда пользователя (userCommandUser)
 var levelCommandAI = [];    // команда ИИ (userCommandAI)
 var levelIndexUser = 0;     // индекс персонажа в команде пользователя
@@ -48,7 +47,6 @@ function levelCreate(planetID, intercept)
     levelStage = new PIXI.Container();
     stage.addChild(levelStage);
     
-    levelIntercept = intercept;
     levelPlanetID = planetID;
     levelStatus = LEVEL_STATUS_BATTLE;
     levelCommandUser = [];
@@ -95,41 +93,91 @@ function levelInitCommands(intercept)
         {
             if(userCommandUser[key] !== null)
             {
+                var life = (userPersonages[userCommandUser[key]].hitDefense1 + userPersonages[userCommandUser[key]].hitDefense2 + userPersonages[userCommandUser[key]].hitDefense3 + userPersonages[userCommandUser[key]].hitDefense4 + userPersonages[userCommandUser[key]].hitDefense5) / 10 * 50;
+                userPersonages[userCommandUser[key]].life = Math.round(life);
                 levelCommandUser.push(userPersonages[userCommandUser[key]]);
             }
         }
+        levelUserHit1 = levelCommandUser[levelIndexUser].hitDefense1;
+        levelUserHit2 = levelCommandUser[levelIndexUser].hitDefense2;
+        levelUserHit3 = levelCommandUser[levelIndexUser].hitDefense3;
+        levelUserHit4 = levelCommandUser[levelIndexUser].hitDefense4;
+        levelUserHit5 = levelCommandUser[levelIndexUser].hitDefense5;
+        levelUserLife = levelCommandUser[levelIndexUser].life;
 
         levelCommandAI = [];
         for(var key in userCommandAI)
         {
             if(userCommandAI[key] !== null)
             {
+                var life = (userPersonages[userCommandAI[key]].hitDefense1 + userPersonages[userCommandAI[key]].hitDefense2 + userPersonages[userCommandAI[key]].hitDefense3 + userPersonages[userCommandAI[key]].hitDefense4 + userPersonages[userCommandAI[key]].hitDefense5) / 10 * 50;
+                userPersonages[userCommandAI[key]].life = Math.round(life);
                 levelCommandAI.push(userPersonages[userCommandAI[key]]);
             }
         }
+        
+        levelAIHit1 = levelCommandAI[levelIndexAI].hitDefense1;
+        levelAIHit2 = levelCommandAI[levelIndexAI].hitDefense2;
+        levelAIHit3 = levelCommandAI[levelIndexAI].hitDefense3;
+        levelAIHit4 = levelCommandAI[levelIndexAI].hitDefense4;
+        levelAIHit5 = levelCommandAI[levelIndexAI].hitDefense5;
+        levelAILife = levelCommandAI[levelIndexAI].life;
+        
     }else{
         levelCommandUser = [];
         for(var key in userCommandUser)
         {
             if(userCommandUser[key] !== null)
             {
+                var life = (userPersonages[userCommandUser[key]].hitDefense1 + userPersonages[userCommandUser[key]].hitDefense2 + userPersonages[userCommandUser[key]].hitDefense3 + userPersonages[userCommandUser[key]].hitDefense4 + userPersonages[userCommandUser[key]].hitDefense5) / 10 * 50;
+                userPersonages[userCommandUser[key]].life = Math.round(life);
                 levelCommandUser.push(userPersonages[userCommandUser[key]]);
             }
         }
+        levelUserHit1 = levelCommandUser[levelIndexUser].hitDefense1;
+        levelUserHit2 = levelCommandUser[levelIndexUser].hitDefense2;
+        levelUserHit3 = levelCommandUser[levelIndexUser].hitDefense3;
+        levelUserHit4 = levelCommandUser[levelIndexUser].hitDefense4;
+        levelUserHit5 = levelCommandUser[levelIndexUser].hitDefense5;
+        levelUserLife = levelCommandUser[levelIndexUser].life;
+        
         if(side === SIDE_JEDI)
         {
             levelCommandAI = [];
+            var life = (userPersonages[userPlanets[levelPlanetID].redPersonage1].hitAttack1 + userPersonages[userPlanets[levelPlanetID].redPersonage1].hitAttack2 + userPersonages[userPlanets[levelPlanetID].redPersonage1].hitAttack3 + userPersonages[userPlanets[levelPlanetID].redPersonage1].hitAttack4 + userPersonages[userPlanets[levelPlanetID].redPersonage1].hitAttack5) / 10 * 50;
+            userPersonages[userPlanets[levelPlanetID].redPersonage1].life = Math.round(life);
             levelCommandAI.push(userPersonages[userPlanets[levelPlanetID].redPersonage1]);
+            
+            life = (userPersonages[userPlanets[levelPlanetID].redPersonage2].hitAttack1 + userPersonages[userPlanets[levelPlanetID].redPersonage2].hitAttack2 + userPersonages[userPlanets[levelPlanetID].redPersonage2].hitAttack3 + userPersonages[userPlanets[levelPlanetID].redPersonage2].hitAttack4 + userPersonages[userPlanets[levelPlanetID].redPersonage2].hitAttack5) / 10 * 50;
+            userPersonages[userPlanets[levelPlanetID].redPersonage2].life = Math.round(life);
             levelCommandAI.push(userPersonages[userPlanets[levelPlanetID].redPersonage2]);
+            
+            life = (userPersonages[userPlanets[levelPlanetID].redPersonage3].hitAttack1 + userPersonages[userPlanets[levelPlanetID].redPersonage3].hitAttack2 + userPersonages[userPlanets[levelPlanetID].redPersonage3].hitAttack3 + userPersonages[userPlanets[levelPlanetID].redPersonage3].hitAttack4 + userPersonages[userPlanets[levelPlanetID].redPersonage3].hitAttack5) / 10 * 50;
+            userPersonages[userPlanets[levelPlanetID].redPersonage3].life = Math.round(life);
             levelCommandAI.push(userPersonages[userPlanets[levelPlanetID].redPersonage3]);
         }
         if(side === SIDE_SITH)
         {
             levelCommandAI = [];
+            var life = (userPersonages[userPlanets[levelPlanetID].bluePersonage1].hitAttack1 + userPersonages[userPlanets[levelPlanetID].bluePersonage1].hitAttack2 + userPersonages[userPlanets[levelPlanetID].bluePersonage1].hitAttack3 + userPersonages[userPlanets[levelPlanetID].bluePersonage1].hitAttack4 + userPersonages[userPlanets[levelPlanetID].bluePersonage1].hitAttack5) / 10 * 50;
+            userPersonages[userPlanets[levelPlanetID].bluePersonage1].life = Math.round(life);
             levelCommandAI.push(userPersonages[userPlanets[levelPlanetID].bluePersonage1]);
+            
+            life = (userPersonages[userPlanets[levelPlanetID].bluePersonage2].hitAttack1 + userPersonages[userPlanets[levelPlanetID].bluePersonage2].hitAttack2 + userPersonages[userPlanets[levelPlanetID].bluePersonage2].hitAttack3 + userPersonages[userPlanets[levelPlanetID].bluePersonage2].hitAttack4 + userPersonages[userPlanets[levelPlanetID].bluePersonage2].hitAttack5) / 10 * 50;
+            userPersonages[userPlanets[levelPlanetID].bluePersonage2].life = Math.round(life);
             levelCommandAI.push(userPersonages[userPlanets[levelPlanetID].bluePersonage2]);
+            
+            life = (userPersonages[userPlanets[levelPlanetID].bluePersonage3].hitAttack1 + userPersonages[userPlanets[levelPlanetID].bluePersonage3].hitAttack2 + userPersonages[userPlanets[levelPlanetID].bluePersonage3].hitAttack3 + userPersonages[userPlanets[levelPlanetID].bluePersonage3].hitAttack4 + userPersonages[userPlanets[levelPlanetID].bluePersonage3].hitAttack5) / 10 * 50;
+            userPersonages[userPlanets[levelPlanetID].bluePersonage3].life = Math.round(life);
             levelCommandAI.push(userPersonages[userPlanets[levelPlanetID].bluePersonage3]);
         }
+        
+        levelAIHit1 = levelCommandAI[levelIndexAI].hitAttack1;
+        levelAIHit2 = levelCommandAI[levelIndexAI].hitAttack2;
+        levelAIHit3 = levelCommandAI[levelIndexAI].hitAttack3;
+        levelAIHit4 = levelCommandAI[levelIndexAI].hitAttack4;
+        levelAIHit5 = levelCommandAI[levelIndexAI].hitAttack5;
+        levelAILife = levelCommandAI[levelIndexAI].life;
     }
 }
 
@@ -426,13 +474,6 @@ function levelShowCommandUser()
     levelStage.addChild(levelLineUserAnimationGraphics);
     
     /* харктеристики */
-    levelUserHit1 = levelCommandUser[levelIndexUser].hitDefense1;
-    levelUserHit2 = levelCommandUser[levelIndexUser].hitDefense2;
-    levelUserHit3 = levelCommandUser[levelIndexUser].hitDefense3;
-    levelUserHit4 = levelCommandUser[levelIndexUser].hitDefense4;
-    levelUserHit5 = levelCommandUser[levelIndexUser].hitDefense5;
-    levelUserLife = 9999;
-    
     graphics = new PIXI.Graphics(); 
     if(side === SIDE_JEDI)
     {
@@ -595,23 +636,6 @@ function levelShowCommandAI()
     levelLineAnimationGraphicsTween();
     
     /* харктеристики */
-    if(levelIntercept === true)
-    {
-        levelAIHit1 = levelCommandAI[levelIndexAI].hitDefense1;
-        levelAIHit2 = levelCommandAI[levelIndexAI].hitDefense2;
-        levelAIHit3 = levelCommandAI[levelIndexAI].hitDefense3;
-        levelAIHit4 = levelCommandAI[levelIndexAI].hitDefense4;
-        levelAIHit5 = levelCommandAI[levelIndexAI].hitDefense5;
-        levelAILife = 8999;
-    }else{
-        levelAIHit1 = levelCommandAI[levelIndexAI].hitAttack1;
-        levelAIHit2 = levelCommandAI[levelIndexAI].hitAttack2;
-        levelAIHit3 = levelCommandAI[levelIndexAI].hitAttack3;
-        levelAIHit4 = levelCommandAI[levelIndexAI].hitAttack4;
-        levelAIHit5 = levelCommandAI[levelIndexAI].hitAttack5;
-        levelAILife = 8999;
-    }
-    
     graphics = new PIXI.Graphics(); 
     if(side === SIDE_SITH)
     {

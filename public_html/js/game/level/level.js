@@ -16,6 +16,9 @@ var levelStyleButtonBlueText = { font : 'bold 18px Arial', fill : '#FFFFFF', str
 var levelStyleButtonRedText = { font : 'bold 18px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
 var levelStyleDroidBlueText = { font : 'bold 14px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }; 
 var levelStyleDroidRedText = { font : 'bold 14px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }; 
+var levelStyleButtonsBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
+var levelStyleButtonsRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
+
 
 var levelCommandUser = [];  // команда пользователя (userCommandUser)
 var levelCommandAI = [];    // команда ИИ (userCommandAI)
@@ -71,6 +74,7 @@ function levelCreate(planetID, intercept)
         levelDesktopRed();
         levelDroidRed();
     }
+    levelBattons();
     levelShowCommandUser();
     levelShowCommandAI();
     levelFieldCreate();
@@ -820,6 +824,153 @@ function levelSelectPersonageAI()
     levelBorderPersonageAI.y = position[levelIndexAI][1];
     position = null;
 }
+
+function levelBattons()
+{
+    var textArr = ["ЗАКОНЧИТЬ БИТВУ", "НАСТРОЙКИ", "ВЫЙТИ В МЕНЮ", "ПРИГЛАСИТЬ"];
+    var nameArr = ["EndBattle", "Settings", "BackMenu", "Invite"];
+    
+    var button; 
+    if(side === SIDE_JEDI) button = new PIXI.extras.MovieClip(animTexButtonBlue);
+    if(side === SIDE_SITH) button = new PIXI.extras.MovieClip(animTexButtonRed);
+    button.name = nameArr[0];
+    button.position.x = 35; 
+    button.position.y = 670; 
+    button.interactive = true; 
+    button.buttonMode = true; 
+    button.loop = false; 
+    button.animationSpeed = 0.2;
+    button.onComplete = onLevelButtonUpdate;
+    button.tap = onLevelButtonClick; 
+    button.click = onLevelButtonClick; 
+    button.on('mouseover', onLevelButtonOver);
+    button.on('mouseout', onLevelButtonOut);
+    var text; 
+    if(side === SIDE_JEDI) text = new PIXI.Text(textArr[0], levelStyleButtonsBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text(textArr[0], levelStyleButtonsRedText); 
+    text.x = (button.width / 2) - (text.width / 2);
+    text.y = button.height / 3;
+    button.addChild(text); 
+    levelStage.addChild(button);
+    
+    if(side === SIDE_JEDI) button = new PIXI.extras.MovieClip(animTexButtonBlue);
+    if(side === SIDE_SITH) button = new PIXI.extras.MovieClip(animTexButtonRed); 
+    button.name = nameArr[1];
+    button.position.x = 255; 
+    button.position.y = 670; 
+    button.interactive = true; 
+    button.buttonMode = true; 
+    button.loop = false; 
+    button.animationSpeed = 0.2;
+    button.onComplete = onLevelButtonUpdate;
+    button.tap = onLevelButtonClick; 
+    button.click = onLevelButtonClick; 
+    button.on('mouseover', onLevelButtonOver);
+    button.on('mouseout', onLevelButtonOut);
+    if(side === SIDE_JEDI) text = new PIXI.Text(textArr[0], levelStyleButtonsBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text(textArr[0], levelStyleButtonsRedText);
+    text.x = (button.width / 2) - (text.width / 2);
+    text.y = button.height / 3;
+    button.addChild(text); 
+    levelStage.addChild(button);
+    
+    if(side === SIDE_JEDI) button = new PIXI.extras.MovieClip(animTexButtonBlue);
+    if(side === SIDE_SITH) button = new PIXI.extras.MovieClip(animTexButtonRed); 
+    button.name = nameArr[2];
+    button.position.x = 35; 
+    button.position.y = 620; 
+    button.interactive = true; 
+    button.buttonMode = true; 
+    button.loop = false; 
+    button.animationSpeed = 0.2;
+    button.onComplete = onLevelButtonUpdate;
+    button.tap = onLevelButtonClick; 
+    button.click = onLevelButtonClick; 
+    button.on('mouseover', onLevelButtonOver);
+    button.on('mouseout', onLevelButtonOut);
+    if(side === SIDE_JEDI) text = new PIXI.Text(textArr[0], levelStyleButtonsBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text(textArr[0], levelStyleButtonsRedText);
+    text.x = (button.width / 2) - (text.width / 2);
+    text.y = button.height / 3;
+    button.addChild(text); 
+    levelStage.addChild(button);
+    
+    if(side === SIDE_JEDI) button = new PIXI.extras.MovieClip(animTexButtonBlue);
+    if(side === SIDE_SITH) button = new PIXI.extras.MovieClip(animTexButtonRed); 
+    button.name = nameArr[3];
+    button.position.x = 255; 
+    button.position.y = 620; 
+    button.interactive = true; 
+    button.buttonMode = true; 
+    button.loop = false; 
+    button.animationSpeed = 0.2;
+    button.onComplete = onLevelButtonUpdate;
+    button.tap = onLevelButtonClick; 
+    button.click = onLevelButtonClick; 
+    button.on('mouseover', onLevelButtonOver);
+    button.on('mouseout', onLevelButtonOut);
+    if(side === SIDE_JEDI) text = new PIXI.Text(textArr[0], levelStyleButtonsBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text(textArr[0], levelStyleButtonsRedText); 
+    text.x = (button.width / 2) - (text.width / 2);
+    text.y = button.height / 3;
+    button.addChild(text); 
+    levelStage.addChild(button);
+}
+
+function onLevelButtonOver()
+{
+    this.isOver = true;
+    this.gotoAndPlay(1);
+}
+
+function onLevelButtonOut()
+{
+    this.isOver = false;
+    this.gotoAndStop(0);
+}
+
+function onLevelButtonUpdate()
+{
+    if(this.isOver)
+    {
+        this.gotoAndPlay(1);
+    }else{
+        this.gotoAndStop(0);
+    }
+}
+
+function onLevelButtonClick() 
+{
+    switch (this.name)
+    {
+        case "EndBattle":
+            
+            break;
+        case "Settings":
+            
+            break;
+        case "BackMenu":
+            
+            break;
+        case "Invite": 
+            VK.callMethod("showInviteBox");
+            break;
+        default:
+            break;
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
     
 /* Создание игрового поля ========================================================== */
 function levelFieldCreate()

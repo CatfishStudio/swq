@@ -1012,37 +1012,37 @@ function initCharacteristics()
 {
     var characteristicsUser = new Object();
     characteristicsUser["planet-1"] = [2,3,4];
-    characteristicsUser["planet-2"] = [4,5,6];
-    characteristicsUser["planet-3"] = [6,7,8];
-    characteristicsUser["planet-4"] = [8,9,10];
-    characteristicsUser["planet-5"] = [10,11,12];
-    characteristicsUser["planet-6"] = [12,13,14];
-    characteristicsUser["planet-7"] = [14,15,16];
-    characteristicsUser["planet-8"] = [16,17,18];
-    characteristicsUser["planet-9"] = [19,20,21];
-    characteristicsUser["planet-10"] = [21,22,23];
-    characteristicsUser["planet-11"] = [23,24,25];
-    characteristicsUser["planet-12"] = [25,26,27];
-    characteristicsUser["planet-13"] = [27,28,29];    
-    characteristicsUser["planet-14"] = [29,30,31];
-    characteristicsUser["planet-15"] = [31,32,33]; 
+    characteristicsUser["planet-2"] = [3,4,5];
+    characteristicsUser["planet-3"] = [4,5,6];
+    characteristicsUser["planet-4"] = [5,6,7];
+    characteristicsUser["planet-5"] = [6,7,8];
+    characteristicsUser["planet-6"] = [7,8,9];
+    characteristicsUser["planet-7"] = [8,9,10];
+    characteristicsUser["planet-8"] = [9,10,11];
+    characteristicsUser["planet-9"] = [10,11,12];
+    characteristicsUser["planet-10"] = [11,12,13];
+    characteristicsUser["planet-11"] = [12,13,14];
+    characteristicsUser["planet-12"] = [13,14,15];
+    characteristicsUser["planet-13"] = [14,15,16];    
+    characteristicsUser["planet-14"] = [15,16,17];
+    characteristicsUser["planet-15"] = [16,17,18]; 
     
     var characteristicsAI = new Object();
     characteristicsAI["planet-1"] = [2,3,4];
-    characteristicsAI["planet-2"] = [4,5,6];
-    characteristicsAI["planet-3"] = [6,7,8];
-    characteristicsAI["planet-4"] = [8,9,10];
-    characteristicsAI["planet-5"] = [10,11,12];
-    characteristicsAI["planet-6"] = [12,13,14];
-    characteristicsAI["planet-7"] = [14,15,16];
-    characteristicsAI["planet-8"] = [16,17,18];
-    characteristicsAI["planet-9"] = [19,20,21];
-    characteristicsAI["planet-10"] = [21,22,23];
-    characteristicsAI["planet-11"] = [23,24,25];
-    characteristicsAI["planet-12"] = [25,26,27];
-    characteristicsAI["planet-13"] = [27,28,29];    
-    characteristicsAI["planet-14"] = [29,30,31];
-    characteristicsAI["planet-15"] = [31,32,33]; 
+    characteristicsAI["planet-2"] = [3,4,5];
+    characteristicsAI["planet-3"] = [4,5,6];
+    characteristicsAI["planet-4"] = [5,6,7];
+    characteristicsAI["planet-5"] = [6,7,8];
+    characteristicsAI["planet-6"] = [7,8,9];
+    characteristicsAI["planet-7"] = [8,9,10];
+    characteristicsAI["planet-8"] = [9,10,11];
+    characteristicsAI["planet-9"] = [10,11,12];
+    characteristicsAI["planet-10"] = [11,12,13];
+    characteristicsAI["planet-11"] = [12,13,14];
+    characteristicsAI["planet-12"] = [13,14,15];
+    characteristicsAI["planet-13"] = [14,15,16];    
+    characteristicsAI["planet-14"] = [15,16,17];
+    characteristicsAI["planet-15"] = [16,17,18];  
     
     if(side === SIDE_JEDI)
     {

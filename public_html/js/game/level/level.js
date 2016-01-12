@@ -815,6 +815,7 @@ function levelSelectPersonageUser()
     levelBorderPersonageUser.x = position[levelIndexUser][0];
     levelBorderPersonageUser.y = position[levelIndexUser][1];
     position = null;
+    levelPersonageUserSprite.texture = heroesTextures[levelCommandUser[levelIndexUser].id][1];
 }
 
 function levelSelectPersonageAI()
@@ -823,6 +824,7 @@ function levelSelectPersonageAI()
     levelBorderPersonageAI.x = position[levelIndexAI][0];
     levelBorderPersonageAI.y = position[levelIndexAI][1];
     position = null;
+    levelPersonageAISprite.texture = heroesTextures[levelCommandAI[levelIndexAI].id][2];
 }
 
 function levelBattons()
@@ -867,8 +869,8 @@ function levelBattons()
     button.click = onLevelButtonClick; 
     button.on('mouseover', onLevelButtonOver);
     button.on('mouseout', onLevelButtonOut);
-    if(side === SIDE_JEDI) text = new PIXI.Text(textArr[0], levelStyleButtonsBlueText); 
-    if(side === SIDE_SITH) text = new PIXI.Text(textArr[0], levelStyleButtonsRedText);
+    if(side === SIDE_JEDI) text = new PIXI.Text(textArr[1], levelStyleButtonsBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text(textArr[1], levelStyleButtonsRedText);
     text.x = (button.width / 2) - (text.width / 2);
     text.y = button.height / 3;
     button.addChild(text); 
@@ -888,8 +890,8 @@ function levelBattons()
     button.click = onLevelButtonClick; 
     button.on('mouseover', onLevelButtonOver);
     button.on('mouseout', onLevelButtonOut);
-    if(side === SIDE_JEDI) text = new PIXI.Text(textArr[0], levelStyleButtonsBlueText); 
-    if(side === SIDE_SITH) text = new PIXI.Text(textArr[0], levelStyleButtonsRedText);
+    if(side === SIDE_JEDI) text = new PIXI.Text(textArr[2], levelStyleButtonsBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text(textArr[2], levelStyleButtonsRedText);
     text.x = (button.width / 2) - (text.width / 2);
     text.y = button.height / 3;
     button.addChild(text); 
@@ -909,8 +911,8 @@ function levelBattons()
     button.click = onLevelButtonClick; 
     button.on('mouseover', onLevelButtonOver);
     button.on('mouseout', onLevelButtonOut);
-    if(side === SIDE_JEDI) text = new PIXI.Text(textArr[0], levelStyleButtonsBlueText); 
-    if(side === SIDE_SITH) text = new PIXI.Text(textArr[0], levelStyleButtonsRedText); 
+    if(side === SIDE_JEDI) text = new PIXI.Text(textArr[3], levelStyleButtonsBlueText); 
+    if(side === SIDE_SITH) text = new PIXI.Text(textArr[3], levelStyleButtonsRedText); 
     text.x = (button.width / 2) - (text.width / 2);
     text.y = button.height / 3;
     button.addChild(text); 
@@ -961,23 +963,43 @@ function onLevelButtonClick()
     
 }
 
-
-
-
-
-
-
-
-
-
-
-    
-/* Создание игрового поля ========================================================== */
+/* Создание игрового поля =================================================== */
 function levelFieldCreate()
 {
     createMatchField(userLevels[levelPlanetID]);
     levelStage.addChild(matchStage);
 }
-/* =========================================================================== */
+/* ========================================================================== */
+
+/* ПРОГРЕСС: Уменьшение значений LifeBars =================================== */
+function levelReduceLifeBar(hitType, hitCount, hitModeAI) 
+{
+    if(hitModeAI === false) // удар пользователя
+    {
+	
+    }else{ // удар ИИ
+	
+    }
+}
+/* ========================================================================== */
+
+/* Меняем персонаж ========================================================== */
+function levelExchangePersonage(mode)
+{
+    if(mode === "AI") // меняем персонаж ИИ
+    {
+        if(levelIndexAI < 2)levelIndexAI++;
+        else levelIndexAI = 0;
+        levelSelectPersonageAI();
+    }
+    if(mode === "USER") // меняем персонажа пользователя
+    {
+        if(levelIndexUser < 2)levelIndexUser++;
+        else levelIndexUser = 0;
+        levelSelectPersonageUser();
+    }
+}
+/* ========================================================================== */	
+
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

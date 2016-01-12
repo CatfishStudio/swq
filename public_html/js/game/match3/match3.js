@@ -433,9 +433,9 @@ function matchRemoveUnit(col, row, check, hitType, hitCount)
 	if(levelStatus === LEVEL_STATUS_BATTLE)
 	{
 		/* ПРОГРЕСС: Обрабтка LifeBar */
-		//levelReduceLifeBar(hitType, hitCount, modeAI); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		levelReduceLifeBar(hitType, hitCount, modeAI);
 		/* АНИМАЦИЯ: Анимация бойцов */
-		//levelUpdateAnimation(modeAI, hitType);
+		//levelUpdateAnimation(modeAI, hitType); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
 	
 	/*Отмечаем юниты для удаления */

@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Program%20Code/Git/swq/public_html/js/game/data/user.js</file>
-            <file>file:/C:/Program%20Code/Git/swq/public_html/js/game/map/map.js</file>
-            <file>file:/C:/Program%20Code/Git/swq/public_html/js/game/map/startbattle.js</file>
-            <file>file:/C:/Program%20Code/Git/swq/public_html/js/game/command/command.js</file>
+            <file>file:/C:/Program%20Code/Git/swq/public_html/js/game/match3/timer.js</file>
             <file>file:/C:/Program%20Code/Git/swq/public_html/js/game/level/level.js</file>
+            <file>file:/C:/Program%20Code/Git/swq/public_html/js/game/match3/match3.js</file>
         </group>
     </open-files>
 </project-private>

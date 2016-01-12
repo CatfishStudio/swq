@@ -73,8 +73,7 @@ function timerRemove()
 function onTimerComplete()
 {
     if(timerCount === TIMER_MIN_VALUE){	// таймер = минимум
-        /*
-        levelResetBlock("ALL");
+        //levelResetBlock("ALL");
 
         if(modeAI === true)
         {
@@ -89,35 +88,34 @@ function onTimerComplete()
                 matchSelectUnit2 = null;
                 // console.log("[HIT]: AI наносит удар!");
         }
-        */
+        
         timerCount = TIMER_MAX_VALUE;	// устанавливаем максимальное значение таймера
         timerText.text = timerCount;	// показываем секунды
     }else{
         timerCount--;						// уменьшение таймера
         timerText.text = " " + timerCount;	// показываем секунды
-        //if(modeAI === true && qtimerCount === 8) { matchActionAI();}
+        if(modeAI === true && timerCount === 8) { matchActionAI();}
     }
 }
 
 function timerStart()
 {
-    /*
     if(modeAI === true)
     {
             matchFieldBlocked = false; 	// поле разблокированно
             modeAI = false;					// ИИ отключен
-            levelResetBlock("USER");		// убираем блок с Пользователя
+            levelExchangePersonage("AI");
             // console.log("[HIT START]: USER наносит удар!");
     }else{
             matchFieldBlocked = true;		// поле заблокированно
             modeAI = true;					// ИИ включен
-            levelResetBlock("AI");			// убираем блок с ИИЫ
+            levelExchangePersonage("USER");
             matchCellColorBack();
             matchSelectUnit1 = null;
             matchSelectUnit2 = null;
             // console.log("[HIT START]: AI наносит удар!");
     }
-    */
+    
     timerCount = TIMER_MAX_VALUE;	// устанавливаем максимальное значение таймера
     timerText.text = timerCount;	// показываем секунды
     if(timerPause === false) timer = setInterval(onTimerComplete, 1000);	// запуск таймера
@@ -131,13 +129,13 @@ function timerStop()
 function timerPauseBegin()
 {
         timerPause = true;
-        //if(levelStage !== null) clearInterval(timer);
+        if(levelStage !== null) clearInterval(timer);
 }
 
 function timerPauseEnd()
 {
         timerPause = false;
-	//if(levelStage !== null) timer = setInterval(onTimerComplete, 1000);
+	if(levelStage !== null) timer = setInterval(onTimerComplete, 1000);
 }
 
 /* == КОНЕЦ ФАЙЛА ========================================================== */

@@ -28,12 +28,24 @@ var levelBorderPersonageUser;
 var levelBorderPersonageAI;
 var levelPersonageUserSprite;
 var levelPersonageAISprite;
+var levelUserHit1Text;
+var levelUserHit2Text;
+var levelUserHit3Text;
+var levelUserHit4Text;
+var levelUserHit5Text;
+var levelUserLifeText;
 var levelUserHit1;
 var levelUserHit2;
 var levelUserHit3;
 var levelUserHit4;
 var levelUserHit5;
 var levelUserLife;
+var levelAIHit1Text;
+var levelAIHit2Text;
+var levelAIHit3Text;
+var levelAIHit4Text;
+var levelAIHit5Text;
+var levelAILifeText;
 var levelAIHit1;
 var levelAIHit2;
 var levelAIHit3;
@@ -499,43 +511,42 @@ function levelShowCommandUser()
     var sprite = new PIXI.Sprite(hit1Texture);
     sprite.position.x = 30; sprite.position.y = 410; sprite.scale.set(0.3);
     levelStage.addChild(sprite);
-    var text; 
-    if(side === SIDE_JEDI) text = new PIXI.Text("- " + levelUserHit1, levelStyleButtonBlueText);
-    if(side === SIDE_SITH) text = new PIXI.Text("- " + levelUserHit1, levelStyleButtonRedText);
-    text.x = 55; text.y = 410;
-    levelStage.addChild(text);
+    if(side === SIDE_JEDI) levelUserHit1Text = new PIXI.Text("- " + levelUserHit1, levelStyleButtonBlueText);
+    if(side === SIDE_SITH) levelUserHit1Text = new PIXI.Text("- " + levelUserHit1, levelStyleButtonRedText);
+    levelUserHit1Text.x = 55; levelUserHit1Text.y = 410;
+    levelStage.addChild(levelUserHit1Text);
     
     sprite = new PIXI.Sprite(hit2Texture);
     sprite.position.x = 100; sprite.position.y = 410; sprite.scale.set(0.3);
     levelStage.addChild(sprite);
-    if(side === SIDE_JEDI) text = new PIXI.Text("- " + levelUserHit2, levelStyleButtonBlueText);
-    if(side === SIDE_SITH) text = new PIXI.Text("- " + levelUserHit2, levelStyleButtonRedText); 
-    text.x = 125; text.y = 410;
-    levelStage.addChild(text);
+    if(side === SIDE_JEDI) levelUserHit2Text = new PIXI.Text("- " + levelUserHit2, levelStyleButtonBlueText);
+    if(side === SIDE_SITH) levelUserHit2Text = new PIXI.Text("- " + levelUserHit2, levelStyleButtonRedText); 
+    levelUserHit2Text.x = 125; levelUserHit2Text.y = 410;
+    levelStage.addChild(levelUserHit2Text);
     
     sprite = new PIXI.Sprite(hit3Texture);
     sprite.position.x = 30; sprite.position.y = 450; sprite.scale.set(0.3);
     levelStage.addChild(sprite);
-    if(side === SIDE_JEDI) text = new PIXI.Text("+ " + levelUserHit3, levelStyleButtonBlueText);
-    if(side === SIDE_SITH) text = new PIXI.Text("+ " + levelUserHit3, levelStyleButtonRedText); 
-    text.x = 55; text.y = 450;
-    levelStage.addChild(text);
+    if(side === SIDE_JEDI) levelUserHit3Text = new PIXI.Text("+ " + levelUserHit3, levelStyleButtonBlueText);
+    if(side === SIDE_SITH) levelUserHit3Text = new PIXI.Text("+ " + levelUserHit3, levelStyleButtonRedText); 
+    levelUserHit3Text.x = 55; levelUserHit3Text.y = 450;
+    levelStage.addChild(levelUserHit3Text);
     
     sprite = new PIXI.Sprite(hit4Texture);
     sprite.position.x = 100; sprite.position.y = 450; sprite.scale.set(0.3);
     levelStage.addChild(sprite);
-    if(side === SIDE_JEDI) text = new PIXI.Text("- " + levelUserHit4, levelStyleButtonBlueText);
-    if(side === SIDE_SITH) text = new PIXI.Text("- " + levelUserHit4, levelStyleButtonRedText);
-    text.x = 125; text.y = 450;
-    levelStage.addChild(text);
+    if(side === SIDE_JEDI) levelUserHit4Text = new PIXI.Text("- " + levelUserHit4, levelStyleButtonBlueText);
+    if(side === SIDE_SITH) levelUserHit4Text = new PIXI.Text("- " + levelUserHit4, levelStyleButtonRedText);
+    levelUserHit4Text.x = 125; levelUserHit4Text.y = 450;
+    levelStage.addChild(levelUserHit4Text);
     
     sprite = new PIXI.Sprite(hit5Texture);
     sprite.position.x = 30; sprite.position.y = 490; sprite.scale.set(0.3);
     levelStage.addChild(sprite);
-    if(side === SIDE_JEDI) text = new PIXI.Text("- " + levelUserHit5, levelStyleButtonBlueText);
-    if(side === SIDE_SITH) text = new PIXI.Text("- " + levelUserHit5, levelStyleButtonRedText); 
-    text.x = 55; text.y = 490;
-    levelStage.addChild(text);
+    if(side === SIDE_JEDI) levelUserHit5Text = new PIXI.Text("- " + levelUserHit5, levelStyleButtonBlueText);
+    if(side === SIDE_SITH) levelUserHit5Text = new PIXI.Text("- " + levelUserHit5, levelStyleButtonRedText); 
+    levelUserHit5Text.x = 55; levelUserHit5Text.y = 490;
+    levelStage.addChild(levelUserHit5Text);
     
     graphics = new PIXI.Graphics(); 
     if(side === SIDE_JEDI)
@@ -555,10 +566,10 @@ function levelShowCommandUser()
     graphics.endFill();
     levelStage.addChild(graphics);
     
-    if(side === SIDE_JEDI) text = new PIXI.Text("Здоровье: " + levelUserLife, levelStyleButtonBlueText); 
-    if(side === SIDE_SITH) text = new PIXI.Text("Здоровье: " + levelUserLife, levelStyleButtonRedText); 
-    text.x = 27; text.y = 530;
-    levelStage.addChild(text);
+    if(side === SIDE_JEDI) levelUserLifeText = new PIXI.Text("Здоровье: " + levelUserLife, levelStyleButtonBlueText); 
+    if(side === SIDE_SITH) levelUserLifeText = new PIXI.Text("Здоровье: " + levelUserLife, levelStyleButtonRedText); 
+    levelUserLifeText.x = 27; levelUserLifeText.y = 530;
+    levelStage.addChild(levelUserLifeText);
 }
 
 function levelShowCommandAI()
@@ -661,43 +672,42 @@ function levelShowCommandAI()
     var sprite = new PIXI.Sprite(hit1Texture);
     sprite.position.x = 695; sprite.position.y = 215; sprite.scale.set(0.3);
     levelStage.addChild(sprite);
-    var text;
-    if(side === SIDE_SITH) text = new PIXI.Text("- " + levelAIHit1, levelStyleButtonBlueText);
-    if(side === SIDE_JEDI) text = new PIXI.Text("- " + levelAIHit1, levelStyleButtonRedText); 
-    text.x = 720; text.y = 215;
-    levelStage.addChild(text);
+    if(side === SIDE_SITH) levelAIHit1Text = new PIXI.Text("- " + levelAIHit1, levelStyleButtonBlueText);
+    if(side === SIDE_JEDI) levelAIHit1Text = new PIXI.Text("- " + levelAIHit1, levelStyleButtonRedText); 
+    levelAIHit1Text.x = 720; levelAIHit1Text.y = 215;
+    levelStage.addChild(levelAIHit1Text);
     
     sprite = new PIXI.Sprite(hit2Texture);
     sprite.position.x = 765; sprite.position.y = 215; sprite.scale.set(0.3);
     levelStage.addChild(sprite);
-    if(side === SIDE_SITH) text = new PIXI.Text("- " + levelAIHit2, levelStyleButtonBlueText);
-    if(side === SIDE_JEDI) text = new PIXI.Text("- " + levelAIHit2, levelStyleButtonRedText);  
-    text.x = 790; text.y = 215;
-    levelStage.addChild(text);
+    if(side === SIDE_SITH) levelAIHit2Text = new PIXI.Text("- " + levelAIHit2, levelStyleButtonBlueText);
+    if(side === SIDE_JEDI) levelAIHit2Text = new PIXI.Text("- " + levelAIHit2, levelStyleButtonRedText);  
+    levelAIHit2Text.x = 790; levelAIHit2Text.y = 215;
+    levelStage.addChild(levelAIHit2Text);
     
     sprite = new PIXI.Sprite(hit3Texture);
     sprite.position.x = 695; sprite.position.y = 250; sprite.scale.set(0.3);
     levelStage.addChild(sprite);
-    if(side === SIDE_SITH) text = new PIXI.Text("+ " + levelAIHit3, levelStyleButtonBlueText);
-    if(side === SIDE_JEDI) text = new PIXI.Text("+ " + levelAIHit3, levelStyleButtonRedText);  
-    text.x = 720; text.y = 250;
-    levelStage.addChild(text);
+    if(side === SIDE_SITH) levelAIHit3Text = new PIXI.Text("+ " + levelAIHit3, levelStyleButtonBlueText);
+    if(side === SIDE_JEDI) levelAIHit3Text = new PIXI.Text("+ " + levelAIHit3, levelStyleButtonRedText);  
+    levelAIHit3Text.x = 720; levelAIHit3Text.y = 250;
+    levelStage.addChild(levelAIHit3Text);
     
     sprite = new PIXI.Sprite(hit4Texture);
     sprite.position.x = 765; sprite.position.y = 250; sprite.scale.set(0.3);
     levelStage.addChild(sprite);
-    if(side === SIDE_SITH) text = new PIXI.Text("- " + levelAIHit4, levelStyleButtonBlueText);
-    if(side === SIDE_JEDI) text = new PIXI.Text("- " + levelAIHit4, levelStyleButtonRedText); 
-    text.x = 790; text.y = 250;
-    levelStage.addChild(text);
+    if(side === SIDE_SITH) levelAIHit4Text = new PIXI.Text("- " + levelAIHit4, levelStyleButtonBlueText);
+    if(side === SIDE_JEDI) levelAIHit4Text = new PIXI.Text("- " + levelAIHit4, levelStyleButtonRedText); 
+    levelAIHit4Text.x = 790; levelAIHit4Text.y = 250;
+    levelStage.addChild(levelAIHit4Text);
     
     sprite = new PIXI.Sprite(hit5Texture);
     sprite.position.x = 695; sprite.position.y = 290; sprite.scale.set(0.3);
     levelStage.addChild(sprite);
-    if(side === SIDE_SITH) text = new PIXI.Text("- " + levelAIHit5, levelStyleButtonBlueText);
-    if(side === SIDE_JEDI) text = new PIXI.Text("- " + levelAIHit5, levelStyleButtonRedText);  
-    text.x = 720; text.y = 290;
-    levelStage.addChild(text);
+    if(side === SIDE_SITH) levelAIHit5Text = new PIXI.Text("- " + levelAIHit5, levelStyleButtonBlueText);
+    if(side === SIDE_JEDI) levelAIHit5Text = new PIXI.Text("- " + levelAIHit5, levelStyleButtonRedText);  
+    levelAIHit5Text.x = 720; levelAIHit5Text.y = 290;
+    levelStage.addChild(levelAIHit5Text);
     
     graphics = new PIXI.Graphics(); 
     if(side === SIDE_SITH)
@@ -717,10 +727,10 @@ function levelShowCommandAI()
     graphics.endFill();
     levelStage.addChild(graphics);
     
-    if(side === SIDE_SITH) text = new PIXI.Text("Здоровье: " + levelAILife, levelStyleButtonBlueText); 
-    if(side === SIDE_JEDI) text = new PIXI.Text("Здоровье: " + levelAILife, levelStyleButtonRedText); 
-    text.x = 692; text.y = 180;
-    levelStage.addChild(text);
+    if(side === SIDE_SITH) levelAILifeText = new PIXI.Text("Здоровье: " + levelAILife, levelStyleButtonBlueText); 
+    if(side === SIDE_JEDI) levelAILifeText = new PIXI.Text("Здоровье: " + levelAILife, levelStyleButtonRedText); 
+    levelAILifeText.x = 692; levelAILifeText.y = 180;
+    levelStage.addChild(levelAILifeText);
 }
 
 
@@ -816,6 +826,18 @@ function levelSelectPersonageUser()
     levelBorderPersonageUser.y = position[levelIndexUser][1];
     position = null;
     levelPersonageUserSprite.texture = heroesTextures[levelCommandUser[levelIndexUser].id][1];
+    levelUserHit1 = levelCommandUser[levelIndexUser].hitDefense1;
+    levelUserHit2 = levelCommandUser[levelIndexUser].hitDefense2;
+    levelUserHit3 = levelCommandUser[levelIndexUser].hitDefense3;
+    levelUserHit4 = levelCommandUser[levelIndexUser].hitDefense4;
+    levelUserHit5 = levelCommandUser[levelIndexUser].hitDefense5;
+    levelUserLife = levelCommandUser[levelIndexUser].life;
+    levelUserHit1Text.text = "- " + levelUserHit1;
+    levelUserHit2Text.text = "- " + levelUserHit2;
+    levelUserHit3Text.text = "+ " + levelUserHit3;
+    levelUserHit4Text.text = "- " + levelUserHit4;
+    levelUserHit5Text.text = "- " + levelUserHit5;
+    levelUserLifeText.text = "Здоровье: " + levelUserLife;
 }
 
 function levelSelectPersonageAI()
@@ -825,6 +847,18 @@ function levelSelectPersonageAI()
     levelBorderPersonageAI.y = position[levelIndexAI][1];
     position = null;
     levelPersonageAISprite.texture = heroesTextures[levelCommandAI[levelIndexAI].id][2];
+    levelAIHit1 = levelCommandAI[levelIndexAI].hitAttack1;
+    levelAIHit2 = levelCommandAI[levelIndexAI].hitAttack2;
+    levelAIHit3 = levelCommandAI[levelIndexAI].hitAttack3;
+    levelAIHit4 = levelCommandAI[levelIndexAI].hitAttack4;
+    levelAIHit5 = levelCommandAI[levelIndexAI].hitAttack5;
+    levelAILife = levelCommandAI[levelIndexAI].life;
+    levelAIHit1Text.text = "- " + levelAIHit1;
+    levelAIHit2Text.text = "- " + levelAIHit2;
+    levelAIHit3Text.text = "+ " + levelAIHit3;
+    levelAIHit4Text.text = "- " + levelAIHit4;
+    levelAIHit5Text.text = "- " + levelAIHit5;
+    levelAILifeText.text = "Здоровье: " + levelAILife;
 }
 
 function levelBattons()
@@ -974,11 +1008,79 @@ function levelFieldCreate()
 /* ПРОГРЕСС: Уменьшение значений LifeBars =================================== */
 function levelReduceLifeBar(hitType, hitCount, hitModeAI) 
 {
-    if(hitModeAI === false) // удар пользователя
+    if(hitModeAI === false) // удар пользователя (урон ИИ)
     {
-	
-    }else{ // удар ИИ
-	
+	if(hitType === MATCH_HIT_1)
+        {
+            levelCommandAI[levelIndexAI].life -= (levelUserHit1 * hitCount);
+            levelAILife = levelCommandAI[levelIndexAI].life;
+            if(levelAILife < 0) levelAILife = 0;
+            levelAILifeText.text = "Здоровье: " + levelAILife;
+        }
+        if(hitType === MATCH_HIT_2)
+        {
+            levelCommandAI[levelIndexAI].life -= (levelUserHit2 * hitCount);
+            levelAILife = levelCommandAI[levelIndexAI].life;
+            if(levelAILife < 0) levelAILife = 0;
+            levelAILifeText.text = "Здоровье: " + levelAILife;
+        }
+        if(hitType === MATCH_HIT_3)
+        {
+            levelCommandUser[levelIndexUser].life += (levelUserHit3 * hitCount);
+            levelUserLife = levelCommandUser[levelIndexUser].life;
+            if(levelAILife < 0) levelAILife = 0;
+            levelUserLifeText.text = "Здоровье: " + levelUserLife;
+        }
+        if(hitType === MATCH_HIT_4)
+        {
+            levelCommandAI[levelIndexAI].life -= (levelUserHit4 * hitCount);
+            levelAILife = levelCommandAI[levelIndexAI].life;
+            if(levelAILife < 0) levelAILife = 0;
+            levelAILifeText.text = "Здоровье: " + levelAILife;
+        }
+        if(hitType === MATCH_HIT_5)
+        {
+            levelCommandAI[levelIndexAI].life -= (levelUserHit5 * hitCount);
+            levelAILife = levelCommandAI[levelIndexAI].life;
+            if(levelAILife < 0) levelAILife = 0;
+            levelAILifeText.text = "Здоровье: " + levelAILife;
+        }
+    }else{ // удар ИИ (урон пользователю)
+	if(hitType === MATCH_HIT_1)
+        {
+            levelCommandUser[levelIndexUser].life -= (levelAIHit1 * hitCount);
+            levelUserLife = levelCommandUser[levelIndexUser].life;
+            if(levelUserLife < 0) levelUserLife = 0;
+            levelUserLifeText.text = "Здоровье: " + levelUserLife;
+        }
+        if(hitType === MATCH_HIT_2)
+        {
+            levelCommandUser[levelIndexUser].life -= (levelAIHit2 * hitCount);
+            levelUserLife = levelCommandUser[levelIndexUser].life;
+            if(levelUserLife < 0) levelUserLife = 0;
+            levelUserLifeText.text = "Здоровье: " + levelUserLife;
+        }
+        if(hitType === MATCH_HIT_3)
+        {
+            levelCommandAI[levelIndexAI].life += (levelAIHit2 * hitCount);
+            levelAILife = levelCommandAI[levelIndexAI].life;
+            if(levelUserLife < 0) levelUserLife = 0;
+            levelAILifeText.text = "Здоровье: " + levelAILife;
+        }
+        if(hitType === MATCH_HIT_4)
+        {
+            levelCommandUser[levelIndexUser].life -= (levelAIHit4 * hitCount);
+            levelUserLife = levelCommandUser[levelIndexUser].life;
+            if(levelUserLife < 0) levelUserLife = 0;
+            levelUserLifeText.text = "Здоровье: " + levelUserLife;
+        }
+        if(hitType === MATCH_HIT_5)
+        {
+            levelCommandUser[levelIndexUser].life -= (levelAIHit5 * hitCount);
+            levelUserLife = levelCommandUser[levelIndexUser].life;
+            if(levelUserLife < 0) levelUserLife = 0;
+            levelUserLifeText.text = "Здоровье: " + levelUserLife;
+        }
     }
 }
 /* ========================================================================== */
@@ -988,8 +1090,13 @@ function levelExchangePersonage(mode)
 {
     if(mode === "AI") // меняем персонаж ИИ
     {
-        if(levelIndexAI < 2)levelIndexAI++;
-        else levelIndexAI = 0;
+        if(levelIndexAI < 2)
+        {   
+            levelIndexAI++;
+        } else
+        {
+            levelIndexAI = 0;
+        }
         levelSelectPersonageAI();
     }
     if(mode === "USER") // меняем персонажа пользователя

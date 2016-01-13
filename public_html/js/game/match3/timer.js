@@ -73,8 +73,7 @@ function timerRemove()
 function onTimerComplete()
 {
     if(timerCount === TIMER_MIN_VALUE){	// таймер = минимум
-        //levelResetBlock("ALL");
-
+        
         if(modeAI === true)
         {
                 matchFieldBlocked = false; 	// поле разблокированно

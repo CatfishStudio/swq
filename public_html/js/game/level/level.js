@@ -19,7 +19,7 @@ var levelStyleDroidRedText = { font : 'bold 14px Arial', fill : '#EDCDCB', strok
 var levelStyleButtonsBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
 var levelStyleButtonsRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
 
-
+var levelIntercept = false;
 var levelCommandUser = [];  // команда пользователя (userCommandUser)
 var levelCommandAI = [];    // команда ИИ (userCommandAI)
 var levelIndexUser = 0;     // индекс персонажа в команде пользователя
@@ -62,6 +62,7 @@ function levelCreate(planetID, intercept)
     levelStage = new PIXI.Container();
     stage.addChild(levelStage);
     
+    levelIntercept = intercept;
     levelPlanetID = planetID;
     levelStatus = LEVEL_STATUS_BATTLE;
     levelCommandUser = [];
@@ -847,11 +848,20 @@ function levelSelectPersonageAI()
     levelBorderPersonageAI.y = position[levelIndexAI][1];
     position = null;
     levelPersonageAISprite.texture = heroesTextures[levelCommandAI[levelIndexAI].id][2];
-    levelAIHit1 = levelCommandAI[levelIndexAI].hitAttack1;
-    levelAIHit2 = levelCommandAI[levelIndexAI].hitAttack2;
-    levelAIHit3 = levelCommandAI[levelIndexAI].hitAttack3;
-    levelAIHit4 = levelCommandAI[levelIndexAI].hitAttack4;
-    levelAIHit5 = levelCommandAI[levelIndexAI].hitAttack5;
+    if(levelIntercept === true)
+    {
+        levelAIHit1 = levelCommandAI[levelIndexAI].hitDefense1;
+        levelAIHit2 = levelCommandAI[levelIndexAI].hitDefense2;
+        levelAIHit3 = levelCommandAI[levelIndexAI].hitDefense3;
+        levelAIHit4 = levelCommandAI[levelIndexAI].hitDefense4;
+        levelAIHit5 = levelCommandAI[levelIndexAI].hitDefense5;
+    }else{
+        levelAIHit1 = levelCommandAI[levelIndexAI].hitAttack1;
+        levelAIHit2 = levelCommandAI[levelIndexAI].hitAttack2;
+        levelAIHit3 = levelCommandAI[levelIndexAI].hitAttack3;
+        levelAIHit4 = levelCommandAI[levelIndexAI].hitAttack4;
+        levelAIHit5 = levelCommandAI[levelIndexAI].hitAttack5;
+    }
     levelAILife = levelCommandAI[levelIndexAI].life;
     levelAIHit1Text.text = "- " + levelAIHit1;
     levelAIHit2Text.text = "- " + levelAIHit2;

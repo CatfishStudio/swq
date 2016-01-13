@@ -980,7 +980,7 @@ function onLevelButtonClick()
     switch (this.name)
     {
         case "EndBattle":
-            
+            timerStop();
             break;
         case "Settings":
             
@@ -1090,20 +1090,71 @@ function levelExchangePersonage(mode)
 {
     if(mode === "AI") // меняем персонаж ИИ
     {
-        if(levelIndexAI < 2)
-        {   
-            levelIndexAI++;
-        } else
+        if(levelCommandAI[0].life <= 0 && levelCommandAI[1].life <= 0 && levelCommandAI[2].life <= 0)
         {
-            levelIndexAI = 0;
+            // битва завершена ИИ проиграл!
+            timerPause = true;
+            timerStop();
+            levelStage.removeChild(levelPersonageAISprite);
+            levelStage.removeChild(levelAIHit1Text);
+            levelStage.removeChild(levelAIHit2Text);
+            levelStage.removeChild(levelAIHit3Text);
+            levelStage.removeChild(levelAIHit4Text);
+            levelStage.removeChild(levelAIHit5Text);
+            levelStage.removeChild(levelAILifeText);
+            console.log("ИИ проиграл!");
+            
+        }else{
+            if(levelIndexAI < 2) levelIndexAI++;
+            else levelIndexAI = 0;
+            if(levelCommandAI[levelIndexAI].life <= 0) levelExchangePersonage("AI");
+            else levelSelectPersonageAI();
+            
+            if(levelCommandUser[levelIndexUser].life <= 0)
+            {
+                var position = [[55,30],[160,30],[265,30]];
+                var sprite = new PIXI.Sprite(personageDeadTexture);
+                sprite.position.x = position[levelIndexUser][0];
+                sprite.position.y = position[levelIndexUser][1];
+                levelStage.addChild(sprite);
+                position = null;
+                levelExchangePersonage("USER");
+            }
         }
-        levelSelectPersonageAI();
     }
     if(mode === "USER") // меняем персонажа пользователя
     {
-        if(levelIndexUser < 2)levelIndexUser++;
-        else levelIndexUser = 0;
-        levelSelectPersonageUser();
+        if(levelCommandUser[0].life <= 0 && levelCommandUser[1].life <= 0 && levelCommandUser[2].life <= 0)
+        {
+            // битва завершена Пользователь проиграл!
+            timerPause = true;
+            timerStop();
+            levelStage.removeChild(levelPersonageUserSprite);
+            levelStage.removeChild(levelUserHit1Text);
+            levelStage.removeChild(levelUserHit2Text);
+            levelStage.removeChild(levelUserHit3Text);
+            levelStage.removeChild(levelUserHit4Text);
+            levelStage.removeChild(levelUserHit5Text);
+            levelStage.removeChild(levelUserLifeText);
+            console.log("Пользователь проиграл!");
+            
+        }else{
+            if(levelIndexUser < 2)levelIndexUser++;
+            else levelIndexUser = 0;
+            if(levelCommandUser[levelIndexUser].life <= 0) levelExchangePersonage("USER");
+            else levelSelectPersonageUser();
+            
+            if(levelCommandAI[levelIndexAI].life <= 0)
+            {
+                var position = [[520,628],[625,628],[730,628]];
+                var sprite = new PIXI.Sprite(personageDeadTexture);
+                sprite.position.x = position[levelIndexAI][0];
+                sprite.position.y = position[levelIndexAI][1];
+                levelStage.addChild(sprite);
+                position = null;
+                levelExchangePersonage("AI");
+            }
+        }
     }
 }
 /* ========================================================================== */	

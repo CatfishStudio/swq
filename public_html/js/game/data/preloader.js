@@ -96,6 +96,7 @@ function preloaderLoadAssets()
     loader.add('sideBackgroundTexture','./assets/image/textures/side_background.png');
     loader.add('sideDarthVaderTexture','./assets/image/textures/side_darth_vader.png');
     loader.add('sideLukeSkywalkerTexture','./assets/image/textures/side_luke_skywalker.png');
+    loader.add('personageDeadTexture','./assets/image/textures/personage_dead.png');
 
     loader.add('mapSpaceBlueTexture','./assets/image/textures/space_blue.jpg');
     loader.add('mapSpaceRedTexture','./assets/image/textures/space_red.jpg');
@@ -313,6 +314,7 @@ function onPreloaderAssetsLoaderComplete(loader, res)
     sideBackgroundTexture = res.sideBackgroundTexture.texture;          // side_background.png
     sideDarthVaderTexture = res.sideDarthVaderTexture.texture;          // side_darth_vader.png
     sideLukeSkywalkerTexture = res.sideLukeSkywalkerTexture.texture;    // side_luke_skywalker.png
+    personageDeadTexture = res.personageDeadTexture.texture;            // personage_dead.png
 
     mapSpaceBlueTexture = res.mapSpaceBlueTexture.texture;              // space_blue.jpg
     mapSpaceRedTexture = res.mapSpaceRedTexture.texture;                // space_red.jpg

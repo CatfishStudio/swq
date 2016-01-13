@@ -1100,7 +1100,15 @@ function levelExchangePersonage(mode)
 {
     if(mode === "AI") // меняем персонаж ИИ
     {
-        if(levelCommandAI[0].life <= 0 && levelCommandAI[1].life <= 0 && levelCommandAI[2].life <= 0)
+        var removePers = 0;
+        for(var i in levelCommandAI)
+        {
+            if(levelCommandAI[i].life <= 0)
+            {
+                removePers++; // if(levelCommandAI[0].life <= 0 && levelCommandAI[1].life <= 0 && levelCommandAI[2].life <= 0)
+            }
+        }
+        if(removePers === (levelCommandAI.length))
         {
             // битва завершена ИИ проиграл!
             timerPause = true;
@@ -1115,7 +1123,7 @@ function levelExchangePersonage(mode)
             console.log("ИИ проиграл!");
             
         }else{
-            if(levelIndexAI < 2) levelIndexAI++;
+            if(levelIndexAI < levelCommandAI.length - 1) levelIndexAI++; // < 2
             else levelIndexAI = 0;
             if(levelCommandAI[levelIndexAI].life <= 0) levelExchangePersonage("AI");
             else levelSelectPersonageAI();
@@ -1134,7 +1142,15 @@ function levelExchangePersonage(mode)
     }
     if(mode === "USER") // меняем персонажа пользователя
     {
-        if(levelCommandUser[0].life <= 0 && levelCommandUser[1].life <= 0 && levelCommandUser[2].life <= 0)
+        var removePers = 0;
+        for(var i in levelCommandUser)
+        {
+            if(levelCommandUser[i].life <= 0)
+            {
+                removePers++; //if(levelCommandUser[0].life <= 0 && levelCommandUser[1].life <= 0 && levelCommandUser[2].life <= 0)
+            }
+        }
+        if(removePers === (levelCommandUser.length))
         {
             // битва завершена Пользователь проиграл!
             timerPause = true;
@@ -1149,7 +1165,7 @@ function levelExchangePersonage(mode)
             console.log("Пользователь проиграл!");
             
         }else{
-            if(levelIndexUser < 2)levelIndexUser++;
+            if(levelIndexUser < levelCommandUser.length - 1)levelIndexUser++; // < 2
             else levelIndexUser = 0;
             if(levelCommandUser[levelIndexUser].life <= 0) levelExchangePersonage("USER");
             else levelSelectPersonageUser();

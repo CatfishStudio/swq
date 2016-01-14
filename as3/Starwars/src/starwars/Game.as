@@ -4,6 +4,7 @@ package starwars
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	
+	import starwars.events.Navigation;
 	import starwars.statics.Constants;
 	import starwars.menu.Menu;
 	
@@ -19,10 +20,34 @@ package starwars
 		private function onAddedToStage(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			addEventListener(Navigation.CHANGE_SCREEN, onChangeScreen);
 			
 			Starling.current.showStats = true;
 			
 			menu();
+		}
+		
+		private function onChangeScreen(event:Navigation):void 
+		{
+			switch(event.data.id)
+			{
+				case Constants.MENU_CLOSE:
+				{
+					menu();
+					break;
+				}
+				
+				default:
+				{
+					break;
+				}
+
+			}
+		}
+		
+		private function windowsCloseAll():void
+		{
+			if (getChildByName(Constants.MENU) != null)	removeChild(getChildByName(Constants.MENU));
 		}
 		
 		/* Меню */
@@ -32,9 +57,11 @@ package starwars
 			{
 				removeChild(getChildByName(Constants.MENU));
 			} else {
-				//windowAllClose();
+				windowsCloseAll();
 				addChild(new Menu());
 			}
 		}
+		
+		
 	}
 }

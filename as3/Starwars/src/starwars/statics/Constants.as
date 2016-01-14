@@ -6,6 +6,8 @@ package starwars.statics
 		public static const GAME_WINDOW_HEIGHT:int = 730;
 		
 		public static const MENU:String = "menu";
+		public static const MENU_CLOSE:String = "menu_close";
+		
 	}
 
 }

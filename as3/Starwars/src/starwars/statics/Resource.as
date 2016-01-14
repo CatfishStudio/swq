@@ -12,6 +12,13 @@ package starwars.statics
 		/* Текстуры ----------------------- */
 		[Embed(source = '../assets/textures/stars.jpg')]
 		public static var StarsTexture:Class;
+		[Embed(source = '../assets/textures/starwars.png')]
+		public static var StarwarsTexture:Class;
+		
+		[Embed(source = '../assets/textures/planets/deathstar.png')]
+		public static var DeathstarTexture:Class;
+		
+		
 		
 	}
 

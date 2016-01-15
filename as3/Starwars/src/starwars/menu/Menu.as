@@ -6,6 +6,8 @@ package starwars.menu
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.display.Image;
+	import starling.display.Quad;
+	
 	import starling.textures.Texture;
 	import starling.animation.Tween;
 	import starling.core.Starling;
@@ -17,7 +19,6 @@ package starwars.menu
 	
 	public class Menu extends Sprite 
 	{
-		
 		public function Menu() 
 		{
 			super();
@@ -30,6 +31,7 @@ package starwars.menu
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			name = Constants.MENU;
 			background();
+			border();
 			tweenStars(0);
 			tweenDeathstar(0);
 			tweenShip3(0);
@@ -101,6 +103,16 @@ package starwars.menu
 			ship1Bitmap = null;
 			ship1Image.dispose();
 			ship1Image = null;
+		}
+		
+		private function border():void
+		{
+			var quad:Quad;
+			quad = new Quad(840, 710,  0x0000FF, true);
+			quad.x = 10;
+			quad.y = 10;
+			quad.alpha = 0;
+			addChild(quad);
 		}
 		
 		private function tweenStars(index:int):void

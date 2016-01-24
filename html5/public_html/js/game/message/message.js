@@ -1,26 +1,32 @@
 
 /* == START FILE ========================================================= */
 
-
-var Settings = function(parent)
+var Message = function(parent)
 {
 	var that = {
 		windowStage: null,
 		lineAnimationGraphics: null,
 		styleBlueText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 },
-		styleRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 },
+		styleRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }, 
+		styleBlueTitle: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200, align: "left"},
+		styleRedTitle: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200, align: "left" },
+
+		titleText: null,
+		messageText: null,
+		
 		SIDE_NONE: "side_none",
 		SIDE_JEDI: "side_jedi",
 		SIDE_SITH: "side_sith",
 		
-		create: function()
+		create: function(titleText, messageText)
 		{
+			that.titleText = titleText;
+			that.messageText = messageText;
 			that.windowStage = new PIXI.Container();
 			that.backgroundCreate();
 			that.windowCreate();
 			that.titleCreate();
 			that.textCreate();
-			that.buttonsCreate();
 			that.buttonCloseCreate();
 		},
 		
@@ -50,14 +56,10 @@ var Settings = function(parent)
 				graphics.endFill();
 				for(var i = 0; i < 55; i++)
 				{
-					if(i > 15 && i < 35)
-					{
-						
-					}else{
-						graphics.lineStyle(1, 0x0090F0, 0.5);
-						graphics.moveTo(250,280+(3*i));
-						graphics.lineTo(600, 280+(3*i));
-					}
+					graphics.lineStyle(1, 0x0090F0, 0.5);
+					graphics.moveTo(250,280+(3*i));
+					graphics.lineTo(600, 280+(3*i));
+
 				}
 				that.windowStage.addChild(graphics);
 				
@@ -66,7 +68,7 @@ var Settings = function(parent)
 				that.lineAnimationGraphics.moveTo(250,255);
 				that.lineAnimationGraphics.lineTo(600, 255);
 				that.windowStage.addChild(that.lineAnimationGraphics);
-								
+				
 				graphics = new PIXI.Graphics(); 
 				graphics.lineStyle(1, 0x0080C0, 1);
 				graphics.beginFill(0x0080C0, 1);
@@ -89,14 +91,9 @@ var Settings = function(parent)
 				graphics.endFill();
 				for(var i = 0; i < 55; i++)
 				{
-					if(i > 15 && i < 35)
-					{
-						
-					}else{
-						graphics.lineStyle(1, 0xA63A24, 0.5);
-						graphics.moveTo(250,280+(3*i));
-						graphics.lineTo(600, 280+(3*i));
-					}
+					graphics.lineStyle(1, 0xA63A24, 0.5);
+					graphics.moveTo(250,280+(3*i));
+					graphics.lineTo(600, 280+(3*i));
 				}
 				that.windowStage.addChild(graphics);
 				
@@ -121,127 +118,21 @@ var Settings = function(parent)
 		titleCreate: function()
 		{
 			var text;
-			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI) text = new PIXI.Text("НАСТРОЙКИ", that.styleBlueText); 
-			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text("НАСТРОЙКИ", that.styleRedText); 
-			text.x = 500;
+    		if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI) text = new PIXI.Text(that.titleText, that.styleBlueTitle); 
+			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text(that.titleText, that.styleRedTitle); 
+			text.x = 450;
 			text.y = 255;
 			that.windowStage.addChild(text);
 		},
 		
 		textCreate: function()
 		{
-			 var text;
-			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI) text = new PIXI.Text("Окно настроек позволяет включить или отключить в игре звуки и музыку.\n\n\n\n\nТакже вы можете посетить группу разработчика ВКонтакте, нажав на кнопку 'информация'.", that.styleBlueText); 
-			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text("Окно настроек позволяет включить или отключить в игре звуки и музыку.\n\n\n\n\nТакже вы можете посетить группу разработчика ВКонтакте, нажав на кнопку 'информация'.", that.styleRedText); 
+			var text;
+			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI) text = new PIXI.Text(that.messageText, that.styleBlueText); 
+			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text(that.messageText, that.styleRedText); 
 			text.x = 255;
 			text.y = 285;
 			that.windowStage.addChild(text);
-		},
-		
-		buttonsCreate: function()
-		{
-			var soundButton;
-			if(parent.config.sound === true) soundButton = new PIXI.Sprite(parent.assets.getAsset("soundOnButtonTexture"));
-			else soundButton = new PIXI.Sprite(parent.assets.getAsset("soundOffButtonTexture"));
-			soundButton.name = "sound";
-			soundButton.position.x = 300;
-			soundButton.position.y = 345;
-			soundButton.interactive = true;
-			soundButton.buttonMode = true;
-			soundButton.tap = that.onButtonsClick;
-			soundButton.click = that.onButtonsClick;
-			soundButton.on('mousedown', that.onButtonsDown);
-			soundButton.on('touchstart', that.onButtonsDown);
-			soundButton.on('mouseup', that.onButtonsUp);
-			soundButton.on('touchend', that.onButtonsUp);
-			soundButton.on('mouseupoutside', that.onButtonsUp);
-			soundButton.on('touchendoutside', that.onButtonsUp);
-			that.windowStage.addChild(soundButton);
-			
-			var musicButton;
-			if(parent.config.music === true) musicButton = new PIXI.Sprite(parent.assets.getAsset("musicOnButtonTexture"));
-			else musicButton = new PIXI.Sprite(parent.assets.getAsset("musicOffButtonTexture"));
-			musicButton.name = "music";
-			musicButton.position.x = 405;
-			musicButton.position.y = 345;
-			musicButton.interactive = true;
-			musicButton.buttonMode = true;
-			musicButton.tap = that.onButtonsClick;
-			musicButton.click = that.onButtonsClick;
-			musicButton.on('mousedown', that.onButtonsDown);
-			musicButton.on('touchstart', that.onButtonsDown);
-			musicButton.on('mouseup', that.onButtonsUp);
-			musicButton.on('touchend', that.onButtonsUp);
-			musicButton.on('mouseupoutside', that.onButtonsUp);
-			musicButton.on('touchendoutside', that.onButtonsUp);
-			that.windowStage.addChild(musicButton);
-			
-			var infoButton = new PIXI.Sprite(parent.assets.getAsset("infoButtonTexture"));
-			infoButton.name = "info";
-			infoButton.position.x = 510;
-			infoButton.position.y = 345;
-			infoButton.interactive = true;
-			infoButton.buttonMode = true;
-			infoButton.tap = that.onButtonsClick;
-			infoButton.click = that.onButtonsClick;
-			infoButton.on('mousedown', that.onButtonsDown);
-			infoButton.on('touchstart', that.onButtonsDown);
-			infoButton.on('mouseup', that.onButtonsUp);
-			infoButton.on('touchend', that.onButtonsUp);
-			infoButton.on('mouseupoutside', that.onButtonsUp);
-			infoButton.on('touchendoutside', that.onButtonsUp);
-			that.windowStage.addChild(infoButton);
-		},
-		
-		onButtonsDown: function(event)
-		{
-			this.isdown = true;
-			this.scale.set(0.95);
-			this.position.x += 5; 
-		},
-		
-		onButtonsUp: function(event)
-		{
-			if(this.isdown)
-			{
-				this.isdown = false;
-				this.scale.set(1.0);
-				this.position.x -= 5;
-			}
-		},
-		
-		onButtonsClick: function(event)
-		{
-			 if(this.name === "sound")
-			{
-				if(parent.config.sound === true)
-				{
-					parent.config.sound = false;
-					this.texture = parent.assets.getAsset("soundOffButtonTexture");
-					// !!!
-				}else{
-					parent.config.sound = true;
-					this.texture = parent.assets.getAsset("soundOnButtonTexture");
-					// !!!
-				}
-			}
-			if(this.name === "music")
-			{
-				if(parent.config.music === true)
-				{
-					parent.config.music = false;
-					this.texture = parent.assets.getAsset("musicOffButtonTexture");
-					parent.sound.soundStopStarWarsThemeSong();
-				}else{
-					parent.config.music = true;
-					this.texture = parent.assets.getAsset("musicOnButtonTexture");
-					parent.sound.soundPlayStarWarsThemeSong();
-				}
-			}
-			if(this.name === "info")
-			{
-				window.open("https://vk.com/club62618339","_target");
-			}
 		},
 		
 		buttonCloseCreate: function()
@@ -314,7 +205,7 @@ var Settings = function(parent)
 		
 		onButtonCloseClick: function(event)
 		{
-			parent.settingsClose();
+			parent.messageClose();
 		},
 		
 		tweenStart: function()

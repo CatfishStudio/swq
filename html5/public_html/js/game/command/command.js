@@ -1,1481 +1,1512 @@
 
-/* == НАЧАЛО ФАЙЛА ========================================================= */
+/* == START FILE ========================================================= */
 
-var cmdStage;
-var cmdSpaceBackground;
-var cmdLineAnimPersonageDesktopGraphics;
-var cmdMessageLineGraphics;
-var cmdStyleButtonBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
-var cmdStyleButtonRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }; 
-var cmdStyledescriptionBlueText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 495 }; 
-var cmdStyledescriptionRedText = { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 495 }; 
-var cmdStyleDroidBlueText = { font : 'bold 14px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }; 
-var cmdStyleDroidRedText = { font : 'bold 14px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }; 
-var cmdExperiencePointsText;
 
-var cmdListCommand = [];
-var cmdListPersonage = [];
-var cmdDesktopStage;
-var cmdTapeStage;
-var cmdTapePanelButtonsStage;
-var cmdSelectPersonageID;
-var cmdSelectPersonageIndex;
-
-function cmdCreate()
+var Command = function(parent)
 {
-    cmdStage = new PIXI.Container();
+	var that = {
+		windowStage: null,
+		spaceBackground: null,
+		lineAnimPersonageDesktopGraphics: null,
+		messageLineGraphics: null,
+		styleButtonBlueText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 },
+		styleButtonRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }, 
+		styledescriptionBlueText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 495 }, 
+		styledescriptionRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 495 },
+		styleDroidBlueText: { font : 'bold 14px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 },
+		styleDroidRedText: { font : 'bold 14px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }, 
+		experiencePointsText: null,
 
-    if(side === SIDE_JEDI)
-    {
-        cmdBackgroundBlue(); 
-        cmdDesktopBlue();
-        cmdBorderBlue();
-        cmdDroidBlue();
-        cmdBlueCommand();
-        cmdTapeMask();
-        cmdTapeBlue();
-        cmdTapeButton();
-        cmdBattonsBlue();
-    }
-    if(side === SIDE_SITH)
-    {
-        cmdBackgroundRed();
-        cmdDesktopRed();
-        cmdBorderRed();
-        cmdDroidRed();
-        cmdRedCommand();
-        cmdTapeMask();
-        cmdTapeRed();
-        cmdTapeButton();
-        cmdBattonsRed();
-    }
+		listCommand: [],
+		listPersonage: [],
+		desktopStage: null,
+		tapeStage: null,
+		tapePanelButtonsStage: null,
+		selectPersonageID: null,
+		selectPersonageIndex: null,
+		
+		SIDE_JEDI: "side_jedi",
+		SIDE_SITH: "side_sith",
+		
+		create: function()
+		{
+			that.windowStage = new PIXI.Container();
+			
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				that.backgroundBlue(); 
+				that.desktopBlue();
+				that.borderBlue();
+				that.droidBlue();
+				that.blueCommand();
+				that.tapeMask();
+				that.tapeBlue();
+				that.tapeButton();
+				that.buttonsBlue();
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				that.backgroundRed();
+				that.desktopRed();
+				that.borderRed();
+				that.droidRed();
+				that.redCommand();
+				that.tapeMask();
+				that.tapeRed();
+				that.tapeButton();
+				that.buttonsRed();
+			}
+		},
+		
+		
+		backgroundBlue: function()
+		{
+			that.spaceBackground = new PIXI.Sprite(parent.assets.getAsset("mapSpaceBlueTexture")); 
+			that.spaceBackground.position.x = -82; 
+			that.spaceBackground.position.y = -19; 
+			that.windowStage.addChild(that.spaceBackground);
+			//cmdAnimSpaceTween();
+		},
+		
+		borderBlue: function()
+		{
+			var graphics = new PIXI.Graphics(); 
+
+			graphics.lineStyle(2, 0x0000FF, 1);
+			graphics.beginFill(0x000000, 0);
+			graphics.drawRect(10, 10, 840, 710);
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawCircle(555, 600,4);
+			graphics.endFill();
+
+			graphics.lineStyle(2, 0xFFFFFF, 1);
+			graphics.moveTo(555, 600);
+			graphics.lineTo(5, 600);
+			
+			graphics.moveTo(5, 600);
+			graphics.lineTo(5, 725);
+			graphics.moveTo(5, 725);
+			graphics.lineTo(855, 725);
+			graphics.moveTo(855, 725);
+			graphics.lineTo(855, 665);
+			graphics.moveTo(855, 665);
+			graphics.lineTo(650, 665);
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawCircle(650, 665,4);
+			graphics.endFill();
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawCircle(20, 15,4);
+			graphics.endFill();
+
+			graphics.lineStyle(2, 0xFFFFFF, 1);
+			graphics.moveTo(20, 15);
+			graphics.lineTo(550, 15);
+			
+			graphics.moveTo(550, 15);
+			graphics.lineTo(570, 5);
+			
+			graphics.moveTo(570, 5);
+			graphics.lineTo(855, 5);
+			graphics.moveTo(855, 5);
+			graphics.lineTo(855, 50);
+			graphics.moveTo(855, 50);
+			graphics.lineTo(650, 50);
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawCircle(650, 50,4);
+			graphics.endFill();
+			
+			that.windowStage.addChild(graphics);
+			
+			that.experiencePointsText = new PIXI.Text("КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints, that.styleButtonBlueText); 
+			that.experiencePointsText.x = 655;
+			that.experiencePointsText.y = 30;
+			that.windowStage.addChild(that.experiencePointsText);
+		},
+		
+		buttonsBlue: function()
+		{
+			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
+			button.name = "Closed";
+			button.position.x = 650; 
+			button.position.y = 670; 
+			button.interactive = true; 
+			button.buttonMode = true; 
+			button.loop = false; 
+			button.animationSpeed = 0.2;
+			button.onComplete = that.onButtonUpdate;
+			button.tap = that.onButtonClick; 
+			button.click = that.onButtonClick; 
+			button.on('mouseover', that.onButtonOver);
+			button.on('mouseout', that.onButtonOut);
+			
+			var text = new PIXI.Text("ЗАКРЫТЬ", that.styleButtonBlueText); 
+			text.x = button.width / 3.2;
+			text.y = button.height / 3;
+
+			button.addChild(text); 
+			that.windowStage.addChild(button);
+		},
+		
+		desktopBlue: function()
+		{
+			var graphics = new PIXI.Graphics();
     
-    stage.addChild(cmdStage);
-}
+			graphics.lineStyle(2, 0x0000FF, 1);
+			graphics.beginFill(0x0000FF, 0.2);
+			graphics.moveTo(25, 600);
+			graphics.lineTo(550, 600);
+			graphics.lineTo(550, 715);
+			graphics.lineTo(25, 715);
+			graphics.endFill;
+			
+			graphics.lineStyle(2, 0x0000FF, 1);
+			graphics.beginFill(0x0000FF, 0.2);
+			graphics.moveTo(655, 50);
+			graphics.lineTo(800, 50);
+			graphics.lineTo(800, 350);
+			graphics.lineTo(650, 350);
+			graphics.endFill;
+			
+			that.windowStage.addChild(graphics);
+		},
+		
+		droidBlue: function()
+		{
+			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidBlueRightTexture")); 
+			textureSprite.position.x = 765; 
+			textureSprite.position.y = 550; 
+			textureSprite.scale.set(0.3);
+			that.windowStage.addChild(textureSprite);
+			
+			var graphics = new PIXI.Graphics(); 
+			graphics.lineStyle(2, 0x0090F0, 0.2);
+			graphics.beginFill(0x0090F0, 0.2);
+			graphics.moveTo(795, 570);
+			graphics.lineTo(570, 525);
+			graphics.lineTo(840, 525);
+			graphics.lineTo(795, 570);
+			graphics.endFill;
+			that.windowStage.addChild(graphics);
+			
+			for(var i = 0; i < 50; i++)
+			{
+				graphics.lineStyle(1, 0x0090F0, 0.2);
+				graphics.moveTo(560, 375+(3*i));
+				graphics.lineTo(840, 375+(3*i));
+			}
+			that.windowStage.addChild(graphics);
+			
+			that.messageLineGraphics = new PIXI.Graphics(); 
+			that.messageLineGraphics.lineStyle(10, 0x0090F0, 0.3);
+			that.messageLineGraphics.moveTo(560, 380);
+			that.messageLineGraphics.lineTo(840, 380);
+			that.windowStage.addChild(that.messageLineGraphics);
+			//cmdMessageLineGraphicsTween();
+			
+			that.textMessage = new PIXI.Text("Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", that.styleDroidBlueText); 
+			that.textMessage.x = 565; 
+			that.textMessage.y = 375; 
+			that.windowStage.addChild(that.textMessage);
+		},
+		
+		backgroundRed: function()
+		{
+			that.spaceBackground = new PIXI.Sprite(parent.assets.getAsset("mapSpaceRedTexture")); 
+			that.spaceBackground.position.x = -82; 
+			that.spaceBackground.position.y = -19; 
+			that.windowStage.addChild(that.spaceBackground);
+			//cmdAnimSpaceTween();
+		},
+		
+		borderRed: function()
+		{
+			var graphics = new PIXI.Graphics(); 
 
-function cmdRemove()
-{
-    stage.removeChild(cmdStage);
-    cmdStage = null;
-}
+			graphics.lineStyle(2, 0xFF0000, 1);
+			graphics.beginFill(0x000000, 0);
+			graphics.drawRect(10, 10, 840, 710);
 
-function cmdBackgroundBlue()
-{
-    cmdSpaceBackground = new PIXI.Sprite(mapSpaceBlueTexture); 
-    cmdSpaceBackground.position.x = -82; 
-    cmdSpaceBackground.position.y = -19; 
-    cmdStage.addChild(cmdSpaceBackground);
-    cmdAnimSpaceTween();
-}
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFF80, 1);
+			graphics.drawCircle(555, 600,4);
+			graphics.endFill();
 
-function cmdBorderBlue()
-{
-    var graphics = new PIXI.Graphics(); 
+			graphics.lineStyle(2, 0xFFFF80, 1);
+			graphics.moveTo(555, 600);
+			graphics.lineTo(5, 600);
+			
+			graphics.moveTo(5, 600);
+			graphics.lineTo(5, 725);
+			graphics.moveTo(5, 725);
+			graphics.lineTo(855, 725);
+			graphics.moveTo(855, 725);
+			graphics.lineTo(855, 665);
+			graphics.moveTo(855, 665);
+			graphics.lineTo(650, 665);
 
-    graphics.lineStyle(2, 0x0000FF, 1);
-    graphics.beginFill(0x000000, 0);
-    graphics.drawRect(10, 10, 840, 710);
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFF80, 1);
+			graphics.drawCircle(650, 665,4);
+			graphics.endFill();
 
-    graphics.lineStyle(0);
-    graphics.beginFill(0xFFFFFF, 1);
-    graphics.drawCircle(555, 600,4);
-    graphics.endFill();
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFF80, 1);
+			graphics.drawCircle(20, 15,4);
+			graphics.endFill();
 
-    graphics.lineStyle(2, 0xFFFFFF, 1);
-    graphics.moveTo(555, 600);
-    graphics.lineTo(5, 600);
+			graphics.lineStyle(2, 0xFFFF80, 1);
+			graphics.moveTo(20, 15);
+			graphics.lineTo(550, 15);
+			
+			graphics.moveTo(550, 15);
+			graphics.lineTo(570, 5);
+			
+			graphics.moveTo(570, 5);
+			graphics.lineTo(855, 5);
+			graphics.moveTo(855, 5);
+			graphics.lineTo(855, 50);
+			graphics.moveTo(855, 50);
+			graphics.lineTo(650, 50);
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFF80, 1);
+			graphics.drawCircle(650, 50,4);
+			graphics.endFill();
+			
+			that.windowStage.addChild(graphics);
+			
+			that.experiencePointsText = new PIXI.Text("КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints, that.styleButtonRedText); 
+			that.experiencePointsText.x = 655;
+			that.experiencePointsText.y = 30;
+			that.windowStage.addChild(that.experiencePointsText);
+		},
+		
+		buttonsRed: function()
+		{
+			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed"));
+			button.name = "Closed";
+			button.position.x = 650; 
+			button.position.y = 670; 
+			button.interactive = true; 
+			button.buttonMode = true; 
+			button.loop = false; 
+			button.animationSpeed = 0.2;
+			button.onComplete = that.onButtonUpdate;
+			button.tap = that.onButtonClick; 
+			button.click = that.onButtonClick; 
+			button.on('mouseover', that.onButtonOver);
+			button.on('mouseout', that.onButtonOut);
+			
+			var text = new PIXI.Text("ЗАКРЫТЬ", that.styleButtonRedText); 
+			text.x = button.width / 3.2;
+			text.y = button.height / 3;
+
+			button.addChild(text); 
+			that.windowStage.addChild(button);
+		},
+		
+		desktopRed: function()
+		{
+			var graphics = new PIXI.Graphics();
     
-    graphics.moveTo(5, 600);
-    graphics.lineTo(5, 725);
-    graphics.moveTo(5, 725);
-    graphics.lineTo(855, 725);
-    graphics.moveTo(855, 725);
-    graphics.lineTo(855, 665);
-    graphics.moveTo(855, 665);
-    graphics.lineTo(650, 665);
+			graphics.lineStyle(2, 0x800000, 1);
+			graphics.beginFill(0x800000, 0.2);
+			graphics.moveTo(25, 600);
+			graphics.lineTo(550, 600);
+			graphics.lineTo(550, 715);
+			graphics.lineTo(25, 715);
+			graphics.endFill;
+			
+			graphics.lineStyle(2, 0x800000, 1);
+			graphics.beginFill(0x800000, 0.2);
+			graphics.moveTo(655, 50);
+			graphics.lineTo(800, 50);
+			graphics.lineTo(800, 350);
+			graphics.lineTo(650, 350);
+			graphics.endFill;
+			
+			that.windowStage.addChild(graphics);
+		},
+		
+		droidRed: function()
+		{
+			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidRedRightTexture")); 
+			textureSprite.position.x = 765; 
+			textureSprite.position.y = 550; 
+			textureSprite.scale.set(0.3);
+			that.windowStage.addChild(textureSprite);
+			
+			var graphics = new PIXI.Graphics(); 
+			graphics.lineStyle(2, 0xA63A24, 0.2);
+			graphics.beginFill(0xA63A24, 0.2);
+			graphics.moveTo(795, 570);
+			graphics.lineTo(570, 525);
+			graphics.lineTo(840, 525);
+			graphics.lineTo(795, 570);
+			graphics.endFill;
+			that.windowStage.addChild(graphics);
+			
+			for(var i = 0; i < 50; i++)
+			{
+				graphics.lineStyle(1, 0xA63A24, 0.2);
+				graphics.moveTo(560, 375+(3*i));
+				graphics.lineTo(840, 375+(3*i));
+			}
+			that.windowStage.addChild(graphics);
+			
+			that.messageLineGraphics = new PIXI.Graphics(); 
+			that.messageLineGraphics.lineStyle(10, 0xA63A24, 0.3);
+			that.messageLineGraphics.moveTo(560, 380);
+			that.messageLineGraphics.lineTo(840, 380);
+			that.windowStage.addChild(that.messageLineGraphics);
+			//cmdMessageLineGraphicsTween();
+			
+			that.textMessage = new PIXI.Text("Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", that.styleDroidRedText); 
+			that.textMessage.x = 565; 
+			that.textMessage.y = 375; 
+			that.windowStage.addChild(that.textMessage);
+		},
+		
+		blueCommand: function(select)
+		{
+			if (select === undefined) {
+				select = 0;
+			}
+			
+			if(that.listCommand.length === 0)
+			{
+					that.listCommand = [];
+			}else{
+				for(var i = 0; i < that.listCommand.length; i++)
+				{
+					that.windowStage.removeChild(that.listCommand[i]);
+				}
+				that.listCommand = [];
+			}
+			
+			var selectIndex = select;
+			var index = 0;
+			for(var key in parent.initialization.commandUser)
+			{
+				if(parent.initialization.commandUser[key] !== null)
+				{
+					var graphics = new PIXI.Graphics(); 
+					graphics.lineStyle(2, 0x0000FF, 0.2);
+					graphics.beginFill(0x0000FF, 0.2);
+					graphics.drawRect(690, 60 + (100 * index), 75, 75);
+					graphics.endFill;
 
-    graphics.lineStyle(0);
-    graphics.beginFill(0xFFFFFF, 1);
-    graphics.drawCircle(650, 665,4);
-    graphics.endFill();
+					var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser[key]][3]); 
+					textureSprite.name = parent.initialization.commandUser[key];
+					textureSprite.index = index;
+					textureSprite.position.x = 690; 
+					textureSprite.position.y = 60  + (100 * index); 
+					textureSprite.interactive = true; 
+					textureSprite.buttonMode = true;
+					textureSprite.tap = that.onBlueIconCommandClick; 
+					textureSprite.click = that.onBlueIconCommandClick; 
+					graphics.addChild(textureSprite);
+					
+					var border = new PIXI.Graphics();
+					if(index === selectIndex)
+					{
+						border.lineStyle(2, 0xFFFFFF, 0.5);
+						that.bluePersonageShow(parent.initialization.commandUser[key]);
+						that.selectPersonageID = parent.initialization.commandUser[key];
+						that.selectPersonageIndex = index;
+					} else {
+						border.lineStyle(2, 0x0000FF, 0.2);
+					}
+					border.drawRect(690, 60 + (100 * index), 75, 75);
+					graphics.addChild(border);
+					
+					that.listCommand.push(graphics);
+					that.windowStage.addChild(that.listCommand[index]);
+				} else{
+					var graphics = new PIXI.Graphics(); 
+					graphics.lineStyle(2, 0x0000FF, 0.2);
+					graphics.beginFill(0x0000FF, 0.2);
+					graphics.drawRect(690, 60 + (100 * index), 75, 75);
+					graphics.endFill;
+					that.listCommand.push(graphics);
+					that.windowStage.addChild(that.listCommand[index]);
+					if(select === 0 && selectIndex < 2) selectIndex++;
+				}
+				index++;
+			}
+		},
+		
+		onBlueIconCommandClick: function()
+		{
+			that.selectPersonageID = this.name;
+			that.selectPersonageIndex = this.index;
+			that.blueCommand(this.index);
+			that.tapeBlue(-1);
+		},
+		
+		bluePersonageShow: function(id)
+		{
+			that.windowStage.removeChild(that.desktopStage);
+			if(id !== null)
+			{
+				that.desktopStage = new PIXI.Container();
+				
+				var graphics = new PIXI.Graphics();
+				graphics.lineStyle(2, 0x0000FF, 1);
+				graphics.beginFill(0x0000FF, 0.2);
+				graphics.moveTo(25, 20);
+				graphics.lineTo(550, 20);
+				graphics.lineTo(550, 575);
+				graphics.lineTo(25, 575);
+				graphics.endFill;
+				that.desktopStage.addChild(graphics);
+				
+				var sprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[id][1]);
+				sprite.position.x = 25;
+				sprite.position.y = 50;
+				that.desktopStage.addChild(sprite);
+				
+				graphics = new PIXI.Graphics();
+				for(var i = 0; i < 185; i++)
+				{
+					graphics.lineStyle(1, 0x0000FF, 0.5);
+					graphics.moveTo(25, 20+(3*i));
+					graphics.lineTo(550, 20+(3*i));
+				}
+				that.desktopStage.addChild(graphics);
+				
+				that.lineAnimPersonageDesktopGraphics = new PIXI.Graphics(); 
+				that.lineAnimPersonageDesktopGraphics.lineStyle(10, 0x0000FF, 0.3);
+				that.lineAnimPersonageDesktopGraphics.moveTo(25, 25);
+				that.lineAnimPersonageDesktopGraphics.lineTo(550, 25);
+				that.desktopStage.addChild(that.lineAnimPersonageDesktopGraphics);
+				//cmdLineAnimPersonageDesktopGraphicsTween();
+				
+				var text = new PIXI.Text(parent.initialization.personages[id].name, that.styleButtonBlueText); 
+				text.x = 50; text.y = 30;
+				that.desktopStage.addChild(text);
 
-    graphics.lineStyle(0);
-    graphics.beginFill(0xFFFFFF, 1);
-    graphics.drawCircle(20, 15,4);
-    graphics.endFill();
+				text = new PIXI.Text("Характеристики:", that.styleButtonBlueText); 
+				text.x = 300; text.y = 100;
+				that.desktopStage.addChild(text);
+				
+				var life = (parent.initialization.personages[parent.initialization.personages[id].id].hitDefense1 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense2 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense3 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense4 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense5) / 10 * 50;
+				life = Math.round(life);
+				text = new PIXI.Text("Здоровье: " + life, that.styleButtonBlueText); 
+				text.x = 330; text.y = 130;
+				that.desktopStage.addChild(text);
 
-    graphics.lineStyle(2, 0xFFFFFF, 1);
-    graphics.moveTo(20, 15);
-    graphics.lineTo(550, 15);
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit1Texture"));
+				sprite.position.x = 300; sprite.position.y = 150; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал ловкости:", that.styleButtonBlueText); 
+				text.x = 330; text.y = 155;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense1, that.styleButtonBlueText); 
+				text.x = 480; text.y = 155;
+				that.desktopStage.addChild(text);
+
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit2Texture"));
+				sprite.position.x = 300; sprite.position.y = 175; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал тьмы:", that.styleButtonBlueText); 
+				text.x = 330; text.y = 180;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense2, that.styleButtonBlueText); 
+				text.x = 480; text.y = 180;
+				that.desktopStage.addChild(text);
+
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit3Texture"));
+				sprite.position.x = 300; sprite.position.y = 200; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал жизни:", that.styleButtonBlueText); 
+				text.x = 330; text.y = 205;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense3, that.styleButtonBlueText); 
+				text.x = 480; text.y = 205;
+				that.desktopStage.addChild(text);
+
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit4Texture"));
+				sprite.position.x = 300; sprite.position.y = 225; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал света:", that.styleButtonBlueText); 
+				text.x = 330; text.y = 230;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense4, that.styleButtonBlueText); 
+				text.x = 480; text.y = 230;
+				that.desktopStage.addChild(text);
+
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit5Texture"));
+				sprite.position.x = 300; sprite.position.y = 250; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал интеллекта:", that.styleButtonBlueText); 
+				text.x = 330; text.y = 255;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense5, that.styleButtonBlueText); 
+				text.x = 480; text.y = 255;
+				that.desktopStage.addChild(text);
+
+				text = new PIXI.Text(parent.initialization.personages[id].description, that.styledescriptionBlueText); 
+				text.x = 50;
+				text.y = 550 - text.height;
+				that.desktopStage.addChild(text);
+				
+				if(parent.initialization.personages[parent.initialization.personages[id].id].command === true) that.blueButtonRemovePersonage();
+				else that.blueButtonSelectPersonage();
+
+				that.experiencePointsButtons();
+
+				that.windowStage.addChild(that.desktopStage);
+			}else{
+				var graphics = new PIXI.Graphics();
+				graphics.lineStyle(2, 0x0000FF, 1);
+				graphics.beginFill(0x0000FF, 0.2);
+				graphics.moveTo(25, 20);
+				graphics.lineTo(550, 20);
+				graphics.lineTo(550, 575);
+				graphics.lineTo(25, 575);
+				graphics.endFill;
+				for(var i = 0; i < 185; i++)
+				{
+					graphics.lineStyle(1, 0x0000FF, 0.5);
+					graphics.moveTo(25, 20+(3*i));
+					graphics.lineTo(550, 20+(3*i));
+				}
+				that.windowStage.addChild(graphics);
+			}
+		},
+		
+		blueButtonRemovePersonage: function()
+		{
+			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
+			button.name = "Remove";
+			button.position.x = 350; 
+			button.position.y = 25; 
+			button.interactive = true; 
+			button.buttonMode = true; 
+			button.loop = false; 
+			button.animationSpeed = 0.2;
+			button.onComplete = that.onButtonUpdate;
+			button.tap = that.onButtonClick; 
+			button.click = that.onButtonClick; 
+			button.on('mouseover', that.onButtonOver);
+			button.on('mouseout', that.onButtonOut);
+			
+			var text = new PIXI.Text("УБРАТЬ ИЗ СПИСКА", that.styleButtonBlueText); 
+			text.x = button.width / 6.5;
+			text.y = button.height / 3;
+
+			button.addChild(text); 
+			that.desktopStage.addChild(button);
+		},
+		
+		blueButtonSelectPersonage: function()
+		{
+			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
+			button.name = "Select";
+			button.position.x = 350; 
+			button.position.y = 25; 
+			button.interactive = true; 
+			button.buttonMode = true; 
+			button.loop = false; 
+			button.animationSpeed = 0.2;
+			button.onComplete = that.onButtonUpdate;
+			button.tap = that.onButtonClick; 
+			button.click = that.onButtonClick; 
+			button.on('mouseover', that.onButtonOver);
+			button.on('mouseout', that.onButtonOut);
+			
+			var text = new PIXI.Text("ДОБАВИТЬ В СПИСОК", that.styleButtonBlueText); 
+			text.x = button.width / 8.0;
+			text.y = button.height / 3;
+
+			button.addChild(text); 
+			that.desktopStage.addChild(button);
+		},
+		
+		redCommand: function(select)
+		{
+			if (select === undefined) {
+				select = 0;
+			}
+			
+			if(that.listCommand.length === 0)
+			{
+					that.listCommand = [];
+			}else{
+				for(var i = 0; i < that.listCommand.length; i++)
+				{
+					that.windowStage.removeChild(that.listCommand[i]);
+				}
+				that.listCommand = [];
+			}
+
+			var selectIndex = select;
+			var index = 0;
+			for(var key in parent.initialization.commandUser)
+			{
+				if(parent.initialization.commandUser[key] !== null)
+				{
+					var graphics = new PIXI.Graphics(); 
+					graphics.lineStyle(2, 0xFF0000, 0.2);
+					graphics.beginFill(0xFF0000, 0.2);
+					graphics.drawRect(690, 60 + (100 * index), 75, 75);
+					graphics.endFill();
+
+					var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser[key]][3]); 
+					textureSprite.name = parent.initialization.commandUser[key];
+					textureSprite.index = index;
+					textureSprite.position.x = 690; 
+					textureSprite.position.y = 60  + (100 * index); 
+					textureSprite.interactive = true; 
+					textureSprite.buttonMode = true;
+					textureSprite.tap = that.onRedIconCommandClick; 
+					textureSprite.click = that.onRedIconCommandClick; 
+					graphics.addChild(textureSprite);
+					
+					var border = new PIXI.Graphics();
+					if(index === selectIndex)
+					{
+						border.lineStyle(2, 0xFFFFFF, 0.5);
+						that.redPersonageShow(parent.initialization.commandUser[key]);
+						that.selectPersonageID = parent.initialization.commandUser[key];
+						that.selectPersonageIndex = index;
+					} else {
+						border.lineStyle(2, 0x0000FF, 0.2);
+					}
+					border.drawRect(690, 60 + (100 * index), 75, 75);
+					graphics.addChild(border);
+					
+					that.listCommand.push(graphics);
+					that.windowStage.addChild(that.listCommand[index]);
+				} else{
+					var graphics = new PIXI.Graphics(); 
+					graphics.lineStyle(2, 0xFF0000, 0.2);
+					graphics.beginFill(0xFF0000, 0.2);
+					graphics.drawRect(690, 60 + (100 * index), 75, 75);
+					graphics.endFill();
+
+					that.listCommand.push(graphics);
+					that.windowStage.addChild(that.listCommand[index]);
+					if(select === 0 && selectIndex < 2) selectIndex++;
+				}
+				index++;
+			}
+		},
+		
+		onRedIconCommandClick: function()
+		{
+			that.selectPersonageID = this.name;
+			that.selectPersonageIndex = this.index;
+			that.redCommand(this.index);
+			that.tapeRed(-1);
+		},
+		
+		redPersonageShow: function(id)
+		{
+			that.windowStage.removeChild(that.desktopStage);
+			
+			if(id !== null)
+			{
+				that.desktopStage = new PIXI.Container();
+				
+				var graphics = new PIXI.Graphics();
+				graphics.lineStyle(2, 0x800000, 1);
+				graphics.beginFill(0x800000, 0.2);
+				graphics.moveTo(25, 20);
+				graphics.lineTo(550, 20);
+				graphics.lineTo(550, 575);
+				graphics.lineTo(25, 575);
+				graphics.endFill();
+				that.desktopStage.addChild(graphics);
+				
+				var sprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[id][1]);
+				sprite.position.x = 25;
+				sprite.position.y = 50;
+				that.desktopStage.addChild(sprite);
+				
+				var graphics = new PIXI.Graphics();
+				for(var i = 0; i < 185; i++)
+				{
+					graphics.lineStyle(1, 0x800000, 0.5);
+					graphics.moveTo(25, 20+(3*i));
+					graphics.lineTo(550, 20+(3*i));
+				}
+				that.desktopStage.addChild(graphics);
+				
+				that.lineAnimPersonageDesktopGraphics = new PIXI.Graphics(); 
+				that.lineAnimPersonageDesktopGraphics.lineStyle(10, 0x800000, 0.3);
+				that.lineAnimPersonageDesktopGraphics.moveTo(25, 25);
+				that.lineAnimPersonageDesktopGraphics.lineTo(550, 25);
+				that.desktopStage.addChild(that.lineAnimPersonageDesktopGraphics);
+				//cmdLineAnimPersonageDesktopGraphicsTween();
+
+				var text = new PIXI.Text(parent.initialization.personages[id].name, that.styleButtonRedText); 
+				text.x = 50; text.y = 30;
+				that.desktopStage.addChild(text);
+
+				text = new PIXI.Text("Характеристики:", that.styleButtonRedText); 
+				text.x = 300; text.y = 100;
+				that.desktopStage.addChild(text);
+				
+				var life = (parent.initialization.personages[parent.initialization.personages[id].id].hitDefense1 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense2 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense3 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense4 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense5) / 10 * 50;
+				life = Math.round(life);
+				text = new PIXI.Text("Здоровье: " + life, that.styleButtonRedText); 
+				text.x = 330; text.y = 130;
+				that.desktopStage.addChild(text);
+				
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit1Texture"));
+				sprite.position.x = 300; sprite.position.y = 150; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал ловкости:", that.styleButtonRedText); 
+				text.x = 330; text.y = 155;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense1, that.styleButtonRedText); 
+				text.x = 480; text.y = 155;
+				that.desktopStage.addChild(text);
+				
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit2Texture"));
+				sprite.position.x = 300; sprite.position.y = 175; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал тьмы:", that.styleButtonRedText); 
+				text.x = 330; text.y = 180;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense2, that.styleButtonRedText); 
+				text.x = 480; text.y = 180;
+				that.desktopStage.addChild(text);
+				
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit3Texture"));
+				sprite.position.x = 300; sprite.position.y = 200; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал жизни:", that.styleButtonRedText); 
+				text.x = 330; text.y = 205;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense3, that.styleButtonRedText); 
+				text.x = 480; text.y = 205;
+				that.desktopStage.addChild(text);
+
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit4Texture"));
+				sprite.position.x = 300; sprite.position.y = 225; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал света:", that.styleButtonRedText); 
+				text.x = 330; text.y = 230;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense4, that.styleButtonRedText); 
+				text.x = 480; text.y = 230;
+				that.desktopStage.addChild(text);
+				
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit5Texture"));
+				sprite.position.x = 300; sprite.position.y = 250; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал интеллекта:", that.styleButtonRedText); 
+				text.x = 330; text.y = 255;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense5, that.styleButtonRedText); 
+				text.x = 480; text.y = 255;
+				that.desktopStage.addChild(text);
+
+				text = new PIXI.Text(parent.initialization.personages[id].description, that.styledescriptionRedText); 
+				text.x = 50;
+				text.y = 550 - text.height;
+				that.desktopStage.addChild(text);
+
+				if(parent.initialization.personages[parent.initialization.personages[id].id].command === true) that.redButtonRemovePersonage();
+				else that.redButtonSelectPersonage();
+
+				that.experiencePointsButtons();
+
+				that.windowStage.addChild(that.desktopStage);
+			}else{
+				that.desktopStage = new PIXI.Container();
+				var graphics = new PIXI.Graphics();
+				graphics.lineStyle(2, 0x800000, 1);
+				graphics.beginFill(0x800000, 0.2);
+				graphics.moveTo(25, 20);
+				graphics.lineTo(550, 20);
+				graphics.lineTo(550, 575);
+				graphics.lineTo(25, 575);
+				graphics.endFill();
+
+				for(var i = 0; i < 185; i++)
+				{
+					graphics.lineStyle(1, 0x800000, 0.5);
+					graphics.moveTo(25, 20+(3*i));
+					graphics.lineTo(550, 20+(3*i));
+				}
+				that.desktopStage.addChild(graphics);
+			}
+		},
+		
+		redButtonRemovePersonage: function()
+		{
+			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed"));
+			button.name = "Remove";
+			button.position.x = 350; 
+			button.position.y = 25; 
+			button.interactive = true; 
+			button.buttonMode = true; 
+			button.loop = false; 
+			button.animationSpeed = 0.2;
+			button.onComplete = that.onButtonUpdate;
+			button.tap = that.onButtonClick; 
+			button.click = that.onButtonClick; 
+			button.on('mouseover', that.onButtonOver);
+			button.on('mouseout', that.onButtonOut);
+			
+			var text = new PIXI.Text("УБРАТЬ ИЗ СПИСКА", that.styleButtonRedText); 
+			text.x = button.width / 6.5;
+			text.y = button.height / 3;
+
+			button.addChild(text); 
+			that.desktopStage.addChild(button);
+		},
+		
+		redButtonSelectPersonage: function()
+		{
+			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed"));
+			button.name = "Select";
+			button.position.x = 350; 
+			button.position.y = 25; 
+			button.interactive = true; 
+			button.buttonMode = true; 
+			button.loop = false; 
+			button.animationSpeed = 0.2;
+			button.onComplete = that.onButtonUpdate;
+			button.tap = that.onButtonClick; 
+			button.click = that.onButtonClick; 
+			button.on('mouseover', that.onButtonOver);
+			button.on('mouseout', that.onButtonOut);
+			
+			var text = new PIXI.Text("ДОБАВИТЬ В СПИСОК", that.styleButtonBlueText); 
+			text.x = button.width / 8.0;
+			text.y = button.height / 3;
+
+			button.addChild(text); 
+			that.desktopStage.addChild(button);
+		},
+		
+		onButtonOver: function()
+		{
+			this.isOver = true;
+			this.gotoAndPlay(1);
+		},
+		
+		onButtonOut: function()
+		{
+			this.isOver = false;
+			this.gotoAndStop(0);
+		},
+		
+		onButtonUpdate: function()
+		{
+			if(this.isOver)
+			{
+				this.gotoAndPlay(1);
+			}else{
+				this.gotoAndStop(0);
+			}
+		},
+		
+		onButtonClick: function()
+		{
+			switch (this.name)
+			{
+				case "Closed":
+					parent.commandClose();
+					break;
+				case "Select":
+					that.selectCommandPersonage();
+					break;
+				case "Remove":
+					that.removeCommandPersonage();
+					break;    
+				default:
+					break;
+			}
+		},
+		
+		tapeMask: function()
+		{
+			 that.tapeStage = new PIXI.Container();
     
-    graphics.moveTo(550, 15);
-    graphics.lineTo(570, 5);
+			var mask = new PIXI.Graphics();
+			mask.lineStyle(2, 0xFF00FF, 1);
+			mask.beginFill(0xFF00FF, 0.2);
+			mask.moveTo(70, 610);
+			mask.lineTo(500, 610);
+			mask.lineTo(500, 705);
+			mask.lineTo(70, 705);
+			mask.endFill();
+			
+			that.tapeStage.mask = mask;
+			that.windowStage.addChild(that.tapeStage);
+			
+			/* Всё что не отображается в маске будет не активно */
+			var graphics = new PIXI.Graphics(); 
+			graphics.hitArea = new PIXI.Rectangle(501, 610, 500, 95);
+			graphics.interactive = true;
+			graphics.lineStyle(1, 0x000000, 0.0);
+			graphics.beginFill(0xFF0000, 0.0);
+			graphics.drawRect(501, 610, 500, 95);
+			graphics.endFill();
+			that.windowStage.addChild(graphics);
+		},
+		
+		tapeBlue: function(select)
+		{
+			var countRemove = 0;
+			if (select === undefined) {
+				for(var key in parent.initialization.commandUser)
+					if(parent.initialization.commandUser[key] === null) countRemove++;
+				if(countRemove === 3) select = 0;
+				else select = -1;
+			}
+			
+			if(that.listCommand.length === 0)
+			{
+					that.listPersonage = [];
+			}else{
+				for(var i = 0; i < that.listPersonage.length; i++)
+				{
+					that.tapeStage.removeChild(that.listPersonage[i]);
+				}
+				that.listPersonage = [];
+			}
+			
+			var index = 0;
+			for(var planet in parent.initialization.planets)
+			{
+				if(parent.initialization.planets[planet].status === parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI)
+				{
+					if(parent.initialization.personages[parent.initialization.planets[planet].bluePersonage1].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].bluePersonage1].command === false)
+					{
+						var graphics = new PIXI.Graphics(); 
+						graphics.lineStyle(2, 0x0000FF, 0.2);
+						graphics.beginFill(0x0000FF, 0.2);
+						graphics.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.endFill();
+						
+						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].bluePersonage1][3]); 
+						textureSprite.name = parent.initialization.planets[planet].bluePersonage1;
+						textureSprite.index = index;
+						textureSprite.key = parent.initialization.planets[planet].bluePersonage1;
+						textureSprite.position.x = 80 + (100 * index); 
+						textureSprite.position.y = 620; 
+						textureSprite.interactive = true; 
+						textureSprite.buttonMode = true;
+						textureSprite.tap = that.onBlueIconPersonageClick; 
+						textureSprite.click = that.onBlueIconPersonageClick; 
+						graphics.addChild(textureSprite);
+
+						var border = new PIXI.Graphics();
+						if(select === index)
+						{
+							border.lineStyle(2, 0xFFFFFF, 0.3);
+							that.bluePersonageShow(parent.initialization.planets[planet].bluePersonage1);
+							that.selectPersonageID = parent.initialization.planets[planet].bluePersonage1;
+							that.selectPersonageIndex = index;
+						} else border.lineStyle(2, 0x0000FF, 0.2);
+						border.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.addChild(border);
+						that.tapeStage.addChild(graphics);
+
+						that.listPersonage.push(graphics);
+
+						index++;
+					}
+					if(parent.initialization.personages[parent.initialization.planets[planet].bluePersonage2].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].bluePersonage2].command === false)
+					{
+						var graphics = new PIXI.Graphics(); 
+						graphics.lineStyle(2, 0x0000FF, 0.2);
+						graphics.beginFill(0x0000FF, 0.2);
+						graphics.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.endFill();
+
+						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].bluePersonage2][3]); 
+						textureSprite.name = parent.initialization.planets[planet].bluePersonage2;
+						textureSprite.index = index;
+						textureSprite.key = parent.initialization.planets[planet].bluePersonage2;
+						textureSprite.position.x = 80 + (100 * index); 
+						textureSprite.position.y = 620; 
+						textureSprite.interactive = true; 
+						textureSprite.buttonMode = true;
+						textureSprite.tap = that.onBlueIconPersonageClick; 
+						textureSprite.click = that.onBlueIconPersonageClick; 
+						graphics.addChild(textureSprite);
+
+						var border = new PIXI.Graphics();
+						if(select === index)
+						{
+							border.lineStyle(2, 0xFFFFFF, 0.3);
+							that.bluePersonageShow(parent.initialization.planets[planet].bluePersonage2);
+							that.selectPersonageID = parent.initialization.planets[planet].bluePersonage2;
+							that.selectPersonageIndex = index;
+						} else border.lineStyle(2, 0x0000FF, 0.2);
+						border.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.addChild(border);
+						that.tapeStage.addChild(graphics);
+
+						that.listPersonage.push(graphics);
+
+						index++;
+					}
+					if(parent.initialization.personages[parent.initialization.planets[planet].bluePersonage3].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].bluePersonage3].command === false)
+					{
+						var graphics = new PIXI.Graphics(); 
+						graphics.lineStyle(2, 0x0000FF, 0.2);
+						graphics.beginFill(0x0000FF, 0.2);
+						graphics.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.endFill();
+
+						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].bluePersonage3][3]); 
+						textureSprite.name = parent.initialization.planets[planet].bluePersonage3;
+						textureSprite.index = index;
+						textureSprite.key = parent.initialization.planets[planet].bluePersonage3;
+						textureSprite.position.x = 80 + (100 * index); 
+						textureSprite.position.y = 620; 
+						textureSprite.interactive = true; 
+						textureSprite.buttonMode = true;
+						textureSprite.tap = that.onBlueIconPersonageClick; 
+						textureSprite.click = that.onBlueIconPersonageClick; 
+						graphics.addChild(textureSprite);
+
+						var border = new PIXI.Graphics();
+						if(select === index)
+						{
+							border.lineStyle(2, 0xFFFFFF, 0.3);
+							that.bluePersonageShow(parent.initialization.planets[planet].bluePersonage3);
+							that.selectPersonageID = parent.initialization.planets[planet].bluePersonage3;
+							that.cmdSelectPersonageIndex = index;
+						} else border.lineStyle(2, 0x0000FF, 0.2);
+						border.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.addChild(border);
+						that.tapeStage.addChild(graphics);
+
+						that.listPersonage.push(graphics);
+
+						index++;
+					}
+				}
+			}
+			that.tapeButton();
+		},
+		
+		onBlueIconPersonageClick: function()
+		{
+			that.selectPersonageID = this.name;
+			that.selectPersonageIndex = this.index;
+			that.tapeBlue(this.index);
+			that.blueCommand(-1);
+		},
+		
+		tapeRed: function(select)
+		{
+			var countRemove = 0;
+			if (select === undefined) {
+				for(var key in parent.initialization.commandUser)
+					if(parent.initialization.commandUser[key] === null) countRemove++;
+				if(countRemove === 3) select = 0;
+				else select = -1;
+			}
+			
+			if(that.listCommand.length === 0)
+			{
+					that.listPersonage = [];
+			}else{
+				for(var i = 0; i < that.listPersonage.length; i++)
+				{
+					that.tapeStage.removeChild(that.listPersonage[i]);
+				}
+				that.listPersonage = [];
+			}
+			
+			var index = 0;
+			for(var planet in parent.initialization.planets)
+			{
+				if(parent.initialization.planets[planet].status === parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH)
+				{
+					if(parent.initialization.personages[parent.initialization.planets[planet].redPersonage1].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].redPersonage1].command === false)
+					{
+						var graphics = new PIXI.Graphics(); 
+						graphics.lineStyle(2, 0xFF0000, 0.2);
+						graphics.beginFill(0xFF0000, 0.2);
+						graphics.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.endFill();
+						
+						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].redPersonage1][3]); 
+						textureSprite.name = parent.initialization.planets[planet].redPersonage1;
+						textureSprite.index = index;
+						textureSprite.key = parent.initialization.planets[planet].redPersonage1;
+						textureSprite.position.x = 80 + (100 * index); 
+						textureSprite.position.y = 620; 
+						textureSprite.interactive = true; 
+						textureSprite.buttonMode = true;
+						textureSprite.tap = that.onRedIconPersonageClick; 
+						textureSprite.click = that.onRedIconPersonageClick; 
+						graphics.addChild(textureSprite);
+
+						var border = new PIXI.Graphics();
+						if(select === index)
+						{
+							border.lineStyle(2, 0xFFFFFF, 0.3);
+							that.redPersonageShow(parent.initialization.planets[planet].redPersonage1);
+							that.selectPersonageID = parent.initialization.planets[planet].redPersonage1;
+							that.selectPersonageIndex = index;
+						} else border.lineStyle(2, 0xFF0000, 0.2);
+						border.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.addChild(border);
+						that.tapeStage.addChild(graphics);
+
+						that.listPersonage.push(graphics);
+
+						index++;
+					}
+					if(parent.initialization.personages[parent.initialization.planets[planet].redPersonage2].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].redPersonage2].command === false)
+					{
+						var graphics = new PIXI.Graphics(); 
+						graphics.lineStyle(2, 0xFF0000, 0.2);
+						graphics.beginFill(0xFF0000, 0.2);
+						graphics.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.endFill();
+
+						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].redPersonage2][3]); 
+						textureSprite.name = parent.initialization.planets[planet].redPersonage2;
+						textureSprite.index = index;
+						textureSprite.key = parent.initialization.planets[planet].redPersonage2;
+						textureSprite.position.x = 80 + (100 * index); 
+						textureSprite.position.y = 620; 
+						textureSprite.interactive = true; 
+						textureSprite.buttonMode = true;
+						textureSprite.tap = that.onRedIconPersonageClick; 
+						textureSprite.click = that.onRedIconPersonageClick; 
+						graphics.addChild(textureSprite);
+
+						var border = new PIXI.Graphics();
+						if(select === index)
+						{
+							border.lineStyle(2, 0xFFFFFF, 0.3);
+							that.redPersonageShow(parent.initialization.planets[planet].redPersonage2);
+							that.selectPersonageID = parent.initialization.planets[planet].redPersonage2;
+							that.selectPersonageIndex = index;
+						} else border.lineStyle(2, 0xFF0000, 0.2);
+						border.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.addChild(border);
+						that.tapeStage.addChild(graphics);
+
+						that.listPersonage.push(graphics);
+
+						index++;
+					}
+					if(parent.initialization.personages[parent.initialization.planets[planet].redPersonage3].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].redPersonage3].command === false)
+					{
+						var graphics = new PIXI.Graphics(); 
+						graphics.lineStyle(2, 0xFF0000, 0.2);
+						graphics.beginFill(0xFF0000, 0.2);
+						graphics.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.endFill();
+
+						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].redPersonage3][3]); 
+						textureSprite.name = parent.initialization.planets[planet].redPersonage3;
+						textureSprite.index = index;
+						textureSprite.key = parent.initialization.planets[planet].redPersonage3;
+						textureSprite.position.x = 80 + (100 * index); 
+						textureSprite.position.y = 620; 
+						textureSprite.interactive = true; 
+						textureSprite.buttonMode = true;
+						textureSprite.tap = that.onRedIconPersonageClick; 
+						textureSprite.click = that.onRedIconPersonageClick; 
+						graphics.addChild(textureSprite);
+
+						var border = new PIXI.Graphics();
+						if(select === index)
+						{
+							border.lineStyle(2, 0xFFFFFF, 0.3);
+							that.redPersonageShow(parent.initialization.planets[planet].redPersonage3);
+							that.selectPersonageID = parent.initialization.planets[planet].redPersonage3;
+							that.selectPersonageIndex = index;
+						} else border.lineStyle(2, 0xFF0000, 0.2);
+						border.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.addChild(border);
+						that.tapeStage.addChild(graphics);
+
+						that.listPersonage.push(graphics);
+
+						index++;
+					}
+				}
+			}
+			that.tapeButton();
+		},
+		
+		onRedIconPersonageClick: function()
+		{
+			that.selectPersonageID = this.name;
+			that.selectPersonageIndex = this.index;
+			that.tapeRed(this.index);
+			that.redCommand(-1);
+		},
+		
+		removeCommandPersonage: function()
+		{
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				parent.initialization.personages[that.selectPersonageID].command = false;
+				if(that.selectPersonageIndex === 0) parent.initialization.commandUser["personage1"] = null;
+				if(that.selectPersonageIndex === 1) parent.initialization.commandUser["personage2"] = null;
+				if(that.selectPersonageIndex === 2) parent.initialization.commandUser["personage3"] = null;
+				that.blueCommand();
+				that.tapeBlue();
+				
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				parent.initialization.personages[that.selectPersonageID].command = false;
+				if(that.selectPersonageIndex === 0) parent.initialization.commandUser["personage1"] = null;
+				if(that.selectPersonageIndex === 1) parent.initialization.commandUser["personage2"] = null;
+				if(that.selectPersonageIndex === 2) parent.initialization.commandUser["personage3"] = null;
+				that.redCommand();
+				that.tapeRed(); 
+			}
+		},
+		
+		selectCommandPersonage: function()
+		{
+			parent.initialization.personages[that.selectPersonageID].command = true;
+			for(var key in parent.initialization.commandUser)
+			{
+				if(parent.initialization.commandUser[key] === null)
+				{
+					parent.initialization.commandUser[key] = that.selectPersonageID;
+					break;
+				}
+			}
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				that.blueCommand();
+				that.tapeBlue();
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				
+				that.redCommand();
+				that.tapeRed();
+			}
+		},
+		
+		tapeButton: function()
+		{
+			that.windowStage.removeChild(that.tapePanelButtonsStage);
     
-    graphics.moveTo(570, 5);
-    graphics.lineTo(855, 5);
-    graphics.moveTo(855, 5);
-    graphics.lineTo(855, 50);
-    graphics.moveTo(855, 50);
-    graphics.lineTo(650, 50);
-
-    graphics.lineStyle(0);
-    graphics.beginFill(0xFFFFFF, 1);
-    graphics.drawCircle(650, 50,4);
-    graphics.endFill();
-    
-    cmdStage.addChild(graphics);
-    
-    cmdExperiencePointsText = new PIXI.Text("КОМАНДА. Очки опыта: " + userExperiencePoints, cmdStyleButtonBlueText); 
-    cmdExperiencePointsText.x = 655;
-    cmdExperiencePointsText.y = 30;
-    cmdStage.addChild(cmdExperiencePointsText);
-}
-
-function cmdBattonsBlue()
-{
-    var button = new PIXI.extras.MovieClip(animTexButtonBlue);
-    button.name = "Closed";
-    button.position.x = 650; 
-    button.position.y = 670; 
-    button.interactive = true; 
-    button.buttonMode = true; 
-    button.loop = false; 
-    button.animationSpeed = 0.2;
-    button.onComplete = onCmdButtonUpdate;
-    button.tap = onCmdButtonClick; 
-    button.click = onCmdButtonClick; 
-    button.on('mouseover', onCmdButtonOver);
-    button.on('mouseout', onCmdButtonOut);
-    
-    var text = new PIXI.Text("ЗАКРЫТЬ", cmdStyleButtonBlueText); 
-    text.x = button.width / 3.2;
-    text.y = button.height / 3;
-
-    button.addChild(text); 
-    cmdStage.addChild(button);
-}
-
-function cmdDesktopBlue()
-{
-    var graphics = new PIXI.Graphics();
-    
-    graphics.lineStyle(2, 0x0000FF, 1);
-    graphics.beginFill(0x0000FF, 0.2);
-    graphics.moveTo(25, 600);
-    graphics.lineTo(550, 600);
-    graphics.lineTo(550, 715);
-    graphics.lineTo(25, 715);
-    graphics.endFill;
-    
-    graphics.lineStyle(2, 0x0000FF, 1);
-    graphics.beginFill(0x0000FF, 0.2);
-    graphics.moveTo(655, 50);
-    graphics.lineTo(800, 50);
-    graphics.lineTo(800, 350);
-    graphics.lineTo(650, 350);
-    graphics.endFill;
-    
-    cmdStage.addChild(graphics);
-
-}
-
-function cmdDroidBlue()
-{
-    var textureSprite = new PIXI.Sprite(r2d2DroidBlueRightTexture); 
-    textureSprite.position.x = 765; 
-    textureSprite.position.y = 550; 
-    textureSprite.scale.set(0.3);
-    cmdStage.addChild(textureSprite);
-    
-    var graphics = new PIXI.Graphics(); 
-    graphics.lineStyle(2, 0x0090F0, 0.2);
-    graphics.beginFill(0x0090F0, 0.2);
-    graphics.moveTo(795, 570);
-    graphics.lineTo(570, 525);
-    graphics.lineTo(840, 525);
-    graphics.lineTo(795, 570);
-    graphics.endFill;
-    cmdStage.addChild(graphics);
-    
-    for(var i = 0; i < 50; i++)
-    {
-        graphics.lineStyle(1, 0x0090F0, 0.2);
-        graphics.moveTo(560, 375+(3*i));
-        graphics.lineTo(840, 375+(3*i));
-    }
-    cmdStage.addChild(graphics);
-    
-    cmdMessageLineGraphics = new PIXI.Graphics(); 
-    cmdMessageLineGraphics.lineStyle(10, 0x0090F0, 0.3);
-    cmdMessageLineGraphics.moveTo(560, 380);
-    cmdMessageLineGraphics.lineTo(840, 380);
-    cmdStage.addChild(cmdMessageLineGraphics);
-    cmdMessageLineGraphicsTween();
-    
-    cmdTextMessage = new PIXI.Text("Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", cmdStyleDroidBlueText); 
-    cmdTextMessage.x = 565; 
-    cmdTextMessage.y = 375; 
-    cmdStage.addChild(cmdTextMessage);
-}
-
-function cmdBackgroundRed()
-{
-    cmdSpaceBackground = new PIXI.Sprite(mapSpaceRedTexture); 
-    cmdSpaceBackground.position.x = -82; 
-    cmdSpaceBackground.position.y = -19; 
-    cmdStage.addChild(cmdSpaceBackground);
-    cmdAnimSpaceTween();
-}
-
-function cmdBorderRed()
-{
-    var graphics = new PIXI.Graphics(); 
-
-    graphics.lineStyle(2, 0xFF0000, 1);
-    graphics.beginFill(0x000000, 0);
-    graphics.drawRect(10, 10, 840, 710);
-
-    graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF80, 1);
-    graphics.drawCircle(555, 600,4);
-    graphics.endFill();
-
-    graphics.lineStyle(2, 0xFFFF80, 1);
-    graphics.moveTo(555, 600);
-    graphics.lineTo(5, 600);
-    
-    graphics.moveTo(5, 600);
-    graphics.lineTo(5, 725);
-    graphics.moveTo(5, 725);
-    graphics.lineTo(855, 725);
-    graphics.moveTo(855, 725);
-    graphics.lineTo(855, 665);
-    graphics.moveTo(855, 665);
-    graphics.lineTo(650, 665);
-
-    graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF80, 1);
-    graphics.drawCircle(650, 665,4);
-    graphics.endFill();
-
-    graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF80, 1);
-    graphics.drawCircle(20, 15,4);
-    graphics.endFill();
-
-    graphics.lineStyle(2, 0xFFFF80, 1);
-    graphics.moveTo(20, 15);
-    graphics.lineTo(550, 15);
-    
-    graphics.moveTo(550, 15);
-    graphics.lineTo(570, 5);
-    
-    graphics.moveTo(570, 5);
-    graphics.lineTo(855, 5);
-    graphics.moveTo(855, 5);
-    graphics.lineTo(855, 50);
-    graphics.moveTo(855, 50);
-    graphics.lineTo(650, 50);
-
-    graphics.lineStyle(0);
-    graphics.beginFill(0xFFFF80, 1);
-    graphics.drawCircle(650, 50,4);
-    graphics.endFill();
-    
-    cmdStage.addChild(graphics);
-    
-    cmdExperiencePointsText = new PIXI.Text("КОМАНДА. Очки опыта: " + userExperiencePoints, cmdStyleButtonRedText); 
-    cmdExperiencePointsText.x = 655;
-    cmdExperiencePointsText.y = 30;
-    cmdStage.addChild(cmdExperiencePointsText);
-}
-
-function cmdBattonsRed()
-{
-    var button = new PIXI.extras.MovieClip(animTexButtonRed);
-    button.name = "Closed";
-    button.position.x = 650; 
-    button.position.y = 670; 
-    button.interactive = true; 
-    button.buttonMode = true; 
-    button.loop = false; 
-    button.animationSpeed = 0.2;
-    button.onComplete = onCmdButtonUpdate;
-    button.tap = onCmdButtonClick; 
-    button.click = onCmdButtonClick; 
-    button.on('mouseover', onCmdButtonOver);
-    button.on('mouseout', onCmdButtonOut);
-    
-    var text = new PIXI.Text("ЗАКРЫТЬ", cmdStyleButtonRedText); 
-    text.x = button.width / 3.2;
-    text.y = button.height / 3;
-
-    button.addChild(text); 
-    cmdStage.addChild(button);
-}
-
-function cmdDesktopRed()
-{
-    var graphics = new PIXI.Graphics();
-    
-    graphics.lineStyle(2, 0x800000, 1);
-    graphics.beginFill(0x800000, 0.2);
-    graphics.moveTo(25, 600);
-    graphics.lineTo(550, 600);
-    graphics.lineTo(550, 715);
-    graphics.lineTo(25, 715);
-    graphics.endFill;
-    
-    graphics.lineStyle(2, 0x800000, 1);
-    graphics.beginFill(0x800000, 0.2);
-    graphics.moveTo(655, 50);
-    graphics.lineTo(800, 50);
-    graphics.lineTo(800, 350);
-    graphics.lineTo(650, 350);
-    graphics.endFill;
-    
-    cmdStage.addChild(graphics);
-
-}
-
-function cmdDroidRed()
-{
-    var textureSprite = new PIXI.Sprite(r2d2DroidRedRightTexture); 
-    textureSprite.position.x = 765; 
-    textureSprite.position.y = 550; 
-    textureSprite.scale.set(0.3);
-    cmdStage.addChild(textureSprite);
-    
-    var graphics = new PIXI.Graphics(); 
-    graphics.lineStyle(2, 0xA63A24, 0.2);
-    graphics.beginFill(0xA63A24, 0.2);
-    graphics.moveTo(795, 570);
-    graphics.lineTo(570, 525);
-    graphics.lineTo(840, 525);
-    graphics.lineTo(795, 570);
-    graphics.endFill;
-    cmdStage.addChild(graphics);
-    
-    for(var i = 0; i < 50; i++)
-    {
-        graphics.lineStyle(1, 0xA63A24, 0.2);
-        graphics.moveTo(560, 375+(3*i));
-        graphics.lineTo(840, 375+(3*i));
-    }
-    cmdStage.addChild(graphics);
-    
-    cmdMessageLineGraphics = new PIXI.Graphics(); 
-    cmdMessageLineGraphics.lineStyle(10, 0xA63A24, 0.3);
-    cmdMessageLineGraphics.moveTo(560, 380);
-    cmdMessageLineGraphics.lineTo(840, 380);
-    cmdStage.addChild(cmdMessageLineGraphics);
-    cmdMessageLineGraphicsTween();
-    
-    cmdTextMessage = new PIXI.Text("Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", cmdStyleDroidRedText); 
-    cmdTextMessage.x = 565; 
-    cmdTextMessage.y = 375; 
-    cmdStage.addChild(cmdTextMessage);
-}
-
-function cmdBlueCommand(select)
-{
-    if (select === undefined) {
-        select = 0;
-    }
-    
-    if(cmdListCommand.length === 0)
-    {
-            cmdListCommand = [];
-    }else{
-        for(var i = 0; i < cmdListCommand.length; i++)
-        {
-            cmdStage.removeChild(cmdListCommand[i]);
-        }
-        cmdListCommand = [];
-    }
-    
-    var selectIndex = select;
-    var index = 0;
-    for(var key in userCommandUser)
-    {
-        if(userCommandUser[key] !== null)
-        {
-            var graphics = new PIXI.Graphics(); 
-            graphics.lineStyle(2, 0x0000FF, 0.2);
-            graphics.beginFill(0x0000FF, 0.2);
-            graphics.drawRect(690, 60 + (100 * index), 75, 75);
-            graphics.endFill;
-
-            var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
-            textureSprite.name = userCommandUser[key];
-            textureSprite.index = index;
-            textureSprite.position.x = 690; 
-            textureSprite.position.y = 60  + (100 * index); 
-            textureSprite.interactive = true; 
-            textureSprite.buttonMode = true;
-            textureSprite.tap = onCmdBlueIconCommandClick; 
-            textureSprite.click = onCmdBlueIconCommandClick; 
-            graphics.addChild(textureSprite);
-            
-            var border = new PIXI.Graphics();
-            if(index === selectIndex)
-            {
-                border.lineStyle(2, 0xFFFFFF, 0.5);
-                cmdBluePersonageShow(userCommandUser[key]);
-                cmdSelectPersonageID = userCommandUser[key];
-                cmdSelectPersonageIndex = index;
-            } else {
-                border.lineStyle(2, 0x0000FF, 0.2);
-            }
-            border.drawRect(690, 60 + (100 * index), 75, 75);
-            graphics.addChild(border);
-            
-            cmdListCommand.push(graphics);
-            cmdStage.addChild(cmdListCommand[index]);
-        } else{
-            var graphics = new PIXI.Graphics(); 
-            graphics.lineStyle(2, 0x0000FF, 0.2);
-            graphics.beginFill(0x0000FF, 0.2);
-            graphics.drawRect(690, 60 + (100 * index), 75, 75);
-            graphics.endFill;
-            cmdListCommand.push(graphics);
-            cmdStage.addChild(cmdListCommand[index]);
-            if(select === 0 && selectIndex < 2) selectIndex++;
-        }
-        index++;
-    }
-}
-
-function onCmdBlueIconCommandClick()
-{
-        cmdSelectPersonageID = this.name;
-        cmdSelectPersonageIndex = this.index;
-        cmdBlueCommand(this.index);
-        cmdTapeBlue(-1);
-}
-
-function cmdBluePersonageShow(id)
-{
-    cmdStage.removeChild(cmdDesktopStage);
-    if(id !== null)
-    {
-        cmdDesktopStage = new PIXI.Container();
-        
-        var graphics = new PIXI.Graphics();
-        graphics.lineStyle(2, 0x0000FF, 1);
-        graphics.beginFill(0x0000FF, 0.2);
-        graphics.moveTo(25, 20);
-        graphics.lineTo(550, 20);
-        graphics.lineTo(550, 575);
-        graphics.lineTo(25, 575);
-        graphics.endFill;
-        cmdDesktopStage.addChild(graphics);
-        
-        var sprite = new PIXI.Sprite(heroesTextures[id][1]);
-        sprite.position.x = 25;
-        sprite.position.y = 50;
-        cmdDesktopStage.addChild(sprite);
-        
-        graphics = new PIXI.Graphics();
-        for(var i = 0; i < 185; i++)
-        {
-            graphics.lineStyle(1, 0x0000FF, 0.5);
-            graphics.moveTo(25, 20+(3*i));
-            graphics.lineTo(550, 20+(3*i));
-        }
-        cmdDesktopStage.addChild(graphics);
-        
-        cmdLineAnimPersonageDesktopGraphics = new PIXI.Graphics(); 
-        cmdLineAnimPersonageDesktopGraphics.lineStyle(10, 0x0000FF, 0.3);
-        cmdLineAnimPersonageDesktopGraphics.moveTo(25, 25);
-        cmdLineAnimPersonageDesktopGraphics.lineTo(550, 25);
-        cmdDesktopStage.addChild(cmdLineAnimPersonageDesktopGraphics);
-        cmdLineAnimPersonageDesktopGraphicsTween();
-        
-        var text = new PIXI.Text(userPersonages[id].name, cmdStyleButtonBlueText); 
-        text.x = 50; text.y = 30;
-        cmdDesktopStage.addChild(text);
-
-        text = new PIXI.Text("Характеристики:", cmdStyleButtonBlueText); 
-        text.x = 300; text.y = 100;
-        cmdDesktopStage.addChild(text);
-        
-        var life = (userPersonages[userPersonages[id].id].hitDefense1 + userPersonages[userPersonages[id].id].hitDefense2 + userPersonages[userPersonages[id].id].hitDefense3 + userPersonages[userPersonages[id].id].hitDefense4 + userPersonages[userPersonages[id].id].hitDefense5) / 10 * 50;
-        life = Math.round(life);
-        text = new PIXI.Text("Здоровье: " + life, cmdStyleButtonBlueText); 
-        text.x = 330; text.y = 130;
-        cmdDesktopStage.addChild(text);
-
-        sprite = new PIXI.Sprite(hit1Texture);
-        sprite.position.x = 300; sprite.position.y = 150; sprite.scale.set(0.3);
-        cmdDesktopStage.addChild(sprite);
-        text = new PIXI.Text("Кристал ловкости:", cmdStyleButtonBlueText); 
-        text.x = 330; text.y = 155;
-        cmdDesktopStage.addChild(text);
-        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense1, cmdStyleButtonBlueText); 
-        text.x = 480; text.y = 155;
-        cmdDesktopStage.addChild(text);
-
-        sprite = new PIXI.Sprite(hit2Texture);
-        sprite.position.x = 300; sprite.position.y = 175; sprite.scale.set(0.3);
-        cmdDesktopStage.addChild(sprite);
-        text = new PIXI.Text("Кристал тьмы:", cmdStyleButtonBlueText); 
-        text.x = 330; text.y = 180;
-        cmdDesktopStage.addChild(text);
-        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense2, cmdStyleButtonBlueText); 
-        text.x = 480; text.y = 180;
-        cmdDesktopStage.addChild(text);
-
-        sprite = new PIXI.Sprite(hit3Texture);
-        sprite.position.x = 300; sprite.position.y = 200; sprite.scale.set(0.3);
-        cmdDesktopStage.addChild(sprite);
-        text = new PIXI.Text("Кристал жизни:", cmdStyleButtonBlueText); 
-        text.x = 330; text.y = 205;
-        cmdDesktopStage.addChild(text);
-        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense3, cmdStyleButtonBlueText); 
-        text.x = 480; text.y = 205;
-        cmdDesktopStage.addChild(text);
-
-        sprite = new PIXI.Sprite(hit4Texture);
-        sprite.position.x = 300; sprite.position.y = 225; sprite.scale.set(0.3);
-        cmdDesktopStage.addChild(sprite);
-        text = new PIXI.Text("Кристал света:", cmdStyleButtonBlueText); 
-        text.x = 330; text.y = 230;
-        cmdDesktopStage.addChild(text);
-        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense4, cmdStyleButtonBlueText); 
-        text.x = 480; text.y = 230;
-        cmdDesktopStage.addChild(text);
-
-        sprite = new PIXI.Sprite(hit5Texture);
-        sprite.position.x = 300; sprite.position.y = 250; sprite.scale.set(0.3);
-        cmdDesktopStage.addChild(sprite);
-        text = new PIXI.Text("Кристал интеллекта:", cmdStyleButtonBlueText); 
-        text.x = 330; text.y = 255;
-        cmdDesktopStage.addChild(text);
-        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense5, cmdStyleButtonBlueText); 
-        text.x = 480; text.y = 255;
-        cmdDesktopStage.addChild(text);
-
-        text = new PIXI.Text(userPersonages[id].description, cmdStyledescriptionBlueText); 
-        text.x = 50;
-        text.y = 550 - text.height;
-        cmdDesktopStage.addChild(text);
-        
-        if(userPersonages[userPersonages[id].id].command === true) cmdBlueButtonRemovePersonage();
-        else cmdBlueButtonSelectPersonage();
-
-        cmdExperiencePointsButtons();
-
-        cmdStage.addChild(cmdDesktopStage);
-    }else{
-        var graphics = new PIXI.Graphics();
-        graphics.lineStyle(2, 0x0000FF, 1);
-        graphics.beginFill(0x0000FF, 0.2);
-        graphics.moveTo(25, 20);
-        graphics.lineTo(550, 20);
-        graphics.lineTo(550, 575);
-        graphics.lineTo(25, 575);
-        graphics.endFill;
-        for(var i = 0; i < 185; i++)
-        {
-            graphics.lineStyle(1, 0x0000FF, 0.5);
-            graphics.moveTo(25, 20+(3*i));
-            graphics.lineTo(550, 20+(3*i));
-        }
-        cmdDesktopStage.addChild(graphics);
-    }
-}
-
-function cmdBlueButtonRemovePersonage()
-{
-    var button = new PIXI.extras.MovieClip(animTexButtonBlue);
-    button.name = "Remove";
-    button.position.x = 350; 
-    button.position.y = 25; 
-    button.interactive = true; 
-    button.buttonMode = true; 
-    button.loop = false; 
-    button.animationSpeed = 0.2;
-    button.onComplete = onCmdButtonUpdate;
-    button.tap = onCmdButtonClick; 
-    button.click = onCmdButtonClick; 
-    button.on('mouseover', onCmdButtonOver);
-    button.on('mouseout', onCmdButtonOut);
-    
-    var text = new PIXI.Text("УБРАТЬ ИЗ СПИСКА", cmdStyleButtonBlueText); 
-    text.x = button.width / 6.5;
-    text.y = button.height / 3;
-
-    button.addChild(text); 
-    cmdDesktopStage.addChild(button);
-}
-
-function cmdBlueButtonSelectPersonage()
-{
-    var button = new PIXI.extras.MovieClip(animTexButtonBlue);
-    button.name = "Select";
-    button.position.x = 350; 
-    button.position.y = 25; 
-    button.interactive = true; 
-    button.buttonMode = true; 
-    button.loop = false; 
-    button.animationSpeed = 0.2;
-    button.onComplete = onCmdButtonUpdate;
-    button.tap = onCmdButtonClick; 
-    button.click = onCmdButtonClick; 
-    button.on('mouseover', onCmdButtonOver);
-    button.on('mouseout', onCmdButtonOut);
-    
-    var text = new PIXI.Text("ДОБАВИТЬ В СПИСОК", cmdStyleButtonBlueText); 
-    text.x = button.width / 8.0;
-    text.y = button.height / 3;
-
-    button.addChild(text); 
-    cmdDesktopStage.addChild(button);
-}
-
-function cmdRedCommand(select)
-{
-    if (select === undefined) {
-        select = 0;
-    }
-    
-    if(cmdListCommand.length === 0)
-    {
-            cmdListCommand = [];
-    }else{
-        for(var i = 0; i < cmdListCommand.length; i++)
-        {
-            cmdStage.removeChild(cmdListCommand[i]);
-        }
-        cmdListCommand = [];
-    }
-
-    var selectIndex = select;
-    var index = 0;
-    for(var key in userCommandUser)
-    {
-        if(userCommandUser[key] !== null)
-        {
-            var graphics = new PIXI.Graphics(); 
-            graphics.lineStyle(2, 0xFF0000, 0.2);
-            graphics.beginFill(0xFF0000, 0.2);
-            graphics.drawRect(690, 60 + (100 * index), 75, 75);
-            graphics.endFill();
-
-            var textureSprite = new PIXI.Sprite(heroesTextures[userCommandUser[key]][3]); 
-            textureSprite.name = userCommandUser[key];
-            textureSprite.index = index;
-            textureSprite.position.x = 690; 
-            textureSprite.position.y = 60  + (100 * index); 
-            textureSprite.interactive = true; 
-            textureSprite.buttonMode = true;
-            textureSprite.tap = onCmdRedIconCommandClick; 
-            textureSprite.click = onCmdRedIconCommandClick; 
-            graphics.addChild(textureSprite);
-            
-            var border = new PIXI.Graphics();
-            if(index === selectIndex)
-            {
-                border.lineStyle(2, 0xFFFFFF, 0.5);
-                cmdRedPersonageShow(userCommandUser[key]);
-                cmdSelectPersonageID = userCommandUser[key];
-                cmdSelectPersonageIndex = index;
-            } else {
-                border.lineStyle(2, 0x0000FF, 0.2);
-            }
-            border.drawRect(690, 60 + (100 * index), 75, 75);
-            graphics.addChild(border);
-            
-            cmdListCommand.push(graphics);
-            cmdStage.addChild(cmdListCommand[index]);
-        } else{
-            var graphics = new PIXI.Graphics(); 
-            graphics.lineStyle(2, 0xFF0000, 0.2);
-            graphics.beginFill(0xFF0000, 0.2);
-            graphics.drawRect(690, 60 + (100 * index), 75, 75);
-            graphics.endFill();
-
-            cmdListCommand.push(graphics);
-            cmdStage.addChild(cmdListCommand[index]);
-            if(select === 0 && selectIndex < 2) selectIndex++;
-        }
-        index++;
-    }
-}
-
-function onCmdRedIconCommandClick()
-{
-        cmdSelectPersonageID = this.name;
-        cmdSelectPersonageIndex = this.index;
-	cmdRedCommand(this.index);
-        cmdTapeRed(-1);
-}
-
-function cmdRedPersonageShow(id)
-{
-    cmdStage.removeChild(cmdDesktopStage);
-    
-    if(id !== null)
-    {
-        cmdDesktopStage = new PIXI.Container();
-        
-        var graphics = new PIXI.Graphics();
-        graphics.lineStyle(2, 0x800000, 1);
-        graphics.beginFill(0x800000, 0.2);
-        graphics.moveTo(25, 20);
-        graphics.lineTo(550, 20);
-        graphics.lineTo(550, 575);
-        graphics.lineTo(25, 575);
-        graphics.endFill();
-        cmdDesktopStage.addChild(graphics);
-        
-        var sprite = new PIXI.Sprite(heroesTextures[id][1]);
-        sprite.position.x = 25;
-        sprite.position.y = 50;
-        cmdDesktopStage.addChild(sprite);
-        
-        var graphics = new PIXI.Graphics();
-        for(var i = 0; i < 185; i++)
-        {
-            graphics.lineStyle(1, 0x800000, 0.5);
-            graphics.moveTo(25, 20+(3*i));
-            graphics.lineTo(550, 20+(3*i));
-        }
-        cmdDesktopStage.addChild(graphics);
-        
-        cmdLineAnimPersonageDesktopGraphics = new PIXI.Graphics(); 
-        cmdLineAnimPersonageDesktopGraphics.lineStyle(10, 0x800000, 0.3);
-        cmdLineAnimPersonageDesktopGraphics.moveTo(25, 25);
-        cmdLineAnimPersonageDesktopGraphics.lineTo(550, 25);
-        cmdDesktopStage.addChild(cmdLineAnimPersonageDesktopGraphics);
-        cmdLineAnimPersonageDesktopGraphicsTween();
-
-        var text = new PIXI.Text(userPersonages[id].name, cmdStyleButtonRedText); 
-        text.x = 50; text.y = 30;
-        cmdDesktopStage.addChild(text);
-
-        text = new PIXI.Text("Характеристики:", cmdStyleButtonRedText); 
-        text.x = 300; text.y = 100;
-        cmdDesktopStage.addChild(text);
-        
-        var life = (userPersonages[userPersonages[id].id].hitDefense1 + userPersonages[userPersonages[id].id].hitDefense2 + userPersonages[userPersonages[id].id].hitDefense3 + userPersonages[userPersonages[id].id].hitDefense4 + userPersonages[userPersonages[id].id].hitDefense5) / 10 * 50;
-        life = Math.round(life);
-        text = new PIXI.Text("Здоровье: " + life, cmdStyleButtonRedText); 
-        text.x = 330; text.y = 130;
-        cmdDesktopStage.addChild(text);
-        
-        sprite = new PIXI.Sprite(hit1Texture);
-        sprite.position.x = 300; sprite.position.y = 150; sprite.scale.set(0.3);
-        cmdDesktopStage.addChild(sprite);
-        text = new PIXI.Text("Кристал ловкости:", cmdStyleButtonRedText); 
-        text.x = 330; text.y = 155;
-        cmdDesktopStage.addChild(text);
-        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense1, cmdStyleButtonRedText); 
-        text.x = 480; text.y = 155;
-        cmdDesktopStage.addChild(text);
-        
-        sprite = new PIXI.Sprite(hit2Texture);
-        sprite.position.x = 300; sprite.position.y = 175; sprite.scale.set(0.3);
-        cmdDesktopStage.addChild(sprite);
-        text = new PIXI.Text("Кристал тьмы:", cmdStyleButtonRedText); 
-        text.x = 330; text.y = 180;
-        cmdDesktopStage.addChild(text);
-        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense2, cmdStyleButtonRedText); 
-        text.x = 480; text.y = 180;
-        cmdDesktopStage.addChild(text);
-        
-        sprite = new PIXI.Sprite(hit3Texture);
-        sprite.position.x = 300; sprite.position.y = 200; sprite.scale.set(0.3);
-        cmdDesktopStage.addChild(sprite);
-        text = new PIXI.Text("Кристал жизни:", cmdStyleButtonRedText); 
-        text.x = 330; text.y = 205;
-        cmdDesktopStage.addChild(text);
-        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense3, cmdStyleButtonRedText); 
-        text.x = 480; text.y = 205;
-        cmdDesktopStage.addChild(text);
-
-        sprite = new PIXI.Sprite(hit4Texture);
-        sprite.position.x = 300; sprite.position.y = 225; sprite.scale.set(0.3);
-        cmdDesktopStage.addChild(sprite);
-        text = new PIXI.Text("Кристал света:", cmdStyleButtonRedText); 
-        text.x = 330; text.y = 230;
-        cmdDesktopStage.addChild(text);
-        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense4, cmdStyleButtonRedText); 
-        text.x = 480; text.y = 230;
-        cmdDesktopStage.addChild(text);
-        
-        sprite = new PIXI.Sprite(hit5Texture);
-        sprite.position.x = 300; sprite.position.y = 250; sprite.scale.set(0.3);
-        cmdDesktopStage.addChild(sprite);
-        text = new PIXI.Text("Кристал интеллекта:", cmdStyleButtonRedText); 
-        text.x = 330; text.y = 255;
-        cmdDesktopStage.addChild(text);
-        text = new PIXI.Text(userPersonages[userPersonages[id].id].hitDefense5, cmdStyleButtonRedText); 
-        text.x = 480; text.y = 255;
-        cmdDesktopStage.addChild(text);
-
-        text = new PIXI.Text(userPersonages[id].description, cmdStyledescriptionRedText); 
-        text.x = 50;
-        text.y = 550 - text.height;
-        cmdDesktopStage.addChild(text);
-
-        if(userPersonages[userPersonages[id].id].command === true) cmdRedButtonRemovePersonage();
-        else cmdRedButtonSelectPersonage();
-
-        cmdExperiencePointsButtons();
-
-        cmdStage.addChild(cmdDesktopStage);
-    }else{
-        cmdDesktopStage = new PIXI.Container();
-        var graphics = new PIXI.Graphics();
-        graphics.lineStyle(2, 0x800000, 1);
-        graphics.beginFill(0x800000, 0.2);
-        graphics.moveTo(25, 20);
-        graphics.lineTo(550, 20);
-        graphics.lineTo(550, 575);
-        graphics.lineTo(25, 575);
-        graphics.endFill();
-
-        for(var i = 0; i < 185; i++)
-        {
-            graphics.lineStyle(1, 0x800000, 0.5);
-            graphics.moveTo(25, 20+(3*i));
-            graphics.lineTo(550, 20+(3*i));
-        }
-        cmdDesktopStage.addChild(graphics);
-    }
-}
-
-function cmdRedButtonRemovePersonage()
-{
-    var button = new PIXI.extras.MovieClip(animTexButtonRed);
-    button.name = "Remove";
-    button.position.x = 350; 
-    button.position.y = 25; 
-    button.interactive = true; 
-    button.buttonMode = true; 
-    button.loop = false; 
-    button.animationSpeed = 0.2;
-    button.onComplete = onCmdButtonUpdate;
-    button.tap = onCmdButtonClick; 
-    button.click = onCmdButtonClick; 
-    button.on('mouseover', onCmdButtonOver);
-    button.on('mouseout', onCmdButtonOut);
-    
-    var text = new PIXI.Text("УБРАТЬ ИЗ СПИСКА", cmdStyleButtonRedText); 
-    text.x = button.width / 6.5;
-    text.y = button.height / 3;
-
-    button.addChild(text); 
-    cmdDesktopStage.addChild(button);
-}
-
-function cmdRedButtonSelectPersonage()
-{
-    var button = new PIXI.extras.MovieClip(animTexButtonRed);
-    button.name = "Select";
-    button.position.x = 350; 
-    button.position.y = 25; 
-    button.interactive = true; 
-    button.buttonMode = true; 
-    button.loop = false; 
-    button.animationSpeed = 0.2;
-    button.onComplete = onCmdButtonUpdate;
-    button.tap = onCmdButtonClick; 
-    button.click = onCmdButtonClick; 
-    button.on('mouseover', onCmdButtonOver);
-    button.on('mouseout', onCmdButtonOut);
-    
-    var text = new PIXI.Text("ДОБАВИТЬ В СПИСОК", cmdStyleButtonBlueText); 
-    text.x = button.width / 8.0;
-    text.y = button.height / 3;
-
-    button.addChild(text); 
-    cmdDesktopStage.addChild(button);
-}
-
-
-function onCmdButtonOver()
-{
-    this.isOver = true;
-    this.gotoAndPlay(1);
-}
-
-function onCmdButtonOut()
-{
-    this.isOver = false;
-    this.gotoAndStop(0);
-}
-
-function onCmdButtonUpdate()
-{
-    if(this.isOver)
-    {
-        this.gotoAndPlay(1);
-    }else{
-        this.gotoAndStop(0);
-    }
-}
-
-function onCmdButtonClick() 
-{
-    switch (this.name)
-    {
-        case "Closed":
-            mapCreate();
-            cmdRemove();
-            break;
-        case "Select":
-            cmdSelectCommandPersonage();
-            break;
-        case "Remove":
-            cmdRemoveCommandPersonage();
-            break;    
-        default:
-            break;
-    }
-    
-}
-
-function cmdAnimSpaceTween()
-{
-    createjs.Tween.get(cmdSpaceBackground, {loop: true}) 
-        .to({rotation: -0.015}, 2500, createjs.Ease.getPowInOut(3))
-        .to({rotation: 0.015}, 2500, createjs.Ease.getPowInOut(3))
-        .to({rotation: 0.0}, 2500, createjs.Ease.getPowInOut(3));
-    createjs.Ticker.setFPS(60);
-}
-
-function cmdLineAnimPersonageDesktopGraphicsTween()
-{
-    createjs.Tween.get(cmdLineAnimPersonageDesktopGraphics, {loop: true}) 
-        .to({x: 0, y: 545}, 2500, createjs.Ease.getPowInOut(3));
-    createjs.Ticker.setFPS(60);
-}
-
-function cmdMessageLineGraphicsTween()
-{
-    createjs.Tween.get(cmdMessageLineGraphics, {loop: true}) 
-            .to({x: 0, y: 138}, 2000, createjs.Ease.getPowInOut(3));
-    createjs.Ticker.setFPS(60);
-}
-
-function cmdTapeMask()
-{
-    cmdTapeStage = new PIXI.Container();
-    
-    var mask = new PIXI.Graphics();
-    mask.lineStyle(2, 0xFF00FF, 1);
-    mask.beginFill(0xFF00FF, 0.2);
-    mask.moveTo(70, 610);
-    mask.lineTo(500, 610);
-    mask.lineTo(500, 705);
-    mask.lineTo(70, 705);
-    mask.endFill();
-    
-    cmdTapeStage.mask = mask;
-    cmdStage.addChild(cmdTapeStage);
-    
-    /* Всё что не отображается в маске будет не активно */
-    var graphics = new PIXI.Graphics(); 
-    graphics.hitArea = new PIXI.Rectangle(501, 610, 500, 95);
-    graphics.interactive = true;
-    graphics.lineStyle(1, 0x000000, 0.0);
-    graphics.beginFill(0xFF0000, 0.0);
-    graphics.drawRect(501, 610, 500, 95);
-    graphics.endFill();
-    //cmdTapeStage.addChild(graphics);
-    cmdStage.addChild(graphics);
-
-}
-
-function cmdTapeBlue(select)
-{
-    var countRemove = 0;
-    if (select === undefined) {
-        for(var key in userCommandUser)
-            if(userCommandUser[key] === null) countRemove++;
-        if(countRemove === 3) select = 0;
-        else select = -1;
-    }
-    
-    if(cmdListCommand.length === 0)
-    {
-            cmdListPersonage = [];
-    }else{
-        for(var i = 0; i < cmdListPersonage.length; i++)
-        {
-            cmdTapeStage.removeChild(cmdListPersonage[i]);
-        }
-        cmdListPersonage = [];
-    }
-    
-    var index = 0;
-    for(var planet in userPlanets)
-    {
-        if(userPlanets[planet].status === USER_PLANET_QUEST_COMPLETE_JEDI)
-        {
-            if(userPersonages[userPlanets[planet].bluePersonage1].status === USER_PERSONAGE_AVAILABLE && userPersonages[userPlanets[planet].bluePersonage1].command === false)
-            {
-                var graphics = new PIXI.Graphics(); 
-                graphics.lineStyle(2, 0x0000FF, 0.2);
-                graphics.beginFill(0x0000FF, 0.2);
-                graphics.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.endFill();
-                
-                var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].bluePersonage1][3]); 
-                textureSprite.name = userPlanets[planet].bluePersonage1;
-                textureSprite.index = index;
-                textureSprite.key = userPlanets[planet].bluePersonage1;
-                textureSprite.position.x = 80 + (100 * index); 
-                textureSprite.position.y = 620; 
-                textureSprite.interactive = true; 
-                textureSprite.buttonMode = true;
-                textureSprite.tap = onCmdBlueIconPersonageClick; 
-                textureSprite.click = onCmdBlueIconPersonageClick; 
-                graphics.addChild(textureSprite);
-
-                var border = new PIXI.Graphics();
-                if(select === index)
-                {
-                    border.lineStyle(2, 0xFFFFFF, 0.3);
-                    cmdBluePersonageShow(userPlanets[planet].bluePersonage1);
-                    cmdSelectPersonageID = userPlanets[planet].bluePersonage1;
-                    cmdSelectPersonageIndex = index;
-                } else border.lineStyle(2, 0x0000FF, 0.2);
-                border.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.addChild(border);
-                cmdTapeStage.addChild(graphics);
-
-                cmdListPersonage.push(graphics);
-
-                index++;
-            }
-            if(userPersonages[userPlanets[planet].bluePersonage2].status === USER_PERSONAGE_AVAILABLE && userPersonages[userPlanets[planet].bluePersonage2].command === false)
-            {
-                var graphics = new PIXI.Graphics(); 
-                graphics.lineStyle(2, 0x0000FF, 0.2);
-                graphics.beginFill(0x0000FF, 0.2);
-                graphics.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.endFill();
-
-                var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].bluePersonage2][3]); 
-                textureSprite.name = userPlanets[planet].bluePersonage2;
-                textureSprite.index = index;
-                textureSprite.key = userPlanets[planet].bluePersonage2;
-                textureSprite.position.x = 80 + (100 * index); 
-                textureSprite.position.y = 620; 
-                textureSprite.interactive = true; 
-                textureSprite.buttonMode = true;
-                textureSprite.tap = onCmdBlueIconPersonageClick; 
-                textureSprite.click = onCmdBlueIconPersonageClick; 
-                graphics.addChild(textureSprite);
-
-                var border = new PIXI.Graphics();
-                if(select === index)
-                {
-                    border.lineStyle(2, 0xFFFFFF, 0.3);
-                    cmdBluePersonageShow(userPlanets[planet].bluePersonage2);
-                    cmdSelectPersonageID = userPlanets[planet].bluePersonage2;
-                    cmdSelectPersonageIndex = index;
-                } else border.lineStyle(2, 0x0000FF, 0.2);
-                border.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.addChild(border);
-                cmdTapeStage.addChild(graphics);
-
-                cmdListPersonage.push(graphics);
-
-                index++;
-            }
-            if(userPersonages[userPlanets[planet].bluePersonage3].status === USER_PERSONAGE_AVAILABLE && userPersonages[userPlanets[planet].bluePersonage3].command === false)
-            {
-                var graphics = new PIXI.Graphics(); 
-                graphics.lineStyle(2, 0x0000FF, 0.2);
-                graphics.beginFill(0x0000FF, 0.2);
-                graphics.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.endFill();
-
-                var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].bluePersonage3][3]); 
-                textureSprite.name = userPlanets[planet].bluePersonage3;
-                textureSprite.index = index;
-                textureSprite.key = userPlanets[planet].bluePersonage3;
-                textureSprite.position.x = 80 + (100 * index); 
-                textureSprite.position.y = 620; 
-                textureSprite.interactive = true; 
-                textureSprite.buttonMode = true;
-                textureSprite.tap = onCmdBlueIconPersonageClick; 
-                textureSprite.click = onCmdBlueIconPersonageClick; 
-                graphics.addChild(textureSprite);
-
-                var border = new PIXI.Graphics();
-                if(select === index)
-                {
-                    border.lineStyle(2, 0xFFFFFF, 0.3);
-                    cmdBluePersonageShow(userPlanets[planet].bluePersonage3);
-                    cmdSelectPersonageID = userPlanets[planet].bluePersonage3;
-                    cmdSelectPersonageIndex = index;
-                } else border.lineStyle(2, 0x0000FF, 0.2);
-                border.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.addChild(border);
-                cmdTapeStage.addChild(graphics);
-
-                cmdListPersonage.push(graphics);
-
-                index++;
-            }
-        }
-    }
-    
-    cmdTapeButton();
-}
-
-function onCmdBlueIconPersonageClick()
-{
-    cmdSelectPersonageID = this.name;
-    cmdSelectPersonageIndex = this.index;
-    cmdTapeBlue(this.index);
-    cmdBlueCommand(-1);
-}
-
-function cmdTapeRed(select)
-{
-    var countRemove = 0;
-    if (select === undefined) {
-        for(var key in userCommandUser)
-            if(userCommandUser[key] === null) countRemove++;
-        if(countRemove === 3) select = 0;
-        else select = -1;
-    }
-    
-    if(cmdListCommand.length === 0)
-    {
-            cmdListPersonage = [];
-    }else{
-        for(var i = 0; i < cmdListPersonage.length; i++)
-        {
-            cmdTapeStage.removeChild(cmdListPersonage[i]);
-        }
-        cmdListPersonage = [];
-    }
-    
-    var index = 0;
-    for(var planet in userPlanets)
-    {
-        if(userPlanets[planet].status === USER_PLANET_QUEST_COMPLETE_SITH)
-        {
-            if(userPersonages[userPlanets[planet].redPersonage1].status === USER_PERSONAGE_AVAILABLE && userPersonages[userPlanets[planet].redPersonage1].command === false)
-            {
-                var graphics = new PIXI.Graphics(); 
-                graphics.lineStyle(2, 0xFF0000, 0.2);
-                graphics.beginFill(0xFF0000, 0.2);
-                graphics.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.endFill();
-                
-                var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].redPersonage1][3]); 
-                textureSprite.name = userPlanets[planet].redPersonage1;
-                textureSprite.index = index;
-                textureSprite.key = userPlanets[planet].redPersonage1;
-                textureSprite.position.x = 80 + (100 * index); 
-                textureSprite.position.y = 620; 
-                textureSprite.interactive = true; 
-                textureSprite.buttonMode = true;
-                textureSprite.tap = onCmdRedIconPersonageClick; 
-                textureSprite.click = onCmdRedIconPersonageClick; 
-                graphics.addChild(textureSprite);
-
-                var border = new PIXI.Graphics();
-                if(select === index)
-                {
-                    border.lineStyle(2, 0xFFFFFF, 0.3);
-                    cmdRedPersonageShow(userPlanets[planet].redPersonage1);
-                    cmdSelectPersonageID = userPlanets[planet].redPersonage1;
-                    cmdSelectPersonageIndex = index;
-                } else border.lineStyle(2, 0xFF0000, 0.2);
-                border.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.addChild(border);
-                cmdTapeStage.addChild(graphics);
-
-                cmdListPersonage.push(graphics);
-
-                index++;
-            }
-            if(userPersonages[userPlanets[planet].redPersonage2].status === USER_PERSONAGE_AVAILABLE && userPersonages[userPlanets[planet].redPersonage2].command === false)
-            {
-                var graphics = new PIXI.Graphics(); 
-                graphics.lineStyle(2, 0xFF0000, 0.2);
-                graphics.beginFill(0xFF0000, 0.2);
-                graphics.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.endFill();
-
-                var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].redPersonage2][3]); 
-                textureSprite.name = userPlanets[planet].redPersonage2;
-                textureSprite.index = index;
-                textureSprite.key = userPlanets[planet].redPersonage2;
-                textureSprite.position.x = 80 + (100 * index); 
-                textureSprite.position.y = 620; 
-                textureSprite.interactive = true; 
-                textureSprite.buttonMode = true;
-                textureSprite.tap = onCmdRedIconPersonageClick; 
-                textureSprite.click = onCmdRedIconPersonageClick; 
-                graphics.addChild(textureSprite);
-
-                var border = new PIXI.Graphics();
-                if(select === index)
-                {
-                    border.lineStyle(2, 0xFFFFFF, 0.3);
-                    cmdRedPersonageShow(userPlanets[planet].redPersonage2);
-                    cmdSelectPersonageID = userPlanets[planet].redPersonage2;
-                    cmdSelectPersonageIndex = index;
-                } else border.lineStyle(2, 0xFF0000, 0.2);
-                border.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.addChild(border);
-                cmdTapeStage.addChild(graphics);
-
-                cmdListPersonage.push(graphics);
-
-                index++;
-            }
-            if(userPersonages[userPlanets[planet].redPersonage3].status === USER_PERSONAGE_AVAILABLE && userPersonages[userPlanets[planet].redPersonage3].command === false)
-            {
-                var graphics = new PIXI.Graphics(); 
-                graphics.lineStyle(2, 0xFF0000, 0.2);
-                graphics.beginFill(0xFF0000, 0.2);
-                graphics.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.endFill();
-
-                var textureSprite = new PIXI.Sprite(heroesTextures[userPlanets[planet].redPersonage3][3]); 
-                textureSprite.name = userPlanets[planet].redPersonage3;
-                textureSprite.index = index;
-                textureSprite.key = userPlanets[planet].redPersonage3;
-                textureSprite.position.x = 80 + (100 * index); 
-                textureSprite.position.y = 620; 
-                textureSprite.interactive = true; 
-                textureSprite.buttonMode = true;
-                textureSprite.tap = onCmdRedIconPersonageClick; 
-                textureSprite.click = onCmdRedIconPersonageClick; 
-                graphics.addChild(textureSprite);
-
-                var border = new PIXI.Graphics();
-                if(select === index)
-                {
-                    border.lineStyle(2, 0xFFFFFF, 0.3);
-                    cmdRedPersonageShow(userPlanets[planet].redPersonage3);
-                    cmdSelectPersonageID = userPlanets[planet].redPersonage3;
-                    cmdSelectPersonageIndex = index;
-                } else border.lineStyle(2, 0xFF0000, 0.2);
-                border.drawRect(80 + (100 * index), 620, 75, 75);
-                graphics.addChild(border);
-                cmdTapeStage.addChild(graphics);
-
-                cmdListPersonage.push(graphics);
-
-                index++;
-            }
-        }
-    }
-    
-    cmdTapeButton();
-}
-
-function onCmdRedIconPersonageClick()
-{
-    cmdSelectPersonageID = this.name;
-    cmdSelectPersonageIndex = this.index;
-    cmdTapeRed(this.index);
-    cmdRedCommand(-1);
-}
-
-function cmdRemoveCommandPersonage()
-{
-    if(side === SIDE_JEDI)
-    {
-        userPersonages[cmdSelectPersonageID].command = false;
-        if(cmdSelectPersonageIndex === 0) userCommandUser["personage1"] = null;
-        if(cmdSelectPersonageIndex === 1) userCommandUser["personage2"] = null;
-        if(cmdSelectPersonageIndex === 2) userCommandUser["personage3"] = null;
-        cmdBlueCommand();
-        cmdTapeBlue();
-        
-    }
-    if(side === SIDE_SITH)
-    {
-        userPersonages[cmdSelectPersonageID].command = false;
-        if(cmdSelectPersonageIndex === 0) userCommandUser["personage1"] = null;
-        if(cmdSelectPersonageIndex === 1) userCommandUser["personage2"] = null;
-        if(cmdSelectPersonageIndex === 2) userCommandUser["personage3"] = null;
-        cmdRedCommand();
-        cmdTapeRed(); 
-    }
-}
-
-function cmdSelectCommandPersonage()
-{
-    userPersonages[cmdSelectPersonageID].command = true;
-    for(var key in userCommandUser)
-    {
-        if(userCommandUser[key] === null)
-        {
-            userCommandUser[key] = cmdSelectPersonageID;
-            break;
-        }
-    }
-    if(side === SIDE_JEDI)
-    {
-        cmdBlueCommand();
-        cmdTapeBlue();
-    }
-    if(side === SIDE_SITH)
-    {
-        
-        cmdRedCommand();
-        cmdTapeRed();
-    }
-}
-
-function cmdTapeButton()
-{
-    cmdStage.removeChild(cmdTapePanelButtonsStage);
-    
-    if(cmdListPersonage.length > 4)
-    {
-        var color;
-        if(side === SIDE_JEDI) color = 0x0000FF;
-        else color = 0xFF0000;
-        
-        cmdTapePanelButtonsStage = new PIXI.Container();
-        var tapeButtonGraphics = new PIXI.Graphics();
-        tapeButtonGraphics.name = "TapeLeft";
-        tapeButtonGraphics.lineStyle(2, color, 1);
-        tapeButtonGraphics.beginFill(color, 1);
-        tapeButtonGraphics.moveTo(40, 655);
-        tapeButtonGraphics.lineTo(65, 630);
-        tapeButtonGraphics.lineTo(65, 680);
-        tapeButtonGraphics.lineTo(40, 655);
-        tapeButtonGraphics.endFill();
-        tapeButtonGraphics.interactive = true; 
-        tapeButtonGraphics.buttonMode = true; 
-        tapeButtonGraphics.tap = onCmdTapeButtonClick; 
-        tapeButtonGraphics.click = onCmdTapeButtonClick;
-        cmdTapePanelButtonsStage.addChild(tapeButtonGraphics);
-
-        tapeButtonGraphics = new PIXI.Graphics();
-        tapeButtonGraphics.name = "TapeRight";
-        tapeButtonGraphics.lineStyle(2, color, 1);
-        tapeButtonGraphics.beginFill(color, 1);
-        tapeButtonGraphics.moveTo(535, 655);
-        tapeButtonGraphics.lineTo(510, 630);
-        tapeButtonGraphics.lineTo(510, 680);
-        tapeButtonGraphics.lineTo(535, 655);
-        tapeButtonGraphics.endFill();
-        tapeButtonGraphics.interactive = true; 
-        tapeButtonGraphics.buttonMode = true; 
-        tapeButtonGraphics.tap = onCmdTapeButtonClick; 
-        tapeButtonGraphics.click = onCmdTapeButtonClick;
-        cmdTapePanelButtonsStage.addChild(tapeButtonGraphics);
-        
-        cmdStage.addChild(cmdTapePanelButtonsStage);
-    }else{
-        cmdTapeStage.position.x = 0;
-    }
-}
-
-function onCmdTapeButtonClick()
-{
-    switch (this.name)
-    {
-        case "TapeLeft":
-            if(cmdTapeStage.position.x >= ((cmdTapeStage.width - 100) * -1)) cmdTapeStage.position.x -= 100;
-            break;
-        case "TapeRight":
-            if(cmdTapeStage.position.x <= -100) cmdTapeStage.position.x += 100;
-            break;
-        default:
-            break;
-    }
-}
-
-function cmdExperiencePointsButtons()
-{
-    if(userExperiencePoints > 0)
-    {
-        var color1, color2;
-        if(side === SIDE_JEDI)
-        {
-            color1 = 0x0000FF;
-            color2 = 0xFFFFFF;
-        }
-        if(side === SIDE_SITH)
-        {
-            color1 = 0xFF0000;
-            color2 = 0xFFFF00;
-        }
-        
-        for(var i = 0; i < 5; i++)
-        {
-            var graphics = new PIXI.Graphics();
-            graphics.name = "Add" + i;
-            graphics.lineStyle(1, color1, 1);
-            graphics.beginFill(color1, 0.5);
-            graphics.drawRect(525, 152 + (25 * i), 15, 15);
-            graphics.endFill();
-            graphics.lineStyle(1, color2, 1);
-            graphics.moveTo(532.5, 153 + (25 * i));
-            graphics.lineTo(532.5, 165 + (25 * i));
-            graphics.moveTo(526, 159 + (25 * i));
-            graphics.lineTo(538, 159 + (25 * i));
-            graphics.interactive = true; 
-            graphics.buttonMode = true; 
-            graphics.tap = onCmdButtonPlusClick; 
-            graphics.click = onCmdButtonPlusClick; 
-            
-            cmdDesktopStage.addChild(graphics);
-        }
-    }
-}
-
-function onCmdButtonPlusClick()
-{
-    switch (this.name)
-    {
-        case "Add0":
-            userPersonages[cmdSelectPersonageID].hitDefense1 += 1;
-            userExperiencePoints--;
-            cmdExperiencePointsText.text = "КОМАНДА. Очки опыта: " + userExperiencePoints;
-            if(side === SIDE_JEDI) cmdBluePersonageShow(cmdSelectPersonageID);
-            if(side === SIDE_SITH) cmdRedPersonageShow(cmdSelectPersonageID);
-            break;
-        case "Add1":
-            userPersonages[cmdSelectPersonageID].hitDefense2 += 1;
-            userExperiencePoints--;
-            cmdExperiencePointsText.text = "КОМАНДА. Очки опыта: " + userExperiencePoints;
-            if(side === SIDE_JEDI) cmdBluePersonageShow(cmdSelectPersonageID);
-            if(side === SIDE_SITH) cmdRedPersonageShow(cmdSelectPersonageID);
-            break;
-        case "Add2":
-            userPersonages[cmdSelectPersonageID].hitDefense3 += 1;
-            userExperiencePoints--;
-            cmdExperiencePointsText.text = "КОМАНДА. Очки опыта: " + userExperiencePoints;
-            if(side === SIDE_JEDI) cmdBluePersonageShow(cmdSelectPersonageID);
-            if(side === SIDE_SITH) cmdRedPersonageShow(cmdSelectPersonageID);
-            break;
-        case "Add3":
-            userPersonages[cmdSelectPersonageID].hitDefense4 += 1;
-            userExperiencePoints--;
-            cmdExperiencePointsText.text = "КОМАНДА. Очки опыта: " + userExperiencePoints;
-            if(side === SIDE_JEDI) cmdBluePersonageShow(cmdSelectPersonageID);
-            if(side === SIDE_SITH) cmdRedPersonageShow(cmdSelectPersonageID);
-            break;
-        case "Add4":
-            userPersonages[cmdSelectPersonageID].hitDefense5 += 1;
-            userExperiencePoints--;
-            cmdExperiencePointsText.text = "КОМАНДА. Очки опыта: " + userExperiencePoints;
-            if(side === SIDE_JEDI) cmdBluePersonageShow(cmdSelectPersonageID);
-            if(side === SIDE_SITH) cmdRedPersonageShow(cmdSelectPersonageID);
-            break;
-        default:
-            break;
-    }
-}
-
-/* == КОНЕЦ ФАЙЛА ========================================================== */
+			if(that.listPersonage.length > 4)
+			{
+				var color;
+				if(parent.config.side === that.SIDE_JEDI) color = 0x0000FF;
+				else color = 0xFF0000;
+				
+				that.tapePanelButtonsStage = new PIXI.Container();
+				var tapeButtonGraphics = new PIXI.Graphics();
+				tapeButtonGraphics.name = "TapeLeft";
+				tapeButtonGraphics.lineStyle(2, color, 1);
+				tapeButtonGraphics.beginFill(color, 1);
+				tapeButtonGraphics.moveTo(40, 655);
+				tapeButtonGraphics.lineTo(65, 630);
+				tapeButtonGraphics.lineTo(65, 680);
+				tapeButtonGraphics.lineTo(40, 655);
+				tapeButtonGraphics.endFill();
+				tapeButtonGraphics.interactive = true; 
+				tapeButtonGraphics.buttonMode = true; 
+				tapeButtonGraphics.tap = that.onTapeButtonClick; 
+				tapeButtonGraphics.click = that.onTapeButtonClick;
+				that.tapePanelButtonsStage.addChild(tapeButtonGraphics);
+
+				tapeButtonGraphics = new PIXI.Graphics();
+				tapeButtonGraphics.name = "TapeRight";
+				tapeButtonGraphics.lineStyle(2, color, 1);
+				tapeButtonGraphics.beginFill(color, 1);
+				tapeButtonGraphics.moveTo(535, 655);
+				tapeButtonGraphics.lineTo(510, 630);
+				tapeButtonGraphics.lineTo(510, 680);
+				tapeButtonGraphics.lineTo(535, 655);
+				tapeButtonGraphics.endFill();
+				tapeButtonGraphics.interactive = true; 
+				tapeButtonGraphics.buttonMode = true; 
+				tapeButtonGraphics.tap = that.onTapeButtonClick; 
+				tapeButtonGraphics.click = that.onTapeButtonClick;
+				that.tapePanelButtonsStage.addChild(tapeButtonGraphics);
+				
+				that.windowStage.addChild(that.tapePanelButtonsStage);
+			}else{
+				that.tapeStage.position.x = 0;
+			}
+		},
+		
+		onTapeButtonClick: function()
+		{
+			switch (this.name)
+			{
+				case "TapeLeft":
+					if(that.tapeStage.position.x >= ((that.tapeStage.width - 100) * -1)) that.tapeStage.position.x -= 100;
+					break;
+				case "TapeRight":
+					if(that.tapeStage.position.x <= -100) that.tapeStage.position.x += 100;
+					break;
+				default:
+					break;
+			}
+		},
+		
+		experiencePointsButtons: function()
+		{
+			if(parent.initialization.userExperiencePoints > 0)
+			{
+				var color1, color2;
+				if(parent.config.side === that.SIDE_JEDI)
+				{
+					color1 = 0x0000FF;
+					color2 = 0xFFFFFF;
+				}
+				if(parent.config.side === that.SIDE_SITH)
+				{
+					color1 = 0xFF0000;
+					color2 = 0xFFFF00;
+				}
+				
+				for(var i = 0; i < 5; i++)
+				{
+					var graphics = new PIXI.Graphics();
+					graphics.name = "Add" + i;
+					graphics.lineStyle(1, color1, 1);
+					graphics.beginFill(color1, 0.5);
+					graphics.drawRect(525, 155 + (25.5 * i), 15, 15);
+					graphics.endFill();
+					graphics.lineStyle(1, color2, 1);
+					graphics.moveTo(532.5, 156 + (25.5 * i));
+					graphics.lineTo(532.5, 168 + (25.5 * i));
+					graphics.moveTo(526, 162 + (25.5 * i));
+					graphics.lineTo(538, 162 + (25.5 * i));
+					graphics.interactive = true; 
+					graphics.buttonMode = true; 
+					graphics.tap = that.onButtonPlusClick; 
+					graphics.click = that.onButtonPlusClick; 
+					
+					that.desktopStage.addChild(graphics);
+				}
+			}
+		},
+		
+		onButtonPlusClick: function()
+		{
+			switch (this.name)
+			{
+				case "Add0":
+					parent.initialization.personages[that.selectPersonageID].hitDefense1 += 1;
+					parent.initialization.userExperiencePoints--;
+					that.experiencePointsText.text = "КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints;
+					if(parent.config.side === that.SIDE_JEDI) that.bluePersonageShow(that.selectPersonageID);
+					if(parent.config.side === that.SIDE_SITH) that.redPersonageShow(that.selectPersonageID);
+					break;
+				case "Add1":
+					parent.initialization.personages[that.selectPersonageID].hitDefense2 += 1;
+					parent.initialization.userExperiencePoints--;
+					that.experiencePointsText.text = "КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints;
+					if(parent.config.side === that.SIDE_JEDI) that.bluePersonageShow(that.selectPersonageID);
+					if(parent.config.side === that.SIDE_SITH) that.redPersonageShow(that.selectPersonageID);
+					break;
+				case "Add2":
+					parent.initialization.personages[that.selectPersonageID].hitDefense3 += 1;
+					parent.initialization.userExperiencePoints--;
+					that.experiencePointsText.text = "КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints;
+					if(parent.config.side === that.SIDE_JEDI) that.bluePersonageShow(that.selectPersonageID);
+					if(parent.config.side === that.SIDE_SITH) that.redPersonageShow(that.selectPersonageID);
+					break;
+				case "Add3":
+					parent.initialization.personages[that.selectPersonageID].hitDefense4 += 1;
+					parent.initialization.userExperiencePoints--;
+					that.experiencePointsText.text = "КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints;
+					if(parent.config.side === that.SIDE_JEDI) that.bluePersonageShow(that.selectPersonageID);
+					if(parent.config.side === that.SIDE_SITH) that.redPersonageShow(that.selectPersonageID);
+					break;
+				case "Add4":
+					parent.initialization.personages[that.selectPersonageID].hitDefense5 += 1;
+					parent.initialization.userExperiencePoints--;
+					that.experiencePointsText.text = "КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints;
+					if(parent.config.side === that.SIDE_JEDI) that.bluePersonageShow(that.selectPersonageID);
+					if(parent.config.side === that.SIDE_SITH) that.redPersonageShow(that.selectPersonageID);
+					break;
+				default:
+					break;
+			}
+		},
+		
+		tweenStart: function()
+		{
+			createjs.Tween.get(that.spaceBackground, {loop: true}) 
+				.to({rotation: -0.015}, 2500, createjs.Ease.getPowInOut(3))
+				.to({rotation: 0.015}, 2500, createjs.Ease.getPowInOut(3))
+				.to({rotation: 0.0}, 2500, createjs.Ease.getPowInOut(3));
+			
+			createjs.Tween.get(that.lineAnimPersonageDesktopGraphics, {loop: true}) 
+				.to({x: 0, y: 545}, 2500, createjs.Ease.getPowInOut(3));
+			
+			createjs.Tween.get(that.messageLineGraphics, {loop: true}) 
+				.to({x: 0, y: 138}, 2000, createjs.Ease.getPowInOut(3));
+			
+			createjs.Ticker.setFPS(60);
+		},
+		
+		tweenStop: function()
+		{
+			createjs.Tween.removeTweens(that.spaceBackground);
+			createjs.Tween.removeTweens(that.lineAnimPersonageDesktopGraphics);
+			createjs.Tween.removeTweens(that.messageLineGraphics);
+		},
+		
+		show: function()
+		{
+			that.tweenStart();
+			return that.windowStage;
+		},
+		
+		close: function()
+		{
+			that.tweenStop();
+			for(var child in that.desktopStage.children) that.desktopStage.removeChild(that.desktopStage.children[child]);
+			that.desktopStage.destroy();
+			delete that.desktopStage.children;
+			
+			for(var child in that.tapeStage.children) that.tapeStage.removeChild(that.tapeStage.children[child]);
+			that.tapeStage.destroy();
+			delete that.tapeStage.children;
+			
+			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
+			
+			return that.windowStage;
+		},
+		
+		getWindowStage: function()
+		{
+			return that.windowStage;
+		},
+		
+		destroy: function()
+		{
+			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
+			that.windowStage.destroy();
+			delete that.windowStage.children;
+			
+			for(var property in that) that[property] = null;
+		}
+		
+	};
+	return that;
+};
+
+/* == END FILE ========================================================== */

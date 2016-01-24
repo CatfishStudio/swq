@@ -1,31 +1,22 @@
 
-/* == НАЧАЛО ФАЙЛА ========================================================= */
+/* == START FILE ========================================================= */
 
-/*
-function soundload () 
+var Sound = function(parent)
 {
-    createjs.Sound.on("fileload", createjs.proxy(this.soundloadComplete, (this)));
-    createjs.Sound.registerSound("assets/music/StarWarsThemeSong.mp3", "StarWarsThemeSong");
-    console.log("SOUND LOAD!");
-}
+	var that = {
+		soundPlayStarWarsThemeSong: function()
+		{
+			if(parent.config.music === true) createjs.Sound.play("StarWarsThemeSong", {loop:-1});
+		},
+		
+		soundStopStarWarsThemeSong: function()
+		{
+			createjs.Sound.stop("StarWarsThemeSong");
+		}
+		
+	};
+	return that;
+};
 
-function soundloadComplete(event) 
-{
-     var instance = createjs.Sound.play("StarWarsThemeSong");  // play using id.  Could also use full source path or event.src.
-     //instance.on("complete", createjs.proxy(this.handleComplete, this));
-     //instance.volume = 0.5;
-     console.log("SOUND OK!");
- }
- */
 
-function soundPlayStarWarsThemeSong()
-{
-    if(music === true) createjs.Sound.play("StarWarsThemeSong", {loop:-1});
-}
-
-function soundStopStarWarsThemeSong()
-{
-    createjs.Sound.stop("StarWarsThemeSong");
-}
-
-/* == КОНЕЦ ФАЙЛА ========================================================== */
+/* == END FILE ========================================================== */

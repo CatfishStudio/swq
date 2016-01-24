@@ -1,40 +1,34 @@
 
-/* == НАЧАЛО ФАЙЛА ========================================================= */
+/* == START FILE ========================================================= */
 
-var renderer;
-var stage;
-var stats;
+var renderer = null;
+var stage = null;
 
-function init()
+function onInit()
 {
-    stats = new Stats();
-    stats.setMode( 1 );
-    document.body.appendChild( stats.domElement );
-        
-    renderer = PIXI.autoDetectRenderer(MAIN_WIDTH, MAIN_HEIGH,{backgroundColor : MAIN_BACKGROUND_COLOR, antialias : true});
+	renderer = PIXI.autoDetectRenderer(860, 730,{backgroundColor : 0xFFFFFF, antialias : true});
     document.body.appendChild(renderer.view);
     stage = new PIXI.Container();
 
     draw();
-
-    preloaderCreate();		// Запускаем загрузку ассетов
-    
-    /* Инициализация ВКонтакте */
-    VK.init(function() {
-        apiId: 5170657;
-    });
+	
+	var game = Game(stage);
+	game.loadAssets();
+	
+	/* Инициализация ВКонтакте */
+	/*
+	VK.init(function() {
+            apiId: 5170657;
+        });
+	*/
 }
 
 function draw() 
 {
-    stats.begin();
-    
     requestAnimationFrame(draw);
     renderer.render(stage);
-    
-    stats.end();
 }
 
-window.addEventListener("load", init, false);
+window.addEventListener("load", onInit, false);
 
-/* == КОНЕЦ ФАЙЛА ========================================================== */
+/* == END FILE ========================================================== */

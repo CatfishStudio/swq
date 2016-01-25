@@ -30,7 +30,7 @@ var Settings = function(parent)
 			graphics.hitArea = new PIXI.Rectangle(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
 			graphics.interactive = true;
 			graphics.lineStyle(1, 0x000000, 0.05);
-			graphics.beginFill(0x000000, 0.05);
+			graphics.beginFill(0x000000, 0.5);
 			graphics.drawRect(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
 			graphics.endFill();
 			that.windowStage.addChild(graphics);
@@ -331,12 +331,14 @@ var Settings = function(parent)
 		
 		show: function()
 		{
-			that.tweenStart();
+                        if(parent.level !== null) parent.timer.timerPauseBegin();
+                        that.tweenStart();
 			return that.windowStage;
 		},
 		
 		close: function()
 		{
+                        if(parent.level !== null)parent.timer.timerPauseEnd();
 			that.tweenStop();
 			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
 			return that.windowStage;

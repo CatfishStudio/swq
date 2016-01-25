@@ -66,6 +66,9 @@ var Level = function(parent)
 		
 		levelCreate: function(planetID, intercept)
 		{
+                        parent.initialization.userlTotalPointsPlayerLevel = 0;
+                        parent.initialization.userTotalBattle++;
+                        
 			that.levelStage = new PIXI.Container();
 			
 			that.levelIntercept = intercept;
@@ -947,10 +950,10 @@ var Level = function(parent)
 			switch (this.name)
 			{
 				case "EndBattle":
-					parent.timer.timerStop();
+					parent.victoryShow(that.levelPlanetID, that.levelIntercept);
 					break;
 				case "Settings":
-					
+					parent.settingsShow();
 					break;
 				case "BackMenu":
 					
@@ -977,6 +980,7 @@ var Level = function(parent)
 			{
 				if(hitType === parent.match.MATCH_HIT_1)
 				{
+                                        parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit1 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit1 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
 					if(that.levelAILife < 0) that.levelAILife = 0;
@@ -984,6 +988,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_2)
 				{
+                                        parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit2 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit2 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
 					if(that.levelAILife < 0) that.levelAILife = 0;
@@ -991,6 +996,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_3)
 				{
+                                        parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit3 * hitCount) * 10;
 					that.levelCommandUser[that.levelIndexUser].life += (that.levelUserHit3 * hitCount);
 					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
 					if(that.levelAILife < 0) that.levelAILife = 0;
@@ -998,6 +1004,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_4)
 				{
+                                        parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit4 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit4 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
 					if(that.levelAILife < 0) that.levelAILife = 0;
@@ -1005,6 +1012,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_5)
 				{
+                                        parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit5 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit5 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
 					if(that.levelAILife < 0) that.levelAILife = 0;

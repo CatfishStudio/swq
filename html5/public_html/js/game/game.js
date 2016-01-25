@@ -18,6 +18,8 @@ var Game = function(mainStage)
 		command: null,
 		startbattle: null,
 		level: null,
+                victory: null,
+                lost: null,
 		
 		vkInvite: function()
 		{
@@ -211,7 +213,21 @@ var Game = function(mainStage)
 			mainStage.removeChild(that.level.close());
 			that.level.destroy();
 			that.level = null;
-		}
+		},
+                
+                victoryShow: function(planetID, intercept)
+                {
+                        that.victory = Victory(that);
+			that.victory.create(planetID, intercept);
+			mainStage.addChild(that.victory.show());
+                },
+                
+                victoryClose: function()
+                {
+                        mainStage.removeChild(that.victory.close());
+			that.victory.destroy();
+			that.victory = null;
+                }
 		
 	};
 	return that;

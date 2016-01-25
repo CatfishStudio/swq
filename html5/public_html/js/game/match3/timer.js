@@ -139,6 +139,7 @@ var Timer = function(parent)
 		
 		destroy: function()
 		{
+                        that.timerStop();
 			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
 			that.windowStage.destroy();
 			delete that.windowStage.children;

@@ -164,6 +164,18 @@ var Victory = function(parent)
             }
         },
         
+        powerPersonage: function(personageID)
+        {
+            var hitCount = 0;
+            hitCount += parent.initialization.personages[personageID].hitDefense1 
+                + parent.initialization.personages[personageID].hitDefense2 
+                + parent.initialization.personages[personageID].hitDefense3 
+                + parent.initialization.personages[personageID].hitDefense4
+                + parent.initialization.personages[personageID].hitDefense5;
+            hitCount /= 10;
+            return hitCount;
+        },
+        
         contentCreate: function()
         {
             if(parent.config.side === that.SIDE_JEDI)
@@ -180,9 +192,9 @@ var Victory = function(parent)
                 graphics.endFill();
                 that.windowStage.addChild(graphics);
                 
-                var text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage1][0], that.styleBlueText2); 
+                var text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage1][0] + "  [Сила: " + that.powerPersonage(parent.initialization.planets[that.planetID].blueRewardPersonage1) + "]", that.styleBlueText2); 
                 text.x = 440;
-                text.y = 305;
+                text.y = 300;
                 that.windowStage.addChild(text);
 
                 var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
@@ -216,9 +228,9 @@ var Victory = function(parent)
                 graphics.endFill();
                 that.windowStage.addChild(graphics);
                 
-                var text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage2][0], that.styleBlueText2); 
+                var text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage2][0] + "  [Сила: " + that.powerPersonage(parent.initialization.planets[that.planetID].blueRewardPersonage2) + "]", that.styleBlueText2); 
                 text.x = 440;
-                text.y = 390;
+                text.y = 385;
                 that.windowStage.addChild(text);
                 
                 var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
@@ -252,9 +264,9 @@ var Victory = function(parent)
                 graphics.endFill();
                 that.windowStage.addChild(graphics);
                 
-                var text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage3][0], that.styleBlueText2); 
+                var text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage3][0] + "  [Сила: " + that.powerPersonage(parent.initialization.planets[that.planetID].blueRewardPersonage3) + "]", that.styleBlueText2); 
                 text.x = 440;
-                text.y = 475;
+                text.y = 470;
                 that.windowStage.addChild(text);
                 
                 var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 

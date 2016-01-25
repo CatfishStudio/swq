@@ -8,6 +8,8 @@ var Victory = function(parent)
         lineAnimationGraphics: null,
         styleBlueText: { font : 'bold 18px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340, align: "center"},
         styleRedText: { font : 'bold 18px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340, align: "center"}, 
+        styleBlueText2: { font : 'bold 12px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200, align: "center"},
+        styleRedText2: { font : 'bold 12px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200, align: "center"}, 
         buttonStyleBlueText: { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 },
         buttonStyleRedText: { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }, 
 
@@ -166,42 +168,143 @@ var Victory = function(parent)
         {
             if(parent.config.side === that.SIDE_JEDI)
             {
-                var textureSprite; 
-                textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage1][3]);
+                var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage1][3]);
                 textureSprite.position.x = 357;
                 textureSprite.position.y = 300;
                 that.windowStage.addChild(textureSprite);
                 
-                var graphics = new PIXI.Graphics(); 
+                var graphics = new PIXI.Graphics();
                 graphics.lineStyle(1, 0x0000FF, 1);
-                graphics.beginFill(0x00000F, 0.5);
+                graphics.beginFill(0x00000F, 0.15);
                 graphics.drawRoundedRect(355, 300, 280, 75, 5);
                 graphics.endFill();
                 that.windowStage.addChild(graphics);
                 
-                textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage2][3]);
+                var text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage1][0], that.styleBlueText2); 
+                text.x = 440;
+                text.y = 305;
+                that.windowStage.addChild(text);
+
+                var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
+                button.name = parent.initialization.planets[that.planetID].blueRewardPersonage1;
+                button.position.x = 435; 
+                button.position.y = 325; 
+                button.interactive = true; 
+                button.buttonMode = true; 
+                button.loop = false; 
+                button.animationSpeed = 0.2;
+                button.onComplete = that.onButtonUpdate;
+                button.tap = that.onButtonClick; 
+                button.click = that.onButtonClick; 
+                button.on('mouseover', that.onButtonOver);
+                button.on('mouseout', that.onButtonOut);
+                var text = new PIXI.Text("Выбрать", that.styleBlueText); 
+                text.x = (button.width / 2) - (text.width / 2);
+                text.y = button.height / 3.2;
+                button.addChild(text); 
+                that.windowStage.addChild(button);
+                
+                var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage2][3]);
                 textureSprite.position.x = 357;
                 textureSprite.position.y = 385;
                 that.windowStage.addChild(textureSprite);
                 
+                var graphics = new PIXI.Graphics(); 
                 graphics.lineStyle(1, 0x0000FF, 1);
-                graphics.beginFill(0x00000F, 0.5);
+                graphics.beginFill(0x00000F, 0.15);
                 graphics.drawRoundedRect(355, 385, 280, 75, 5);
                 graphics.endFill();
                 that.windowStage.addChild(graphics);
                 
-                textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage3][3]);
+                var text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage2][0], that.styleBlueText2); 
+                text.x = 440;
+                text.y = 390;
+                that.windowStage.addChild(text);
+                
+                var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
+                button.name = parent.initialization.planets[that.planetID].blueRewardPersonage2;
+                button.position.x = 435; 
+                button.position.y = 410; 
+                button.interactive = true; 
+                button.buttonMode = true; 
+                button.loop = false; 
+                button.animationSpeed = 0.2;
+                button.onComplete = that.onButtonUpdate;
+                button.tap = that.onButtonClick; 
+                button.click = that.onButtonClick; 
+                button.on('mouseover', that.onButtonOver);
+                button.on('mouseout', that.onButtonOut);
+                var text = new PIXI.Text("Выбрать", that.styleBlueText); 
+                text.x = (button.width / 2) - (text.width / 2);
+                text.y = button.height / 3.2;
+                button.addChild(text); 
+                that.windowStage.addChild(button);
+                
+                var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage3][3]);
                 textureSprite.position.x = 357;
                 textureSprite.position.y = 470;
                 that.windowStage.addChild(textureSprite);
                 
+                var graphics = new PIXI.Graphics(); 
                 graphics.lineStyle(1, 0x0000FF, 1);
-                graphics.beginFill(0x00000F, 0.5);
+                graphics.beginFill(0x00000F, 0.15);
                 graphics.drawRoundedRect(355, 470, 280, 75, 5);
                 graphics.endFill();
                 that.windowStage.addChild(graphics);
+                
+                var text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage3][0], that.styleBlueText2); 
+                text.x = 440;
+                text.y = 475;
+                that.windowStage.addChild(text);
+                
+                var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
+                button.name = parent.initialization.planets[that.planetID].blueRewardPersonage3;
+                button.position.x = 435; 
+                button.position.y = 495; 
+                button.interactive = true; 
+                button.buttonMode = true; 
+                button.loop = false; 
+                button.animationSpeed = 0.2;
+                button.onComplete = that.onButtonUpdate;
+                button.tap = that.onButtonClick; 
+                button.click = that.onButtonClick; 
+                button.on('mouseover', that.onButtonOver);
+                button.on('mouseout', that.onButtonOut);
+                var text = new PIXI.Text("Выбрать", that.styleBlueText); 
+                text.x = (button.width / 2) - (text.width / 2);
+                text.y = button.height / 3.2;
+                button.addChild(text); 
+                that.windowStage.addChild(button);
+                
             }
             
+        },
+        
+        onButtonOver: function(event)
+        {
+                this.isOver = true;
+                this.gotoAndPlay(1);
+        },
+
+        onButtonOut: function(event)
+        {
+                this.isOver = false;
+                this.gotoAndStop(0);
+        },
+
+        onButtonUpdate: function(event)
+        {
+                if(this.isOver)
+                {
+                        this.gotoAndPlay(1);
+                }else{
+                        this.gotoAndStop(0);
+                }
+        },
+
+        onButtonClick: function(event)
+        {
+                
         },
         
         buttonCloseCreate: function()
@@ -276,13 +379,6 @@ var Victory = function(parent)
         {
                 parent.victoryClose();
         },
-        
-        
-        
-        
-        
-        
-        
         
         tweenStart: function()
         {

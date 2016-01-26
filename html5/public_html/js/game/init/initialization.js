@@ -514,10 +514,10 @@ var Initialization = function(planetTextures, heroesTextures, personagesJson, pl
 			that.mapPlanets["Bespin"][10].position.x = 180; 
 			that.mapPlanets["Bespin"][10].position.y = 125;
 			that.mapPlanets["Bespin"][10].scale.set(0.18);
-			that.mapPlanets["Bespin"][11].position.x = 45; 
-			that.mapPlanets["Bespin"][11].position.y = 150; 
-			that.mapPlanets["Bespin"][12].position.x = 45; 
-			that.mapPlanets["Bespin"][12].position.y = 150;
+			that.mapPlanets["Bespin"][11].position.x = 75; 
+			that.mapPlanets["Bespin"][11].position.y = 120; 
+			that.mapPlanets["Bespin"][12].position.x = 75; 
+			that.mapPlanets["Bespin"][12].position.y = 120;
 			
 			that.mapPlanets["Geonosis"] = [
 				"Geonosis",

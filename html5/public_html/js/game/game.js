@@ -52,7 +52,7 @@ var Game = function(mainStage)
 		{
 			mainStage.removeChild(that.menu.close());
 			that.menu.destroy();
-			that.menu = null;
+			that.menu = that.settings = null;
 			that.sideShow();
 		},
 		
@@ -82,7 +82,7 @@ var Game = function(mainStage)
 			that.initializationGame();
 			mainStage.removeChild(that.side.close());
 			that.side.destroy();
-			that.side = null;
+                        that.side = that.menu = that.settings = null;
 			that.mapShow();
 		},
 		
@@ -210,7 +210,9 @@ var Game = function(mainStage)
 		
 		levelClose: function()
 		{
-			mainStage.removeChild(that.level.close());
+			that.timerClose();
+                        that.matchClose();
+                        mainStage.removeChild(that.level.close());
 			that.level.destroy();
 			that.level = null;
 		},
@@ -227,6 +229,8 @@ var Game = function(mainStage)
                         mainStage.removeChild(that.victory.close());
 			that.victory.destroy();
 			that.victory = null;
+                        that.levelClose();
+                        that.mapShow();
                 }
 		
 	};

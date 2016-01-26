@@ -287,36 +287,45 @@ var Victory = function(parent)
                 text.y = button.height / 3.2;
                 button.addChild(text); 
                 that.windowStage.addChild(button);
-                
             }
             
         },
         
         onButtonOver: function(event)
         {
-                this.isOver = true;
-                this.gotoAndPlay(1);
+            this.isOver = true;
+            this.gotoAndPlay(1);
         },
 
         onButtonOut: function(event)
         {
-                this.isOver = false;
-                this.gotoAndStop(0);
+            this.isOver = false;
+            this.gotoAndStop(0);
         },
 
         onButtonUpdate: function(event)
         {
-                if(this.isOver)
-                {
-                        this.gotoAndPlay(1);
-                }else{
-                        this.gotoAndStop(0);
-                }
+            if(this.isOver)
+            {
+                    this.gotoAndPlay(1);
+            }else{
+                    this.gotoAndStop(0);
+            }
         },
 
         onButtonClick: function(event)
         {
-                
+            if(parent.config.side === that.SIDE_JEDI)
+            {
+                parent.initialization.planets[that.planetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI;
+                parent.initialization.personages[this.name].status = parent.initialization.USER_PERSONAGE_AVAILABLE;
+            }
+            if(parent.config.side === that.SIDE_SITH)
+            {
+                parent.initialization.planets[that.planetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH;
+                parent.initialization.personages[this.name].status = parent.initialization.USER_PERSONAGE_AVAILABLE;
+            }
+            parent.victoryClose();
         },
         
         buttonCloseCreate: function()
@@ -407,6 +416,7 @@ var Victory = function(parent)
 
         show: function()
         {
+                if(parent.level !== null) parent.timer.timerPauseBegin();
                 that.tweenStart();
                 return that.windowStage;
         },

@@ -65,7 +65,6 @@ var Command = function(parent)
 			that.spaceBackground.position.x = -82; 
 			that.spaceBackground.position.y = -19; 
 			that.windowStage.addChild(that.spaceBackground);
-			//cmdAnimSpaceTween();
 		},
 		
 		borderBlue: function()
@@ -209,7 +208,6 @@ var Command = function(parent)
 			that.messageLineGraphics.moveTo(560, 380);
 			that.messageLineGraphics.lineTo(840, 380);
 			that.windowStage.addChild(that.messageLineGraphics);
-			//cmdMessageLineGraphicsTween();
 			
 			that.textMessage = new PIXI.Text("Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", that.styleDroidBlueText); 
 			that.textMessage.x = 565; 
@@ -223,7 +221,6 @@ var Command = function(parent)
 			that.spaceBackground.position.x = -82; 
 			that.spaceBackground.position.y = -19; 
 			that.windowStage.addChild(that.spaceBackground);
-			//cmdAnimSpaceTween();
 		},
 		
 		borderRed: function()
@@ -367,7 +364,6 @@ var Command = function(parent)
 			that.messageLineGraphics.moveTo(560, 380);
 			that.messageLineGraphics.lineTo(840, 380);
 			that.windowStage.addChild(that.messageLineGraphics);
-			//cmdMessageLineGraphicsTween();
 			
 			that.textMessage = new PIXI.Text("Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", that.styleDroidRedText); 
 			that.textMessage.x = 565; 
@@ -488,7 +484,6 @@ var Command = function(parent)
 				that.lineAnimPersonageDesktopGraphics.moveTo(25, 25);
 				that.lineAnimPersonageDesktopGraphics.lineTo(550, 25);
 				that.desktopStage.addChild(that.lineAnimPersonageDesktopGraphics);
-				//cmdLineAnimPersonageDesktopGraphicsTween();
 				
 				var text = new PIXI.Text(parent.initialization.personages[id].name, that.styleButtonBlueText); 
 				text.x = 50; text.y = 30;
@@ -1353,10 +1348,10 @@ var Command = function(parent)
 			switch (this.name)
 			{
 				case "TapeLeft":
-					if(that.tapeStage.position.x >= ((that.tapeStage.width - 100) * -1)) that.tapeStage.position.x -= 100;
+					if(that.tapeStage.position.x <= -100) that.tapeStage.position.x += 100;
 					break;
 				case "TapeRight":
-					if(that.tapeStage.position.x <= -100) that.tapeStage.position.x += 100;
+                                        if(that.tapeStage.position.x >= ((that.tapeStage.width - 100) * -1)) that.tapeStage.position.x -= 100;
 					break;
 				default:
 					break;

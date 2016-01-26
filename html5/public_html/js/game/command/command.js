@@ -1274,26 +1274,26 @@ var Command = function(parent)
 		
 		selectCommandPersonage: function()
 		{
-			parent.initialization.personages[that.selectPersonageID].command = true;
-			for(var key in parent.initialization.commandUser)
-			{
-				if(parent.initialization.commandUser[key] === null)
-				{
-					parent.initialization.commandUser[key] = that.selectPersonageID;
-					break;
-				}
-			}
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				that.blueCommand();
-				that.tapeBlue();
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				
-				that.redCommand();
-				that.tapeRed();
-			}
+                    for(var key in parent.initialization.commandUser)
+                    {
+                            if(parent.initialization.commandUser[key] === null)
+                            {
+                                    parent.initialization.commandUser[key] = that.selectPersonageID;
+                                    parent.initialization.personages[that.selectPersonageID].command = true;
+                                    break;
+                            }
+                    }
+                    if(parent.config.side === that.SIDE_JEDI)
+                    {
+                            that.blueCommand();
+                            that.tapeBlue();
+                    }
+                    if(parent.config.side === that.SIDE_SITH)
+                    {
+
+                            that.redCommand();
+                            that.tapeRed();
+                    }
 		},
 		
 		tapeButton: function()

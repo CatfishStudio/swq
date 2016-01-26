@@ -65,7 +65,7 @@ var StartBattle = function(parent)
 				textureSprite.scale.set(0.5);
 				that.windowStage.addChild(textureSprite);
 				
-				if(that.userPlanetID !== that.aiPlanetID)
+				if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true)
 				{
 					textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].redPersonage1][2]);
 				} else {
@@ -117,7 +117,7 @@ var StartBattle = function(parent)
 				textureSprite.scale.set(0.5);
 				that.windowStage.addChild(textureSprite);
 				
-				if(that.userPlanetID !== that.aiPlanetID)
+				if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true)
 				{
 					textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].bluePersonage1][2]);
 				} else {
@@ -191,7 +191,7 @@ var StartBattle = function(parent)
 			var hitCountAI = 0;
 			if(parent.config.side === that.SIDE_JEDI)
 			{
-				if(that.userPlanetID !== that.aiPlanetID)
+				if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true)
 				{
 					if(parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage1] != undefined)
 					{
@@ -246,7 +246,7 @@ var StartBattle = function(parent)
 			}
 			if(parent.config.side === that.SIDE_SITH)
 			{
-				if(that.userPlanetID !== that.aiPlanetID)
+				if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true)
 				{
 					if(parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage1] != undefined)
 					{
@@ -327,7 +327,7 @@ var StartBattle = function(parent)
 			
 			if(parent.config.side === that.SIDE_JEDI)
 			{
-				if(that.userPlanetID !== that.aiPlanetID)
+				if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true)
 				{
 					if(parent.initialization.commandUser["personage1"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage1"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].redPersonage1][0], that.styleBlueText); 
 					else{
@@ -344,7 +344,7 @@ var StartBattle = function(parent)
 			}
 			if(parent.config.side === that.SIDE_SITH)
 			{
-				if(that.userPlanetID !== that.aiPlanetID)
+				if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true)
 				{
 					if(parent.initialization.commandUser["personage1"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage1"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].bluePersonage1][0], that.styleRedText); 
 					else{
@@ -481,7 +481,7 @@ var StartBattle = function(parent)
 				case "yes":
 					//if(sbattleUserPlanetID !== sbattleAIPlanetID) levelCreate(sbattleUserPlanetID, false);
 					//else levelCreate(sbattleUserPlanetID, true);
-					if(that.userPlanetID !== that.aiPlanetID) parent.levelShow(that.userPlanetID, false);
+					if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true) parent.levelShow(that.userPlanetID, false);
 					else parent.levelShow(that.userPlanetID, true);
 					break;
 				case "no":

@@ -242,7 +242,7 @@ var Map = function(parent)
 			}else{
 				if(parent.config.side === that.SIDE_JEDI)
 				{
-					if(parent.initialization.planets[this.name].status !== parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI)
+					if(parent.initialization.planets[this.name].status !== parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI || this.name === that.targetAI)
 					{
 						that.mapSprite.move = false;
 						parent.startbattleShow(this.name, that.targetAI);
@@ -250,7 +250,7 @@ var Map = function(parent)
 				}
 				if(parent.config.side === that.SIDE_SITH)
 				{
-					if(parent.initialization.planets[this.name].status !== parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH)
+					if(parent.initialization.planets[this.name].status !== parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH || this.name === that.targetAI)
 					{
 						that.mapSprite.move = false;
 						parent.startbattleShow(this.name, that.targetAI);
@@ -887,21 +887,35 @@ var Map = function(parent)
 
 			if(parent.config.side === that.SIDE_JEDI)
 			{
-				that.blueTargetsShow(target["planetUser"]);
-				that.redTargetsShow(target["planetAI"]);
-				that.targetAI = target["planetAI"];
-				if(parent.initialization.userTotalBattle === 0) parent.initialization.mapMessage["LastNews"][0] = "Меня зовут R2D2, рад вас приветствовать.\n\nКорусант является основной целью Ситов." + " В данное время Дарт Вейдер напали на " + parent.initialization.planets[target["planetAI"]].name + " вы можите попытаться помешать ему. \n\nИли выполните миссию " + parent.initialization.planets[target["planetUser"]].name + " и получите нового союзника.";
-				else parent.initialization.mapMessage["LastNews"][0] = "На планете " + parent.initialization.planets[target["planetUser"]].name + " нуждаются в нашей помощи. Выполните миссию "  + parent.initialization.planets[target["planetUser"]].name + " и вам будет доступен новый союзник. \n\nТак же мы получаем сигнал с планеты " + parent.initialization.planets[target["planetAI"]].name + " о вторжении Дарт Вейдера. Вы можите предпринять попытку отбить нападение на " + parent.initialization.planets[target["planetAI"]].name + ".";
-				that.textMessage.text = parent.initialization.mapMessage["LastNews"][0];
+                            that.blueTargetsShow(target["planetUser"]);
+                            if(parent.config.stopAI === false) that.redTargetsShow(target["planetAI"]);
+                            that.targetAI = target["planetAI"];
+
+                            if(parent.initialization.userTotalBattle === 0)
+                            {
+                                parent.initialization.mapMessage["LastNews"][0] = "Меня зовут R2D2, рад вас приветствовать.\n\nКорусант является основной целью Ситов." + " В данное время Дарт Вейдер напали на " + parent.initialization.planets[target["planetAI"]].name + " вы можите попытаться помешать ему. \n\nИли выполните миссию " + parent.initialization.planets[target["planetUser"]].name + " и получите нового союзника.";
+                            }else{
+                                if(parent.config.stopAI === false) parent.initialization.mapMessage["LastNews"][0] = "На планете " + parent.initialization.planets[target["planetUser"]].name + " нуждаются в нашей помощи. Выполните миссию "  + parent.initialization.planets[target["planetUser"]].name + " и вам будет доступен новый союзник. \n\nТак же мы получаем сигнал с планеты " + parent.initialization.planets[target["planetAI"]].name + " о вторжении Дарт Вейдера. Вы можите предпринять попытку отбить нападение на " + parent.initialization.planets[target["planetAI"]].name + ".";
+                                else parent.initialization.mapMessage["LastNews"][0] = "На планете " + parent.initialization.planets[target["planetUser"]].name + " нуждаются в нашей помощи. Выполните миссию "  + parent.initialization.planets[target["planetUser"]].name + " и вам будет доступен новый союзник. \n\nПоражение Дарт Вейдера в прошлой битве даёт вам преимущество в один ход.";
+                            }
+
+                            that.textMessage.text = parent.initialization.mapMessage["LastNews"][0];
 			}
 			if(parent.config.side === that.SIDE_SITH)
 			{
-				that.blueTargetsShow(target["planetAI"]);
-				that.redTargetsShow(target["planetUser"]);
-				that.targetAI = target["planetAI"];
-				if(parent.initialization.userTotalBattle === 0) parent.initialization.mapMessage["LastNews"][1] = "Меня зовут R3-S6, приветствую тебя мой повелитель. \n\nДжедаи хотят разрушить Звезду смерти и помешать нашим планам." + " Они направелись на " + parent.initialization.planets[target["planetAI"]].name + " можем помешать им. \n\nИли напасть на " + parent.initialization.planets[target["planetUser"]].name + " и получите нового союзника.";
-				else parent.initialization.mapMessage["LastNews"][1] = "Оборона планеты " + parent.initialization.planets[target["planetUser"]].name + " слаба мы с лёгкостью захватим её и вам будет доступен новый союзник. \n\nТак же наш шпион докладывает что Джедаи направились на " + parent.initialization.planets[target["planetAI"]].name + " можем помешать им.";
-				that.textMessage.text = parent.initialization.mapMessage["LastNews"][1];
+                            if(parent.config.stopAI === false) that.blueTargetsShow(target["planetAI"]);
+                            that.redTargetsShow(target["planetUser"]);
+                            that.targetAI = target["planetAI"];
+
+                            if(parent.initialization.userTotalBattle === 0)
+                            {
+                                parent.initialization.mapMessage["LastNews"][1] = "Меня зовут R3-S6, приветствую тебя мой повелитель. \n\nДжедаи хотят разрушить Звезду смерти и помешать нашим планам." + " Они направелись на " + parent.initialization.planets[target["planetAI"]].name + " можем помешать им. \n\nИли напасть на " + parent.initialization.planets[target["planetUser"]].name + " и получите нового союзника.";
+                            }else{
+                                if(parent.config.stopAI === false) parent.initialization.mapMessage["LastNews"][1] = "Оборона планеты " + parent.initialization.planets[target["planetUser"]].name + " слаба мы с лёгкостью захватим её и вам будет доступен новый союзник. \n\nТак же наш шпион докладывает что Джедаи направились на " + parent.initialization.planets[target["planetAI"]].name + " можем помешать им.";
+                                else parent.initialization.mapMessage["LastNews"][1] = "Оборона планеты " + parent.initialization.planets[target["planetUser"]].name + " слаба мы с лёгкостью захватим её и вам будет доступен новый союзник. \n\nПосле нашей победы над  Люком Скайуокером, Джедаи отступили и у нас есть преимущество в один ход.";
+                            }
+
+                            that.textMessage.text = parent.initialization.mapMessage["LastNews"][1];
 			}
 		},
 	

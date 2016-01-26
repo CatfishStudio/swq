@@ -4,7 +4,7 @@
 var Game = function(mainStage)
 {
 	var that = {
-		config: {music:false, sound:true, language:"rus", side: "side_none", MAIN_WIDTH:860, MAIN_HEIGH:730},
+		config: {music:false, sound:true, language:"rus", side: "side_none", MAIN_WIDTH:860, MAIN_HEIGH:730, stopAI: false},
 		sound: null,
 		timer: null,
 		match: null,

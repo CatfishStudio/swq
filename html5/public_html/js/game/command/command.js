@@ -442,10 +442,12 @@ var Command = function(parent)
 		
 		onBlueIconCommandClick: function()
 		{
+                        that.tweenLineStop();
 			that.selectPersonageID = this.name;
 			that.selectPersonageIndex = this.index;
 			that.blueCommand(this.index);
 			that.tapeBlue(-1);
+                        that.tweenLineStart();
 		},
 		
 		bluePersonageShow: function(id)
@@ -699,10 +701,12 @@ var Command = function(parent)
 		
 		onRedIconCommandClick: function()
 		{
+                        that.tweenLineStop();
 			that.selectPersonageID = this.name;
 			that.selectPersonageIndex = this.index;
 			that.redCommand(this.index);
 			that.tapeRed(-1);
+                        that.tweenLineStart();
 		},
 		
 		redPersonageShow: function(id)
@@ -918,11 +922,11 @@ var Command = function(parent)
 					parent.commandClose();
 					break;
 				case "Select":
-					that.selectCommandPersonage();
-					break;
+                                        that.selectCommandPersonage();
+                                        break;
 				case "Remove":
-					that.removeCommandPersonage();
-					break;    
+                                        that.removeCommandPersonage();
+                                        break;    
 				default:
 					break;
 			}
@@ -1096,10 +1100,12 @@ var Command = function(parent)
 		
 		onBlueIconPersonageClick: function()
 		{
+                        that.tweenLineStop();
 			that.selectPersonageID = this.name;
 			that.selectPersonageIndex = this.index;
 			that.tapeBlue(this.index);
 			that.blueCommand(-1);
+                        that.tweenLineStart();
 		},
 		
 		tapeRed: function(select)
@@ -1243,14 +1249,17 @@ var Command = function(parent)
 		
 		onRedIconPersonageClick: function()
 		{
+                        that.tweenLineStop();
 			that.selectPersonageID = this.name;
 			that.selectPersonageIndex = this.index;
 			that.tapeRed(this.index);
 			that.redCommand(-1);
+                        that.tweenLineStart();
 		},
 		
 		removeCommandPersonage: function()
 		{
+                        that.tweenLineStop();
 			if(parent.config.side === that.SIDE_JEDI)
 			{
 				parent.initialization.personages[that.selectPersonageID].command = false;
@@ -1270,10 +1279,12 @@ var Command = function(parent)
 				that.redCommand();
 				that.tapeRed(); 
 			}
+                        that.tweenLineStart();
 		},
 		
 		selectCommandPersonage: function()
 		{
+                    that.tweenLineStop();
                     for(var key in parent.initialization.commandUser)
                     {
                             if(parent.initialization.commandUser[key] === null)
@@ -1290,10 +1301,10 @@ var Command = function(parent)
                     }
                     if(parent.config.side === that.SIDE_SITH)
                     {
-
                             that.redCommand();
                             that.tapeRed();
-                    }
+                     }
+                    that.tweenLineStart();
 		},
 		
 		tapeButton: function()
@@ -1440,21 +1451,32 @@ var Command = function(parent)
 					break;
 			}
 		},
+                
+                tweenLineStart: function()
+                {
+                    createjs.Tween.get(that.lineAnimPersonageDesktopGraphics, {loop: true}) 
+                        .to({x: 0, y: 545}, 2500, createjs.Ease.getPowInOut(3));
+                },
+                
+                tweenLineStop: function()
+                {
+                    createjs.Tween.removeTweens(that.lineAnimPersonageDesktopGraphics);
+                },
 		
 		tweenStart: function()
 		{
-			createjs.Tween.get(that.spaceBackground, {loop: true}) 
-				.to({rotation: -0.015}, 2500, createjs.Ease.getPowInOut(3))
-				.to({rotation: 0.015}, 2500, createjs.Ease.getPowInOut(3))
-				.to({rotation: 0.0}, 2500, createjs.Ease.getPowInOut(3));
-			
-			createjs.Tween.get(that.lineAnimPersonageDesktopGraphics, {loop: true}) 
-				.to({x: 0, y: 545}, 2500, createjs.Ease.getPowInOut(3));
-			
-			createjs.Tween.get(that.messageLineGraphics, {loop: true}) 
-				.to({x: 0, y: 138}, 2000, createjs.Ease.getPowInOut(3));
-			
-			createjs.Ticker.setFPS(60);
+                    createjs.Tween.get(that.spaceBackground, {loop: true}) 
+                            .to({rotation: -0.015}, 2500, createjs.Ease.getPowInOut(3))
+                            .to({rotation: 0.015}, 2500, createjs.Ease.getPowInOut(3))
+                            .to({rotation: 0.0}, 2500, createjs.Ease.getPowInOut(3));
+
+                    createjs.Tween.get(that.lineAnimPersonageDesktopGraphics, {loop: true}) 
+                            .to({x: 0, y: 545}, 2500, createjs.Ease.getPowInOut(3));
+
+                    createjs.Tween.get(that.messageLineGraphics, {loop: true}) 
+                            .to({x: 0, y: 138}, 2000, createjs.Ease.getPowInOut(3));
+
+                    createjs.Ticker.setFPS(60);
 		},
 		
 		tweenStop: function()

@@ -1343,8 +1343,8 @@ var Initialization = function(planetTextures, heroesTextures, personagesJson, pl
 					}
 				}
 		},
-
-		initGame: function()
+                
+                initGame: function()
 		{
 			that.initMap();
 			that.initMessage();
@@ -1355,12 +1355,27 @@ var Initialization = function(planetTextures, heroesTextures, personagesJson, pl
 			that.initLevels();
 			that.initCharacteristics();
 			
-			that.userExperiencePoints = 10;					// Очки опыта
+			that.userExperiencePoints = 0;					// Очки опыта
 			that.userTotalPointsPlayerTournament = 0;	// Общие очки игрока за всю игру
 			that.userlTotalPointsPlayerLevel = 0;          // Общие очки игрока за уровен
 			that.userExperiencePointsAI = 0; 				// Очки опыта ИИ
 			that.userTotalBattle = 0;                        	// Общее количество проведённых битв (связь с сообщениями R2D2)
-		}
+		},
+                
+                aiGetPersonageInCommand: function() // поиск доступного персонажа в команду ИИ
+                {
+                    
+                },
+                
+                aiUpgradeCommand: function() // обновление команды ИИ (распределение очков опыта, поиск лучшего бойца из списка доступных)
+                {
+                    
+                },
+                
+                aiResultBattle: function() // расчёт результата сражения ИИ
+                {
+                    var index = that.randomIndex();
+                }
 		
 	};
 	return that;

@@ -116,7 +116,7 @@ var Side = function(parent)
 			button1.play();
 			that.windowStage.addChild(button1);
 			
-			var button2 = new PIXI.Sprite(parent.assets.getAsset("sideLukeSkywalkerTexture"));
+			var button2 = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexSideLukeSkywalker"));
 			button2.name = "LukeSkywalker";
 			button2.position.x = 475;
 			button2.position.y = 80;
@@ -126,6 +126,9 @@ var Side = function(parent)
 			button2.click = that.onButtonClick; 
 			button2.on('mouseover', that.onButtonOver);
 			button2.on('mouseout', that.onButtonOut);
+                        button2.loop = true;
+			button2.animationSpeed = 0.2;
+			button2.play();
 			that.windowStage.addChild(button2);
 		},
 		

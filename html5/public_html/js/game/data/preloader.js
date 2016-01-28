@@ -43,8 +43,8 @@ var Preloader = function(parent)
 		{
 			var loader = new PIXI.loaders.Loader();
     
-			loader.add('animTest','./assets/test/test_animation.json');
-			loader.add('testTexture','./assets/test/test_texture.png');
+			//loader.add('animTest','./assets/test/test_animation.json');
+			//loader.add('testTexture','./assets/test/test_texture.png');
 			
 			loader.add('starwarsTexture','./assets/image/textures/starwars.png');
 			loader.add('stars1Texture','./assets/image/textures/stars1.jpg');
@@ -58,8 +58,8 @@ var Preloader = function(parent)
 			loader.add('r2d2DroidRedLeftTexture','./assets/image/textures/r2d2_droid_red_left.png');
 
 			loader.add('sideBackgroundTexture','./assets/image/textures/side_background.png');
-			loader.add('sideDarthVaderTexture','./assets/image/textures/side_darth_vader.png');
-			loader.add('sideLukeSkywalkerTexture','./assets/image/textures/side_luke_skywalker.png');
+			//loader.add('sideDarthVaderTexture','./assets/image/textures/side_darth_vader.png');
+			//loader.add('sideLukeSkywalkerTexture','./assets/image/textures/side_luke_skywalker.png');
 			loader.add('personageDeadTexture','./assets/image/textures/personage_dead.png');
 
 			loader.add('mapSpaceBlueTexture','./assets/image/textures/space_blue.jpg');
@@ -73,6 +73,7 @@ var Preloader = function(parent)
 			loader.add('buttonsSettings','./assets/image/atlas/settings_buttons.json');
 			
 			loader.add('sideDarthVaderAtlas','./assets/image/atlas/side_darth_vader.json');
+                        loader.add('sideLukeSkywalkerAtlas','./assets/image/atlas/side_luke_skywalker.json');
 
 			loader.add('planet_light','./assets/image/textures/planets/planet_light.png');
 			loader.add('deathstarTexture','./assets/image/textures/planets/deathstar.png');
@@ -271,8 +272,8 @@ var Preloader = function(parent)
 			that.assets["r2d2DroidBlueLeftTexture"]  = res.r2d2DroidBlueLeftTexture.texture;	// r2d2_droid_blue_left.png
 			that.assets["r2d2DroidRedLeftTexture"] = res.r2d2DroidRedLeftTexture.texture;	// r2d2_droid_red_left.png
 			that.assets["sideBackgroundTexture"] = res.sideBackgroundTexture.texture;          // side_background.png
-			that.assets["sideDarthVaderTexture"] = res.sideDarthVaderTexture.texture;          // side_darth_vader.png
-			that.assets["sideLukeSkywalkerTexture"] = res.sideLukeSkywalkerTexture.texture;    // side_luke_skywalker.png
+			//that.assets["sideDarthVaderTexture"] = res.sideDarthVaderTexture.texture;          // side_darth_vader.png
+			//that.assets["sideLukeSkywalkerTexture"] = res.sideLukeSkywalkerTexture.texture;    // side_luke_skywalker.png
 			that.assets["personageDeadTexture"] = res.personageDeadTexture.texture;            // personage_dead.png
 
 			that.assets["mapSpaceBlueTexture"] = res.mapSpaceBlueTexture.texture;              // space_blue.jpg
@@ -298,7 +299,8 @@ var Preloader = function(parent)
 			that.assets["soundOffButtonTexture"] = PIXI.Texture.fromFrame('sound_off.png');
 			
 			that.assets["animTexSideDarthVader"] = that.loadAnimationTextures(16, 'side_darth_vader_');
-    
+                        that.assets["animTexSideLukeSkywalker"] = that.loadAnimationTextures(21, 'side_luke_skywalker_');
+                        
 			that.assets["planetTextures"] = new Object();
 			that.assets["planetTextures"]["Coruscant"] = ["Корусант", res.coruscant_planet.texture, res.coruscant_landscape.texture, res.planet_light.texture];
 			that.assets["planetTextures"]["Totooine"] = ["Татуин", res.tatooine_planet.texture, res.tatooine_landscape.texture, res.planet_light.texture];

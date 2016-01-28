@@ -1,863 +1,6 @@
 
 /* == START FILE ========================================================= */
 
-var Preloader = function(parent)
-{
-	var that = {
-		
-		windowStage: new PIXI.Container(),
-		styleText: { font : 'bold 48px Arial', fill : '#FFFF80', stroke : '#FF8000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 600 },
-		progressText: null,
-		percentSounds: 0,
-		percentTextures: 0,
-		complete: 0,
-		assets:  new Object(),
-		
-		load: function() 
-		{
-			var loader = new PIXI.loaders.Loader();
-			loader.add('preloaderTexture',"./assets/image/textures/preloader.jpg");
-			loader.once('complete', that.onLoaderComplete);
-			loader.load();
-			loader = null;
-		},
-		
-		onLoaderComplete: function(loader, res)
-		{
-			var sprite = new PIXI.Sprite(res.preloaderTexture.texture);
-			sprite.position.x = 0; 
-			sprite.position.y = 0; 
-			that.windowStage.addChild(sprite);
-			sprite = null;
-			
-			that.progressText = new PIXI.Text("Загрузка", that.styleText); 
-			that.progressText.x = 280;
-			that.progressText.y = 550;
-			that.windowStage.addChild(that.progressText);
-			
-			that.loadSounds();
-			that.loadAssets();
-		},
-		
-		loadAssets: function()
-		{
-			var loader = new PIXI.loaders.Loader();
-    
-			loader.add('animTest','./assets/test/test_animation.json');
-			loader.add('testTexture','./assets/test/test_texture.png');
-			
-			loader.add('starwarsTexture','./assets/image/textures/starwars.png');
-			loader.add('stars1Texture','./assets/image/textures/stars1.jpg');
-			loader.add('ship1Texture','./assets/image/textures/ship1.png');
-			loader.add('ship2Texture','./assets/image/textures/ship2.png');
-			loader.add('ship3Texture','./assets/image/textures/ship3.png');
-
-			loader.add('r2d2DroidBlueRightTexture','./assets/image/textures/r2d2_droid_blue_right.png');
-			loader.add('r2d2DroidRedRightTexture','./assets/image/textures/r2d2_droid_red_right.png');
-			loader.add('r2d2DroidBlueLeftTexture','./assets/image/textures/r2d2_droid_blue_left.png');
-			loader.add('r2d2DroidRedLeftTexture','./assets/image/textures/r2d2_droid_red_left.png');
-
-			loader.add('sideBackgroundTexture','./assets/image/textures/side_background.png');
-			loader.add('sideDarthVaderTexture','./assets/image/textures/side_darth_vader.png');
-			loader.add('sideLukeSkywalkerTexture','./assets/image/textures/side_luke_skywalker.png');
-			loader.add('personageDeadTexture','./assets/image/textures/personage_dead.png');
-
-			loader.add('mapSpaceBlueTexture','./assets/image/textures/space_blue.jpg');
-			loader.add('mapSpaceRedTexture','./assets/image/textures/space_red.jpg');
-
-			loader.add('flashAtlas','./assets/image/atlas/flash.json');
-			loader.add('crystalsAtlas','./assets/image/atlas/crystals.json');
-
-			loader.add('buttonBlueAtlas','./assets/image/atlas/button_blue.json');
-			loader.add('buttonRedAtlas','./assets/image/atlas/button_red.json');
-			loader.add('buttonsSettings','./assets/image/atlas/settings_buttons.json');
-			
-			loader.add('sideDarthVaderAtlas','./assets/image/atlas/side_darth_vader.json');
-
-			loader.add('planet_light','./assets/image/textures/planets/planet_light.png');
-			loader.add('deathstarTexture','./assets/image/textures/planets/deathstar.png');
-			loader.add('deathstar_landscape','./assets/image/textures/planets/deathstar_landscape.jpg');
-			loader.add('coruscant_planet','./assets/image/textures/planets/coruscant.png');
-			loader.add('coruscant_landscape','./assets/image/textures/planets/coruscant_landscape.jpg');
-			loader.add('tatooine_planet','./assets/image/textures/planets/tatooine.png');
-			loader.add('tatooine_landscape','./assets/image/textures/planets/tatooine_landscape.jpg');
-			loader.add('naboo_planet','./assets/image/textures/planets/naboo.png');
-			loader.add('naboo_landscape','./assets/image/textures/planets/naboo_landscape.jpg');
-			loader.add('endor_planet','./assets/image/textures/planets/endor.png');
-			loader.add('endor_landscape','./assets/image/textures/planets/endor_landscape.jpg');
-			loader.add('hoth_planet','./assets/image/textures/planets/hoth.png');
-			loader.add('hoth_landscape','./assets/image/textures/planets/hoth_landscape.jpg');
-			loader.add('mustafar_planet','./assets/image/textures/planets/mustafar.png');
-			loader.add('mustafar_landscape','./assets/image/textures/planets/mustafar_landscape.jpg');
-			loader.add('dagobah_planet','./assets/image/textures/planets/dagobah.png');
-			loader.add('dagobah_landscape','./assets/image/textures/planets/dagobah_landscape.jpg');
-			loader.add('bespin_planet','./assets/image/textures/planets/bespin.png');
-			loader.add('bespin_landscape','./assets/image/textures/planets/bespin_landscape.jpg');
-			loader.add('geonosis_planet','./assets/image/textures/planets/geonosis.png');
-			loader.add('geonosis_landscape','./assets/image/textures/planets/geonosis_landscape.jpg');
-			loader.add('alderaan_planet','./assets/image/textures/planets/alderaan.png');
-			loader.add('alderaan_landscape','./assets/image/textures/planets/alderaan_landscape.jpg');
-			loader.add('kamino_planet','./assets/image/textures/planets/kamino.png');
-			loader.add('kamino_landscape','./assets/image/textures/planets/kamino_landscape.jpg');
-			loader.add('utapau_planet','./assets/image/textures/planets/utapau.png');
-			loader.add('utapau_landscape','./assets/image/textures/planets/utapau_landscape.jpg');
-			loader.add('saleucami_planet','./assets/image/textures/planets/saleucami.png');
-			loader.add('saleucami_landscape','./assets/image/textures/planets/saleucami_landscape.jpg');
-			loader.add('jakku_planet','./assets/image/textures/planets/jakku.png');
-			loader.add('jakku_landscape','./assets/image/textures/planets/jakku_landscape.jpg');
-
-			loader.add('aayla_secura_lr','./assets/image/textures/personages/aayla_secura_lr.png');
-			loader.add('aayla_secura_rl','./assets/image/textures/personages/aayla_secura_rl.png');
-			loader.add('adigallia','./assets/image/textures/personages/adigallia.png');
-			loader.add('admiral_ozzel','./assets/image/textures/personages/admiral_ozzel.png');
-			loader.add('alliance_to_restore_the_republic','./assets/image/textures/personages/alliance_to_restore_the_republic.png');
-			loader.add('anakin_skywalker','./assets/image/textures/personages/anakin_skywalker.png');
-			loader.add('aurra_sing_lr','./assets/image/textures/personages/aurra_sing_lr.png');
-			loader.add('aurra_sing_rl','./assets/image/textures/personages/aurra_sing_rl.png');
-			loader.add('b1_battle_droid_lr','./assets/image/textures/personages/b1_battle_droid_lr.png');
-			loader.add('b1_battle_droid_rl','./assets/image/textures/personages/b1_battle_droid_rl.png');
-			loader.add('bail_organa','./assets/image/textures/personages/bail_organa.png');
-			loader.add('barriss_offee','./assets/image/textures/personages/barriss_offee.png');
-			loader.add('beru_lars','./assets/image/textures/personages/beru_lars.png');
-			loader.add('bib_fortuna','./assets/image/textures/personages/bib_fortuna.png');
-			loader.add('boba_fett','./assets/image/textures/personages/boba_fett.png');
-			loader.add('boss_nass_lr','./assets/image/textures/personages/boss_nass_lr.png');
-			loader.add('boss_nass_rl','./assets/image/textures/personages/boss_nass_rl.png');
-			loader.add('c_3po_lr','./assets/image/textures/personages/c_3po_lr.png');
-			loader.add('c_3po_rl','./assets/image/textures/personages/c_3po_rl.png');
-			loader.add('capitan_panaka','./assets/image/textures/personages/capitan_panaka.png');
-			loader.add('chewbacca_lr','./assets/image/textures/personages/chewbacca_lr.png');
-			loader.add('chewbacca_rl','./assets/image/textures/personages/chewbacca_rl.png');
-			loader.add('clone_commander_bakara','./assets/image/textures/personages/clone_commander_bakara.png');
-			loader.add('clone_commander_cody_lr','./assets/image/textures/personages/clone_commander_cody_lr.png');
-			loader.add('clone_commander_cody_rl','./assets/image/textures/personages/clone_commander_cody_rl.png');
-			loader.add('clone_commander_neyo','./assets/image/textures/personages/clone_commander_neyo.png');
-			loader.add('clone_commander_rex','./assets/image/textures/personages/clone_commander_rex.png');
-			loader.add('commander_jerjerrod_lr','./assets/image/textures/personages/commander_jerjerrod_lr.png');
-			loader.add('commander_jerjerrod_rl','./assets/image/textures/personages/commander_jerjerrod_rl.png');
-			loader.add('darth_maul','./assets/image/textures/personages/darth_maul.png');
-			loader.add('darth_sidious_lr','./assets/image/textures/personages/darth_sidious_lr.png');
-			loader.add('darth_sidious_rl','./assets/image/textures/personages/darth_sidious_rl.png');
-			loader.add('darth_vader','./assets/image/textures/personages/darth_vader.png');
-			loader.add('dooku_lr','./assets/image/textures/personages/dooku_lr.png');
-			loader.add('dooku_rl','./assets/image/textures/personages/dooku_rl.png');
-			loader.add('eeth_koth','./assets/image/textures/personages/eeth_koth.png');
-			loader.add('finn_lr','./assets/image/textures/personages/finn_lr.png');
-			loader.add('finn_rl','./assets/image/textures/personages/finn_rl.png');
-			loader.add('general_grievous','./assets/image/textures/personages/general_grievous.png');
-			loader.add('general_madine_lr','./assets/image/textures/personages/general_madine_lr.png');
-			loader.add('general_madine_rl','./assets/image/textures/personages/general_madine_rl.png');
-			loader.add('han_solo_lr','./assets/image/textures/personages/han_solo_lr.png');
-			loader.add('han_solo_rl','./assets/image/textures/personages/han_solo_rl.png');
-			loader.add('jango_fett_lr','./assets/image/textures/personages/jango_fett_lr.png');
-			loader.add('jango_fett_rl','./assets/image/textures/personages/jango_fett_rl.png');
-			loader.add('jar_jar_binks','./assets/image/textures/personages/jar_jar_binks.png');
-			loader.add('jawas','./assets/image/textures/personages/jawas.png');
-			loader.add('kapitan_antilles','./assets/image/textures/personages/kapitan_antilles.png');
-			loader.add('ki_adi_mundi','./assets/image/textures/personages/ki_adi_mundi.png');
-			loader.add('kit_fisto','./assets/image/textures/personages/kit_fisto.png');
-			loader.add('kylo_ren','./assets/image/textures/personages/kylo_ren.png');
-			loader.add('lando_calrissian_lr','./assets/image/textures/personages/lando_calrissian_lr.png');
-			loader.add('lando_calrissian_rl','./assets/image/textures/personages/lando_calrissian_rl.png');
-			loader.add('leia_organa_lr','./assets/image/textures/personages/leia_organa_lr.png');
-			loader.add('leia_organa_rl','./assets/image/textures/personages/leia_organa_rl.png');
-			loader.add('luke_skywalker','./assets/image/textures/personages/luke_skywalker.png');
-			loader.add('mace_windu_lr','./assets/image/textures/personages/mace_windu_lr.png');
-			loader.add('mace_windu_rl','./assets/image/textures/personages/mace_windu_rl.png');
-			loader.add('mas_amedda','./assets/image/textures/personages/mas_amedda.png');
-			loader.add('maximilian_veers','./assets/image/textures/personages/maximilian_veers.png');
-			loader.add('mon_motma_lr','./assets/image/textures/personages/mon_motma_lr.png');
-			loader.add('mon_motma_rl','./assets/image/textures/personages/mon_motma_rl.png');
-			loader.add('nute_gunray','./assets/image/textures/personages/nute_gunray.png');
-			loader.add('obi_wan_kenobi','./assets/image/textures/personages/obi_wan_kenobi.png');
-			loader.add('owen_lars','./assets/image/textures/personages/owen_lars.png');
-			loader.add('padme_amidala','./assets/image/textures/personages/padme_amidala.png');
-			loader.add('palpatine','./assets/image/textures/personages/palpatine.png');
-			loader.add('phasma','./assets/image/textures/personages/phasma.png');
-			loader.add('plo_koon','./assets/image/textures/personages/plo_koon.png');
-			loader.add('poe_dameron','./assets/image/textures/personages/poe_dameron.png');
-			loader.add('poggle_the_lesser','./assets/image/textures/personages/poggle_the_lesser.png');
-			loader.add('qui_gon_jinn_lr','./assets/image/textures/personages/qui_gon_jinn_lr.png');
-			loader.add('qui_gon_jinn_rl','./assets/image/textures/personages/qui_gon_jinn_rl.png');
-			loader.add('red_battle_droid_lr','./assets/image/textures/personages/red_battle_droid_lr.png');
-			loader.add('red_battle_droid_rl','./assets/image/textures/personages/red_battle_droid_rl.png');
-			loader.add('republic_clone_army','./assets/image/textures/personages/republic_clone_army.png');
-			loader.add('rey','./assets/image/textures/personages/rey.png');
-			loader.add('royal_guards','./assets/image/textures/personages/royal_guards.png');
-			loader.add('rune_haako_lr','./assets/image/textures/personages/rune_haako_lr.png');
-			loader.add('rune_haako_rl','./assets/image/textures/personages/rune_haako_rl.png');
-			loader.add('saesee_tiin_lr','./assets/image/textures/personages/saesee_tiin_lr.png');
-			loader.add('saesee_tiin_rl','./assets/image/textures/personages/saesee_tiin_rl.png');
-			loader.add('separatists','./assets/image/textures/personages/separatists.png');
-			loader.add('shaak_ti','./assets/image/textures/personages/shaak_ti.png');
-			loader.add('shmi_skywalker','./assets/image/textures/personages/shmi_skywalker.png');
-			loader.add('sio_bibble','./assets/image/textures/personages/sio_bibble.png');
-			loader.add('stormtrooper','./assets/image/textures/personages/stormtrooper.png');
-			loader.add('stormtrooper_lr','./assets/image/textures/personages/stormtrooper_lr.png');
-			loader.add('stormtrooper_rl','./assets/image/textures/personages/stormtrooper_rl.png');
-			loader.add('stormtroopers','./assets/image/textures/personages/stormtroopers.png');
-			loader.add('tion_medon','./assets/image/textures/personages/tion_medon.png');
-			loader.add('trade_federation','./assets/image/textures/personages/trade_federation.png');
-			loader.add('tusken','./assets/image/textures/personages/tusken.png');
-			loader.add('wat_tambor_lr','./assets/image/textures/personages/wat_tambor_lr.png');
-			loader.add('wat_tambor_rl','./assets/image/textures/personages/wat_tambor_rl.png');
-			loader.add('watto','./assets/image/textures/personages/watto.png');
-			loader.add('wicket_wysri_warrick','./assets/image/textures/personages/wicket_wysri_warrick.png');
-			loader.add('yoda','./assets/image/textures/personages/yoda.png');
-			
-			loader.add('iconsAtlas','./assets/image/atlas/icons.json');
-			
-			loader.add('personages','./assets/data/personages.json');
-			loader.add('planets','./assets/data/planets.json');
-			
-			loader.add('level_0_0','./assets/data/levels/level_0_0.json');
-			loader.add('level_0_1','./assets/data/levels/level_0_1.json');
-			loader.add('level_0_2','./assets/data/levels/level_0_2.json');
-			loader.add('level_0_3','./assets/data/levels/level_0_3.json');
-			loader.add('level_0_4','./assets/data/levels/level_0_4.json');
-			loader.add('level_0_5','./assets/data/levels/level_0_5.json');
-			loader.add('level_0_6','./assets/data/levels/level_0_6.json');
-			loader.add('level_0_7','./assets/data/levels/level_0_7.json');
-			loader.add('level_0_8','./assets/data/levels/level_0_8.json');
-			loader.add('level_0_9','./assets/data/levels/level_0_9.json');
-			
-			loader.add('level_1_0','./assets/data/levels/level_1_0.json');
-			loader.add('level_1_1','./assets/data/levels/level_1_1.json');
-			loader.add('level_1_2','./assets/data/levels/level_1_2.json');
-			loader.add('level_1_3','./assets/data/levels/level_1_3.json');
-			loader.add('level_1_4','./assets/data/levels/level_1_4.json');
-			loader.add('level_1_5','./assets/data/levels/level_1_5.json');
-			loader.add('level_1_6','./assets/data/levels/level_1_6.json');
-			loader.add('level_1_7','./assets/data/levels/level_1_7.json');
-			loader.add('level_1_8','./assets/data/levels/level_1_8.json');
-			loader.add('level_1_9','./assets/data/levels/level_1_9.json');
-			
-			loader.add('level_2_0','./assets/data/levels/level_2_0.json');
-			loader.add('level_2_1','./assets/data/levels/level_2_1.json');
-			loader.add('level_2_2','./assets/data/levels/level_2_2.json');
-			loader.add('level_2_3','./assets/data/levels/level_2_3.json');
-			loader.add('level_2_4','./assets/data/levels/level_2_4.json');
-			loader.add('level_2_5','./assets/data/levels/level_2_5.json');
-			loader.add('level_2_6','./assets/data/levels/level_2_6.json');
-			loader.add('level_2_7','./assets/data/levels/level_2_7.json');
-			loader.add('level_2_8','./assets/data/levels/level_2_8.json');
-			loader.add('level_2_9','./assets/data/levels/level_2_9.json');
-			
-			loader.on('progress', that.onAssetsLoaderProcess);
-			loader.on('complete', that.onAssetsLoaderComplete);
-			loader.load();
-			loader = null;
-		},
-		
-		onAssetsLoaderProcess: function()
-		{
-			that.percentTextures = (Math.round(this.progress) / 2);
-			that.progressText.text = "Загрузка " + (that.percentTextures + that.percentSounds) + "%";
-		},
-		
-		onAssetsLoaderComplete: function(loader, res)
-		{
-			that.percentTextures = 50;
-			that.progressText.text = "Загрузка " + (that.percentTextures + that.percentSounds) + "%";
-			
-			that.assets["deathstarTexture"] = res.deathstarTexture.texture;			// deathstar.png
-			that.assets["starwarsTexture"] = res.starwarsTexture.texture;			// starwars.png
-			that.assets["stars1Texture"] = res.stars1Texture.texture;				// stars1.jpg
-			that.assets["ship1Texture"] = res.ship1Texture.texture;				// ship1.png
-			that.assets["ship2Texture"] = res.ship2Texture.texture;				// ship2.png
-			that.assets["ship3Texture"] = res.ship3Texture.texture;				// ship3.png
-			that.assets["r2d2DroidBlueRightTexture"]  = res.r2d2DroidBlueRightTexture.texture;	// r2d2_droid_blue_right.png
-			that.assets["r2d2DroidRedRightTexture"] = res.r2d2DroidRedRightTexture.texture;	// r2d2_droid_red_right.png
-			that.assets["r2d2DroidBlueLeftTexture"]  = res.r2d2DroidBlueLeftTexture.texture;	// r2d2_droid_blue_left.png
-			that.assets["r2d2DroidRedLeftTexture"] = res.r2d2DroidRedLeftTexture.texture;	// r2d2_droid_red_left.png
-			that.assets["sideBackgroundTexture"] = res.sideBackgroundTexture.texture;          // side_background.png
-			that.assets["sideDarthVaderTexture"] = res.sideDarthVaderTexture.texture;          // side_darth_vader.png
-			that.assets["sideLukeSkywalkerTexture"] = res.sideLukeSkywalkerTexture.texture;    // side_luke_skywalker.png
-			that.assets["personageDeadTexture"] = res.personageDeadTexture.texture;            // personage_dead.png
-
-			that.assets["mapSpaceBlueTexture"] = res.mapSpaceBlueTexture.texture;              // space_blue.jpg
-			that.assets["mapSpaceRedTexture"]= res.mapSpaceRedTexture.texture;                // space_red.jpg
-
-			that.assets["hit1Texture"] = PIXI.Texture.fromFrame('hit_1.png');
-			that.assets["hit2Texture"] = PIXI.Texture.fromFrame('hit_2.png');
-			that.assets["hit3Texture"] = PIXI.Texture.fromFrame('hit_3.png');
-			that.assets["hit4Texture"] = PIXI.Texture.fromFrame('hit_4.png');
-			that.assets["hit5Texture"] = PIXI.Texture.fromFrame('hit_5.png');
-			
-			that.assets["animTexFlash"] = that.loadAnimationTextures(13, 'flash_');
-
-			that.assets["animTexButtonBlue"] = that.loadAnimationTextures(11, 'button_blue_');
-			that.assets["animTexButtonRed"] = that.loadAnimationTextures(11, 'button_red_');
-			
-			that.assets["engButtonTexture"] = PIXI.Texture.fromFrame('eng.png');
-			that.assets["infoButtonTexture"] = PIXI.Texture.fromFrame('information.png');
-			that.assets["musicOnButtonTexture"] = PIXI.Texture.fromFrame('music.png');
-			that.assets["musicOffButtonTexture"] = PIXI.Texture.fromFrame('music_off.png');
-			that.assets["rusButtonTexture"] = PIXI.Texture.fromFrame('rus.png');
-			that.assets["soundOnButtonTexture"] = PIXI.Texture.fromFrame('sound.png');
-			that.assets["soundOffButtonTexture"] = PIXI.Texture.fromFrame('sound_off.png');
-			
-			that.assets["animTexSideDarthVader"] = that.loadAnimationTextures(16, 'side_darth_vader_');
-    
-			that.assets["planetTextures"] = new Object();
-			that.assets["planetTextures"]["Coruscant"] = ["Корусант", res.coruscant_planet.texture, res.coruscant_landscape.texture, res.planet_light.texture];
-			that.assets["planetTextures"]["Totooine"] = ["Татуин", res.tatooine_planet.texture, res.tatooine_landscape.texture, res.planet_light.texture];
-			that.assets["planetTextures"]["Naboo"] = ["Набу", res.naboo_planet.texture, res.naboo_landscape.texture, res.planet_light.texture];
-			that.assets["planetTextures"]["Endor"] = ["Эндор", res.endor_planet.texture, res.endor_landscape.texture, res.planet_light.texture];
-			that.assets["planetTextures"]["Hoth"] = ["Хот", res.hoth_planet.texture, res.hoth_landscape.texture, res.planet_light.texture];
-			that.assets["planetTextures"]["Mustafar"] = ["Мустафар", res.mustafar_planet.texture, res.mustafar_landscape.texture, res.planet_light.texture];
-			that.assets["planetTextures"]["Dagobah"] = ["Дагоба", res.dagobah_planet.texture, res.dagobah_landscape.texture, res.planet_light.texture];
-			that.assets["planetTextures"]["Bespin"] = ["Беспин", res.bespin_planet.texture, res.bespin_landscape.texture, res.planet_light.texture];
-			that.assets["planetTextures"]["Geonosis"] = ["Джеонозис", res.geonosis_planet.texture, res.geonosis_landscape.texture, res.planet_light.texture];
-			that.assets["planetTextures"]["Alderaan"] = ["Альдераан", res.alderaan_planet.texture, res.alderaan_landscape.texture, res.planet_light.texture];
-			that.assets["planetTextures"]["Kamino"] = ["Камино", res.kamino_planet.texture, res.kamino_landscape.texture, res.planet_light.texture];
-			that.assets["planetTextures"]["DeathStar"] = ["Звезда смерти", res.deathstarTexture.texture, res.deathstar_landscape.texture, res.planet_light.texture];
-			that.assets["planetTextures"]["Utapau"] = ["Утапау", res.utapau_planet.texture, res.utapau_landscape.texture, res.planet_light.texture];
-			that.assets["planetTextures"]["Saleucami"] = ["Салукемай", res.saleucami_planet.texture, res.saleucami_landscape.texture, res.planet_light.texture];
-			that.assets["planetTextures"]["Jakku"] = ["Джакку", res.jakku_planet.texture, res.jakku_landscape.texture, res.planet_light.texture];
-			
-			that.assets["heroesTextures"] = new Object();
-			that.assets["heroesTextures"]["aayla_secura"] = ["Эйла Секура", res.aayla_secura_lr.texture, res.aayla_secura_rl.texture, PIXI.Texture.fromFrame("aayla_secura_icon.png")];
-			that.assets["heroesTextures"]["adigallia"] = ["Ади Галлия", res.adigallia.texture, res.adigallia.texture, PIXI.Texture.fromFrame("adigallia_icon.png")];
-			that.assets["heroesTextures"]["admiral_ozzel"] = ["Кендал Оззель", res.admiral_ozzel.texture, res.admiral_ozzel.texture, PIXI.Texture.fromFrame("admiral_ozzel_icon.png")];
-			that.assets["heroesTextures"]["alliance_to_restore_the_republic"] = ["Альянс повстанцев", res.alliance_to_restore_the_republic.texture, res.alliance_to_restore_the_republic.texture, PIXI.Texture.fromFrame("alliance_to_restore_the_republic_icon.png")];
-			that.assets["heroesTextures"]["anakin_skywalker"] = ["Энакин Скайуокер", res.anakin_skywalker.texture, res.anakin_skywalker.texture, PIXI.Texture.fromFrame("anakin_skywalker_icon.png")];
-			that.assets["heroesTextures"]["aurra_sing"] = ["Орра Синг", res.aurra_sing_lr.texture, res.aurra_sing_rl.texture, PIXI.Texture.fromFrame("aurra_sing_icon.png")];
-			that.assets["heroesTextures"]["b1_battle_droid"] = ["Боевой дроид B1", res.b1_battle_droid_lr.texture, res.b1_battle_droid_rl.texture, PIXI.Texture.fromFrame("b1_battle_droid_icon.png")];
-			that.assets["heroesTextures"]["b1_battle_droid_2"] = ["Боевой дроид B1", res.b1_battle_droid_lr.texture, res.b1_battle_droid_rl.texture, PIXI.Texture.fromFrame("b1_battle_droid_icon.png")];
-			that.assets["heroesTextures"]["b1_battle_droid_3"] = ["Боевой дроид B1", res.b1_battle_droid_lr.texture, res.b1_battle_droid_rl.texture, PIXI.Texture.fromFrame("b1_battle_droid_icon.png")];
-			that.assets["heroesTextures"]["bail_organa"] = ["Бэйл Органа", res.bail_organa.texture, res.bail_organa.texture, PIXI.Texture.fromFrame("bail_organa_icon.png")];
-			that.assets["heroesTextures"]["barriss_offee"] = ["Бэррисс Оффи", res.barriss_offee.texture, res.barriss_offee.texture, PIXI.Texture.fromFrame("barriss_offee_icon.png")];
-			that.assets["heroesTextures"]["beru_lars"] = ["Беру Ларс", res.beru_lars.texture, res.beru_lars.texture, PIXI.Texture.fromFrame("beru_lars_icon.png")];
-			that.assets["heroesTextures"]["bib_fortuna"] = ["Биб Фортуна", res.bib_fortuna.texture, res.bib_fortuna.texture, PIXI.Texture.fromFrame("bib_fortuna_icon.png")];
-			that.assets["heroesTextures"]["boba_fett"] = ["Боба Фетт", res.boba_fett.texture, res.boba_fett.texture, PIXI.Texture.fromFrame("boba_fett_icon.png")];
-			that.assets["heroesTextures"]["boss_nass"] = ["Босс Насс", res.boss_nass_lr.texture, res.boss_nass_rl.texture, PIXI.Texture.fromFrame("boss_nass_icon.png")];
-			that.assets["heroesTextures"]["c_3po"] = ["С-3РО", res.c_3po_lr.texture, res.c_3po_rl.texture, PIXI.Texture.fromFrame("c_3po_icon.png")];
-			that.assets["heroesTextures"]["capitan_panaka"] = ["Капитан Панака", res.capitan_panaka.texture, res.capitan_panaka.texture, PIXI.Texture.fromFrame("capitan_panaka_icon.png")];
-			that.assets["heroesTextures"]["chewbacca"] = ["Чубака", res.chewbacca_lr.texture, res.chewbacca_rl.texture, PIXI.Texture.fromFrame("chewbacca_icon.png")];
-			that.assets["heroesTextures"]["clone_commander_bakara"] = ["Бакара", res.clone_commander_bakara.texture, res.clone_commander_bakara.texture, PIXI.Texture.fromFrame("clone_commander_bakara_icon.png")];
-			that.assets["heroesTextures"]["clone_commander_bakara_2"] = ["Бакара", res.clone_commander_bakara.texture, res.clone_commander_bakara.texture, PIXI.Texture.fromFrame("clone_commander_bakara_icon.png")];
-			that.assets["heroesTextures"]["clone_commander_cody"] = ["Коди", res.clone_commander_cody_lr.texture, res.clone_commander_cody_rl.texture, PIXI.Texture.fromFrame("clone_commander_cody_icon.png")];
-			that.assets["heroesTextures"]["clone_commander_cody_2"] = ["Коди", res.clone_commander_cody_lr.texture, res.clone_commander_cody_rl.texture, PIXI.Texture.fromFrame("clone_commander_cody_icon.png")];
-			that.assets["heroesTextures"]["clone_commander_neyo"] = ["Нейо", res.clone_commander_neyo.texture, res.clone_commander_neyo.texture, PIXI.Texture.fromFrame("clone_commander_neyo_icon.png")];
-			that.assets["heroesTextures"]["clone_commander_neyo_2"] = ["Нейо", res.clone_commander_neyo.texture, res.clone_commander_neyo.texture, PIXI.Texture.fromFrame("clone_commander_neyo_icon.png")];
-			that.assets["heroesTextures"]["clone_commander_rex"] = ["Рекс", res.clone_commander_rex.texture, res.clone_commander_rex.texture, PIXI.Texture.fromFrame("clone_commander_rex_icon.png")];
-			that.assets["heroesTextures"]["clone_commander_rex_2"] = ["Рекс", res.clone_commander_rex.texture, res.clone_commander_rex.texture, PIXI.Texture.fromFrame("clone_commander_rex_icon.png")];
-			that.assets["heroesTextures"]["commander_jerjerrod"] = ["Тиаан Джерджеррод", res.commander_jerjerrod_lr.texture, res.commander_jerjerrod_rl.texture, PIXI.Texture.fromFrame("commander_jerjerrod_icon.png")];
-			that.assets["heroesTextures"]["darth_maul"] = ["Дарт Мол", res.darth_maul.texture, res.darth_maul.texture, PIXI.Texture.fromFrame("darth_maul_icon.png")];
-			that.assets["heroesTextures"]["darth_sidious"] = ["Дарт Сидиус", res.darth_sidious_lr.texture, res.darth_sidious_rl.texture, PIXI.Texture.fromFrame("darth_sidious_icon.png")];
-			that.assets["heroesTextures"]["darth_vader"] = ["Дарт Вейдер", res.darth_vader.texture, res.darth_vader.texture, PIXI.Texture.fromFrame("darth_vader_icon.png")];
-			that.assets["heroesTextures"]["dooku"] = ["Граф Дуку", res.dooku_lr.texture, res.dooku_rl.texture, PIXI.Texture.fromFrame("dooku_icon.png")];
-			that.assets["heroesTextures"]["eeth_koth"] = ["Иит Кот", res.eeth_koth.texture, res.eeth_koth.texture, PIXI.Texture.fromFrame("eeth_koth_icon.png")];
-			that.assets["heroesTextures"]["finn"] = ["Финн", res.finn_lr.texture, res.finn_rl.texture, PIXI.Texture.fromFrame("finn_icon.png")];
-			that.assets["heroesTextures"]["general_grievous"] = ["Генерал Гривус", res.general_grievous.texture, res.general_grievous.texture, PIXI.Texture.fromFrame("general_grievous_icon.png")];
-			that.assets["heroesTextures"]["general_grievous_2"] = ["Генерал Гривус", res.general_grievous.texture, res.general_grievous.texture, PIXI.Texture.fromFrame("general_grievous_icon.png")];
-			that.assets["heroesTextures"]["general_madine"] = ["Генерал Мадин", res.general_madine_lr.texture, res.general_madine_rl.texture, PIXI.Texture.fromFrame("general_madine_icon.png")];
-			that.assets["heroesTextures"]["han_solo"] = ["Хан Соло", res.han_solo_lr.texture, res.han_solo_rl.texture, PIXI.Texture.fromFrame("han_solo_icon.png")];
-			that.assets["heroesTextures"]["jango_fett"] = ["Джанго Фетт", res.jango_fett_lr.texture, res.jango_fett_rl.texture, PIXI.Texture.fromFrame("jango_fett_icon.png")];
-			that.assets["heroesTextures"]["jar_jar_binks"] = ["Джа-Джа Бинкс", res.jar_jar_binks.texture, res.jar_jar_binks.texture, PIXI.Texture.fromFrame("jar_jar_binks_icon.png")];
-			that.assets["heroesTextures"]["jawas"] = ["Джавы", res.jawas.texture, res.jawas.texture, PIXI.Texture.fromFrame("jawas_icon.png")];
-			that.assets["heroesTextures"]["kapitan_antilles"] = ["Капитан Антиллес", res.kapitan_antilles.texture, res.kapitan_antilles.texture, PIXI.Texture.fromFrame("kapitan_antilles_icon.png")];
-			that.assets["heroesTextures"]["ki_adi_mundi"] = ["Ки-Ади-Мунди", res.ki_adi_mundi.texture, res.ki_adi_mundi.texture, PIXI.Texture.fromFrame("ki_adi_mundi_icon.png")];
-			that.assets["heroesTextures"]["kit_fisto"] = ["Кит Фисто", res.kit_fisto.texture, res.kit_fisto.texture, PIXI.Texture.fromFrame("kit_fisto_icon.png")];
-			that.assets["heroesTextures"]["kylo_ren"] = ["Кайло Рен", res.kylo_ren.texture, res.kylo_ren.texture, PIXI.Texture.fromFrame("kylo_ren_icon.png")];
-			that.assets["heroesTextures"]["lando_calrissian"] = ["Лэндо Калриссиан", res.lando_calrissian_lr.texture, res.lando_calrissian_rl.texture, PIXI.Texture.fromFrame("lando_calrissian_icon.png")];
-			that.assets["heroesTextures"]["leia_organa"] = ["Принцесса Лея Органа", res.leia_organa_lr.texture, res.leia_organa_rl.texture, PIXI.Texture.fromFrame("leia_organa_icon.png")];
-			that.assets["heroesTextures"]["luke_skywalker"] = ["Люк Скайуокер", res.luke_skywalker.texture, res.luke_skywalker.texture, PIXI.Texture.fromFrame("luke_skywalker_icon.png")];
-			that.assets["heroesTextures"]["mace_windu"] = ["Мейс Винду", res.mace_windu_lr.texture, res.mace_windu_rl.texture, PIXI.Texture.fromFrame("mace_windu_icon.png")];
-			that.assets["heroesTextures"]["mas_amedda"] = ["Мас Амедда", res.mas_amedda.texture, res.mas_amedda.texture, PIXI.Texture.fromFrame("mas_amedda_icon.png")];
-			that.assets["heroesTextures"]["maximilian_veers"] = ["Максимилиан Вирс", res.maximilian_veers.texture, res.maximilian_veers.texture, PIXI.Texture.fromFrame("maximilian_veers_icon.png")];
-			that.assets["heroesTextures"]["mon_motma"] = ["Мон Мотма", res.mon_motma_lr.texture, res.mon_motma_rl.texture, PIXI.Texture.fromFrame("mon_motma_icon.png")];
-			that.assets["heroesTextures"]["nute_gunray"] = ["Нут Ганрей", res.nute_gunray.texture, res.nute_gunray.texture, PIXI.Texture.fromFrame("nute_gunray_icon.png")];
-			that.assets["heroesTextures"]["obi_wan_kenobi"] = ["Оби-Ван Кеноби", res.obi_wan_kenobi.texture, res.obi_wan_kenobi.texture, PIXI.Texture.fromFrame("obi_wan_kenobi_icon.png")];
-			that.assets["heroesTextures"]["owen_lars"] = ["Оуэн Ларс", res.owen_lars.texture, res.owen_lars.texture, PIXI.Texture.fromFrame("owen_lars_icon.png")];
-			that.assets["heroesTextures"]["padme_amidala"] = ["Падме Амидала", res.padme_amidala.texture, res.padme_amidala.texture, PIXI.Texture.fromFrame("padme_amidala_icon.png")];
-			that.assets["heroesTextures"]["palpatine"] = ["Палпатин", res.palpatine.texture, res.palpatine.texture, PIXI.Texture.fromFrame("palpatine_icon.png")];
-			that.assets["heroesTextures"]["phasma"] = ["Фазма", res.phasma.texture, res.phasma.texture, PIXI.Texture.fromFrame("phasma_icon.png")];   
-			that.assets["heroesTextures"]["plo_koon"] = ["Пло Кун", res.plo_koon.texture, res.plo_koon.texture, PIXI.Texture.fromFrame("plo_koon_icon.png")];
-			that.assets["heroesTextures"]["poe_dameron"] = ["По Дамерон", res.poe_dameron.texture, res.poe_dameron.texture, PIXI.Texture.fromFrame("poe_dameron_icon.png")];
-			that.assets["heroesTextures"]["poggle_the_lesser"] = ["Поггль Меньший", res.poggle_the_lesser.texture, res.poggle_the_lesser.texture, PIXI.Texture.fromFrame("poggle_the_lesser_icon.png")];
-			that.assets["heroesTextures"]["qui_gon_jinn"] = ["Квай-Гон Джинн", res.qui_gon_jinn_lr.texture, res.qui_gon_jinn_rl.texture, PIXI.Texture.fromFrame("qui_gon_jinn_icon.png")];
-			that.assets["heroesTextures"]["red_battle_droid"] = ["Боевой дроид", res.red_battle_droid_lr.texture, res.red_battle_droid_rl.texture, PIXI.Texture.fromFrame("red_battle_droid_icon.png")];
-			that.assets["heroesTextures"]["republic_clone_army"] = ["Республиканская армия клонов", res.republic_clone_army.texture, res.republic_clone_army.texture, PIXI.Texture.fromFrame("republic_clone_army_icon.png")];
-			that.assets["heroesTextures"]["republic_clone_army_2"] = ["Республиканская армия клонов", res.republic_clone_army.texture, res.republic_clone_army.texture, PIXI.Texture.fromFrame("republic_clone_army_icon.png")];
-			that.assets["heroesTextures"]["rey"] = ["Рей", res.rey.texture, res.rey.texture, PIXI.Texture.fromFrame("rey_icon.png")];
-			that.assets["heroesTextures"]["royal_guards"] = ["Королевский страж", res.royal_guards.texture, res.royal_guards.texture, PIXI.Texture.fromFrame("royal_guards_icon.png")];
-			that.assets["heroesTextures"]["rune_haako"] = ["Рун Хаако", res.rune_haako_lr.texture, res.rune_haako_rl.texture, PIXI.Texture.fromFrame("rune_haako_icon.png")];
-			that.assets["heroesTextures"]["saesee_tiin"] = ["Сэси Тийн", res.saesee_tiin_lr.texture, res.saesee_tiin_rl.texture, PIXI.Texture.fromFrame("saesee_tiin_icon.png")];
-			that.assets["heroesTextures"]["separatists"] = ["Сепаратисты", res.separatists.texture, res.separatists.texture, PIXI.Texture.fromFrame("separatists_icon.png")];
-			that.assets["heroesTextures"]["separatists_2"] = ["Сепаратисты", res.separatists.texture, res.separatists.texture, PIXI.Texture.fromFrame("separatists_icon.png")];
-			that.assets["heroesTextures"]["shaak_ti"] = ["Шаак Ти", res.shaak_ti.texture, res.shaak_ti.texture, PIXI.Texture.fromFrame("shaak_ti_icon.png")];
-			that.assets["heroesTextures"]["shmi_skywalker"] = ["Шми Скайуокер", res.shmi_skywalker.texture, res.shmi_skywalker.texture, PIXI.Texture.fromFrame("shmi_skywalker_icon.png")];
-			that.assets["heroesTextures"]["sio_bibble"] = ["Сио Биббл", res.sio_bibble.texture, res.sio_bibble.texture, PIXI.Texture.fromFrame("sio_bibble_icon.png")];
-			that.assets["heroesTextures"]["stormtrooper_1"] = ["Штурмовик", res.stormtrooper.texture, res.stormtrooper.texture, PIXI.Texture.fromFrame("stormtrooper_icon.png")];
-			that.assets["heroesTextures"]["stormtrooper_1_2"] = ["Штурмовик", res.stormtrooper.texture, res.stormtrooper.texture, PIXI.Texture.fromFrame("stormtrooper_icon.png")];
-			that.assets["heroesTextures"]["stormtrooper_1_3"] = ["Штурмовик", res.stormtrooper.texture, res.stormtrooper.texture, PIXI.Texture.fromFrame("stormtrooper_icon.png")];
-			that.assets["heroesTextures"]["stormtrooper_2"] = ["Штурмовик", res.stormtrooper_lr.texture, res.stormtrooper_rl.texture, PIXI.Texture.fromFrame("stormtrooper_icon.png")];
-			that.assets["heroesTextures"]["stormtroopers"] = ["Имперские штурмовики", res.stormtroopers.texture, res.stormtroopers.texture, PIXI.Texture.fromFrame("stormtroopers_icon.png")];
-			that.assets["heroesTextures"]["stormtroopers_2"] = ["Имперские штурмовики", res.stormtroopers.texture, res.stormtroopers.texture, PIXI.Texture.fromFrame("stormtroopers_icon.png")];
-			that.assets["heroesTextures"]["stormtroopers_3"] = ["Имперские штурмовики", res.stormtroopers.texture, res.stormtroopers.texture, PIXI.Texture.fromFrame("stormtroopers_icon.png")];
-			that.assets["heroesTextures"]["tion_medon"] = ["Тион Медон", res.tion_medon.texture, res.tion_medon.texture, PIXI.Texture.fromFrame("tion_medon_icon.png")];
-			that.assets["heroesTextures"]["trade_federation"] = ["Торговая Федерация", res.trade_federation.texture, res.trade_federation.texture, PIXI.Texture.fromFrame("trade_federation_icon.png")];
-			that.assets["heroesTextures"]["tusken"] = ["Таскенские рейдеры", res.tusken.texture, res.tusken.texture, PIXI.Texture.fromFrame("tusken_icon.png")];
-			that.assets["heroesTextures"]["tusken_2"] = ["Таскенские рейдеры", res.tusken.texture, res.tusken.texture, PIXI.Texture.fromFrame("tusken_icon.png")];
-			that.assets["heroesTextures"]["wat_tambor"] = ["Уот Тамбор", res.wat_tambor_lr.texture, res.wat_tambor_rl.texture, PIXI.Texture.fromFrame("wat_tambor_icon.png")];
-			that.assets["heroesTextures"]["watto"] = ["Уотто", res.watto.texture, res.watto.texture, PIXI.Texture.fromFrame("watto_icon.png")];
-			that.assets["heroesTextures"]["wicket_wysri_warrick"] = ["Уикет У.Уоррик", res.wicket_wysri_warrick.texture, res.wicket_wysri_warrick.texture, PIXI.Texture.fromFrame("wicket_wysri_warrick_icon.png")];
-			that.assets["heroesTextures"]["yoda"] = ["Йода", res.yoda.texture, res.yoda.texture, PIXI.Texture.fromFrame("yoda_icon.png")];
-			
-			that.assets["personagesJson"] = res.personages;
-			that.assets["planetsJson"] = res.planets;
-
-			that.assets["fieldLevelsJson"] = new Object();
-			that.assets["fieldLevelsJson"]["level_0_0"] = res.level_0_0;
-			that.assets["fieldLevelsJson"]["level_0_1"] = res.level_0_1;
-			that.assets["fieldLevelsJson"]["level_0_2"] = res.level_0_2;
-			that.assets["fieldLevelsJson"]["level_0_3"] = res.level_0_3;
-			that.assets["fieldLevelsJson"]["level_0_4"] = res.level_0_4;
-			that.assets["fieldLevelsJson"]["level_0_5"] = res.level_0_5;
-			that.assets["fieldLevelsJson"]["level_0_6"] = res.level_0_6;
-			that.assets["fieldLevelsJson"]["level_0_7"] = res.level_0_7;
-			that.assets["fieldLevelsJson"]["level_0_8"] = res.level_0_8;
-			that.assets["fieldLevelsJson"]["level_0_9"] = res.level_0_9;
-			that.assets["fieldLevelsJson"]["level_1_0"] = res.level_1_0;
-			that.assets["fieldLevelsJson"]["level_1_1"] = res.level_1_1;
-			that.assets["fieldLevelsJson"]["level_1_2"] = res.level_1_2;
-			that.assets["fieldLevelsJson"]["level_1_3"] = res.level_1_3;
-			that.assets["fieldLevelsJson"]["level_1_4"] = res.level_1_4;
-			that.assets["fieldLevelsJson"]["level_1_5"] = res.level_1_5;
-			that.assets["fieldLevelsJson"]["level_1_6"] = res.level_1_6;
-			that.assets["fieldLevelsJson"]["level_1_7"] = res.level_1_7;
-			that.assets["fieldLevelsJson"]["level_1_8"] = res.level_1_8;
-			that.assets["fieldLevelsJson"]["level_1_9"] = res.level_1_9;
-			that.assets["fieldLevelsJson"]["level_2_0"] = res.level_2_0;
-			that.assets["fieldLevelsJson"]["level_2_1"] = res.level_2_1;
-			that.assets["fieldLevelsJson"]["level_2_2"] = res.level_2_2;
-			that.assets["fieldLevelsJson"]["level_2_3"] = res.level_2_3;
-			that.assets["fieldLevelsJson"]["level_2_4"] = res.level_2_4;
-			that.assets["fieldLevelsJson"]["level_2_5"] = res.level_2_5;
-			that.assets["fieldLevelsJson"]["level_2_6"] = res.level_2_6;
-			that.assets["fieldLevelsJson"]["level_2_7"] = res.level_2_7;
-			that.assets["fieldLevelsJson"]["level_2_8"] = res.level_2_8;
-			that.assets["fieldLevelsJson"]["level_2_9"] = res.level_2_9;
-			
-			that.complete++;
-			that.onComplete();
-		},
-		
-		
-		loadSounds: function()
-		{
-			var queue = new createjs.LoadQueue();
-			createjs.Sound.alternateExtensions = ["mp3"];
-			queue.installPlugin(createjs.Sound);
-			queue.on("progress", that.onSoundLoaderProcess);
-			queue.on("complete", that.onSoundLoaderComplete);
-			queue.loadFile({"id":"StarWarsThemeSong", "src":"assets/music/star_wars_theme_song.mp3"});
-			queue = null;
-		},
-		
-		onSoundLoaderProcess: function(event)
-		{
-			that.percentSounds = Math.round((event.loaded) * (50 / event.total));
-			that.progressText.text = "Загрузка " + (that.percentTextures + that.percentSounds) + "%";
-		},
-		
-		onSoundLoaderComplete: function(event)
-		{
-			that.complete++;
-			that.onComplete();
-		},
-		
-		loadAnimationTextures: function(countFrame, nameFrame)
-		{
-			var nameTexture;
-			var animTextures = [];
-			for(var i = 1; i <= countFrame; i++)
-			{
-				if(i < 10)
-				{
-					nameTexture = nameFrame + '0' + i + '.png';
-				}else{
-					nameTexture = nameFrame + i + '.png';
-				}
-				var texture = PIXI.Texture.fromFrame(nameTexture);
-				animTextures.push(texture);
-			}
-			return animTextures;
-		},
-		
-		show: function()
-		{
-			return that.windowStage;
-		},
-		
-		close: function()
-		{
-			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
-			return that.windowStage;
-		},
-		
-		getWindowStage: function()
-		{
-			return that.windowStage;
-		},
-		
-		getAsset: function(nameAsset)
-		{
-			return that.assets[nameAsset];
-		},
-		
-		onComplete: function()
-		{
-			if(that.complete === 2)
-			{
-				parent.loadAssetsComplete();
-			}
-		}
-	};
-	return that;
-}
-
-/* == END FILE ========================================================== */
-
-/* == START FILE ========================================================= */
-
-var Sound = function(parent)
-{
-	var that = {
-		soundPlayStarWarsThemeSong: function()
-		{
-			if(parent.config.music === true) createjs.Sound.play("StarWarsThemeSong", {loop:-1});
-		},
-		
-		soundStopStarWarsThemeSong: function()
-		{
-			createjs.Sound.stop("StarWarsThemeSong");
-		}
-		
-	};
-	return that;
-}
-
-
-/* == END FILE ========================================================== */
-
-/* == START FILE ========================================================= */
-
-var Menu = function(parent)
-{
-	var that = {
-		windowStage: null,
-		starsSprite: null,
-		deathStarSprite: null,
-		ship1Sprite: null, 
-		ship2Sprite: null,
-		ship3Sprite: null,
-		lineMessageGraphics: null,
-		styleDroidText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 },
-		styleButtonText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 },
-		
-		create: function()
-		{
-			that.windowStage = new PIXI.Container();
-			that.starsCreate();
-			that.deathStarCreate();
-			that.shipsCreate();
-			that.panetBattonsCreate();
-			that.borderCreate();
-			that.logoCreate();
-			that.droidCreate();
-		},
-		
-		starsCreate: function()
-		{
-			that.starsSprite = new PIXI.Sprite(parent.assets.getAsset("stars1Texture")); 
-			that.starsSprite.position.x = 0; 
-			that.starsSprite.position.y = 0; 
-			that.starsSprite.scale.set(1.0); 
-			that.windowStage.addChild(that.starsSprite);
-		},
-		
-		deathStarCreate: function()
-		{
-			that.deathStarSprite = new PIXI.Sprite(parent.assets.getAsset("deathstarTexture")); 
-			that.deathStarSprite.position.x = 300; 
-			that.deathStarSprite.position.y = 100; 
-			that.windowStage.addChild(that.deathStarSprite);
-		},
-		
-		shipsCreate: function()
-		{
-			that.ship2Sprite = new PIXI.Sprite(parent.assets.getAsset("ship2Texture")); 
-			that.ship2Sprite.position.x = 900; 
-			that.ship2Sprite.position.y = 150; 
-			that.windowStage.addChild(that.ship2Sprite);
-			
-			that.ship3Sprite = new PIXI.Sprite(parent.assets.getAsset("ship3Texture")); 
-			that.ship3Sprite.position.x = 50; 
-			that.ship3Sprite.position.y = 150; 
-			that.windowStage.addChild(that.ship3Sprite);
-			
-			that.ship1Sprite = new PIXI.Sprite(parent.assets.getAsset("ship1Texture")); 
-			that.ship1Sprite.position.x = -375; 
-			that.ship1Sprite.position.y = 250; 
-			that.windowStage.addChild(that.ship1Sprite);
-		},
-		
-		panetBattonsCreate: function()
-		{
-			var graphics = new PIXI.Graphics(); 
-			graphics.lineStyle(2, 0x0000FF, 0);
-			graphics.beginFill(0x0000FF, 0.4);
-			graphics.drawRect(23, 20, 347, 700);
-			that.windowStage.addChild(graphics);
-			
-			var textArr = ["НАЧАТЬ ИГРУ", "НАСТРОЙКИ", "ПРИГЛАСИТЬ"];
-			
-			for(var i = 0; i < textArr.length; i++)
-			{
-				var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
-				button.name = "button_" + i;
-				button.position.x = 85; 
-				button.position.y = 350 + (75 * i); 
-				button.interactive = true; 
-				button.buttonMode = true; 
-				button.loop = false; 
-				button.animationSpeed = 0.2;
-				button.onComplete = that.onButtonUpdate;
-			
-			
-				button.tap = that.onButtonClick; 
-				button.click = that.onButtonClick; 
-				button.on('mouseover', that.onButtonOver);
-				button.on('mouseout', that.onButtonOut);
-
-				var text = new PIXI.Text(textArr[i], that.styleButtonText); 
-				text.x = button.width / 3.8;
-				text.y = button.height / 3;
-
-				button.addChild(text); 
-				that.windowStage.addChild(button);
-			}
-		},
-		
-		onButtonOver: function(e)
-		{
-			this.isOver = true;
-			this.gotoAndPlay(1);
-		},
-		
-		onButtonOut: function(e)
-		{
-			this.isOver = false;
-			this.gotoAndStop(0);
-		},
-		
-		onButtonUpdate: function(e)
-		{
-			if(this.isOver)
-			{
-				this.gotoAndPlay(1);
-			}else{
-				this.gotoAndStop(0);
-			}
-		},
-		
-		onButtonClick: function(e)
-		{
-			switch (this.name)
-			{
-				case "button_0":        // Начать игру
-					parent.menuStartGame();
-					break;
-				case "button_1":        // Настройки игры
-					parent.settingsShow();
-					break;
-				case "button_2":        // Позвать друзей ВК
-					parent.vkInvite();
-					break;
-				default:
-					break;
-			}
-		},
-		
-		borderCreate: function()
-		{
-			var graphics = new PIXI.Graphics(); 
-
-			graphics.lineStyle(2, 0x0000FF, 1);
-			graphics.beginFill(0x000000, 0);
-			graphics.drawRect(10, 10, 840, 710);
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFFFF, 1);
-			graphics.drawCircle(5, 600,4);
-			graphics.endFill();
-
-			graphics.lineStyle(2, 0xFFFFFF, 1);
-			graphics.moveTo(5,600);
-			graphics.lineTo(5, 725);
-			graphics.moveTo(5,725);
-			graphics.lineTo(650, 725);
-			graphics.moveTo(650,725);
-			graphics.lineTo(670, 710);
-			graphics.moveTo(670,710);
-			graphics.lineTo(840, 710);
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFFFF, 1);
-			graphics.drawCircle(840, 710,4);
-			graphics.endFill();
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFFFF, 1);
-			graphics.drawCircle(20, 20,4);
-			graphics.endFill();
-
-			graphics.lineStyle(2, 0xFFFFFF, 1);
-			graphics.moveTo(20,20);
-			graphics.lineTo(370, 20);
-			graphics.moveTo(370,20);
-			graphics.lineTo(390, 5);
-			graphics.moveTo(390,5);
-			graphics.lineTo(855, 5);
-			graphics.moveTo(855,5);
-			graphics.lineTo(855, 150);
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFFFF, 1);
-			graphics.drawCircle(855, 150,4);
-			graphics.endFill();
-
-			that.windowStage.addChild(graphics);
-		},
-		
-		logoCreate: function()
-		{
-			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("starwarsTexture")); 
-			textureSprite.position.x = 25; 
-			textureSprite.position.y = 15; 
-			that.windowStage.addChild(textureSprite);
-		},
-		
-		droidCreate: function()
-		{
-			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidBlueRightTexture")); 
-			textureSprite.position.x = 700; 
-			textureSprite.position.y = 550; 
-			textureSprite.scale.set(0.4);
-			that.windowStage.addChild(textureSprite);
-
-			var graphics = new PIXI.Graphics(); 
-			graphics.lineStyle(2, 0x0080C0, 1);
-			graphics.beginFill(0x0080C0, 0.2);
-			graphics.moveTo(735,575);
-			graphics.lineTo(550, 575);
-			graphics.lineTo(550, 300);
-			graphics.lineTo(735, 300);
-			graphics.endFill;
-			for(var i = 0; i < 92; i++)
-			{
-				graphics.lineStyle(1, 0x0090F0, 0.5);
-				graphics.moveTo(735,300+(3*i));
-				graphics.lineTo(550, 300+(3*i));
-			}
-			that.windowStage.addChild(graphics);
-
-			that.droidMessage();
-
-			that.lineMessageGraphics = new PIXI.Graphics(); 
-			that.lineMessageGraphics.lineStyle(10, 0x0090F0, 0.3);
-			that.lineMessageGraphics.moveTo(735,305);
-			that.lineMessageGraphics.lineTo(550, 305);
-			that.windowStage.addChild(that.lineMessageGraphics);
-		},
-		
-		droidMessage: function()
-		{
-			var text = new PIXI.Text("\nДобро пожаловать на путь силы. \nВаши способности превышают способности обычных людей. \nВы тут потому что вы были избраны. \n\nНажмите кнопку \n''Начать игру'' \n\nИ да пребудет с Вами Сила!", that.styleDroidText); 
-			text.x = 555; 
-			text.y = 300; 
-			that.windowStage.addChild(text);
-		},
-		
-		tweenStart: function()
-		{
-			createjs.Tween.get(that.lineMessageGraphics , {loop: true}) 
-				.to({x: 0, y: 265}, 2500, createjs.Ease.getPowInOut(3));
-				
-			createjs.Tween.get(that.starsSprite, {loop: true}) 
-				.to({x: -50, y: 0}, 25000, createjs.Ease.getPowInOut(3))
-				.to({x: -50, y: -50}, 25000, createjs.Ease.getPowInOut(3))
-				.to({x: 0, y: -50}, 25000, createjs.Ease.getPowInOut(3))
-				.to({x: 0, y: 0}, 25000, createjs.Ease.getPowInOut(3));
-
-			createjs.Tween.get(that.deathStarSprite, {loop: true}) 
-					.to({x: 200, y: 100}, 25000, createjs.Ease.getPowInOut(3))
-					.to({x: 200, y: 0}, 25000, createjs.Ease.getPowInOut(3))
-					.to({x: 300, y: 0}, 25000, createjs.Ease.getPowInOut(3))
-					.to({x: 300, y: 100}, 25000, createjs.Ease.getPowInOut(3));
-
-			createjs.Tween.get(that.ship3Sprite, {loop: true}) 
-					.to({x: -150, y: 150}, 25000, createjs.Ease.getPowInOut(3))
-					.to({x: -150, y: 0}, 25000, createjs.Ease.getPowInOut(3))
-					.to({x: 50, y: 0}, 25000, createjs.Ease.getPowInOut(3))
-					.to({x: 50, y: 150}, 25000, createjs.Ease.getPowInOut(3));
-
-			createjs.Tween.get(that.ship1Sprite, {loop: true}) 
-					.to({x: 1000, y: 1000}, 5000, createjs.Ease.getPowInOut(3));
-
-			createjs.Tween.get(that.ship2Sprite, {loop: true}) 
-					.to({x: -250, y: 350}, 5000, createjs.Ease.getPowInOut(3));
-
-			createjs.Ticker.setFPS(60); 
-		},
-		
-		tweenStop: function()
-		{
-			createjs.Tween.removeTweens(that.lineMessageGraphics);
-			createjs.Tween.removeTweens(that.starsSprite);
-			createjs.Tween.removeTweens(that.deathStarSprite);
-			createjs.Tween.removeTweens(that.ship3Sprite);
-			createjs.Tween.removeTweens(that.ship1Sprite);
-			createjs.Tween.removeTweens(that.ship2Sprite);
-		},
-		
-		show: function()
-		{
-			that.tweenStart();
-			return that.windowStage;
-		},
-		
-		close: function()
-		{
-			that.tweenStop();
-			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
-			return that.windowStage;
-		},
-		
-		getWindowStage: function()
-		{
-			return that.windowStage;
-		},
-		
-		destroy: function()
-		{
-			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
-			that.windowStage.destroy();
-			delete that.windowStage.children;
-			
-			for(var property in that) that[property] = null;
-		}
-	};
-	return that;
-}
-
-/* == END FILE ========================================================== */
-
-/* == START FILE ========================================================= */
-
 var Backmenu = function(parent)
 {
 	var that = {
@@ -887,7 +30,7 @@ var Backmenu = function(parent)
 			graphics.hitArea = new PIXI.Rectangle(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
 			graphics.interactive = true;
 			graphics.lineStyle(1, 0x000000, 0.05);
-			graphics.beginFill(0x000000, 0.05);
+			graphics.beginFill(0x000000, 0.5);
 			graphics.drawRect(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
 			graphics.endFill();
 			that.windowStage.addChild(graphics);
@@ -1153,867 +296,1495 @@ var Backmenu = function(parent)
 		
 	};
 	return that;
-}
+};
 
 /* == END FILE ========================================================== */
 
 /* == START FILE ========================================================= */
 
 
-var Settings = function(parent)
+var Command = function(parent)
 {
 	var that = {
 		windowStage: null,
-		lineAnimationGraphics: null,
-		styleBlueText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 },
-		styleRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 },
-		SIDE_NONE: "side_none",
+		spaceBackground: null,
+		lineAnimPersonageDesktopGraphics: null,
+		messageLineGraphics: null,
+		styleButtonBlueText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 },
+		styleButtonRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }, 
+		styledescriptionBlueText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 495 }, 
+		styledescriptionRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 495 },
+		styleDroidBlueText: { font : 'bold 14px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 },
+		styleDroidRedText: { font : 'bold 14px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }, 
+		experiencePointsText: null,
+
+		listCommand: [],
+		listPersonage: [],
+		desktopStage: null,
+		tapeStage: null,
+		tapePanelButtonsStage: null,
+		selectPersonageID: null,
+		selectPersonageIndex: null,
+		
 		SIDE_JEDI: "side_jedi",
 		SIDE_SITH: "side_sith",
 		
 		create: function()
 		{
 			that.windowStage = new PIXI.Container();
-			that.backgroundCreate();
-			that.windowCreate();
-			that.titleCreate();
-			that.textCreate();
-			that.buttonsCreate();
-			that.buttonCloseCreate();
-		},
-		
-		backgroundCreate: function()
-		{
-			var graphics = new PIXI.Graphics(); 
-			graphics.hitArea = new PIXI.Rectangle(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
-			graphics.interactive = true;
-			graphics.lineStyle(1, 0x000000, 0.05);
-			graphics.beginFill(0x000000, 0.05);
-			graphics.drawRect(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
-			graphics.endFill();
-			that.windowStage.addChild(graphics);
-		},
-		
-		windowCreate: function()
-		{
-			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI)
+			
+			if(parent.config.side === that.SIDE_JEDI)
 			{
-				var graphics = new PIXI.Graphics(); 
-				graphics.lineStyle(2, 0x0080C0, 1);
-				graphics.beginFill(0x0080C0, 0.2);
-				graphics.moveTo(250,250);
-				graphics.lineTo(600, 250);
-				graphics.lineTo(600, 500);
-				graphics.lineTo(250, 500);
-				graphics.endFill();
-				for(var i = 0; i < 55; i++)
-				{
-					if(i > 15 && i < 35)
-					{
-						
-					}else{
-						graphics.lineStyle(1, 0x0090F0, 0.5);
-						graphics.moveTo(250,280+(3*i));
-						graphics.lineTo(600, 280+(3*i));
-					}
-				}
-				that.windowStage.addChild(graphics);
-				
-				that.lineAnimationGraphics = new PIXI.Graphics(); 
-				that.lineAnimationGraphics.lineStyle(10, 0x0090F0, 0.3);
-				that.lineAnimationGraphics.moveTo(250,255);
-				that.lineAnimationGraphics.lineTo(600, 255);
-				that.windowStage.addChild(that.lineAnimationGraphics);
-								
-				graphics = new PIXI.Graphics(); 
-				graphics.lineStyle(1, 0x0080C0, 1);
-				graphics.beginFill(0x0080C0, 1);
-				graphics.moveTo(400,250);
-				graphics.lineTo(425, 275);
-				graphics.lineTo(600, 275);
-				graphics.lineTo(600, 250);
-				graphics.endFill();
-				that.windowStage.addChild(graphics);
+				that.backgroundBlue(); 
+				that.desktopBlue();
+				that.borderBlue();
+				that.droidBlue();
+				that.blueCommand();
+				that.tapeMask();
+				that.tapeBlue();
+				that.tapeButton();
+				that.buttonsBlue();
 			}
 			if(parent.config.side === that.SIDE_SITH)
 			{
-				var graphics = new PIXI.Graphics(); 
-				graphics.lineStyle(2, 0xA63A24, 1);
-				graphics.beginFill(0xA63A24, 0.2);
-				graphics.moveTo(250,250);
-				graphics.lineTo(600, 250);
-				graphics.lineTo(600, 500);
-				graphics.lineTo(250, 500);
-				graphics.endFill();
-				for(var i = 0; i < 55; i++)
-				{
-					if(i > 15 && i < 35)
-					{
-						
-					}else{
-						graphics.lineStyle(1, 0xA63A24, 0.5);
-						graphics.moveTo(250,280+(3*i));
-						graphics.lineTo(600, 280+(3*i));
-					}
-				}
-				that.windowStage.addChild(graphics);
-				
-				that.lineAnimationGraphics = new PIXI.Graphics(); 
-				that.lineAnimationGraphics.lineStyle(10, 0xA63A24, 0.3);
-				that.lineAnimationGraphics.moveTo(250,255);
-				that.lineAnimationGraphics.lineTo(600, 255);
-				that.windowStage.addChild(that.lineAnimationGraphics);
-				
-				graphics = new PIXI.Graphics(); 
-				graphics.lineStyle(1, 0xA63A24, 1);
-				graphics.beginFill(0xA63A24, 1);
-				graphics.moveTo(400,250);
-				graphics.lineTo(425, 275);
-				graphics.lineTo(600, 275);
-				graphics.lineTo(600, 250);
-				graphics.endFill();
-				that.windowStage.addChild(graphics);
+				that.backgroundRed();
+				that.desktopRed();
+				that.borderRed();
+				that.droidRed();
+				that.redCommand();
+				that.tapeMask();
+				that.tapeRed();
+				that.tapeButton();
+				that.buttonsRed();
 			}
 		},
 		
-		titleCreate: function()
+		
+		backgroundBlue: function()
 		{
-			var text;
-			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI) text = new PIXI.Text("НАСТРОЙКИ", that.styleBlueText); 
-			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text("НАСТРОЙКИ", that.styleRedText); 
-			text.x = 500;
-			text.y = 255;
-			that.windowStage.addChild(text);
+			that.spaceBackground = new PIXI.Sprite(parent.assets.getAsset("mapSpaceBlueTexture")); 
+			that.spaceBackground.position.x = -82; 
+			that.spaceBackground.position.y = -19; 
+			that.windowStage.addChild(that.spaceBackground);
 		},
 		
-		textCreate: function()
-		{
-			 var text;
-			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI) text = new PIXI.Text("Окно настроек позволяет включить или отключить в игре звуки и музыку.\n\n\n\n\nТакже вы можете посетить группу разработчика ВКонтакте, нажав на кнопку 'информация'.", that.styleBlueText); 
-			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text("Окно настроек позволяет включить или отключить в игре звуки и музыку.\n\n\n\n\nТакже вы можете посетить группу разработчика ВКонтакте, нажав на кнопку 'информация'.", that.styleRedText); 
-			text.x = 255;
-			text.y = 285;
-			that.windowStage.addChild(text);
-		},
-		
-		buttonsCreate: function()
-		{
-			var soundButton;
-			if(parent.config.sound === true) soundButton = new PIXI.Sprite(parent.assets.getAsset("soundOnButtonTexture"));
-			else soundButton = new PIXI.Sprite(parent.assets.getAsset("soundOffButtonTexture"));
-			soundButton.name = "sound";
-			soundButton.position.x = 300;
-			soundButton.position.y = 345;
-			soundButton.interactive = true;
-			soundButton.buttonMode = true;
-			soundButton.tap = that.onButtonsClick;
-			soundButton.click = that.onButtonsClick;
-			soundButton.on('mousedown', that.onButtonsDown);
-			soundButton.on('touchstart', that.onButtonsDown);
-			soundButton.on('mouseup', that.onButtonsUp);
-			soundButton.on('touchend', that.onButtonsUp);
-			soundButton.on('mouseupoutside', that.onButtonsUp);
-			soundButton.on('touchendoutside', that.onButtonsUp);
-			that.windowStage.addChild(soundButton);
-			
-			var musicButton;
-			if(parent.config.music === true) musicButton = new PIXI.Sprite(parent.assets.getAsset("musicOnButtonTexture"));
-			else musicButton = new PIXI.Sprite(parent.assets.getAsset("musicOffButtonTexture"));
-			musicButton.name = "music";
-			musicButton.position.x = 405;
-			musicButton.position.y = 345;
-			musicButton.interactive = true;
-			musicButton.buttonMode = true;
-			musicButton.tap = that.onButtonsClick;
-			musicButton.click = that.onButtonsClick;
-			musicButton.on('mousedown', that.onButtonsDown);
-			musicButton.on('touchstart', that.onButtonsDown);
-			musicButton.on('mouseup', that.onButtonsUp);
-			musicButton.on('touchend', that.onButtonsUp);
-			musicButton.on('mouseupoutside', that.onButtonsUp);
-			musicButton.on('touchendoutside', that.onButtonsUp);
-			that.windowStage.addChild(musicButton);
-			
-			var infoButton = new PIXI.Sprite(parent.assets.getAsset("infoButtonTexture"));
-			infoButton.name = "info";
-			infoButton.position.x = 510;
-			infoButton.position.y = 345;
-			infoButton.interactive = true;
-			infoButton.buttonMode = true;
-			infoButton.tap = that.onButtonsClick;
-			infoButton.click = that.onButtonsClick;
-			infoButton.on('mousedown', that.onButtonsDown);
-			infoButton.on('touchstart', that.onButtonsDown);
-			infoButton.on('mouseup', that.onButtonsUp);
-			infoButton.on('touchend', that.onButtonsUp);
-			infoButton.on('mouseupoutside', that.onButtonsUp);
-			infoButton.on('touchendoutside', that.onButtonsUp);
-			that.windowStage.addChild(infoButton);
-		},
-		
-		onButtonsDown: function(event)
-		{
-			this.isdown = true;
-			this.scale.set(0.95);
-			this.position.x += 5; 
-		},
-		
-		onButtonsUp: function(event)
-		{
-			if(this.isdown)
-			{
-				this.isdown = false;
-				this.scale.set(1.0);
-				this.position.x -= 5;
-			}
-		},
-		
-		onButtonsClick: function(event)
-		{
-			 if(this.name === "sound")
-			{
-				if(parent.config.sound === true)
-				{
-					parent.config.sound = false;
-					this.texture = parent.assets.getAsset("soundOffButtonTexture");
-					// !!!
-				}else{
-					parent.config.sound = true;
-					this.texture = parent.assets.getAsset("soundOnButtonTexture");
-					// !!!
-				}
-			}
-			if(this.name === "music")
-			{
-				if(parent.config.music === true)
-				{
-					parent.config.music = false;
-					this.texture = parent.assets.getAsset("musicOffButtonTexture");
-					parent.sound.soundStopStarWarsThemeSong();
-				}else{
-					parent.config.music = true;
-					this.texture = parent.assets.getAsset("musicOnButtonTexture");
-					parent.sound.soundPlayStarWarsThemeSong();
-				}
-			}
-			if(this.name === "info")
-			{
-				window.open("https://vk.com/club62618339","_target");
-			}
-		},
-		
-		buttonCloseCreate: function()
-		{
-			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI)
-			{
-				var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
-				button.name = "button_close";
-				button.position.x = 320; 
-				button.position.y = 450; 
-				button.interactive = true; 
-				button.buttonMode = true; 
-				button.loop = false; 
-				button.animationSpeed = 0.2;
-				button.onComplete = that.onButtonCloseUpdate;
-				button.tap = that.onButtonCloseClick; 
-				button.click = that.onButtonCloseClick; 
-				button.on('mouseover', that.onButtonCloseOver);
-				button.on('mouseout', that.onButtonCloseOut);
-				var text = new PIXI.Text("Закрыть", that.styleBlueText); 
-				text.x = button.width / 3;
-				text.y = button.height / 3;
-				button.addChild(text); 
-				that.windowStage.addChild(button);
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
-				button.name = "button_close";
-				button.position.x = 320; 
-				button.position.y = 450; 
-				button.interactive = true; 
-				button.buttonMode = true; 
-				button.loop = false; 
-				button.animationSpeed = 0.2;
-				button.onComplete = that.onButtonCloseUpdate;
-				button.tap = that.onButtonCloseClick; 
-				button.click = that.onButtonCloseClick; 
-				button.on('mouseover', that.onButtonCloseOver);
-				button.on('mouseout', that.onButtonCloseOut);
-				var text = new PIXI.Text("Закрыть", that.styleRedText); 
-				text.x = button.width / 3;
-				text.y = button.height / 3;
-				button.addChild(text); 
-				that.windowStage.addChild(button);
-			}
-		},
-		
-		onButtonCloseOver: function(event)
-		{
-			this.isOver = true;
-			this.gotoAndPlay(1);
-		},
-		
-		onButtonCloseOut: function(event)
-		{
-			this.isOver = false;
-			this.gotoAndStop(0);
-		},
-		
-		onButtonCloseUpdate: function(event)
-		{
-			if(this.isOver)
-			{
-				this.gotoAndPlay(1);
-			}else{
-				this.gotoAndStop(0);
-			}
-		},
-		
-		onButtonCloseClick: function(event)
-		{
-			parent.settingsClose();
-		},
-		
-		tweenStart: function()
-		{
-			createjs.Tween.get(that.lineAnimationGraphics, {loop: true}) 
-				.to({x: 0, y: 240}, 2500, createjs.Ease.getPowInOut(3));
-			createjs.Ticker.setFPS(60);
-		},
-		
-		tweenStop: function()
-		{
-			createjs.Tween.removeTweens(that.lineAnimationGraphics);
-		},
-		
-		show: function()
-		{
-			that.tweenStart();
-			return that.windowStage;
-		},
-		
-		close: function()
-		{
-			that.tweenStop();
-			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
-			return that.windowStage;
-		},
-		
-		getWindowStage: function()
-		{
-			return that.windowStage;
-		},
-		
-		destroy: function()
-		{
-			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
-			that.windowStage.destroy();
-			delete that.windowStage.children;
-			
-			for(var property in that) that[property] = null;
-		}
-	};
-	return that;
-}
-
-/* == END FILE ========================================================== */
-
-/* == START FILE ========================================================= */
-
-var Message = function(parent)
-{
-	var that = {
-		windowStage: null,
-		lineAnimationGraphics: null,
-		styleBlueText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 },
-		styleRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }, 
-		styleBlueTitle: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200, align: "left"},
-		styleRedTitle: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200, align: "left" },
-
-		titleText: null,
-		messageText: null,
-		
-		SIDE_NONE: "side_none",
-		SIDE_JEDI: "side_jedi",
-		SIDE_SITH: "side_sith",
-		
-		create: function(titleText, messageText)
-		{
-			that.titleText = titleText;
-			that.messageText = messageText;
-			that.windowStage = new PIXI.Container();
-			that.backgroundCreate();
-			that.windowCreate();
-			that.titleCreate();
-			that.textCreate();
-			that.buttonCloseCreate();
-		},
-		
-		backgroundCreate: function()
-		{
-			var graphics = new PIXI.Graphics(); 
-			graphics.hitArea = new PIXI.Rectangle(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
-			graphics.interactive = true;
-			graphics.lineStyle(1, 0x000000, 0.05);
-			graphics.beginFill(0x000000, 0.05);
-			graphics.drawRect(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
-			graphics.endFill();
-			that.windowStage.addChild(graphics);
-		},
-		
-		windowCreate: function()
-		{
-			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI)
-			{
-				var graphics = new PIXI.Graphics(); 
-				graphics.lineStyle(2, 0x0080C0, 1);
-				graphics.beginFill(0x0080C0, 0.2);
-				graphics.moveTo(250,250);
-				graphics.lineTo(600, 250);
-				graphics.lineTo(600, 500);
-				graphics.lineTo(250, 500);
-				graphics.endFill();
-				for(var i = 0; i < 55; i++)
-				{
-					graphics.lineStyle(1, 0x0090F0, 0.5);
-					graphics.moveTo(250,280+(3*i));
-					graphics.lineTo(600, 280+(3*i));
-
-				}
-				that.windowStage.addChild(graphics);
-				
-				that.lineAnimationGraphics = new PIXI.Graphics(); 
-				that.lineAnimationGraphics.lineStyle(10, 0x0090F0, 0.3);
-				that.lineAnimationGraphics.moveTo(250,255);
-				that.lineAnimationGraphics.lineTo(600, 255);
-				that.windowStage.addChild(that.lineAnimationGraphics);
-				
-				graphics = new PIXI.Graphics(); 
-				graphics.lineStyle(1, 0x0080C0, 1);
-				graphics.beginFill(0x0080C0, 1);
-				graphics.moveTo(400,250);
-				graphics.lineTo(425, 275);
-				graphics.lineTo(600, 275);
-				graphics.lineTo(600, 250);
-				graphics.endFill();
-				that.windowStage.addChild(graphics);
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				var graphics = new PIXI.Graphics(); 
-				graphics.lineStyle(2, 0xA63A24, 1);
-				graphics.beginFill(0xA63A24, 0.2);
-				graphics.moveTo(250,250);
-				graphics.lineTo(600, 250);
-				graphics.lineTo(600, 500);
-				graphics.lineTo(250, 500);
-				graphics.endFill();
-				for(var i = 0; i < 55; i++)
-				{
-					graphics.lineStyle(1, 0xA63A24, 0.5);
-					graphics.moveTo(250,280+(3*i));
-					graphics.lineTo(600, 280+(3*i));
-				}
-				that.windowStage.addChild(graphics);
-				
-				that.lineAnimationGraphics = new PIXI.Graphics(); 
-				that.lineAnimationGraphics.lineStyle(10, 0xA63A24, 0.3);
-				that.lineAnimationGraphics.moveTo(250,255);
-				that.lineAnimationGraphics.lineTo(600, 255);
-				that.windowStage.addChild(that.lineAnimationGraphics);
-				
-				graphics = new PIXI.Graphics(); 
-				graphics.lineStyle(1, 0xA63A24, 1);
-				graphics.beginFill(0xA63A24, 1);
-				graphics.moveTo(400,250);
-				graphics.lineTo(425, 275);
-				graphics.lineTo(600, 275);
-				graphics.lineTo(600, 250);
-				graphics.endFill();
-				that.windowStage.addChild(graphics);
-			}
-		},
-		
-		titleCreate: function()
-		{
-			var text;
-    		if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI) text = new PIXI.Text(that.titleText, that.styleBlueTitle); 
-			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text(that.titleText, that.styleRedTitle); 
-			text.x = 450;
-			text.y = 255;
-			that.windowStage.addChild(text);
-		},
-		
-		textCreate: function()
-		{
-			var text;
-			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI) text = new PIXI.Text(that.messageText, that.styleBlueText); 
-			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text(that.messageText, that.styleRedText); 
-			text.x = 255;
-			text.y = 285;
-			that.windowStage.addChild(text);
-		},
-		
-		buttonCloseCreate: function()
-		{
-			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI)
-			{
-				var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
-				button.name = "button_close";
-				button.position.x = 320; 
-				button.position.y = 450; 
-				button.interactive = true; 
-				button.buttonMode = true; 
-				button.loop = false; 
-				button.animationSpeed = 0.2;
-				button.onComplete = that.onButtonCloseUpdate;
-				button.tap = that.onButtonCloseClick; 
-				button.click = that.onButtonCloseClick; 
-				button.on('mouseover', that.onButtonCloseOver);
-				button.on('mouseout', that.onButtonCloseOut);
-				var text = new PIXI.Text("Закрыть", that.styleBlueText); 
-				text.x = button.width / 3;
-				text.y = button.height / 3;
-				button.addChild(text); 
-				that.windowStage.addChild(button);
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
-				button.name = "button_close";
-				button.position.x = 320; 
-				button.position.y = 450; 
-				button.interactive = true; 
-				button.buttonMode = true; 
-				button.loop = false; 
-				button.animationSpeed = 0.2;
-				button.onComplete = that.onButtonCloseUpdate;
-				button.tap = that.onButtonCloseClick; 
-				button.click = that.onButtonCloseClick; 
-				button.on('mouseover', that.onButtonCloseOver);
-				button.on('mouseout', that.onButtonCloseOut);
-				var text = new PIXI.Text("Закрыть", that.styleRedText); 
-				text.x = button.width / 3;
-				text.y = button.height / 3;
-				button.addChild(text); 
-				that.windowStage.addChild(button);
-			}
-		},
-		
-		onButtonCloseOver: function(event)
-		{
-			this.isOver = true;
-			this.gotoAndPlay(1);
-		},
-		
-		onButtonCloseOut: function(event)
-		{
-			this.isOver = false;
-			this.gotoAndStop(0);
-		},
-		
-		onButtonCloseUpdate: function(event)
-		{
-			if(this.isOver)
-			{
-				this.gotoAndPlay(1);
-			}else{
-				this.gotoAndStop(0);
-			}
-		},
-		
-		onButtonCloseClick: function(event)
-		{
-			parent.messageClose();
-		},
-		
-		tweenStart: function()
-		{
-			createjs.Tween.get(that.lineAnimationGraphics, {loop: true}) 
-				.to({x: 0, y: 240}, 2500, createjs.Ease.getPowInOut(3));
-			createjs.Ticker.setFPS(60);
-		},
-		
-		tweenStop: function()
-		{
-			createjs.Tween.removeTweens(that.lineAnimationGraphics);
-		},
-		
-		show: function()
-		{
-			that.tweenStart();
-			return that.windowStage;
-		},
-		
-		close: function()
-		{
-			that.tweenStop();
-			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
-			return that.windowStage;
-		},
-		
-		getWindowStage: function()
-		{
-			return that.windowStage;
-		},
-		
-		destroy: function()
-		{
-			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
-			that.windowStage.destroy();
-			delete that.windowStage.children;
-			
-			for(var property in that) that[property] = null;
-		}
-	};
-	return that;
-}
-
-/* == END FILE ========================================================== */
-
-/* == START FILE ========================================================= */
-
-var Side = function(parent)
-{
-	var that = {
-		windowStage: null,
-		SIDE_NONE: "side_none",
-		SIDE_JEDI: "side_jedi",
-		SIDE_SITH: "side_sith",
-		side: null,
-		
-		selectGraphics: null,
-		droidBlueStage: null,
-		styleDroidBlueText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 275 },
-		blueLineAnimationGraphics: null,
-		
-		droidRedStage: null,
-		styleDroidRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 275 },
-		redLineAnimationGraphics: null,
-		
-		create: function()
-		{
-			that.windowStage = new PIXI.Container();
-			that.backgroundCreate();
-			that.borderCreate();
-			that.heroesCreate();
-			that.droidCreate();
-		},
-		
-		backgroundCreate: function()
-		{
-			var sprite = new PIXI.Sprite(parent.assets.getAsset("sideBackgroundTexture"));
-			sprite.position.x = 0; 
-			sprite.position.y = 0; 
-			that.windowStage.addChild(sprite);
-		},
-
-		borderCreate: function()
+		borderBlue: function()
 		{
 			var graphics = new PIXI.Graphics(); 
 
 			graphics.lineStyle(2, 0x0000FF, 1);
 			graphics.beginFill(0x000000, 0);
 			graphics.drawRect(10, 10, 840, 710);
-			
-			graphics.lineStyle(2, 0xFF0000, 1);
-			graphics.moveTo(430,720);
-			graphics.lineTo(10, 720);
-			graphics.moveTo(10,720);
-			graphics.lineTo(10, 10);
-			graphics.moveTo(10,10);
-			graphics.lineTo(430, 10);
-			
+
 			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFF80, 1);
-			graphics.drawCircle(5, 600,4);
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawCircle(555, 600,4);
 			graphics.endFill();
+
+			graphics.lineStyle(2, 0xFFFFFF, 1);
+			graphics.moveTo(555, 600);
+			graphics.lineTo(5, 600);
 			
-			graphics.lineStyle(2, 0xFFFF80, 1);
-			graphics.moveTo(5,600);
+			graphics.moveTo(5, 600);
 			graphics.lineTo(5, 725);
-			
-			graphics.lineStyle(2, 0xFFFF80, 1);
-			graphics.moveTo(5,725);
-			graphics.lineTo(25, 725);
-			graphics.moveTo(25,725);
-			graphics.lineTo(430, 725);
-			
-			graphics.lineStyle(2, 0xFFFFFF, 1);
-			graphics.moveTo(430,725);
+			graphics.moveTo(5, 725);
 			graphics.lineTo(855, 725);
-			
+			graphics.moveTo(855, 725);
+			graphics.lineTo(855, 665);
+			graphics.moveTo(855, 665);
+			graphics.lineTo(650, 665);
+
 			graphics.lineStyle(0);
 			graphics.beginFill(0xFFFFFF, 1);
-			graphics.drawCircle(855, 725,4);
+			graphics.drawCircle(650, 665,4);
 			graphics.endFill();
-			
+
 			graphics.lineStyle(0);
 			graphics.beginFill(0xFFFFFF, 1);
-			graphics.drawCircle(855, 150,4);
+			graphics.drawCircle(20, 15,4);
 			graphics.endFill();
-			
+
 			graphics.lineStyle(2, 0xFFFFFF, 1);
-			graphics.moveTo(855,150);
+			graphics.moveTo(20, 15);
+			graphics.lineTo(550, 15);
+			
+			graphics.moveTo(550, 15);
+			graphics.lineTo(570, 5);
+			
+			graphics.moveTo(570, 5);
 			graphics.lineTo(855, 5);
-			graphics.moveTo(855,5);
-			graphics.lineTo(430, 5);
-			
-			graphics.lineStyle(2, 0xFFFF80, 1);
-			graphics.moveTo(430,5);
-			graphics.lineTo(5, 5);
-			
+			graphics.moveTo(855, 5);
+			graphics.lineTo(855, 50);
+			graphics.moveTo(855, 50);
+			graphics.lineTo(650, 50);
+
 			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFF80, 1);
-			graphics.drawCircle(5,5,4);
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawCircle(650, 50,4);
 			graphics.endFill();
+			
+			that.windowStage.addChild(graphics);
+			
+			that.experiencePointsText = new PIXI.Text("КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints, that.styleButtonBlueText); 
+			that.experiencePointsText.x = 655;
+			that.experiencePointsText.y = 30;
+			that.windowStage.addChild(that.experiencePointsText);
+		},
+		
+		buttonsBlue: function()
+		{
+			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
+			button.name = "Closed";
+			button.position.x = 650; 
+			button.position.y = 670; 
+			button.interactive = true; 
+			button.buttonMode = true; 
+			button.loop = false; 
+			button.animationSpeed = 0.2;
+			button.onComplete = that.onButtonUpdate;
+			button.tap = that.onButtonClick; 
+			button.click = that.onButtonClick; 
+			button.on('mouseover', that.onButtonOver);
+			button.on('mouseout', that.onButtonOut);
+			
+			var text = new PIXI.Text("ЗАКРЫТЬ", that.styleButtonBlueText); 
+			text.x = button.width / 3.2;
+			text.y = button.height / 3;
+
+			button.addChild(text); 
+			that.windowStage.addChild(button);
+		},
+		
+		desktopBlue: function()
+		{
+			var graphics = new PIXI.Graphics();
+    
+			graphics.lineStyle(2, 0x0000FF, 1);
+			graphics.beginFill(0x0000FF, 0.2);
+			graphics.moveTo(25, 600);
+			graphics.lineTo(550, 600);
+			graphics.lineTo(550, 715);
+			graphics.lineTo(25, 715);
+			graphics.endFill;
+			
+			graphics.lineStyle(2, 0x0000FF, 1);
+			graphics.beginFill(0x0000FF, 0.2);
+			graphics.moveTo(655, 50);
+			graphics.lineTo(800, 50);
+			graphics.lineTo(800, 350);
+			graphics.lineTo(650, 350);
+			graphics.endFill;
 			
 			that.windowStage.addChild(graphics);
 		},
 		
-		heroesCreate: function()
+		droidBlue: function()
 		{
-			var button1 = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexSideDarthVader"));
-			button1.name = "DarthVader";
-			button1.position.x = 25;
-			button1.position.y = 75;
-			button1.interactive = true;
-			button1.buttonMode = true;
-			button1.tap = that.onButtonClick; 
-			button1.click = that.onButtonClick; 
-			button1.on('mouseover', that.onButtonOver);
-			button1.on('mouseout', that.onButtonOut);
-			button1.loop = true;
-			button1.animationSpeed = 0.2;
-			button1.play();
-			that.windowStage.addChild(button1);
+			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidBlueRightTexture")); 
+			textureSprite.position.x = 765; 
+			textureSprite.position.y = 550; 
+			textureSprite.scale.set(0.3);
+			that.windowStage.addChild(textureSprite);
 			
-			var button2 = new PIXI.Sprite(parent.assets.getAsset("sideLukeSkywalkerTexture"));
-			button2.name = "LukeSkywalker";
-			button2.position.x = 475;
-			button2.position.y = 80;
-			button2.interactive = true;
-			button2.buttonMode = true;
-			button2.tap = that.onButtonClick; 
-			button2.click = that.onButtonClick; 
-			button2.on('mouseover', that.onButtonOver);
-			button2.on('mouseout', that.onButtonOut);
-			that.windowStage.addChild(button2);
+			var graphics = new PIXI.Graphics(); 
+			graphics.lineStyle(2, 0x0090F0, 0.2);
+			graphics.beginFill(0x0090F0, 0.2);
+			graphics.moveTo(795, 570);
+			graphics.lineTo(570, 525);
+			graphics.lineTo(840, 525);
+			graphics.lineTo(795, 570);
+			graphics.endFill;
+			that.windowStage.addChild(graphics);
+			
+			for(var i = 0; i < 50; i++)
+			{
+				graphics.lineStyle(1, 0x0090F0, 0.2);
+				graphics.moveTo(560, 375+(3*i));
+				graphics.lineTo(840, 375+(3*i));
+			}
+			that.windowStage.addChild(graphics);
+			
+			that.messageLineGraphics = new PIXI.Graphics(); 
+			that.messageLineGraphics.lineStyle(10, 0x0090F0, 0.3);
+			that.messageLineGraphics.moveTo(560, 380);
+			that.messageLineGraphics.lineTo(840, 380);
+			that.windowStage.addChild(that.messageLineGraphics);
+			
+			that.textMessage = new PIXI.Text("Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", that.styleDroidBlueText); 
+			that.textMessage.x = 565; 
+			that.textMessage.y = 375; 
+			that.windowStage.addChild(that.textMessage);
+		},
+		
+		backgroundRed: function()
+		{
+			that.spaceBackground = new PIXI.Sprite(parent.assets.getAsset("mapSpaceRedTexture")); 
+			that.spaceBackground.position.x = -82; 
+			that.spaceBackground.position.y = -19; 
+			that.windowStage.addChild(that.spaceBackground);
+		},
+		
+		borderRed: function()
+		{
+			var graphics = new PIXI.Graphics(); 
+
+			graphics.lineStyle(2, 0xFF0000, 1);
+			graphics.beginFill(0x000000, 0);
+			graphics.drawRect(10, 10, 840, 710);
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFF80, 1);
+			graphics.drawCircle(555, 600,4);
+			graphics.endFill();
+
+			graphics.lineStyle(2, 0xFFFF80, 1);
+			graphics.moveTo(555, 600);
+			graphics.lineTo(5, 600);
+			
+			graphics.moveTo(5, 600);
+			graphics.lineTo(5, 725);
+			graphics.moveTo(5, 725);
+			graphics.lineTo(855, 725);
+			graphics.moveTo(855, 725);
+			graphics.lineTo(855, 665);
+			graphics.moveTo(855, 665);
+			graphics.lineTo(650, 665);
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFF80, 1);
+			graphics.drawCircle(650, 665,4);
+			graphics.endFill();
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFF80, 1);
+			graphics.drawCircle(20, 15,4);
+			graphics.endFill();
+
+			graphics.lineStyle(2, 0xFFFF80, 1);
+			graphics.moveTo(20, 15);
+			graphics.lineTo(550, 15);
+			
+			graphics.moveTo(550, 15);
+			graphics.lineTo(570, 5);
+			
+			graphics.moveTo(570, 5);
+			graphics.lineTo(855, 5);
+			graphics.moveTo(855, 5);
+			graphics.lineTo(855, 50);
+			graphics.moveTo(855, 50);
+			graphics.lineTo(650, 50);
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFF80, 1);
+			graphics.drawCircle(650, 50,4);
+			graphics.endFill();
+			
+			that.windowStage.addChild(graphics);
+			
+			that.experiencePointsText = new PIXI.Text("КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints, that.styleButtonRedText); 
+			that.experiencePointsText.x = 655;
+			that.experiencePointsText.y = 30;
+			that.windowStage.addChild(that.experiencePointsText);
+		},
+		
+		buttonsRed: function()
+		{
+			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed"));
+			button.name = "Closed";
+			button.position.x = 650; 
+			button.position.y = 670; 
+			button.interactive = true; 
+			button.buttonMode = true; 
+			button.loop = false; 
+			button.animationSpeed = 0.2;
+			button.onComplete = that.onButtonUpdate;
+			button.tap = that.onButtonClick; 
+			button.click = that.onButtonClick; 
+			button.on('mouseover', that.onButtonOver);
+			button.on('mouseout', that.onButtonOut);
+			
+			var text = new PIXI.Text("ЗАКРЫТЬ", that.styleButtonRedText); 
+			text.x = button.width / 3.2;
+			text.y = button.height / 3;
+
+			button.addChild(text); 
+			that.windowStage.addChild(button);
+		},
+		
+		desktopRed: function()
+		{
+			var graphics = new PIXI.Graphics();
+    
+			graphics.lineStyle(2, 0x800000, 1);
+			graphics.beginFill(0x800000, 0.2);
+			graphics.moveTo(25, 600);
+			graphics.lineTo(550, 600);
+			graphics.lineTo(550, 715);
+			graphics.lineTo(25, 715);
+			graphics.endFill;
+			
+			graphics.lineStyle(2, 0x800000, 1);
+			graphics.beginFill(0x800000, 0.2);
+			graphics.moveTo(655, 50);
+			graphics.lineTo(800, 50);
+			graphics.lineTo(800, 350);
+			graphics.lineTo(650, 350);
+			graphics.endFill;
+			
+			that.windowStage.addChild(graphics);
+		},
+		
+		droidRed: function()
+		{
+			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidRedRightTexture")); 
+			textureSprite.position.x = 765; 
+			textureSprite.position.y = 550; 
+			textureSprite.scale.set(0.3);
+			that.windowStage.addChild(textureSprite);
+			
+			var graphics = new PIXI.Graphics(); 
+			graphics.lineStyle(2, 0xA63A24, 0.2);
+			graphics.beginFill(0xA63A24, 0.2);
+			graphics.moveTo(795, 570);
+			graphics.lineTo(570, 525);
+			graphics.lineTo(840, 525);
+			graphics.lineTo(795, 570);
+			graphics.endFill;
+			that.windowStage.addChild(graphics);
+			
+			for(var i = 0; i < 50; i++)
+			{
+				graphics.lineStyle(1, 0xA63A24, 0.2);
+				graphics.moveTo(560, 375+(3*i));
+				graphics.lineTo(840, 375+(3*i));
+			}
+			that.windowStage.addChild(graphics);
+			
+			that.messageLineGraphics = new PIXI.Graphics(); 
+			that.messageLineGraphics.lineStyle(10, 0xA63A24, 0.3);
+			that.messageLineGraphics.moveTo(560, 380);
+			that.messageLineGraphics.lineTo(840, 380);
+			that.windowStage.addChild(that.messageLineGraphics);
+			
+			that.textMessage = new PIXI.Text("Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", that.styleDroidRedText); 
+			that.textMessage.x = 565; 
+			that.textMessage.y = 375; 
+			that.windowStage.addChild(that.textMessage);
+		},
+		
+		blueCommand: function(select)
+		{
+			if (select === undefined) {
+				select = 0;
+			}
+			
+			if(that.listCommand.length === 0)
+			{
+					that.listCommand = [];
+			}else{
+				for(var i = 0; i < that.listCommand.length; i++)
+				{
+					that.windowStage.removeChild(that.listCommand[i]);
+				}
+				that.listCommand = [];
+			}
+			
+			var selectIndex = select;
+			var index = 0;
+			for(var key in parent.initialization.commandUser)
+			{
+				if(parent.initialization.commandUser[key] !== null)
+				{
+					var graphics = new PIXI.Graphics(); 
+					graphics.lineStyle(2, 0x0000FF, 0.2);
+					graphics.beginFill(0x0000FF, 0.2);
+					graphics.drawRect(690, 60 + (100 * index), 75, 75);
+					graphics.endFill;
+
+					var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser[key]][3]); 
+					textureSprite.name = parent.initialization.commandUser[key];
+					textureSprite.index = index;
+					textureSprite.position.x = 690; 
+					textureSprite.position.y = 60  + (100 * index); 
+					textureSprite.interactive = true; 
+					textureSprite.buttonMode = true;
+					textureSprite.tap = that.onBlueIconCommandClick; 
+					textureSprite.click = that.onBlueIconCommandClick; 
+					graphics.addChild(textureSprite);
+					
+					var border = new PIXI.Graphics();
+					if(index === selectIndex)
+					{
+						border.lineStyle(2, 0xFFFFFF, 0.5);
+						that.bluePersonageShow(parent.initialization.commandUser[key]);
+						that.selectPersonageID = parent.initialization.commandUser[key];
+						that.selectPersonageIndex = index;
+					} else {
+						border.lineStyle(2, 0x0000FF, 0.2);
+					}
+					border.drawRect(690, 60 + (100 * index), 75, 75);
+					graphics.addChild(border);
+					
+					that.listCommand.push(graphics);
+					that.windowStage.addChild(that.listCommand[index]);
+				} else{
+					var graphics = new PIXI.Graphics(); 
+					graphics.lineStyle(2, 0x0000FF, 0.2);
+					graphics.beginFill(0x0000FF, 0.2);
+					graphics.drawRect(690, 60 + (100 * index), 75, 75);
+					graphics.endFill;
+					that.listCommand.push(graphics);
+					that.windowStage.addChild(that.listCommand[index]);
+					if(select === 0 && selectIndex < 2) selectIndex++;
+				}
+				index++;
+			}
+		},
+		
+		onBlueIconCommandClick: function()
+		{
+                        that.tweenLineStop();
+			that.selectPersonageID = this.name;
+			that.selectPersonageIndex = this.index;
+			that.blueCommand(this.index);
+			that.tapeBlue(-1);
+                        that.tweenLineStart();
+		},
+		
+		bluePersonageShow: function(id)
+		{
+			that.windowStage.removeChild(that.desktopStage);
+			if(id !== null)
+			{
+				that.desktopStage = new PIXI.Container();
+				
+				var graphics = new PIXI.Graphics();
+				graphics.lineStyle(2, 0x0000FF, 1);
+				graphics.beginFill(0x0000FF, 0.2);
+				graphics.moveTo(25, 20);
+				graphics.lineTo(550, 20);
+				graphics.lineTo(550, 575);
+				graphics.lineTo(25, 575);
+				graphics.endFill;
+				that.desktopStage.addChild(graphics);
+				
+				var sprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[id][1]);
+				sprite.position.x = 25;
+				sprite.position.y = 50;
+				that.desktopStage.addChild(sprite);
+				
+				graphics = new PIXI.Graphics();
+				for(var i = 0; i < 185; i++)
+				{
+					graphics.lineStyle(1, 0x0000FF, 0.5);
+					graphics.moveTo(25, 20+(3*i));
+					graphics.lineTo(550, 20+(3*i));
+				}
+				that.desktopStage.addChild(graphics);
+				
+				that.lineAnimPersonageDesktopGraphics = new PIXI.Graphics(); 
+				that.lineAnimPersonageDesktopGraphics.lineStyle(10, 0x0000FF, 0.3);
+				that.lineAnimPersonageDesktopGraphics.moveTo(25, 25);
+				that.lineAnimPersonageDesktopGraphics.lineTo(550, 25);
+				that.desktopStage.addChild(that.lineAnimPersonageDesktopGraphics);
+				
+				var text = new PIXI.Text(parent.initialization.personages[id].name, that.styleButtonBlueText); 
+				text.x = 50; text.y = 30;
+				that.desktopStage.addChild(text);
+
+				text = new PIXI.Text("Характеристики:", that.styleButtonBlueText); 
+				text.x = 300; text.y = 100;
+				that.desktopStage.addChild(text);
+				
+				var life = (parent.initialization.personages[parent.initialization.personages[id].id].hitDefense1 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense2 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense3 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense4 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense5) / 10 * 50;
+				life = Math.round(life);
+				text = new PIXI.Text("Здоровье: " + life, that.styleButtonBlueText); 
+				text.x = 330; text.y = 130;
+				that.desktopStage.addChild(text);
+
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit1Texture"));
+				sprite.position.x = 300; sprite.position.y = 150; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал ловкости:", that.styleButtonBlueText); 
+				text.x = 330; text.y = 155;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense1, that.styleButtonBlueText); 
+				text.x = 480; text.y = 155;
+				that.desktopStage.addChild(text);
+
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit2Texture"));
+				sprite.position.x = 300; sprite.position.y = 175; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал тьмы:", that.styleButtonBlueText); 
+				text.x = 330; text.y = 180;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense2, that.styleButtonBlueText); 
+				text.x = 480; text.y = 180;
+				that.desktopStage.addChild(text);
+
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit3Texture"));
+				sprite.position.x = 300; sprite.position.y = 200; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал жизни:", that.styleButtonBlueText); 
+				text.x = 330; text.y = 205;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense3, that.styleButtonBlueText); 
+				text.x = 480; text.y = 205;
+				that.desktopStage.addChild(text);
+
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit4Texture"));
+				sprite.position.x = 300; sprite.position.y = 225; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал света:", that.styleButtonBlueText); 
+				text.x = 330; text.y = 230;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense4, that.styleButtonBlueText); 
+				text.x = 480; text.y = 230;
+				that.desktopStage.addChild(text);
+
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit5Texture"));
+				sprite.position.x = 300; sprite.position.y = 250; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал интеллекта:", that.styleButtonBlueText); 
+				text.x = 330; text.y = 255;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense5, that.styleButtonBlueText); 
+				text.x = 480; text.y = 255;
+				that.desktopStage.addChild(text);
+
+				text = new PIXI.Text(parent.initialization.personages[id].description, that.styledescriptionBlueText); 
+				text.x = 50;
+				text.y = 550 - text.height;
+				that.desktopStage.addChild(text);
+				
+				if(parent.initialization.personages[parent.initialization.personages[id].id].command === true) that.blueButtonRemovePersonage();
+				else that.blueButtonSelectPersonage();
+
+				that.experiencePointsButtons();
+
+				that.windowStage.addChild(that.desktopStage);
+			}else{
+				var graphics = new PIXI.Graphics();
+				graphics.lineStyle(2, 0x0000FF, 1);
+				graphics.beginFill(0x0000FF, 0.2);
+				graphics.moveTo(25, 20);
+				graphics.lineTo(550, 20);
+				graphics.lineTo(550, 575);
+				graphics.lineTo(25, 575);
+				graphics.endFill;
+				for(var i = 0; i < 185; i++)
+				{
+					graphics.lineStyle(1, 0x0000FF, 0.5);
+					graphics.moveTo(25, 20+(3*i));
+					graphics.lineTo(550, 20+(3*i));
+				}
+				that.windowStage.addChild(graphics);
+			}
+		},
+		
+		blueButtonRemovePersonage: function()
+		{
+			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
+			button.name = "Remove";
+			button.position.x = 350; 
+			button.position.y = 25; 
+			button.interactive = true; 
+			button.buttonMode = true; 
+			button.loop = false; 
+			button.animationSpeed = 0.2;
+			button.onComplete = that.onButtonUpdate;
+			button.tap = that.onButtonClick; 
+			button.click = that.onButtonClick; 
+			button.on('mouseover', that.onButtonOver);
+			button.on('mouseout', that.onButtonOut);
+			
+			var text = new PIXI.Text("УБРАТЬ ИЗ СПИСКА", that.styleButtonBlueText); 
+			text.x = button.width / 6.5;
+			text.y = button.height / 3;
+
+			button.addChild(text); 
+			that.desktopStage.addChild(button);
+		},
+		
+		blueButtonSelectPersonage: function()
+		{
+			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
+			button.name = "Select";
+			button.position.x = 350; 
+			button.position.y = 25; 
+			button.interactive = true; 
+			button.buttonMode = true; 
+			button.loop = false; 
+			button.animationSpeed = 0.2;
+			button.onComplete = that.onButtonUpdate;
+			button.tap = that.onButtonClick; 
+			button.click = that.onButtonClick; 
+			button.on('mouseover', that.onButtonOver);
+			button.on('mouseout', that.onButtonOut);
+			
+			var text = new PIXI.Text("ДОБАВИТЬ В СПИСОК", that.styleButtonBlueText); 
+			text.x = button.width / 8.0;
+			text.y = button.height / 3;
+
+			button.addChild(text); 
+			that.desktopStage.addChild(button);
+		},
+		
+		redCommand: function(select)
+		{
+			if (select === undefined) {
+				select = 0;
+			}
+			
+			if(that.listCommand.length === 0)
+			{
+					that.listCommand = [];
+			}else{
+				for(var i = 0; i < that.listCommand.length; i++)
+				{
+					that.windowStage.removeChild(that.listCommand[i]);
+				}
+				that.listCommand = [];
+			}
+
+			var selectIndex = select;
+			var index = 0;
+			for(var key in parent.initialization.commandUser)
+			{
+				if(parent.initialization.commandUser[key] !== null)
+				{
+					var graphics = new PIXI.Graphics(); 
+					graphics.lineStyle(2, 0xFF0000, 0.2);
+					graphics.beginFill(0xFF0000, 0.2);
+					graphics.drawRect(690, 60 + (100 * index), 75, 75);
+					graphics.endFill();
+
+					var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser[key]][3]); 
+					textureSprite.name = parent.initialization.commandUser[key];
+					textureSprite.index = index;
+					textureSprite.position.x = 690; 
+					textureSprite.position.y = 60  + (100 * index); 
+					textureSprite.interactive = true; 
+					textureSprite.buttonMode = true;
+					textureSprite.tap = that.onRedIconCommandClick; 
+					textureSprite.click = that.onRedIconCommandClick; 
+					graphics.addChild(textureSprite);
+					
+					var border = new PIXI.Graphics();
+					if(index === selectIndex)
+					{
+						border.lineStyle(2, 0xFFFFFF, 0.5);
+						that.redPersonageShow(parent.initialization.commandUser[key]);
+						that.selectPersonageID = parent.initialization.commandUser[key];
+						that.selectPersonageIndex = index;
+					} else {
+						border.lineStyle(2, 0x0000FF, 0.2);
+					}
+					border.drawRect(690, 60 + (100 * index), 75, 75);
+					graphics.addChild(border);
+					
+					that.listCommand.push(graphics);
+					that.windowStage.addChild(that.listCommand[index]);
+				} else{
+					var graphics = new PIXI.Graphics(); 
+					graphics.lineStyle(2, 0xFF0000, 0.2);
+					graphics.beginFill(0xFF0000, 0.2);
+					graphics.drawRect(690, 60 + (100 * index), 75, 75);
+					graphics.endFill();
+
+					that.listCommand.push(graphics);
+					that.windowStage.addChild(that.listCommand[index]);
+					if(select === 0 && selectIndex < 2) selectIndex++;
+				}
+				index++;
+			}
+		},
+		
+		onRedIconCommandClick: function()
+		{
+                        that.tweenLineStop();
+			that.selectPersonageID = this.name;
+			that.selectPersonageIndex = this.index;
+			that.redCommand(this.index);
+			that.tapeRed(-1);
+                        that.tweenLineStart();
+		},
+		
+		redPersonageShow: function(id)
+		{
+			that.windowStage.removeChild(that.desktopStage);
+			
+			if(id !== null)
+			{
+				that.desktopStage = new PIXI.Container();
+				
+				var graphics = new PIXI.Graphics();
+				graphics.lineStyle(2, 0x800000, 1);
+				graphics.beginFill(0x800000, 0.2);
+				graphics.moveTo(25, 20);
+				graphics.lineTo(550, 20);
+				graphics.lineTo(550, 575);
+				graphics.lineTo(25, 575);
+				graphics.endFill();
+				that.desktopStage.addChild(graphics);
+				
+				var sprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[id][1]);
+				sprite.position.x = 25;
+				sprite.position.y = 50;
+				that.desktopStage.addChild(sprite);
+				
+				var graphics = new PIXI.Graphics();
+				for(var i = 0; i < 185; i++)
+				{
+					graphics.lineStyle(1, 0x800000, 0.5);
+					graphics.moveTo(25, 20+(3*i));
+					graphics.lineTo(550, 20+(3*i));
+				}
+				that.desktopStage.addChild(graphics);
+				
+				that.lineAnimPersonageDesktopGraphics = new PIXI.Graphics(); 
+				that.lineAnimPersonageDesktopGraphics.lineStyle(10, 0x800000, 0.3);
+				that.lineAnimPersonageDesktopGraphics.moveTo(25, 25);
+				that.lineAnimPersonageDesktopGraphics.lineTo(550, 25);
+				that.desktopStage.addChild(that.lineAnimPersonageDesktopGraphics);
+				//cmdLineAnimPersonageDesktopGraphicsTween();
+
+				var text = new PIXI.Text(parent.initialization.personages[id].name, that.styleButtonRedText); 
+				text.x = 50; text.y = 30;
+				that.desktopStage.addChild(text);
+
+				text = new PIXI.Text("Характеристики:", that.styleButtonRedText); 
+				text.x = 300; text.y = 100;
+				that.desktopStage.addChild(text);
+				
+				var life = (parent.initialization.personages[parent.initialization.personages[id].id].hitDefense1 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense2 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense3 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense4 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense5) / 10 * 50;
+				life = Math.round(life);
+				text = new PIXI.Text("Здоровье: " + life, that.styleButtonRedText); 
+				text.x = 330; text.y = 130;
+				that.desktopStage.addChild(text);
+				
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit1Texture"));
+				sprite.position.x = 300; sprite.position.y = 150; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал ловкости:", that.styleButtonRedText); 
+				text.x = 330; text.y = 155;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense1, that.styleButtonRedText); 
+				text.x = 480; text.y = 155;
+				that.desktopStage.addChild(text);
+				
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit2Texture"));
+				sprite.position.x = 300; sprite.position.y = 175; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал тьмы:", that.styleButtonRedText); 
+				text.x = 330; text.y = 180;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense2, that.styleButtonRedText); 
+				text.x = 480; text.y = 180;
+				that.desktopStage.addChild(text);
+				
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit3Texture"));
+				sprite.position.x = 300; sprite.position.y = 200; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал жизни:", that.styleButtonRedText); 
+				text.x = 330; text.y = 205;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense3, that.styleButtonRedText); 
+				text.x = 480; text.y = 205;
+				that.desktopStage.addChild(text);
+
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit4Texture"));
+				sprite.position.x = 300; sprite.position.y = 225; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал света:", that.styleButtonRedText); 
+				text.x = 330; text.y = 230;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense4, that.styleButtonRedText); 
+				text.x = 480; text.y = 230;
+				that.desktopStage.addChild(text);
+				
+				sprite = new PIXI.Sprite(parent.assets.getAsset("hit5Texture"));
+				sprite.position.x = 300; sprite.position.y = 250; sprite.scale.set(0.3);
+				that.desktopStage.addChild(sprite);
+				text = new PIXI.Text("Кристал интеллекта:", that.styleButtonRedText); 
+				text.x = 330; text.y = 255;
+				that.desktopStage.addChild(text);
+				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense5, that.styleButtonRedText); 
+				text.x = 480; text.y = 255;
+				that.desktopStage.addChild(text);
+
+				text = new PIXI.Text(parent.initialization.personages[id].description, that.styledescriptionRedText); 
+				text.x = 50;
+				text.y = 550 - text.height;
+				that.desktopStage.addChild(text);
+
+				if(parent.initialization.personages[parent.initialization.personages[id].id].command === true) that.redButtonRemovePersonage();
+				else that.redButtonSelectPersonage();
+
+				that.experiencePointsButtons();
+
+				that.windowStage.addChild(that.desktopStage);
+			}else{
+				that.desktopStage = new PIXI.Container();
+				var graphics = new PIXI.Graphics();
+				graphics.lineStyle(2, 0x800000, 1);
+				graphics.beginFill(0x800000, 0.2);
+				graphics.moveTo(25, 20);
+				graphics.lineTo(550, 20);
+				graphics.lineTo(550, 575);
+				graphics.lineTo(25, 575);
+				graphics.endFill();
+
+				for(var i = 0; i < 185; i++)
+				{
+					graphics.lineStyle(1, 0x800000, 0.5);
+					graphics.moveTo(25, 20+(3*i));
+					graphics.lineTo(550, 20+(3*i));
+				}
+				that.desktopStage.addChild(graphics);
+			}
+		},
+		
+		redButtonRemovePersonage: function()
+		{
+			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed"));
+			button.name = "Remove";
+			button.position.x = 350; 
+			button.position.y = 25; 
+			button.interactive = true; 
+			button.buttonMode = true; 
+			button.loop = false; 
+			button.animationSpeed = 0.2;
+			button.onComplete = that.onButtonUpdate;
+			button.tap = that.onButtonClick; 
+			button.click = that.onButtonClick; 
+			button.on('mouseover', that.onButtonOver);
+			button.on('mouseout', that.onButtonOut);
+			
+			var text = new PIXI.Text("УБРАТЬ ИЗ СПИСКА", that.styleButtonRedText); 
+			text.x = button.width / 6.5;
+			text.y = button.height / 3;
+
+			button.addChild(text); 
+			that.desktopStage.addChild(button);
+		},
+		
+		redButtonSelectPersonage: function()
+		{
+			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed"));
+			button.name = "Select";
+			button.position.x = 350; 
+			button.position.y = 25; 
+			button.interactive = true; 
+			button.buttonMode = true; 
+			button.loop = false; 
+			button.animationSpeed = 0.2;
+			button.onComplete = that.onButtonUpdate;
+			button.tap = that.onButtonClick; 
+			button.click = that.onButtonClick; 
+			button.on('mouseover', that.onButtonOver);
+			button.on('mouseout', that.onButtonOut);
+			
+			var text = new PIXI.Text("ДОБАВИТЬ В СПИСОК", that.styleButtonBlueText); 
+			text.x = button.width / 8.0;
+			text.y = button.height / 3;
+
+			button.addChild(text); 
+			that.desktopStage.addChild(button);
 		},
 		
 		onButtonOver: function()
 		{
-			if(this.name === "DarthVader")
-			{
-				that.droidBlueStage.visible = false;
-				that.droidRedStage.visible = true;
-			}
-			if(this.name === "LukeSkywalker")
-			{
-				that.droidBlueStage.visible = true;
-				that.droidRedStage.visible = false;
-			}
+			this.isOver = true;
+			this.gotoAndPlay(1);
 		},
 		
 		onButtonOut: function()
 		{
-			
+			this.isOver = false;
+			this.gotoAndStop(0);
+		},
+		
+		onButtonUpdate: function()
+		{
+			if(this.isOver)
+			{
+				this.gotoAndPlay(1);
+			}else{
+				this.gotoAndStop(0);
+			}
 		},
 		
 		onButtonClick: function()
 		{
-			if(this.name === "DarthVader") that.side = that.SIDE_SITH;
-			if(this.name === "LukeSkywalker") that.side = that.SIDE_JEDI;
-			
-			parent.config.side = that.side;
-			parent.sideClose();
+			switch (this.name)
+			{
+				case "Closed":
+					parent.commandClose();
+					break;
+				case "Select":
+                                        that.selectCommandPersonage();
+                                        break;
+				case "Remove":
+                                        that.removeCommandPersonage();
+                                        break;    
+				default:
+					break;
+			}
 		},
 		
-		droidCreate: function()
+		tapeMask: function()
 		{
-			that.droidBlueStage = new PIXI.Container();
-    		var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidBlueRightTexture")); 
-			textureSprite.position.x = 700; 
-			textureSprite.position.y = 550; 
-			textureSprite.scale.set(0.4);
-			that.droidBlueStage.addChild(textureSprite);
-			var graphics = new PIXI.Graphics(); 
-			graphics.lineStyle(2, 0x0080C0, 1);
-			graphics.beginFill(0x0080C0, 0.2);
-			graphics.moveTo(450,450);
-			graphics.lineTo(735, 450);
-			graphics.lineTo(735, 575);
-			graphics.lineTo(450, 575);
-			graphics.endFill
-			for(var i = 0; i < 42; i++)
-			{
-				graphics.lineStyle(1, 0x0090F0, 0.5);
-				graphics.moveTo(450, 450+(3*i));
-				graphics.lineTo(735, 450+(3*i));
-			}
-			that.droidBlueStage.addChild(graphics);
-			var textMessage = new PIXI.Text("\nВыберите светлую сторону силы.\n\"Только покой ощутив, возмёшь контроль над желаниями своими\". \n\nПройдите путь Люка Скайуокера!", that.styleDroidBlueText); 
-			textMessage.x = 455; 
-			textMessage.y = 455; 
-			that.droidBlueStage.addChild(textMessage);
-			that.blueLineAnimationGraphics = new PIXI.Graphics(); 
-			that.blueLineAnimationGraphics.lineStyle(10, 0x0090F0, 0.3);
-			that.blueLineAnimationGraphics.moveTo(450,455);
-			that.blueLineAnimationGraphics.lineTo(735, 455);
-			that.droidBlueStage.addChild(that.blueLineAnimationGraphics);
-			that.windowStage.addChild(that.droidBlueStage);
-
+			 that.tapeStage = new PIXI.Container();
+    
+			var mask = new PIXI.Graphics();
+			mask.lineStyle(2, 0xFF00FF, 1);
+			mask.beginFill(0xFF00FF, 0.2);
+			mask.moveTo(70, 610);
+			mask.lineTo(500, 610);
+			mask.lineTo(500, 705);
+			mask.lineTo(70, 705);
+			mask.endFill();
 			
-			that.droidRedStage = new PIXI.Container();
-			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidRedLeftTexture")); 
-			textureSprite.position.x = 40; 
-			textureSprite.position.y = 550; 
-			textureSprite.scale.set(0.4);
-			that.droidRedStage.addChild(textureSprite);
-			var graphics = new PIXI.Graphics(); 
-			graphics.lineStyle(2, 0x800000, 1);
-			graphics.beginFill(0x800000, 0.2);
-			graphics.moveTo(125,450);
-			graphics.lineTo(410, 450);
-			graphics.lineTo(410, 575);
-			graphics.lineTo(125, 575);
-			graphics.endFill
-			for(var i = 0; i < 42; i++)
-			{
-				graphics.lineStyle(1, 0x800000, 0.5);
-				graphics.moveTo(125, 450+(3*i));
-				graphics.lineTo(410, 450+(3*i));
-			}
-			that.droidRedStage.addChild(graphics);
-			var textMessage = new PIXI.Text("\nВыберите тёмную сторону силы.\n\"Поддайся амбициям, почувствуй власть в своих руках.\" \n\nПройдите путь Дарт Вейдера!", that.styleDroidRedText); 
-			textMessage.x = 130; 
-			textMessage.y = 455; 
-			that.droidRedStage.addChild(textMessage);
-			that.redLineAnimationGraphics = new PIXI.Graphics(); 
-			that.redLineAnimationGraphics.lineStyle(10, 0x800000, 0.3);
-			that.redLineAnimationGraphics.moveTo(125,455);
-			that.redLineAnimationGraphics.lineTo(410, 455);
-			that.droidRedStage.addChild(that.redLineAnimationGraphics);
-			that.windowStage.addChild(that.droidRedStage);
+			that.tapeStage.mask = mask;
+			that.windowStage.addChild(that.tapeStage);
 			
-			that.droidBlueStage.visible = false;
-			that.droidRedStage.visible = false;
+			/* Всё что не отображается в маске будет не активно */
+			var graphics = new PIXI.Graphics(); 
+			graphics.hitArea = new PIXI.Rectangle(501, 610, 500, 95);
+			graphics.interactive = true;
+			graphics.lineStyle(1, 0x000000, 0.0);
+			graphics.beginFill(0xFF0000, 0.0);
+			graphics.drawRect(501, 610, 500, 95);
+			graphics.endFill();
+			that.windowStage.addChild(graphics);
 		},
+		
+		tapeBlue: function(select)
+		{
+			var countRemove = 0;
+			if (select === undefined) {
+				for(var key in parent.initialization.commandUser)
+					if(parent.initialization.commandUser[key] === null) countRemove++;
+				if(countRemove === 3) select = 0;
+				else select = -1;
+			}
+			
+			if(that.listCommand.length === 0)
+			{
+					that.listPersonage = [];
+			}else{
+				for(var i = 0; i < that.listPersonage.length; i++)
+				{
+					that.tapeStage.removeChild(that.listPersonage[i]);
+				}
+				that.listPersonage = [];
+			}
+			
+			var index = 0;
+			for(var planet in parent.initialization.planets)
+			{
+				if(parent.initialization.planets[planet].status === parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI)
+				{
+					if(parent.initialization.personages[parent.initialization.planets[planet].bluePersonage1].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].bluePersonage1].command === false)
+					{
+						var graphics = new PIXI.Graphics(); 
+						graphics.lineStyle(2, 0x0000FF, 0.2);
+						graphics.beginFill(0x0000FF, 0.2);
+						graphics.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.endFill();
+						
+						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].bluePersonage1][3]); 
+						textureSprite.name = parent.initialization.planets[planet].bluePersonage1;
+						textureSprite.index = index;
+						textureSprite.key = parent.initialization.planets[planet].bluePersonage1;
+						textureSprite.position.x = 80 + (100 * index); 
+						textureSprite.position.y = 620; 
+						textureSprite.interactive = true; 
+						textureSprite.buttonMode = true;
+						textureSprite.tap = that.onBlueIconPersonageClick; 
+						textureSprite.click = that.onBlueIconPersonageClick; 
+						graphics.addChild(textureSprite);
+
+						var border = new PIXI.Graphics();
+						if(select === index)
+						{
+							border.lineStyle(2, 0xFFFFFF, 0.3);
+							that.bluePersonageShow(parent.initialization.planets[planet].bluePersonage1);
+							that.selectPersonageID = parent.initialization.planets[planet].bluePersonage1;
+							that.selectPersonageIndex = index;
+						} else border.lineStyle(2, 0x0000FF, 0.2);
+						border.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.addChild(border);
+						that.tapeStage.addChild(graphics);
+
+						that.listPersonage.push(graphics);
+
+						index++;
+					}
+					if(parent.initialization.personages[parent.initialization.planets[planet].bluePersonage2].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].bluePersonage2].command === false)
+					{
+						var graphics = new PIXI.Graphics(); 
+						graphics.lineStyle(2, 0x0000FF, 0.2);
+						graphics.beginFill(0x0000FF, 0.2);
+						graphics.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.endFill();
+
+						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].bluePersonage2][3]); 
+						textureSprite.name = parent.initialization.planets[planet].bluePersonage2;
+						textureSprite.index = index;
+						textureSprite.key = parent.initialization.planets[planet].bluePersonage2;
+						textureSprite.position.x = 80 + (100 * index); 
+						textureSprite.position.y = 620; 
+						textureSprite.interactive = true; 
+						textureSprite.buttonMode = true;
+						textureSprite.tap = that.onBlueIconPersonageClick; 
+						textureSprite.click = that.onBlueIconPersonageClick; 
+						graphics.addChild(textureSprite);
+
+						var border = new PIXI.Graphics();
+						if(select === index)
+						{
+							border.lineStyle(2, 0xFFFFFF, 0.3);
+							that.bluePersonageShow(parent.initialization.planets[planet].bluePersonage2);
+							that.selectPersonageID = parent.initialization.planets[planet].bluePersonage2;
+							that.selectPersonageIndex = index;
+						} else border.lineStyle(2, 0x0000FF, 0.2);
+						border.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.addChild(border);
+						that.tapeStage.addChild(graphics);
+
+						that.listPersonage.push(graphics);
+
+						index++;
+					}
+					if(parent.initialization.personages[parent.initialization.planets[planet].bluePersonage3].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].bluePersonage3].command === false)
+					{
+						var graphics = new PIXI.Graphics(); 
+						graphics.lineStyle(2, 0x0000FF, 0.2);
+						graphics.beginFill(0x0000FF, 0.2);
+						graphics.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.endFill();
+
+						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].bluePersonage3][3]); 
+						textureSprite.name = parent.initialization.planets[planet].bluePersonage3;
+						textureSprite.index = index;
+						textureSprite.key = parent.initialization.planets[planet].bluePersonage3;
+						textureSprite.position.x = 80 + (100 * index); 
+						textureSprite.position.y = 620; 
+						textureSprite.interactive = true; 
+						textureSprite.buttonMode = true;
+						textureSprite.tap = that.onBlueIconPersonageClick; 
+						textureSprite.click = that.onBlueIconPersonageClick; 
+						graphics.addChild(textureSprite);
+
+						var border = new PIXI.Graphics();
+						if(select === index)
+						{
+							border.lineStyle(2, 0xFFFFFF, 0.3);
+							that.bluePersonageShow(parent.initialization.planets[planet].bluePersonage3);
+							that.selectPersonageID = parent.initialization.planets[planet].bluePersonage3;
+							that.cmdSelectPersonageIndex = index;
+						} else border.lineStyle(2, 0x0000FF, 0.2);
+						border.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.addChild(border);
+						that.tapeStage.addChild(graphics);
+
+						that.listPersonage.push(graphics);
+
+						index++;
+					}
+				}
+			}
+			that.tapeButton();
+		},
+		
+		onBlueIconPersonageClick: function()
+		{
+                        that.tweenLineStop();
+			that.selectPersonageID = this.name;
+			that.selectPersonageIndex = this.index;
+			that.tapeBlue(this.index);
+			that.blueCommand(-1);
+                        that.tweenLineStart();
+		},
+		
+		tapeRed: function(select)
+		{
+			var countRemove = 0;
+			if (select === undefined) {
+				for(var key in parent.initialization.commandUser)
+					if(parent.initialization.commandUser[key] === null) countRemove++;
+				if(countRemove === 3) select = 0;
+				else select = -1;
+			}
+			
+			if(that.listCommand.length === 0)
+			{
+					that.listPersonage = [];
+			}else{
+				for(var i = 0; i < that.listPersonage.length; i++)
+				{
+					that.tapeStage.removeChild(that.listPersonage[i]);
+				}
+				that.listPersonage = [];
+			}
+			
+			var index = 0;
+			for(var planet in parent.initialization.planets)
+			{
+				if(parent.initialization.planets[planet].status === parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH)
+				{
+					if(parent.initialization.personages[parent.initialization.planets[planet].redPersonage1].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].redPersonage1].command === false)
+					{
+						var graphics = new PIXI.Graphics(); 
+						graphics.lineStyle(2, 0xFF0000, 0.2);
+						graphics.beginFill(0xFF0000, 0.2);
+						graphics.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.endFill();
+						
+						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].redPersonage1][3]); 
+						textureSprite.name = parent.initialization.planets[planet].redPersonage1;
+						textureSprite.index = index;
+						textureSprite.key = parent.initialization.planets[planet].redPersonage1;
+						textureSprite.position.x = 80 + (100 * index); 
+						textureSprite.position.y = 620; 
+						textureSprite.interactive = true; 
+						textureSprite.buttonMode = true;
+						textureSprite.tap = that.onRedIconPersonageClick; 
+						textureSprite.click = that.onRedIconPersonageClick; 
+						graphics.addChild(textureSprite);
+
+						var border = new PIXI.Graphics();
+						if(select === index)
+						{
+							border.lineStyle(2, 0xFFFFFF, 0.3);
+							that.redPersonageShow(parent.initialization.planets[planet].redPersonage1);
+							that.selectPersonageID = parent.initialization.planets[planet].redPersonage1;
+							that.selectPersonageIndex = index;
+						} else border.lineStyle(2, 0xFF0000, 0.2);
+						border.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.addChild(border);
+						that.tapeStage.addChild(graphics);
+
+						that.listPersonage.push(graphics);
+
+						index++;
+					}
+					if(parent.initialization.personages[parent.initialization.planets[planet].redPersonage2].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].redPersonage2].command === false)
+					{
+						var graphics = new PIXI.Graphics(); 
+						graphics.lineStyle(2, 0xFF0000, 0.2);
+						graphics.beginFill(0xFF0000, 0.2);
+						graphics.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.endFill();
+
+						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].redPersonage2][3]); 
+						textureSprite.name = parent.initialization.planets[planet].redPersonage2;
+						textureSprite.index = index;
+						textureSprite.key = parent.initialization.planets[planet].redPersonage2;
+						textureSprite.position.x = 80 + (100 * index); 
+						textureSprite.position.y = 620; 
+						textureSprite.interactive = true; 
+						textureSprite.buttonMode = true;
+						textureSprite.tap = that.onRedIconPersonageClick; 
+						textureSprite.click = that.onRedIconPersonageClick; 
+						graphics.addChild(textureSprite);
+
+						var border = new PIXI.Graphics();
+						if(select === index)
+						{
+							border.lineStyle(2, 0xFFFFFF, 0.3);
+							that.redPersonageShow(parent.initialization.planets[planet].redPersonage2);
+							that.selectPersonageID = parent.initialization.planets[planet].redPersonage2;
+							that.selectPersonageIndex = index;
+						} else border.lineStyle(2, 0xFF0000, 0.2);
+						border.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.addChild(border);
+						that.tapeStage.addChild(graphics);
+
+						that.listPersonage.push(graphics);
+
+						index++;
+					}
+					if(parent.initialization.personages[parent.initialization.planets[planet].redPersonage3].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].redPersonage3].command === false)
+					{
+						var graphics = new PIXI.Graphics(); 
+						graphics.lineStyle(2, 0xFF0000, 0.2);
+						graphics.beginFill(0xFF0000, 0.2);
+						graphics.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.endFill();
+
+						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].redPersonage3][3]); 
+						textureSprite.name = parent.initialization.planets[planet].redPersonage3;
+						textureSprite.index = index;
+						textureSprite.key = parent.initialization.planets[planet].redPersonage3;
+						textureSprite.position.x = 80 + (100 * index); 
+						textureSprite.position.y = 620; 
+						textureSprite.interactive = true; 
+						textureSprite.buttonMode = true;
+						textureSprite.tap = that.onRedIconPersonageClick; 
+						textureSprite.click = that.onRedIconPersonageClick; 
+						graphics.addChild(textureSprite);
+
+						var border = new PIXI.Graphics();
+						if(select === index)
+						{
+							border.lineStyle(2, 0xFFFFFF, 0.3);
+							that.redPersonageShow(parent.initialization.planets[planet].redPersonage3);
+							that.selectPersonageID = parent.initialization.planets[planet].redPersonage3;
+							that.selectPersonageIndex = index;
+						} else border.lineStyle(2, 0xFF0000, 0.2);
+						border.drawRect(80 + (100 * index), 620, 75, 75);
+						graphics.addChild(border);
+						that.tapeStage.addChild(graphics);
+
+						that.listPersonage.push(graphics);
+
+						index++;
+					}
+				}
+			}
+			that.tapeButton();
+		},
+		
+		onRedIconPersonageClick: function()
+		{
+                        that.tweenLineStop();
+			that.selectPersonageID = this.name;
+			that.selectPersonageIndex = this.index;
+			that.tapeRed(this.index);
+			that.redCommand(-1);
+                        that.tweenLineStart();
+		},
+		
+		removeCommandPersonage: function()
+		{
+                        that.tweenLineStop();
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				parent.initialization.personages[that.selectPersonageID].command = false;
+				if(that.selectPersonageIndex === 0) parent.initialization.commandUser["personage1"] = null;
+				if(that.selectPersonageIndex === 1) parent.initialization.commandUser["personage2"] = null;
+				if(that.selectPersonageIndex === 2) parent.initialization.commandUser["personage3"] = null;
+				that.blueCommand();
+				that.tapeBlue();
+				
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				parent.initialization.personages[that.selectPersonageID].command = false;
+				if(that.selectPersonageIndex === 0) parent.initialization.commandUser["personage1"] = null;
+				if(that.selectPersonageIndex === 1) parent.initialization.commandUser["personage2"] = null;
+				if(that.selectPersonageIndex === 2) parent.initialization.commandUser["personage3"] = null;
+				that.redCommand();
+				that.tapeRed(); 
+			}
+                        that.tweenLineStart();
+		},
+		
+		selectCommandPersonage: function()
+		{
+                    that.tweenLineStop();
+                    for(var key in parent.initialization.commandUser)
+                    {
+                            if(parent.initialization.commandUser[key] === null)
+                            {
+                                    parent.initialization.commandUser[key] = that.selectPersonageID;
+                                    parent.initialization.personages[that.selectPersonageID].command = true;
+                                    break;
+                            }
+                    }
+                    if(parent.config.side === that.SIDE_JEDI)
+                    {
+                            that.blueCommand();
+                            that.tapeBlue();
+                    }
+                    if(parent.config.side === that.SIDE_SITH)
+                    {
+                            that.redCommand();
+                            that.tapeRed();
+                     }
+                    that.tweenLineStart();
+		},
+		
+		tapeButton: function()
+		{
+			that.windowStage.removeChild(that.tapePanelButtonsStage);
+    
+			if(that.listPersonage.length > 4)
+			{
+				var color;
+				if(parent.config.side === that.SIDE_JEDI) color = 0x0000FF;
+				else color = 0xFF0000;
+				
+				that.tapePanelButtonsStage = new PIXI.Container();
+				var tapeButtonGraphics = new PIXI.Graphics();
+				tapeButtonGraphics.name = "TapeLeft";
+				tapeButtonGraphics.lineStyle(2, color, 1);
+				tapeButtonGraphics.beginFill(color, 1);
+				tapeButtonGraphics.moveTo(40, 655);
+				tapeButtonGraphics.lineTo(65, 630);
+				tapeButtonGraphics.lineTo(65, 680);
+				tapeButtonGraphics.lineTo(40, 655);
+				tapeButtonGraphics.endFill();
+				tapeButtonGraphics.interactive = true; 
+				tapeButtonGraphics.buttonMode = true; 
+				tapeButtonGraphics.tap = that.onTapeButtonClick; 
+				tapeButtonGraphics.click = that.onTapeButtonClick;
+				that.tapePanelButtonsStage.addChild(tapeButtonGraphics);
+
+				tapeButtonGraphics = new PIXI.Graphics();
+				tapeButtonGraphics.name = "TapeRight";
+				tapeButtonGraphics.lineStyle(2, color, 1);
+				tapeButtonGraphics.beginFill(color, 1);
+				tapeButtonGraphics.moveTo(535, 655);
+				tapeButtonGraphics.lineTo(510, 630);
+				tapeButtonGraphics.lineTo(510, 680);
+				tapeButtonGraphics.lineTo(535, 655);
+				tapeButtonGraphics.endFill();
+				tapeButtonGraphics.interactive = true; 
+				tapeButtonGraphics.buttonMode = true; 
+				tapeButtonGraphics.tap = that.onTapeButtonClick; 
+				tapeButtonGraphics.click = that.onTapeButtonClick;
+				that.tapePanelButtonsStage.addChild(tapeButtonGraphics);
+				
+				that.windowStage.addChild(that.tapePanelButtonsStage);
+			}else{
+				that.tapeStage.position.x = 0;
+			}
+		},
+		
+		onTapeButtonClick: function()
+		{
+			switch (this.name)
+			{
+				case "TapeLeft":
+					if(that.tapeStage.position.x <= -100) that.tapeStage.position.x += 100;
+					break;
+				case "TapeRight":
+                                        if(that.tapeStage.position.x >= ((that.tapeStage.width - 100) * -1)) that.tapeStage.position.x -= 100;
+					break;
+				default:
+					break;
+			}
+		},
+		
+		experiencePointsButtons: function()
+		{
+			if(parent.initialization.userExperiencePoints > 0)
+			{
+				var color1, color2;
+				if(parent.config.side === that.SIDE_JEDI)
+				{
+					color1 = 0x0000FF;
+					color2 = 0xFFFFFF;
+				}
+				if(parent.config.side === that.SIDE_SITH)
+				{
+					color1 = 0xFF0000;
+					color2 = 0xFFFF00;
+				}
+				
+				for(var i = 0; i < 5; i++)
+				{
+					var graphics = new PIXI.Graphics();
+					graphics.name = "Add" + i;
+					graphics.lineStyle(1, color1, 1);
+					graphics.beginFill(color1, 0.5);
+					graphics.drawRect(525, 155 + (25.5 * i), 15, 15);
+					graphics.endFill();
+					graphics.lineStyle(1, color2, 1);
+					graphics.moveTo(532.5, 156 + (25.5 * i));
+					graphics.lineTo(532.5, 168 + (25.5 * i));
+					graphics.moveTo(526, 162 + (25.5 * i));
+					graphics.lineTo(538, 162 + (25.5 * i));
+					graphics.interactive = true; 
+					graphics.buttonMode = true; 
+					graphics.tap = that.onButtonPlusClick; 
+					graphics.click = that.onButtonPlusClick; 
+					
+					that.desktopStage.addChild(graphics);
+				}
+			}
+		},
+		
+		onButtonPlusClick: function()
+		{
+			switch (this.name)
+			{
+				case "Add0":
+					parent.initialization.personages[that.selectPersonageID].hitDefense1 += 1;
+					parent.initialization.userExperiencePoints--;
+					that.experiencePointsText.text = "КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints;
+					if(parent.config.side === that.SIDE_JEDI) that.bluePersonageShow(that.selectPersonageID);
+					if(parent.config.side === that.SIDE_SITH) that.redPersonageShow(that.selectPersonageID);
+					break;
+				case "Add1":
+					parent.initialization.personages[that.selectPersonageID].hitDefense2 += 1;
+					parent.initialization.userExperiencePoints--;
+					that.experiencePointsText.text = "КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints;
+					if(parent.config.side === that.SIDE_JEDI) that.bluePersonageShow(that.selectPersonageID);
+					if(parent.config.side === that.SIDE_SITH) that.redPersonageShow(that.selectPersonageID);
+					break;
+				case "Add2":
+					parent.initialization.personages[that.selectPersonageID].hitDefense3 += 1;
+					parent.initialization.userExperiencePoints--;
+					that.experiencePointsText.text = "КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints;
+					if(parent.config.side === that.SIDE_JEDI) that.bluePersonageShow(that.selectPersonageID);
+					if(parent.config.side === that.SIDE_SITH) that.redPersonageShow(that.selectPersonageID);
+					break;
+				case "Add3":
+					parent.initialization.personages[that.selectPersonageID].hitDefense4 += 1;
+					parent.initialization.userExperiencePoints--;
+					that.experiencePointsText.text = "КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints;
+					if(parent.config.side === that.SIDE_JEDI) that.bluePersonageShow(that.selectPersonageID);
+					if(parent.config.side === that.SIDE_SITH) that.redPersonageShow(that.selectPersonageID);
+					break;
+				case "Add4":
+					parent.initialization.personages[that.selectPersonageID].hitDefense5 += 1;
+					parent.initialization.userExperiencePoints--;
+					that.experiencePointsText.text = "КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints;
+					if(parent.config.side === that.SIDE_JEDI) that.bluePersonageShow(that.selectPersonageID);
+					if(parent.config.side === that.SIDE_SITH) that.redPersonageShow(that.selectPersonageID);
+					break;
+				default:
+					break;
+			}
+		},
+                
+                tweenLineStart: function()
+                {
+                    createjs.Tween.get(that.lineAnimPersonageDesktopGraphics, {loop: true}) 
+                        .to({x: 0, y: 545}, 2500, createjs.Ease.getPowInOut(3));
+                },
+                
+                tweenLineStop: function()
+                {
+                    createjs.Tween.removeTweens(that.lineAnimPersonageDesktopGraphics);
+                },
 		
 		tweenStart: function()
 		{
-			createjs.Tween.get(that.blueLineAnimationGraphics, {loop: true}) 
-				.to({x: 0, y: 115}, 2500, createjs.Ease.getPowInOut(3));
-			createjs.Tween.get(that.redLineAnimationGraphics, {loop: true}) 
-				.to({x: 0, y: 115}, 2500, createjs.Ease.getPowInOut(3));
-			createjs.Ticker.setFPS(60); 
+                    createjs.Tween.get(that.spaceBackground, {loop: true}) 
+                            .to({rotation: -0.015}, 2500, createjs.Ease.getPowInOut(3))
+                            .to({rotation: 0.015}, 2500, createjs.Ease.getPowInOut(3))
+                            .to({rotation: 0.0}, 2500, createjs.Ease.getPowInOut(3));
+
+                    createjs.Tween.get(that.lineAnimPersonageDesktopGraphics, {loop: true}) 
+                            .to({x: 0, y: 545}, 2500, createjs.Ease.getPowInOut(3));
+
+                    createjs.Tween.get(that.messageLineGraphics, {loop: true}) 
+                            .to({x: 0, y: 138}, 2000, createjs.Ease.getPowInOut(3));
+
+                    createjs.Ticker.setFPS(60);
 		},
 		
 		tweenStop: function()
 		{
-			createjs.Tween.removeTweens(that.blueLineAnimationGraphics);
-			createjs.Tween.removeTweens(that.redLineAnimationGraphics);
+			createjs.Tween.removeTweens(that.spaceBackground);
+			createjs.Tween.removeTweens(that.lineAnimPersonageDesktopGraphics);
+			createjs.Tween.removeTweens(that.messageLineGraphics);
 		},
 		
 		show: function()
@@ -2025,14 +1796,13 @@ var Side = function(parent)
 		close: function()
 		{
 			that.tweenStop();
+			for(var child in that.desktopStage.children) that.desktopStage.removeChild(that.desktopStage.children[child]);
+			that.desktopStage.destroy();
+			delete that.desktopStage.children;
 			
-			for(var child in that.droidBlueStage.children) that.droidBlueStage.removeChild(that.droidBlueStage.children[child]);
-			that.droidBlueStage.destroy();
-			delete that.droidBlueStage.children;
-			
-			for(var child in that.droidRedStage.children) that.droidRedStage.removeChild(that.droidRedStage.children[child]);
-			that.droidRedStage.destroy();
-			delete that.droidRedStage.children;
+			for(var child in that.tapeStage.children) that.tapeStage.removeChild(that.tapeStage.children[child]);
+			that.tapeStage.destroy();
+			delete that.tapeStage.children;
 			
 			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
 			
@@ -2046,15 +1816,16 @@ var Side = function(parent)
 		
 		destroy: function()
 		{
-			for(var child in that.windowStage.children)that.windowStage.removeChild(that.windowStage.children[child]);
+			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
 			that.windowStage.destroy();
 			delete that.windowStage.children;
 			
 			for(var property in that) that[property] = null;
 		}
+		
 	};
 	return that;
-}
+};
 
 /* == END FILE ========================================================== */
 
@@ -2573,10 +2344,10 @@ var Initialization = function(planetTextures, heroesTextures, personagesJson, pl
 			that.mapPlanets["Bespin"][10].position.x = 180; 
 			that.mapPlanets["Bespin"][10].position.y = 125;
 			that.mapPlanets["Bespin"][10].scale.set(0.18);
-			that.mapPlanets["Bespin"][11].position.x = 45; 
-			that.mapPlanets["Bespin"][11].position.y = 150; 
-			that.mapPlanets["Bespin"][12].position.x = 45; 
-			that.mapPlanets["Bespin"][12].position.y = 150;
+			that.mapPlanets["Bespin"][11].position.x = 75; 
+			that.mapPlanets["Bespin"][11].position.y = 120; 
+			that.mapPlanets["Bespin"][12].position.x = 75; 
+			that.mapPlanets["Bespin"][12].position.y = 120;
 			
 			that.mapPlanets["Geonosis"] = [
 				"Geonosis",
@@ -3402,8 +3173,8 @@ var Initialization = function(planetTextures, heroesTextures, personagesJson, pl
 					}
 				}
 		},
-
-		initGame: function()
+                
+                initGame: function()
 		{
 			that.initMap();
 			that.initMessage();
@@ -3414,16 +3185,1274 @@ var Initialization = function(planetTextures, heroesTextures, personagesJson, pl
 			that.initLevels();
 			that.initCharacteristics();
 			
-			that.userExperiencePoints = 10;					// Очки опыта
+			that.userExperiencePoints = 0;					// Очки опыта
 			that.userTotalPointsPlayerTournament = 0;	// Общие очки игрока за всю игру
 			that.userlTotalPointsPlayerLevel = 0;          // Общие очки игрока за уровен
 			that.userExperiencePointsAI = 0; 				// Очки опыта ИИ
 			that.userTotalBattle = 0;                        	// Общее количество проведённых битв (связь с сообщениями R2D2)
-		}
+		},
+                
+                aiGetPersonageInCommand: function() // поиск доступного персонажа в команду ИИ
+                {
+                    
+                },
+                
+                aiUpgradeCommand: function() // обновление команды ИИ (распределение очков опыта, поиск лучшего бойца из списка доступных)
+                {
+                    
+                },
+                
+                aiResultBattle: function() // расчёт результата сражения ИИ
+                {
+                    var index = that.randomIndex();
+                }
 		
 	};
 	return that;
-}
+};
+
+/* == END FILE ========================================================== */
+
+/* == START FILE ========================================================= */
+
+var Level = function(parent)
+{
+	var that = {
+		levelStage: null,
+		levelPlanetID: null,
+		levelStarsSprite: null,
+		levelPlanetSprite: null,
+		levelLandscapeSprite: null,
+		
+		levelStatus: null,
+		LEVEL_STATUS_BATTLE: "that.LEVEL_STATUS_BATTLE",
+		LEVEL_STATUS_END_BATTLE_WIN_USER: "that.LEVEL_STATUS_END_BATTLE_WIN_USER",
+		LEVEL_STATUS_END_BATTLE_WIN_AI: "that.LEVEL_STATUS_END_BATTLE_WIN_AI",
+		
+		SIDE_NONE: "side_none",
+		SIDE_JEDI: "side_jedi",
+		SIDE_SITH: "side_sith",
+
+		levelStyleButtonBlueText: { font : 'bold 18px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 },
+		levelStyleButtonRedText: { font : 'bold 18px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }, 
+		levelStyleDroidBlueText: { font : 'bold 14px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 },
+		levelStyleDroidRedText: { font : 'bold 14px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }, 
+		levelStyleButtonsBlueText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 },
+		levelStyleButtonsRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }, 
+
+		levelIntercept: false,
+		levelCommandUser: [],  // команда пользователя (parent.initialization.commandUser)
+		levelCommandAI: [],    // команда ИИ (parent.initialization.commandAI)
+		levelIndexUser: 0,     // индекс персонажа в команде пользователя
+		levelIndexAI: 0,       // индекс персонажа в команде ИИ
+		levelBorderPersonageUser: null,
+		levelBorderPersonageAI: null,
+		levelPersonageUserSprite: null,
+		levelPersonageAISprite: null,
+		levelUserHit1Text: null,
+		levelUserHit2Text: null,
+		levelUserHit3Text: null,
+		levelUserHit4Text: null,
+		levelUserHit5Text: null,
+		levelUserLifeText: null,
+		levelUserHit1: null,
+		levelUserHit2: null,
+		levelUserHit3: null,
+		levelUserHit4: null,
+		levelUserHit5: null,
+		levelUserLife: null,
+		levelAIHit1Text: null,
+		levelAIHit2Text: null,
+		levelAIHit3Text: null,
+		levelAIHit4Text: null,
+		levelAIHit5Text: null,
+		levelAILifeText: null,
+		levelAIHit1: null,
+		levelAIHit2: null,
+		levelAIHit3: null,
+		levelAIHit4: null,
+		levelAIHit5: null,
+		levelAILife: null,
+
+		levelLineUserAnimationGraphics: null,
+		levelLineAIAnimationGraphics: null,
+		levelMessageLineGraphics: null,
+		
+		levelCreate: function(planetID, intercept)
+		{
+                        parent.initialization.userlTotalPointsPlayerLevel = 0;
+                        parent.initialization.userTotalBattle++;
+                        
+			that.levelStage = new PIXI.Container();
+			
+			that.levelIntercept = intercept;
+			that.levelPlanetID = planetID;
+			that.levelStatus = that.LEVEL_STATUS_BATTLE;
+			that.levelCommandUser = [];
+			that.levelCommandAI = [];
+			that.levelIndexUser = 0;
+			that.levelIndexAI = 0;
+			
+			that.levelInitCommands(intercept);
+			
+			that.levelBackground();
+			//parent.timerShow();
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				that.levelBorderBlue();
+				that.levelDesktopBlue();
+				that.levelDroidBlue();
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				that.levelBorderRed();
+				that.levelDesktopRed();
+				that.levelDroidRed();
+			}
+			that.levelBattons();
+			that.levelShowCommandUser();
+			that.levelShowCommandAI();
+			//that.levelFieldCreate();
+		},
+		
+		levelInitCommands: function(intercept)
+		{
+			if(intercept === true)
+			{
+				that.levelCommandUser = [];
+				for(var key in parent.initialization.commandUser)
+				{
+					if(parent.initialization.commandUser[key] !== null)
+					{
+						var life = (parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense1 + parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense2 + parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense3 + parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense4 + parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense5) / 10 * 50;
+						parent.initialization.personages[parent.initialization.commandUser[key]].life = Math.round(life);
+						that.levelCommandUser.push(parent.initialization.personages[parent.initialization.commandUser[key]]);
+					}
+				}
+				that.levelUserHit1 = that.levelCommandUser[that.levelIndexUser].hitDefense1;
+				that.levelUserHit2 = that.levelCommandUser[that.levelIndexUser].hitDefense2;
+				that.levelUserHit3 = that.levelCommandUser[that.levelIndexUser].hitDefense3;
+				that.levelUserHit4 = that.levelCommandUser[that.levelIndexUser].hitDefense4;
+				that.levelUserHit5 = that.levelCommandUser[that.levelIndexUser].hitDefense5;
+				that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
+
+				that.levelCommandAI = [];
+				for(var key in parent.initialization.commandAI)
+				{
+					if(parent.initialization.commandAI[key] !== null)
+					{
+						var life = (parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense1 + parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense2 + parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense3 + parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense4 + parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense5) / 10 * 50;
+						parent.initialization.personages[parent.initialization.commandAI[key]].life = Math.round(life);
+						that.levelCommandAI.push(parent.initialization.personages[parent.initialization.commandAI[key]]);
+					}
+				}
+				
+				that.levelAIHit1 = that.levelCommandAI[that.levelIndexAI].hitDefense1;
+				that.levelAIHit2 = that.levelCommandAI[that.levelIndexAI].hitDefense2;
+				that.levelAIHit3 = that.levelCommandAI[that.levelIndexAI].hitDefense3;
+				that.levelAIHit4 = that.levelCommandAI[that.levelIndexAI].hitDefense4;
+				that.levelAIHit5 = that.levelCommandAI[that.levelIndexAI].hitDefense5;
+				that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
+				
+			}else{
+				that.levelCommandUser = [];
+				for(var key in parent.initialization.commandUser)
+				{
+					if(parent.initialization.commandUser[key] !== null)
+					{
+						var life = (parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense1 + parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense2 + parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense3 + parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense4 + parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense5) / 10 * 50;
+						parent.initialization.personages[parent.initialization.commandUser[key]].life = Math.round(life);
+						that.levelCommandUser.push(parent.initialization.personages[parent.initialization.commandUser[key]]);
+					}
+				}
+				that.levelUserHit1 = that.levelCommandUser[that.levelIndexUser].hitDefense1;
+				that.levelUserHit2 = that.levelCommandUser[that.levelIndexUser].hitDefense2;
+				that.levelUserHit3 = that.levelCommandUser[that.levelIndexUser].hitDefense3;
+				that.levelUserHit4 = that.levelCommandUser[that.levelIndexUser].hitDefense4;
+				that.levelUserHit5 = that.levelCommandUser[that.levelIndexUser].hitDefense5;
+				that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
+				
+				if(parent.config.side === that.SIDE_JEDI)
+				{
+					that.levelCommandAI = [];
+					var life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack5) / 10 * 50;
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].life = Math.round(life);
+					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1]);
+					
+					life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack5) / 10 * 50;
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].life = Math.round(life);
+					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2]);
+					
+					life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack5) / 10 * 50;
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].life = Math.round(life);
+					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3]);
+				}
+				if(parent.config.side === that.SIDE_SITH)
+				{
+					that.levelCommandAI = [];
+					var life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack5) / 10 * 50;
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].life = Math.round(life);
+					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1]);
+					
+					life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack5) / 10 * 50;
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].life = Math.round(life);
+					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2]);
+					
+					life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack5) / 10 * 50;
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].life = Math.round(life);
+					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3]);
+				}
+				
+				that.levelAIHit1 = that.levelCommandAI[that.levelIndexAI].hitAttack1;
+				that.levelAIHit2 = that.levelCommandAI[that.levelIndexAI].hitAttack2;
+				that.levelAIHit3 = that.levelCommandAI[that.levelIndexAI].hitAttack3;
+				that.levelAIHit4 = that.levelCommandAI[that.levelIndexAI].hitAttack4;
+				that.levelAIHit5 = that.levelCommandAI[that.levelIndexAI].hitAttack5;
+				that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
+			}
+		},
+		
+		levelBackground: function(planetID)
+		{
+			that.levelStarsSprite = new PIXI.Sprite(parent.assets.getAsset("stars1Texture")); 
+			that.levelStarsSprite.position.x = 0; 
+			that.levelStarsSprite.position.y = 0; 
+			that.levelStage.addChild(that.levelStarsSprite);
+			  
+			that.levelPlanetSprite = new PIXI.Sprite(parent.assets.getAsset("planetTextures")[that.levelPlanetID][1]); 
+			that.levelPlanetSprite.position.x = 300; 
+			that.levelPlanetSprite.position.y = 100;
+			that.levelStage.addChild(that.levelPlanetSprite);
+			
+			that.levelLandscapeSprite = new PIXI.Sprite(parent.assets.getAsset("planetTextures")[that.levelPlanetID][2]);
+			that.levelLandscapeSprite.position.x = 0; 
+			that.levelLandscapeSprite.position.y = 0; 
+			that.levelLandscapeSprite.alpha = 0.0;
+			that.levelStage.addChild(that.levelLandscapeSprite);
+		},
+		
+		levelBorderBlue: function()
+		{
+			var graphics = new PIXI.Graphics(); 
+
+			graphics.lineStyle(2, 0x0000FF, 1);
+			graphics.beginFill(0x000000, 0);
+			graphics.drawRect(10, 10, 840, 710);
+			graphics.endFill();
+			
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawCircle(170, 562,4);
+			graphics.endFill();
+
+			graphics.lineStyle(2, 0xFFFFFF, 1);
+			graphics.moveTo(170, 562);
+			graphics.lineTo(5, 562);
+			graphics.moveTo(5, 562);
+			graphics.lineTo(5, 725);
+			graphics.moveTo(5, 725);
+			graphics.lineTo(470, 725);
+			graphics.moveTo(470, 725);
+			graphics.lineTo(490, 710);
+			graphics.moveTo(490, 710);
+			graphics.lineTo(840, 710);
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawCircle(840, 710,4);
+			graphics.endFill();
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawCircle(20, 20,4);
+			graphics.endFill();
+
+			graphics.lineStyle(2, 0xFFFFFF, 1);
+			graphics.moveTo(20,20);
+			graphics.lineTo(370, 20);
+			graphics.moveTo(370, 20);
+			graphics.lineTo(390, 5);
+			graphics.moveTo(390,5);
+			graphics.lineTo(855, 5);
+			graphics.moveTo(855,5);
+			graphics.lineTo(855, 170);
+			graphics.moveTo(855, 170);
+			graphics.lineTo(690, 170);
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawCircle(690, 170,4);
+			graphics.endFill();
+
+			graphics.lineStyle(2, 0xFFFFFF, 1);
+			graphics.beginFill(0x0000FF, 0.0);
+			graphics.drawRoundedRect(((parent.config.MAIN_WIDTH / 2) - (500 / 2)), ((parent.config.MAIN_HEIGH / 2) - (500 / 2)), 500, 500, 25);
+			graphics.endFill();
+			
+			that.levelStage.addChild(graphics);
+		},
+		
+		levelBorderRed: function()
+		{
+			var graphics = new PIXI.Graphics(); 
+
+			graphics.lineStyle(2, 0xFF0000, 1);
+			graphics.beginFill(0x000000, 0);
+			graphics.drawRect(10, 10, 840, 710);
+			graphics.endFill();
+			
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFF80, 1);
+			graphics.drawCircle(170, 562, 4);
+			graphics.endFill();
+
+			graphics.lineStyle(2, 0xFFFF80, 1);
+			graphics.moveTo(170, 562);
+			graphics.lineTo(5, 562);
+			graphics.moveTo(5, 562);
+			graphics.lineTo(5, 725);
+			graphics.moveTo(5, 725);
+			graphics.lineTo(470, 725);
+			graphics.moveTo(470, 725);
+			graphics.lineTo(490, 710);
+			graphics.moveTo(490, 710);
+			graphics.lineTo(840, 710);
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFF80, 1);
+			graphics.drawCircle(840, 710,4);
+			graphics.endFill();
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFF80, 1);
+			graphics.drawCircle(20, 20,4);
+			graphics.endFill();
+
+			graphics.lineStyle(2, 0xFFFF80, 1);
+			graphics.moveTo(20,20);
+			graphics.lineTo(370, 20);
+			graphics.moveTo(370, 20);
+			graphics.lineTo(390, 5);
+			graphics.moveTo(390,5);
+			graphics.lineTo(855, 5);
+			graphics.moveTo(855,5);
+			graphics.lineTo(855, 170);
+			graphics.moveTo(855, 170);
+			graphics.lineTo(690, 170);
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFF80, 1);
+			graphics.drawCircle(690, 170,4);
+			graphics.endFill();
+
+			graphics.lineStyle(2, 0xFFFF80, 1);
+			graphics.beginFill(0xFF0000, 0.0);
+			graphics.drawRoundedRect(((parent.config.MAIN_WIDTH / 2) - (500 / 2)), ((parent.config.MAIN_HEIGH / 2) - (500 / 2)), 500, 500, 25);
+			graphics.endFill();
+			
+			that.levelStage.addChild(graphics);
+		},
+		
+		levelDesktopBlue: function()
+		{
+			var graphics = new PIXI.Graphics(); 
+			graphics.lineStyle(2, 0x0000FF, 1);
+			graphics.beginFill(0x0080FF, 0.2);
+			graphics.moveTo(25, 22);
+			graphics.lineTo(370, 22);
+			graphics.lineTo(370, 110);
+			graphics.lineTo(25, 110);
+			graphics.endFill();
+			that.levelStage.addChild(graphics);
+			
+			graphics = new PIXI.Graphics(); 
+			graphics.lineStyle(2, 0x800000, 1);
+			graphics.beginFill(0x800000, 0.2);
+			graphics.moveTo(490, 620);
+			graphics.lineTo(835, 620);
+			graphics.lineTo(835, 708);
+			graphics.lineTo(490, 708);
+			graphics.endFill();
+			that.levelStage.addChild(graphics);
+		},
+		
+		levelDesktopRed: function()
+		{
+			var graphics = new PIXI.Graphics(); 
+			graphics.lineStyle(2, 0x800000, 1);
+			graphics.beginFill(0x800000, 0.2);
+			graphics.moveTo(25, 22);
+			graphics.lineTo(370, 22);
+			graphics.lineTo(370, 110);
+			graphics.lineTo(25, 110);
+			graphics.endFill();
+			that.levelStage.addChild(graphics);
+			
+			graphics = new PIXI.Graphics(); 
+			graphics.lineStyle(2, 0x0000FF, 1);
+			graphics.beginFill(0x0080FF, 0.2);
+			graphics.moveTo(490, 620);
+			graphics.lineTo(835, 620);
+			graphics.lineTo(835, 708);
+			graphics.lineTo(490, 708);
+			graphics.endFill();
+			that.levelStage.addChild(graphics);
+		},
+		
+		levelShowCommandUser: function()
+		{
+			/* персонажи */
+			for(var i in that.levelCommandUser)
+			{
+				var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[that.levelCommandUser[i].id][3]); 
+				textureSprite.position.x = 55 + (105 * i); 
+				textureSprite.position.y = 30; 
+				that.levelStage.addChild(textureSprite);
+				
+				var graphics = new PIXI.Graphics();
+				if(parent.config.side === that.SIDE_JEDI) graphics.lineStyle(2, 0x0000FF, 0.2);
+				if(parent.config.side === that.SIDE_SITH) graphics.lineStyle(2, 0xFF0000, 0.2);
+				graphics.drawRect(55 + (105 * i), 30, 75, 75);
+				
+				for(var j = 0; j < 25; j++)
+				{
+					if(parent.config.side === that.SIDE_JEDI) graphics.lineStyle(1, 0x0000FF, 0.2);
+					if(parent.config.side === that.SIDE_SITH) graphics.lineStyle(1, 0xFF0000, 0.2);
+					graphics.moveTo(55 + (105 * i), 30 +(3*j));
+					graphics.lineTo(55 + (105 * i) + 75, 30 +(3*j));
+					
+				}
+				that.levelStage.addChild(graphics);
+			}
+			
+			/* рамка */
+			that.levelBorderPersonageUser = new PIXI.Graphics();
+			if(parent.config.side === that.SIDE_JEDI) that.levelBorderPersonageUser.lineStyle(2, 0xFFFFFF, 1);
+			if(parent.config.side === that.SIDE_SITH) that.levelBorderPersonageUser.lineStyle(2, 0xFFFF80, 1);
+			that.levelBorderPersonageUser.drawRect(55, 30, 75, 75);
+			that.levelStage.addChild(that.levelBorderPersonageUser);
+			
+			/* дисплей фон */
+			var graphics = new PIXI.Graphics(); 
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				graphics.lineStyle(2, 0x0000FF, 1);
+				graphics.beginFill(0x0080FF, 0.2);
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				graphics.lineStyle(2, 0x800000, 1);
+				graphics.beginFill(0x800000, 0.2);
+			}
+			graphics.moveTo(25, 115);
+			graphics.lineTo(170, 115);
+			graphics.lineTo(170, 400);
+			graphics.lineTo(25, 400);
+			graphics.endFill();
+			that.levelStage.addChild(graphics);
+			
+			/* персонаж во весь рост */
+			that.levelPersonageUserSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[that.levelCommandUser[that.levelIndexUser].id][1]); 
+			that.levelPersonageUserSprite.position.x = 30; 
+			that.levelPersonageUserSprite.position.y = 140; 
+			that.levelPersonageUserSprite.scale.set(0.5);
+			that.levelStage.addChild(that.levelPersonageUserSprite);
+			
+			/* фон полоски */
+			graphics = new PIXI.Graphics();
+			for(var i = 0; i < 95; i++)
+			{
+				if(parent.config.side === that.SIDE_JEDI) graphics.lineStyle(1, 0x0000FF, 0.5);
+				if(parent.config.side === that.SIDE_SITH) graphics.lineStyle(1, 0x800000, 0.5);
+				graphics.moveTo(25, 115+(3*i));
+				graphics.lineTo(170, 115+(3*i));
+			}
+			that.levelStage.addChild(graphics);
+			
+			/* бегущая полоска */
+			that.levelLineUserAnimationGraphics = new PIXI.Graphics(); 
+			if(parent.config.side === that.SIDE_JEDI) that.levelLineUserAnimationGraphics.lineStyle(10, 0x0000FF, 0.3);
+			if(parent.config.side === that.SIDE_SITH) that.levelLineUserAnimationGraphics.lineStyle(10, 0x800000, 0.3);
+			that.levelLineUserAnimationGraphics.moveTo(25, 120);
+			that.levelLineUserAnimationGraphics.lineTo(170, 120);
+			that.levelStage.addChild(that.levelLineUserAnimationGraphics);
+			
+			/* харктеристики */
+			graphics = new PIXI.Graphics(); 
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				graphics.lineStyle(2, 0x0000FF, 1);
+				graphics.beginFill(0x0080FF, 0.2);
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				graphics.lineStyle(2, 0x800000, 1);
+				graphics.beginFill(0x800000, 0.2);
+			}
+			graphics.moveTo(25, 405);
+			graphics.lineTo(170, 405);
+			graphics.lineTo(170, 520);
+			graphics.lineTo(25, 520);
+			graphics.endFill();
+			that.levelStage.addChild(graphics);
+			
+			var sprite = new PIXI.Sprite(parent.assets.getAsset("hit1Texture"));
+			sprite.position.x = 30; sprite.position.y = 410; sprite.scale.set(0.3);
+			that.levelStage.addChild(sprite);
+			if(parent.config.side === that.SIDE_JEDI) that.levelUserHit1Text = new PIXI.Text("- " + that.levelUserHit1, that.levelStyleButtonBlueText);
+			if(parent.config.side === that.SIDE_SITH) that.levelUserHit1Text = new PIXI.Text("- " + that.levelUserHit1, that.levelStyleButtonRedText);
+			that.levelUserHit1Text.x = 55; that.levelUserHit1Text.y = 410;
+			that.levelStage.addChild(that.levelUserHit1Text);
+			
+			sprite = new PIXI.Sprite(parent.assets.getAsset("hit2Texture"));
+			sprite.position.x = 100; sprite.position.y = 410; sprite.scale.set(0.3);
+			that.levelStage.addChild(sprite);
+			if(parent.config.side === that.SIDE_JEDI) that.levelUserHit2Text = new PIXI.Text("- " + that.levelUserHit2, that.levelStyleButtonBlueText);
+			if(parent.config.side === that.SIDE_SITH) that.levelUserHit2Text = new PIXI.Text("- " + that.levelUserHit2, that.levelStyleButtonRedText); 
+			that.levelUserHit2Text.x = 125; that.levelUserHit2Text.y = 410;
+			that.levelStage.addChild(that.levelUserHit2Text);
+			
+			sprite = new PIXI.Sprite(parent.assets.getAsset("hit3Texture"));
+			sprite.position.x = 30; sprite.position.y = 450; sprite.scale.set(0.3);
+			that.levelStage.addChild(sprite);
+			if(parent.config.side === that.SIDE_JEDI) that.levelUserHit3Text = new PIXI.Text("+ " + that.levelUserHit3, that.levelStyleButtonBlueText);
+			if(parent.config.side === that.SIDE_SITH) that.levelUserHit3Text = new PIXI.Text("+ " + that.levelUserHit3, that.levelStyleButtonRedText); 
+			that.levelUserHit3Text.x = 55; that.levelUserHit3Text.y = 450;
+			that.levelStage.addChild(that.levelUserHit3Text);
+			
+			sprite = new PIXI.Sprite(parent.assets.getAsset("hit4Texture"));
+			sprite.position.x = 100; sprite.position.y = 450; sprite.scale.set(0.3);
+			that.levelStage.addChild(sprite);
+			if(parent.config.side === that.SIDE_JEDI) that.levelUserHit4Text = new PIXI.Text("- " + that.levelUserHit4, that.levelStyleButtonBlueText);
+			if(parent.config.side === that.SIDE_SITH) that.levelUserHit4Text = new PIXI.Text("- " + that.levelUserHit4, that.levelStyleButtonRedText);
+			that.levelUserHit4Text.x = 125; that.levelUserHit4Text.y = 450;
+			that.levelStage.addChild(that.levelUserHit4Text);
+			
+			sprite = new PIXI.Sprite(parent.assets.getAsset("hit5Texture"));
+			sprite.position.x = 30; sprite.position.y = 490; sprite.scale.set(0.3);
+			that.levelStage.addChild(sprite);
+			if(parent.config.side === that.SIDE_JEDI) that.levelUserHit5Text = new PIXI.Text("- " + that.levelUserHit5, that.levelStyleButtonBlueText);
+			if(parent.config.side === that.SIDE_SITH) that.levelUserHit5Text = new PIXI.Text("- " + that.levelUserHit5, that.levelStyleButtonRedText); 
+			that.levelUserHit5Text.x = 55; that.levelUserHit5Text.y = 490;
+			that.levelStage.addChild(that.levelUserHit5Text);
+			
+			graphics = new PIXI.Graphics(); 
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				graphics.lineStyle(2, 0x0000FF, 1);
+				graphics.beginFill(0x0080FF, 0.2);
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				graphics.lineStyle(2, 0x800000, 1);
+				graphics.beginFill(0x800000, 0.2);
+			}
+			graphics.moveTo(25, 525);
+			graphics.lineTo(170, 525);
+			graphics.lineTo(170, 555);
+			graphics.lineTo(25, 555);
+			graphics.endFill();
+			that.levelStage.addChild(graphics);
+			
+			if(parent.config.side === that.SIDE_JEDI) that.levelUserLifeText = new PIXI.Text("Здоровье: " + that.levelUserLife, that.levelStyleButtonBlueText); 
+			if(parent.config.side === that.SIDE_SITH) that.levelUserLifeText = new PIXI.Text("Здоровье: " + that.levelUserLife, that.levelStyleButtonRedText); 
+			that.levelUserLifeText.x = 27; that.levelUserLifeText.y = 530;
+			that.levelStage.addChild(that.levelUserLifeText);
+		},
+		
+		levelShowCommandAI: function()
+		{
+			/* персонажи */
+			for(var i in that.levelCommandAI)
+			{
+				var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[that.levelCommandAI[i].id][3]); 
+				textureSprite.position.x = 520 + (105 * i); 
+				textureSprite.position.y = 628; 
+				that.levelStage.addChild(textureSprite);
+				
+				var graphics = new PIXI.Graphics();
+				if(parent.config.side === that.SIDE_JEDI) graphics.lineStyle(2, 0xFF0000, 0.2);
+				if(parent.config.side === that.SIDE_SITH) graphics.lineStyle(2, 0x0000FF, 0.2);
+				graphics.drawRect(520 + (105 * i), 628, 75, 75);
+				
+				for(var j = 0; j < 25; j++)
+				{
+					if(parent.config.side === that.SIDE_JEDI) graphics.lineStyle(1, 0xFF0000, 0.2);
+					if(parent.config.side === that.SIDE_SITH) graphics.lineStyle(1, 0x0000FF, 0.2);
+					graphics.moveTo(520 + (105 * i), 628 +(3*j));
+					graphics.lineTo(520 + (105 * i) + 75, 628 +(3*j));
+				}
+				that.levelStage.addChild(graphics);
+			}
+			
+			/* рамка */
+			that.levelBorderPersonageAI = new PIXI.Graphics();
+			if(parent.config.side === that.SIDE_JEDI) that.levelBorderPersonageAI.lineStyle(2, 0xFFFF80, 1);
+			if(parent.config.side === that.SIDE_SITH) that.levelBorderPersonageAI.lineStyle(2, 0xFFFFFF, 1);
+			that.levelBorderPersonageAI.drawRect(520, 628, 75, 75);
+			that.levelStage.addChild(that.levelBorderPersonageAI);
+			
+			/* дисплей фон */
+			var graphics = new PIXI.Graphics(); 
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				graphics.lineStyle(2, 0x0000FF, 1);
+				graphics.beginFill(0x0080FF, 0.2);
+			}
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				graphics.lineStyle(2, 0x800000, 1);
+				graphics.beginFill(0x800000, 0.2);
+			}
+			graphics.moveTo(690, 330);
+			graphics.lineTo(835, 330);
+			graphics.lineTo(835, 615);
+			graphics.lineTo(690, 615);
+			graphics.endFill();
+			that.levelStage.addChild(graphics);
+			
+			/* персонаж во весь рост */
+			that.levelPersonageAISprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[that.levelCommandAI[that.levelIndexAI].id][2]); 
+			that.levelPersonageAISprite.position.x = 695; 
+			that.levelPersonageAISprite.position.y = 350; 
+			that.levelPersonageAISprite.scale.set(0.5);
+			that.levelStage.addChild(that.levelPersonageAISprite);
+			
+			/* фон полоски */
+			graphics = new PIXI.Graphics();
+			for(var i = 0; i < 95; i++)
+			{
+				if(parent.config.side === that.SIDE_SITH) graphics.lineStyle(1, 0x0000FF, 0.5);
+				if(parent.config.side === that.SIDE_JEDI) graphics.lineStyle(1, 0x800000, 0.5);
+				graphics.moveTo(690, 330+(3*i));
+				graphics.lineTo(835, 330+(3*i));
+			}
+			that.levelStage.addChild(graphics);
+			
+			/* бегущая полоска */
+			that.levelLineAIAnimationGraphics = new PIXI.Graphics(); 
+			if(parent.config.side === that.SIDE_SITH) that.levelLineAIAnimationGraphics.lineStyle(10, 0x0000FF, 0.3);
+			if(parent.config.side === that.SIDE_JEDI) that.levelLineAIAnimationGraphics.lineStyle(10, 0x800000, 0.3);
+			that.levelLineAIAnimationGraphics.moveTo(690, 335);
+			that.levelLineAIAnimationGraphics.lineTo(835, 335);
+			that.levelStage.addChild(that.levelLineAIAnimationGraphics);
+						
+			/* харктеристики */
+			graphics = new PIXI.Graphics(); 
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				graphics.lineStyle(2, 0x0000FF, 1);
+				graphics.beginFill(0x0080FF, 0.2);
+			}
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				graphics.lineStyle(2, 0x800000, 1);
+				graphics.beginFill(0x800000, 0.2);
+			}
+			graphics.moveTo(690, 325);
+			graphics.lineTo(835, 325);
+			graphics.lineTo(835, 210);
+			graphics.lineTo(690, 210);
+			graphics.endFill();
+			that.levelStage.addChild(graphics);
+			
+			var sprite = new PIXI.Sprite(parent.assets.getAsset("hit1Texture"));
+			sprite.position.x = 695; sprite.position.y = 215; sprite.scale.set(0.3);
+			that.levelStage.addChild(sprite);
+			if(parent.config.side === that.SIDE_SITH) that.levelAIHit1Text = new PIXI.Text("- " + that.levelAIHit1, that.levelStyleButtonBlueText);
+			if(parent.config.side === that.SIDE_JEDI) that.levelAIHit1Text = new PIXI.Text("- " + that.levelAIHit1, that.levelStyleButtonRedText); 
+			that.levelAIHit1Text.x = 720; that.levelAIHit1Text.y = 215;
+			that.levelStage.addChild(that.levelAIHit1Text);
+			
+			sprite = new PIXI.Sprite(parent.assets.getAsset("hit2Texture"));
+			sprite.position.x = 765; sprite.position.y = 215; sprite.scale.set(0.3);
+			that.levelStage.addChild(sprite);
+			if(parent.config.side === that.SIDE_SITH) that.levelAIHit2Text = new PIXI.Text("- " + that.levelAIHit2, that.levelStyleButtonBlueText);
+			if(parent.config.side === that.SIDE_JEDI) that.levelAIHit2Text = new PIXI.Text("- " + that.levelAIHit2, that.levelStyleButtonRedText);  
+			that.levelAIHit2Text.x = 790; that.levelAIHit2Text.y = 215;
+			that.levelStage.addChild(that.levelAIHit2Text);
+			
+			sprite = new PIXI.Sprite(parent.assets.getAsset("hit3Texture"));
+			sprite.position.x = 695; sprite.position.y = 250; sprite.scale.set(0.3);
+			that.levelStage.addChild(sprite);
+			if(parent.config.side === that.SIDE_SITH) that.levelAIHit3Text = new PIXI.Text("+ " + that.levelAIHit3, that.levelStyleButtonBlueText);
+			if(parent.config.side === that.SIDE_JEDI) that.levelAIHit3Text = new PIXI.Text("+ " + that.levelAIHit3, that.levelStyleButtonRedText);  
+			that.levelAIHit3Text.x = 720; that.levelAIHit3Text.y = 250;
+			that.levelStage.addChild(that.levelAIHit3Text);
+			
+			sprite = new PIXI.Sprite(parent.assets.getAsset("hit4Texture"));
+			sprite.position.x = 765; sprite.position.y = 250; sprite.scale.set(0.3);
+			that.levelStage.addChild(sprite);
+			if(parent.config.side === that.SIDE_SITH) that.levelAIHit4Text = new PIXI.Text("- " + that.levelAIHit4, that.levelStyleButtonBlueText);
+			if(parent.config.side === that.SIDE_JEDI) that.levelAIHit4Text = new PIXI.Text("- " + that.levelAIHit4, that.levelStyleButtonRedText); 
+			that.levelAIHit4Text.x = 790; that.levelAIHit4Text.y = 250;
+			that.levelStage.addChild(that.levelAIHit4Text);
+			
+			sprite = new PIXI.Sprite(parent.assets.getAsset("hit5Texture"));
+			sprite.position.x = 695; sprite.position.y = 290; sprite.scale.set(0.3);
+			that.levelStage.addChild(sprite);
+			if(parent.config.side === that.SIDE_SITH) that.levelAIHit5Text = new PIXI.Text("- " + that.levelAIHit5, that.levelStyleButtonBlueText);
+			if(parent.config.side === that.SIDE_JEDI) that.levelAIHit5Text = new PIXI.Text("- " + that.levelAIHit5, that.levelStyleButtonRedText);  
+			that.levelAIHit5Text.x = 720; that.levelAIHit5Text.y = 290;
+			that.levelStage.addChild(that.levelAIHit5Text);
+			
+			graphics = new PIXI.Graphics(); 
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				graphics.lineStyle(2, 0x0000FF, 1);
+				graphics.beginFill(0x0080FF, 0.2);
+			}
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				graphics.lineStyle(2, 0x800000, 1);
+				graphics.beginFill(0x800000, 0.2);
+			}
+			graphics.moveTo(690, 205);
+			graphics.lineTo(835, 205);
+			graphics.lineTo(835, 175);
+			graphics.lineTo(690, 175);
+			graphics.endFill();
+			that.levelStage.addChild(graphics);
+			
+			if(parent.config.side === that.SIDE_SITH) that.levelAILifeText = new PIXI.Text("Здоровье: " + that.levelAILife, that.levelStyleButtonBlueText); 
+			if(parent.config.side === that.SIDE_JEDI) that.levelAILifeText = new PIXI.Text("Здоровье: " + that.levelAILife, that.levelStyleButtonRedText); 
+			that.levelAILifeText.x = 692; that.levelAILifeText.y = 180;
+			that.levelStage.addChild(that.levelAILifeText);
+		},
+
+		levelDroidBlue: function()
+		{
+			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidBlueRightTexture")); 
+			textureSprite.position.x = 765; 
+			textureSprite.position.y = 50; 
+			textureSprite.scale.set(0.3);
+			that.levelStage.addChild(textureSprite);
+			
+			var graphics = new PIXI.Graphics(); 
+			graphics.lineStyle(2, 0x0090F0, 0.2);
+			graphics.beginFill(0x0090F0, 0.2);
+			graphics.moveTo(795, 65);
+			graphics.lineTo(760, 20);
+			graphics.lineTo(760, 110);
+			graphics.lineTo(795, 65);
+			graphics.endFill;
+			
+			for(var i = 0; i < 31; i++)
+			{
+				graphics.lineStyle(1, 0x0090F0, 0.2);
+				graphics.moveTo(480, 20+(3*i));
+				graphics.lineTo(760, 20+(3*i));
+			}
+			that.levelStage.addChild(graphics);
+			
+			that.levelMessageLineGraphics = new PIXI.Graphics(); 
+			that.levelMessageLineGraphics.lineStyle(10, 0x0090F0, 0.3);
+			that.levelMessageLineGraphics.moveTo(480, 25);
+			that.levelMessageLineGraphics.lineTo(760, 25);
+			that.levelStage.addChild(that.levelMessageLineGraphics);
+			
+			var text = new PIXI.Text("Миссия " + parent.initialization.planets[that.levelPlanetID].name + "\nПобедите всех своих соперников.\nДля этого наносите удары собирая кристалы три в ряд.\nУдары наносите по очереди.", that.levelStyleDroidBlueText); 
+			text.x = 490; 
+			text.y = 23; 
+			that.levelStage.addChild(text);
+		},
+		
+		levelDroidRed: function()
+		{
+			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidRedRightTexture")); 
+			textureSprite.position.x = 765; 
+			textureSprite.position.y = 50; 
+			textureSprite.scale.set(0.3);
+			that.levelStage.addChild(textureSprite);
+			
+			var graphics = new PIXI.Graphics(); 
+			graphics.lineStyle(2, 0xA63A24, 0.2);
+			graphics.beginFill(0xA63A24, 0.2);
+			graphics.moveTo(795, 65);
+			graphics.lineTo(760, 20);
+			graphics.lineTo(760, 110);
+			graphics.lineTo(795, 65);
+			graphics.endFill;
+			
+			for(var i = 0; i < 31; i++)
+			{
+				graphics.lineStyle(1, 0xA63A24, 0.2);
+				graphics.moveTo(480, 20+(3*i));
+				graphics.lineTo(760, 20+(3*i));
+			}
+			that.levelStage.addChild(graphics);
+			
+			that.levelMessageLineGraphics = new PIXI.Graphics(); 
+			that.levelMessageLineGraphics.lineStyle(10, 0xA63A24, 0.3);
+			that.levelMessageLineGraphics.moveTo(480, 25);
+			that.levelMessageLineGraphics.lineTo(760, 25);
+			that.levelStage.addChild(that.levelMessageLineGraphics);
+			
+			var text = new PIXI.Text("Миссия " + parent.initialization.planets[that.levelPlanetID].name + "\nПобедите всех своих соперников.\nДля этого наносите удары собирая кристалы три в ряд.\nУдары наносите по очереди.", that.levelStyleDroidRedText); 
+			text.x = 490; 
+			text.y = 23; 
+			that.levelStage.addChild(text);
+		},
+		
+		levelSelectPersonageUser: function()
+		{
+			var position = [[0,0],[105,0],[210,0]];
+			that.levelBorderPersonageUser.x = position[that.levelIndexUser][0];
+			that.levelBorderPersonageUser.y = position[that.levelIndexUser][1];
+			position = null;
+			that.levelPersonageUserSprite.texture = parent.assets.getAsset("heroesTextures")[that.levelCommandUser[that.levelIndexUser].id][1];
+			that.levelUserHit1 = that.levelCommandUser[that.levelIndexUser].hitDefense1;
+			that.levelUserHit2 = that.levelCommandUser[that.levelIndexUser].hitDefense2;
+			that.levelUserHit3 = that.levelCommandUser[that.levelIndexUser].hitDefense3;
+			that.levelUserHit4 = that.levelCommandUser[that.levelIndexUser].hitDefense4;
+			that.levelUserHit5 = that.levelCommandUser[that.levelIndexUser].hitDefense5;
+			that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
+			that.levelUserHit1Text.text = "- " + that.levelUserHit1;
+			that.levelUserHit2Text.text = "- " + that.levelUserHit2;
+			that.levelUserHit3Text.text = "+ " + that.levelUserHit3;
+			that.levelUserHit4Text.text = "- " + that.levelUserHit4;
+			that.levelUserHit5Text.text = "- " + that.levelUserHit5;
+			that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
+		},
+		
+		levelSelectPersonageAI: function()
+		{
+			var position = [[0,0],[105,0],[210,0]];
+			that.levelBorderPersonageAI.x = position[that.levelIndexAI][0];
+			that.levelBorderPersonageAI.y = position[that.levelIndexAI][1];
+			position = null;
+			that.levelPersonageAISprite.texture = parent.assets.getAsset("heroesTextures")[that.levelCommandAI[that.levelIndexAI].id][2];
+			if(that.levelIntercept === true)
+			{
+				that.levelAIHit1 = that.levelCommandAI[that.levelIndexAI].hitDefense1;
+				that.levelAIHit2 = that.levelCommandAI[that.levelIndexAI].hitDefense2;
+				that.levelAIHit3 = that.levelCommandAI[that.levelIndexAI].hitDefense3;
+				that.levelAIHit4 = that.levelCommandAI[that.levelIndexAI].hitDefense4;
+				that.levelAIHit5 = that.levelCommandAI[that.levelIndexAI].hitDefense5;
+			}else{
+				that.levelAIHit1 = that.levelCommandAI[that.levelIndexAI].hitAttack1;
+				that.levelAIHit2 = that.levelCommandAI[that.levelIndexAI].hitAttack2;
+				that.levelAIHit3 = that.levelCommandAI[that.levelIndexAI].hitAttack3;
+				that.levelAIHit4 = that.levelCommandAI[that.levelIndexAI].hitAttack4;
+				that.levelAIHit5 = that.levelCommandAI[that.levelIndexAI].hitAttack5;
+			}
+			that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
+			that.levelAIHit1Text.text = "- " + that.levelAIHit1;
+			that.levelAIHit2Text.text = "- " + that.levelAIHit2;
+			that.levelAIHit3Text.text = "+ " + that.levelAIHit3;
+			that.levelAIHit4Text.text = "- " + that.levelAIHit4;
+			that.levelAIHit5Text.text = "- " + that.levelAIHit5;
+			that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
+		},
+		
+		levelBattons: function()
+		{
+			var textArr = ["ЗАКОНЧИТЬ БИТВУ", "НАСТРОЙКИ", "ВЫЙТИ В МЕНЮ", "ПРИГЛАСИТЬ"];
+			var nameArr = ["EndBattle", "Settings", "BackMenu", "Invite"];
+			
+			var button; 
+			if(parent.config.side === that.SIDE_JEDI) button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
+			if(parent.config.side === that.SIDE_SITH) button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed"));
+			button.name = nameArr[0];
+			button.position.x = 35; 
+			button.position.y = 670; 
+			button.interactive = true; 
+			button.buttonMode = true; 
+			button.loop = false; 
+			button.animationSpeed = 0.2;
+			button.onComplete = that.onLevelButtonUpdate;
+			button.tap = that.onLevelButtonClick; 
+			button.click = that.onLevelButtonClick; 
+			button.on('mouseover', that.onLevelButtonOver);
+			button.on('mouseout', that.onLevelButtonOut);
+			var text; 
+			if(parent.config.side === that.SIDE_JEDI) text = new PIXI.Text(textArr[0], that.levelStyleButtonsBlueText); 
+			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text(textArr[0], that.levelStyleButtonsRedText); 
+			text.x = (button.width / 2) - (text.width / 2);
+			text.y = button.height / 3;
+			button.addChild(text); 
+			that.levelStage.addChild(button);
+			
+			if(parent.config.side === that.SIDE_JEDI) button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
+			if(parent.config.side === that.SIDE_SITH) button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
+			button.name = nameArr[1];
+			button.position.x = 255; 
+			button.position.y = 670; 
+			button.interactive = true; 
+			button.buttonMode = true; 
+			button.loop = false; 
+			button.animationSpeed = 0.2;
+			button.onComplete = that.onLevelButtonUpdate;
+			button.tap = that.onLevelButtonClick; 
+			button.click = that.onLevelButtonClick; 
+			button.on('mouseover', that.onLevelButtonOver);
+			button.on('mouseout', that.onLevelButtonOut);
+			if(parent.config.side === that.SIDE_JEDI) text = new PIXI.Text(textArr[1], that.levelStyleButtonsBlueText); 
+			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text(textArr[1], that.levelStyleButtonsRedText);
+			text.x = (button.width / 2) - (text.width / 2);
+			text.y = button.height / 3;
+			button.addChild(text); 
+			that.levelStage.addChild(button);
+			
+			if(parent.config.side === that.SIDE_JEDI) button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
+			if(parent.config.side === that.SIDE_SITH) button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
+			button.name = nameArr[2];
+			button.position.x = 35; 
+			button.position.y = 620; 
+			button.interactive = true; 
+			button.buttonMode = true; 
+			button.loop = false; 
+			button.animationSpeed = 0.2;
+			button.onComplete = that.onLevelButtonUpdate;
+			button.tap = that.onLevelButtonClick; 
+			button.click = that.onLevelButtonClick; 
+			button.on('mouseover', that.onLevelButtonOver);
+			button.on('mouseout', that.onLevelButtonOut);
+			if(parent.config.side === that.SIDE_JEDI) text = new PIXI.Text(textArr[2], that.levelStyleButtonsBlueText); 
+			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text(textArr[2], that.levelStyleButtonsRedText);
+			text.x = (button.width / 2) - (text.width / 2);
+			text.y = button.height / 3;
+			button.addChild(text); 
+			that.levelStage.addChild(button);
+			
+			if(parent.config.side === that.SIDE_JEDI) button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
+			if(parent.config.side === that.SIDE_SITH) button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
+			button.name = nameArr[3];
+			button.position.x = 255; 
+			button.position.y = 620; 
+			button.interactive = true; 
+			button.buttonMode = true; 
+			button.loop = false; 
+			button.animationSpeed = 0.2;
+			button.onComplete = that.onLevelButtonUpdate;
+			button.tap = that.onLevelButtonClick; 
+			button.click = that.onLevelButtonClick; 
+			button.on('mouseover', that.onLevelButtonOver);
+			button.on('mouseout', that.onLevelButtonOut);
+			if(parent.config.side === that.SIDE_JEDI) text = new PIXI.Text(textArr[3], that.levelStyleButtonsBlueText); 
+			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text(textArr[3], that.levelStyleButtonsRedText); 
+			text.x = (button.width / 2) - (text.width / 2);
+			text.y = button.height / 3;
+			button.addChild(text); 
+			that.levelStage.addChild(button);
+		},
+
+		onLevelButtonOver: function()
+		{
+			this.isOver = true;
+			this.gotoAndPlay(1);
+		},
+
+		onLevelButtonOut: function()
+		{
+			this.isOver = false;
+			this.gotoAndStop(0);
+		},
+
+		onLevelButtonUpdate: function()
+		{
+			if(this.isOver)
+			{
+				this.gotoAndPlay(1);
+			}else{
+				this.gotoAndStop(0);
+			}
+		},
+		
+		onLevelButtonClick: function() 
+		{
+			switch (this.name)
+			{
+				case "EndBattle":
+					parent.victoryShow(that.levelPlanetID, that.levelIntercept);
+					break;
+				case "Settings":
+					parent.settingsShow();
+					break;
+				case "BackMenu":
+					
+					break;
+				case "Invite": 
+					parent.vkInvite();
+					break;
+				default:
+					break;
+			}
+		},
+		
+		/* Создание игрового поля =================================================== */
+		levelFieldCreate: function()
+		{
+			parent.matchShow(parent.initialization.levels[that.levelPlanetID]);
+		},
+		/* ========================================================================== */
+		
+		/* ПРОГРЕСС: Уменьшение значений LifeBars =================================== */
+		levelReduceLifeBar: function(hitType, hitCount, hitModeAI) 
+		{
+			if(hitModeAI === false) // удар пользователя (урон ИИ)
+			{
+				if(hitType === parent.match.MATCH_HIT_1)
+				{
+                                        parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit1 * hitCount) * 10;
+					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit1 * hitCount);
+					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
+					if(that.levelAILife < 0) that.levelAILife = 0;
+					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
+				}
+				if(hitType === parent.match.MATCH_HIT_2)
+				{
+                                        parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit2 * hitCount) * 10;
+					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit2 * hitCount);
+					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
+					if(that.levelAILife < 0) that.levelAILife = 0;
+					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
+				}
+				if(hitType === parent.match.MATCH_HIT_3)
+				{
+                                        parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit3 * hitCount) * 10;
+					that.levelCommandUser[that.levelIndexUser].life += (that.levelUserHit3 * hitCount);
+					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
+					if(that.levelAILife < 0) that.levelAILife = 0;
+					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
+				}
+				if(hitType === parent.match.MATCH_HIT_4)
+				{
+                                        parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit4 * hitCount) * 10;
+					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit4 * hitCount);
+					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
+					if(that.levelAILife < 0) that.levelAILife = 0;
+					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
+				}
+				if(hitType === parent.match.MATCH_HIT_5)
+				{
+                                        parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit5 * hitCount) * 10;
+					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit5 * hitCount);
+					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
+					if(that.levelAILife < 0) that.levelAILife = 0;
+					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
+				}
+			}else{ // удар ИИ (урон пользователю)
+				if(hitType === parent.match.MATCH_HIT_1)
+				{
+					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit1 * hitCount);
+					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
+					if(that.levelUserLife < 0) that.levelUserLife = 0;
+					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
+				}
+				if(hitType === parent.match.MATCH_HIT_2)
+				{
+					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit2 * hitCount);
+					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
+					if(that.levelUserLife < 0) that.levelUserLife = 0;
+					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
+				}
+				if(hitType === parent.match.MATCH_HIT_3)
+				{
+					that.levelCommandAI[that.levelIndexAI].life += (that.levelAIHit2 * hitCount);
+					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
+					if(that.levelUserLife < 0) that.levelUserLife = 0;
+					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
+				}
+				if(hitType === parent.match.MATCH_HIT_4)
+				{
+					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit4 * hitCount);
+					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
+					if(that.levelUserLife < 0) that.levelUserLife = 0;
+					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
+				}
+				if(hitType === parent.match.MATCH_HIT_5)
+				{
+					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit5 * hitCount);
+					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
+					if(that.levelUserLife < 0) that.levelUserLife = 0;
+					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
+				}
+			}
+		},
+		/* ========================================================================== */
+		
+		/* Меняем персонаж ========================================================== */
+		levelExchangePersonage: function(mode)
+		{
+			if(mode === "AI") // меняем персонаж ИИ
+			{
+				var removePers = 0;
+				for(var i in that.levelCommandAI)
+				{
+					if(that.levelCommandAI[i].life <= 0)
+					{
+						removePers++; // if(that.levelCommandAI[0].life <= 0 && that.levelCommandAI[1].life <= 0 && that.levelCommandAI[2].life <= 0)
+					}
+				}
+				if(removePers === (that.levelCommandAI.length))
+				{
+					// битва завершена ИИ проиграл!
+					parent.timer.timerPause = true;
+					parent.timer.timerStop();
+					that.levelStage.removeChild(that.levelPersonageAISprite);
+					that.levelStage.removeChild(that.levelAIHit1Text);
+					that.levelStage.removeChild(that.levelAIHit2Text);
+					that.levelStage.removeChild(that.levelAIHit3Text);
+					that.levelStage.removeChild(that.levelAIHit4Text);
+					that.levelStage.removeChild(that.levelAIHit5Text);
+					that.levelStage.removeChild(that.levelAILifeText);
+					console.log("ИИ проиграл!");
+					
+				}else{
+					if(that.levelIndexAI < that.levelCommandAI.length - 1) that.levelIndexAI++; // < 2
+					else that.levelIndexAI = 0;
+					if(that.levelCommandAI[that.levelIndexAI].life <= 0) that.levelExchangePersonage("AI");
+					else that.levelSelectPersonageAI();
+					
+					if(that.levelCommandUser[that.levelIndexUser].life <= 0)
+					{
+						var position = [[55,30],[160,30],[265,30]];
+						var sprite = new PIXI.Sprite(parent.assets.getAsset("personageDeadTexture"));
+						sprite.position.x = position[that.levelIndexUser][0];
+						sprite.position.y = position[that.levelIndexUser][1];
+						that.levelStage.addChild(sprite);
+						position = null;
+						that.levelExchangePersonage("USER");
+					}
+				}
+			}
+			if(mode === "USER") // меняем персонажа пользователя
+			{
+				var removePers = 0;
+				for(var i in that.levelCommandUser)
+				{
+					if(that.levelCommandUser[i].life <= 0)
+					{
+						removePers++; //if(that.levelCommandUser[0].life <= 0 && that.levelCommandUser[1].life <= 0 && that.levelCommandUser[2].life <= 0)
+					}
+				}
+				if(removePers === (that.levelCommandUser.length))
+				{
+					// битва завершена Пользователь проиграл!
+					parent.timer.timerPause = true;
+					parent.timer.timerStop();
+					that.levelStage.removeChild(that.levelPersonageUserSprite);
+					that.levelStage.removeChild(that.levelUserHit1Text);
+					that.levelStage.removeChild(that.levelUserHit2Text);
+					that.levelStage.removeChild(that.levelUserHit3Text);
+					that.levelStage.removeChild(that.levelUserHit4Text);
+					that.levelStage.removeChild(that.levelUserHit5Text);
+					that.levelStage.removeChild(that.levelUserLifeText);
+					console.log("Пользователь проиграл!");
+					
+				}else{
+					if(that.levelIndexUser < that.levelCommandUser.length - 1)that.levelIndexUser++; // < 2
+					else that.levelIndexUser = 0;
+					if(that.levelCommandUser[that.levelIndexUser].life <= 0) that.levelExchangePersonage("USER");
+					else that.levelSelectPersonageUser();
+					
+					if(that.levelCommandAI[that.levelIndexAI].life <= 0)
+					{
+						var position = [[520,628],[625,628],[730,628]];
+						var sprite = new PIXI.Sprite(parent.assets.getAsset("personageDeadTexture"));
+						sprite.position.x = position[that.levelIndexAI][0];
+						sprite.position.y = position[that.levelIndexAI][1];
+						that.levelStage.addChild(sprite);
+						position = null;
+						that.levelExchangePersonage("AI");
+					}
+				}
+			}
+		},
+		/* ========================================================================== */	
+		
+		
+		/* Завершение работы с классом ======================================== */
+		tweenStart: function()
+		{
+			createjs.Tween.get(that.levelStarsSprite, {loop: true}) 
+					.to({x: -50, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+					.to({x: -50, y: -50}, 10000, createjs.Ease.getPowInOut(3))
+					.to({x: 0, y: -50}, 10000, createjs.Ease.getPowInOut(3))
+					.to({x: 0, y: 0}, 10000, createjs.Ease.getPowInOut(3));
+
+			createjs.Tween.get(that.levelPlanetSprite, {loop: true}) 
+					.to({x: 200, y: 100}, 10000, createjs.Ease.getPowInOut(3))
+					.to({x: 200, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+					.to({x: 300, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+					.to({x: 300, y: 100}, 10000, createjs.Ease.getPowInOut(3));
+					
+			createjs.Tween.get(that.levelLandscapeSprite, {loop: true}) 
+					.to({x: -50, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+					.to({x: -50, y: -50}, 10000, createjs.Ease.getPowInOut(3))
+					.to({x: 0, y: -50}, 10000, createjs.Ease.getPowInOut(3))
+					.to({x: 0, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+					.to({alpha: 1.0}, 10000, createjs.Ease.getPowInOut(3))
+					.to({x: -50, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+					.to({x: -50, y: -50}, 10000, createjs.Ease.getPowInOut(3))
+					.to({x: 0, y: -50}, 10000, createjs.Ease.getPowInOut(3))
+					.to({x: 0, y: 0}, 10000, createjs.Ease.getPowInOut(3))
+					.to({alpha: 0.0}, 10000, createjs.Ease.getPowInOut(3));
+					
+			createjs.Tween.get(that.levelLineUserAnimationGraphics, {loop: true}) 
+				.to({x: 0, y: 275}, 2500, createjs.Ease.getPowInOut(3));
+			createjs.Tween.get(that.levelLineAIAnimationGraphics, {loop: true}) 
+				.to({x: 0, y: 275}, 2500, createjs.Ease.getPowInOut(3));
+			createjs.Tween.get(that.levelMessageLineGraphics, {loop: true}) 
+				.to({x: 0, y: 80}, 2000, createjs.Ease.getPowInOut(3));
+				
+			createjs.Ticker.setFPS(60);
+		},
+		
+		tweenStop: function()
+		{
+			createjs.Tween.removeTweens(that.levelStarsSprite);
+			createjs.Tween.removeTweens(that.levelPlanetSprite);
+			createjs.Tween.removeTweens(that.levelLandscapeSprite);
+			createjs.Tween.removeTweens(that.levelLineUserAnimationGraphics);
+			createjs.Tween.removeTweens(that.levelLineAIAnimationGraphics);
+			createjs.Tween.removeTweens(that.levelMessageLineGraphics);
+		},
+		
+		show: function()
+		{
+			that.tweenStart();
+			return that.levelStage;
+		},
+		
+		close: function()
+		{
+			that.tweenStop();
+			for(var child in that.levelStage.children) that.levelStage.removeChild(that.levelStage.children[child]);
+			return that.levelStage;
+		},
+		
+		getWindowStage: function()
+		{
+			return that.levelStage;
+		},
+		
+		destroy: function()
+		{
+			for(var child in that.levelStage.children) that.levelStage.removeChild(that.levelStage.children[child]);
+			that.levelStage.destroy();
+			delete that.levelStage.children;
+			
+			for(var property in that) that[property] = null;
+		}
+	};
+	return that;
+};
+
+
+/* == END FILE ========================================================== */
+
+/* == START FILE ========================================================= */
+
+var Lost = function(parent)
+{
+    var that = {
+        
+        
+    };
+    return that;
+};
 
 /* == END FILE ========================================================== */
 
@@ -3670,7 +4699,7 @@ var Map = function(parent)
 			}else{
 				if(parent.config.side === that.SIDE_JEDI)
 				{
-					if(parent.initialization.planets[this.name].status !== parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI)
+					if(parent.initialization.planets[this.name].status !== parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI || this.name === that.targetAI)
 					{
 						that.mapSprite.move = false;
 						parent.startbattleShow(this.name, that.targetAI);
@@ -3678,7 +4707,7 @@ var Map = function(parent)
 				}
 				if(parent.config.side === that.SIDE_SITH)
 				{
-					if(parent.initialization.planets[this.name].status !== parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH)
+					if(parent.initialization.planets[this.name].status !== parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH || this.name === that.targetAI)
 					{
 						that.mapSprite.move = false;
 						parent.startbattleShow(this.name, that.targetAI);
@@ -4315,21 +5344,35 @@ var Map = function(parent)
 
 			if(parent.config.side === that.SIDE_JEDI)
 			{
-				that.blueTargetsShow(target["planetUser"]);
-				that.redTargetsShow(target["planetAI"]);
-				that.targetAI = target["planetAI"];
-				if(parent.initialization.userTotalBattle === 0) parent.initialization.mapMessage["LastNews"][0] = "Меня зовут R2D2, рад вас приветствовать.\n\nКорусант является основной целью Ситов." + " В данное время Дарт Вейдер напали на " + parent.initialization.planets[target["planetAI"]].name + " вы можите попытаться помешать ему. \n\nИли выполните миссию " + parent.initialization.planets[target["planetUser"]].name + " и получите нового союзника.";
-				else parent.initialization.mapMessage["LastNews"][0] = "На планете " + parent.initialization.planets[target["planetUser"]].name + " нуждаются в нашей помощи. Выполните миссию "  + parent.initialization.planets[target["planetUser"]].name + " и вам будет доступен новый союзник. \n\nТак же мы получаем сигнал с планеты " + parent.initialization.planets[target["planetAI"]].name + " о вторжении Дарт Вейдера. Вы можите предпринять попытку отбить нападение на " + parent.initialization.planets[target["planetAI"]].name + ".";
-				that.textMessage.text = parent.initialization.mapMessage["LastNews"][0];
+                            that.blueTargetsShow(target["planetUser"]);
+                            if(parent.config.stopAI === false) that.redTargetsShow(target["planetAI"]);
+                            that.targetAI = target["planetAI"];
+
+                            if(parent.initialization.userTotalBattle === 0)
+                            {
+                                parent.initialization.mapMessage["LastNews"][0] = "Меня зовут R2D2, рад вас приветствовать.\n\nКорусант является основной целью Ситов." + " В данное время Дарт Вейдер напали на " + parent.initialization.planets[target["planetAI"]].name + " вы можите попытаться помешать ему. \n\nИли выполните миссию " + parent.initialization.planets[target["planetUser"]].name + " и получите нового союзника.";
+                            }else{
+                                if(parent.config.stopAI === false) parent.initialization.mapMessage["LastNews"][0] = "На планете " + parent.initialization.planets[target["planetUser"]].name + " нуждаются в нашей помощи. Выполните миссию "  + parent.initialization.planets[target["planetUser"]].name + " и вам будет доступен новый союзник. \n\nТак же мы получаем сигнал с планеты " + parent.initialization.planets[target["planetAI"]].name + " о вторжении Дарт Вейдера. Вы можите предпринять попытку отбить нападение на " + parent.initialization.planets[target["planetAI"]].name + ".";
+                                else parent.initialization.mapMessage["LastNews"][0] = "На планете " + parent.initialization.planets[target["planetUser"]].name + " нуждаются в нашей помощи. Выполните миссию "  + parent.initialization.planets[target["planetUser"]].name + " и вам будет доступен новый союзник. \n\nПоражение Дарт Вейдера в прошлой битве даёт вам преимущество в один ход.";
+                            }
+
+                            that.textMessage.text = parent.initialization.mapMessage["LastNews"][0];
 			}
 			if(parent.config.side === that.SIDE_SITH)
 			{
-				that.blueTargetsShow(target["planetAI"]);
-				that.redTargetsShow(target["planetUser"]);
-				that.targetAI = target["planetAI"];
-				if(parent.initialization.userTotalBattle === 0) parent.initialization.mapMessage["LastNews"][1] = "Меня зовут R3-S6, приветствую тебя мой повелитель. \n\nДжедаи хотят разрушить Звезду смерти и помешать нашим планам." + " Они направелись на " + parent.initialization.planets[target["planetAI"]].name + " можем помешать им. \n\nИли напасть на " + parent.initialization.planets[target["planetUser"]].name + " и получите нового союзника.";
-				else parent.initialization.mapMessage["LastNews"][1] = "Оборона планеты " + parent.initialization.planets[target["planetUser"]].name + " слаба мы с лёгкостью захватим её и вам будет доступен новый союзник. \n\nТак же наш шпион докладывает что Джедаи направились на " + parent.initialization.planets[target["planetAI"]].name + " можем помешать им.";
-				that.textMessage.text = parent.initialization.mapMessage["LastNews"][1];
+                            if(parent.config.stopAI === false) that.blueTargetsShow(target["planetAI"]);
+                            that.redTargetsShow(target["planetUser"]);
+                            that.targetAI = target["planetAI"];
+
+                            if(parent.initialization.userTotalBattle === 0)
+                            {
+                                parent.initialization.mapMessage["LastNews"][1] = "Меня зовут R3-S6, приветствую тебя мой повелитель. \n\nДжедаи хотят разрушить Звезду смерти и помешать нашим планам." + " Они направелись на " + parent.initialization.planets[target["planetAI"]].name + " можем помешать им. \n\nИли напасть на " + parent.initialization.planets[target["planetUser"]].name + " и получите нового союзника.";
+                            }else{
+                                if(parent.config.stopAI === false) parent.initialization.mapMessage["LastNews"][1] = "Оборона планеты " + parent.initialization.planets[target["planetUser"]].name + " слаба мы с лёгкостью захватим её и вам будет доступен новый союзник. \n\nТак же наш шпион докладывает что Джедаи направились на " + parent.initialization.planets[target["planetAI"]].name + " можем помешать им.";
+                                else parent.initialization.mapMessage["LastNews"][1] = "Оборона планеты " + parent.initialization.planets[target["planetUser"]].name + " слаба мы с лёгкостью захватим её и вам будет доступен новый союзник. \n\nПосле нашей победы над  Люком Скайуокером, Джедаи отступили и у нас есть преимущество в один ход.";
+                            }
+
+                            that.textMessage.text = parent.initialization.mapMessage["LastNews"][1];
 			}
 		},
 	
@@ -4403,2208 +5446,7 @@ var Map = function(parent)
 		}
 	};
 	return that;
-}
-
-/* == END FILE ========================================================== */
-
-/* == START FILE ========================================================= */
-
-var StartBattle = function(parent)
-{
-	var that = {
-		windowStage: null,
-		lineAnimationGraphics: null,
-		styleBlueText: { font : 'bold 18px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340, align: "center"},
-		styleRedText: { font : 'bold 18px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340, align: "center"}, 
-		buttonStyleBlueText: { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 },
-		buttonStyleRedText: { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }, 
-		userPlanetID: null,
-		aiPlanetID: null,
-
-		SIDE_NONE: "side_none",
-		SIDE_JEDI: "side_jedi",
-		SIDE_SITH: "side_sith",
-		
-		create: function(planetUserTargetID, planetAITargetID)
-		{
-			that.userPlanetID = planetUserTargetID;
-			that.aiPlanetID = planetAITargetID
-			that.windowStage = new PIXI.Container();
-			that.backgroundCreate();
-			that.windowCreate();
-			that.titleCreate();
-			that.textCreate();
-			that.buttonsCreate();
-		},
-		
-		backgroundCreate: function()
-		{
-			var graphics = new PIXI.Graphics(); 
-			graphics.hitArea = new PIXI.Rectangle(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
-			graphics.interactive = true;
-			graphics.lineStyle(1, 0x000000, 0.05);
-			graphics.beginFill(0x000000, 0.05);
-			graphics.drawRect(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
-			graphics.endFill();
-			that.windowStage.addChild(graphics);
-		},
-		
-		windowCreate: function()
-		{
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				var graphics = new PIXI.Graphics(); 
-				graphics.lineStyle(2, 0xFFFFFF, 1);
-				graphics.drawRoundedRect(200, 150, 460, 260, 15);
-				graphics.lineStyle(2, 0x0000FF, 1);
-				graphics.beginFill(0x00000F, 0.5);
-				graphics.drawRoundedRect(210, 160, 440, 240, 5);
-				graphics.endFill();
-				that.windowStage.addChild(graphics);
-				
-				var textureSprite; 
-				if(parent.initialization.commandUser["personage1"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage1"]][1]);
-				else{
-					if(parent.initialization.commandUser["personage2"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage2"]][1]);
-					else textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage3"]][1]);
-				}
-				textureSprite.position.x = 220; 
-				textureSprite.position.y = 165; 
-				textureSprite.scale.set(0.5);
-				that.windowStage.addChild(textureSprite);
-				
-				if(that.userPlanetID !== that.aiPlanetID)
-				{
-					textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].redPersonage1][2]);
-				} else {
-					if(parent.initialization.commandAI["personage1"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][2]);
-					else{
-						if(parent.initialization.commandAI["personage2"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage2"]][2]);
-						else textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage3"]][2]);
-					}
-				} 
-				textureSprite.position.x = 510; 
-				textureSprite.position.y = 165; 
-				textureSprite.scale.set(0.5);
-				that.windowStage.addChild(textureSprite);
-				
-				graphics = new PIXI.Graphics();
-				for(var i = 0; i < 80; i++)
-				{
-					graphics.lineStyle(1, 0x0000FF, 0.5);
-					graphics.moveTo(210, 160+(3*i));
-					graphics.lineTo(650, 160+(3*i));
-				}
-				that.windowStage.addChild(graphics);
-				
-				that.lineAnimationGraphics = new PIXI.Graphics(); 
-				that.lineAnimationGraphics.lineStyle(10, 0x0000FF, 0.3);
-				that.lineAnimationGraphics.moveTo(210, 165);
-				that.lineAnimationGraphics.lineTo(650, 165);
-				that.windowStage.addChild(that.lineAnimationGraphics);
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				var graphics = new PIXI.Graphics(); 
-				graphics.lineStyle(2, 0xFFFF80, 1);
-				graphics.drawRoundedRect(200, 150, 460, 260, 15);
-				graphics.lineStyle(2, 0xFF0000, 1);
-				graphics.beginFill(0x800000, 0.5);
-				graphics.drawRoundedRect(210, 160, 440, 240, 5);
-				graphics.endFill();
-				that.windowStage.addChild(graphics);
-				
-				var textureSprite; 
-				if(parent.initialization.commandUser["personage1"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage1"]][1]);
-				else{
-					if(parent.initialization.commandUser["personage2"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage2"]][1]);
-					else textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage3"]][1]);
-				}
-				textureSprite.position.x = 220; 
-				textureSprite.position.y = 165; 
-				textureSprite.scale.set(0.5);
-				that.windowStage.addChild(textureSprite);
-				
-				if(that.userPlanetID !== that.aiPlanetID)
-				{
-					textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].bluePersonage1][2]);
-				} else {
-					if(parent.initialization.commandAI["personage1"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][2]);
-					else{
-						if(parent.initialization.commandAI["personage2"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage2"]][2]);
-						else textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage3"]][2]);
-					}
-				} 
-				textureSprite.position.x = 510; 
-				textureSprite.position.y = 165; 
-				textureSprite.scale.set(0.5);
-				that.windowStage.addChild(textureSprite);
-				
-				graphics = new PIXI.Graphics();
-				for(var i = 0; i < 80; i++)
-				{
-					graphics.lineStyle(1, 0xA63A24, 0.5);
-					graphics.moveTo(210, 160+(3*i));
-					graphics.lineTo(650, 160+(3*i));
-				}
-				that.windowStage.addChild(graphics);
-			   
-				that.lineAnimationGraphics = new PIXI.Graphics(); 
-				that.lineAnimationGraphics.lineStyle(10, 0xA63A24, 0.3);
-				that.lineAnimationGraphics.moveTo(210, 165);
-				that.lineAnimationGraphics.lineTo(650, 165);
-				that.windowStage.addChild(that.lineAnimationGraphics);
-			}
-		},
-		
-		titleCreate: function()
-		{
-			var text;
-			if(parent.config.side === that.SIDE_JEDI) text = new PIXI.Text("БИТВА", that.buttonStyleBlueText); 
-			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text("БИТВА", that.buttonStyleRedText); 
-			text.x = 390;
-			text.y = 180;
-			that.windowStage.addChild(text);
-		},
-		
-		textCreate: function()
-		{
-			var hitCountUser = 0;
-			if(parent.initialization.personages[parent.initialization.commandUser["personage1"]] != undefined)
-			{
-				hitCountUser += parent.initialization.personages[parent.initialization.commandUser["personage1"]].hitDefense1 
-					+ parent.initialization.personages[parent.initialization.commandUser["personage1"]].hitDefense2 
-					+ parent.initialization.personages[parent.initialization.commandUser["personage1"]].hitDefense3 
-					+ parent.initialization.personages[parent.initialization.commandUser["personage1"]].hitDefense4
-					+ parent.initialization.personages[parent.initialization.commandUser["personage1"]].hitDefense5;
-			}
-			if(parent.initialization.personages[parent.initialization.commandUser["personage2"]] != undefined)
-			{
-				hitCountUser += parent.initialization.personages[parent.initialization.commandUser["personage2"]].hitDefense1 
-					+ parent.initialization.personages[parent.initialization.commandUser["personage2"]].hitDefense2 
-					+ parent.initialization.personages[parent.initialization.commandUser["personage2"]].hitDefense3 
-					+ parent.initialization.personages[parent.initialization.commandUser["personage2"]].hitDefense4
-					+ parent.initialization.personages[parent.initialization.commandUser["personage2"]].hitDefense5;
-			}
-			if(parent.initialization.personages[parent.initialization.commandUser["personage3"]] != undefined)
-			{
-				hitCountUser += parent.initialization.personages[parent.initialization.commandUser["personage3"]].hitDefense1 
-					+ parent.initialization.personages[parent.initialization.commandUser["personage3"]].hitDefense2 
-					+ parent.initialization.personages[parent.initialization.commandUser["personage3"]].hitDefense3 
-					+ parent.initialization.personages[parent.initialization.commandUser["personage3"]].hitDefense4
-					+ parent.initialization.personages[parent.initialization.commandUser["personage3"]].hitDefense5;
-			}
-			hitCountUser /= 10;
-			
-			var hitCountAI = 0;
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				if(that.userPlanetID !== that.aiPlanetID)
-				{
-					if(parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage1] != undefined)
-					{
-						hitCountAI += parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage1].hitAttack1 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage1].hitAttack2 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage1].hitAttack3 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage1].hitAttack4
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage1].hitAttack5;
-					}
-					if(parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage2] != undefined)
-					{
-						hitCountAI += parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage2].hitAttack1 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage2].hitAttack2 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage2].hitAttack3 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage2].hitAttack4
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage2].hitAttack5;
-					}
-					if(parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage3] != undefined)
-					{
-						hitCountAI += parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage3].hitAttack1 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage3].hitAttack2 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage3].hitAttack3 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage3].hitAttack4
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage3].hitAttack5;
-					}
-				}else{
-					if(parent.initialization.personages[parent.initialization.commandAI["personage1"]] != undefined)
-					{
-						hitCountAI += parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense1 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense2 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense3 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense3
-							+ parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense4;
-					}
-					if(parent.initialization.personages[parent.initialization.commandAI["personage2"]] != undefined)
-					{
-						hitCountAI += parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense1 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense2 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense3 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense4
-							+ parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense5;
-					}
-					if(parent.initialization.personages[parent.initialization.commandAI["personage3"]] != undefined)
-					{
-						hitCountAI += parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense1 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense2 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense3 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense4
-							+ parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense5;
-					}
-				}
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				if(that.userPlanetID !== that.aiPlanetID)
-				{
-					if(parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage1] != undefined)
-					{
-						hitCountAI += parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage1].hitAttack1 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage1].hitAttack2 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage1].hitAttack3 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage1].hitAttack4
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage1].hitAttack5;
-					}
-					if(parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage2] != undefined)
-					{
-						hitCountAI += parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage2].hitAttack1 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage2].hitAttack2 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage2].hitAttack3 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage2].hitAttack4
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage2].hitAttack5;
-					}
-					if(parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage3] != undefined)
-					{
-						hitCountAI += parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage3].hitAttack1 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage3].hitAttack2 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage3].hitAttack3 
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage3].hitAttack4
-							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage3].hitAttack5;
-					}
-				}else{
-					if(parent.initialization.personages[parent.initialization.commandAI["personage1"]] != undefined)
-					{
-						hitCountAI += parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense1 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense2 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense3 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense3
-							+ parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense4;
-					}
-					if(parent.initialization.personages[parent.initialization.commandAI["personage2"]] != undefined)
-					{
-						hitCountAI += parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense1 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense2 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense3 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense4
-							+ parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense5;
-					}
-					if(parent.initialization.personages[parent.initialization.commandAI["personage3"]] != undefined)
-					{
-						hitCountAI += parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense1 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense2 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense3 
-							+ parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense4
-							+ parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense5;
-					}
-				}
-			}
-			hitCountAI /= 10;
-			
-			var text;
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				text = new PIXI.Text("Сила: " + hitCountUser, that.styleBlueText); 
-				text.x = (parent.config.MAIN_WIDTH / 2) - (text.width / 2) - 150;
-				text.y = 350;
-				that.windowStage.addChild(text);
-				text = new PIXI.Text("Сила: " + hitCountAI, that.styleBlueText); 
-				text.x = (parent.config.MAIN_WIDTH / 2) - (text.width / 2) + 150;
-				text.y = 350;
-				that.windowStage.addChild(text);
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				text = new PIXI.Text("Сила: " + hitCountUser, that.styleRedText); 
-				text.x = (parent.config.MAIN_WIDTH / 2) - (text.width / 2) - 150;
-				text.y = 350;
-				that.windowStage.addChild(text);
-				text = new PIXI.Text("Сила: " + hitCountAI, that.styleRedText); 
-				text.x = (parent.config.MAIN_WIDTH / 2) - (text.width / 2) + 150;
-				text.y = 350;
-				that.windowStage.addChild(text);
-			}
-			
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				if(that.userPlanetID !== that.aiPlanetID)
-				{
-					if(parent.initialization.commandUser["personage1"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage1"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].redPersonage1][0], that.styleBlueText); 
-					else{
-						if(parent.initialization.commandUser["personage2"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage2"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].redPersonage1][0], that.styleBlueText); 
-						else  text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage3"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].redPersonage1][0], that.styleBlueText); 
-					}    
-				}else{
-					if(parent.initialization.commandUser["personage1"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage1"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][0], that.styleBlueText);
-					else{
-						if(parent.initialization.commandUser["personage2"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage2"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][0], that.styleBlueText);
-						else text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage3"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][0], that.styleBlueText);
-					}
-				}
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				if(that.userPlanetID !== that.aiPlanetID)
-				{
-					if(parent.initialization.commandUser["personage1"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage1"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].bluePersonage1][0], that.styleRedText); 
-					else{
-						if(parent.initialization.commandUser["personage2"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage2"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].bluePersonage1][0], that.styleRedText); 
-						else text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage3"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].bluePersonage1][0], that.styleRedText); 
-					}
-				}else{
-					if(parent.initialization.commandUser["personage1"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage1"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][0], that.styleRedText); 
-					else{
-						if(parent.initialization.commandUser["personage2"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage2"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][0], that.styleRedText); 
-						else text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage3"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][0], that.styleRedText); 
-					}
-				}
-			}
-			text.x = (parent.config.MAIN_WIDTH / 2) - (text.width / 2);
-			text.y = 225;
-			that.windowStage.addChild(text);
-		},
-		
-		buttonsCreate: function()
-		{
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
-				button.name = "yes";
-				button.position.x = (parent.config.MAIN_WIDTH / 2) -  (button.width / 2.5); 
-				button.position.y = 300; 
-				button.scale.set(0.8);
-				button.interactive = true; 
-				button.buttonMode = true; 
-				button.loop = false; 
-				button.animationSpeed = 0.2;
-				button.onComplete = that.onButtonUpdate;
-				button.tap = that.onButtonClick; 
-				button.click = that.onButtonClick; 
-				button.on('mouseover', that.onButtonOver);
-				button.on('mouseout', that.onButtonOut);
-				var text = new PIXI.Text("Начать", that.buttonStyleBlueText); 
-				text.x = (button.width / 2) - (text.width / 3.0);
-				text.y = button.height / 3.5;
-				button.addChild(text); 
-				that.windowStage.addChild(button);
-				
-				button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
-				button.name = "no";
-				button.position.x = (parent.config.MAIN_WIDTH / 2) -  (button.width / 2.5);
-				button.position.y = 350; 
-				button.scale.set(0.8);
-				button.interactive = true; 
-				button.buttonMode = true; 
-				button.loop = false; 
-				button.animationSpeed = 0.2;
-				button.onComplete = that.onButtonUpdate;
-				button.tap = that.onButtonClick; 
-				button.click = that.onButtonClick; 
-				button.on('mouseover', that.onButtonOver);
-				button.on('mouseout', that.onButtonOut);
-				var text = new PIXI.Text("Отмена", that.buttonStyleBlueText); 
-				text.x = (button.width / 2) - (text.width / 3.0);
-				text.y = button.height / 3.5;
-				button.addChild(text); 
-				that.windowStage.addChild(button);
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
-				button.name = "yes";
-				button.position.x = (parent.config.MAIN_WIDTH / 2) -  (button.width / 2.5); 
-				button.position.y = 300; 
-				button.scale.set(0.8);
-				button.interactive = true; 
-				button.buttonMode = true; 
-				button.loop = false; 
-				button.animationSpeed = 0.2;
-				button.onComplete = that.onButtonUpdate;
-				button.tap = that.onButtonClick; 
-				button.click = that.onButtonClick; 
-				button.on('mouseover', that.onButtonOver);
-				button.on('mouseout', that.onButtonOut);
-				var text = new PIXI.Text("Начать", that.buttonStyleRedText); 
-				text.x = (button.width / 2) - (text.width / 3.0);
-				text.y = button.height / 3.5;
-				button.addChild(text); 
-				that.windowStage.addChild(button);
-				
-				button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
-				button.name = "no";
-				button.position.x = (parent.config.MAIN_WIDTH / 2) -  (button.width / 2.5); 
-				button.position.y = 350; 
-				button.scale.set(0.8);
-				button.interactive = true; 
-				button.buttonMode = true; 
-				button.loop = false; 
-				button.animationSpeed = 0.2;
-				button.onComplete = that.onButtonUpdate;
-				button.tap = that.onButtonClick; 
-				button.click = that.onButtonClick; 
-				button.on('mouseover', that.onButtonOver);
-				button.on('mouseout', that.onButtonOut);
-				var text = new PIXI.Text("Отмена", that.buttonStyleRedText); 
-				text.x = (button.width / 2) - (text.width / 3.0);
-				text.y = button.height / 3.5;
-				button.addChild(text); 
-				that.windowStage.addChild(button);
-			}
-		},
-		
-		onButtonOver: function(event)
-		{
-			this.isOver = true;
-			this.gotoAndPlay(1);
-		},
-		
-		onButtonOut: function(event)
-		{
-			this.isOver = false;
-			this.gotoAndStop(0);
-		},
-		
-		onButtonUpdate: function(event)
-		{
-			if(this.isOver)
-			{
-				this.gotoAndPlay(1);
-			}else{
-				this.gotoAndStop(0);
-			}
-		},
-		
-		onButtonClick: function(event)
-		{
-			switch (this.name)
-			{
-				case "yes":
-					//if(sbattleUserPlanetID !== sbattleAIPlanetID) levelCreate(sbattleUserPlanetID, false);
-					//else levelCreate(sbattleUserPlanetID, true);
-					if(that.userPlanetID !== that.aiPlanetID) parent.levelShow(that.userPlanetID, false);
-					else parent.levelShow(that.userPlanetID, true);
-					break;
-				case "no":
-					parent.startbattleClose();
-					break;
-				default:
-					break;
-			}
-		},
-		
-		tweenStart: function()
-		{
-			createjs.Tween.get(that.lineAnimationGraphics, {loop: true}) 
-				.to({x: 0, y: 230}, 2500, createjs.Ease.getPowInOut(3));
-			createjs.Ticker.setFPS(60);
-		},
-		
-		tweenStop: function()
-		{
-			createjs.Tween.removeTweens(that.lineAnimationGraphics);
-		},
-		
-		show: function()
-		{
-			that.tweenStart();
-			return that.windowStage;
-		},
-		
-		close: function()
-		{
-			that.tweenStop();
-			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
-			return that.windowStage;
-		},
-		
-		getWindowStage: function()
-		{
-			return that.windowStage;
-		},
-		
-		destroy: function()
-		{
-			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
-			that.windowStage.destroy();
-			delete that.windowStage.children;
-			
-			for(var property in that) that[property] = null;
-		}
-	};
-	return that;
-}
-
-/* == END FILE ========================================================== */
-
-/* == START FILE ========================================================= */
-
-
-var Command = function(parent)
-{
-	var that = {
-		windowStage: null,
-		spaceBackground: null,
-		lineAnimPersonageDesktopGraphics: null,
-		messageLineGraphics: null,
-		styleButtonBlueText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 },
-		styleButtonRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }, 
-		styledescriptionBlueText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 495 }, 
-		styledescriptionRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 495 },
-		styleDroidBlueText: { font : 'bold 14px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 },
-		styleDroidRedText: { font : 'bold 14px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }, 
-		experiencePointsText: null,
-
-		listCommand: [],
-		listPersonage: [],
-		desktopStage: null,
-		tapeStage: null,
-		tapePanelButtonsStage: null,
-		selectPersonageID: null,
-		selectPersonageIndex: null,
-		
-		SIDE_JEDI: "side_jedi",
-		SIDE_SITH: "side_sith",
-		
-		create: function()
-		{
-			that.windowStage = new PIXI.Container();
-			
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				that.backgroundBlue(); 
-				that.desktopBlue();
-				that.borderBlue();
-				that.droidBlue();
-				that.blueCommand();
-				that.tapeMask();
-				that.tapeBlue();
-				that.tapeButton();
-				that.buttonsBlue();
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				that.backgroundRed();
-				that.desktopRed();
-				that.borderRed();
-				that.droidRed();
-				that.redCommand();
-				that.tapeMask();
-				that.tapeRed();
-				that.tapeButton();
-				that.buttonsRed();
-			}
-		},
-		
-		
-		backgroundBlue: function()
-		{
-			that.spaceBackground = new PIXI.Sprite(parent.assets.getAsset("mapSpaceBlueTexture")); 
-			that.spaceBackground.position.x = -82; 
-			that.spaceBackground.position.y = -19; 
-			that.windowStage.addChild(that.spaceBackground);
-			//cmdAnimSpaceTween();
-		},
-		
-		borderBlue: function()
-		{
-			var graphics = new PIXI.Graphics(); 
-
-			graphics.lineStyle(2, 0x0000FF, 1);
-			graphics.beginFill(0x000000, 0);
-			graphics.drawRect(10, 10, 840, 710);
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFFFF, 1);
-			graphics.drawCircle(555, 600,4);
-			graphics.endFill();
-
-			graphics.lineStyle(2, 0xFFFFFF, 1);
-			graphics.moveTo(555, 600);
-			graphics.lineTo(5, 600);
-			
-			graphics.moveTo(5, 600);
-			graphics.lineTo(5, 725);
-			graphics.moveTo(5, 725);
-			graphics.lineTo(855, 725);
-			graphics.moveTo(855, 725);
-			graphics.lineTo(855, 665);
-			graphics.moveTo(855, 665);
-			graphics.lineTo(650, 665);
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFFFF, 1);
-			graphics.drawCircle(650, 665,4);
-			graphics.endFill();
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFFFF, 1);
-			graphics.drawCircle(20, 15,4);
-			graphics.endFill();
-
-			graphics.lineStyle(2, 0xFFFFFF, 1);
-			graphics.moveTo(20, 15);
-			graphics.lineTo(550, 15);
-			
-			graphics.moveTo(550, 15);
-			graphics.lineTo(570, 5);
-			
-			graphics.moveTo(570, 5);
-			graphics.lineTo(855, 5);
-			graphics.moveTo(855, 5);
-			graphics.lineTo(855, 50);
-			graphics.moveTo(855, 50);
-			graphics.lineTo(650, 50);
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFFFF, 1);
-			graphics.drawCircle(650, 50,4);
-			graphics.endFill();
-			
-			that.windowStage.addChild(graphics);
-			
-			that.experiencePointsText = new PIXI.Text("КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints, that.styleButtonBlueText); 
-			that.experiencePointsText.x = 655;
-			that.experiencePointsText.y = 30;
-			that.windowStage.addChild(that.experiencePointsText);
-		},
-		
-		buttonsBlue: function()
-		{
-			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
-			button.name = "Closed";
-			button.position.x = 650; 
-			button.position.y = 670; 
-			button.interactive = true; 
-			button.buttonMode = true; 
-			button.loop = false; 
-			button.animationSpeed = 0.2;
-			button.onComplete = that.onButtonUpdate;
-			button.tap = that.onButtonClick; 
-			button.click = that.onButtonClick; 
-			button.on('mouseover', that.onButtonOver);
-			button.on('mouseout', that.onButtonOut);
-			
-			var text = new PIXI.Text("ЗАКРЫТЬ", that.styleButtonBlueText); 
-			text.x = button.width / 3.2;
-			text.y = button.height / 3;
-
-			button.addChild(text); 
-			that.windowStage.addChild(button);
-		},
-		
-		desktopBlue: function()
-		{
-			var graphics = new PIXI.Graphics();
-    
-			graphics.lineStyle(2, 0x0000FF, 1);
-			graphics.beginFill(0x0000FF, 0.2);
-			graphics.moveTo(25, 600);
-			graphics.lineTo(550, 600);
-			graphics.lineTo(550, 715);
-			graphics.lineTo(25, 715);
-			graphics.endFill;
-			
-			graphics.lineStyle(2, 0x0000FF, 1);
-			graphics.beginFill(0x0000FF, 0.2);
-			graphics.moveTo(655, 50);
-			graphics.lineTo(800, 50);
-			graphics.lineTo(800, 350);
-			graphics.lineTo(650, 350);
-			graphics.endFill;
-			
-			that.windowStage.addChild(graphics);
-		},
-		
-		droidBlue: function()
-		{
-			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidBlueRightTexture")); 
-			textureSprite.position.x = 765; 
-			textureSprite.position.y = 550; 
-			textureSprite.scale.set(0.3);
-			that.windowStage.addChild(textureSprite);
-			
-			var graphics = new PIXI.Graphics(); 
-			graphics.lineStyle(2, 0x0090F0, 0.2);
-			graphics.beginFill(0x0090F0, 0.2);
-			graphics.moveTo(795, 570);
-			graphics.lineTo(570, 525);
-			graphics.lineTo(840, 525);
-			graphics.lineTo(795, 570);
-			graphics.endFill;
-			that.windowStage.addChild(graphics);
-			
-			for(var i = 0; i < 50; i++)
-			{
-				graphics.lineStyle(1, 0x0090F0, 0.2);
-				graphics.moveTo(560, 375+(3*i));
-				graphics.lineTo(840, 375+(3*i));
-			}
-			that.windowStage.addChild(graphics);
-			
-			that.messageLineGraphics = new PIXI.Graphics(); 
-			that.messageLineGraphics.lineStyle(10, 0x0090F0, 0.3);
-			that.messageLineGraphics.moveTo(560, 380);
-			that.messageLineGraphics.lineTo(840, 380);
-			that.windowStage.addChild(that.messageLineGraphics);
-			//cmdMessageLineGraphicsTween();
-			
-			that.textMessage = new PIXI.Text("Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", that.styleDroidBlueText); 
-			that.textMessage.x = 565; 
-			that.textMessage.y = 375; 
-			that.windowStage.addChild(that.textMessage);
-		},
-		
-		backgroundRed: function()
-		{
-			that.spaceBackground = new PIXI.Sprite(parent.assets.getAsset("mapSpaceRedTexture")); 
-			that.spaceBackground.position.x = -82; 
-			that.spaceBackground.position.y = -19; 
-			that.windowStage.addChild(that.spaceBackground);
-			//cmdAnimSpaceTween();
-		},
-		
-		borderRed: function()
-		{
-			var graphics = new PIXI.Graphics(); 
-
-			graphics.lineStyle(2, 0xFF0000, 1);
-			graphics.beginFill(0x000000, 0);
-			graphics.drawRect(10, 10, 840, 710);
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFF80, 1);
-			graphics.drawCircle(555, 600,4);
-			graphics.endFill();
-
-			graphics.lineStyle(2, 0xFFFF80, 1);
-			graphics.moveTo(555, 600);
-			graphics.lineTo(5, 600);
-			
-			graphics.moveTo(5, 600);
-			graphics.lineTo(5, 725);
-			graphics.moveTo(5, 725);
-			graphics.lineTo(855, 725);
-			graphics.moveTo(855, 725);
-			graphics.lineTo(855, 665);
-			graphics.moveTo(855, 665);
-			graphics.lineTo(650, 665);
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFF80, 1);
-			graphics.drawCircle(650, 665,4);
-			graphics.endFill();
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFF80, 1);
-			graphics.drawCircle(20, 15,4);
-			graphics.endFill();
-
-			graphics.lineStyle(2, 0xFFFF80, 1);
-			graphics.moveTo(20, 15);
-			graphics.lineTo(550, 15);
-			
-			graphics.moveTo(550, 15);
-			graphics.lineTo(570, 5);
-			
-			graphics.moveTo(570, 5);
-			graphics.lineTo(855, 5);
-			graphics.moveTo(855, 5);
-			graphics.lineTo(855, 50);
-			graphics.moveTo(855, 50);
-			graphics.lineTo(650, 50);
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFF80, 1);
-			graphics.drawCircle(650, 50,4);
-			graphics.endFill();
-			
-			that.windowStage.addChild(graphics);
-			
-			that.experiencePointsText = new PIXI.Text("КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints, that.styleButtonRedText); 
-			that.experiencePointsText.x = 655;
-			that.experiencePointsText.y = 30;
-			that.windowStage.addChild(that.experiencePointsText);
-		},
-		
-		buttonsRed: function()
-		{
-			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed"));
-			button.name = "Closed";
-			button.position.x = 650; 
-			button.position.y = 670; 
-			button.interactive = true; 
-			button.buttonMode = true; 
-			button.loop = false; 
-			button.animationSpeed = 0.2;
-			button.onComplete = that.onButtonUpdate;
-			button.tap = that.onButtonClick; 
-			button.click = that.onButtonClick; 
-			button.on('mouseover', that.onButtonOver);
-			button.on('mouseout', that.onButtonOut);
-			
-			var text = new PIXI.Text("ЗАКРЫТЬ", that.styleButtonRedText); 
-			text.x = button.width / 3.2;
-			text.y = button.height / 3;
-
-			button.addChild(text); 
-			that.windowStage.addChild(button);
-		},
-		
-		desktopRed: function()
-		{
-			var graphics = new PIXI.Graphics();
-    
-			graphics.lineStyle(2, 0x800000, 1);
-			graphics.beginFill(0x800000, 0.2);
-			graphics.moveTo(25, 600);
-			graphics.lineTo(550, 600);
-			graphics.lineTo(550, 715);
-			graphics.lineTo(25, 715);
-			graphics.endFill;
-			
-			graphics.lineStyle(2, 0x800000, 1);
-			graphics.beginFill(0x800000, 0.2);
-			graphics.moveTo(655, 50);
-			graphics.lineTo(800, 50);
-			graphics.lineTo(800, 350);
-			graphics.lineTo(650, 350);
-			graphics.endFill;
-			
-			that.windowStage.addChild(graphics);
-		},
-		
-		droidRed: function()
-		{
-			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidRedRightTexture")); 
-			textureSprite.position.x = 765; 
-			textureSprite.position.y = 550; 
-			textureSprite.scale.set(0.3);
-			that.windowStage.addChild(textureSprite);
-			
-			var graphics = new PIXI.Graphics(); 
-			graphics.lineStyle(2, 0xA63A24, 0.2);
-			graphics.beginFill(0xA63A24, 0.2);
-			graphics.moveTo(795, 570);
-			graphics.lineTo(570, 525);
-			graphics.lineTo(840, 525);
-			graphics.lineTo(795, 570);
-			graphics.endFill;
-			that.windowStage.addChild(graphics);
-			
-			for(var i = 0; i < 50; i++)
-			{
-				graphics.lineStyle(1, 0xA63A24, 0.2);
-				graphics.moveTo(560, 375+(3*i));
-				graphics.lineTo(840, 375+(3*i));
-			}
-			that.windowStage.addChild(graphics);
-			
-			that.messageLineGraphics = new PIXI.Graphics(); 
-			that.messageLineGraphics.lineStyle(10, 0xA63A24, 0.3);
-			that.messageLineGraphics.moveTo(560, 380);
-			that.messageLineGraphics.lineTo(840, 380);
-			that.windowStage.addChild(that.messageLineGraphics);
-			//cmdMessageLineGraphicsTween();
-			
-			that.textMessage = new PIXI.Text("Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", that.styleDroidRedText); 
-			that.textMessage.x = 565; 
-			that.textMessage.y = 375; 
-			that.windowStage.addChild(that.textMessage);
-		},
-		
-		blueCommand: function(select)
-		{
-			if (select === undefined) {
-				select = 0;
-			}
-			
-			if(that.listCommand.length === 0)
-			{
-					that.listCommand = [];
-			}else{
-				for(var i = 0; i < that.listCommand.length; i++)
-				{
-					that.windowStage.removeChild(that.listCommand[i]);
-				}
-				that.listCommand = [];
-			}
-			
-			var selectIndex = select;
-			var index = 0;
-			for(var key in parent.initialization.commandUser)
-			{
-				if(parent.initialization.commandUser[key] !== null)
-				{
-					var graphics = new PIXI.Graphics(); 
-					graphics.lineStyle(2, 0x0000FF, 0.2);
-					graphics.beginFill(0x0000FF, 0.2);
-					graphics.drawRect(690, 60 + (100 * index), 75, 75);
-					graphics.endFill;
-
-					var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser[key]][3]); 
-					textureSprite.name = parent.initialization.commandUser[key];
-					textureSprite.index = index;
-					textureSprite.position.x = 690; 
-					textureSprite.position.y = 60  + (100 * index); 
-					textureSprite.interactive = true; 
-					textureSprite.buttonMode = true;
-					textureSprite.tap = that.onBlueIconCommandClick; 
-					textureSprite.click = that.onBlueIconCommandClick; 
-					graphics.addChild(textureSprite);
-					
-					var border = new PIXI.Graphics();
-					if(index === selectIndex)
-					{
-						border.lineStyle(2, 0xFFFFFF, 0.5);
-						that.bluePersonageShow(parent.initialization.commandUser[key]);
-						that.selectPersonageID = parent.initialization.commandUser[key];
-						that.selectPersonageIndex = index;
-					} else {
-						border.lineStyle(2, 0x0000FF, 0.2);
-					}
-					border.drawRect(690, 60 + (100 * index), 75, 75);
-					graphics.addChild(border);
-					
-					that.listCommand.push(graphics);
-					that.windowStage.addChild(that.listCommand[index]);
-				} else{
-					var graphics = new PIXI.Graphics(); 
-					graphics.lineStyle(2, 0x0000FF, 0.2);
-					graphics.beginFill(0x0000FF, 0.2);
-					graphics.drawRect(690, 60 + (100 * index), 75, 75);
-					graphics.endFill;
-					that.listCommand.push(graphics);
-					that.windowStage.addChild(that.listCommand[index]);
-					if(select === 0 && selectIndex < 2) selectIndex++;
-				}
-				index++;
-			}
-		},
-		
-		onBlueIconCommandClick: function()
-		{
-			that.selectPersonageID = this.name;
-			that.selectPersonageIndex = this.index;
-			that.blueCommand(this.index);
-			that.tapeBlue(-1);
-		},
-		
-		bluePersonageShow: function(id)
-		{
-			that.windowStage.removeChild(that.desktopStage);
-			if(id !== null)
-			{
-				that.desktopStage = new PIXI.Container();
-				
-				var graphics = new PIXI.Graphics();
-				graphics.lineStyle(2, 0x0000FF, 1);
-				graphics.beginFill(0x0000FF, 0.2);
-				graphics.moveTo(25, 20);
-				graphics.lineTo(550, 20);
-				graphics.lineTo(550, 575);
-				graphics.lineTo(25, 575);
-				graphics.endFill;
-				that.desktopStage.addChild(graphics);
-				
-				var sprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[id][1]);
-				sprite.position.x = 25;
-				sprite.position.y = 50;
-				that.desktopStage.addChild(sprite);
-				
-				graphics = new PIXI.Graphics();
-				for(var i = 0; i < 185; i++)
-				{
-					graphics.lineStyle(1, 0x0000FF, 0.5);
-					graphics.moveTo(25, 20+(3*i));
-					graphics.lineTo(550, 20+(3*i));
-				}
-				that.desktopStage.addChild(graphics);
-				
-				that.lineAnimPersonageDesktopGraphics = new PIXI.Graphics(); 
-				that.lineAnimPersonageDesktopGraphics.lineStyle(10, 0x0000FF, 0.3);
-				that.lineAnimPersonageDesktopGraphics.moveTo(25, 25);
-				that.lineAnimPersonageDesktopGraphics.lineTo(550, 25);
-				that.desktopStage.addChild(that.lineAnimPersonageDesktopGraphics);
-				//cmdLineAnimPersonageDesktopGraphicsTween();
-				
-				var text = new PIXI.Text(parent.initialization.personages[id].name, that.styleButtonBlueText); 
-				text.x = 50; text.y = 30;
-				that.desktopStage.addChild(text);
-
-				text = new PIXI.Text("Характеристики:", that.styleButtonBlueText); 
-				text.x = 300; text.y = 100;
-				that.desktopStage.addChild(text);
-				
-				var life = (parent.initialization.personages[parent.initialization.personages[id].id].hitDefense1 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense2 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense3 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense4 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense5) / 10 * 50;
-				life = Math.round(life);
-				text = new PIXI.Text("Здоровье: " + life, that.styleButtonBlueText); 
-				text.x = 330; text.y = 130;
-				that.desktopStage.addChild(text);
-
-				sprite = new PIXI.Sprite(parent.assets.getAsset("hit1Texture"));
-				sprite.position.x = 300; sprite.position.y = 150; sprite.scale.set(0.3);
-				that.desktopStage.addChild(sprite);
-				text = new PIXI.Text("Кристал ловкости:", that.styleButtonBlueText); 
-				text.x = 330; text.y = 155;
-				that.desktopStage.addChild(text);
-				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense1, that.styleButtonBlueText); 
-				text.x = 480; text.y = 155;
-				that.desktopStage.addChild(text);
-
-				sprite = new PIXI.Sprite(parent.assets.getAsset("hit2Texture"));
-				sprite.position.x = 300; sprite.position.y = 175; sprite.scale.set(0.3);
-				that.desktopStage.addChild(sprite);
-				text = new PIXI.Text("Кристал тьмы:", that.styleButtonBlueText); 
-				text.x = 330; text.y = 180;
-				that.desktopStage.addChild(text);
-				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense2, that.styleButtonBlueText); 
-				text.x = 480; text.y = 180;
-				that.desktopStage.addChild(text);
-
-				sprite = new PIXI.Sprite(parent.assets.getAsset("hit3Texture"));
-				sprite.position.x = 300; sprite.position.y = 200; sprite.scale.set(0.3);
-				that.desktopStage.addChild(sprite);
-				text = new PIXI.Text("Кристал жизни:", that.styleButtonBlueText); 
-				text.x = 330; text.y = 205;
-				that.desktopStage.addChild(text);
-				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense3, that.styleButtonBlueText); 
-				text.x = 480; text.y = 205;
-				that.desktopStage.addChild(text);
-
-				sprite = new PIXI.Sprite(parent.assets.getAsset("hit4Texture"));
-				sprite.position.x = 300; sprite.position.y = 225; sprite.scale.set(0.3);
-				that.desktopStage.addChild(sprite);
-				text = new PIXI.Text("Кристал света:", that.styleButtonBlueText); 
-				text.x = 330; text.y = 230;
-				that.desktopStage.addChild(text);
-				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense4, that.styleButtonBlueText); 
-				text.x = 480; text.y = 230;
-				that.desktopStage.addChild(text);
-
-				sprite = new PIXI.Sprite(parent.assets.getAsset("hit5Texture"));
-				sprite.position.x = 300; sprite.position.y = 250; sprite.scale.set(0.3);
-				that.desktopStage.addChild(sprite);
-				text = new PIXI.Text("Кристал интеллекта:", that.styleButtonBlueText); 
-				text.x = 330; text.y = 255;
-				that.desktopStage.addChild(text);
-				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense5, that.styleButtonBlueText); 
-				text.x = 480; text.y = 255;
-				that.desktopStage.addChild(text);
-
-				text = new PIXI.Text(parent.initialization.personages[id].description, that.styledescriptionBlueText); 
-				text.x = 50;
-				text.y = 550 - text.height;
-				that.desktopStage.addChild(text);
-				
-				if(parent.initialization.personages[parent.initialization.personages[id].id].command === true) that.blueButtonRemovePersonage();
-				else that.blueButtonSelectPersonage();
-
-				that.experiencePointsButtons();
-
-				that.windowStage.addChild(that.desktopStage);
-			}else{
-				var graphics = new PIXI.Graphics();
-				graphics.lineStyle(2, 0x0000FF, 1);
-				graphics.beginFill(0x0000FF, 0.2);
-				graphics.moveTo(25, 20);
-				graphics.lineTo(550, 20);
-				graphics.lineTo(550, 575);
-				graphics.lineTo(25, 575);
-				graphics.endFill;
-				for(var i = 0; i < 185; i++)
-				{
-					graphics.lineStyle(1, 0x0000FF, 0.5);
-					graphics.moveTo(25, 20+(3*i));
-					graphics.lineTo(550, 20+(3*i));
-				}
-				that.windowStage.addChild(graphics);
-			}
-		},
-		
-		blueButtonRemovePersonage: function()
-		{
-			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
-			button.name = "Remove";
-			button.position.x = 350; 
-			button.position.y = 25; 
-			button.interactive = true; 
-			button.buttonMode = true; 
-			button.loop = false; 
-			button.animationSpeed = 0.2;
-			button.onComplete = that.onButtonUpdate;
-			button.tap = that.onButtonClick; 
-			button.click = that.onButtonClick; 
-			button.on('mouseover', that.onButtonOver);
-			button.on('mouseout', that.onButtonOut);
-			
-			var text = new PIXI.Text("УБРАТЬ ИЗ СПИСКА", that.styleButtonBlueText); 
-			text.x = button.width / 6.5;
-			text.y = button.height / 3;
-
-			button.addChild(text); 
-			that.desktopStage.addChild(button);
-		},
-		
-		blueButtonSelectPersonage: function()
-		{
-			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
-			button.name = "Select";
-			button.position.x = 350; 
-			button.position.y = 25; 
-			button.interactive = true; 
-			button.buttonMode = true; 
-			button.loop = false; 
-			button.animationSpeed = 0.2;
-			button.onComplete = that.onButtonUpdate;
-			button.tap = that.onButtonClick; 
-			button.click = that.onButtonClick; 
-			button.on('mouseover', that.onButtonOver);
-			button.on('mouseout', that.onButtonOut);
-			
-			var text = new PIXI.Text("ДОБАВИТЬ В СПИСОК", that.styleButtonBlueText); 
-			text.x = button.width / 8.0;
-			text.y = button.height / 3;
-
-			button.addChild(text); 
-			that.desktopStage.addChild(button);
-		},
-		
-		redCommand: function(select)
-		{
-			if (select === undefined) {
-				select = 0;
-			}
-			
-			if(that.listCommand.length === 0)
-			{
-					that.listCommand = [];
-			}else{
-				for(var i = 0; i < that.listCommand.length; i++)
-				{
-					that.windowStage.removeChild(that.listCommand[i]);
-				}
-				that.listCommand = [];
-			}
-
-			var selectIndex = select;
-			var index = 0;
-			for(var key in parent.initialization.commandUser)
-			{
-				if(parent.initialization.commandUser[key] !== null)
-				{
-					var graphics = new PIXI.Graphics(); 
-					graphics.lineStyle(2, 0xFF0000, 0.2);
-					graphics.beginFill(0xFF0000, 0.2);
-					graphics.drawRect(690, 60 + (100 * index), 75, 75);
-					graphics.endFill();
-
-					var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser[key]][3]); 
-					textureSprite.name = parent.initialization.commandUser[key];
-					textureSprite.index = index;
-					textureSprite.position.x = 690; 
-					textureSprite.position.y = 60  + (100 * index); 
-					textureSprite.interactive = true; 
-					textureSprite.buttonMode = true;
-					textureSprite.tap = that.onRedIconCommandClick; 
-					textureSprite.click = that.onRedIconCommandClick; 
-					graphics.addChild(textureSprite);
-					
-					var border = new PIXI.Graphics();
-					if(index === selectIndex)
-					{
-						border.lineStyle(2, 0xFFFFFF, 0.5);
-						that.redPersonageShow(parent.initialization.commandUser[key]);
-						that.selectPersonageID = parent.initialization.commandUser[key];
-						that.selectPersonageIndex = index;
-					} else {
-						border.lineStyle(2, 0x0000FF, 0.2);
-					}
-					border.drawRect(690, 60 + (100 * index), 75, 75);
-					graphics.addChild(border);
-					
-					that.listCommand.push(graphics);
-					that.windowStage.addChild(that.listCommand[index]);
-				} else{
-					var graphics = new PIXI.Graphics(); 
-					graphics.lineStyle(2, 0xFF0000, 0.2);
-					graphics.beginFill(0xFF0000, 0.2);
-					graphics.drawRect(690, 60 + (100 * index), 75, 75);
-					graphics.endFill();
-
-					that.listCommand.push(graphics);
-					that.windowStage.addChild(that.listCommand[index]);
-					if(select === 0 && selectIndex < 2) selectIndex++;
-				}
-				index++;
-			}
-		},
-		
-		onRedIconCommandClick: function()
-		{
-			that.selectPersonageID = this.name;
-			that.selectPersonageIndex = this.index;
-			that.redCommand(this.index);
-			that.tapeRed(-1);
-		},
-		
-		redPersonageShow: function(id)
-		{
-			that.windowStage.removeChild(that.desktopStage);
-			
-			if(id !== null)
-			{
-				that.desktopStage = new PIXI.Container();
-				
-				var graphics = new PIXI.Graphics();
-				graphics.lineStyle(2, 0x800000, 1);
-				graphics.beginFill(0x800000, 0.2);
-				graphics.moveTo(25, 20);
-				graphics.lineTo(550, 20);
-				graphics.lineTo(550, 575);
-				graphics.lineTo(25, 575);
-				graphics.endFill();
-				that.desktopStage.addChild(graphics);
-				
-				var sprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[id][1]);
-				sprite.position.x = 25;
-				sprite.position.y = 50;
-				that.desktopStage.addChild(sprite);
-				
-				var graphics = new PIXI.Graphics();
-				for(var i = 0; i < 185; i++)
-				{
-					graphics.lineStyle(1, 0x800000, 0.5);
-					graphics.moveTo(25, 20+(3*i));
-					graphics.lineTo(550, 20+(3*i));
-				}
-				that.desktopStage.addChild(graphics);
-				
-				that.lineAnimPersonageDesktopGraphics = new PIXI.Graphics(); 
-				that.lineAnimPersonageDesktopGraphics.lineStyle(10, 0x800000, 0.3);
-				that.lineAnimPersonageDesktopGraphics.moveTo(25, 25);
-				that.lineAnimPersonageDesktopGraphics.lineTo(550, 25);
-				that.desktopStage.addChild(that.lineAnimPersonageDesktopGraphics);
-				//cmdLineAnimPersonageDesktopGraphicsTween();
-
-				var text = new PIXI.Text(parent.initialization.personages[id].name, that.styleButtonRedText); 
-				text.x = 50; text.y = 30;
-				that.desktopStage.addChild(text);
-
-				text = new PIXI.Text("Характеристики:", that.styleButtonRedText); 
-				text.x = 300; text.y = 100;
-				that.desktopStage.addChild(text);
-				
-				var life = (parent.initialization.personages[parent.initialization.personages[id].id].hitDefense1 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense2 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense3 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense4 + parent.initialization.personages[parent.initialization.personages[id].id].hitDefense5) / 10 * 50;
-				life = Math.round(life);
-				text = new PIXI.Text("Здоровье: " + life, that.styleButtonRedText); 
-				text.x = 330; text.y = 130;
-				that.desktopStage.addChild(text);
-				
-				sprite = new PIXI.Sprite(parent.assets.getAsset("hit1Texture"));
-				sprite.position.x = 300; sprite.position.y = 150; sprite.scale.set(0.3);
-				that.desktopStage.addChild(sprite);
-				text = new PIXI.Text("Кристал ловкости:", that.styleButtonRedText); 
-				text.x = 330; text.y = 155;
-				that.desktopStage.addChild(text);
-				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense1, that.styleButtonRedText); 
-				text.x = 480; text.y = 155;
-				that.desktopStage.addChild(text);
-				
-				sprite = new PIXI.Sprite(parent.assets.getAsset("hit2Texture"));
-				sprite.position.x = 300; sprite.position.y = 175; sprite.scale.set(0.3);
-				that.desktopStage.addChild(sprite);
-				text = new PIXI.Text("Кристал тьмы:", that.styleButtonRedText); 
-				text.x = 330; text.y = 180;
-				that.desktopStage.addChild(text);
-				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense2, that.styleButtonRedText); 
-				text.x = 480; text.y = 180;
-				that.desktopStage.addChild(text);
-				
-				sprite = new PIXI.Sprite(parent.assets.getAsset("hit3Texture"));
-				sprite.position.x = 300; sprite.position.y = 200; sprite.scale.set(0.3);
-				that.desktopStage.addChild(sprite);
-				text = new PIXI.Text("Кристал жизни:", that.styleButtonRedText); 
-				text.x = 330; text.y = 205;
-				that.desktopStage.addChild(text);
-				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense3, that.styleButtonRedText); 
-				text.x = 480; text.y = 205;
-				that.desktopStage.addChild(text);
-
-				sprite = new PIXI.Sprite(parent.assets.getAsset("hit4Texture"));
-				sprite.position.x = 300; sprite.position.y = 225; sprite.scale.set(0.3);
-				that.desktopStage.addChild(sprite);
-				text = new PIXI.Text("Кристал света:", that.styleButtonRedText); 
-				text.x = 330; text.y = 230;
-				that.desktopStage.addChild(text);
-				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense4, that.styleButtonRedText); 
-				text.x = 480; text.y = 230;
-				that.desktopStage.addChild(text);
-				
-				sprite = new PIXI.Sprite(parent.assets.getAsset("hit5Texture"));
-				sprite.position.x = 300; sprite.position.y = 250; sprite.scale.set(0.3);
-				that.desktopStage.addChild(sprite);
-				text = new PIXI.Text("Кристал интеллекта:", that.styleButtonRedText); 
-				text.x = 330; text.y = 255;
-				that.desktopStage.addChild(text);
-				text = new PIXI.Text(parent.initialization.personages[parent.initialization.personages[id].id].hitDefense5, that.styleButtonRedText); 
-				text.x = 480; text.y = 255;
-				that.desktopStage.addChild(text);
-
-				text = new PIXI.Text(parent.initialization.personages[id].description, that.styledescriptionRedText); 
-				text.x = 50;
-				text.y = 550 - text.height;
-				that.desktopStage.addChild(text);
-
-				if(parent.initialization.personages[parent.initialization.personages[id].id].command === true) that.redButtonRemovePersonage();
-				else that.redButtonSelectPersonage();
-
-				that.experiencePointsButtons();
-
-				that.windowStage.addChild(that.desktopStage);
-			}else{
-				that.desktopStage = new PIXI.Container();
-				var graphics = new PIXI.Graphics();
-				graphics.lineStyle(2, 0x800000, 1);
-				graphics.beginFill(0x800000, 0.2);
-				graphics.moveTo(25, 20);
-				graphics.lineTo(550, 20);
-				graphics.lineTo(550, 575);
-				graphics.lineTo(25, 575);
-				graphics.endFill();
-
-				for(var i = 0; i < 185; i++)
-				{
-					graphics.lineStyle(1, 0x800000, 0.5);
-					graphics.moveTo(25, 20+(3*i));
-					graphics.lineTo(550, 20+(3*i));
-				}
-				that.desktopStage.addChild(graphics);
-			}
-		},
-		
-		redButtonRemovePersonage: function()
-		{
-			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed"));
-			button.name = "Remove";
-			button.position.x = 350; 
-			button.position.y = 25; 
-			button.interactive = true; 
-			button.buttonMode = true; 
-			button.loop = false; 
-			button.animationSpeed = 0.2;
-			button.onComplete = that.onButtonUpdate;
-			button.tap = that.onButtonClick; 
-			button.click = that.onButtonClick; 
-			button.on('mouseover', that.onButtonOver);
-			button.on('mouseout', that.onButtonOut);
-			
-			var text = new PIXI.Text("УБРАТЬ ИЗ СПИСКА", that.styleButtonRedText); 
-			text.x = button.width / 6.5;
-			text.y = button.height / 3;
-
-			button.addChild(text); 
-			that.desktopStage.addChild(button);
-		},
-		
-		redButtonSelectPersonage: function()
-		{
-			var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed"));
-			button.name = "Select";
-			button.position.x = 350; 
-			button.position.y = 25; 
-			button.interactive = true; 
-			button.buttonMode = true; 
-			button.loop = false; 
-			button.animationSpeed = 0.2;
-			button.onComplete = that.onButtonUpdate;
-			button.tap = that.onButtonClick; 
-			button.click = that.onButtonClick; 
-			button.on('mouseover', that.onButtonOver);
-			button.on('mouseout', that.onButtonOut);
-			
-			var text = new PIXI.Text("ДОБАВИТЬ В СПИСОК", that.styleButtonBlueText); 
-			text.x = button.width / 8.0;
-			text.y = button.height / 3;
-
-			button.addChild(text); 
-			that.desktopStage.addChild(button);
-		},
-		
-		onButtonOver: function()
-		{
-			this.isOver = true;
-			this.gotoAndPlay(1);
-		},
-		
-		onButtonOut: function()
-		{
-			this.isOver = false;
-			this.gotoAndStop(0);
-		},
-		
-		onButtonUpdate: function()
-		{
-			if(this.isOver)
-			{
-				this.gotoAndPlay(1);
-			}else{
-				this.gotoAndStop(0);
-			}
-		},
-		
-		onButtonClick: function()
-		{
-			switch (this.name)
-			{
-				case "Closed":
-					parent.commandClose();
-					break;
-				case "Select":
-					that.selectCommandPersonage();
-					break;
-				case "Remove":
-					that.removeCommandPersonage();
-					break;    
-				default:
-					break;
-			}
-		},
-		
-		tapeMask: function()
-		{
-			 that.tapeStage = new PIXI.Container();
-    
-			var mask = new PIXI.Graphics();
-			mask.lineStyle(2, 0xFF00FF, 1);
-			mask.beginFill(0xFF00FF, 0.2);
-			mask.moveTo(70, 610);
-			mask.lineTo(500, 610);
-			mask.lineTo(500, 705);
-			mask.lineTo(70, 705);
-			mask.endFill();
-			
-			that.tapeStage.mask = mask;
-			that.windowStage.addChild(that.tapeStage);
-			
-			/* Всё что не отображается в маске будет не активно */
-			var graphics = new PIXI.Graphics(); 
-			graphics.hitArea = new PIXI.Rectangle(501, 610, 500, 95);
-			graphics.interactive = true;
-			graphics.lineStyle(1, 0x000000, 0.0);
-			graphics.beginFill(0xFF0000, 0.0);
-			graphics.drawRect(501, 610, 500, 95);
-			graphics.endFill();
-			that.windowStage.addChild(graphics);
-		},
-		
-		tapeBlue: function(select)
-		{
-			var countRemove = 0;
-			if (select === undefined) {
-				for(var key in parent.initialization.commandUser)
-					if(parent.initialization.commandUser[key] === null) countRemove++;
-				if(countRemove === 3) select = 0;
-				else select = -1;
-			}
-			
-			if(that.listCommand.length === 0)
-			{
-					that.listPersonage = [];
-			}else{
-				for(var i = 0; i < that.listPersonage.length; i++)
-				{
-					that.tapeStage.removeChild(that.listPersonage[i]);
-				}
-				that.listPersonage = [];
-			}
-			
-			var index = 0;
-			for(var planet in parent.initialization.planets)
-			{
-				if(parent.initialization.planets[planet].status === parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI)
-				{
-					if(parent.initialization.personages[parent.initialization.planets[planet].bluePersonage1].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].bluePersonage1].command === false)
-					{
-						var graphics = new PIXI.Graphics(); 
-						graphics.lineStyle(2, 0x0000FF, 0.2);
-						graphics.beginFill(0x0000FF, 0.2);
-						graphics.drawRect(80 + (100 * index), 620, 75, 75);
-						graphics.endFill();
-						
-						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].bluePersonage1][3]); 
-						textureSprite.name = parent.initialization.planets[planet].bluePersonage1;
-						textureSprite.index = index;
-						textureSprite.key = parent.initialization.planets[planet].bluePersonage1;
-						textureSprite.position.x = 80 + (100 * index); 
-						textureSprite.position.y = 620; 
-						textureSprite.interactive = true; 
-						textureSprite.buttonMode = true;
-						textureSprite.tap = that.onBlueIconPersonageClick; 
-						textureSprite.click = that.onBlueIconPersonageClick; 
-						graphics.addChild(textureSprite);
-
-						var border = new PIXI.Graphics();
-						if(select === index)
-						{
-							border.lineStyle(2, 0xFFFFFF, 0.3);
-							that.bluePersonageShow(parent.initialization.planets[planet].bluePersonage1);
-							that.selectPersonageID = parent.initialization.planets[planet].bluePersonage1;
-							that.selectPersonageIndex = index;
-						} else border.lineStyle(2, 0x0000FF, 0.2);
-						border.drawRect(80 + (100 * index), 620, 75, 75);
-						graphics.addChild(border);
-						that.tapeStage.addChild(graphics);
-
-						that.listPersonage.push(graphics);
-
-						index++;
-					}
-					if(parent.initialization.personages[parent.initialization.planets[planet].bluePersonage2].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].bluePersonage2].command === false)
-					{
-						var graphics = new PIXI.Graphics(); 
-						graphics.lineStyle(2, 0x0000FF, 0.2);
-						graphics.beginFill(0x0000FF, 0.2);
-						graphics.drawRect(80 + (100 * index), 620, 75, 75);
-						graphics.endFill();
-
-						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].bluePersonage2][3]); 
-						textureSprite.name = parent.initialization.planets[planet].bluePersonage2;
-						textureSprite.index = index;
-						textureSprite.key = parent.initialization.planets[planet].bluePersonage2;
-						textureSprite.position.x = 80 + (100 * index); 
-						textureSprite.position.y = 620; 
-						textureSprite.interactive = true; 
-						textureSprite.buttonMode = true;
-						textureSprite.tap = that.onBlueIconPersonageClick; 
-						textureSprite.click = that.onBlueIconPersonageClick; 
-						graphics.addChild(textureSprite);
-
-						var border = new PIXI.Graphics();
-						if(select === index)
-						{
-							border.lineStyle(2, 0xFFFFFF, 0.3);
-							that.bluePersonageShow(parent.initialization.planets[planet].bluePersonage2);
-							that.selectPersonageID = parent.initialization.planets[planet].bluePersonage2;
-							that.selectPersonageIndex = index;
-						} else border.lineStyle(2, 0x0000FF, 0.2);
-						border.drawRect(80 + (100 * index), 620, 75, 75);
-						graphics.addChild(border);
-						that.tapeStage.addChild(graphics);
-
-						that.listPersonage.push(graphics);
-
-						index++;
-					}
-					if(parent.initialization.personages[parent.initialization.planets[planet].bluePersonage3].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].bluePersonage3].command === false)
-					{
-						var graphics = new PIXI.Graphics(); 
-						graphics.lineStyle(2, 0x0000FF, 0.2);
-						graphics.beginFill(0x0000FF, 0.2);
-						graphics.drawRect(80 + (100 * index), 620, 75, 75);
-						graphics.endFill();
-
-						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].bluePersonage3][3]); 
-						textureSprite.name = parent.initialization.planets[planet].bluePersonage3;
-						textureSprite.index = index;
-						textureSprite.key = parent.initialization.planets[planet].bluePersonage3;
-						textureSprite.position.x = 80 + (100 * index); 
-						textureSprite.position.y = 620; 
-						textureSprite.interactive = true; 
-						textureSprite.buttonMode = true;
-						textureSprite.tap = that.onBlueIconPersonageClick; 
-						textureSprite.click = that.onBlueIconPersonageClick; 
-						graphics.addChild(textureSprite);
-
-						var border = new PIXI.Graphics();
-						if(select === index)
-						{
-							border.lineStyle(2, 0xFFFFFF, 0.3);
-							that.bluePersonageShow(parent.initialization.planets[planet].bluePersonage3);
-							that.selectPersonageID = parent.initialization.planets[planet].bluePersonage3;
-							that.cmdSelectPersonageIndex = index;
-						} else border.lineStyle(2, 0x0000FF, 0.2);
-						border.drawRect(80 + (100 * index), 620, 75, 75);
-						graphics.addChild(border);
-						that.tapeStage.addChild(graphics);
-
-						that.listPersonage.push(graphics);
-
-						index++;
-					}
-				}
-			}
-			that.tapeButton();
-		},
-		
-		onBlueIconPersonageClick: function()
-		{
-			that.selectPersonageID = this.name;
-			that.selectPersonageIndex = this.index;
-			that.tapeBlue(this.index);
-			that.blueCommand(-1);
-		},
-		
-		tapeRed: function(select)
-		{
-			var countRemove = 0;
-			if (select === undefined) {
-				for(var key in parent.initialization.commandUser)
-					if(parent.initialization.commandUser[key] === null) countRemove++;
-				if(countRemove === 3) select = 0;
-				else select = -1;
-			}
-			
-			if(that.listCommand.length === 0)
-			{
-					that.listPersonage = [];
-			}else{
-				for(var i = 0; i < that.listPersonage.length; i++)
-				{
-					that.tapeStage.removeChild(that.listPersonage[i]);
-				}
-				that.listPersonage = [];
-			}
-			
-			var index = 0;
-			for(var planet in parent.initialization.planets)
-			{
-				if(parent.initialization.planets[planet].status === parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH)
-				{
-					if(parent.initialization.personages[parent.initialization.planets[planet].redPersonage1].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].redPersonage1].command === false)
-					{
-						var graphics = new PIXI.Graphics(); 
-						graphics.lineStyle(2, 0xFF0000, 0.2);
-						graphics.beginFill(0xFF0000, 0.2);
-						graphics.drawRect(80 + (100 * index), 620, 75, 75);
-						graphics.endFill();
-						
-						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].redPersonage1][3]); 
-						textureSprite.name = parent.initialization.planets[planet].redPersonage1;
-						textureSprite.index = index;
-						textureSprite.key = parent.initialization.planets[planet].redPersonage1;
-						textureSprite.position.x = 80 + (100 * index); 
-						textureSprite.position.y = 620; 
-						textureSprite.interactive = true; 
-						textureSprite.buttonMode = true;
-						textureSprite.tap = that.onRedIconPersonageClick; 
-						textureSprite.click = that.onRedIconPersonageClick; 
-						graphics.addChild(textureSprite);
-
-						var border = new PIXI.Graphics();
-						if(select === index)
-						{
-							border.lineStyle(2, 0xFFFFFF, 0.3);
-							that.redPersonageShow(parent.initialization.planets[planet].redPersonage1);
-							that.selectPersonageID = parent.initialization.planets[planet].redPersonage1;
-							that.selectPersonageIndex = index;
-						} else border.lineStyle(2, 0xFF0000, 0.2);
-						border.drawRect(80 + (100 * index), 620, 75, 75);
-						graphics.addChild(border);
-						that.tapeStage.addChild(graphics);
-
-						that.listPersonage.push(graphics);
-
-						index++;
-					}
-					if(parent.initialization.personages[parent.initialization.planets[planet].redPersonage2].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].redPersonage2].command === false)
-					{
-						var graphics = new PIXI.Graphics(); 
-						graphics.lineStyle(2, 0xFF0000, 0.2);
-						graphics.beginFill(0xFF0000, 0.2);
-						graphics.drawRect(80 + (100 * index), 620, 75, 75);
-						graphics.endFill();
-
-						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].redPersonage2][3]); 
-						textureSprite.name = parent.initialization.planets[planet].redPersonage2;
-						textureSprite.index = index;
-						textureSprite.key = parent.initialization.planets[planet].redPersonage2;
-						textureSprite.position.x = 80 + (100 * index); 
-						textureSprite.position.y = 620; 
-						textureSprite.interactive = true; 
-						textureSprite.buttonMode = true;
-						textureSprite.tap = that.onRedIconPersonageClick; 
-						textureSprite.click = that.onRedIconPersonageClick; 
-						graphics.addChild(textureSprite);
-
-						var border = new PIXI.Graphics();
-						if(select === index)
-						{
-							border.lineStyle(2, 0xFFFFFF, 0.3);
-							that.redPersonageShow(parent.initialization.planets[planet].redPersonage2);
-							that.selectPersonageID = parent.initialization.planets[planet].redPersonage2;
-							that.selectPersonageIndex = index;
-						} else border.lineStyle(2, 0xFF0000, 0.2);
-						border.drawRect(80 + (100 * index), 620, 75, 75);
-						graphics.addChild(border);
-						that.tapeStage.addChild(graphics);
-
-						that.listPersonage.push(graphics);
-
-						index++;
-					}
-					if(parent.initialization.personages[parent.initialization.planets[planet].redPersonage3].status === parent.initialization.USER_PERSONAGE_AVAILABLE && parent.initialization.personages[parent.initialization.planets[planet].redPersonage3].command === false)
-					{
-						var graphics = new PIXI.Graphics(); 
-						graphics.lineStyle(2, 0xFF0000, 0.2);
-						graphics.beginFill(0xFF0000, 0.2);
-						graphics.drawRect(80 + (100 * index), 620, 75, 75);
-						graphics.endFill();
-
-						var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[planet].redPersonage3][3]); 
-						textureSprite.name = parent.initialization.planets[planet].redPersonage3;
-						textureSprite.index = index;
-						textureSprite.key = parent.initialization.planets[planet].redPersonage3;
-						textureSprite.position.x = 80 + (100 * index); 
-						textureSprite.position.y = 620; 
-						textureSprite.interactive = true; 
-						textureSprite.buttonMode = true;
-						textureSprite.tap = that.onRedIconPersonageClick; 
-						textureSprite.click = that.onRedIconPersonageClick; 
-						graphics.addChild(textureSprite);
-
-						var border = new PIXI.Graphics();
-						if(select === index)
-						{
-							border.lineStyle(2, 0xFFFFFF, 0.3);
-							that.redPersonageShow(parent.initialization.planets[planet].redPersonage3);
-							that.selectPersonageID = parent.initialization.planets[planet].redPersonage3;
-							that.selectPersonageIndex = index;
-						} else border.lineStyle(2, 0xFF0000, 0.2);
-						border.drawRect(80 + (100 * index), 620, 75, 75);
-						graphics.addChild(border);
-						that.tapeStage.addChild(graphics);
-
-						that.listPersonage.push(graphics);
-
-						index++;
-					}
-				}
-			}
-			that.tapeButton();
-		},
-		
-		onRedIconPersonageClick: function()
-		{
-			that.selectPersonageID = this.name;
-			that.selectPersonageIndex = this.index;
-			that.tapeRed(this.index);
-			that.redCommand(-1);
-		},
-		
-		removeCommandPersonage: function()
-		{
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				parent.initialization.personages[that.selectPersonageID].command = false;
-				if(that.selectPersonageIndex === 0) parent.initialization.commandUser["personage1"] = null;
-				if(that.selectPersonageIndex === 1) parent.initialization.commandUser["personage2"] = null;
-				if(that.selectPersonageIndex === 2) parent.initialization.commandUser["personage3"] = null;
-				that.blueCommand();
-				that.tapeBlue();
-				
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				parent.initialization.personages[that.selectPersonageID].command = false;
-				if(that.selectPersonageIndex === 0) parent.initialization.commandUser["personage1"] = null;
-				if(that.selectPersonageIndex === 1) parent.initialization.commandUser["personage2"] = null;
-				if(that.selectPersonageIndex === 2) parent.initialization.commandUser["personage3"] = null;
-				that.redCommand();
-				that.tapeRed(); 
-			}
-		},
-		
-		selectCommandPersonage: function()
-		{
-			parent.initialization.personages[that.selectPersonageID].command = true;
-			for(var key in parent.initialization.commandUser)
-			{
-				if(parent.initialization.commandUser[key] === null)
-				{
-					parent.initialization.commandUser[key] = that.selectPersonageID;
-					break;
-				}
-			}
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				that.blueCommand();
-				that.tapeBlue();
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				
-				that.redCommand();
-				that.tapeRed();
-			}
-		},
-		
-		tapeButton: function()
-		{
-			that.windowStage.removeChild(that.tapePanelButtonsStage);
-    
-			if(that.listPersonage.length > 4)
-			{
-				var color;
-				if(parent.config.side === that.SIDE_JEDI) color = 0x0000FF;
-				else color = 0xFF0000;
-				
-				that.tapePanelButtonsStage = new PIXI.Container();
-				var tapeButtonGraphics = new PIXI.Graphics();
-				tapeButtonGraphics.name = "TapeLeft";
-				tapeButtonGraphics.lineStyle(2, color, 1);
-				tapeButtonGraphics.beginFill(color, 1);
-				tapeButtonGraphics.moveTo(40, 655);
-				tapeButtonGraphics.lineTo(65, 630);
-				tapeButtonGraphics.lineTo(65, 680);
-				tapeButtonGraphics.lineTo(40, 655);
-				tapeButtonGraphics.endFill();
-				tapeButtonGraphics.interactive = true; 
-				tapeButtonGraphics.buttonMode = true; 
-				tapeButtonGraphics.tap = that.onTapeButtonClick; 
-				tapeButtonGraphics.click = that.onTapeButtonClick;
-				that.tapePanelButtonsStage.addChild(tapeButtonGraphics);
-
-				tapeButtonGraphics = new PIXI.Graphics();
-				tapeButtonGraphics.name = "TapeRight";
-				tapeButtonGraphics.lineStyle(2, color, 1);
-				tapeButtonGraphics.beginFill(color, 1);
-				tapeButtonGraphics.moveTo(535, 655);
-				tapeButtonGraphics.lineTo(510, 630);
-				tapeButtonGraphics.lineTo(510, 680);
-				tapeButtonGraphics.lineTo(535, 655);
-				tapeButtonGraphics.endFill();
-				tapeButtonGraphics.interactive = true; 
-				tapeButtonGraphics.buttonMode = true; 
-				tapeButtonGraphics.tap = that.onTapeButtonClick; 
-				tapeButtonGraphics.click = that.onTapeButtonClick;
-				that.tapePanelButtonsStage.addChild(tapeButtonGraphics);
-				
-				that.windowStage.addChild(that.tapePanelButtonsStage);
-			}else{
-				that.tapeStage.position.x = 0;
-			}
-		},
-		
-		onTapeButtonClick: function()
-		{
-			switch (this.name)
-			{
-				case "TapeLeft":
-					if(that.tapeStage.position.x >= ((that.tapeStage.width - 100) * -1)) that.tapeStage.position.x -= 100;
-					break;
-				case "TapeRight":
-					if(that.tapeStage.position.x <= -100) that.tapeStage.position.x += 100;
-					break;
-				default:
-					break;
-			}
-		},
-		
-		experiencePointsButtons: function()
-		{
-			if(parent.initialization.userExperiencePoints > 0)
-			{
-				var color1, color2;
-				if(parent.config.side === that.SIDE_JEDI)
-				{
-					color1 = 0x0000FF;
-					color2 = 0xFFFFFF;
-				}
-				if(parent.config.side === that.SIDE_SITH)
-				{
-					color1 = 0xFF0000;
-					color2 = 0xFFFF00;
-				}
-				
-				for(var i = 0; i < 5; i++)
-				{
-					var graphics = new PIXI.Graphics();
-					graphics.name = "Add" + i;
-					graphics.lineStyle(1, color1, 1);
-					graphics.beginFill(color1, 0.5);
-					graphics.drawRect(525, 155 + (25.5 * i), 15, 15);
-					graphics.endFill();
-					graphics.lineStyle(1, color2, 1);
-					graphics.moveTo(532.5, 156 + (25.5 * i));
-					graphics.lineTo(532.5, 168 + (25.5 * i));
-					graphics.moveTo(526, 162 + (25.5 * i));
-					graphics.lineTo(538, 162 + (25.5 * i));
-					graphics.interactive = true; 
-					graphics.buttonMode = true; 
-					graphics.tap = that.onButtonPlusClick; 
-					graphics.click = that.onButtonPlusClick; 
-					
-					that.desktopStage.addChild(graphics);
-				}
-			}
-		},
-		
-		onButtonPlusClick: function()
-		{
-			switch (this.name)
-			{
-				case "Add0":
-					parent.initialization.personages[that.selectPersonageID].hitDefense1 += 1;
-					parent.initialization.userExperiencePoints--;
-					that.experiencePointsText.text = "КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints;
-					if(parent.config.side === that.SIDE_JEDI) that.bluePersonageShow(that.selectPersonageID);
-					if(parent.config.side === that.SIDE_SITH) that.redPersonageShow(that.selectPersonageID);
-					break;
-				case "Add1":
-					parent.initialization.personages[that.selectPersonageID].hitDefense2 += 1;
-					parent.initialization.userExperiencePoints--;
-					that.experiencePointsText.text = "КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints;
-					if(parent.config.side === that.SIDE_JEDI) that.bluePersonageShow(that.selectPersonageID);
-					if(parent.config.side === that.SIDE_SITH) that.redPersonageShow(that.selectPersonageID);
-					break;
-				case "Add2":
-					parent.initialization.personages[that.selectPersonageID].hitDefense3 += 1;
-					parent.initialization.userExperiencePoints--;
-					that.experiencePointsText.text = "КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints;
-					if(parent.config.side === that.SIDE_JEDI) that.bluePersonageShow(that.selectPersonageID);
-					if(parent.config.side === that.SIDE_SITH) that.redPersonageShow(that.selectPersonageID);
-					break;
-				case "Add3":
-					parent.initialization.personages[that.selectPersonageID].hitDefense4 += 1;
-					parent.initialization.userExperiencePoints--;
-					that.experiencePointsText.text = "КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints;
-					if(parent.config.side === that.SIDE_JEDI) that.bluePersonageShow(that.selectPersonageID);
-					if(parent.config.side === that.SIDE_SITH) that.redPersonageShow(that.selectPersonageID);
-					break;
-				case "Add4":
-					parent.initialization.personages[that.selectPersonageID].hitDefense5 += 1;
-					parent.initialization.userExperiencePoints--;
-					that.experiencePointsText.text = "КОМАНДА. Очки опыта: " + parent.initialization.userExperiencePoints;
-					if(parent.config.side === that.SIDE_JEDI) that.bluePersonageShow(that.selectPersonageID);
-					if(parent.config.side === that.SIDE_SITH) that.redPersonageShow(that.selectPersonageID);
-					break;
-				default:
-					break;
-			}
-		},
-		
-		tweenStart: function()
-		{
-			createjs.Tween.get(that.spaceBackground, {loop: true}) 
-				.to({rotation: -0.015}, 2500, createjs.Ease.getPowInOut(3))
-				.to({rotation: 0.015}, 2500, createjs.Ease.getPowInOut(3))
-				.to({rotation: 0.0}, 2500, createjs.Ease.getPowInOut(3));
-			
-			createjs.Tween.get(that.lineAnimPersonageDesktopGraphics, {loop: true}) 
-				.to({x: 0, y: 545}, 2500, createjs.Ease.getPowInOut(3));
-			
-			createjs.Tween.get(that.messageLineGraphics, {loop: true}) 
-				.to({x: 0, y: 138}, 2000, createjs.Ease.getPowInOut(3));
-			
-			createjs.Ticker.setFPS(60);
-		},
-		
-		tweenStop: function()
-		{
-			createjs.Tween.removeTweens(that.spaceBackground);
-			createjs.Tween.removeTweens(that.lineAnimPersonageDesktopGraphics);
-			createjs.Tween.removeTweens(that.messageLineGraphics);
-		},
-		
-		show: function()
-		{
-			that.tweenStart();
-			return that.windowStage;
-		},
-		
-		close: function()
-		{
-			that.tweenStop();
-			for(var child in that.desktopStage.children) that.desktopStage.removeChild(that.desktopStage.children[child]);
-			that.desktopStage.destroy();
-			delete that.desktopStage.children;
-			
-			for(var child in that.tapeStage.children) that.tapeStage.removeChild(that.tapeStage.children[child]);
-			that.tapeStage.destroy();
-			delete that.tapeStage.children;
-			
-			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
-			
-			return that.windowStage;
-		},
-		
-		getWindowStage: function()
-		{
-			return that.windowStage;
-		},
-		
-		destroy: function()
-		{
-			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
-			that.windowStage.destroy();
-			delete that.windowStage.children;
-			
-			for(var property in that) that[property] = null;
-		}
-		
-	};
-	return that;
-}
-
-/* == END FILE ========================================================== */
-
-/* == START FILE ========================================================= */
-
-var Timer = function(parent)
-{
-	var that = {
-		windowStage: null,
-		
-		timerText: null,
-		timerCount: null,
-		timerPause: null,
-		timer: null,
-		timerStyleBlueText: {font : 'bold 36px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 3, wordWrap : true, wordWrapWidth : 440},
-		timerStyleRedText: {font : 'bold 36px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 3, wordWrap : true, wordWrapWidth : 440},
-		
-		TIMER_MAX_VALUE: 10,
-		TIMER_MIN_VALUE: 0,
-		
-		SIDE_NONE: "side_none",
-		SIDE_JEDI: "side_jedi",
-		SIDE_SITH: "side_sith",
-		
-		create: function()
-		{
-			that.timerPause = false;
-			that.timerCount = that.TIMER_MAX_VALUE;
-			
-			that.windowStage = new PIXI.Container();
-			that.windowStage.position.x = (parent.config.MAIN_WIDTH / 2 - 25);
-			that.windowStage.position.y = 35;
-			
-			var graphics = new PIXI.Graphics();
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				graphics.lineStyle(2, 0xFFFFFF, 1);
-				graphics.beginFill(0x0000FF, 0.75);
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				graphics.lineStyle(2, 0xFFFF80, 1);
-				graphics.beginFill(0x800000, 0.75);
-			}
-			graphics.drawRoundedRect(0, 0, 50, 50, 15);
-			graphics.endFill();
-			that.windowStage.addChild(graphics);
-			
-			if(parent.config.side === that.SIDE_JEDI) that.timerText = new PIXI.Text(that.timerCount, that.timerStyleBlueText);
-			if(parent.config.side === that.SIDE_SITH) that.timerText = new PIXI.Text(that.timerCount, that.timerStyleRedText);
-			that.timerText.x = 2.5;
-			that.timerText.y = 2.5;
-			that.windowStage.addChild(that.timerText);
-
-			if(that.timerPause === false) that.timer = setInterval(that.onTimerComplete, 1000);
-		},
-		
-		onTimerComplete: function()
-		{
-			if(that.timerCount === that.TIMER_MIN_VALUE){	// таймер = минимум
-        
-				if(parent.match.modeAI === true)
-				{
-						parent.match.matchFieldBlocked = false; 	// поле разблокированно
-						parent.match.modeAI = false;				// ИИ отключен
-						// console.log("[HIT]: USER наносит удар!");
-				}else{
-						parent.match.matchFieldBlocked = true;	// поле заблокированно
-						parent.match.modeAI = true;				// ИИ включен
-						parent.match.matchCellColorBack();
-						parent.match.matchSelectUnit1 = null;
-						parent.match.matchSelectUnit2 = null;
-						// console.log("[HIT]: AI наносит удар!");
-				}
-				
-				that.timerCount = that.TIMER_MAX_VALUE;	// устанавливаем максимальное значение таймера
-				that.timerText.text = that.timerCount;	// показываем секунды
-			}else{
-				that.timerCount--;						// уменьшение таймера
-				that.timerText.text = " " + that.timerCount;	// показываем секунды
-				if(parent.match.modeAI === true && that.timerCount === 8) { parent.match.matchActionAI();}
-			}
-		},
-		
-		timerStart: function()
-		{
-			if(parent.match.modeAI === true)
-			{
-				parent.match.matchFieldBlocked = false; 	// поле разблокированно
-				parent.match.modeAI = false;					// ИИ отключен
-				parent.level.levelExchangePersonage("AI");
-				// console.log("[HIT START]: USER наносит удар!");
-			}else{
-				parent.match.matchFieldBlocked = true;		// поле заблокированно
-				parent.match.modeAI = true;					// ИИ включен
-				parent.level.levelExchangePersonage("USER");
-				parent.match.matchCellColorBack();
-				parent.match.matchSelectUnit1 = null;
-				parent.match.matchSelectUnit2 = null;
-				// console.log("[HIT START]: AI наносит удар!");
-			}
-			
-			that.timerCount = that.TIMER_MAX_VALUE;	// устанавливаем максимальное значение таймера
-			that.timerText.text = that.timerCount;	// показываем секунды
-			if(that.timerPause === false) that.timer = setInterval(that.onTimerComplete, 1000);	// запуск таймера
-		},
-		
-		timerStop: function()
-		{
-			clearInterval(that.timer);
-		},
-		
-		timerPauseBegin: function()
-		{
-			timerPause = true;
-			if(parent.level.getWindowStage() !== null) clearInterval(that.timer);
-		},
-		
-		timerPauseEnd: function()
-		{
-			timerPause = false;
-			if(parent.level.getWindowStage() !== null) that.timer = setInterval(that.onTimerComplete, 1000);
-		},
-				
-		show: function()
-		{
-			return that.windowStage;
-		},
-		
-		close: function()
-		{
-			that.timerStop();
-			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
-			return that.windowStage;
-		},
-		
-		getWindowStage: function()
-		{
-			return that.windowStage;
-		},
-		
-		destroy: function()
-		{
-			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
-			that.windowStage.destroy();
-			delete that.windowStage.children;
-			
-			for(var property in that) that[property] = null;
-		}
-	};
-	return that;
-}
+};
 
 /* == END FILE ========================================================== */
 
@@ -8217,944 +7059,122 @@ var Match3 = function(parent)
 		}
 	};
 	return that;
-}
+};
 
 /* == END FILE ========================================================== */
 
 /* == START FILE ========================================================= */
 
-var Level = function(parent)
+var Menu = function(parent)
 {
 	var that = {
-		levelStage: null,
-		levelPlanetID: null,
-		levelStarsSprite: null,
-		levelPlanetSprite: null,
-		levelLandscapeSprite: null,
+		windowStage: null,
+		starsSprite: null,
+		deathStarSprite: null,
+		ship1Sprite: null, 
+		ship2Sprite: null,
+		ship3Sprite: null,
+		lineMessageGraphics: null,
+		styleDroidText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 },
+		styleButtonText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 },
 		
-		levelStatus: null,
-		LEVEL_STATUS_BATTLE: "that.LEVEL_STATUS_BATTLE",
-		LEVEL_STATUS_END_BATTLE_WIN_USER: "that.LEVEL_STATUS_END_BATTLE_WIN_USER",
-		LEVEL_STATUS_END_BATTLE_WIN_AI: "that.LEVEL_STATUS_END_BATTLE_WIN_AI",
-		
-		SIDE_NONE: "side_none",
-		SIDE_JEDI: "side_jedi",
-		SIDE_SITH: "side_sith",
-
-		levelStyleButtonBlueText: { font : 'bold 18px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 },
-		levelStyleButtonRedText: { font : 'bold 18px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }, 
-		levelStyleDroidBlueText: { font : 'bold 14px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 },
-		levelStyleDroidRedText: { font : 'bold 14px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 270 }, 
-		levelStyleButtonsBlueText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 },
-		levelStyleButtonsRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }, 
-
-		levelIntercept: false,
-		levelCommandUser: [],  // команда пользователя (parent.initialization.commandUser)
-		levelCommandAI: [],    // команда ИИ (parent.initialization.commandAI)
-		levelIndexUser: 0,     // индекс персонажа в команде пользователя
-		levelIndexAI: 0,       // индекс персонажа в команде ИИ
-		levelBorderPersonageUser: null,
-		levelBorderPersonageAI: null,
-		levelPersonageUserSprite: null,
-		levelPersonageAISprite: null,
-		levelUserHit1Text: null,
-		levelUserHit2Text: null,
-		levelUserHit3Text: null,
-		levelUserHit4Text: null,
-		levelUserHit5Text: null,
-		levelUserLifeText: null,
-		levelUserHit1: null,
-		levelUserHit2: null,
-		levelUserHit3: null,
-		levelUserHit4: null,
-		levelUserHit5: null,
-		levelUserLife: null,
-		levelAIHit1Text: null,
-		levelAIHit2Text: null,
-		levelAIHit3Text: null,
-		levelAIHit4Text: null,
-		levelAIHit5Text: null,
-		levelAILifeText: null,
-		levelAIHit1: null,
-		levelAIHit2: null,
-		levelAIHit3: null,
-		levelAIHit4: null,
-		levelAIHit5: null,
-		levelAILife: null,
-
-		levelLineUserAnimationGraphics: null,
-		levelLineAIAnimationGraphics: null,
-		levelMessageLineGraphics: null,
-		
-		levelCreate: function(planetID, intercept)
+		create: function()
 		{
-			that.levelStage = new PIXI.Container();
-			
-			that.levelIntercept = intercept;
-			that.levelPlanetID = planetID;
-			that.levelStatus = that.LEVEL_STATUS_BATTLE;
-			that.levelCommandUser = [];
-			that.levelCommandAI = [];
-			that.levelIndexUser = 0;
-			that.levelIndexAI = 0;
-			
-			that.levelInitCommands(intercept);
-			
-			that.levelBackground();
-			//parent.timerShow();
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				that.levelBorderBlue();
-				that.levelDesktopBlue();
-				that.levelDroidBlue();
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				that.levelBorderRed();
-				that.levelDesktopRed();
-				that.levelDroidRed();
-			}
-			that.levelBattons();
-			that.levelShowCommandUser();
-			that.levelShowCommandAI();
-			//that.levelFieldCreate();
+			that.windowStage = new PIXI.Container();
+			that.starsCreate();
+			that.deathStarCreate();
+			that.shipsCreate();
+			that.panetBattonsCreate();
+			that.borderCreate();
+			that.logoCreate();
+			that.droidCreate();
 		},
 		
-		levelInitCommands: function(intercept)
+		starsCreate: function()
 		{
-			if(intercept === true)
-			{
-				that.levelCommandUser = [];
-				for(var key in parent.initialization.commandUser)
-				{
-					if(parent.initialization.commandUser[key] !== null)
-					{
-						var life = (parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense1 + parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense2 + parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense3 + parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense4 + parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense5) / 10 * 50;
-						parent.initialization.personages[parent.initialization.commandUser[key]].life = Math.round(life);
-						that.levelCommandUser.push(parent.initialization.personages[parent.initialization.commandUser[key]]);
-					}
-				}
-				that.levelUserHit1 = that.levelCommandUser[that.levelIndexUser].hitDefense1;
-				that.levelUserHit2 = that.levelCommandUser[that.levelIndexUser].hitDefense2;
-				that.levelUserHit3 = that.levelCommandUser[that.levelIndexUser].hitDefense3;
-				that.levelUserHit4 = that.levelCommandUser[that.levelIndexUser].hitDefense4;
-				that.levelUserHit5 = that.levelCommandUser[that.levelIndexUser].hitDefense5;
-				that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
-
-				that.levelCommandAI = [];
-				for(var key in parent.initialization.commandAI)
-				{
-					if(parent.initialization.commandAI[key] !== null)
-					{
-						var life = (parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense1 + parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense2 + parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense3 + parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense4 + parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense5) / 10 * 50;
-						parent.initialization.personages[parent.initialization.commandAI[key]].life = Math.round(life);
-						that.levelCommandAI.push(parent.initialization.personages[parent.initialization.commandAI[key]]);
-					}
-				}
-				
-				that.levelAIHit1 = that.levelCommandAI[that.levelIndexAI].hitDefense1;
-				that.levelAIHit2 = that.levelCommandAI[that.levelIndexAI].hitDefense2;
-				that.levelAIHit3 = that.levelCommandAI[that.levelIndexAI].hitDefense3;
-				that.levelAIHit4 = that.levelCommandAI[that.levelIndexAI].hitDefense4;
-				that.levelAIHit5 = that.levelCommandAI[that.levelIndexAI].hitDefense5;
-				that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
-				
-			}else{
-				that.levelCommandUser = [];
-				for(var key in parent.initialization.commandUser)
-				{
-					if(parent.initialization.commandUser[key] !== null)
-					{
-						var life = (parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense1 + parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense2 + parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense3 + parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense4 + parent.initialization.personages[parent.initialization.commandUser[key]].hitDefense5) / 10 * 50;
-						parent.initialization.personages[parent.initialization.commandUser[key]].life = Math.round(life);
-						that.levelCommandUser.push(parent.initialization.personages[parent.initialization.commandUser[key]]);
-					}
-				}
-				that.levelUserHit1 = that.levelCommandUser[that.levelIndexUser].hitDefense1;
-				that.levelUserHit2 = that.levelCommandUser[that.levelIndexUser].hitDefense2;
-				that.levelUserHit3 = that.levelCommandUser[that.levelIndexUser].hitDefense3;
-				that.levelUserHit4 = that.levelCommandUser[that.levelIndexUser].hitDefense4;
-				that.levelUserHit5 = that.levelCommandUser[that.levelIndexUser].hitDefense5;
-				that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
-				
-				if(parent.config.side === that.SIDE_JEDI)
-				{
-					that.levelCommandAI = [];
-					var life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].life = Math.round(life);
-					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1]);
-					
-					life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].life = Math.round(life);
-					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2]);
-					
-					life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].life = Math.round(life);
-					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3]);
-				}
-				if(parent.config.side === that.SIDE_SITH)
-				{
-					that.levelCommandAI = [];
-					var life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].life = Math.round(life);
-					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1]);
-					
-					life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].life = Math.round(life);
-					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2]);
-					
-					life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].life = Math.round(life);
-					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3]);
-				}
-				
-				that.levelAIHit1 = that.levelCommandAI[that.levelIndexAI].hitAttack1;
-				that.levelAIHit2 = that.levelCommandAI[that.levelIndexAI].hitAttack2;
-				that.levelAIHit3 = that.levelCommandAI[that.levelIndexAI].hitAttack3;
-				that.levelAIHit4 = that.levelCommandAI[that.levelIndexAI].hitAttack4;
-				that.levelAIHit5 = that.levelCommandAI[that.levelIndexAI].hitAttack5;
-				that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
-			}
+			that.starsSprite = new PIXI.Sprite(parent.assets.getAsset("stars1Texture")); 
+			that.starsSprite.position.x = 0; 
+			that.starsSprite.position.y = 0; 
+			that.starsSprite.scale.set(1.0); 
+			that.windowStage.addChild(that.starsSprite);
 		},
 		
-		levelBackground: function(planetID)
+		deathStarCreate: function()
 		{
-			that.levelStarsSprite = new PIXI.Sprite(parent.assets.getAsset("stars1Texture")); 
-			that.levelStarsSprite.position.x = 0; 
-			that.levelStarsSprite.position.y = 0; 
-			that.levelStage.addChild(that.levelStarsSprite);
-			  
-			that.levelPlanetSprite = new PIXI.Sprite(parent.assets.getAsset("planetTextures")[that.levelPlanetID][1]); 
-			that.levelPlanetSprite.position.x = 300; 
-			that.levelPlanetSprite.position.y = 100;
-			that.levelStage.addChild(that.levelPlanetSprite);
+			that.deathStarSprite = new PIXI.Sprite(parent.assets.getAsset("deathstarTexture")); 
+			that.deathStarSprite.position.x = 300; 
+			that.deathStarSprite.position.y = 100; 
+			that.windowStage.addChild(that.deathStarSprite);
+		},
+		
+		shipsCreate: function()
+		{
+			that.ship2Sprite = new PIXI.Sprite(parent.assets.getAsset("ship2Texture")); 
+			that.ship2Sprite.position.x = 900; 
+			that.ship2Sprite.position.y = 150; 
+			that.windowStage.addChild(that.ship2Sprite);
 			
-			that.levelLandscapeSprite = new PIXI.Sprite(parent.assets.getAsset("planetTextures")[that.levelPlanetID][2]);
-			that.levelLandscapeSprite.position.x = 0; 
-			that.levelLandscapeSprite.position.y = 0; 
-			that.levelLandscapeSprite.alpha = 0.0;
-			that.levelStage.addChild(that.levelLandscapeSprite);
+			that.ship3Sprite = new PIXI.Sprite(parent.assets.getAsset("ship3Texture")); 
+			that.ship3Sprite.position.x = 50; 
+			that.ship3Sprite.position.y = 150; 
+			that.windowStage.addChild(that.ship3Sprite);
+			
+			that.ship1Sprite = new PIXI.Sprite(parent.assets.getAsset("ship1Texture")); 
+			that.ship1Sprite.position.x = -375; 
+			that.ship1Sprite.position.y = 250; 
+			that.windowStage.addChild(that.ship1Sprite);
 		},
 		
-		levelBorderBlue: function()
+		panetBattonsCreate: function()
 		{
 			var graphics = new PIXI.Graphics(); 
-
-			graphics.lineStyle(2, 0x0000FF, 1);
-			graphics.beginFill(0x000000, 0);
-			graphics.drawRect(10, 10, 840, 710);
-			graphics.endFill();
+			graphics.lineStyle(2, 0x0000FF, 0);
+			graphics.beginFill(0x0000FF, 0.4);
+			graphics.drawRect(23, 20, 347, 700);
+			that.windowStage.addChild(graphics);
 			
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFFFF, 1);
-			graphics.drawCircle(170, 562,4);
-			graphics.endFill();
-
-			graphics.lineStyle(2, 0xFFFFFF, 1);
-			graphics.moveTo(170, 562);
-			graphics.lineTo(5, 562);
-			graphics.moveTo(5, 562);
-			graphics.lineTo(5, 725);
-			graphics.moveTo(5, 725);
-			graphics.lineTo(470, 725);
-			graphics.moveTo(470, 725);
-			graphics.lineTo(490, 710);
-			graphics.moveTo(490, 710);
-			graphics.lineTo(840, 710);
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFFFF, 1);
-			graphics.drawCircle(840, 710,4);
-			graphics.endFill();
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFFFF, 1);
-			graphics.drawCircle(20, 20,4);
-			graphics.endFill();
-
-			graphics.lineStyle(2, 0xFFFFFF, 1);
-			graphics.moveTo(20,20);
-			graphics.lineTo(370, 20);
-			graphics.moveTo(370, 20);
-			graphics.lineTo(390, 5);
-			graphics.moveTo(390,5);
-			graphics.lineTo(855, 5);
-			graphics.moveTo(855,5);
-			graphics.lineTo(855, 170);
-			graphics.moveTo(855, 170);
-			graphics.lineTo(690, 170);
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFFFF, 1);
-			graphics.drawCircle(690, 170,4);
-			graphics.endFill();
-
-			graphics.lineStyle(2, 0xFFFFFF, 1);
-			graphics.beginFill(0x0000FF, 0.0);
-			graphics.drawRoundedRect(((parent.config.MAIN_WIDTH / 2) - (500 / 2)), ((parent.config.MAIN_HEIGH / 2) - (500 / 2)), 500, 500, 25);
-			graphics.endFill();
+			var textArr = ["НАЧАТЬ ИГРУ", "НАСТРОЙКИ", "ПРИГЛАСИТЬ"];
 			
-			that.levelStage.addChild(graphics);
+			for(var i = 0; i < textArr.length; i++)
+			{
+				var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
+				button.name = "button_" + i;
+				button.position.x = 85; 
+				button.position.y = 350 + (75 * i); 
+				button.interactive = true; 
+				button.buttonMode = true; 
+				button.loop = false; 
+				button.animationSpeed = 0.2;
+				button.onComplete = that.onButtonUpdate;
+			
+			
+				button.tap = that.onButtonClick; 
+				button.click = that.onButtonClick; 
+				button.on('mouseover', that.onButtonOver);
+				button.on('mouseout', that.onButtonOut);
+
+				var text = new PIXI.Text(textArr[i], that.styleButtonText); 
+				text.x = button.width / 3.8;
+				text.y = button.height / 3;
+
+				button.addChild(text); 
+				that.windowStage.addChild(button);
+			}
 		},
 		
-		levelBorderRed: function()
-		{
-			var graphics = new PIXI.Graphics(); 
-
-			graphics.lineStyle(2, 0xFF0000, 1);
-			graphics.beginFill(0x000000, 0);
-			graphics.drawRect(10, 10, 840, 710);
-			graphics.endFill();
-			
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFF80, 1);
-			graphics.drawCircle(170, 562, 4);
-			graphics.endFill();
-
-			graphics.lineStyle(2, 0xFFFF80, 1);
-			graphics.moveTo(170, 562);
-			graphics.lineTo(5, 562);
-			graphics.moveTo(5, 562);
-			graphics.lineTo(5, 725);
-			graphics.moveTo(5, 725);
-			graphics.lineTo(470, 725);
-			graphics.moveTo(470, 725);
-			graphics.lineTo(490, 710);
-			graphics.moveTo(490, 710);
-			graphics.lineTo(840, 710);
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFF80, 1);
-			graphics.drawCircle(840, 710,4);
-			graphics.endFill();
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFF80, 1);
-			graphics.drawCircle(20, 20,4);
-			graphics.endFill();
-
-			graphics.lineStyle(2, 0xFFFF80, 1);
-			graphics.moveTo(20,20);
-			graphics.lineTo(370, 20);
-			graphics.moveTo(370, 20);
-			graphics.lineTo(390, 5);
-			graphics.moveTo(390,5);
-			graphics.lineTo(855, 5);
-			graphics.moveTo(855,5);
-			graphics.lineTo(855, 170);
-			graphics.moveTo(855, 170);
-			graphics.lineTo(690, 170);
-
-			graphics.lineStyle(0);
-			graphics.beginFill(0xFFFF80, 1);
-			graphics.drawCircle(690, 170,4);
-			graphics.endFill();
-
-			graphics.lineStyle(2, 0xFFFF80, 1);
-			graphics.beginFill(0xFF0000, 0.0);
-			graphics.drawRoundedRect(((parent.config.MAIN_WIDTH / 2) - (500 / 2)), ((parent.config.MAIN_HEIGH / 2) - (500 / 2)), 500, 500, 25);
-			graphics.endFill();
-			
-			that.levelStage.addChild(graphics);
-		},
-		
-		levelDesktopBlue: function()
-		{
-			var graphics = new PIXI.Graphics(); 
-			graphics.lineStyle(2, 0x0000FF, 1);
-			graphics.beginFill(0x0080FF, 0.2);
-			graphics.moveTo(25, 22);
-			graphics.lineTo(370, 22);
-			graphics.lineTo(370, 110);
-			graphics.lineTo(25, 110);
-			graphics.endFill();
-			that.levelStage.addChild(graphics);
-			
-			graphics = new PIXI.Graphics(); 
-			graphics.lineStyle(2, 0x800000, 1);
-			graphics.beginFill(0x800000, 0.2);
-			graphics.moveTo(490, 620);
-			graphics.lineTo(835, 620);
-			graphics.lineTo(835, 708);
-			graphics.lineTo(490, 708);
-			graphics.endFill();
-			that.levelStage.addChild(graphics);
-		},
-		
-		levelDesktopRed: function()
-		{
-			var graphics = new PIXI.Graphics(); 
-			graphics.lineStyle(2, 0x800000, 1);
-			graphics.beginFill(0x800000, 0.2);
-			graphics.moveTo(25, 22);
-			graphics.lineTo(370, 22);
-			graphics.lineTo(370, 110);
-			graphics.lineTo(25, 110);
-			graphics.endFill();
-			that.levelStage.addChild(graphics);
-			
-			graphics = new PIXI.Graphics(); 
-			graphics.lineStyle(2, 0x0000FF, 1);
-			graphics.beginFill(0x0080FF, 0.2);
-			graphics.moveTo(490, 620);
-			graphics.lineTo(835, 620);
-			graphics.lineTo(835, 708);
-			graphics.lineTo(490, 708);
-			graphics.endFill();
-			that.levelStage.addChild(graphics);
-		},
-		
-		levelShowCommandUser: function()
-		{
-			/* персонажи */
-			for(var i in that.levelCommandUser)
-			{
-				var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[that.levelCommandUser[i].id][3]); 
-				textureSprite.position.x = 55 + (105 * i); 
-				textureSprite.position.y = 30; 
-				that.levelStage.addChild(textureSprite);
-				
-				var graphics = new PIXI.Graphics();
-				if(parent.config.side === that.SIDE_JEDI) graphics.lineStyle(2, 0x0000FF, 0.2);
-				if(parent.config.side === that.SIDE_SITH) graphics.lineStyle(2, 0xFF0000, 0.2);
-				graphics.drawRect(55 + (105 * i), 30, 75, 75);
-				
-				for(var j = 0; j < 25; j++)
-				{
-					if(parent.config.side === that.SIDE_JEDI) graphics.lineStyle(1, 0x0000FF, 0.2);
-					if(parent.config.side === that.SIDE_SITH) graphics.lineStyle(1, 0xFF0000, 0.2);
-					graphics.moveTo(55 + (105 * i), 30 +(3*j));
-					graphics.lineTo(55 + (105 * i) + 75, 30 +(3*j));
-					
-				}
-				that.levelStage.addChild(graphics);
-			}
-			
-			/* рамка */
-			that.levelBorderPersonageUser = new PIXI.Graphics();
-			if(parent.config.side === that.SIDE_JEDI) that.levelBorderPersonageUser.lineStyle(2, 0xFFFFFF, 1);
-			if(parent.config.side === that.SIDE_SITH) that.levelBorderPersonageUser.lineStyle(2, 0xFFFF80, 1);
-			that.levelBorderPersonageUser.drawRect(55, 30, 75, 75);
-			that.levelStage.addChild(that.levelBorderPersonageUser);
-			
-			/* дисплей фон */
-			var graphics = new PIXI.Graphics(); 
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				graphics.lineStyle(2, 0x0000FF, 1);
-				graphics.beginFill(0x0080FF, 0.2);
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				graphics.lineStyle(2, 0x800000, 1);
-				graphics.beginFill(0x800000, 0.2);
-			}
-			graphics.moveTo(25, 115);
-			graphics.lineTo(170, 115);
-			graphics.lineTo(170, 400);
-			graphics.lineTo(25, 400);
-			graphics.endFill();
-			that.levelStage.addChild(graphics);
-			
-			/* персонаж во весь рост */
-			that.levelPersonageUserSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[that.levelCommandUser[that.levelIndexUser].id][1]); 
-			that.levelPersonageUserSprite.position.x = 30; 
-			that.levelPersonageUserSprite.position.y = 140; 
-			that.levelPersonageUserSprite.scale.set(0.5);
-			that.levelStage.addChild(that.levelPersonageUserSprite);
-			
-			/* фон полоски */
-			graphics = new PIXI.Graphics();
-			for(var i = 0; i < 95; i++)
-			{
-				if(parent.config.side === that.SIDE_JEDI) graphics.lineStyle(1, 0x0000FF, 0.5);
-				if(parent.config.side === that.SIDE_SITH) graphics.lineStyle(1, 0x800000, 0.5);
-				graphics.moveTo(25, 115+(3*i));
-				graphics.lineTo(170, 115+(3*i));
-			}
-			that.levelStage.addChild(graphics);
-			
-			/* бегущая полоска */
-			that.levelLineUserAnimationGraphics = new PIXI.Graphics(); 
-			if(parent.config.side === that.SIDE_JEDI) that.levelLineUserAnimationGraphics.lineStyle(10, 0x0000FF, 0.3);
-			if(parent.config.side === that.SIDE_SITH) that.levelLineUserAnimationGraphics.lineStyle(10, 0x800000, 0.3);
-			that.levelLineUserAnimationGraphics.moveTo(25, 120);
-			that.levelLineUserAnimationGraphics.lineTo(170, 120);
-			that.levelStage.addChild(that.levelLineUserAnimationGraphics);
-			
-			/* харктеристики */
-			graphics = new PIXI.Graphics(); 
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				graphics.lineStyle(2, 0x0000FF, 1);
-				graphics.beginFill(0x0080FF, 0.2);
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				graphics.lineStyle(2, 0x800000, 1);
-				graphics.beginFill(0x800000, 0.2);
-			}
-			graphics.moveTo(25, 405);
-			graphics.lineTo(170, 405);
-			graphics.lineTo(170, 520);
-			graphics.lineTo(25, 520);
-			graphics.endFill();
-			that.levelStage.addChild(graphics);
-			
-			var sprite = new PIXI.Sprite(parent.assets.getAsset("hit1Texture"));
-			sprite.position.x = 30; sprite.position.y = 410; sprite.scale.set(0.3);
-			that.levelStage.addChild(sprite);
-			if(parent.config.side === that.SIDE_JEDI) that.levelUserHit1Text = new PIXI.Text("- " + that.levelUserHit1, that.levelStyleButtonBlueText);
-			if(parent.config.side === that.SIDE_SITH) that.levelUserHit1Text = new PIXI.Text("- " + that.levelUserHit1, that.levelStyleButtonRedText);
-			that.levelUserHit1Text.x = 55; that.levelUserHit1Text.y = 410;
-			that.levelStage.addChild(that.levelUserHit1Text);
-			
-			sprite = new PIXI.Sprite(parent.assets.getAsset("hit2Texture"));
-			sprite.position.x = 100; sprite.position.y = 410; sprite.scale.set(0.3);
-			that.levelStage.addChild(sprite);
-			if(parent.config.side === that.SIDE_JEDI) that.levelUserHit2Text = new PIXI.Text("- " + that.levelUserHit2, that.levelStyleButtonBlueText);
-			if(parent.config.side === that.SIDE_SITH) that.levelUserHit2Text = new PIXI.Text("- " + that.levelUserHit2, that.levelStyleButtonRedText); 
-			that.levelUserHit2Text.x = 125; that.levelUserHit2Text.y = 410;
-			that.levelStage.addChild(that.levelUserHit2Text);
-			
-			sprite = new PIXI.Sprite(parent.assets.getAsset("hit3Texture"));
-			sprite.position.x = 30; sprite.position.y = 450; sprite.scale.set(0.3);
-			that.levelStage.addChild(sprite);
-			if(parent.config.side === that.SIDE_JEDI) that.levelUserHit3Text = new PIXI.Text("+ " + that.levelUserHit3, that.levelStyleButtonBlueText);
-			if(parent.config.side === that.SIDE_SITH) that.levelUserHit3Text = new PIXI.Text("+ " + that.levelUserHit3, that.levelStyleButtonRedText); 
-			that.levelUserHit3Text.x = 55; that.levelUserHit3Text.y = 450;
-			that.levelStage.addChild(that.levelUserHit3Text);
-			
-			sprite = new PIXI.Sprite(parent.assets.getAsset("hit4Texture"));
-			sprite.position.x = 100; sprite.position.y = 450; sprite.scale.set(0.3);
-			that.levelStage.addChild(sprite);
-			if(parent.config.side === that.SIDE_JEDI) that.levelUserHit4Text = new PIXI.Text("- " + that.levelUserHit4, that.levelStyleButtonBlueText);
-			if(parent.config.side === that.SIDE_SITH) that.levelUserHit4Text = new PIXI.Text("- " + that.levelUserHit4, that.levelStyleButtonRedText);
-			that.levelUserHit4Text.x = 125; that.levelUserHit4Text.y = 450;
-			that.levelStage.addChild(that.levelUserHit4Text);
-			
-			sprite = new PIXI.Sprite(parent.assets.getAsset("hit5Texture"));
-			sprite.position.x = 30; sprite.position.y = 490; sprite.scale.set(0.3);
-			that.levelStage.addChild(sprite);
-			if(parent.config.side === that.SIDE_JEDI) that.levelUserHit5Text = new PIXI.Text("- " + that.levelUserHit5, that.levelStyleButtonBlueText);
-			if(parent.config.side === that.SIDE_SITH) that.levelUserHit5Text = new PIXI.Text("- " + that.levelUserHit5, that.levelStyleButtonRedText); 
-			that.levelUserHit5Text.x = 55; that.levelUserHit5Text.y = 490;
-			that.levelStage.addChild(that.levelUserHit5Text);
-			
-			graphics = new PIXI.Graphics(); 
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				graphics.lineStyle(2, 0x0000FF, 1);
-				graphics.beginFill(0x0080FF, 0.2);
-			}
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				graphics.lineStyle(2, 0x800000, 1);
-				graphics.beginFill(0x800000, 0.2);
-			}
-			graphics.moveTo(25, 525);
-			graphics.lineTo(170, 525);
-			graphics.lineTo(170, 555);
-			graphics.lineTo(25, 555);
-			graphics.endFill();
-			that.levelStage.addChild(graphics);
-			
-			if(parent.config.side === that.SIDE_JEDI) that.levelUserLifeText = new PIXI.Text("Здоровье: " + that.levelUserLife, that.levelStyleButtonBlueText); 
-			if(parent.config.side === that.SIDE_SITH) that.levelUserLifeText = new PIXI.Text("Здоровье: " + that.levelUserLife, that.levelStyleButtonRedText); 
-			that.levelUserLifeText.x = 27; that.levelUserLifeText.y = 530;
-			that.levelStage.addChild(that.levelUserLifeText);
-		},
-		
-		levelShowCommandAI: function()
-		{
-			/* персонажи */
-			for(var i in that.levelCommandAI)
-			{
-				var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[that.levelCommandAI[i].id][3]); 
-				textureSprite.position.x = 520 + (105 * i); 
-				textureSprite.position.y = 628; 
-				that.levelStage.addChild(textureSprite);
-				
-				var graphics = new PIXI.Graphics();
-				if(parent.config.side === that.SIDE_JEDI) graphics.lineStyle(2, 0xFF0000, 0.2);
-				if(parent.config.side === that.SIDE_SITH) graphics.lineStyle(2, 0x0000FF, 0.2);
-				graphics.drawRect(520 + (105 * i), 628, 75, 75);
-				
-				for(var j = 0; j < 25; j++)
-				{
-					if(parent.config.side === that.SIDE_JEDI) graphics.lineStyle(1, 0xFF0000, 0.2);
-					if(parent.config.side === that.SIDE_SITH) graphics.lineStyle(1, 0x0000FF, 0.2);
-					graphics.moveTo(520 + (105 * i), 628 +(3*j));
-					graphics.lineTo(520 + (105 * i) + 75, 628 +(3*j));
-				}
-				that.levelStage.addChild(graphics);
-			}
-			
-			/* рамка */
-			that.levelBorderPersonageAI = new PIXI.Graphics();
-			if(parent.config.side === that.SIDE_JEDI) that.levelBorderPersonageAI.lineStyle(2, 0xFFFF80, 1);
-			if(parent.config.side === that.SIDE_SITH) that.levelBorderPersonageAI.lineStyle(2, 0xFFFFFF, 1);
-			that.levelBorderPersonageAI.drawRect(520, 628, 75, 75);
-			that.levelStage.addChild(that.levelBorderPersonageAI);
-			
-			/* дисплей фон */
-			var graphics = new PIXI.Graphics(); 
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				graphics.lineStyle(2, 0x0000FF, 1);
-				graphics.beginFill(0x0080FF, 0.2);
-			}
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				graphics.lineStyle(2, 0x800000, 1);
-				graphics.beginFill(0x800000, 0.2);
-			}
-			graphics.moveTo(690, 330);
-			graphics.lineTo(835, 330);
-			graphics.lineTo(835, 615);
-			graphics.lineTo(690, 615);
-			graphics.endFill();
-			that.levelStage.addChild(graphics);
-			
-			/* персонаж во весь рост */
-			that.levelPersonageAISprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[that.levelCommandAI[that.levelIndexAI].id][2]); 
-			that.levelPersonageAISprite.position.x = 695; 
-			that.levelPersonageAISprite.position.y = 350; 
-			that.levelPersonageAISprite.scale.set(0.5);
-			that.levelStage.addChild(that.levelPersonageAISprite);
-			
-			/* фон полоски */
-			graphics = new PIXI.Graphics();
-			for(var i = 0; i < 95; i++)
-			{
-				if(parent.config.side === that.SIDE_SITH) graphics.lineStyle(1, 0x0000FF, 0.5);
-				if(parent.config.side === that.SIDE_JEDI) graphics.lineStyle(1, 0x800000, 0.5);
-				graphics.moveTo(690, 330+(3*i));
-				graphics.lineTo(835, 330+(3*i));
-			}
-			that.levelStage.addChild(graphics);
-			
-			/* бегущая полоска */
-			that.levelLineAIAnimationGraphics = new PIXI.Graphics(); 
-			if(parent.config.side === that.SIDE_SITH) that.levelLineAIAnimationGraphics.lineStyle(10, 0x0000FF, 0.3);
-			if(parent.config.side === that.SIDE_JEDI) that.levelLineAIAnimationGraphics.lineStyle(10, 0x800000, 0.3);
-			that.levelLineAIAnimationGraphics.moveTo(690, 335);
-			that.levelLineAIAnimationGraphics.lineTo(835, 335);
-			that.levelStage.addChild(that.levelLineAIAnimationGraphics);
-						
-			/* харктеристики */
-			graphics = new PIXI.Graphics(); 
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				graphics.lineStyle(2, 0x0000FF, 1);
-				graphics.beginFill(0x0080FF, 0.2);
-			}
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				graphics.lineStyle(2, 0x800000, 1);
-				graphics.beginFill(0x800000, 0.2);
-			}
-			graphics.moveTo(690, 325);
-			graphics.lineTo(835, 325);
-			graphics.lineTo(835, 210);
-			graphics.lineTo(690, 210);
-			graphics.endFill();
-			that.levelStage.addChild(graphics);
-			
-			var sprite = new PIXI.Sprite(parent.assets.getAsset("hit1Texture"));
-			sprite.position.x = 695; sprite.position.y = 215; sprite.scale.set(0.3);
-			that.levelStage.addChild(sprite);
-			if(parent.config.side === that.SIDE_SITH) that.levelAIHit1Text = new PIXI.Text("- " + that.levelAIHit1, that.levelStyleButtonBlueText);
-			if(parent.config.side === that.SIDE_JEDI) that.levelAIHit1Text = new PIXI.Text("- " + that.levelAIHit1, that.levelStyleButtonRedText); 
-			that.levelAIHit1Text.x = 720; that.levelAIHit1Text.y = 215;
-			that.levelStage.addChild(that.levelAIHit1Text);
-			
-			sprite = new PIXI.Sprite(parent.assets.getAsset("hit2Texture"));
-			sprite.position.x = 765; sprite.position.y = 215; sprite.scale.set(0.3);
-			that.levelStage.addChild(sprite);
-			if(parent.config.side === that.SIDE_SITH) that.levelAIHit2Text = new PIXI.Text("- " + that.levelAIHit2, that.levelStyleButtonBlueText);
-			if(parent.config.side === that.SIDE_JEDI) that.levelAIHit2Text = new PIXI.Text("- " + that.levelAIHit2, that.levelStyleButtonRedText);  
-			that.levelAIHit2Text.x = 790; that.levelAIHit2Text.y = 215;
-			that.levelStage.addChild(that.levelAIHit2Text);
-			
-			sprite = new PIXI.Sprite(parent.assets.getAsset("hit3Texture"));
-			sprite.position.x = 695; sprite.position.y = 250; sprite.scale.set(0.3);
-			that.levelStage.addChild(sprite);
-			if(parent.config.side === that.SIDE_SITH) that.levelAIHit3Text = new PIXI.Text("+ " + that.levelAIHit3, that.levelStyleButtonBlueText);
-			if(parent.config.side === that.SIDE_JEDI) that.levelAIHit3Text = new PIXI.Text("+ " + that.levelAIHit3, that.levelStyleButtonRedText);  
-			that.levelAIHit3Text.x = 720; that.levelAIHit3Text.y = 250;
-			that.levelStage.addChild(that.levelAIHit3Text);
-			
-			sprite = new PIXI.Sprite(parent.assets.getAsset("hit4Texture"));
-			sprite.position.x = 765; sprite.position.y = 250; sprite.scale.set(0.3);
-			that.levelStage.addChild(sprite);
-			if(parent.config.side === that.SIDE_SITH) that.levelAIHit4Text = new PIXI.Text("- " + that.levelAIHit4, that.levelStyleButtonBlueText);
-			if(parent.config.side === that.SIDE_JEDI) that.levelAIHit4Text = new PIXI.Text("- " + that.levelAIHit4, that.levelStyleButtonRedText); 
-			that.levelAIHit4Text.x = 790; that.levelAIHit4Text.y = 250;
-			that.levelStage.addChild(that.levelAIHit4Text);
-			
-			sprite = new PIXI.Sprite(parent.assets.getAsset("hit5Texture"));
-			sprite.position.x = 695; sprite.position.y = 290; sprite.scale.set(0.3);
-			that.levelStage.addChild(sprite);
-			if(parent.config.side === that.SIDE_SITH) that.levelAIHit5Text = new PIXI.Text("- " + that.levelAIHit5, that.levelStyleButtonBlueText);
-			if(parent.config.side === that.SIDE_JEDI) that.levelAIHit5Text = new PIXI.Text("- " + that.levelAIHit5, that.levelStyleButtonRedText);  
-			that.levelAIHit5Text.x = 720; that.levelAIHit5Text.y = 290;
-			that.levelStage.addChild(that.levelAIHit5Text);
-			
-			graphics = new PIXI.Graphics(); 
-			if(parent.config.side === that.SIDE_SITH)
-			{
-				graphics.lineStyle(2, 0x0000FF, 1);
-				graphics.beginFill(0x0080FF, 0.2);
-			}
-			if(parent.config.side === that.SIDE_JEDI)
-			{
-				graphics.lineStyle(2, 0x800000, 1);
-				graphics.beginFill(0x800000, 0.2);
-			}
-			graphics.moveTo(690, 205);
-			graphics.lineTo(835, 205);
-			graphics.lineTo(835, 175);
-			graphics.lineTo(690, 175);
-			graphics.endFill();
-			that.levelStage.addChild(graphics);
-			
-			if(parent.config.side === that.SIDE_SITH) that.levelAILifeText = new PIXI.Text("Здоровье: " + that.levelAILife, that.levelStyleButtonBlueText); 
-			if(parent.config.side === that.SIDE_JEDI) that.levelAILifeText = new PIXI.Text("Здоровье: " + that.levelAILife, that.levelStyleButtonRedText); 
-			that.levelAILifeText.x = 692; that.levelAILifeText.y = 180;
-			that.levelStage.addChild(that.levelAILifeText);
-		},
-
-		levelDroidBlue: function()
-		{
-			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidBlueRightTexture")); 
-			textureSprite.position.x = 765; 
-			textureSprite.position.y = 50; 
-			textureSprite.scale.set(0.3);
-			that.levelStage.addChild(textureSprite);
-			
-			var graphics = new PIXI.Graphics(); 
-			graphics.lineStyle(2, 0x0090F0, 0.2);
-			graphics.beginFill(0x0090F0, 0.2);
-			graphics.moveTo(795, 65);
-			graphics.lineTo(760, 20);
-			graphics.lineTo(760, 110);
-			graphics.lineTo(795, 65);
-			graphics.endFill;
-			
-			for(var i = 0; i < 31; i++)
-			{
-				graphics.lineStyle(1, 0x0090F0, 0.2);
-				graphics.moveTo(480, 20+(3*i));
-				graphics.lineTo(760, 20+(3*i));
-			}
-			that.levelStage.addChild(graphics);
-			
-			that.levelMessageLineGraphics = new PIXI.Graphics(); 
-			that.levelMessageLineGraphics.lineStyle(10, 0x0090F0, 0.3);
-			that.levelMessageLineGraphics.moveTo(480, 25);
-			that.levelMessageLineGraphics.lineTo(760, 25);
-			that.levelStage.addChild(that.levelMessageLineGraphics);
-			
-			var text = new PIXI.Text("Миссия " + parent.initialization.planets[that.levelPlanetID].name + "\nПобедите всех своих соперников.\nДля этого наносите удары собирая кристалы три в ряд.\nУдары наносите по очереди.", that.levelStyleDroidBlueText); 
-			text.x = 490; 
-			text.y = 23; 
-			that.levelStage.addChild(text);
-		},
-		
-		levelDroidRed: function()
-		{
-			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidRedRightTexture")); 
-			textureSprite.position.x = 765; 
-			textureSprite.position.y = 50; 
-			textureSprite.scale.set(0.3);
-			that.levelStage.addChild(textureSprite);
-			
-			var graphics = new PIXI.Graphics(); 
-			graphics.lineStyle(2, 0xA63A24, 0.2);
-			graphics.beginFill(0xA63A24, 0.2);
-			graphics.moveTo(795, 65);
-			graphics.lineTo(760, 20);
-			graphics.lineTo(760, 110);
-			graphics.lineTo(795, 65);
-			graphics.endFill;
-			
-			for(var i = 0; i < 31; i++)
-			{
-				graphics.lineStyle(1, 0xA63A24, 0.2);
-				graphics.moveTo(480, 20+(3*i));
-				graphics.lineTo(760, 20+(3*i));
-			}
-			that.levelStage.addChild(graphics);
-			
-			that.levelMessageLineGraphics = new PIXI.Graphics(); 
-			that.levelMessageLineGraphics.lineStyle(10, 0xA63A24, 0.3);
-			that.levelMessageLineGraphics.moveTo(480, 25);
-			that.levelMessageLineGraphics.lineTo(760, 25);
-			that.levelStage.addChild(that.levelMessageLineGraphics);
-			
-			var text = new PIXI.Text("Миссия " + parent.initialization.planets[that.levelPlanetID].name + "\nПобедите всех своих соперников.\nДля этого наносите удары собирая кристалы три в ряд.\nУдары наносите по очереди.", that.levelStyleDroidRedText); 
-			text.x = 490; 
-			text.y = 23; 
-			that.levelStage.addChild(text);
-		},
-		
-		levelSelectPersonageUser: function()
-		{
-			var position = [[0,0],[105,0],[210,0]];
-			that.levelBorderPersonageUser.x = position[that.levelIndexUser][0];
-			that.levelBorderPersonageUser.y = position[that.levelIndexUser][1];
-			position = null;
-			that.levelPersonageUserSprite.texture = parent.assets.getAsset("heroesTextures")[that.levelCommandUser[that.levelIndexUser].id][1];
-			that.levelUserHit1 = that.levelCommandUser[that.levelIndexUser].hitDefense1;
-			that.levelUserHit2 = that.levelCommandUser[that.levelIndexUser].hitDefense2;
-			that.levelUserHit3 = that.levelCommandUser[that.levelIndexUser].hitDefense3;
-			that.levelUserHit4 = that.levelCommandUser[that.levelIndexUser].hitDefense4;
-			that.levelUserHit5 = that.levelCommandUser[that.levelIndexUser].hitDefense5;
-			that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
-			that.levelUserHit1Text.text = "- " + that.levelUserHit1;
-			that.levelUserHit2Text.text = "- " + that.levelUserHit2;
-			that.levelUserHit3Text.text = "+ " + that.levelUserHit3;
-			that.levelUserHit4Text.text = "- " + that.levelUserHit4;
-			that.levelUserHit5Text.text = "- " + that.levelUserHit5;
-			that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
-		},
-		
-		levelSelectPersonageAI: function()
-		{
-			var position = [[0,0],[105,0],[210,0]];
-			that.levelBorderPersonageAI.x = position[that.levelIndexAI][0];
-			that.levelBorderPersonageAI.y = position[that.levelIndexAI][1];
-			position = null;
-			that.levelPersonageAISprite.texture = parent.assets.getAsset("heroesTextures")[that.levelCommandAI[that.levelIndexAI].id][2];
-			if(that.levelIntercept === true)
-			{
-				that.levelAIHit1 = that.levelCommandAI[that.levelIndexAI].hitDefense1;
-				that.levelAIHit2 = that.levelCommandAI[that.levelIndexAI].hitDefense2;
-				that.levelAIHit3 = that.levelCommandAI[that.levelIndexAI].hitDefense3;
-				that.levelAIHit4 = that.levelCommandAI[that.levelIndexAI].hitDefense4;
-				that.levelAIHit5 = that.levelCommandAI[that.levelIndexAI].hitDefense5;
-			}else{
-				that.levelAIHit1 = that.levelCommandAI[that.levelIndexAI].hitAttack1;
-				that.levelAIHit2 = that.levelCommandAI[that.levelIndexAI].hitAttack2;
-				that.levelAIHit3 = that.levelCommandAI[that.levelIndexAI].hitAttack3;
-				that.levelAIHit4 = that.levelCommandAI[that.levelIndexAI].hitAttack4;
-				that.levelAIHit5 = that.levelCommandAI[that.levelIndexAI].hitAttack5;
-			}
-			that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
-			that.levelAIHit1Text.text = "- " + that.levelAIHit1;
-			that.levelAIHit2Text.text = "- " + that.levelAIHit2;
-			that.levelAIHit3Text.text = "+ " + that.levelAIHit3;
-			that.levelAIHit4Text.text = "- " + that.levelAIHit4;
-			that.levelAIHit5Text.text = "- " + that.levelAIHit5;
-			that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
-		},
-		
-		levelBattons: function()
-		{
-			var textArr = ["ЗАКОНЧИТЬ БИТВУ", "НАСТРОЙКИ", "ВЫЙТИ В МЕНЮ", "ПРИГЛАСИТЬ"];
-			var nameArr = ["EndBattle", "Settings", "BackMenu", "Invite"];
-			
-			var button; 
-			if(parent.config.side === that.SIDE_JEDI) button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
-			if(parent.config.side === that.SIDE_SITH) button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed"));
-			button.name = nameArr[0];
-			button.position.x = 35; 
-			button.position.y = 670; 
-			button.interactive = true; 
-			button.buttonMode = true; 
-			button.loop = false; 
-			button.animationSpeed = 0.2;
-			button.onComplete = that.onLevelButtonUpdate;
-			button.tap = that.onLevelButtonClick; 
-			button.click = that.onLevelButtonClick; 
-			button.on('mouseover', that.onLevelButtonOver);
-			button.on('mouseout', that.onLevelButtonOut);
-			var text; 
-			if(parent.config.side === that.SIDE_JEDI) text = new PIXI.Text(textArr[0], that.levelStyleButtonsBlueText); 
-			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text(textArr[0], that.levelStyleButtonsRedText); 
-			text.x = (button.width / 2) - (text.width / 2);
-			text.y = button.height / 3;
-			button.addChild(text); 
-			that.levelStage.addChild(button);
-			
-			if(parent.config.side === that.SIDE_JEDI) button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
-			if(parent.config.side === that.SIDE_SITH) button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
-			button.name = nameArr[1];
-			button.position.x = 255; 
-			button.position.y = 670; 
-			button.interactive = true; 
-			button.buttonMode = true; 
-			button.loop = false; 
-			button.animationSpeed = 0.2;
-			button.onComplete = that.onLevelButtonUpdate;
-			button.tap = that.onLevelButtonClick; 
-			button.click = that.onLevelButtonClick; 
-			button.on('mouseover', that.onLevelButtonOver);
-			button.on('mouseout', that.onLevelButtonOut);
-			if(parent.config.side === that.SIDE_JEDI) text = new PIXI.Text(textArr[1], that.levelStyleButtonsBlueText); 
-			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text(textArr[1], that.levelStyleButtonsRedText);
-			text.x = (button.width / 2) - (text.width / 2);
-			text.y = button.height / 3;
-			button.addChild(text); 
-			that.levelStage.addChild(button);
-			
-			if(parent.config.side === that.SIDE_JEDI) button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
-			if(parent.config.side === that.SIDE_SITH) button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
-			button.name = nameArr[2];
-			button.position.x = 35; 
-			button.position.y = 620; 
-			button.interactive = true; 
-			button.buttonMode = true; 
-			button.loop = false; 
-			button.animationSpeed = 0.2;
-			button.onComplete = that.onLevelButtonUpdate;
-			button.tap = that.onLevelButtonClick; 
-			button.click = that.onLevelButtonClick; 
-			button.on('mouseover', that.onLevelButtonOver);
-			button.on('mouseout', that.onLevelButtonOut);
-			if(parent.config.side === that.SIDE_JEDI) text = new PIXI.Text(textArr[2], that.levelStyleButtonsBlueText); 
-			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text(textArr[2], that.levelStyleButtonsRedText);
-			text.x = (button.width / 2) - (text.width / 2);
-			text.y = button.height / 3;
-			button.addChild(text); 
-			that.levelStage.addChild(button);
-			
-			if(parent.config.side === that.SIDE_JEDI) button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
-			if(parent.config.side === that.SIDE_SITH) button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
-			button.name = nameArr[3];
-			button.position.x = 255; 
-			button.position.y = 620; 
-			button.interactive = true; 
-			button.buttonMode = true; 
-			button.loop = false; 
-			button.animationSpeed = 0.2;
-			button.onComplete = that.onLevelButtonUpdate;
-			button.tap = that.onLevelButtonClick; 
-			button.click = that.onLevelButtonClick; 
-			button.on('mouseover', that.onLevelButtonOver);
-			button.on('mouseout', that.onLevelButtonOut);
-			if(parent.config.side === that.SIDE_JEDI) text = new PIXI.Text(textArr[3], that.levelStyleButtonsBlueText); 
-			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text(textArr[3], that.levelStyleButtonsRedText); 
-			text.x = (button.width / 2) - (text.width / 2);
-			text.y = button.height / 3;
-			button.addChild(text); 
-			that.levelStage.addChild(button);
-		},
-
-		onLevelButtonOver: function()
+		onButtonOver: function(e)
 		{
 			this.isOver = true;
 			this.gotoAndPlay(1);
 		},
-
-		onLevelButtonOut: function()
+		
+		onButtonOut: function(e)
 		{
 			this.isOver = false;
 			this.gotoAndStop(0);
 		},
-
-		onLevelButtonUpdate: function()
+		
+		onButtonUpdate: function(e)
 		{
 			if(this.isOver)
 			{
@@ -9164,20 +7184,17 @@ var Level = function(parent)
 			}
 		},
 		
-		onLevelButtonClick: function() 
+		onButtonClick: function(e)
 		{
 			switch (this.name)
 			{
-				case "EndBattle":
-					parent.timer.timerStop();
+				case "button_0":        // Начать игру
+					parent.menuStartGame();
 					break;
-				case "Settings":
-					
+				case "button_1":        // Настройки игры
+					parent.settingsShow();
 					break;
-				case "BackMenu":
-					
-					break;
-				case "Invite": 
+				case "button_2":        // Позвать друзей ВК
 					parent.vkInvite();
 					break;
 				default:
@@ -9185,269 +7202,2935 @@ var Level = function(parent)
 			}
 		},
 		
-		/* Создание игрового поля =================================================== */
-		levelFieldCreate: function()
+		borderCreate: function()
 		{
-			parent.matchShow(parent.initialization.levels[that.levelPlanetID]);
+			var graphics = new PIXI.Graphics(); 
+
+			graphics.lineStyle(2, 0x0000FF, 1);
+			graphics.beginFill(0x000000, 0);
+			graphics.drawRect(10, 10, 840, 710);
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawCircle(5, 600,4);
+			graphics.endFill();
+
+			graphics.lineStyle(2, 0xFFFFFF, 1);
+			graphics.moveTo(5,600);
+			graphics.lineTo(5, 725);
+			graphics.moveTo(5,725);
+			graphics.lineTo(650, 725);
+			graphics.moveTo(650,725);
+			graphics.lineTo(670, 710);
+			graphics.moveTo(670,710);
+			graphics.lineTo(840, 710);
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawCircle(840, 710,4);
+			graphics.endFill();
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawCircle(20, 20,4);
+			graphics.endFill();
+
+			graphics.lineStyle(2, 0xFFFFFF, 1);
+			graphics.moveTo(20,20);
+			graphics.lineTo(370, 20);
+			graphics.moveTo(370,20);
+			graphics.lineTo(390, 5);
+			graphics.moveTo(390,5);
+			graphics.lineTo(855, 5);
+			graphics.moveTo(855,5);
+			graphics.lineTo(855, 150);
+
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawCircle(855, 150,4);
+			graphics.endFill();
+
+			that.windowStage.addChild(graphics);
 		},
-		/* ========================================================================== */
 		
-		/* ПРОГРЕСС: Уменьшение значений LifeBars =================================== */
-		levelReduceLifeBar: function(hitType, hitCount, hitModeAI) 
+		logoCreate: function()
 		{
-			if(hitModeAI === false) // удар пользователя (урон ИИ)
-			{
-				if(hitType === parent.match.MATCH_HIT_1)
-				{
-					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit1 * hitCount);
-					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
-					if(that.levelAILife < 0) that.levelAILife = 0;
-					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
-				}
-				if(hitType === parent.match.MATCH_HIT_2)
-				{
-					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit2 * hitCount);
-					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
-					if(that.levelAILife < 0) that.levelAILife = 0;
-					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
-				}
-				if(hitType === parent.match.MATCH_HIT_3)
-				{
-					that.levelCommandUser[that.levelIndexUser].life += (that.levelUserHit3 * hitCount);
-					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
-					if(that.levelAILife < 0) that.levelAILife = 0;
-					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
-				}
-				if(hitType === parent.match.MATCH_HIT_4)
-				{
-					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit4 * hitCount);
-					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
-					if(that.levelAILife < 0) that.levelAILife = 0;
-					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
-				}
-				if(hitType === parent.match.MATCH_HIT_5)
-				{
-					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit5 * hitCount);
-					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
-					if(that.levelAILife < 0) that.levelAILife = 0;
-					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
-				}
-			}else{ // удар ИИ (урон пользователю)
-				if(hitType === parent.match.MATCH_HIT_1)
-				{
-					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit1 * hitCount);
-					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
-					if(that.levelUserLife < 0) that.levelUserLife = 0;
-					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
-				}
-				if(hitType === parent.match.MATCH_HIT_2)
-				{
-					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit2 * hitCount);
-					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
-					if(that.levelUserLife < 0) that.levelUserLife = 0;
-					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
-				}
-				if(hitType === parent.match.MATCH_HIT_3)
-				{
-					that.levelCommandAI[that.levelIndexAI].life += (that.levelAIHit2 * hitCount);
-					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
-					if(that.levelUserLife < 0) that.levelUserLife = 0;
-					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
-				}
-				if(hitType === parent.match.MATCH_HIT_4)
-				{
-					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit4 * hitCount);
-					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
-					if(that.levelUserLife < 0) that.levelUserLife = 0;
-					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
-				}
-				if(hitType === parent.match.MATCH_HIT_5)
-				{
-					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit5 * hitCount);
-					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
-					if(that.levelUserLife < 0) that.levelUserLife = 0;
-					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
-				}
-			}
+			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("starwarsTexture")); 
+			textureSprite.position.x = 25; 
+			textureSprite.position.y = 15; 
+			that.windowStage.addChild(textureSprite);
 		},
-		/* ========================================================================== */
 		
-		/* Меняем персонаж ========================================================== */
-		levelExchangePersonage: function(mode)
+		droidCreate: function()
 		{
-			if(mode === "AI") // меняем персонаж ИИ
+			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidBlueRightTexture")); 
+			textureSprite.position.x = 700; 
+			textureSprite.position.y = 550; 
+			textureSprite.scale.set(0.4);
+			that.windowStage.addChild(textureSprite);
+
+			var graphics = new PIXI.Graphics(); 
+			graphics.lineStyle(2, 0x0080C0, 1);
+			graphics.beginFill(0x0080C0, 0.2);
+			graphics.moveTo(735,575);
+			graphics.lineTo(550, 575);
+			graphics.lineTo(550, 300);
+			graphics.lineTo(735, 300);
+			graphics.endFill;
+			for(var i = 0; i < 92; i++)
 			{
-				var removePers = 0;
-				for(var i in that.levelCommandAI)
-				{
-					if(that.levelCommandAI[i].life <= 0)
-					{
-						removePers++; // if(that.levelCommandAI[0].life <= 0 && that.levelCommandAI[1].life <= 0 && that.levelCommandAI[2].life <= 0)
-					}
-				}
-				if(removePers === (that.levelCommandAI.length))
-				{
-					// битва завершена ИИ проиграл!
-					parent.timer.timerPause = true;
-					parent.timer.timerStop();
-					that.levelStage.removeChild(that.levelPersonageAISprite);
-					that.levelStage.removeChild(that.levelAIHit1Text);
-					that.levelStage.removeChild(that.levelAIHit2Text);
-					that.levelStage.removeChild(that.levelAIHit3Text);
-					that.levelStage.removeChild(that.levelAIHit4Text);
-					that.levelStage.removeChild(that.levelAIHit5Text);
-					that.levelStage.removeChild(that.levelAILifeText);
-					console.log("ИИ проиграл!");
-					
-				}else{
-					if(that.levelIndexAI < that.levelCommandAI.length - 1) that.levelIndexAI++; // < 2
-					else that.levelIndexAI = 0;
-					if(that.levelCommandAI[that.levelIndexAI].life <= 0) that.levelExchangePersonage("AI");
-					else that.levelSelectPersonageAI();
-					
-					if(that.levelCommandUser[that.levelIndexUser].life <= 0)
-					{
-						var position = [[55,30],[160,30],[265,30]];
-						var sprite = new PIXI.Sprite(parent.assets.getAsset("personageDeadTexture"));
-						sprite.position.x = position[that.levelIndexUser][0];
-						sprite.position.y = position[that.levelIndexUser][1];
-						that.levelStage.addChild(sprite);
-						position = null;
-						that.levelExchangePersonage("USER");
-					}
-				}
+				graphics.lineStyle(1, 0x0090F0, 0.5);
+				graphics.moveTo(735,300+(3*i));
+				graphics.lineTo(550, 300+(3*i));
 			}
-			if(mode === "USER") // меняем персонажа пользователя
-			{
-				var removePers = 0;
-				for(var i in that.levelCommandUser)
-				{
-					if(that.levelCommandUser[i].life <= 0)
-					{
-						removePers++; //if(that.levelCommandUser[0].life <= 0 && that.levelCommandUser[1].life <= 0 && that.levelCommandUser[2].life <= 0)
-					}
-				}
-				if(removePers === (that.levelCommandUser.length))
-				{
-					// битва завершена Пользователь проиграл!
-					parent.timer.timerPause = true;
-					parent.timer.timerStop();
-					that.levelStage.removeChild(that.levelPersonageUserSprite);
-					that.levelStage.removeChild(that.levelUserHit1Text);
-					that.levelStage.removeChild(that.levelUserHit2Text);
-					that.levelStage.removeChild(that.levelUserHit3Text);
-					that.levelStage.removeChild(that.levelUserHit4Text);
-					that.levelStage.removeChild(that.levelUserHit5Text);
-					that.levelStage.removeChild(that.levelUserLifeText);
-					console.log("Пользователь проиграл!");
-					
-				}else{
-					if(that.levelIndexUser < that.levelCommandUser.length - 1)that.levelIndexUser++; // < 2
-					else that.levelIndexUser = 0;
-					if(that.levelCommandUser[that.levelIndexUser].life <= 0) that.levelExchangePersonage("USER");
-					else that.levelSelectPersonageUser();
-					
-					if(that.levelCommandAI[that.levelIndexAI].life <= 0)
-					{
-						var position = [[520,628],[625,628],[730,628]];
-						var sprite = new PIXI.Sprite(parent.assets.getAsset("personageDeadTexture"));
-						sprite.position.x = position[that.levelIndexAI][0];
-						sprite.position.y = position[that.levelIndexAI][1];
-						that.levelStage.addChild(sprite);
-						position = null;
-						that.levelExchangePersonage("AI");
-					}
-				}
-			}
+			that.windowStage.addChild(graphics);
+
+			that.droidMessage();
+
+			that.lineMessageGraphics = new PIXI.Graphics(); 
+			that.lineMessageGraphics.lineStyle(10, 0x0090F0, 0.3);
+			that.lineMessageGraphics.moveTo(735,305);
+			that.lineMessageGraphics.lineTo(550, 305);
+			that.windowStage.addChild(that.lineMessageGraphics);
 		},
-		/* ========================================================================== */	
 		
+		droidMessage: function()
+		{
+			var text = new PIXI.Text("\nДобро пожаловать на путь силы. \nВаши способности превышают способности обычных людей. \nВы тут потому что вы были избраны. \n\nНажмите кнопку \n''Начать игру'' \n\nИ да пребудет с Вами Сила!", that.styleDroidText); 
+			text.x = 555; 
+			text.y = 300; 
+			that.windowStage.addChild(text);
+		},
 		
-		/* Завершение работы с классом ======================================== */
 		tweenStart: function()
 		{
-			createjs.Tween.get(that.levelStarsSprite, {loop: true}) 
-					.to({x: -50, y: 0}, 10000, createjs.Ease.getPowInOut(3))
-					.to({x: -50, y: -50}, 10000, createjs.Ease.getPowInOut(3))
-					.to({x: 0, y: -50}, 10000, createjs.Ease.getPowInOut(3))
-					.to({x: 0, y: 0}, 10000, createjs.Ease.getPowInOut(3));
-
-			createjs.Tween.get(that.levelPlanetSprite, {loop: true}) 
-					.to({x: 200, y: 100}, 10000, createjs.Ease.getPowInOut(3))
-					.to({x: 200, y: 0}, 10000, createjs.Ease.getPowInOut(3))
-					.to({x: 300, y: 0}, 10000, createjs.Ease.getPowInOut(3))
-					.to({x: 300, y: 100}, 10000, createjs.Ease.getPowInOut(3));
-					
-			createjs.Tween.get(that.levelLandscapeSprite, {loop: true}) 
-					.to({x: -50, y: 0}, 10000, createjs.Ease.getPowInOut(3))
-					.to({x: -50, y: -50}, 10000, createjs.Ease.getPowInOut(3))
-					.to({x: 0, y: -50}, 10000, createjs.Ease.getPowInOut(3))
-					.to({x: 0, y: 0}, 10000, createjs.Ease.getPowInOut(3))
-					.to({alpha: 1.0}, 10000, createjs.Ease.getPowInOut(3))
-					.to({x: -50, y: 0}, 10000, createjs.Ease.getPowInOut(3))
-					.to({x: -50, y: -50}, 10000, createjs.Ease.getPowInOut(3))
-					.to({x: 0, y: -50}, 10000, createjs.Ease.getPowInOut(3))
-					.to({x: 0, y: 0}, 10000, createjs.Ease.getPowInOut(3))
-					.to({alpha: 0.0}, 10000, createjs.Ease.getPowInOut(3));
-					
-			createjs.Tween.get(that.levelLineUserAnimationGraphics, {loop: true}) 
-				.to({x: 0, y: 275}, 2500, createjs.Ease.getPowInOut(3));
-			createjs.Tween.get(that.levelLineAIAnimationGraphics, {loop: true}) 
-				.to({x: 0, y: 275}, 2500, createjs.Ease.getPowInOut(3));
-			createjs.Tween.get(that.levelMessageLineGraphics, {loop: true}) 
-				.to({x: 0, y: 80}, 2000, createjs.Ease.getPowInOut(3));
+			createjs.Tween.get(that.lineMessageGraphics , {loop: true}) 
+				.to({x: 0, y: 265}, 2500, createjs.Ease.getPowInOut(3));
 				
-			createjs.Ticker.setFPS(60);
+			createjs.Tween.get(that.starsSprite, {loop: true}) 
+				.to({x: -50, y: 0}, 25000, createjs.Ease.getPowInOut(3))
+				.to({x: -50, y: -50}, 25000, createjs.Ease.getPowInOut(3))
+				.to({x: 0, y: -50}, 25000, createjs.Ease.getPowInOut(3))
+				.to({x: 0, y: 0}, 25000, createjs.Ease.getPowInOut(3));
+
+			createjs.Tween.get(that.deathStarSprite, {loop: true}) 
+					.to({x: 200, y: 100}, 25000, createjs.Ease.getPowInOut(3))
+					.to({x: 200, y: 0}, 25000, createjs.Ease.getPowInOut(3))
+					.to({x: 300, y: 0}, 25000, createjs.Ease.getPowInOut(3))
+					.to({x: 300, y: 100}, 25000, createjs.Ease.getPowInOut(3));
+
+			createjs.Tween.get(that.ship3Sprite, {loop: true}) 
+					.to({x: -150, y: 150}, 25000, createjs.Ease.getPowInOut(3))
+					.to({x: -150, y: 0}, 25000, createjs.Ease.getPowInOut(3))
+					.to({x: 50, y: 0}, 25000, createjs.Ease.getPowInOut(3))
+					.to({x: 50, y: 150}, 25000, createjs.Ease.getPowInOut(3));
+
+			createjs.Tween.get(that.ship1Sprite, {loop: true}) 
+					.to({x: 1000, y: 1000}, 5000, createjs.Ease.getPowInOut(3));
+
+			createjs.Tween.get(that.ship2Sprite, {loop: true}) 
+					.to({x: -250, y: 350}, 5000, createjs.Ease.getPowInOut(3));
+
+			createjs.Ticker.setFPS(60); 
 		},
 		
 		tweenStop: function()
 		{
-			createjs.Tween.removeTweens(that.levelStarsSprite);
-			createjs.Tween.removeTweens(that.levelPlanetSprite);
-			createjs.Tween.removeTweens(that.levelLandscapeSprite);
-			createjs.Tween.removeTweens(that.levelLineUserAnimationGraphics);
-			createjs.Tween.removeTweens(that.levelLineAIAnimationGraphics);
-			createjs.Tween.removeTweens(that.levelMessageLineGraphics);
+			createjs.Tween.removeTweens(that.lineMessageGraphics);
+			createjs.Tween.removeTweens(that.starsSprite);
+			createjs.Tween.removeTweens(that.deathStarSprite);
+			createjs.Tween.removeTweens(that.ship3Sprite);
+			createjs.Tween.removeTweens(that.ship1Sprite);
+			createjs.Tween.removeTweens(that.ship2Sprite);
 		},
 		
 		show: function()
 		{
 			that.tweenStart();
-			return that.levelStage;
+			return that.windowStage;
 		},
 		
 		close: function()
 		{
 			that.tweenStop();
-			for(var child in that.levelStage.children) that.levelStage.removeChild(that.levelStage.children[child]);
-			return that.levelStage;
+			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
+			return that.windowStage;
 		},
 		
 		getWindowStage: function()
 		{
-			return that.levelStage;
+			return that.windowStage;
 		},
 		
 		destroy: function()
 		{
-			for(var child in that.levelStage.children) that.levelStage.removeChild(that.levelStage.children[child]);
-			that.levelStage.destroy();
-			delete that.levelStage.children;
+			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
+			that.windowStage.destroy();
+			delete that.windowStage.children;
 			
 			for(var property in that) that[property] = null;
 		}
 	};
 	return that;
-}
+};
 
 /* == END FILE ========================================================== */
+
+/* == START FILE ========================================================= */
+
+var Message = function(parent)
+{
+	var that = {
+		windowStage: null,
+		lineAnimationGraphics: null,
+		styleBlueText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 },
+		styleRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }, 
+		styleBlueTitle: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200, align: "left"},
+		styleRedTitle: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200, align: "left" },
+
+		titleText: null,
+		messageText: null,
+		
+		SIDE_NONE: "side_none",
+		SIDE_JEDI: "side_jedi",
+		SIDE_SITH: "side_sith",
+		
+		create: function(titleText, messageText)
+		{
+			that.titleText = titleText;
+			that.messageText = messageText;
+			that.windowStage = new PIXI.Container();
+			that.backgroundCreate();
+			that.windowCreate();
+			that.titleCreate();
+			that.textCreate();
+			that.buttonCloseCreate();
+		},
+		
+		backgroundCreate: function()
+		{
+			var graphics = new PIXI.Graphics(); 
+			graphics.hitArea = new PIXI.Rectangle(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
+			graphics.interactive = true;
+			graphics.lineStyle(1, 0x000000, 0.05);
+			graphics.beginFill(0x000000, 0.5);
+			graphics.drawRect(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
+			graphics.endFill();
+			that.windowStage.addChild(graphics);
+		},
+		
+		windowCreate: function()
+		{
+			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI)
+			{
+				var graphics = new PIXI.Graphics(); 
+				graphics.lineStyle(2, 0x0080C0, 1);
+				graphics.beginFill(0x0080C0, 0.2);
+				graphics.moveTo(250,250);
+				graphics.lineTo(600, 250);
+				graphics.lineTo(600, 500);
+				graphics.lineTo(250, 500);
+				graphics.endFill();
+				for(var i = 0; i < 55; i++)
+				{
+					graphics.lineStyle(1, 0x0090F0, 0.5);
+					graphics.moveTo(250,280+(3*i));
+					graphics.lineTo(600, 280+(3*i));
+
+				}
+				that.windowStage.addChild(graphics);
+				
+				that.lineAnimationGraphics = new PIXI.Graphics(); 
+				that.lineAnimationGraphics.lineStyle(10, 0x0090F0, 0.3);
+				that.lineAnimationGraphics.moveTo(250,255);
+				that.lineAnimationGraphics.lineTo(600, 255);
+				that.windowStage.addChild(that.lineAnimationGraphics);
+				
+				graphics = new PIXI.Graphics(); 
+				graphics.lineStyle(1, 0x0080C0, 1);
+				graphics.beginFill(0x0080C0, 1);
+				graphics.moveTo(400,250);
+				graphics.lineTo(425, 275);
+				graphics.lineTo(600, 275);
+				graphics.lineTo(600, 250);
+				graphics.endFill();
+				that.windowStage.addChild(graphics);
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				var graphics = new PIXI.Graphics(); 
+				graphics.lineStyle(2, 0xA63A24, 1);
+				graphics.beginFill(0xA63A24, 0.2);
+				graphics.moveTo(250,250);
+				graphics.lineTo(600, 250);
+				graphics.lineTo(600, 500);
+				graphics.lineTo(250, 500);
+				graphics.endFill();
+				for(var i = 0; i < 55; i++)
+				{
+					graphics.lineStyle(1, 0xA63A24, 0.5);
+					graphics.moveTo(250,280+(3*i));
+					graphics.lineTo(600, 280+(3*i));
+				}
+				that.windowStage.addChild(graphics);
+				
+				that.lineAnimationGraphics = new PIXI.Graphics(); 
+				that.lineAnimationGraphics.lineStyle(10, 0xA63A24, 0.3);
+				that.lineAnimationGraphics.moveTo(250,255);
+				that.lineAnimationGraphics.lineTo(600, 255);
+				that.windowStage.addChild(that.lineAnimationGraphics);
+				
+				graphics = new PIXI.Graphics(); 
+				graphics.lineStyle(1, 0xA63A24, 1);
+				graphics.beginFill(0xA63A24, 1);
+				graphics.moveTo(400,250);
+				graphics.lineTo(425, 275);
+				graphics.lineTo(600, 275);
+				graphics.lineTo(600, 250);
+				graphics.endFill();
+				that.windowStage.addChild(graphics);
+			}
+		},
+		
+		titleCreate: function()
+		{
+			var text;
+    		if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI) text = new PIXI.Text(that.titleText, that.styleBlueTitle); 
+			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text(that.titleText, that.styleRedTitle); 
+			text.x = 450;
+			text.y = 255;
+			that.windowStage.addChild(text);
+		},
+		
+		textCreate: function()
+		{
+			var text;
+			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI) text = new PIXI.Text(that.messageText, that.styleBlueText); 
+			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text(that.messageText, that.styleRedText); 
+			text.x = 255;
+			text.y = 285;
+			that.windowStage.addChild(text);
+		},
+		
+		buttonCloseCreate: function()
+		{
+			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI)
+			{
+				var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
+				button.name = "button_close";
+				button.position.x = 320; 
+				button.position.y = 450; 
+				button.interactive = true; 
+				button.buttonMode = true; 
+				button.loop = false; 
+				button.animationSpeed = 0.2;
+				button.onComplete = that.onButtonCloseUpdate;
+				button.tap = that.onButtonCloseClick; 
+				button.click = that.onButtonCloseClick; 
+				button.on('mouseover', that.onButtonCloseOver);
+				button.on('mouseout', that.onButtonCloseOut);
+				var text = new PIXI.Text("Закрыть", that.styleBlueText); 
+				text.x = button.width / 3;
+				text.y = button.height / 3;
+				button.addChild(text); 
+				that.windowStage.addChild(button);
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
+				button.name = "button_close";
+				button.position.x = 320; 
+				button.position.y = 450; 
+				button.interactive = true; 
+				button.buttonMode = true; 
+				button.loop = false; 
+				button.animationSpeed = 0.2;
+				button.onComplete = that.onButtonCloseUpdate;
+				button.tap = that.onButtonCloseClick; 
+				button.click = that.onButtonCloseClick; 
+				button.on('mouseover', that.onButtonCloseOver);
+				button.on('mouseout', that.onButtonCloseOut);
+				var text = new PIXI.Text("Закрыть", that.styleRedText); 
+				text.x = button.width / 3;
+				text.y = button.height / 3;
+				button.addChild(text); 
+				that.windowStage.addChild(button);
+			}
+		},
+		
+		onButtonCloseOver: function(event)
+		{
+			this.isOver = true;
+			this.gotoAndPlay(1);
+		},
+		
+		onButtonCloseOut: function(event)
+		{
+			this.isOver = false;
+			this.gotoAndStop(0);
+		},
+		
+		onButtonCloseUpdate: function(event)
+		{
+			if(this.isOver)
+			{
+				this.gotoAndPlay(1);
+			}else{
+				this.gotoAndStop(0);
+			}
+		},
+		
+		onButtonCloseClick: function(event)
+		{
+			parent.messageClose();
+		},
+		
+		tweenStart: function()
+		{
+			createjs.Tween.get(that.lineAnimationGraphics, {loop: true}) 
+				.to({x: 0, y: 240}, 2500, createjs.Ease.getPowInOut(3));
+			createjs.Ticker.setFPS(60);
+		},
+		
+		tweenStop: function()
+		{
+			createjs.Tween.removeTweens(that.lineAnimationGraphics);
+		},
+		
+		show: function()
+		{
+			that.tweenStart();
+			return that.windowStage;
+		},
+		
+		close: function()
+		{
+			that.tweenStop();
+			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
+			return that.windowStage;
+		},
+		
+		getWindowStage: function()
+		{
+			return that.windowStage;
+		},
+		
+		destroy: function()
+		{
+			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
+			that.windowStage.destroy();
+			delete that.windowStage.children;
+			
+			for(var property in that) that[property] = null;
+		}
+	};
+	return that;
+};
+
+/* == END FILE ========================================================== */
+
+/* == START FILE ========================================================= */
+
+var Preloader = function(parent)
+{
+	var that = {
+		
+		windowStage: new PIXI.Container(),
+		styleText: { font : 'bold 48px Arial', fill : '#FFFF80', stroke : '#FF8000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 600 },
+		progressText: null,
+		percentSounds: 0,
+		percentTextures: 0,
+		complete: 0,
+		assets:  new Object(),
+		
+		load: function() 
+		{
+			var loader = new PIXI.loaders.Loader();
+			loader.add('preloaderTexture',"./assets/image/textures/preloader.jpg");
+			loader.once('complete', that.onLoaderComplete);
+			loader.load();
+			loader = null;
+		},
+		
+		onLoaderComplete: function(loader, res)
+		{
+			var sprite = new PIXI.Sprite(res.preloaderTexture.texture);
+			sprite.position.x = 0; 
+			sprite.position.y = 0; 
+			that.windowStage.addChild(sprite);
+			sprite = null;
+			
+			that.progressText = new PIXI.Text("Загрузка", that.styleText); 
+			that.progressText.x = 280;
+			that.progressText.y = 550;
+			that.windowStage.addChild(that.progressText);
+			
+			that.loadSounds();
+			that.loadAssets();
+		},
+		
+		loadAssets: function()
+		{
+			var loader = new PIXI.loaders.Loader();
+    
+			//loader.add('animTest','./assets/test/test_animation.json');
+			//loader.add('testTexture','./assets/test/test_texture.png');
+			
+			loader.add('starwarsTexture','./assets/image/textures/starwars.png');
+			loader.add('stars1Texture','./assets/image/textures/stars1.jpg');
+			loader.add('ship1Texture','./assets/image/textures/ship1.png');
+			loader.add('ship2Texture','./assets/image/textures/ship2.png');
+			loader.add('ship3Texture','./assets/image/textures/ship3.png');
+
+			loader.add('r2d2DroidBlueRightTexture','./assets/image/textures/r2d2_droid_blue_right.png');
+			loader.add('r2d2DroidRedRightTexture','./assets/image/textures/r2d2_droid_red_right.png');
+			loader.add('r2d2DroidBlueLeftTexture','./assets/image/textures/r2d2_droid_blue_left.png');
+			loader.add('r2d2DroidRedLeftTexture','./assets/image/textures/r2d2_droid_red_left.png');
+
+			loader.add('sideBackgroundTexture','./assets/image/textures/side_background.png');
+			//loader.add('sideDarthVaderTexture','./assets/image/textures/side_darth_vader.png');
+			//loader.add('sideLukeSkywalkerTexture','./assets/image/textures/side_luke_skywalker.png');
+			loader.add('personageDeadTexture','./assets/image/textures/personage_dead.png');
+
+			loader.add('mapSpaceBlueTexture','./assets/image/textures/space_blue.jpg');
+			loader.add('mapSpaceRedTexture','./assets/image/textures/space_red.jpg');
+
+			loader.add('flashAtlas','./assets/image/atlas/flash.json');
+			loader.add('crystalsAtlas','./assets/image/atlas/crystals.json');
+
+			loader.add('buttonBlueAtlas','./assets/image/atlas/button_blue.json');
+			loader.add('buttonRedAtlas','./assets/image/atlas/button_red.json');
+			loader.add('buttonsSettings','./assets/image/atlas/settings_buttons.json');
+			
+			loader.add('sideDarthVaderAtlas','./assets/image/atlas/side_darth_vader.json');
+                        loader.add('sideLukeSkywalkerAtlas','./assets/image/atlas/side_luke_skywalker.json');
+
+			loader.add('planet_light','./assets/image/textures/planets/planet_light.png');
+			loader.add('deathstarTexture','./assets/image/textures/planets/deathstar.png');
+			loader.add('deathstar_landscape','./assets/image/textures/planets/deathstar_landscape.jpg');
+			loader.add('coruscant_planet','./assets/image/textures/planets/coruscant.png');
+			loader.add('coruscant_landscape','./assets/image/textures/planets/coruscant_landscape.jpg');
+			loader.add('tatooine_planet','./assets/image/textures/planets/tatooine.png');
+			loader.add('tatooine_landscape','./assets/image/textures/planets/tatooine_landscape.jpg');
+			loader.add('naboo_planet','./assets/image/textures/planets/naboo.png');
+			loader.add('naboo_landscape','./assets/image/textures/planets/naboo_landscape.jpg');
+			loader.add('endor_planet','./assets/image/textures/planets/endor.png');
+			loader.add('endor_landscape','./assets/image/textures/planets/endor_landscape.jpg');
+			loader.add('hoth_planet','./assets/image/textures/planets/hoth.png');
+			loader.add('hoth_landscape','./assets/image/textures/planets/hoth_landscape.jpg');
+			loader.add('mustafar_planet','./assets/image/textures/planets/mustafar.png');
+			loader.add('mustafar_landscape','./assets/image/textures/planets/mustafar_landscape.jpg');
+			loader.add('dagobah_planet','./assets/image/textures/planets/dagobah.png');
+			loader.add('dagobah_landscape','./assets/image/textures/planets/dagobah_landscape.jpg');
+			loader.add('bespin_planet','./assets/image/textures/planets/bespin.png');
+			loader.add('bespin_landscape','./assets/image/textures/planets/bespin_landscape.jpg');
+			loader.add('geonosis_planet','./assets/image/textures/planets/geonosis.png');
+			loader.add('geonosis_landscape','./assets/image/textures/planets/geonosis_landscape.jpg');
+			loader.add('alderaan_planet','./assets/image/textures/planets/alderaan.png');
+			loader.add('alderaan_landscape','./assets/image/textures/planets/alderaan_landscape.jpg');
+			loader.add('kamino_planet','./assets/image/textures/planets/kamino.png');
+			loader.add('kamino_landscape','./assets/image/textures/planets/kamino_landscape.jpg');
+			loader.add('utapau_planet','./assets/image/textures/planets/utapau.png');
+			loader.add('utapau_landscape','./assets/image/textures/planets/utapau_landscape.jpg');
+			loader.add('saleucami_planet','./assets/image/textures/planets/saleucami.png');
+			loader.add('saleucami_landscape','./assets/image/textures/planets/saleucami_landscape.jpg');
+			loader.add('jakku_planet','./assets/image/textures/planets/jakku.png');
+			loader.add('jakku_landscape','./assets/image/textures/planets/jakku_landscape.jpg');
+
+			loader.add('aayla_secura_lr','./assets/image/textures/personages/aayla_secura_lr.png');
+			loader.add('aayla_secura_rl','./assets/image/textures/personages/aayla_secura_rl.png');
+			loader.add('adigallia','./assets/image/textures/personages/adigallia.png');
+			loader.add('admiral_ozzel','./assets/image/textures/personages/admiral_ozzel.png');
+			loader.add('alliance_to_restore_the_republic','./assets/image/textures/personages/alliance_to_restore_the_republic.png');
+			loader.add('anakin_skywalker','./assets/image/textures/personages/anakin_skywalker.png');
+			loader.add('aurra_sing_lr','./assets/image/textures/personages/aurra_sing_lr.png');
+			loader.add('aurra_sing_rl','./assets/image/textures/personages/aurra_sing_rl.png');
+			loader.add('b1_battle_droid_lr','./assets/image/textures/personages/b1_battle_droid_lr.png');
+			loader.add('b1_battle_droid_rl','./assets/image/textures/personages/b1_battle_droid_rl.png');
+			loader.add('bail_organa','./assets/image/textures/personages/bail_organa.png');
+			loader.add('barriss_offee','./assets/image/textures/personages/barriss_offee.png');
+			loader.add('beru_lars','./assets/image/textures/personages/beru_lars.png');
+			loader.add('bib_fortuna','./assets/image/textures/personages/bib_fortuna.png');
+			loader.add('boba_fett','./assets/image/textures/personages/boba_fett.png');
+			loader.add('boss_nass_lr','./assets/image/textures/personages/boss_nass_lr.png');
+			loader.add('boss_nass_rl','./assets/image/textures/personages/boss_nass_rl.png');
+			loader.add('c_3po_lr','./assets/image/textures/personages/c_3po_lr.png');
+			loader.add('c_3po_rl','./assets/image/textures/personages/c_3po_rl.png');
+			loader.add('capitan_panaka','./assets/image/textures/personages/capitan_panaka.png');
+			loader.add('chewbacca_lr','./assets/image/textures/personages/chewbacca_lr.png');
+			loader.add('chewbacca_rl','./assets/image/textures/personages/chewbacca_rl.png');
+			loader.add('clone_commander_bakara','./assets/image/textures/personages/clone_commander_bakara.png');
+			loader.add('clone_commander_cody_lr','./assets/image/textures/personages/clone_commander_cody_lr.png');
+			loader.add('clone_commander_cody_rl','./assets/image/textures/personages/clone_commander_cody_rl.png');
+			loader.add('clone_commander_neyo','./assets/image/textures/personages/clone_commander_neyo.png');
+			loader.add('clone_commander_rex','./assets/image/textures/personages/clone_commander_rex.png');
+			loader.add('commander_jerjerrod_lr','./assets/image/textures/personages/commander_jerjerrod_lr.png');
+			loader.add('commander_jerjerrod_rl','./assets/image/textures/personages/commander_jerjerrod_rl.png');
+			loader.add('darth_maul','./assets/image/textures/personages/darth_maul.png');
+			loader.add('darth_sidious_lr','./assets/image/textures/personages/darth_sidious_lr.png');
+			loader.add('darth_sidious_rl','./assets/image/textures/personages/darth_sidious_rl.png');
+			loader.add('darth_vader','./assets/image/textures/personages/darth_vader.png');
+			loader.add('dooku_lr','./assets/image/textures/personages/dooku_lr.png');
+			loader.add('dooku_rl','./assets/image/textures/personages/dooku_rl.png');
+			loader.add('eeth_koth','./assets/image/textures/personages/eeth_koth.png');
+			loader.add('finn_lr','./assets/image/textures/personages/finn_lr.png');
+			loader.add('finn_rl','./assets/image/textures/personages/finn_rl.png');
+			loader.add('general_grievous','./assets/image/textures/personages/general_grievous.png');
+			loader.add('general_madine_lr','./assets/image/textures/personages/general_madine_lr.png');
+			loader.add('general_madine_rl','./assets/image/textures/personages/general_madine_rl.png');
+			loader.add('han_solo_lr','./assets/image/textures/personages/han_solo_lr.png');
+			loader.add('han_solo_rl','./assets/image/textures/personages/han_solo_rl.png');
+			loader.add('jango_fett_lr','./assets/image/textures/personages/jango_fett_lr.png');
+			loader.add('jango_fett_rl','./assets/image/textures/personages/jango_fett_rl.png');
+			loader.add('jar_jar_binks','./assets/image/textures/personages/jar_jar_binks.png');
+			loader.add('jawas','./assets/image/textures/personages/jawas.png');
+			loader.add('kapitan_antilles','./assets/image/textures/personages/kapitan_antilles.png');
+			loader.add('ki_adi_mundi','./assets/image/textures/personages/ki_adi_mundi.png');
+			loader.add('kit_fisto','./assets/image/textures/personages/kit_fisto.png');
+			loader.add('kylo_ren','./assets/image/textures/personages/kylo_ren.png');
+			loader.add('lando_calrissian_lr','./assets/image/textures/personages/lando_calrissian_lr.png');
+			loader.add('lando_calrissian_rl','./assets/image/textures/personages/lando_calrissian_rl.png');
+			loader.add('leia_organa_lr','./assets/image/textures/personages/leia_organa_lr.png');
+			loader.add('leia_organa_rl','./assets/image/textures/personages/leia_organa_rl.png');
+			loader.add('luke_skywalker','./assets/image/textures/personages/luke_skywalker.png');
+			loader.add('mace_windu_lr','./assets/image/textures/personages/mace_windu_lr.png');
+			loader.add('mace_windu_rl','./assets/image/textures/personages/mace_windu_rl.png');
+			loader.add('mas_amedda','./assets/image/textures/personages/mas_amedda.png');
+			loader.add('maximilian_veers','./assets/image/textures/personages/maximilian_veers.png');
+			loader.add('mon_motma_lr','./assets/image/textures/personages/mon_motma_lr.png');
+			loader.add('mon_motma_rl','./assets/image/textures/personages/mon_motma_rl.png');
+			loader.add('nute_gunray','./assets/image/textures/personages/nute_gunray.png');
+			loader.add('obi_wan_kenobi','./assets/image/textures/personages/obi_wan_kenobi.png');
+			loader.add('owen_lars','./assets/image/textures/personages/owen_lars.png');
+			loader.add('padme_amidala','./assets/image/textures/personages/padme_amidala.png');
+			loader.add('palpatine','./assets/image/textures/personages/palpatine.png');
+			loader.add('phasma','./assets/image/textures/personages/phasma.png');
+			loader.add('plo_koon','./assets/image/textures/personages/plo_koon.png');
+			loader.add('poe_dameron','./assets/image/textures/personages/poe_dameron.png');
+			loader.add('poggle_the_lesser','./assets/image/textures/personages/poggle_the_lesser.png');
+			loader.add('qui_gon_jinn_lr','./assets/image/textures/personages/qui_gon_jinn_lr.png');
+			loader.add('qui_gon_jinn_rl','./assets/image/textures/personages/qui_gon_jinn_rl.png');
+			loader.add('red_battle_droid_lr','./assets/image/textures/personages/red_battle_droid_lr.png');
+			loader.add('red_battle_droid_rl','./assets/image/textures/personages/red_battle_droid_rl.png');
+			loader.add('republic_clone_army','./assets/image/textures/personages/republic_clone_army.png');
+			loader.add('rey','./assets/image/textures/personages/rey.png');
+			loader.add('royal_guards','./assets/image/textures/personages/royal_guards.png');
+			loader.add('rune_haako_lr','./assets/image/textures/personages/rune_haako_lr.png');
+			loader.add('rune_haako_rl','./assets/image/textures/personages/rune_haako_rl.png');
+			loader.add('saesee_tiin_lr','./assets/image/textures/personages/saesee_tiin_lr.png');
+			loader.add('saesee_tiin_rl','./assets/image/textures/personages/saesee_tiin_rl.png');
+			loader.add('separatists','./assets/image/textures/personages/separatists.png');
+			loader.add('shaak_ti','./assets/image/textures/personages/shaak_ti.png');
+			loader.add('shmi_skywalker','./assets/image/textures/personages/shmi_skywalker.png');
+			loader.add('sio_bibble','./assets/image/textures/personages/sio_bibble.png');
+			loader.add('stormtrooper','./assets/image/textures/personages/stormtrooper.png');
+			loader.add('stormtrooper_lr','./assets/image/textures/personages/stormtrooper_lr.png');
+			loader.add('stormtrooper_rl','./assets/image/textures/personages/stormtrooper_rl.png');
+			loader.add('stormtroopers','./assets/image/textures/personages/stormtroopers.png');
+			loader.add('tion_medon','./assets/image/textures/personages/tion_medon.png');
+			loader.add('trade_federation','./assets/image/textures/personages/trade_federation.png');
+			loader.add('tusken','./assets/image/textures/personages/tusken.png');
+			loader.add('wat_tambor_lr','./assets/image/textures/personages/wat_tambor_lr.png');
+			loader.add('wat_tambor_rl','./assets/image/textures/personages/wat_tambor_rl.png');
+			loader.add('watto','./assets/image/textures/personages/watto.png');
+			loader.add('wicket_wysri_warrick','./assets/image/textures/personages/wicket_wysri_warrick.png');
+			loader.add('yoda','./assets/image/textures/personages/yoda.png');
+			
+			loader.add('iconsAtlas','./assets/image/atlas/icons.json');
+			
+			loader.add('personages','./assets/data/personages.json');
+			loader.add('planets','./assets/data/planets.json');
+			
+			loader.add('level_0_0','./assets/data/levels/level_0_0.json');
+			loader.add('level_0_1','./assets/data/levels/level_0_1.json');
+			loader.add('level_0_2','./assets/data/levels/level_0_2.json');
+			loader.add('level_0_3','./assets/data/levels/level_0_3.json');
+			loader.add('level_0_4','./assets/data/levels/level_0_4.json');
+			loader.add('level_0_5','./assets/data/levels/level_0_5.json');
+			loader.add('level_0_6','./assets/data/levels/level_0_6.json');
+			loader.add('level_0_7','./assets/data/levels/level_0_7.json');
+			loader.add('level_0_8','./assets/data/levels/level_0_8.json');
+			loader.add('level_0_9','./assets/data/levels/level_0_9.json');
+			
+			loader.add('level_1_0','./assets/data/levels/level_1_0.json');
+			loader.add('level_1_1','./assets/data/levels/level_1_1.json');
+			loader.add('level_1_2','./assets/data/levels/level_1_2.json');
+			loader.add('level_1_3','./assets/data/levels/level_1_3.json');
+			loader.add('level_1_4','./assets/data/levels/level_1_4.json');
+			loader.add('level_1_5','./assets/data/levels/level_1_5.json');
+			loader.add('level_1_6','./assets/data/levels/level_1_6.json');
+			loader.add('level_1_7','./assets/data/levels/level_1_7.json');
+			loader.add('level_1_8','./assets/data/levels/level_1_8.json');
+			loader.add('level_1_9','./assets/data/levels/level_1_9.json');
+			
+			loader.add('level_2_0','./assets/data/levels/level_2_0.json');
+			loader.add('level_2_1','./assets/data/levels/level_2_1.json');
+			loader.add('level_2_2','./assets/data/levels/level_2_2.json');
+			loader.add('level_2_3','./assets/data/levels/level_2_3.json');
+			loader.add('level_2_4','./assets/data/levels/level_2_4.json');
+			loader.add('level_2_5','./assets/data/levels/level_2_5.json');
+			loader.add('level_2_6','./assets/data/levels/level_2_6.json');
+			loader.add('level_2_7','./assets/data/levels/level_2_7.json');
+			loader.add('level_2_8','./assets/data/levels/level_2_8.json');
+			loader.add('level_2_9','./assets/data/levels/level_2_9.json');
+			
+			loader.on('progress', that.onAssetsLoaderProcess);
+			loader.on('complete', that.onAssetsLoaderComplete);
+			loader.load();
+			loader = null;
+		},
+		
+		onAssetsLoaderProcess: function()
+		{
+			that.percentTextures = (Math.round(this.progress) / 2);
+			that.progressText.text = "Загрузка " + (that.percentTextures + that.percentSounds) + "%";
+		},
+		
+		onAssetsLoaderComplete: function(loader, res)
+		{
+			that.percentTextures = 50;
+			that.progressText.text = "Загрузка " + (that.percentTextures + that.percentSounds) + "%";
+			
+			that.assets["deathstarTexture"] = res.deathstarTexture.texture;			// deathstar.png
+			that.assets["starwarsTexture"] = res.starwarsTexture.texture;			// starwars.png
+			that.assets["stars1Texture"] = res.stars1Texture.texture;				// stars1.jpg
+			that.assets["ship1Texture"] = res.ship1Texture.texture;				// ship1.png
+			that.assets["ship2Texture"] = res.ship2Texture.texture;				// ship2.png
+			that.assets["ship3Texture"] = res.ship3Texture.texture;				// ship3.png
+			that.assets["r2d2DroidBlueRightTexture"]  = res.r2d2DroidBlueRightTexture.texture;	// r2d2_droid_blue_right.png
+			that.assets["r2d2DroidRedRightTexture"] = res.r2d2DroidRedRightTexture.texture;	// r2d2_droid_red_right.png
+			that.assets["r2d2DroidBlueLeftTexture"]  = res.r2d2DroidBlueLeftTexture.texture;	// r2d2_droid_blue_left.png
+			that.assets["r2d2DroidRedLeftTexture"] = res.r2d2DroidRedLeftTexture.texture;	// r2d2_droid_red_left.png
+			that.assets["sideBackgroundTexture"] = res.sideBackgroundTexture.texture;          // side_background.png
+			//that.assets["sideDarthVaderTexture"] = res.sideDarthVaderTexture.texture;          // side_darth_vader.png
+			//that.assets["sideLukeSkywalkerTexture"] = res.sideLukeSkywalkerTexture.texture;    // side_luke_skywalker.png
+			that.assets["personageDeadTexture"] = res.personageDeadTexture.texture;            // personage_dead.png
+
+			that.assets["mapSpaceBlueTexture"] = res.mapSpaceBlueTexture.texture;              // space_blue.jpg
+			that.assets["mapSpaceRedTexture"]= res.mapSpaceRedTexture.texture;                // space_red.jpg
+
+			that.assets["hit1Texture"] = PIXI.Texture.fromFrame('hit_1.png');
+			that.assets["hit2Texture"] = PIXI.Texture.fromFrame('hit_2.png');
+			that.assets["hit3Texture"] = PIXI.Texture.fromFrame('hit_3.png');
+			that.assets["hit4Texture"] = PIXI.Texture.fromFrame('hit_4.png');
+			that.assets["hit5Texture"] = PIXI.Texture.fromFrame('hit_5.png');
+			
+			that.assets["animTexFlash"] = that.loadAnimationTextures(13, 'flash_');
+
+			that.assets["animTexButtonBlue"] = that.loadAnimationTextures(11, 'button_blue_');
+			that.assets["animTexButtonRed"] = that.loadAnimationTextures(11, 'button_red_');
+			
+			that.assets["engButtonTexture"] = PIXI.Texture.fromFrame('eng.png');
+			that.assets["infoButtonTexture"] = PIXI.Texture.fromFrame('information.png');
+			that.assets["musicOnButtonTexture"] = PIXI.Texture.fromFrame('music.png');
+			that.assets["musicOffButtonTexture"] = PIXI.Texture.fromFrame('music_off.png');
+			that.assets["rusButtonTexture"] = PIXI.Texture.fromFrame('rus.png');
+			that.assets["soundOnButtonTexture"] = PIXI.Texture.fromFrame('sound.png');
+			that.assets["soundOffButtonTexture"] = PIXI.Texture.fromFrame('sound_off.png');
+			
+			that.assets["animTexSideDarthVader"] = that.loadAnimationTextures(16, 'side_darth_vader_');
+                        that.assets["animTexSideLukeSkywalker"] = that.loadAnimationTextures(21, 'side_luke_skywalker_');
+                        
+			that.assets["planetTextures"] = new Object();
+			that.assets["planetTextures"]["Coruscant"] = ["Корусант", res.coruscant_planet.texture, res.coruscant_landscape.texture, res.planet_light.texture];
+			that.assets["planetTextures"]["Totooine"] = ["Татуин", res.tatooine_planet.texture, res.tatooine_landscape.texture, res.planet_light.texture];
+			that.assets["planetTextures"]["Naboo"] = ["Набу", res.naboo_planet.texture, res.naboo_landscape.texture, res.planet_light.texture];
+			that.assets["planetTextures"]["Endor"] = ["Эндор", res.endor_planet.texture, res.endor_landscape.texture, res.planet_light.texture];
+			that.assets["planetTextures"]["Hoth"] = ["Хот", res.hoth_planet.texture, res.hoth_landscape.texture, res.planet_light.texture];
+			that.assets["planetTextures"]["Mustafar"] = ["Мустафар", res.mustafar_planet.texture, res.mustafar_landscape.texture, res.planet_light.texture];
+			that.assets["planetTextures"]["Dagobah"] = ["Дагоба", res.dagobah_planet.texture, res.dagobah_landscape.texture, res.planet_light.texture];
+			that.assets["planetTextures"]["Bespin"] = ["Беспин", res.bespin_planet.texture, res.bespin_landscape.texture, res.planet_light.texture];
+			that.assets["planetTextures"]["Geonosis"] = ["Джеонозис", res.geonosis_planet.texture, res.geonosis_landscape.texture, res.planet_light.texture];
+			that.assets["planetTextures"]["Alderaan"] = ["Альдераан", res.alderaan_planet.texture, res.alderaan_landscape.texture, res.planet_light.texture];
+			that.assets["planetTextures"]["Kamino"] = ["Камино", res.kamino_planet.texture, res.kamino_landscape.texture, res.planet_light.texture];
+			that.assets["planetTextures"]["DeathStar"] = ["Звезда смерти", res.deathstarTexture.texture, res.deathstar_landscape.texture, res.planet_light.texture];
+			that.assets["planetTextures"]["Utapau"] = ["Утапау", res.utapau_planet.texture, res.utapau_landscape.texture, res.planet_light.texture];
+			that.assets["planetTextures"]["Saleucami"] = ["Салукемай", res.saleucami_planet.texture, res.saleucami_landscape.texture, res.planet_light.texture];
+			that.assets["planetTextures"]["Jakku"] = ["Джакку", res.jakku_planet.texture, res.jakku_landscape.texture, res.planet_light.texture];
+			
+			that.assets["heroesTextures"] = new Object();
+			that.assets["heroesTextures"]["aayla_secura"] = ["Эйла Секура", res.aayla_secura_lr.texture, res.aayla_secura_rl.texture, PIXI.Texture.fromFrame("aayla_secura_icon.png")];
+			that.assets["heroesTextures"]["adigallia"] = ["Ади Галлия", res.adigallia.texture, res.adigallia.texture, PIXI.Texture.fromFrame("adigallia_icon.png")];
+			that.assets["heroesTextures"]["admiral_ozzel"] = ["Кендал Оззель", res.admiral_ozzel.texture, res.admiral_ozzel.texture, PIXI.Texture.fromFrame("admiral_ozzel_icon.png")];
+			that.assets["heroesTextures"]["alliance_to_restore_the_republic"] = ["Альянс повстанцев", res.alliance_to_restore_the_republic.texture, res.alliance_to_restore_the_republic.texture, PIXI.Texture.fromFrame("alliance_to_restore_the_republic_icon.png")];
+			that.assets["heroesTextures"]["anakin_skywalker"] = ["Энакин Скайуокер", res.anakin_skywalker.texture, res.anakin_skywalker.texture, PIXI.Texture.fromFrame("anakin_skywalker_icon.png")];
+			that.assets["heroesTextures"]["aurra_sing"] = ["Орра Синг", res.aurra_sing_lr.texture, res.aurra_sing_rl.texture, PIXI.Texture.fromFrame("aurra_sing_icon.png")];
+			that.assets["heroesTextures"]["b1_battle_droid"] = ["Боевой дроид B1", res.b1_battle_droid_lr.texture, res.b1_battle_droid_rl.texture, PIXI.Texture.fromFrame("b1_battle_droid_icon.png")];
+			that.assets["heroesTextures"]["b1_battle_droid_2"] = ["Боевой дроид B1", res.b1_battle_droid_lr.texture, res.b1_battle_droid_rl.texture, PIXI.Texture.fromFrame("b1_battle_droid_icon.png")];
+			that.assets["heroesTextures"]["b1_battle_droid_3"] = ["Боевой дроид B1", res.b1_battle_droid_lr.texture, res.b1_battle_droid_rl.texture, PIXI.Texture.fromFrame("b1_battle_droid_icon.png")];
+			that.assets["heroesTextures"]["bail_organa"] = ["Бэйл Органа", res.bail_organa.texture, res.bail_organa.texture, PIXI.Texture.fromFrame("bail_organa_icon.png")];
+			that.assets["heroesTextures"]["barriss_offee"] = ["Бэррисс Оффи", res.barriss_offee.texture, res.barriss_offee.texture, PIXI.Texture.fromFrame("barriss_offee_icon.png")];
+			that.assets["heroesTextures"]["beru_lars"] = ["Беру Ларс", res.beru_lars.texture, res.beru_lars.texture, PIXI.Texture.fromFrame("beru_lars_icon.png")];
+			that.assets["heroesTextures"]["bib_fortuna"] = ["Биб Фортуна", res.bib_fortuna.texture, res.bib_fortuna.texture, PIXI.Texture.fromFrame("bib_fortuna_icon.png")];
+			that.assets["heroesTextures"]["boba_fett"] = ["Боба Фетт", res.boba_fett.texture, res.boba_fett.texture, PIXI.Texture.fromFrame("boba_fett_icon.png")];
+			that.assets["heroesTextures"]["boss_nass"] = ["Босс Насс", res.boss_nass_lr.texture, res.boss_nass_rl.texture, PIXI.Texture.fromFrame("boss_nass_icon.png")];
+			that.assets["heroesTextures"]["c_3po"] = ["С-3РО", res.c_3po_lr.texture, res.c_3po_rl.texture, PIXI.Texture.fromFrame("c_3po_icon.png")];
+			that.assets["heroesTextures"]["capitan_panaka"] = ["Капитан Панака", res.capitan_panaka.texture, res.capitan_panaka.texture, PIXI.Texture.fromFrame("capitan_panaka_icon.png")];
+			that.assets["heroesTextures"]["chewbacca"] = ["Чубака", res.chewbacca_lr.texture, res.chewbacca_rl.texture, PIXI.Texture.fromFrame("chewbacca_icon.png")];
+			that.assets["heroesTextures"]["clone_commander_bakara"] = ["Бакара", res.clone_commander_bakara.texture, res.clone_commander_bakara.texture, PIXI.Texture.fromFrame("clone_commander_bakara_icon.png")];
+			that.assets["heroesTextures"]["clone_commander_bakara_2"] = ["Бакара", res.clone_commander_bakara.texture, res.clone_commander_bakara.texture, PIXI.Texture.fromFrame("clone_commander_bakara_icon.png")];
+			that.assets["heroesTextures"]["clone_commander_cody"] = ["Коди", res.clone_commander_cody_lr.texture, res.clone_commander_cody_rl.texture, PIXI.Texture.fromFrame("clone_commander_cody_icon.png")];
+			that.assets["heroesTextures"]["clone_commander_cody_2"] = ["Коди", res.clone_commander_cody_lr.texture, res.clone_commander_cody_rl.texture, PIXI.Texture.fromFrame("clone_commander_cody_icon.png")];
+			that.assets["heroesTextures"]["clone_commander_neyo"] = ["Нейо", res.clone_commander_neyo.texture, res.clone_commander_neyo.texture, PIXI.Texture.fromFrame("clone_commander_neyo_icon.png")];
+			that.assets["heroesTextures"]["clone_commander_neyo_2"] = ["Нейо", res.clone_commander_neyo.texture, res.clone_commander_neyo.texture, PIXI.Texture.fromFrame("clone_commander_neyo_icon.png")];
+			that.assets["heroesTextures"]["clone_commander_rex"] = ["Рекс", res.clone_commander_rex.texture, res.clone_commander_rex.texture, PIXI.Texture.fromFrame("clone_commander_rex_icon.png")];
+			that.assets["heroesTextures"]["clone_commander_rex_2"] = ["Рекс", res.clone_commander_rex.texture, res.clone_commander_rex.texture, PIXI.Texture.fromFrame("clone_commander_rex_icon.png")];
+			that.assets["heroesTextures"]["commander_jerjerrod"] = ["Тиаан Джерджеррод", res.commander_jerjerrod_lr.texture, res.commander_jerjerrod_rl.texture, PIXI.Texture.fromFrame("commander_jerjerrod_icon.png")];
+			that.assets["heroesTextures"]["darth_maul"] = ["Дарт Мол", res.darth_maul.texture, res.darth_maul.texture, PIXI.Texture.fromFrame("darth_maul_icon.png")];
+			that.assets["heroesTextures"]["darth_sidious"] = ["Дарт Сидиус", res.darth_sidious_lr.texture, res.darth_sidious_rl.texture, PIXI.Texture.fromFrame("darth_sidious_icon.png")];
+			that.assets["heroesTextures"]["darth_vader"] = ["Дарт Вейдер", res.darth_vader.texture, res.darth_vader.texture, PIXI.Texture.fromFrame("darth_vader_icon.png")];
+			that.assets["heroesTextures"]["dooku"] = ["Граф Дуку", res.dooku_lr.texture, res.dooku_rl.texture, PIXI.Texture.fromFrame("dooku_icon.png")];
+			that.assets["heroesTextures"]["eeth_koth"] = ["Иит Кот", res.eeth_koth.texture, res.eeth_koth.texture, PIXI.Texture.fromFrame("eeth_koth_icon.png")];
+			that.assets["heroesTextures"]["finn"] = ["Финн", res.finn_lr.texture, res.finn_rl.texture, PIXI.Texture.fromFrame("finn_icon.png")];
+			that.assets["heroesTextures"]["general_grievous"] = ["Генерал Гривус", res.general_grievous.texture, res.general_grievous.texture, PIXI.Texture.fromFrame("general_grievous_icon.png")];
+			that.assets["heroesTextures"]["general_grievous_2"] = ["Генерал Гривус", res.general_grievous.texture, res.general_grievous.texture, PIXI.Texture.fromFrame("general_grievous_icon.png")];
+			that.assets["heroesTextures"]["general_madine"] = ["Генерал Мадин", res.general_madine_lr.texture, res.general_madine_rl.texture, PIXI.Texture.fromFrame("general_madine_icon.png")];
+			that.assets["heroesTextures"]["han_solo"] = ["Хан Соло", res.han_solo_lr.texture, res.han_solo_rl.texture, PIXI.Texture.fromFrame("han_solo_icon.png")];
+			that.assets["heroesTextures"]["jango_fett"] = ["Джанго Фетт", res.jango_fett_lr.texture, res.jango_fett_rl.texture, PIXI.Texture.fromFrame("jango_fett_icon.png")];
+			that.assets["heroesTextures"]["jar_jar_binks"] = ["Джа-Джа Бинкс", res.jar_jar_binks.texture, res.jar_jar_binks.texture, PIXI.Texture.fromFrame("jar_jar_binks_icon.png")];
+			that.assets["heroesTextures"]["jawas"] = ["Джавы", res.jawas.texture, res.jawas.texture, PIXI.Texture.fromFrame("jawas_icon.png")];
+			that.assets["heroesTextures"]["kapitan_antilles"] = ["Капитан Антиллес", res.kapitan_antilles.texture, res.kapitan_antilles.texture, PIXI.Texture.fromFrame("kapitan_antilles_icon.png")];
+			that.assets["heroesTextures"]["ki_adi_mundi"] = ["Ки-Ади-Мунди", res.ki_adi_mundi.texture, res.ki_adi_mundi.texture, PIXI.Texture.fromFrame("ki_adi_mundi_icon.png")];
+			that.assets["heroesTextures"]["kit_fisto"] = ["Кит Фисто", res.kit_fisto.texture, res.kit_fisto.texture, PIXI.Texture.fromFrame("kit_fisto_icon.png")];
+			that.assets["heroesTextures"]["kylo_ren"] = ["Кайло Рен", res.kylo_ren.texture, res.kylo_ren.texture, PIXI.Texture.fromFrame("kylo_ren_icon.png")];
+			that.assets["heroesTextures"]["lando_calrissian"] = ["Лэндо Калриссиан", res.lando_calrissian_lr.texture, res.lando_calrissian_rl.texture, PIXI.Texture.fromFrame("lando_calrissian_icon.png")];
+			that.assets["heroesTextures"]["leia_organa"] = ["Принцесса Лея Органа", res.leia_organa_lr.texture, res.leia_organa_rl.texture, PIXI.Texture.fromFrame("leia_organa_icon.png")];
+			that.assets["heroesTextures"]["luke_skywalker"] = ["Люк Скайуокер", res.luke_skywalker.texture, res.luke_skywalker.texture, PIXI.Texture.fromFrame("luke_skywalker_icon.png")];
+			that.assets["heroesTextures"]["mace_windu"] = ["Мейс Винду", res.mace_windu_lr.texture, res.mace_windu_rl.texture, PIXI.Texture.fromFrame("mace_windu_icon.png")];
+			that.assets["heroesTextures"]["mas_amedda"] = ["Мас Амедда", res.mas_amedda.texture, res.mas_amedda.texture, PIXI.Texture.fromFrame("mas_amedda_icon.png")];
+			that.assets["heroesTextures"]["maximilian_veers"] = ["Максимилиан Вирс", res.maximilian_veers.texture, res.maximilian_veers.texture, PIXI.Texture.fromFrame("maximilian_veers_icon.png")];
+			that.assets["heroesTextures"]["mon_motma"] = ["Мон Мотма", res.mon_motma_lr.texture, res.mon_motma_rl.texture, PIXI.Texture.fromFrame("mon_motma_icon.png")];
+			that.assets["heroesTextures"]["nute_gunray"] = ["Нут Ганрей", res.nute_gunray.texture, res.nute_gunray.texture, PIXI.Texture.fromFrame("nute_gunray_icon.png")];
+			that.assets["heroesTextures"]["obi_wan_kenobi"] = ["Оби-Ван Кеноби", res.obi_wan_kenobi.texture, res.obi_wan_kenobi.texture, PIXI.Texture.fromFrame("obi_wan_kenobi_icon.png")];
+			that.assets["heroesTextures"]["owen_lars"] = ["Оуэн Ларс", res.owen_lars.texture, res.owen_lars.texture, PIXI.Texture.fromFrame("owen_lars_icon.png")];
+			that.assets["heroesTextures"]["padme_amidala"] = ["Падме Амидала", res.padme_amidala.texture, res.padme_amidala.texture, PIXI.Texture.fromFrame("padme_amidala_icon.png")];
+			that.assets["heroesTextures"]["palpatine"] = ["Палпатин", res.palpatine.texture, res.palpatine.texture, PIXI.Texture.fromFrame("palpatine_icon.png")];
+			that.assets["heroesTextures"]["phasma"] = ["Фазма", res.phasma.texture, res.phasma.texture, PIXI.Texture.fromFrame("phasma_icon.png")];   
+			that.assets["heroesTextures"]["plo_koon"] = ["Пло Кун", res.plo_koon.texture, res.plo_koon.texture, PIXI.Texture.fromFrame("plo_koon_icon.png")];
+			that.assets["heroesTextures"]["poe_dameron"] = ["По Дамерон", res.poe_dameron.texture, res.poe_dameron.texture, PIXI.Texture.fromFrame("poe_dameron_icon.png")];
+			that.assets["heroesTextures"]["poggle_the_lesser"] = ["Поггль Меньший", res.poggle_the_lesser.texture, res.poggle_the_lesser.texture, PIXI.Texture.fromFrame("poggle_the_lesser_icon.png")];
+			that.assets["heroesTextures"]["qui_gon_jinn"] = ["Квай-Гон Джинн", res.qui_gon_jinn_lr.texture, res.qui_gon_jinn_rl.texture, PIXI.Texture.fromFrame("qui_gon_jinn_icon.png")];
+			that.assets["heroesTextures"]["red_battle_droid"] = ["Боевой дроид", res.red_battle_droid_lr.texture, res.red_battle_droid_rl.texture, PIXI.Texture.fromFrame("red_battle_droid_icon.png")];
+			that.assets["heroesTextures"]["republic_clone_army"] = ["Республиканская армия клонов", res.republic_clone_army.texture, res.republic_clone_army.texture, PIXI.Texture.fromFrame("republic_clone_army_icon.png")];
+			that.assets["heroesTextures"]["republic_clone_army_2"] = ["Республиканская армия клонов", res.republic_clone_army.texture, res.republic_clone_army.texture, PIXI.Texture.fromFrame("republic_clone_army_icon.png")];
+			that.assets["heroesTextures"]["rey"] = ["Рей", res.rey.texture, res.rey.texture, PIXI.Texture.fromFrame("rey_icon.png")];
+			that.assets["heroesTextures"]["royal_guards"] = ["Королевский страж", res.royal_guards.texture, res.royal_guards.texture, PIXI.Texture.fromFrame("royal_guards_icon.png")];
+			that.assets["heroesTextures"]["rune_haako"] = ["Рун Хаако", res.rune_haako_lr.texture, res.rune_haako_rl.texture, PIXI.Texture.fromFrame("rune_haako_icon.png")];
+			that.assets["heroesTextures"]["saesee_tiin"] = ["Сэси Тийн", res.saesee_tiin_lr.texture, res.saesee_tiin_rl.texture, PIXI.Texture.fromFrame("saesee_tiin_icon.png")];
+			that.assets["heroesTextures"]["separatists"] = ["Сепаратисты", res.separatists.texture, res.separatists.texture, PIXI.Texture.fromFrame("separatists_icon.png")];
+			that.assets["heroesTextures"]["separatists_2"] = ["Сепаратисты", res.separatists.texture, res.separatists.texture, PIXI.Texture.fromFrame("separatists_icon.png")];
+			that.assets["heroesTextures"]["shaak_ti"] = ["Шаак Ти", res.shaak_ti.texture, res.shaak_ti.texture, PIXI.Texture.fromFrame("shaak_ti_icon.png")];
+			that.assets["heroesTextures"]["shmi_skywalker"] = ["Шми Скайуокер", res.shmi_skywalker.texture, res.shmi_skywalker.texture, PIXI.Texture.fromFrame("shmi_skywalker_icon.png")];
+			that.assets["heroesTextures"]["sio_bibble"] = ["Сио Биббл", res.sio_bibble.texture, res.sio_bibble.texture, PIXI.Texture.fromFrame("sio_bibble_icon.png")];
+			that.assets["heroesTextures"]["stormtrooper_1"] = ["Штурмовик", res.stormtrooper.texture, res.stormtrooper.texture, PIXI.Texture.fromFrame("stormtrooper_icon.png")];
+			that.assets["heroesTextures"]["stormtrooper_1_2"] = ["Штурмовик", res.stormtrooper.texture, res.stormtrooper.texture, PIXI.Texture.fromFrame("stormtrooper_icon.png")];
+			that.assets["heroesTextures"]["stormtrooper_1_3"] = ["Штурмовик", res.stormtrooper.texture, res.stormtrooper.texture, PIXI.Texture.fromFrame("stormtrooper_icon.png")];
+			that.assets["heroesTextures"]["stormtrooper_2"] = ["Штурмовик", res.stormtrooper_lr.texture, res.stormtrooper_rl.texture, PIXI.Texture.fromFrame("stormtrooper_icon.png")];
+			that.assets["heroesTextures"]["stormtroopers"] = ["Имперские штурмовики", res.stormtroopers.texture, res.stormtroopers.texture, PIXI.Texture.fromFrame("stormtroopers_icon.png")];
+			that.assets["heroesTextures"]["stormtroopers_2"] = ["Имперские штурмовики", res.stormtroopers.texture, res.stormtroopers.texture, PIXI.Texture.fromFrame("stormtroopers_icon.png")];
+			that.assets["heroesTextures"]["stormtroopers_3"] = ["Имперские штурмовики", res.stormtroopers.texture, res.stormtroopers.texture, PIXI.Texture.fromFrame("stormtroopers_icon.png")];
+			that.assets["heroesTextures"]["tion_medon"] = ["Тион Медон", res.tion_medon.texture, res.tion_medon.texture, PIXI.Texture.fromFrame("tion_medon_icon.png")];
+			that.assets["heroesTextures"]["trade_federation"] = ["Торговая Федерация", res.trade_federation.texture, res.trade_federation.texture, PIXI.Texture.fromFrame("trade_federation_icon.png")];
+			that.assets["heroesTextures"]["tusken"] = ["Таскенские рейдеры", res.tusken.texture, res.tusken.texture, PIXI.Texture.fromFrame("tusken_icon.png")];
+			that.assets["heroesTextures"]["tusken_2"] = ["Таскенские рейдеры", res.tusken.texture, res.tusken.texture, PIXI.Texture.fromFrame("tusken_icon.png")];
+			that.assets["heroesTextures"]["wat_tambor"] = ["Уот Тамбор", res.wat_tambor_lr.texture, res.wat_tambor_rl.texture, PIXI.Texture.fromFrame("wat_tambor_icon.png")];
+			that.assets["heroesTextures"]["watto"] = ["Уотто", res.watto.texture, res.watto.texture, PIXI.Texture.fromFrame("watto_icon.png")];
+			that.assets["heroesTextures"]["wicket_wysri_warrick"] = ["Уикет У.Уоррик", res.wicket_wysri_warrick.texture, res.wicket_wysri_warrick.texture, PIXI.Texture.fromFrame("wicket_wysri_warrick_icon.png")];
+			that.assets["heroesTextures"]["yoda"] = ["Йода", res.yoda.texture, res.yoda.texture, PIXI.Texture.fromFrame("yoda_icon.png")];
+			
+			that.assets["personagesJson"] = res.personages;
+			that.assets["planetsJson"] = res.planets;
+
+			that.assets["fieldLevelsJson"] = new Object();
+			that.assets["fieldLevelsJson"]["level_0_0"] = res.level_0_0;
+			that.assets["fieldLevelsJson"]["level_0_1"] = res.level_0_1;
+			that.assets["fieldLevelsJson"]["level_0_2"] = res.level_0_2;
+			that.assets["fieldLevelsJson"]["level_0_3"] = res.level_0_3;
+			that.assets["fieldLevelsJson"]["level_0_4"] = res.level_0_4;
+			that.assets["fieldLevelsJson"]["level_0_5"] = res.level_0_5;
+			that.assets["fieldLevelsJson"]["level_0_6"] = res.level_0_6;
+			that.assets["fieldLevelsJson"]["level_0_7"] = res.level_0_7;
+			that.assets["fieldLevelsJson"]["level_0_8"] = res.level_0_8;
+			that.assets["fieldLevelsJson"]["level_0_9"] = res.level_0_9;
+			that.assets["fieldLevelsJson"]["level_1_0"] = res.level_1_0;
+			that.assets["fieldLevelsJson"]["level_1_1"] = res.level_1_1;
+			that.assets["fieldLevelsJson"]["level_1_2"] = res.level_1_2;
+			that.assets["fieldLevelsJson"]["level_1_3"] = res.level_1_3;
+			that.assets["fieldLevelsJson"]["level_1_4"] = res.level_1_4;
+			that.assets["fieldLevelsJson"]["level_1_5"] = res.level_1_5;
+			that.assets["fieldLevelsJson"]["level_1_6"] = res.level_1_6;
+			that.assets["fieldLevelsJson"]["level_1_7"] = res.level_1_7;
+			that.assets["fieldLevelsJson"]["level_1_8"] = res.level_1_8;
+			that.assets["fieldLevelsJson"]["level_1_9"] = res.level_1_9;
+			that.assets["fieldLevelsJson"]["level_2_0"] = res.level_2_0;
+			that.assets["fieldLevelsJson"]["level_2_1"] = res.level_2_1;
+			that.assets["fieldLevelsJson"]["level_2_2"] = res.level_2_2;
+			that.assets["fieldLevelsJson"]["level_2_3"] = res.level_2_3;
+			that.assets["fieldLevelsJson"]["level_2_4"] = res.level_2_4;
+			that.assets["fieldLevelsJson"]["level_2_5"] = res.level_2_5;
+			that.assets["fieldLevelsJson"]["level_2_6"] = res.level_2_6;
+			that.assets["fieldLevelsJson"]["level_2_7"] = res.level_2_7;
+			that.assets["fieldLevelsJson"]["level_2_8"] = res.level_2_8;
+			that.assets["fieldLevelsJson"]["level_2_9"] = res.level_2_9;
+			
+			that.complete++;
+			that.onComplete();
+		},
+		
+		
+		loadSounds: function()
+		{
+			var queue = new createjs.LoadQueue();
+			createjs.Sound.alternateExtensions = ["mp3"];
+			queue.installPlugin(createjs.Sound);
+			queue.on("progress", that.onSoundLoaderProcess);
+			queue.on("complete", that.onSoundLoaderComplete);
+			queue.loadFile({"id":"StarWarsThemeSong", "src":"assets/music/star_wars_theme_song.mp3"});
+			queue = null;
+		},
+		
+		onSoundLoaderProcess: function(event)
+		{
+			that.percentSounds = Math.round((event.loaded) * (50 / event.total));
+			that.progressText.text = "Загрузка " + (that.percentTextures + that.percentSounds) + "%";
+		},
+		
+		onSoundLoaderComplete: function(event)
+		{
+			that.complete++;
+			that.onComplete();
+		},
+		
+		loadAnimationTextures: function(countFrame, nameFrame)
+		{
+			var nameTexture;
+			var animTextures = [];
+			for(var i = 1; i <= countFrame; i++)
+			{
+				if(i < 10)
+				{
+					nameTexture = nameFrame + '0' + i + '.png';
+				}else{
+					nameTexture = nameFrame + i + '.png';
+				}
+				var texture = PIXI.Texture.fromFrame(nameTexture);
+				animTextures.push(texture);
+			}
+			return animTextures;
+		},
+		
+		show: function()
+		{
+			return that.windowStage;
+		},
+		
+		close: function()
+		{
+			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
+			return that.windowStage;
+		},
+		
+		getWindowStage: function()
+		{
+			return that.windowStage;
+		},
+		
+		getAsset: function(nameAsset)
+		{
+			return that.assets[nameAsset];
+		},
+		
+		onComplete: function()
+		{
+			if(that.complete === 2)
+			{
+				parent.loadAssetsComplete();
+			}
+		}
+	};
+	return that;
+};
+
+/* == END FILE ========================================================== */
+
+/* == START FILE ========================================================= */
+
+
+var Settings = function(parent)
+{
+	var that = {
+		windowStage: null,
+		lineAnimationGraphics: null,
+		styleBlueText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 },
+		styleRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 },
+		SIDE_NONE: "side_none",
+		SIDE_JEDI: "side_jedi",
+		SIDE_SITH: "side_sith",
+		
+		create: function()
+		{
+			that.windowStage = new PIXI.Container();
+			that.backgroundCreate();
+			that.windowCreate();
+			that.titleCreate();
+			that.textCreate();
+			that.buttonsCreate();
+			that.buttonCloseCreate();
+		},
+		
+		backgroundCreate: function()
+		{
+			var graphics = new PIXI.Graphics(); 
+			graphics.hitArea = new PIXI.Rectangle(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
+			graphics.interactive = true;
+			graphics.lineStyle(1, 0x000000, 0.05);
+			graphics.beginFill(0x000000, 0.5);
+			graphics.drawRect(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
+			graphics.endFill();
+			that.windowStage.addChild(graphics);
+		},
+		
+		windowCreate: function()
+		{
+			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI)
+			{
+				var graphics = new PIXI.Graphics(); 
+				graphics.lineStyle(2, 0x0080C0, 1);
+				graphics.beginFill(0x0080C0, 0.2);
+				graphics.moveTo(250,250);
+				graphics.lineTo(600, 250);
+				graphics.lineTo(600, 500);
+				graphics.lineTo(250, 500);
+				graphics.endFill();
+				for(var i = 0; i < 55; i++)
+				{
+					if(i > 15 && i < 35)
+					{
+						
+					}else{
+						graphics.lineStyle(1, 0x0090F0, 0.5);
+						graphics.moveTo(250,280+(3*i));
+						graphics.lineTo(600, 280+(3*i));
+					}
+				}
+				that.windowStage.addChild(graphics);
+				
+				that.lineAnimationGraphics = new PIXI.Graphics(); 
+				that.lineAnimationGraphics.lineStyle(10, 0x0090F0, 0.3);
+				that.lineAnimationGraphics.moveTo(250,255);
+				that.lineAnimationGraphics.lineTo(600, 255);
+				that.windowStage.addChild(that.lineAnimationGraphics);
+								
+				graphics = new PIXI.Graphics(); 
+				graphics.lineStyle(1, 0x0080C0, 1);
+				graphics.beginFill(0x0080C0, 1);
+				graphics.moveTo(400,250);
+				graphics.lineTo(425, 275);
+				graphics.lineTo(600, 275);
+				graphics.lineTo(600, 250);
+				graphics.endFill();
+				that.windowStage.addChild(graphics);
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				var graphics = new PIXI.Graphics(); 
+				graphics.lineStyle(2, 0xA63A24, 1);
+				graphics.beginFill(0xA63A24, 0.2);
+				graphics.moveTo(250,250);
+				graphics.lineTo(600, 250);
+				graphics.lineTo(600, 500);
+				graphics.lineTo(250, 500);
+				graphics.endFill();
+				for(var i = 0; i < 55; i++)
+				{
+					if(i > 15 && i < 35)
+					{
+						
+					}else{
+						graphics.lineStyle(1, 0xA63A24, 0.5);
+						graphics.moveTo(250,280+(3*i));
+						graphics.lineTo(600, 280+(3*i));
+					}
+				}
+				that.windowStage.addChild(graphics);
+				
+				that.lineAnimationGraphics = new PIXI.Graphics(); 
+				that.lineAnimationGraphics.lineStyle(10, 0xA63A24, 0.3);
+				that.lineAnimationGraphics.moveTo(250,255);
+				that.lineAnimationGraphics.lineTo(600, 255);
+				that.windowStage.addChild(that.lineAnimationGraphics);
+				
+				graphics = new PIXI.Graphics(); 
+				graphics.lineStyle(1, 0xA63A24, 1);
+				graphics.beginFill(0xA63A24, 1);
+				graphics.moveTo(400,250);
+				graphics.lineTo(425, 275);
+				graphics.lineTo(600, 275);
+				graphics.lineTo(600, 250);
+				graphics.endFill();
+				that.windowStage.addChild(graphics);
+			}
+		},
+		
+		titleCreate: function()
+		{
+			var text;
+			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI) text = new PIXI.Text("НАСТРОЙКИ", that.styleBlueText); 
+			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text("НАСТРОЙКИ", that.styleRedText); 
+			text.x = 500;
+			text.y = 255;
+			that.windowStage.addChild(text);
+		},
+		
+		textCreate: function()
+		{
+			 var text;
+			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI) text = new PIXI.Text("Окно настроек позволяет включить или отключить в игре звуки и музыку.\n\n\n\n\nТакже вы можете посетить группу разработчика ВКонтакте, нажав на кнопку 'информация'.", that.styleBlueText); 
+			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text("Окно настроек позволяет включить или отключить в игре звуки и музыку.\n\n\n\n\nТакже вы можете посетить группу разработчика ВКонтакте, нажав на кнопку 'информация'.", that.styleRedText); 
+			text.x = 255;
+			text.y = 285;
+			that.windowStage.addChild(text);
+		},
+		
+		buttonsCreate: function()
+		{
+			var soundButton;
+			if(parent.config.sound === true) soundButton = new PIXI.Sprite(parent.assets.getAsset("soundOnButtonTexture"));
+			else soundButton = new PIXI.Sprite(parent.assets.getAsset("soundOffButtonTexture"));
+			soundButton.name = "sound";
+			soundButton.position.x = 300;
+			soundButton.position.y = 345;
+			soundButton.interactive = true;
+			soundButton.buttonMode = true;
+			soundButton.tap = that.onButtonsClick;
+			soundButton.click = that.onButtonsClick;
+			soundButton.on('mousedown', that.onButtonsDown);
+			soundButton.on('touchstart', that.onButtonsDown);
+			soundButton.on('mouseup', that.onButtonsUp);
+			soundButton.on('touchend', that.onButtonsUp);
+			soundButton.on('mouseupoutside', that.onButtonsUp);
+			soundButton.on('touchendoutside', that.onButtonsUp);
+			that.windowStage.addChild(soundButton);
+			
+			var musicButton;
+			if(parent.config.music === true) musicButton = new PIXI.Sprite(parent.assets.getAsset("musicOnButtonTexture"));
+			else musicButton = new PIXI.Sprite(parent.assets.getAsset("musicOffButtonTexture"));
+			musicButton.name = "music";
+			musicButton.position.x = 405;
+			musicButton.position.y = 345;
+			musicButton.interactive = true;
+			musicButton.buttonMode = true;
+			musicButton.tap = that.onButtonsClick;
+			musicButton.click = that.onButtonsClick;
+			musicButton.on('mousedown', that.onButtonsDown);
+			musicButton.on('touchstart', that.onButtonsDown);
+			musicButton.on('mouseup', that.onButtonsUp);
+			musicButton.on('touchend', that.onButtonsUp);
+			musicButton.on('mouseupoutside', that.onButtonsUp);
+			musicButton.on('touchendoutside', that.onButtonsUp);
+			that.windowStage.addChild(musicButton);
+			
+			var infoButton = new PIXI.Sprite(parent.assets.getAsset("infoButtonTexture"));
+			infoButton.name = "info";
+			infoButton.position.x = 510;
+			infoButton.position.y = 345;
+			infoButton.interactive = true;
+			infoButton.buttonMode = true;
+			infoButton.tap = that.onButtonsClick;
+			infoButton.click = that.onButtonsClick;
+			infoButton.on('mousedown', that.onButtonsDown);
+			infoButton.on('touchstart', that.onButtonsDown);
+			infoButton.on('mouseup', that.onButtonsUp);
+			infoButton.on('touchend', that.onButtonsUp);
+			infoButton.on('mouseupoutside', that.onButtonsUp);
+			infoButton.on('touchendoutside', that.onButtonsUp);
+			that.windowStage.addChild(infoButton);
+		},
+		
+		onButtonsDown: function(event)
+		{
+			this.isdown = true;
+			this.scale.set(0.95);
+			this.position.x += 5; 
+		},
+		
+		onButtonsUp: function(event)
+		{
+			if(this.isdown)
+			{
+				this.isdown = false;
+				this.scale.set(1.0);
+				this.position.x -= 5;
+			}
+		},
+		
+		onButtonsClick: function(event)
+		{
+			 if(this.name === "sound")
+			{
+				if(parent.config.sound === true)
+				{
+					parent.config.sound = false;
+					this.texture = parent.assets.getAsset("soundOffButtonTexture");
+					// !!!
+				}else{
+					parent.config.sound = true;
+					this.texture = parent.assets.getAsset("soundOnButtonTexture");
+					// !!!
+				}
+			}
+			if(this.name === "music")
+			{
+				if(parent.config.music === true)
+				{
+					parent.config.music = false;
+					this.texture = parent.assets.getAsset("musicOffButtonTexture");
+					parent.sound.soundStopStarWarsThemeSong();
+				}else{
+					parent.config.music = true;
+					this.texture = parent.assets.getAsset("musicOnButtonTexture");
+					parent.sound.soundPlayStarWarsThemeSong();
+				}
+			}
+			if(this.name === "info")
+			{
+				window.open("https://vk.com/club62618339","_target");
+			}
+		},
+		
+		buttonCloseCreate: function()
+		{
+			if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI)
+			{
+				var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
+				button.name = "button_close";
+				button.position.x = 320; 
+				button.position.y = 450; 
+				button.interactive = true; 
+				button.buttonMode = true; 
+				button.loop = false; 
+				button.animationSpeed = 0.2;
+				button.onComplete = that.onButtonCloseUpdate;
+				button.tap = that.onButtonCloseClick; 
+				button.click = that.onButtonCloseClick; 
+				button.on('mouseover', that.onButtonCloseOver);
+				button.on('mouseout', that.onButtonCloseOut);
+				var text = new PIXI.Text("Закрыть", that.styleBlueText); 
+				text.x = button.width / 3;
+				text.y = button.height / 3;
+				button.addChild(text); 
+				that.windowStage.addChild(button);
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
+				button.name = "button_close";
+				button.position.x = 320; 
+				button.position.y = 450; 
+				button.interactive = true; 
+				button.buttonMode = true; 
+				button.loop = false; 
+				button.animationSpeed = 0.2;
+				button.onComplete = that.onButtonCloseUpdate;
+				button.tap = that.onButtonCloseClick; 
+				button.click = that.onButtonCloseClick; 
+				button.on('mouseover', that.onButtonCloseOver);
+				button.on('mouseout', that.onButtonCloseOut);
+				var text = new PIXI.Text("Закрыть", that.styleRedText); 
+				text.x = button.width / 3;
+				text.y = button.height / 3;
+				button.addChild(text); 
+				that.windowStage.addChild(button);
+			}
+		},
+		
+		onButtonCloseOver: function(event)
+		{
+			this.isOver = true;
+			this.gotoAndPlay(1);
+		},
+		
+		onButtonCloseOut: function(event)
+		{
+			this.isOver = false;
+			this.gotoAndStop(0);
+		},
+		
+		onButtonCloseUpdate: function(event)
+		{
+			if(this.isOver)
+			{
+				this.gotoAndPlay(1);
+			}else{
+				this.gotoAndStop(0);
+			}
+		},
+		
+		onButtonCloseClick: function(event)
+		{
+			parent.settingsClose();
+		},
+		
+		tweenStart: function()
+		{
+			createjs.Tween.get(that.lineAnimationGraphics, {loop: true}) 
+				.to({x: 0, y: 240}, 2500, createjs.Ease.getPowInOut(3));
+			createjs.Ticker.setFPS(60);
+		},
+		
+		tweenStop: function()
+		{
+			createjs.Tween.removeTweens(that.lineAnimationGraphics);
+		},
+		
+		show: function()
+		{
+                        if(parent.level !== null) parent.timer.timerPauseBegin();
+                        that.tweenStart();
+			return that.windowStage;
+		},
+		
+		close: function()
+		{
+                        if(parent.level !== null)parent.timer.timerPauseEnd();
+			that.tweenStop();
+			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
+			return that.windowStage;
+		},
+		
+		getWindowStage: function()
+		{
+			return that.windowStage;
+		},
+		
+		destroy: function()
+		{
+			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
+			that.windowStage.destroy();
+			delete that.windowStage.children;
+			
+			for(var property in that) that[property] = null;
+		}
+	};
+	return that;
+};
+
+/* == END FILE ========================================================== */
+
+/* == START FILE ========================================================= */
+
+var Side = function(parent)
+{
+	var that = {
+		windowStage: null,
+		SIDE_NONE: "side_none",
+		SIDE_JEDI: "side_jedi",
+		SIDE_SITH: "side_sith",
+		side: null,
+		
+		selectGraphics: null,
+		droidBlueStage: null,
+		styleDroidBlueText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 275 },
+		blueLineAnimationGraphics: null,
+		
+		droidRedStage: null,
+		styleDroidRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 275 },
+		redLineAnimationGraphics: null,
+		
+		create: function()
+		{
+			that.windowStage = new PIXI.Container();
+			that.backgroundCreate();
+			that.borderCreate();
+			that.heroesCreate();
+			that.droidCreate();
+		},
+		
+		backgroundCreate: function()
+		{
+			var sprite = new PIXI.Sprite(parent.assets.getAsset("sideBackgroundTexture"));
+			sprite.position.x = 0; 
+			sprite.position.y = 0; 
+			that.windowStage.addChild(sprite);
+		},
+
+		borderCreate: function()
+		{
+			var graphics = new PIXI.Graphics(); 
+
+			graphics.lineStyle(2, 0x0000FF, 1);
+			graphics.beginFill(0x000000, 0);
+			graphics.drawRect(10, 10, 840, 710);
+			
+			graphics.lineStyle(2, 0xFF0000, 1);
+			graphics.moveTo(430,720);
+			graphics.lineTo(10, 720);
+			graphics.moveTo(10,720);
+			graphics.lineTo(10, 10);
+			graphics.moveTo(10,10);
+			graphics.lineTo(430, 10);
+			
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFF80, 1);
+			graphics.drawCircle(5, 600,4);
+			graphics.endFill();
+			
+			graphics.lineStyle(2, 0xFFFF80, 1);
+			graphics.moveTo(5,600);
+			graphics.lineTo(5, 725);
+			
+			graphics.lineStyle(2, 0xFFFF80, 1);
+			graphics.moveTo(5,725);
+			graphics.lineTo(25, 725);
+			graphics.moveTo(25,725);
+			graphics.lineTo(430, 725);
+			
+			graphics.lineStyle(2, 0xFFFFFF, 1);
+			graphics.moveTo(430,725);
+			graphics.lineTo(855, 725);
+			
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawCircle(855, 725,4);
+			graphics.endFill();
+			
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFFFF, 1);
+			graphics.drawCircle(855, 150,4);
+			graphics.endFill();
+			
+			graphics.lineStyle(2, 0xFFFFFF, 1);
+			graphics.moveTo(855,150);
+			graphics.lineTo(855, 5);
+			graphics.moveTo(855,5);
+			graphics.lineTo(430, 5);
+			
+			graphics.lineStyle(2, 0xFFFF80, 1);
+			graphics.moveTo(430,5);
+			graphics.lineTo(5, 5);
+			
+			graphics.lineStyle(0);
+			graphics.beginFill(0xFFFF80, 1);
+			graphics.drawCircle(5,5,4);
+			graphics.endFill();
+			
+			that.windowStage.addChild(graphics);
+		},
+		
+		heroesCreate: function()
+		{
+			var button1 = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexSideDarthVader"));
+			button1.name = "DarthVader";
+			button1.position.x = 25;
+			button1.position.y = 75;
+			button1.interactive = true;
+			button1.buttonMode = true;
+			button1.tap = that.onButtonClick; 
+			button1.click = that.onButtonClick; 
+			button1.on('mouseover', that.onButtonOver);
+			button1.on('mouseout', that.onButtonOut);
+			button1.loop = true;
+			button1.animationSpeed = 0.2;
+			button1.play();
+			that.windowStage.addChild(button1);
+			
+			var button2 = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexSideLukeSkywalker"));
+			button2.name = "LukeSkywalker";
+			button2.position.x = 475;
+			button2.position.y = 80;
+			button2.interactive = true;
+			button2.buttonMode = true;
+			button2.tap = that.onButtonClick; 
+			button2.click = that.onButtonClick; 
+			button2.on('mouseover', that.onButtonOver);
+			button2.on('mouseout', that.onButtonOut);
+                        button2.loop = true;
+			button2.animationSpeed = 0.2;
+			button2.play();
+			that.windowStage.addChild(button2);
+		},
+		
+		onButtonOver: function()
+		{
+			if(this.name === "DarthVader")
+			{
+				that.droidBlueStage.visible = false;
+				that.droidRedStage.visible = true;
+			}
+			if(this.name === "LukeSkywalker")
+			{
+				that.droidBlueStage.visible = true;
+				that.droidRedStage.visible = false;
+			}
+		},
+		
+		onButtonOut: function()
+		{
+			
+		},
+		
+		onButtonClick: function()
+		{
+			if(this.name === "DarthVader") that.side = that.SIDE_SITH;
+			if(this.name === "LukeSkywalker") that.side = that.SIDE_JEDI;
+			
+			parent.config.side = that.side;
+			parent.sideClose();
+		},
+		
+		droidCreate: function()
+		{
+			that.droidBlueStage = new PIXI.Container();
+    		var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidBlueRightTexture")); 
+			textureSprite.position.x = 700; 
+			textureSprite.position.y = 550; 
+			textureSprite.scale.set(0.4);
+			that.droidBlueStage.addChild(textureSprite);
+			var graphics = new PIXI.Graphics(); 
+			graphics.lineStyle(2, 0x0080C0, 1);
+			graphics.beginFill(0x0080C0, 0.2);
+			graphics.moveTo(450,450);
+			graphics.lineTo(735, 450);
+			graphics.lineTo(735, 575);
+			graphics.lineTo(450, 575);
+			graphics.endFill
+			for(var i = 0; i < 42; i++)
+			{
+				graphics.lineStyle(1, 0x0090F0, 0.5);
+				graphics.moveTo(450, 450+(3*i));
+				graphics.lineTo(735, 450+(3*i));
+			}
+			that.droidBlueStage.addChild(graphics);
+			var textMessage = new PIXI.Text("\nВыберите светлую сторону силы.\n\"Только покой ощутив, возмёшь контроль над желаниями своими\". \n\nПройдите путь Люка Скайуокера!", that.styleDroidBlueText); 
+			textMessage.x = 455; 
+			textMessage.y = 455; 
+			that.droidBlueStage.addChild(textMessage);
+			that.blueLineAnimationGraphics = new PIXI.Graphics(); 
+			that.blueLineAnimationGraphics.lineStyle(10, 0x0090F0, 0.3);
+			that.blueLineAnimationGraphics.moveTo(450,455);
+			that.blueLineAnimationGraphics.lineTo(735, 455);
+			that.droidBlueStage.addChild(that.blueLineAnimationGraphics);
+			that.windowStage.addChild(that.droidBlueStage);
+
+			
+			that.droidRedStage = new PIXI.Container();
+			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidRedLeftTexture")); 
+			textureSprite.position.x = 40; 
+			textureSprite.position.y = 550; 
+			textureSprite.scale.set(0.4);
+			that.droidRedStage.addChild(textureSprite);
+			var graphics = new PIXI.Graphics(); 
+			graphics.lineStyle(2, 0x800000, 1);
+			graphics.beginFill(0x800000, 0.2);
+			graphics.moveTo(125,450);
+			graphics.lineTo(410, 450);
+			graphics.lineTo(410, 575);
+			graphics.lineTo(125, 575);
+			graphics.endFill
+			for(var i = 0; i < 42; i++)
+			{
+				graphics.lineStyle(1, 0x800000, 0.5);
+				graphics.moveTo(125, 450+(3*i));
+				graphics.lineTo(410, 450+(3*i));
+			}
+			that.droidRedStage.addChild(graphics);
+			var textMessage = new PIXI.Text("\nВыберите тёмную сторону силы.\n\"Поддайся амбициям, почувствуй власть в своих руках.\" \n\nПройдите путь Дарт Вейдера!", that.styleDroidRedText); 
+			textMessage.x = 130; 
+			textMessage.y = 455; 
+			that.droidRedStage.addChild(textMessage);
+			that.redLineAnimationGraphics = new PIXI.Graphics(); 
+			that.redLineAnimationGraphics.lineStyle(10, 0x800000, 0.3);
+			that.redLineAnimationGraphics.moveTo(125,455);
+			that.redLineAnimationGraphics.lineTo(410, 455);
+			that.droidRedStage.addChild(that.redLineAnimationGraphics);
+			that.windowStage.addChild(that.droidRedStage);
+			
+			that.droidBlueStage.visible = false;
+			that.droidRedStage.visible = false;
+		},
+		
+		tweenStart: function()
+		{
+			createjs.Tween.get(that.blueLineAnimationGraphics, {loop: true}) 
+				.to({x: 0, y: 115}, 2500, createjs.Ease.getPowInOut(3));
+			createjs.Tween.get(that.redLineAnimationGraphics, {loop: true}) 
+				.to({x: 0, y: 115}, 2500, createjs.Ease.getPowInOut(3));
+			createjs.Ticker.setFPS(60); 
+		},
+		
+		tweenStop: function()
+		{
+			createjs.Tween.removeTweens(that.blueLineAnimationGraphics);
+			createjs.Tween.removeTweens(that.redLineAnimationGraphics);
+		},
+		
+		show: function()
+		{
+			that.tweenStart();
+			return that.windowStage;
+		},
+		
+		close: function()
+		{
+			that.tweenStop();
+			
+			for(var child in that.droidBlueStage.children) that.droidBlueStage.removeChild(that.droidBlueStage.children[child]);
+			that.droidBlueStage.destroy();
+			delete that.droidBlueStage.children;
+			
+			for(var child in that.droidRedStage.children) that.droidRedStage.removeChild(that.droidRedStage.children[child]);
+			that.droidRedStage.destroy();
+			delete that.droidRedStage.children;
+			
+			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
+			
+			return that.windowStage;
+		},
+		
+		getWindowStage: function()
+		{
+			return that.windowStage;
+		},
+		
+		destroy: function()
+		{
+			for(var child in that.windowStage.children)that.windowStage.removeChild(that.windowStage.children[child]);
+			that.windowStage.destroy();
+			delete that.windowStage.children;
+			
+			for(var property in that) that[property] = null;
+		}
+	};
+	return that;
+};
+
+/* == END FILE ========================================================== */
+
+/* == START FILE ========================================================= */
+
+var Sound = function(parent)
+{
+	var that = {
+		soundPlayStarWarsThemeSong: function()
+		{
+			if(parent.config.music === true) createjs.Sound.play("StarWarsThemeSong", {loop:-1});
+		},
+		
+		soundStopStarWarsThemeSong: function()
+		{
+			createjs.Sound.stop("StarWarsThemeSong");
+		}
+		
+	};
+	return that;
+};
+
+
+/* == END FILE ========================================================== */
+
+/* == START FILE ========================================================= */
+
+var StartBattle = function(parent)
+{
+	var that = {
+		windowStage: null,
+		lineAnimationGraphics: null,
+		styleBlueText: { font : 'bold 18px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340, align: "center"},
+		styleRedText: { font : 'bold 18px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340, align: "center"}, 
+		buttonStyleBlueText: { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 },
+		buttonStyleRedText: { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }, 
+		userPlanetID: null,
+		aiPlanetID: null,
+
+		SIDE_NONE: "side_none",
+		SIDE_JEDI: "side_jedi",
+		SIDE_SITH: "side_sith",
+		
+		create: function(planetUserTargetID, planetAITargetID)
+		{
+			that.userPlanetID = planetUserTargetID;
+			that.aiPlanetID = planetAITargetID
+			that.windowStage = new PIXI.Container();
+			that.backgroundCreate();
+			that.windowCreate();
+			that.titleCreate();
+			that.textCreate();
+			that.buttonsCreate();
+		},
+		
+		backgroundCreate: function()
+		{
+			var graphics = new PIXI.Graphics(); 
+			graphics.hitArea = new PIXI.Rectangle(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
+			graphics.interactive = true;
+			graphics.lineStyle(1, 0x000000, 0.05);
+			graphics.beginFill(0x000000, 0.05);
+			graphics.drawRect(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
+			graphics.endFill();
+			that.windowStage.addChild(graphics);
+		},
+		
+		windowCreate: function()
+		{
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				var graphics = new PIXI.Graphics(); 
+				graphics.lineStyle(2, 0xFFFFFF, 1);
+				graphics.drawRoundedRect(200, 150, 460, 260, 15);
+				graphics.lineStyle(2, 0x0000FF, 1);
+				graphics.beginFill(0x00000F, 0.5);
+				graphics.drawRoundedRect(210, 160, 440, 240, 5);
+				graphics.endFill();
+				that.windowStage.addChild(graphics);
+				
+				var textureSprite; 
+				if(parent.initialization.commandUser["personage1"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage1"]][1]);
+				else{
+					if(parent.initialization.commandUser["personage2"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage2"]][1]);
+					else textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage3"]][1]);
+				}
+				textureSprite.position.x = 220; 
+				textureSprite.position.y = 165; 
+				textureSprite.scale.set(0.5);
+				that.windowStage.addChild(textureSprite);
+				
+				if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true)
+				{
+					textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].redPersonage1][2]);
+				} else {
+					if(parent.initialization.commandAI["personage1"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][2]);
+					else{
+						if(parent.initialization.commandAI["personage2"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage2"]][2]);
+						else textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage3"]][2]);
+					}
+				} 
+				textureSprite.position.x = 510; 
+				textureSprite.position.y = 165; 
+				textureSprite.scale.set(0.5);
+				that.windowStage.addChild(textureSprite);
+				
+				graphics = new PIXI.Graphics();
+				for(var i = 0; i < 80; i++)
+				{
+					graphics.lineStyle(1, 0x0000FF, 0.5);
+					graphics.moveTo(210, 160+(3*i));
+					graphics.lineTo(650, 160+(3*i));
+				}
+				that.windowStage.addChild(graphics);
+				
+				that.lineAnimationGraphics = new PIXI.Graphics(); 
+				that.lineAnimationGraphics.lineStyle(10, 0x0000FF, 0.3);
+				that.lineAnimationGraphics.moveTo(210, 165);
+				that.lineAnimationGraphics.lineTo(650, 165);
+				that.windowStage.addChild(that.lineAnimationGraphics);
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				var graphics = new PIXI.Graphics(); 
+				graphics.lineStyle(2, 0xFFFF80, 1);
+				graphics.drawRoundedRect(200, 150, 460, 260, 15);
+				graphics.lineStyle(2, 0xFF0000, 1);
+				graphics.beginFill(0x800000, 0.5);
+				graphics.drawRoundedRect(210, 160, 440, 240, 5);
+				graphics.endFill();
+				that.windowStage.addChild(graphics);
+				
+				var textureSprite; 
+				if(parent.initialization.commandUser["personage1"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage1"]][1]);
+				else{
+					if(parent.initialization.commandUser["personage2"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage2"]][1]);
+					else textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage3"]][1]);
+				}
+				textureSprite.position.x = 220; 
+				textureSprite.position.y = 165; 
+				textureSprite.scale.set(0.5);
+				that.windowStage.addChild(textureSprite);
+				
+				if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true)
+				{
+					textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].bluePersonage1][2]);
+				} else {
+					if(parent.initialization.commandAI["personage1"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][2]);
+					else{
+						if(parent.initialization.commandAI["personage2"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage2"]][2]);
+						else textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage3"]][2]);
+					}
+				} 
+				textureSprite.position.x = 510; 
+				textureSprite.position.y = 165; 
+				textureSprite.scale.set(0.5);
+				that.windowStage.addChild(textureSprite);
+				
+				graphics = new PIXI.Graphics();
+				for(var i = 0; i < 80; i++)
+				{
+					graphics.lineStyle(1, 0xA63A24, 0.5);
+					graphics.moveTo(210, 160+(3*i));
+					graphics.lineTo(650, 160+(3*i));
+				}
+				that.windowStage.addChild(graphics);
+			   
+				that.lineAnimationGraphics = new PIXI.Graphics(); 
+				that.lineAnimationGraphics.lineStyle(10, 0xA63A24, 0.3);
+				that.lineAnimationGraphics.moveTo(210, 165);
+				that.lineAnimationGraphics.lineTo(650, 165);
+				that.windowStage.addChild(that.lineAnimationGraphics);
+			}
+		},
+		
+		titleCreate: function()
+		{
+			var text;
+			if(parent.config.side === that.SIDE_JEDI) text = new PIXI.Text("БИТВА", that.buttonStyleBlueText); 
+			if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text("БИТВА", that.buttonStyleRedText); 
+			text.x = 390;
+			text.y = 180;
+			that.windowStage.addChild(text);
+		},
+		
+		textCreate: function()
+		{
+			var hitCountUser = 0;
+			if(parent.initialization.personages[parent.initialization.commandUser["personage1"]] != undefined)
+			{
+				hitCountUser += parent.initialization.personages[parent.initialization.commandUser["personage1"]].hitDefense1 
+					+ parent.initialization.personages[parent.initialization.commandUser["personage1"]].hitDefense2 
+					+ parent.initialization.personages[parent.initialization.commandUser["personage1"]].hitDefense3 
+					+ parent.initialization.personages[parent.initialization.commandUser["personage1"]].hitDefense4
+					+ parent.initialization.personages[parent.initialization.commandUser["personage1"]].hitDefense5;
+			}
+			if(parent.initialization.personages[parent.initialization.commandUser["personage2"]] != undefined)
+			{
+				hitCountUser += parent.initialization.personages[parent.initialization.commandUser["personage2"]].hitDefense1 
+					+ parent.initialization.personages[parent.initialization.commandUser["personage2"]].hitDefense2 
+					+ parent.initialization.personages[parent.initialization.commandUser["personage2"]].hitDefense3 
+					+ parent.initialization.personages[parent.initialization.commandUser["personage2"]].hitDefense4
+					+ parent.initialization.personages[parent.initialization.commandUser["personage2"]].hitDefense5;
+			}
+			if(parent.initialization.personages[parent.initialization.commandUser["personage3"]] != undefined)
+			{
+				hitCountUser += parent.initialization.personages[parent.initialization.commandUser["personage3"]].hitDefense1 
+					+ parent.initialization.personages[parent.initialization.commandUser["personage3"]].hitDefense2 
+					+ parent.initialization.personages[parent.initialization.commandUser["personage3"]].hitDefense3 
+					+ parent.initialization.personages[parent.initialization.commandUser["personage3"]].hitDefense4
+					+ parent.initialization.personages[parent.initialization.commandUser["personage3"]].hitDefense5;
+			}
+			hitCountUser /= 10;
+			
+			var hitCountAI = 0;
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true)
+				{
+					if(parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage1] != undefined)
+					{
+						hitCountAI += parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage1].hitAttack1 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage1].hitAttack2 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage1].hitAttack3 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage1].hitAttack4
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage1].hitAttack5;
+					}
+					if(parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage2] != undefined)
+					{
+						hitCountAI += parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage2].hitAttack1 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage2].hitAttack2 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage2].hitAttack3 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage2].hitAttack4
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage2].hitAttack5;
+					}
+					if(parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage3] != undefined)
+					{
+						hitCountAI += parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage3].hitAttack1 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage3].hitAttack2 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage3].hitAttack3 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage3].hitAttack4
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].redPersonage3].hitAttack5;
+					}
+				}else{
+					if(parent.initialization.personages[parent.initialization.commandAI["personage1"]] != undefined)
+					{
+						hitCountAI += parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense1 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense2 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense3 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense3
+							+ parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense4;
+					}
+					if(parent.initialization.personages[parent.initialization.commandAI["personage2"]] != undefined)
+					{
+						hitCountAI += parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense1 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense2 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense3 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense4
+							+ parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense5;
+					}
+					if(parent.initialization.personages[parent.initialization.commandAI["personage3"]] != undefined)
+					{
+						hitCountAI += parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense1 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense2 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense3 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense4
+							+ parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense5;
+					}
+				}
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true)
+				{
+					if(parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage1] != undefined)
+					{
+						hitCountAI += parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage1].hitAttack1 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage1].hitAttack2 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage1].hitAttack3 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage1].hitAttack4
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage1].hitAttack5;
+					}
+					if(parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage2] != undefined)
+					{
+						hitCountAI += parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage2].hitAttack1 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage2].hitAttack2 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage2].hitAttack3 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage2].hitAttack4
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage2].hitAttack5;
+					}
+					if(parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage3] != undefined)
+					{
+						hitCountAI += parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage3].hitAttack1 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage3].hitAttack2 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage3].hitAttack3 
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage3].hitAttack4
+							+ parent.initialization.personages[parent.initialization.planets[that.userPlanetID].bluePersonage3].hitAttack5;
+					}
+				}else{
+					if(parent.initialization.personages[parent.initialization.commandAI["personage1"]] != undefined)
+					{
+						hitCountAI += parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense1 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense2 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense3 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense3
+							+ parent.initialization.personages[parent.initialization.commandAI["personage1"]].hitDefense4;
+					}
+					if(parent.initialization.personages[parent.initialization.commandAI["personage2"]] != undefined)
+					{
+						hitCountAI += parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense1 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense2 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense3 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense4
+							+ parent.initialization.personages[parent.initialization.commandAI["personage2"]].hitDefense5;
+					}
+					if(parent.initialization.personages[parent.initialization.commandAI["personage3"]] != undefined)
+					{
+						hitCountAI += parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense1 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense2 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense3 
+							+ parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense4
+							+ parent.initialization.personages[parent.initialization.commandAI["personage3"]].hitDefense5;
+					}
+				}
+			}
+			hitCountAI /= 10;
+			
+			var text;
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				text = new PIXI.Text("Сила: " + hitCountUser, that.styleBlueText); 
+				text.x = (parent.config.MAIN_WIDTH / 2) - (text.width / 2) - 150;
+				text.y = 350;
+				that.windowStage.addChild(text);
+				text = new PIXI.Text("Сила: " + hitCountAI, that.styleBlueText); 
+				text.x = (parent.config.MAIN_WIDTH / 2) - (text.width / 2) + 150;
+				text.y = 350;
+				that.windowStage.addChild(text);
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				text = new PIXI.Text("Сила: " + hitCountUser, that.styleRedText); 
+				text.x = (parent.config.MAIN_WIDTH / 2) - (text.width / 2) - 150;
+				text.y = 350;
+				that.windowStage.addChild(text);
+				text = new PIXI.Text("Сила: " + hitCountAI, that.styleRedText); 
+				text.x = (parent.config.MAIN_WIDTH / 2) - (text.width / 2) + 150;
+				text.y = 350;
+				that.windowStage.addChild(text);
+			}
+			
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true)
+				{
+					if(parent.initialization.commandUser["personage1"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage1"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].redPersonage1][0], that.styleBlueText); 
+					else{
+						if(parent.initialization.commandUser["personage2"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage2"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].redPersonage1][0], that.styleBlueText); 
+						else  text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage3"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].redPersonage1][0], that.styleBlueText); 
+					}    
+				}else{
+					if(parent.initialization.commandUser["personage1"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage1"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][0], that.styleBlueText);
+					else{
+						if(parent.initialization.commandUser["personage2"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage2"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][0], that.styleBlueText);
+						else text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage3"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][0], that.styleBlueText);
+					}
+				}
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true)
+				{
+					if(parent.initialization.commandUser["personage1"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage1"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].bluePersonage1][0], that.styleRedText); 
+					else{
+						if(parent.initialization.commandUser["personage2"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage2"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].bluePersonage1][0], that.styleRedText); 
+						else text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage3"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.userPlanetID].bluePersonage1][0], that.styleRedText); 
+					}
+				}else{
+					if(parent.initialization.commandUser["personage1"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage1"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][0], that.styleRedText); 
+					else{
+						if(parent.initialization.commandUser["personage2"] != undefined) text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage2"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][0], that.styleRedText); 
+						else text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage3"]][0] + "\nVS\n" + parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][0], that.styleRedText); 
+					}
+				}
+			}
+			text.x = (parent.config.MAIN_WIDTH / 2) - (text.width / 2);
+			text.y = 225;
+			that.windowStage.addChild(text);
+		},
+		
+		buttonsCreate: function()
+		{
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
+				button.name = "yes";
+				button.position.x = (parent.config.MAIN_WIDTH / 2) -  (button.width / 2.5); 
+				button.position.y = 300; 
+				button.scale.set(0.8);
+				button.interactive = true; 
+				button.buttonMode = true; 
+				button.loop = false; 
+				button.animationSpeed = 0.2;
+				button.onComplete = that.onButtonUpdate;
+				button.tap = that.onButtonClick; 
+				button.click = that.onButtonClick; 
+				button.on('mouseover', that.onButtonOver);
+				button.on('mouseout', that.onButtonOut);
+				var text = new PIXI.Text("Начать", that.buttonStyleBlueText); 
+				text.x = (button.width / 2) - (text.width / 3.0);
+				text.y = button.height / 3.5;
+				button.addChild(text); 
+				that.windowStage.addChild(button);
+				
+				button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
+				button.name = "no";
+				button.position.x = (parent.config.MAIN_WIDTH / 2) -  (button.width / 2.5);
+				button.position.y = 350; 
+				button.scale.set(0.8);
+				button.interactive = true; 
+				button.buttonMode = true; 
+				button.loop = false; 
+				button.animationSpeed = 0.2;
+				button.onComplete = that.onButtonUpdate;
+				button.tap = that.onButtonClick; 
+				button.click = that.onButtonClick; 
+				button.on('mouseover', that.onButtonOver);
+				button.on('mouseout', that.onButtonOut);
+				var text = new PIXI.Text("Отмена", that.buttonStyleBlueText); 
+				text.x = (button.width / 2) - (text.width / 3.0);
+				text.y = button.height / 3.5;
+				button.addChild(text); 
+				that.windowStage.addChild(button);
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
+				button.name = "yes";
+				button.position.x = (parent.config.MAIN_WIDTH / 2) -  (button.width / 2.5); 
+				button.position.y = 300; 
+				button.scale.set(0.8);
+				button.interactive = true; 
+				button.buttonMode = true; 
+				button.loop = false; 
+				button.animationSpeed = 0.2;
+				button.onComplete = that.onButtonUpdate;
+				button.tap = that.onButtonClick; 
+				button.click = that.onButtonClick; 
+				button.on('mouseover', that.onButtonOver);
+				button.on('mouseout', that.onButtonOut);
+				var text = new PIXI.Text("Начать", that.buttonStyleRedText); 
+				text.x = (button.width / 2) - (text.width / 3.0);
+				text.y = button.height / 3.5;
+				button.addChild(text); 
+				that.windowStage.addChild(button);
+				
+				button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
+				button.name = "no";
+				button.position.x = (parent.config.MAIN_WIDTH / 2) -  (button.width / 2.5); 
+				button.position.y = 350; 
+				button.scale.set(0.8);
+				button.interactive = true; 
+				button.buttonMode = true; 
+				button.loop = false; 
+				button.animationSpeed = 0.2;
+				button.onComplete = that.onButtonUpdate;
+				button.tap = that.onButtonClick; 
+				button.click = that.onButtonClick; 
+				button.on('mouseover', that.onButtonOver);
+				button.on('mouseout', that.onButtonOut);
+				var text = new PIXI.Text("Отмена", that.buttonStyleRedText); 
+				text.x = (button.width / 2) - (text.width / 3.0);
+				text.y = button.height / 3.5;
+				button.addChild(text); 
+				that.windowStage.addChild(button);
+			}
+		},
+		
+		onButtonOver: function(event)
+		{
+			this.isOver = true;
+			this.gotoAndPlay(1);
+		},
+		
+		onButtonOut: function(event)
+		{
+			this.isOver = false;
+			this.gotoAndStop(0);
+		},
+		
+		onButtonUpdate: function(event)
+		{
+			if(this.isOver)
+			{
+				this.gotoAndPlay(1);
+			}else{
+				this.gotoAndStop(0);
+			}
+		},
+		
+		onButtonClick: function(event)
+		{
+			switch (this.name)
+			{
+				case "yes":
+					//if(sbattleUserPlanetID !== sbattleAIPlanetID) levelCreate(sbattleUserPlanetID, false);
+					//else levelCreate(sbattleUserPlanetID, true);
+					if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true) parent.levelShow(that.userPlanetID, false);
+					else parent.levelShow(that.userPlanetID, true);
+					break;
+				case "no":
+					parent.startbattleClose();
+					break;
+				default:
+					break;
+			}
+		},
+		
+		tweenStart: function()
+		{
+			createjs.Tween.get(that.lineAnimationGraphics, {loop: true}) 
+				.to({x: 0, y: 230}, 2500, createjs.Ease.getPowInOut(3));
+			createjs.Ticker.setFPS(60);
+		},
+		
+		tweenStop: function()
+		{
+			createjs.Tween.removeTweens(that.lineAnimationGraphics);
+		},
+		
+		show: function()
+		{
+			that.tweenStart();
+			return that.windowStage;
+		},
+		
+		close: function()
+		{
+			that.tweenStop();
+			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
+			return that.windowStage;
+		},
+		
+		getWindowStage: function()
+		{
+			return that.windowStage;
+		},
+		
+		destroy: function()
+		{
+			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
+			that.windowStage.destroy();
+			delete that.windowStage.children;
+			
+			for(var property in that) that[property] = null;
+		}
+	};
+	return that;
+};
+
+
+/* == END FILE ========================================================== */
+
+/* == START FILE ========================================================= */
+
+var Timer = function(parent)
+{
+	var that = {
+		windowStage: null,
+		
+		timerText: null,
+		timerCount: null,
+		timerPause: null,
+		timer: null,
+		timerStyleBlueText: {font : 'bold 36px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 3, wordWrap : true, wordWrapWidth : 440},
+		timerStyleRedText: {font : 'bold 36px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 3, wordWrap : true, wordWrapWidth : 440},
+		
+		TIMER_MAX_VALUE: 10,
+		TIMER_MIN_VALUE: 0,
+		
+		SIDE_NONE: "side_none",
+		SIDE_JEDI: "side_jedi",
+		SIDE_SITH: "side_sith",
+		
+		create: function()
+		{
+			that.timerPause = false;
+			that.timerCount = that.TIMER_MAX_VALUE;
+			
+			that.windowStage = new PIXI.Container();
+			that.windowStage.position.x = (parent.config.MAIN_WIDTH / 2 - 25);
+			that.windowStage.position.y = 35;
+			
+			var graphics = new PIXI.Graphics();
+			if(parent.config.side === that.SIDE_JEDI)
+			{
+				graphics.lineStyle(2, 0xFFFFFF, 1);
+				graphics.beginFill(0x0000FF, 0.75);
+			}
+			if(parent.config.side === that.SIDE_SITH)
+			{
+				graphics.lineStyle(2, 0xFFFF80, 1);
+				graphics.beginFill(0x800000, 0.75);
+			}
+			graphics.drawRoundedRect(0, 0, 50, 50, 15);
+			graphics.endFill();
+			that.windowStage.addChild(graphics);
+			
+			if(parent.config.side === that.SIDE_JEDI) that.timerText = new PIXI.Text(that.timerCount, that.timerStyleBlueText);
+			if(parent.config.side === that.SIDE_SITH) that.timerText = new PIXI.Text(that.timerCount, that.timerStyleRedText);
+			that.timerText.x = 2.5;
+			that.timerText.y = 2.5;
+			that.windowStage.addChild(that.timerText);
+
+			if(that.timerPause === false) that.timer = setInterval(that.onTimerComplete, 1000);
+		},
+		
+		onTimerComplete: function()
+		{
+			if(that.timerCount === that.TIMER_MIN_VALUE){	// таймер = минимум
+        
+				if(parent.match.modeAI === true)
+				{
+						parent.match.matchFieldBlocked = false; 	// поле разблокированно
+						parent.match.modeAI = false;				// ИИ отключен
+						// console.log("[HIT]: USER наносит удар!");
+				}else{
+						parent.match.matchFieldBlocked = true;	// поле заблокированно
+						parent.match.modeAI = true;				// ИИ включен
+						parent.match.matchCellColorBack();
+						parent.match.matchSelectUnit1 = null;
+						parent.match.matchSelectUnit2 = null;
+						// console.log("[HIT]: AI наносит удар!");
+				}
+				
+				that.timerCount = that.TIMER_MAX_VALUE;	// устанавливаем максимальное значение таймера
+				that.timerText.text = that.timerCount;	// показываем секунды
+			}else{
+				that.timerCount--;						// уменьшение таймера
+				that.timerText.text = " " + that.timerCount;	// показываем секунды
+				if(parent.match.modeAI === true && that.timerCount === 8) { parent.match.matchActionAI();}
+			}
+		},
+		
+		timerStart: function()
+		{
+			if(parent.match.modeAI === true)
+			{
+				parent.match.matchFieldBlocked = false; 	// поле разблокированно
+				parent.match.modeAI = false;					// ИИ отключен
+				parent.level.levelExchangePersonage("AI");
+				// console.log("[HIT START]: USER наносит удар!");
+			}else{
+				parent.match.matchFieldBlocked = true;		// поле заблокированно
+				parent.match.modeAI = true;					// ИИ включен
+				parent.level.levelExchangePersonage("USER");
+				parent.match.matchCellColorBack();
+				parent.match.matchSelectUnit1 = null;
+				parent.match.matchSelectUnit2 = null;
+				// console.log("[HIT START]: AI наносит удар!");
+			}
+			
+			that.timerCount = that.TIMER_MAX_VALUE;	// устанавливаем максимальное значение таймера
+			that.timerText.text = that.timerCount;	// показываем секунды
+			if(that.timerPause === false) that.timer = setInterval(that.onTimerComplete, 1000);	// запуск таймера
+		},
+		
+		timerStop: function()
+		{
+			clearInterval(that.timer);
+		},
+		
+		timerPauseBegin: function()
+		{
+			timerPause = true;
+			if(parent.level.getWindowStage() !== null) clearInterval(that.timer);
+		},
+		
+		timerPauseEnd: function()
+		{
+			timerPause = false;
+			if(parent.level.getWindowStage() !== null) that.timer = setInterval(that.onTimerComplete, 1000);
+		},
+				
+		show: function()
+		{
+			return that.windowStage;
+		},
+		
+		close: function()
+		{
+			that.timerStop();
+			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
+			return that.windowStage;
+		},
+		
+		getWindowStage: function()
+		{
+			return that.windowStage;
+		},
+		
+		destroy: function()
+		{
+                        that.timerStop();
+			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
+			that.windowStage.destroy();
+			delete that.windowStage.children;
+			
+			for(var property in that) that[property] = null;
+		}
+	};
+	return that;
+};
+
+/* == END FILE ========================================================== */
+
+/* == START FILE ========================================================= */
+
+var Victory = function(parent)
+{
+    var that = {
+        windowStage: null,
+        lineAnimationGraphics: null,
+        styleBlueText: { font : 'bold 18px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340, align: "center"},
+        styleRedText: { font : 'bold 18px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340, align: "center"}, 
+        styleBlueText2: { font : 'bold 12px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200, align: "center"},
+        styleRedText2: { font : 'bold 12px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200, align: "center"}, 
+        buttonStyleBlueText: { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 },
+        buttonStyleRedText: { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }, 
+
+        SIDE_NONE: "side_none",
+	SIDE_JEDI: "side_jedi",
+	SIDE_SITH: "side_sith",
+        
+        intercept: null,
+        planetID: null,
+        
+        create: function(planetID, intercept)
+        {
+            that.intercept = intercept;
+            that.planetID = planetID;
+            
+            that.windowStage = new PIXI.Container();
+            that.backgroundCreate();
+            that.windowCreate();
+            that.titleCreate();
+            that.textCreate();
+            if(that.intercept === true) that.buttonCloseCreate();
+        },
+        
+        backgroundCreate: function()
+        {
+            var graphics = new PIXI.Graphics(); 
+            graphics.hitArea = new PIXI.Rectangle(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
+            graphics.interactive = true;
+            graphics.lineStyle(1, 0x000000, 0.05);
+            graphics.beginFill(0x000000, 0.5);
+            graphics.drawRect(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
+            graphics.endFill();
+            that.windowStage.addChild(graphics); 
+        },
+        
+        windowCreate: function()
+        {
+            if(parent.config.side === that.SIDE_JEDI)
+            {
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(2, 0xFFFFFF, 1);
+                graphics.drawRoundedRect(200, 150, 460, 420, 15);
+                graphics.lineStyle(2, 0x0000FF, 1);
+                graphics.beginFill(0x00000F, 0.5);
+                graphics.drawRoundedRect(210, 160, 440, 400, 5);
+                graphics.endFill();
+                that.windowStage.addChild(graphics);
+
+                var textureSprite; 
+                if(parent.initialization.commandUser["personage1"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage1"]][1]);
+                else{
+                        if(parent.initialization.commandUser["personage2"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage2"]][1]);
+                        else textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage3"]][1]);
+                }
+                textureSprite.position.x = 220; 
+                textureSprite.position.y = 265; 
+                textureSprite.scale.set(0.5);
+                that.windowStage.addChild(textureSprite);
+
+                graphics = new PIXI.Graphics();
+                for(var i = 0; i < 133; i++)
+                {
+                        graphics.lineStyle(1, 0x0000FF, 0.5);
+                        graphics.moveTo(210, 160+(3*i));
+                        graphics.lineTo(650, 160+(3*i));
+                }
+                that.windowStage.addChild(graphics);
+
+                that.lineAnimationGraphics = new PIXI.Graphics(); 
+                that.lineAnimationGraphics.lineStyle(10, 0x0000FF, 0.3);
+                that.lineAnimationGraphics.moveTo(210, 165);
+                that.lineAnimationGraphics.lineTo(650, 165);
+                that.windowStage.addChild(that.lineAnimationGraphics);
+            }
+            if(parent.config.side === that.SIDE_SITH)
+            {
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(2, 0xFFFF80, 1);
+                graphics.drawRoundedRect(200, 150, 460, 420, 15);
+                graphics.lineStyle(2, 0xFF0000, 1);
+                graphics.beginFill(0x800000, 0.5);
+                graphics.drawRoundedRect(210, 160, 440, 400, 5);
+                graphics.endFill();
+                that.windowStage.addChild(graphics);
+
+                var textureSprite; 
+                if(parent.initialization.commandUser["personage1"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage1"]][1]);
+                else{
+                        if(parent.initialization.commandUser["personage2"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage2"]][1]);
+                        else textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandUser["personage3"]][1]);
+                }
+                textureSprite.position.x = 220; 
+                textureSprite.position.y = 265; 
+                textureSprite.scale.set(0.5);
+                that.windowStage.addChild(textureSprite);
+
+                graphics = new PIXI.Graphics();
+                for(var i = 0; i < 133; i++)
+                {
+                        graphics.lineStyle(1, 0xA63A24, 0.5);
+                        graphics.moveTo(210, 160+(3*i));
+                        graphics.lineTo(650, 160+(3*i));
+                }
+                that.windowStage.addChild(graphics);
+
+                that.lineAnimationGraphics = new PIXI.Graphics(); 
+                that.lineAnimationGraphics.lineStyle(10, 0xA63A24, 0.3);
+                that.lineAnimationGraphics.moveTo(210, 165);
+                that.lineAnimationGraphics.lineTo(650, 165);
+                that.windowStage.addChild(that.lineAnimationGraphics);
+            }
+        },
+        
+        titleCreate: function()
+        {
+            var text;
+            if(parent.config.side === that.SIDE_JEDI) text = new PIXI.Text("ВЫ ПОБЕДИЛИ!", that.buttonStyleBlueText); 
+            if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text("ВЫ ПОБЕДИЛИ!", that.buttonStyleRedText); 
+            text.x = 335;
+            text.y = 180;
+            that.windowStage.addChild(text);
+        },
+        
+        textCreate: function()
+        {
+            var text;
+            if(parent.config.side === that.SIDE_JEDI)
+            {
+                text = new PIXI.Text("Очки за уровень: " + parent.initialization.userlTotalPointsPlayerLevel, that.styleBlueText); 
+                text.x = 355;
+                text.y = 225;
+                that.windowStage.addChild(text);
+                
+                text = new PIXI.Text("Получено очков опыта: +1", that.styleBlueText); 
+                text.x = 355;
+                text.y = 250;
+                that.windowStage.addChild(text);
+                
+                if(that.intercept === false)
+                {
+                    text = new PIXI.Text("Доступны новые союзники:", that.styleBlueText); 
+                    text.x = 355;
+                    text.y = 275;
+                    that.windowStage.addChild(text);
+                    that.contentCreate();
+                }else{
+                    text = new PIXI.Text("Вы успешно отразили нападение Дарт Вейдера на планету " + parent.initialization.planets[that.planetID].name, that.styleBlueText); 
+                    text.x = 345;
+                    text.y = 350;
+                    that.windowStage.addChild(text);
+                }
+            }
+            if(parent.config.side === that.SIDE_SITH)
+            {
+                text = new PIXI.Text("Очки за уровень: " + parent.initialization.userlTotalPointsPlayerLevel, that.styleRedText); 
+                text.x = 355;
+                text.y = 225;
+                that.windowStage.addChild(text);
+                
+                text = new PIXI.Text("Получено очков опыта: +1", that.styleRedText); 
+                text.x = 355;
+                text.y = 250;
+                that.windowStage.addChild(text);
+                
+                if(that.intercept === false)
+                {
+                    text = new PIXI.Text("Доступны новые союзники:", that.styleRedText); 
+                    text.x = 355;
+                    text.y = 275;
+                    that.windowStage.addChild(text);
+                    that.contentCreate();
+                }else{
+                    text = new PIXI.Text("Вы успешно помешали Люку Скайуокеру на планету " + parent.initialization.planets[that.planetID].name, that.styleRedText); 
+                    text.x = 345;
+                    text.y = 350;
+                    that.windowStage.addChild(text);
+                }
+            }
+        },
+        
+        powerPersonage: function(personageID)
+        {
+            var hitCount = 0;
+            hitCount += parent.initialization.personages[personageID].hitDefense1 
+                + parent.initialization.personages[personageID].hitDefense2 
+                + parent.initialization.personages[personageID].hitDefense3 
+                + parent.initialization.personages[personageID].hitDefense4
+                + parent.initialization.personages[personageID].hitDefense5;
+            hitCount /= 10;
+            return hitCount;
+        },
+        
+        contentCreate: function()
+        {
+            if(parent.config.side === that.SIDE_JEDI)
+            {
+                var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage1][3]);
+                textureSprite.position.x = 357;
+                textureSprite.position.y = 300;
+                that.windowStage.addChild(textureSprite);
+                
+                var graphics = new PIXI.Graphics();
+                graphics.lineStyle(1, 0x0000FF, 1);
+                graphics.beginFill(0x00000F, 0.15);
+                graphics.drawRoundedRect(355, 300, 280, 75, 5);
+                graphics.endFill();
+                that.windowStage.addChild(graphics);
+                
+                var text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage1][0] + "  [Сила: " + that.powerPersonage(parent.initialization.planets[that.planetID].blueRewardPersonage1) + "]", that.styleBlueText2); 
+                text.x = 440;
+                text.y = 300;
+                that.windowStage.addChild(text);
+
+                if(parent.initialization.personages[parent.initialization.planets[that.planetID].blueRewardPersonage1].status !== parent.initialization.USER_PERSONAGE_AVAILABLE)
+                {
+                    var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
+                    button.name = parent.initialization.planets[that.planetID].blueRewardPersonage1;
+                    button.position.x = 435; 
+                    button.position.y = 325; 
+                    button.interactive = true; 
+                    button.buttonMode = true; 
+                    button.loop = false; 
+                    button.animationSpeed = 0.2;
+                    button.onComplete = that.onButtonUpdate;
+                    button.tap = that.onButtonClick; 
+                    button.click = that.onButtonClick; 
+                    button.on('mouseover', that.onButtonOver);
+                    button.on('mouseout', that.onButtonOut);
+                    var text = new PIXI.Text("Выбрать", that.styleBlueText); 
+                    text.x = (button.width / 2) - (text.width / 2);
+                    text.y = button.height / 3.2;
+                    button.addChild(text); 
+                    that.windowStage.addChild(button);
+                }
+                
+                var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage2][3]);
+                textureSprite.position.x = 357;
+                textureSprite.position.y = 385;
+                that.windowStage.addChild(textureSprite);
+                
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(1, 0x0000FF, 1);
+                graphics.beginFill(0x00000F, 0.15);
+                graphics.drawRoundedRect(355, 385, 280, 75, 5);
+                graphics.endFill();
+                that.windowStage.addChild(graphics);
+                
+                var text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage2][0] + "  [Сила: " + that.powerPersonage(parent.initialization.planets[that.planetID].blueRewardPersonage2) + "]", that.styleBlueText2); 
+                text.x = 440;
+                text.y = 385;
+                that.windowStage.addChild(text);
+                
+                if(parent.initialization.personages[parent.initialization.planets[that.planetID].blueRewardPersonage2].status !== parent.initialization.USER_PERSONAGE_AVAILABLE)
+                {
+                    var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
+                    button.name = parent.initialization.planets[that.planetID].blueRewardPersonage2;
+                    button.position.x = 435; 
+                    button.position.y = 410; 
+                    button.interactive = true; 
+                    button.buttonMode = true; 
+                    button.loop = false; 
+                    button.animationSpeed = 0.2;
+                    button.onComplete = that.onButtonUpdate;
+                    button.tap = that.onButtonClick; 
+                    button.click = that.onButtonClick; 
+                    button.on('mouseover', that.onButtonOver);
+                    button.on('mouseout', that.onButtonOut);
+                    var text = new PIXI.Text("Выбрать", that.styleBlueText); 
+                    text.x = (button.width / 2) - (text.width / 2);
+                    text.y = button.height / 3.2;
+                    button.addChild(text); 
+                    that.windowStage.addChild(button);
+                }
+                
+                var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage3][3]);
+                textureSprite.position.x = 357;
+                textureSprite.position.y = 470;
+                that.windowStage.addChild(textureSprite);
+                
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(1, 0x0000FF, 1);
+                graphics.beginFill(0x00000F, 0.15);
+                graphics.drawRoundedRect(355, 470, 280, 75, 5);
+                graphics.endFill();
+                that.windowStage.addChild(graphics);
+                
+                var text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].blueRewardPersonage3][0] + "  [Сила: " + that.powerPersonage(parent.initialization.planets[that.planetID].blueRewardPersonage3) + "]", that.styleBlueText2); 
+                text.x = 440;
+                text.y = 470;
+                that.windowStage.addChild(text);
+                
+                if(parent.initialization.personages[parent.initialization.planets[that.planetID].blueRewardPersonage3].status !== parent.initialization.USER_PERSONAGE_AVAILABLE)
+                {
+                    var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
+                    button.name = parent.initialization.planets[that.planetID].blueRewardPersonage3;
+                    button.position.x = 435; 
+                    button.position.y = 495; 
+                    button.interactive = true; 
+                    button.buttonMode = true; 
+                    button.loop = false; 
+                    button.animationSpeed = 0.2;
+                    button.onComplete = that.onButtonUpdate;
+                    button.tap = that.onButtonClick; 
+                    button.click = that.onButtonClick; 
+                    button.on('mouseover', that.onButtonOver);
+                    button.on('mouseout', that.onButtonOut);
+                    var text = new PIXI.Text("Выбрать", that.styleBlueText); 
+                    text.x = (button.width / 2) - (text.width / 2);
+                    text.y = button.height / 3.2;
+                    button.addChild(text); 
+                    that.windowStage.addChild(button);
+                }
+            }
+            if(parent.config.side === that.SIDE_SITH)
+            {
+                var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].redRewardPersonage1][3]);
+                textureSprite.position.x = 357;
+                textureSprite.position.y = 300;
+                that.windowStage.addChild(textureSprite);
+                
+                var graphics = new PIXI.Graphics();
+                graphics.lineStyle(1, 0xFFFF80, 1);
+                graphics.beginFill(0xFF0000, 0.15);
+                graphics.drawRoundedRect(355, 300, 280, 75, 5);
+                graphics.endFill();
+                that.windowStage.addChild(graphics);
+                
+                var text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].redRewardPersonage1][0] + "  [Сила: " + that.powerPersonage(parent.initialization.planets[that.planetID].redRewardPersonage1) + "]", that.styleRedText2); 
+                text.x = 440;
+                text.y = 300;
+                that.windowStage.addChild(text);
+                
+                if(parent.initialization.personages[parent.initialization.planets[that.planetID].redRewardPersonage1].status !== parent.initialization.USER_PERSONAGE_AVAILABLE)
+                {
+                    var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
+                    button.name = parent.initialization.planets[that.planetID].redRewardPersonage1;
+                    button.position.x = 435; 
+                    button.position.y = 325; 
+                    button.interactive = true; 
+                    button.buttonMode = true; 
+                    button.loop = false; 
+                    button.animationSpeed = 0.2;
+                    button.onComplete = that.onButtonUpdate;
+                    button.tap = that.onButtonClick; 
+                    button.click = that.onButtonClick; 
+                    button.on('mouseover', that.onButtonOver);
+                    button.on('mouseout', that.onButtonOut);
+                    var text = new PIXI.Text("Выбрать", that.styleRedText); 
+                    text.x = (button.width / 2) - (text.width / 2);
+                    text.y = button.height / 3.2;
+                    button.addChild(text); 
+                    that.windowStage.addChild(button);
+                }
+                
+                var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].redRewardPersonage2][3]);
+                textureSprite.position.x = 357;
+                textureSprite.position.y = 385;
+                that.windowStage.addChild(textureSprite);
+                
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(1, 0xFFFF80, 1);
+                graphics.beginFill(0xFF0000, 0.15);
+                graphics.drawRoundedRect(355, 385, 280, 75, 5);
+                graphics.endFill();
+                that.windowStage.addChild(graphics);
+                
+                var text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].redRewardPersonage2][0] + "  [Сила: " + that.powerPersonage(parent.initialization.planets[that.planetID].redRewardPersonage2) + "]", that.styleRedText2); 
+                text.x = 440;
+                text.y = 385;
+                that.windowStage.addChild(text);
+                
+                if(parent.initialization.personages[parent.initialization.planets[that.planetID].redRewardPersonage2].status !== parent.initialization.USER_PERSONAGE_AVAILABLE)
+                {
+                    var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
+                    button.name = parent.initialization.planets[that.planetID].redRewardPersonage2;
+                    button.position.x = 435; 
+                    button.position.y = 410; 
+                    button.interactive = true; 
+                    button.buttonMode = true; 
+                    button.loop = false; 
+                    button.animationSpeed = 0.2;
+                    button.onComplete = that.onButtonUpdate;
+                    button.tap = that.onButtonClick; 
+                    button.click = that.onButtonClick; 
+                    button.on('mouseover', that.onButtonOver);
+                    button.on('mouseout', that.onButtonOut);
+                    var text = new PIXI.Text("Выбрать", that.styleRedText); 
+                    text.x = (button.width / 2) - (text.width / 2);
+                    text.y = button.height / 3.2;
+                    button.addChild(text); 
+                    that.windowStage.addChild(button);
+                }
+                
+                var textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].redRewardPersonage3][3]);
+                textureSprite.position.x = 357;
+                textureSprite.position.y = 470;
+                that.windowStage.addChild(textureSprite);
+                
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(1, 0xFFFF80, 1);
+                graphics.beginFill(0xFF0000, 0.15);
+                graphics.drawRoundedRect(355, 470, 280, 75, 5);
+                graphics.endFill();
+                that.windowStage.addChild(graphics);
+                
+                var text = new PIXI.Text(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].redRewardPersonage3][0] + "  [Сила: " + that.powerPersonage(parent.initialization.planets[that.planetID].redRewardPersonage3) + "]", that.styleRedText2); 
+                text.x = 440;
+                text.y = 470;
+                that.windowStage.addChild(text);
+                
+                if(parent.initialization.personages[parent.initialization.planets[that.planetID].redRewardPersonage3].status !== parent.initialization.USER_PERSONAGE_AVAILABLE)
+                {
+                    var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
+                    button.name = parent.initialization.planets[that.planetID].redRewardPersonage3;
+                    button.position.x = 435; 
+                    button.position.y = 495; 
+                    button.interactive = true; 
+                    button.buttonMode = true; 
+                    button.loop = false; 
+                    button.animationSpeed = 0.2;
+                    button.onComplete = that.onButtonUpdate;
+                    button.tap = that.onButtonClick; 
+                    button.click = that.onButtonClick; 
+                    button.on('mouseover', that.onButtonOver);
+                    button.on('mouseout', that.onButtonOut);
+                    var text = new PIXI.Text("Выбрать", that.styleRedText); 
+                    text.x = (button.width / 2) - (text.width / 2);
+                    text.y = button.height / 3.2;
+                    button.addChild(text); 
+                    that.windowStage.addChild(button);
+                }
+            }
+        },
+        
+        onButtonOver: function(event)
+        {
+            this.isOver = true;
+            this.gotoAndPlay(1);
+        },
+
+        onButtonOut: function(event)
+        {
+            this.isOver = false;
+            this.gotoAndStop(0);
+        },
+
+        onButtonUpdate: function(event)
+        {
+            if(this.isOver)
+            {
+                this.gotoAndPlay(1);
+            }else{
+                this.gotoAndStop(0);
+            }
+        },
+
+        onButtonClick: function(event)
+        {
+            if(parent.config.side === that.SIDE_JEDI)
+            {
+                parent.initialization.planets[that.planetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI;
+                parent.initialization.personages[this.name].status = parent.initialization.USER_PERSONAGE_AVAILABLE;
+            }
+            if(parent.config.side === that.SIDE_SITH)
+            {
+                parent.initialization.planets[that.planetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH;
+                parent.initialization.personages[this.name].status = parent.initialization.USER_PERSONAGE_AVAILABLE;
+            }
+            parent.initialization.userExperiencePoints++;
+            parent.config.stopAI = false;    // ИИ получает разрешение на выполнение действий!
+            parent.victoryClose();
+        },
+        
+        buttonCloseCreate: function()
+        {
+            if(parent.config.side === that.SIDE_NONE || parent.config.side === that.SIDE_JEDI)
+            {
+                    var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
+                    button.name = "button_close";
+                    button.position.x = 450; 
+                    button.position.y = 510; 
+                    button.interactive = true; 
+                    button.buttonMode = true; 
+                    button.loop = false; 
+                    button.animationSpeed = 0.2;
+                    button.onComplete = that.onButtonCloseUpdate;
+                    button.tap = that.onButtonCloseClick; 
+                    button.click = that.onButtonCloseClick; 
+                    button.on('mouseover', that.onButtonCloseOver);
+                    button.on('mouseout', that.onButtonCloseOut);
+                    var text = new PIXI.Text("Закрыть", that.styleBlueText); 
+                    text.x = (button.width / 2) - (text.width / 2);
+                    text.y = button.height / 3.2;
+                    button.addChild(text); 
+                    that.windowStage.addChild(button);
+            }
+            if(parent.config.side === that.SIDE_SITH)
+            {
+                    var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
+                    button.name = "button_close";
+                    button.position.x = 450; 
+                    button.position.y = 510; 
+                    button.interactive = true; 
+                    button.buttonMode = true; 
+                    button.loop = false; 
+                    button.animationSpeed = 0.2;
+                    button.onComplete = that.onButtonCloseUpdate;
+                    button.tap = that.onButtonCloseClick; 
+                    button.click = that.onButtonCloseClick; 
+                    button.on('mouseover', that.onButtonCloseOver);
+                    button.on('mouseout', that.onButtonCloseOut);
+                    var text = new PIXI.Text("Закрыть", that.styleRedText); 
+                    text.x = (button.width / 2) - (text.width / 2);
+                    text.y = button.height / 3.2;
+                    button.addChild(text); 
+                    that.windowStage.addChild(button);
+            }
+        },
+
+        onButtonCloseOver: function(event)
+        {
+                this.isOver = true;
+                this.gotoAndPlay(1);
+        },
+
+        onButtonCloseOut: function(event)
+        {
+                this.isOver = false;
+                this.gotoAndStop(0);
+        },
+
+        onButtonCloseUpdate: function(event)
+        {
+                if(this.isOver)
+                {
+                    this.gotoAndPlay(1);
+                }else{
+                    this.gotoAndStop(0);
+                }
+        },
+
+        onButtonCloseClick: function(event)
+        {
+            parent.config.stopAI = true;    // ИИ пропускает ход!
+            parent.initialization.userExperiencePoints++;
+            parent.victoryClose();
+        },
+        
+        tweenStart: function()
+        {
+            createjs.Tween.get(that.lineAnimationGraphics, {loop: true}) 
+                    .to({x: 0, y: 390}, 2500, createjs.Ease.getPowInOut(3));
+            createjs.Ticker.setFPS(60);
+
+        },
+
+        tweenStop: function()
+        {
+            createjs.Tween.removeTweens(that.lineAnimationGraphics);
+        },
+
+        show: function()
+        {
+                if(parent.level !== null) parent.timer.timerPauseBegin();
+                that.tweenStart();
+                return that.windowStage;
+        },
+
+        close: function()
+        {
+                that.tweenStop();
+                for(var child in that.windowStage.children) that.windowStage.removeChild(that.windowStage.children[child]);
+                return that.windowStage;
+        },
+
+        getWindowStage: function()
+        {
+                return that.windowStage;
+        },
+
+        destroy: function()
+        {
+                for(var child in that.windowStage.children) that.windowStage.removeChild(that.windowStage.children[child]);
+                that.windowStage.destroy();
+                delete that.windowStage.children;
+
+                for(var property in that) that[property] = null;
+        }
+    };
+    return that;
+};
+
+/* == END FILE ========================================================== */
+
 
 /* == START FILE ========================================================= */
 
 var Game = function(mainStage)
 {
 	var that = {
-		config: {music:false, sound:true, language:"rus", side: "side_none", MAIN_WIDTH:860, MAIN_HEIGH:730},
+		config: {music:false, sound:true, language:"rus", side: "side_none", MAIN_WIDTH:860, MAIN_HEIGH:730, stopAI: false},
 		sound: null,
 		timer: null,
 		match: null,
@@ -9461,6 +10144,8 @@ var Game = function(mainStage)
 		command: null,
 		startbattle: null,
 		level: null,
+                victory: null,
+                lost: null,
 		
 		vkInvite: function()
 		{
@@ -9493,7 +10178,7 @@ var Game = function(mainStage)
 		{
 			mainStage.removeChild(that.menu.close());
 			that.menu.destroy();
-			that.menu = null;
+			that.menu = that.settings = null;
 			that.sideShow();
 		},
 		
@@ -9523,7 +10208,7 @@ var Game = function(mainStage)
 			that.initializationGame();
 			mainStage.removeChild(that.side.close());
 			that.side.destroy();
-			that.side = null;
+			that.side = that.menu = that.settings = null;
 			that.mapShow();
 		},
 		
@@ -9651,14 +10336,32 @@ var Game = function(mainStage)
 		
 		levelClose: function()
 		{
-			mainStage.removeChild(that.level.close());
+			that.timerClose();
+                        that.matchClose();
+                        mainStage.removeChild(that.level.close());
 			that.level.destroy();
 			that.level = null;
-		}
+		},
+                
+                victoryShow: function(planetID, intercept)
+                {
+                        that.victory = Victory(that);
+			that.victory.create(planetID, intercept);
+			mainStage.addChild(that.victory.show());
+                },
+                
+                victoryClose: function()
+                {
+                        mainStage.removeChild(that.victory.close());
+			that.victory.destroy();
+			that.victory = null;
+                        that.levelClose();
+                        that.mapShow();
+                }
 		
-	}
+	};
 	return that;
-}
+};
 
 /* == END FILE ========================================================== */
 
@@ -9680,7 +10383,7 @@ function onInit()
 	
 	/* Инициализация ВКонтакте */
 	VK.init(function() {
-        apiId: 5170657;
+            apiId: 5170657;
     });
 }
 

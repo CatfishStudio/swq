@@ -157,7 +157,7 @@ var Victory = function(parent)
                     that.contentCreate();
                 }else{
                     text = new PIXI.Text("Вы успешно отразили нападение Дарт Вейдера на планету " + parent.initialization.planets[that.planetID].name, that.styleBlueText); 
-                    text.x = 345;
+                    text.x = 325;
                     text.y = 350;
                     that.windowStage.addChild(text);
                 }
@@ -183,7 +183,7 @@ var Victory = function(parent)
                     that.contentCreate();
                 }else{
                     text = new PIXI.Text("Вы успешно помешали Люку Скайуокеру на планету " + parent.initialization.planets[that.planetID].name, that.styleRedText); 
-                    text.x = 345;
+                    text.x = 325;
                     text.y = 350;
                     that.windowStage.addChild(text);
                 }

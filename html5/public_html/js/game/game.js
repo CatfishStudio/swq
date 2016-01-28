@@ -18,9 +18,9 @@ var Game = function(mainStage)
 		command: null,
 		startbattle: null,
 		level: null,
-                victory: null,
-                lost: null,
-		
+		victory: null,
+		lost: null,
+
 		vkInvite: function()
 		{
 			//VK.callMethod("showInviteBox");
@@ -238,12 +238,15 @@ var Game = function(mainStage)
                     that.lost = Lost(that);
                     that.lost.create(planetID, intercept);
                     mainStage.addChild(that.lost.show());
-                    
                 },
                 
                 lostClose: function()
                 {
-                    
+                    mainStage.removeChild(that.lost.close());
+					that.lost.destroy();
+					that.lost = null;
+					that.levelClose();
+					that.mapShow();
                 }
 		
 	};

@@ -1126,7 +1126,8 @@ var Level = function(parent)
 					that.levelStage.removeChild(that.levelUserHit4Text);
 					that.levelStage.removeChild(that.levelUserHit5Text);
 					that.levelStage.removeChild(that.levelUserLifeText);
-					console.log("Пользователь проиграл!");
+					
+					parent.lostShow(that.levelPlanetID, that.levelIntercept);
 					
 				}else{
 					if(that.levelIndexUser < that.levelCommandUser.length - 1)that.levelIndexUser++; // < 2

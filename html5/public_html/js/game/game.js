@@ -231,6 +231,19 @@ var Game = function(mainStage)
 			that.victory = null;
                         that.levelClose();
                         that.mapShow();
+                },
+                
+                lostShow: function(planetID, intercept)
+                {
+                    that.lost = Lost(that);
+                    that.lost.create(planetID, intercept);
+                    mainStage.addChild(that.lost.show());
+                    
+                },
+                
+                lostClose: function()
+                {
+                    
                 }
 		
 	};

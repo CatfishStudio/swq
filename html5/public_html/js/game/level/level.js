@@ -950,7 +950,7 @@ var Level = function(parent)
 			switch (this.name)
 			{
 				case "EndBattle":
-					parent.victoryShow(that.levelPlanetID, that.levelIntercept);
+					parent.lostShow(that.levelPlanetID, that.levelIntercept);
 					break;
 				case "Settings":
 					parent.settingsShow();
@@ -1083,7 +1083,8 @@ var Level = function(parent)
 					that.levelStage.removeChild(that.levelAIHit4Text);
 					that.levelStage.removeChild(that.levelAIHit5Text);
 					that.levelStage.removeChild(that.levelAILifeText);
-					console.log("ИИ проиграл!");
+                                        
+					parent.victoryShow(that.levelPlanetID, that.levelIntercept);
 					
 				}else{
 					if(that.levelIndexAI < that.levelCommandAI.length - 1) that.levelIndexAI++; // < 2

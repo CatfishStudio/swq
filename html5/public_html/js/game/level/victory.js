@@ -19,11 +19,13 @@ var Victory = function(parent)
         
         intercept: null,
         planetID: null,
+        aiPlanetID: null,
         
-        create: function(planetID, intercept)
+        create: function(planetID, intercept, aiPlanetID)
         {
             that.intercept = intercept;
             that.planetID = planetID;
+            that.aiPlanetID = aiPlanetID;
             
             that.windowStage = new PIXI.Container();
             that.backgroundCreate();
@@ -474,6 +476,16 @@ var Victory = function(parent)
                 parent.initialization.planets[that.planetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI;
                 // присваиваем статус выбранный для выбранного союзника
                 parent.initialization.personages[this.name].status = parent.initialization.USER_PERSONAGE_AVAILABLE;
+                // ИИ победил в своей битве
+                if(parent.initialization.aiResultBattle() === true)
+                {
+                    // ИИ присваиваем планете статус завоёванной
+                    parent.initialization.planets[that.aiPlanetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH;
+                    // Увеличиваем очки опыта ИИ
+                    parent.initialization.userExperiencePointsAI++;
+                    // обновление команды ИИ распределение очков опыта
+                    parent.initialization.aiUpgradeCommand(that.aiPlanetID);
+                }
             }
             if(parent.config.side === that.SIDE_SITH)
             {
@@ -481,6 +493,16 @@ var Victory = function(parent)
                 parent.initialization.planets[that.planetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH;
                 // присваиваем статус выбранный для выбранного союзника
                 parent.initialization.personages[this.name].status = parent.initialization.USER_PERSONAGE_AVAILABLE;
+                // ИИ победил в своей битве
+                if(parent.initialization.aiResultBattle() === true)
+                {
+                    // ИИ присваиваем планете статус завоёванной
+                    parent.initialization.planets[that.aiPlanetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI;
+                    // Увеличиваем очки опыта ИИ
+                    parent.initialization.userExperiencePointsAI++;
+                    // обновление команды ИИ распределение очков опыта
+                    parent.initialization.aiUpgradeCommand(that.aiPlanetID);
+                } 
             }
             // Увеличиваем очки опыта Пользователя
             parent.initialization.userExperiencePoints++;

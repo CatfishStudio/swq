@@ -1362,21 +1362,21 @@ var Initialization = function(planetTextures, heroesTextures, personagesJson, pl
 			that.userTotalBattle = 0;                        	// Общее количество проведённых битв (связь с сообщениями R2D2)
 		},
                 
-                aiGetPersonageInCommand: function() // поиск доступного персонажа в команду ИИ
+                aiGetPersonageInCommand: function(aiSide) // поиск доступного персонажа в команду ИИ (map.js)
                 {
                     
                 },
                 
-                aiUpgradeCommand: function() // обновление команды ИИ (распределение очков опыта, поиск лучшего бойца из списка доступных)
+                aiUpgradeCommand: function(aiPlanetID) // обновление команды ИИ (распределение очков опыта, поиск лучшего бойца из списка доступных) (victory.js, lost.js)
                 {
                     
                 },
                 
-                aiResultBattle: function() // расчёт результата сражения ИИ
+                aiResultBattle: function() // расчёт результата сражения ИИ (victory.js, lost.js)
                 {
                     var index = that.randomIndex();
-                    if(index >= 0 && index < 7) return true;
-                    else return false;
+                    if(index >= 0 && index < 7) return true; // ИИ победил
+                    else return false; // ИИ проиграл
                 }
 		
 	};

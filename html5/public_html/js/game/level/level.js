@@ -6,6 +6,7 @@ var Level = function(parent)
 	var that = {
 		levelStage: null,
 		levelPlanetID: null,
+                                    levelAIPlanetID: null,
 		levelStarsSprite: null,
 		levelPlanetSprite: null,
 		levelLandscapeSprite: null,
@@ -64,7 +65,7 @@ var Level = function(parent)
 		levelLineAIAnimationGraphics: null,
 		levelMessageLineGraphics: null,
 		
-		levelCreate: function(planetID, intercept)
+		levelCreate: function(planetID, intercept, aiPlanetID)
 		{
                         parent.initialization.userlTotalPointsPlayerLevel = 0;
                         parent.initialization.userTotalBattle++;
@@ -73,6 +74,7 @@ var Level = function(parent)
 			
 			that.levelIntercept = intercept;
 			that.levelPlanetID = planetID;
+                                                      that.levelAIPlanetID = aiPlanetID;
 			that.levelStatus = that.LEVEL_STATUS_BATTLE;
 			that.levelCommandUser = [];
 			that.levelCommandAI = [];
@@ -950,13 +952,13 @@ var Level = function(parent)
 			switch (this.name)
 			{
 				case "EndBattle":
-					parent.lostShow(that.levelPlanetID, that.levelIntercept);
+					parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
 					break;
 				case "Settings":
 					parent.settingsShow();
 					break;
 				case "BackMenu":
-					parent.victoryShow(that.levelPlanetID, that.levelIntercept);
+					parent.victoryShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
                                         break;
 				case "Invite": 
 					parent.vkInvite();
@@ -1084,7 +1086,7 @@ var Level = function(parent)
 					that.levelStage.removeChild(that.levelAIHit5Text);
 					that.levelStage.removeChild(that.levelAILifeText);
                                         
-					parent.victoryShow(that.levelPlanetID, that.levelIntercept);
+					parent.victoryShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
 					
 				}else{
 					if(that.levelIndexAI < that.levelCommandAI.length - 1) that.levelIndexAI++; // < 2
@@ -1127,7 +1129,7 @@ var Level = function(parent)
 					that.levelStage.removeChild(that.levelUserHit5Text);
 					that.levelStage.removeChild(that.levelUserLifeText);
 					
-					parent.lostShow(that.levelPlanetID, that.levelIntercept);
+					parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
 					
 				}else{
 					if(that.levelIndexUser < that.levelCommandUser.length - 1)that.levelIndexUser++; // < 2

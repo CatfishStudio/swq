@@ -61,13 +61,13 @@ var Map = function(parent)
 					&& (parent.initialization.planets[planetID].redPersonage1 === parent.initialization.commandAI[key] || parent.initialization.planets[planetID].redPersonage2 === parent.initialization.commandAI[key] || parent.initialization.planets[planetID].redPersonage3 === parent.initialization.commandAI[key]) 
 					&& (parent.initialization.planets[planetID].status === parent.initialization.USER_PLANET_QUEST_AWAITING || parent.initialization.planets[planetID].status === parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI)) 
 					{
-						parent.initialization.commandAI[key] = null;
+						parent.initialization.commandAI[key] = parent.initialization.aiGetPersonageInCommand(that.SIDE_SITH);
 					}
 					if( (parent.config.side === that.SIDE_SITH)
 					&& (parent.initialization.planets[planetID].bluePersonage1 === parent.initialization.commandAI[key] || parent.initialization.planets[planetID].bluePersonage2 === parent.initialization.commandAI[key] || parent.initialization.planets[planetID].bluePersonage3 === parent.initialization.commandAI[key]) 
 					&& (parent.initialization.planets[planetID].status === parent.initialization.USER_PLANET_QUEST_AWAITING || parent.initialization.planets[planetID].status === parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH)) 
 					{
-						parent.initialization.commandAI[key] = null;
+						parent.initialization.commandAI[key] = parent.initialization.aiGetPersonageInCommand(that.SIDE_JEDI);
 					}
 				}
 			}

@@ -23,18 +23,18 @@ var Game = function(mainStage)
 
 		vkInvite: function()
 		{
-                        VK.callMethod("showInviteBox");
+                                        VK.callMethod("showInviteBox");
 		},
                 
-                vkWallPost: function(planetID, intercept, person)
-                {
-                    if(intercept === false)
-                    {
-                        VK.api("wall.post", {message:'Star Wars Heroes. \nЯ победил в битве на планете ' + that.initialization.planets[planetID].name + '\n Набрал ' + that.initialization.userlTotalPointsPlayerLevel + ' очков в миссии. \nПолучил 1 очко опыта и нового союзника ' + person + '.\nПрисоединяйтесь к игре https://vk.com/app5170657', attachments : 'photo-62618339_398688727'}); 
-                    }else{
-                        VK.api("wall.post", {message:'Star Wars Heroes. \nЯ победил соперника на планете ' + that.initialization.planets[planetID].name + '\n Набрал ' + that.initialization.userlTotalPointsPlayerLevel + ' очков в миссии и получил 1 очко опыта.\nПрисоединяйтесь к игре https://vk.com/app5170657', attachments : 'photo-62618339_398688727'}); 
-                    }
-                },
+                                    vkWallPost: function(planetID, intercept, person)
+                                    {
+                                        if(intercept === false)
+                                        {
+                                            VK.api("wall.post", {message:'Star Wars Heroes. \nЯ победил в битве на планете ' + that.initialization.planets[planetID].name + '\n Набрал ' + that.initialization.userlTotalPointsPlayerLevel + ' очков в миссии. \nПолучил 1 очко опыта и нового союзника ' + person + '.\nПрисоединяйтесь к игре https://vk.com/app5170657', attachments : 'photo-62618339_398688727'}); 
+                                        }else{
+                                            VK.api("wall.post", {message:'Star Wars Heroes. \nЯ победил соперника на планете ' + that.initialization.planets[planetID].name + '\n Набрал ' + that.initialization.userlTotalPointsPlayerLevel + ' очков в миссии и получил 1 очко опыта.\nПрисоединяйтесь к игре https://vk.com/app5170657', attachments : 'photo-62618339_398688727'}); 
+                                        }
+                                    },
 		
 		loadAssets: function()
 		{
@@ -209,10 +209,10 @@ var Game = function(mainStage)
 			that.match = null;
 		},
 		
-		levelShow: function(planetID, intercept)
+		levelShow: function(planetID, intercept, aiPlanetID)
 		{
 			that.level = Level(that);
-			that.level.levelCreate(planetID, intercept);
+			that.level.levelCreate(planetID, intercept, aiPlanetID);
 			mainStage.addChild(that.level.show());
 			that.level.levelFieldCreate();
 			that.timerShow();
@@ -227,10 +227,10 @@ var Game = function(mainStage)
 			that.level = null;
 		},
                 
-                victoryShow: function(planetID, intercept)
+                victoryShow: function(planetID, intercept, aiPlanetID)
                 {
                         that.victory = Victory(that);
-			that.victory.create(planetID, intercept);
+			that.victory.create(planetID, intercept, aiPlanetID);
 			mainStage.addChild(that.victory.show());
                 },
                 
@@ -243,10 +243,10 @@ var Game = function(mainStage)
                         that.mapShow();
                 },
                 
-                lostShow: function(planetID, intercept)
+                lostShow: function(planetID, intercept, aiPlanetID)
                 {
                     that.lost = Lost(that);
-                    that.lost.create(planetID, intercept);
+                    that.lost.create(planetID, intercept, aiPlanetID);
                     mainStage.addChild(that.lost.show());
                 },
                 

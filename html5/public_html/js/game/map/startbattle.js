@@ -481,8 +481,8 @@ var StartBattle = function(parent)
 				case "yes":
 					//if(sbattleUserPlanetID !== sbattleAIPlanetID) levelCreate(sbattleUserPlanetID, false);
 					//else levelCreate(sbattleUserPlanetID, true);
-					if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true) parent.levelShow(that.userPlanetID, false);
-					else parent.levelShow(that.userPlanetID, true);
+					if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true) parent.levelShow(that.userPlanetID, false, that.aiPlanetID);
+					else parent.levelShow(that.userPlanetID, true, that.aiPlanetID);
 					break;
 				case "no":
 					parent.startbattleClose();

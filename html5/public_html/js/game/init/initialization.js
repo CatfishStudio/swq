@@ -1375,6 +1375,8 @@ var Initialization = function(planetTextures, heroesTextures, personagesJson, pl
                 aiResultBattle: function() // расчёт результата сражения ИИ
                 {
                     var index = that.randomIndex();
+                    if(index >= 0 && index < 7) return true;
+                    else return false;
                 }
 		
 	};

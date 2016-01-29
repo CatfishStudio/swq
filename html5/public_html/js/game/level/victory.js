@@ -470,17 +470,24 @@ var Victory = function(parent)
         {
             if(parent.config.side === that.SIDE_JEDI)
             {
+                // присваиваем планете статус завоёванной
                 parent.initialization.planets[that.planetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI;
+                // присваиваем статус выбранный для выбранного союзника
                 parent.initialization.personages[this.name].status = parent.initialization.USER_PERSONAGE_AVAILABLE;
             }
             if(parent.config.side === that.SIDE_SITH)
             {
+                // присваиваем планете статус завоёванной
                 parent.initialization.planets[that.planetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH;
+                // присваиваем статус выбранный для выбранного союзника
                 parent.initialization.personages[this.name].status = parent.initialization.USER_PERSONAGE_AVAILABLE;
             }
+            // Увеличиваем очки опыта Пользователя
             parent.initialization.userExperiencePoints++;
-            parent.config.stopAI = false;    // ИИ получает разрешение на выполнение действий!
-            parent.victoryClose();
+            // ИИ получает разрешение на выполнение действий!
+            parent.config.stopAI = false;    
+            parent.victoryClose(); // закрываем окно
+            parent.vkWallPost(that.planetID, that.intercept, parent.initialization.personages[this.name].name);
         },
         
         buttonCloseCreate: function()
@@ -553,9 +560,12 @@ var Victory = function(parent)
 
         onButtonCloseClick: function(event)
         {
-            parent.config.stopAI = true;    // ИИ пропускает ход!
+            // ИИ пропускает ход!
+            parent.config.stopAI = true;    
+            // Увеличиваем очки опыта Пользователя
             parent.initialization.userExperiencePoints++;
-            parent.victoryClose();
+            parent.victoryClose(); // закрываем окно
+            parent.vkWallPost(that.planetID, that.intercept, null);
         },
         
         tweenStart: function()

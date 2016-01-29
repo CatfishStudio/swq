@@ -23,8 +23,18 @@ var Game = function(mainStage)
 
 		vkInvite: function()
 		{
-			//VK.callMethod("showInviteBox");
+                        VK.callMethod("showInviteBox");
 		},
+                
+                vkWallPost: function(planetID, intercept, person)
+                {
+                    if(intercept === false)
+                    {
+                        VK.api("wall.post", {message:'Star Wars Heroes. \nЯ победил в битве на планете ' + that.initialization.planets[planetID].name + '\n Набрал ' + that.initialization.userlTotalPointsPlayerLevel + ' очков в миссии. \nПолучил 1 очко опыта и нового союзника ' + person + '.\nПрисоединяйтесь к игре https://vk.com/app5170657', attachments : 'photo-62618339_398688727'}); 
+                    }else{
+                        VK.api("wall.post", {message:'Star Wars Heroes. \nЯ победил соперника на планете ' + that.initialization.planets[planetID].name + '\n Набрал ' + that.initialization.userlTotalPointsPlayerLevel + ' очков в миссии и получил 1 очко опыта.\nПрисоединяйтесь к игре https://vk.com/app5170657', attachments : 'photo-62618339_398688727'}); 
+                    }
+                },
 		
 		loadAssets: function()
 		{
@@ -243,10 +253,10 @@ var Game = function(mainStage)
                 lostClose: function()
                 {
                     mainStage.removeChild(that.lost.close());
-					that.lost.destroy();
-					that.lost = null;
-					that.levelClose();
-					that.mapShow();
+                    that.lost.destroy();
+                    that.lost = null;
+                    that.levelClose();
+                    that.mapShow();
                 }
 		
 	};

@@ -16,11 +16,9 @@ function onInit()
 	game.loadAssets();
 	
 	/* Инициализация ВКонтакте */
-	/*
 	VK.init(function() {
             apiId: 5170657;
         });
-	*/
 }
 
 function draw() 

@@ -3205,6 +3205,8 @@ var Initialization = function(planetTextures, heroesTextures, personagesJson, pl
                 aiResultBattle: function() // расчёт результата сражения ИИ
                 {
                     var index = that.randomIndex();
+                    if(index >= 0 && index < 7) return true;
+                    else return false;
                 }
 		
 	};
@@ -4164,13 +4166,14 @@ var Level = function(parent)
 			switch (this.name)
 			{
 				case "EndBattle":
-					parent.victoryShow(that.levelPlanetID, that.levelIntercept);
+					parent.lostShow(that.levelPlanetID, that.levelIntercept);
 					break;
 				case "Settings":
 					parent.settingsShow();
 					break;
 				case "BackMenu":
-					
+					parent.victoryShow(that.levelPlanetID, that.levelIntercept);
+                                        parent.vkWallPost(that.levelPlanetID, that.levelIntercept);
 					break;
 				case "Invite": 
 					parent.vkInvite();
@@ -4297,7 +4300,8 @@ var Level = function(parent)
 					that.levelStage.removeChild(that.levelAIHit4Text);
 					that.levelStage.removeChild(that.levelAIHit5Text);
 					that.levelStage.removeChild(that.levelAILifeText);
-					console.log("ИИ проиграл!");
+                                        
+					parent.victoryShow(that.levelPlanetID, that.levelIntercept);
 					
 				}else{
 					if(that.levelIndexAI < that.levelCommandAI.length - 1) that.levelIndexAI++; // < 2
@@ -4339,7 +4343,8 @@ var Level = function(parent)
 					that.levelStage.removeChild(that.levelUserHit4Text);
 					that.levelStage.removeChild(that.levelUserHit5Text);
 					that.levelStage.removeChild(that.levelUserLifeText);
-					console.log("Пользователь проиграл!");
+					
+					parent.lostShow(that.levelPlanetID, that.levelIntercept);
 					
 				}else{
 					if(that.levelIndexUser < that.levelCommandUser.length - 1)that.levelIndexUser++; // < 2
@@ -4448,7 +4453,293 @@ var Level = function(parent)
 var Lost = function(parent)
 {
     var that = {
+        windowStage: null,
+        lineAnimationGraphics: null,
+        styleBlueText: { font : 'bold 18px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 400, align: "center"},
+        styleRedText: { font : 'bold 18px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 400, align: "center"}, 
+        styleBlueText2: { font : 'bold 12px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200, align: "center"},
+        styleRedText2: { font : 'bold 12px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200, align: "center"}, 
+        buttonStyleBlueText: { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 },
+        buttonStyleRedText: { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 }, 
+
+        SIDE_NONE: "side_none",
+	SIDE_JEDI: "side_jedi",
+	SIDE_SITH: "side_sith",
         
+        intercept: null,
+        planetID: null,
+        
+        create: function(planetID, intercept)
+        {
+            that.intercept = intercept;
+            that.planetID = planetID;
+            
+            that.windowStage = new PIXI.Container();
+            that.backgroundCreate();
+            that.windowCreate();
+            that.titleCreate();
+            that.textCreate();
+            that.buttonCloseCreate();
+        },
+        
+        backgroundCreate: function()
+        {
+            var graphics = new PIXI.Graphics(); 
+            graphics.hitArea = new PIXI.Rectangle(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
+            graphics.interactive = true;
+            graphics.lineStyle(1, 0x000000, 0.05);
+            graphics.beginFill(0x000000, 0.5);
+            graphics.drawRect(0, 0, parent.config.MAIN_WIDTH, parent.config.MAIN_HEIGH);
+            graphics.endFill();
+            that.windowStage.addChild(graphics); 
+        },
+        
+        windowCreate: function()
+        {
+            if(parent.config.side === that.SIDE_JEDI)
+            {
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(2, 0xFFFF80, 1);
+                graphics.drawRoundedRect(200, 150, 460, 420, 15);
+                graphics.lineStyle(2, 0xFF0000, 1);
+                graphics.beginFill(0x800000, 0.5);
+                graphics.drawRoundedRect(210, 160, 440, 400, 5);
+                graphics.endFill();
+                that.windowStage.addChild(graphics);
+                
+                var textureSprite; 
+                if(that.intercept === false) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].redPersonage1][1]);
+                else {
+                    if(parent.initialization.commandAI["personage1"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][1]);
+                    else{
+                        if(parent.initialization.commandAI["personage2"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage2"]][1]);
+                        else textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage3"]][1]);
+                    }
+                }
+                textureSprite.position.x = 360; 
+                textureSprite.position.y = 265; 
+                textureSprite.scale.set(0.5);
+                that.windowStage.addChild(textureSprite);
+                
+                graphics = new PIXI.Graphics();
+                for(var i = 0; i < 133; i++)
+                {
+                    graphics.lineStyle(1, 0xA63A24, 0.5);
+                    graphics.moveTo(210, 160+(3*i));
+                    graphics.lineTo(650, 160+(3*i));
+                }
+                that.windowStage.addChild(graphics);
+
+                that.lineAnimationGraphics = new PIXI.Graphics(); 
+                that.lineAnimationGraphics.lineStyle(10, 0xA63A24, 0.3);
+                that.lineAnimationGraphics.moveTo(210, 165);
+                that.lineAnimationGraphics.lineTo(650, 165);
+                that.windowStage.addChild(that.lineAnimationGraphics);
+            }
+            if(parent.config.side === that.SIDE_SITH)
+            {
+                var graphics = new PIXI.Graphics(); 
+                graphics.lineStyle(2, 0xFFFFFF, 1);
+                graphics.drawRoundedRect(200, 150, 460, 420, 15);
+                graphics.lineStyle(2, 0x0000FF, 1);
+                graphics.beginFill(0x00000F, 0.5);
+                graphics.drawRoundedRect(210, 160, 440, 400, 5);
+                graphics.endFill();
+                that.windowStage.addChild(graphics);
+                
+                var textureSprite; 
+                if(that.intercept === false) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.planets[that.planetID].bluePersonage1][1]);
+                else {
+                    if(parent.initialization.commandAI["personage1"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage1"]][1]);
+                    else{
+                        if(parent.initialization.commandAI["personage2"] != undefined) textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage2"]][1]);
+                        else textureSprite = new PIXI.Sprite(parent.assets.getAsset("heroesTextures")[parent.initialization.commandAI["personage3"]][1]);
+                    }
+                }
+                textureSprite.position.x = 360; 
+                textureSprite.position.y = 265; 
+                textureSprite.scale.set(0.5);
+                that.windowStage.addChild(textureSprite);
+                
+                graphics = new PIXI.Graphics();
+                for(var i = 0; i < 133; i++)
+                {
+                    graphics.lineStyle(1, 0x0000FF, 0.5);
+                    graphics.moveTo(210, 160+(3*i));
+                    graphics.lineTo(650, 160+(3*i));
+                }
+                that.windowStage.addChild(graphics);
+
+                that.lineAnimationGraphics = new PIXI.Graphics(); 
+                that.lineAnimationGraphics.lineStyle(10, 0x0000FF, 0.3);
+                that.lineAnimationGraphics.moveTo(210, 165);
+                that.lineAnimationGraphics.lineTo(650, 165);
+                that.windowStage.addChild(that.lineAnimationGraphics);
+            }
+        },
+        
+         titleCreate: function()
+        {
+            var text;
+            if(parent.config.side === that.SIDE_SITH) text = new PIXI.Text("ВЫ ПРОИГРАЛИ!", that.buttonStyleBlueText); 
+            if(parent.config.side === that.SIDE_JEDI) text = new PIXI.Text("ВЫ ПРОИГРАЛИ!", that.buttonStyleRedText); 
+            text.x = 335;
+            text.y = 180;
+            that.windowStage.addChild(text);
+        },
+        
+         textCreate: function()
+        {
+            var text;
+            if(parent.config.side === that.SIDE_SITH)
+            {
+                if(that.intercept === false) text = new PIXI.Text(parent.initialization.personages[parent.initialization.planets[that.planetID].bluePersonage1].name + " победил вас на планете " + parent.initialization.planets[that.planetID].name, that.styleBlueText);
+                else{
+                    if(parent.initialization.commandAI["personage1"] != undefined) text = new PIXI.Text(parent.initialization.personages[parent.initialization.commandAI["personage1"]].name + " победил вас на планете " + parent.initialization.planets[that.planetID].name, that.styleBlueText);
+                    else{
+                        if(parent.initialization.commandAI["personage2"] != undefined) text = new PIXI.Text(parent.initialization.personages[parent.initialization.commandAI["personage2"]].name + " победил вас на планете " + parent.initialization.planets[that.planetID].name, that.styleBlueText);
+                        else text = new PIXI.Text(parent.initialization.personages[parent.initialization.commandAI["personage3"]].name + " победил вас на планете " + parent.initialization.planets[that.planetID].name, that.styleBlueText);
+                    }
+                }
+                text.x = 260;
+                text.y = 210;
+                that.windowStage.addChild(text);
+            }
+			
+            if(parent.config.side === that.SIDE_JEDI)
+            {
+                if(that.intercept === false) text = new PIXI.Text(parent.initialization.personages[parent.initialization.planets[that.planetID].redPersonage1].name + " победил вас на планете " + parent.initialization.planets[that.planetID].name, that.styleRedText);
+                else{
+                    if(parent.initialization.commandAI["personage1"] != undefined) text = new PIXI.Text(parent.initialization.personages[parent.initialization.commandAI["personage1"]].name + " победил вас на планете " + parent.initialization.planets[that.planetID].name, that.styleRedText);
+                    else{
+                        if(parent.initialization.commandAI["personage2"] != undefined) text = new PIXI.Text(parent.initialization.personages[parent.initialization.commandAI["personage2"]].name + " победил вас на планете " + parent.initialization.planets[that.planetID].name, that.styleRedText);
+                        else text = new PIXI.Text(parent.initialization.personages[parent.initialization.commandAI["personage3"]].name + " победил вас на планете " + parent.initialization.planets[that.planetID].name, that.styleRedText);
+                    }
+                }
+                text.x = 260;
+                text.y = 210;
+                that.windowStage.addChild(text);
+            }
+        },
+        
+        buttonCloseCreate: function()
+        {
+            if(parent.config.side === that.SIDE_SITH)
+            {
+                var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue")); 
+                button.name = "button_close";
+                button.position.x = 330; 
+                button.position.y = 510; 
+                button.interactive = true; 
+                button.buttonMode = true; 
+                button.loop = false; 
+                button.animationSpeed = 0.2;
+                button.onComplete = that.onButtonCloseUpdate;
+                button.tap = that.onButtonCloseClick; 
+                button.click = that.onButtonCloseClick; 
+                button.on('mouseover', that.onButtonCloseOver);
+                button.on('mouseout', that.onButtonCloseOut);
+                var text = new PIXI.Text("Закрыть", that.styleBlueText); 
+                text.x = (button.width / 2) - (text.width / 2);
+                text.y = button.height / 3.2;
+                button.addChild(text); 
+                that.windowStage.addChild(button);
+            }
+			
+            if(parent.config.side === that.SIDE_JEDI)
+            {
+                var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed")); 
+                button.name = "button_close";
+                button.position.x = 330; 
+                button.position.y = 510; 
+                button.interactive = true; 
+                button.buttonMode = true; 
+                button.loop = false; 
+                button.animationSpeed = 0.2;
+                button.onComplete = that.onButtonCloseUpdate;
+                button.tap = that.onButtonCloseClick; 
+                button.click = that.onButtonCloseClick; 
+                button.on('mouseover', that.onButtonCloseOver);
+                button.on('mouseout', that.onButtonCloseOut);
+                var text = new PIXI.Text("Закрыть", that.styleRedText); 
+                text.x = (button.width / 2) - (text.width / 2);
+                text.y = button.height / 3.2;
+                button.addChild(text); 
+                that.windowStage.addChild(button);
+            }
+        },
+        
+        onButtonCloseOver: function(event)
+        {
+                this.isOver = true;
+                this.gotoAndPlay(1);
+        },
+
+        onButtonCloseOut: function(event)
+        {
+                this.isOver = false;
+                this.gotoAndStop(0);
+        },
+
+        onButtonCloseUpdate: function(event)
+        {
+                if(this.isOver)
+                {
+                    this.gotoAndPlay(1);
+                }else{
+                    this.gotoAndStop(0);
+                }
+        },
+
+        onButtonCloseClick: function(event)
+        {
+            // Увеличиваем очки опыта ИИ
+            parent.initialization.userExperiencePointsAI++;
+            // присваиваем планете статус завоёванной если это был перехват
+            if(that.intercept === true && parent.config.side === that.SIDE_SITH) parent.initialization.planets[that.planetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI; 
+            if(that.intercept === true && parent.config.side === that.SIDE_JEDI) parent.initialization.planets[that.planetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH; 
+            parent.lostClose(); // закрываем окно
+        },
+        
+        tweenStart: function()
+        {
+            createjs.Tween.get(that.lineAnimationGraphics, {loop: true}) 
+                    .to({x: 0, y: 390}, 2500, createjs.Ease.getPowInOut(3));
+            createjs.Ticker.setFPS(60);
+        },
+
+        tweenStop: function()
+        {
+            createjs.Tween.removeTweens(that.lineAnimationGraphics);
+        },
+
+        show: function()
+        {
+                if(parent.level !== null) parent.timer.timerPauseBegin();
+                that.tweenStart();
+                return that.windowStage;
+        },
+
+        close: function()
+        {
+                that.tweenStop();
+                for(var child in that.windowStage.children) that.windowStage.removeChild(that.windowStage.children[child]);
+                return that.windowStage;
+        },
+
+        getWindowStage: function()
+        {
+                return that.windowStage;
+        },
+
+        destroy: function()
+        {
+                for(var child in that.windowStage.children) that.windowStage.removeChild(that.windowStage.children[child]);
+                that.windowStage.destroy();
+                delete that.windowStage.children;
+
+                for(var property in that) that[property] = null;
+        }
         
     };
     return that;
@@ -9677,7 +9968,7 @@ var Victory = function(parent)
                     that.contentCreate();
                 }else{
                     text = new PIXI.Text("Вы успешно отразили нападение Дарт Вейдера на планету " + parent.initialization.planets[that.planetID].name, that.styleBlueText); 
-                    text.x = 345;
+                    text.x = 325;
                     text.y = 350;
                     that.windowStage.addChild(text);
                 }
@@ -9703,7 +9994,7 @@ var Victory = function(parent)
                     that.contentCreate();
                 }else{
                     text = new PIXI.Text("Вы успешно помешали Люку Скайуокеру на планету " + parent.initialization.planets[that.planetID].name, that.styleRedText); 
-                    text.x = 345;
+                    text.x = 325;
                     text.y = 350;
                     that.windowStage.addChild(text);
                 }
@@ -9990,17 +10281,23 @@ var Victory = function(parent)
         {
             if(parent.config.side === that.SIDE_JEDI)
             {
+                // присваиваем планете статус завоёванной
                 parent.initialization.planets[that.planetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI;
+                // присваиваем статус выбранный для выбранного союзника
                 parent.initialization.personages[this.name].status = parent.initialization.USER_PERSONAGE_AVAILABLE;
             }
             if(parent.config.side === that.SIDE_SITH)
             {
+                // присваиваем планете статус завоёванной
                 parent.initialization.planets[that.planetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH;
+                // присваиваем статус выбранный для выбранного союзника
                 parent.initialization.personages[this.name].status = parent.initialization.USER_PERSONAGE_AVAILABLE;
             }
+            // Увеличиваем очки опыта Пользователя
             parent.initialization.userExperiencePoints++;
-            parent.config.stopAI = false;    // ИИ получает разрешение на выполнение действий!
-            parent.victoryClose();
+            // ИИ получает разрешение на выполнение действий!
+            parent.config.stopAI = false;    
+            parent.victoryClose(); // закрываем окно
         },
         
         buttonCloseCreate: function()
@@ -10073,9 +10370,11 @@ var Victory = function(parent)
 
         onButtonCloseClick: function(event)
         {
-            parent.config.stopAI = true;    // ИИ пропускает ход!
+            // ИИ пропускает ход!
+            parent.config.stopAI = true;    
+            // Увеличиваем очки опыта Пользователя
             parent.initialization.userExperiencePoints++;
-            parent.victoryClose();
+            parent.victoryClose(); // закрываем окно
         },
         
         tweenStart: function()
@@ -10124,7 +10423,6 @@ var Victory = function(parent)
 
 /* == END FILE ========================================================== */
 
-
 /* == START FILE ========================================================= */
 
 var Game = function(mainStage)
@@ -10144,13 +10442,23 @@ var Game = function(mainStage)
 		command: null,
 		startbattle: null,
 		level: null,
-                victory: null,
-                lost: null,
-		
+		victory: null,
+		lost: null,
+
 		vkInvite: function()
 		{
-			VK.callMethod("showInviteBox");
+                        VK.callMethod("showInviteBox");
 		},
+                
+                vkWallPost: function(planetID, intercept)
+                {
+                   if(intercept === false)
+                    {
+                        VK.api("wall.post", {message:'Star Wars Heroes. \nЯ победил в битве на планете ' + that.initialization.planets[planetID].name + '\n Набрал ' + that.initialization.userlTotalPointsPlayerLevel + ' очков в миссии. Получил 1 очко опыта и нового союзника.\nПрисоединяйтесь к игре https://vk.com/app5170657', attachments : 'photo-62618339_398688727'}); 
+                    }else{
+                        VK.api("wall.post", {message:'Star Wars Heroes. \nЯ победил соперника на планете ' + that.initialization.planets[planetID].name + '\n Набрал ' + that.initialization.userlTotalPointsPlayerLevel + ' очков в миссии и получил 1 очко опыта.\nПрисоединяйтесь к игре https://vk.com/app5170657', attachments : 'photo-62618339_398688727'}); 
+                    }
+                },
 		
 		loadAssets: function()
 		{
@@ -10208,7 +10516,7 @@ var Game = function(mainStage)
 			that.initializationGame();
 			mainStage.removeChild(that.side.close());
 			that.side.destroy();
-			that.side = that.menu = that.settings = null;
+                        that.side = that.menu = that.settings = null;
 			that.mapShow();
 		},
 		
@@ -10357,11 +10665,29 @@ var Game = function(mainStage)
 			that.victory = null;
                         that.levelClose();
                         that.mapShow();
+                },
+                
+                lostShow: function(planetID, intercept)
+                {
+                    that.lost = Lost(that);
+                    that.lost.create(planetID, intercept);
+                    mainStage.addChild(that.lost.show());
+                },
+                
+                lostClose: function()
+                {
+                    mainStage.removeChild(that.lost.close());
+                    that.lost.destroy();
+                    that.lost = null;
+                    that.levelClose();
+                    that.mapShow();
                 }
 		
 	};
 	return that;
 };
+
+
 
 /* == END FILE ========================================================== */
 
@@ -10384,7 +10710,7 @@ function onInit()
 	/* Инициализация ВКонтакте */
 	VK.init(function() {
             apiId: 5170657;
-    });
+        });
 }
 
 function draw() 

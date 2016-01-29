@@ -956,8 +956,8 @@ var Level = function(parent)
 					parent.settingsShow();
 					break;
 				case "BackMenu":
-					
-					break;
+					parent.victoryShow(that.levelPlanetID, that.levelIntercept);
+                                        break;
 				case "Invite": 
 					parent.vkInvite();
 					break;

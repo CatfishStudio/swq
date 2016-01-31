@@ -52,29 +52,7 @@ var Map = function(parent)
 					}
 				}
 			}
-			
-			for(var key in parent.initialization.commandAI)
-			{
-				for(var planetID in parent.initialization.planets)
-				{
-					if( (parent.config.side === that.SIDE_JEDI)
-					&& (parent.initialization.planets[planetID].redPersonage1 === parent.initialization.commandAI[key] || parent.initialization.planets[planetID].redPersonage2 === parent.initialization.commandAI[key] || parent.initialization.planets[planetID].redPersonage3 === parent.initialization.commandAI[key]) 
-					&& (parent.initialization.planets[planetID].status === parent.initialization.USER_PLANET_QUEST_AWAITING || parent.initialization.planets[planetID].status === parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI)) 
-					{
-						if(key === 1) parent.initialization.commandAI[key] = parent.initialization.aiGetPersonageInCommand(that.SIDE_SITH, parent.initialization.commandAI[key+1]);
-                                                                                                            if(key === 2) parent.initialization.commandAI[key] = parent.initialization.aiGetPersonageInCommand(that.SIDE_SITH, parent.initialization.commandAI[key-1]);
-					}
-					if( (parent.config.side === that.SIDE_SITH)
-					&& (parent.initialization.planets[planetID].bluePersonage1 === parent.initialization.commandAI[key] || parent.initialization.planets[planetID].bluePersonage2 === parent.initialization.commandAI[key] || parent.initialization.planets[planetID].bluePersonage3 === parent.initialization.commandAI[key]) 
-					&& (parent.initialization.planets[planetID].status === parent.initialization.USER_PLANET_QUEST_AWAITING || parent.initialization.planets[planetID].status === parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH)) 
-					{
-						if(key === 1) parent.initialization.commandAI[key] = parent.initialization.aiGetPersonageInCommand(that.SIDE_JEDI, parent.initialization.commandAI[key+1]);
-                                                                                                            if(key === 2) parent.initialization.commandAI[key] = parent.initialization.aiGetPersonageInCommand(that.SIDE_JEDI, parent.initialization.commandAI[key-1]);
-					}
-                                                                       }
-                                             		
-			}
-		},
+            	},
 		
 		spaceCreate: function()
 		{

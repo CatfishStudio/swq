@@ -267,12 +267,14 @@ var Backmenu = function(parent)
 		
 		show: function()
 		{
+                        if(parent.level !== null) parent.timer.timerPauseBegin();
 			that.tweenStart();
 			return that.windowStage;
 		},
 		
 		close: function()
 		{
+                        if(parent.level !== null)parent.timer.timerPauseEnd();
 			that.tweenStop();
 			for(var child in that.windowStage.children)	that.windowStage.removeChild(that.windowStage.children[child]);
 			return that.windowStage;

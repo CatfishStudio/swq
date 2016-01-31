@@ -477,14 +477,19 @@ var Victory = function(parent)
                 // присваиваем статус выбранный для выбранного союзника
                 parent.initialization.personages[this.name].status = parent.initialization.USER_PERSONAGE_AVAILABLE;
                 // ИИ победил в своей битве
-                if(parent.initialization.aiResultBattle() === true)
+                if(parent.initialization.aiResultBattle() === true && parent.config.stopAI === false)
                 {
                     // ИИ присваиваем планете статус завоёванной
                     parent.initialization.planets[that.aiPlanetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH;
                     // Увеличиваем очки опыта ИИ
                     parent.initialization.userExperiencePointsAI++;
                     // обновление команды ИИ распределение очков опыта
-                    parent.initialization.aiUpgradeCommand(that.aiPlanetID);
+                    parent.initialization.aiUpgradeCommand(that.SIDE_SITH, that.aiPlanetID);
+                }
+                else
+                {
+                    // ИИ проиграл!
+                    parent.initialization.aiRemovePersonageCommand(that.SIDE_SITH);
                 }
             }
             if(parent.config.side === that.SIDE_SITH)
@@ -494,15 +499,20 @@ var Victory = function(parent)
                 // присваиваем статус выбранный для выбранного союзника
                 parent.initialization.personages[this.name].status = parent.initialization.USER_PERSONAGE_AVAILABLE;
                 // ИИ победил в своей битве
-                if(parent.initialization.aiResultBattle() === true)
+                if(parent.initialization.aiResultBattle() === true && parent.config.stopAI === false)
                 {
                     // ИИ присваиваем планете статус завоёванной
                     parent.initialization.planets[that.aiPlanetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI;
                     // Увеличиваем очки опыта ИИ
                     parent.initialization.userExperiencePointsAI++;
                     // обновление команды ИИ распределение очков опыта
-                    parent.initialization.aiUpgradeCommand(that.aiPlanetID);
-                } 
+                    parent.initialization.aiUpgradeCommand(that.SIDE_JEDI, that.aiPlanetID);
+                }
+                else
+                {
+                    // ИИ проиграл!
+                    parent.initialization.aiRemovePersonageCommand(that.SIDE_JEDI);
+                }
             }
             // Увеличиваем очки опыта Пользователя
             parent.initialization.userExperiencePoints++;

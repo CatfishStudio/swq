@@ -74,7 +74,7 @@ var Level = function(parent)
 			
 			that.levelIntercept = intercept;
 			that.levelPlanetID = planetID;
-                                                      that.levelAIPlanetID = aiPlanetID;
+                        that.levelAIPlanetID = aiPlanetID;
 			that.levelStatus = that.LEVEL_STATUS_BATTLE;
 			that.levelCommandUser = [];
 			that.levelCommandAI = [];
@@ -958,7 +958,7 @@ var Level = function(parent)
 					parent.settingsShow();
 					break;
 				case "BackMenu":
-					parent.victoryShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
+					parent.backmenuShow();
                                         break;
 				case "Invite": 
 					parent.vkInvite();
@@ -1070,7 +1070,7 @@ var Level = function(parent)
 				{
 					if(that.levelCommandAI[i].life <= 0)
 					{
-						removePers++; // if(that.levelCommandAI[0].life <= 0 && that.levelCommandAI[1].life <= 0 && that.levelCommandAI[2].life <= 0)
+						removePers++;
 					}
 				}
 				if(removePers === (that.levelCommandAI.length))

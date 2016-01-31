@@ -251,18 +251,25 @@ var Lost = function(parent)
             {
                 if(parent.config.side === that.SIDE_SITH) parent.initialization.planets[that.planetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI; 
                 if(parent.config.side === that.SIDE_JEDI) parent.initialization.planets[that.planetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH; 
+                // Увеличиваем очки опыта ИИ
+                parent.initialization.userExperiencePointsAI++;
+                // обновление команды ИИ распределение очков опыта
+                if(parent.config.side === that.SIDE_JEDI) parent.initialization.aiUpgradeCommand(that.SIDE_SITH, that.aiPlanetID);
+                if(parent.config.side === that.SIDE_SITH) parent.initialization.aiUpgradeCommand(that.SIDE_JEDI, that.aiPlanetID);
+
             }else{
                 if(parent.initialization.aiResultBattle() === true) // ИИ присваиваем планете статус завоёванной
                 {
                     if(parent.config.side === that.SIDE_SITH) parent.initialization.planets[that.aiPlanetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI; 
                     if(parent.config.side === that.SIDE_JEDI) parent.initialization.planets[that.aiPlanetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH; 
+                    // Увеличиваем очки опыта ИИ
+                    parent.initialization.userExperiencePointsAI++;
+                    // обновление команды ИИ распределение очков опыта
+                    if(parent.config.side === that.SIDE_JEDI) parent.initialization.aiUpgradeCommand(that.SIDE_SITH, that.aiPlanetID);
+                    if(parent.config.side === that.SIDE_SITH) parent.initialization.aiUpgradeCommand(that.SIDE_JEDI, that.aiPlanetID);
                 }
             }
-            
-            // Увеличиваем очки опыта ИИ
-            parent.initialization.userExperiencePointsAI++;
-            // обновление команды ИИ распределение очков опыта
-            parent.initialization.aiUpgradeCommand(that.aiPlanetID);
+           
             parent.lostClose(); // закрываем окно
         },
         

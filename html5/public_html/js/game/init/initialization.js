@@ -29,7 +29,7 @@ var Initialization = function(planetTextures, heroesTextures, personagesJson, pl
 		USER_PLANET_QUEST_COMPLETE_SITH: "user_planet_quest_complete_sith",
 		
 		USER_PERSONAGE_AVAILABLE: "user_personage_available",
-                                    AI_PERSONAGE_AVAILABLE: "ai_personage_available",
+                AI_PERSONAGE_AVAILABLE: "ai_personage_available",
 		USER_PERSONAGE_NOT_AVAILABLE: "user_personage_not_available",
 		
 		planetBlueStyleText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 175 },
@@ -1441,7 +1441,7 @@ var Initialization = function(planetTextures, heroesTextures, personagesJson, pl
                             }
                         }
                         
-                        if(aiSide === that.SIDE_SITH)
+                        if(aiSide === that.SIDE_SITH) // если ИИ ситхи
                         {
                             if(that.planets[planetID].status === that.USER_PLANET_QUEST_COMPLETE_SITH)
                             {
@@ -1510,9 +1510,233 @@ var Initialization = function(planetTextures, heroesTextures, personagesJson, pl
                     return persID; // возвращаем идентификатор самого сильного персонажа
                 },
                 
-                aiUpgradeCommand: function(aiPlanetID) // обновление команды ИИ (распределение очков опыта, поиск лучшего бойца из списка доступных) (victory.js, lost.js)
+                aiUpgradeCommand: function(aiSide, aiPlanetID) // обновление команды ИИ (распределение очков опыта, поиск лучшего бойца из списка доступных) (victory.js, lost.js)
                 {
+                    // Выбираем персонажа на завоёванной планеты
+                    if(aiSide === that.SIDE_JEDI) //  если ИИ джедай
+                    {
+                        var persID = "";
+                        var persPower = 0;
+                        var hitCountAI = 0; //  показатель силы персонажа
+                                
+                        //  если персонаж 1 не выбран ранее
+                        if(that.personages[that.planets[aiPlanetID].blueRewardPersonage1].status  !==  that.AI_PERSONAGE_AVAILABLE)
+                        {
+                            hitCountAI += that.personages[that.planets[aiPlanetID].blueRewardPersonage1].hitDefense1
+                                        + that.personages[that.planets[aiPlanetID].blueRewardPersonage1].hitDefense2
+                                        + that.personages[that.planets[aiPlanetID].blueRewardPersonage1].hitDefense3
+                                        + that.personages[that.planets[aiPlanetID].blueRewardPersonage1].hitDefense4
+                                        + that.personages[that.planets[aiPlanetID].blueRewardPersonage1].hitDefense5;
+                            hitCountAI /= 10;
+                            if(persPower < hitCountAI) //  если сила этого персонажа выше всех предыдущих
+                            {
+                                persID = that.planets[aiPlanetID].blueRewardPersonage1;
+                                persPower = hitCountAI;
+                            }
+                        }
+                        hitCountAI = 0;
+                        //  если персонаж 2 не выбран ранее
+                        if(that.personages[that.planets[aiPlanetID].blueRewardPersonage2].status  !==  that.AI_PERSONAGE_AVAILABLE)
+                        {
+                            hitCountAI += that.personages[that.planets[aiPlanetID].blueRewardPersonage2].hitDefense1
+                                        + that.personages[that.planets[aiPlanetID].blueRewardPersonage2].hitDefense2
+                                        + that.personages[that.planets[aiPlanetID].blueRewardPersonage2].hitDefense3
+                                        + that.personages[that.planets[aiPlanetID].blueRewardPersonage2].hitDefense4
+                                        + that.personages[that.planets[aiPlanetID].blueRewardPersonage2].hitDefense5;
+                            hitCountAI /= 10;
+                            if(persPower < hitCountAI) //  если сила этого персонажа выше всех предыдущих
+                            {
+                                persID = that.planets[aiPlanetID].blueRewardPersonage2;
+                                persPower = hitCountAI;
+                            }
+                        }
+                        hitCountAI = 0;
+                        //  если персонаж 3 не выбран ранее
+                        if(that.personages[that.planets[aiPlanetID].blueRewardPersonage3].status  !==  that.AI_PERSONAGE_AVAILABLE)
+                        {
+                            hitCountAI += that.personages[that.planets[aiPlanetID].blueRewardPersonage3].hitDefense1
+                                        + that.personages[that.planets[aiPlanetID].blueRewardPersonage3].hitDefense2
+                                        + that.personages[that.planets[aiPlanetID].blueRewardPersonage3].hitDefense3
+                                        + that.personages[that.planets[aiPlanetID].blueRewardPersonage3].hitDefense4
+                                        + that.personages[that.planets[aiPlanetID].blueRewardPersonage3].hitDefense5;
+                            hitCountAI /= 10;
+                            if(persPower < hitCountAI) //  если сила этого персонажа выше всех предыдущих
+                            {
+                                persID = that.planets[aiPlanetID].blueRewardPersonage3;
+                                persPower = hitCountAI;
+                            }
+                        }
+                        hitCountAI = 0;
+                        // присваиваем персонажу статус "выбран"
+                        if(persID !== "" && persPower !== 0) that.personages[persID].status = that.AI_PERSONAGE_AVAILABLE;
+                    }
                     
+                    if(aiSide === that.SIDE_SITH) // если ИИ ситхи
+                    {
+                        var persID = "";
+                        var persPower = 0;
+                        var hitCountAI = 0; //  показатель силы персонажа
+                                
+                        //  если персонаж 1 не выбран ранее
+                        if(that.personages[that.planets[aiPlanetID].redRewardPersonage1].status  !==  that.AI_PERSONAGE_AVAILABLE)
+                        {
+                            hitCountAI += that.personages[that.planets[aiPlanetID].redRewardPersonage1].hitDefense1
+                                        + that.personages[that.planets[aiPlanetID].redRewardPersonage1].hitDefense2
+                                        + that.personages[that.planets[aiPlanetID].redRewardPersonage1].hitDefense3
+                                        + that.personages[that.planets[aiPlanetID].redRewardPersonage1].hitDefense4
+                                        + that.personages[that.planets[aiPlanetID].redRewardPersonage1].hitDefense5;
+                            hitCountAI /= 10;
+                            if(persPower < hitCountAI) //  если сила этого персонажа выше всех предыдущих
+                            {
+                                persID = that.planets[aiPlanetID].redRewardPersonage1;
+                                persPower = hitCountAI;
+                            }
+                        }
+                        hitCountAI = 0;
+                        //  если персонаж 2 не выбран ранее
+                        if(that.personages[that.planets[aiPlanetID].redRewardPersonage2].status  !==  that.AI_PERSONAGE_AVAILABLE)
+                        {
+                            hitCountAI += that.personages[that.planets[aiPlanetID].redRewardPersonage2].hitDefense1
+                                        + that.personages[that.planets[aiPlanetID].redRewardPersonage2].hitDefense2
+                                        + that.personages[that.planets[aiPlanetID].redRewardPersonage2].hitDefense3
+                                        + that.personages[that.planets[aiPlanetID].redRewardPersonage2].hitDefense4
+                                        + that.personages[that.planets[aiPlanetID].redRewardPersonage2].hitDefense5;
+                            hitCountAI /= 10;
+                            if(persPower < hitCountAI) //  если сила этого персонажа выше всех предыдущих
+                            {
+                                persID = that.planets[aiPlanetID].redRewardPersonage2;
+                                persPower = hitCountAI;
+                            }
+                        }
+                        hitCountAI = 0;
+                        //  если персонаж 3 не выбран ранее
+                        if(that.personages[that.planets[aiPlanetID].redRewardPersonage3].status  !==  that.AI_PERSONAGE_AVAILABLE)
+                        {
+                            hitCountAI += that.personages[that.planets[aiPlanetID].redRewardPersonage3].hitDefense1
+                                        + that.personages[that.planets[aiPlanetID].redRewardPersonage3].hitDefense2
+                                        + that.personages[that.planets[aiPlanetID].redRewardPersonage3].hitDefense3
+                                        + that.personages[that.planets[aiPlanetID].redRewardPersonage3].hitDefense4
+                                        + that.personages[that.planets[aiPlanetID].redRewardPersonage3].hitDefense5;
+                            hitCountAI /= 10;
+                            if(persPower < hitCountAI) //  если сила этого персонажа выше всех предыдущих
+                            {
+                                persID = that.planets[aiPlanetID].redRewardPersonage3;
+                                persPower = hitCountAI;
+                            }
+                        }
+                        hitCountAI = 0;
+                        // присваиваем персонажу статус "выбран"
+                        if(persID !== "" && persPower !== 0) that.personages[persID].status = that.AI_PERSONAGE_AVAILABLE;
+                    }
+                    
+                    // Распределяем очки опыта на главном персонаже
+                    if(aiSide === that.SIDE_JEDI)
+                    {
+                        if(that.userExperiencePointsAI > 0)
+                        {
+                            var index = that.randomIndex();
+                            if(index >= 0 && index < 2) that.personages["luke_skywalker"].hitDefense1++;
+                            if(index >= 2 && index < 4) that.personages["luke_skywalker"].hitDefense2++;
+                            if(index >= 4 && index < 6) that.personages["luke_skywalker"].hitDefense3++;
+                            if(index >= 6 && index < 8) that.personages["luke_skywalker"].hitDefense4++;
+                            if(index >= 8 && index <= 10) that.personages["luke_skywalker"].hitDefense5++;
+                            that.userExperiencePointsAI = 0;
+                        }
+                    }
+                    
+                    if(aiSide === that.SIDE_SITH)
+                    {
+                        if(that.userExperiencePointsAI > 0)
+                        {
+                            var index = that.randomIndex();
+                            if(index >= 0 && index < 2) that.personages["darth_vader"].hitDefense1++;
+                            if(index >= 2 && index < 4) that.personages["darth_vader"].hitDefense2++;
+                            if(index >= 4 && index < 6) that.personages["darth_vader"].hitDefense3++;
+                            if(index >= 6 && index < 8) that.personages["darth_vader"].hitDefense4++;
+                            if(index >= 8 && index <= 10) that.personages["darth_vader"].hitDefense5++;
+                            that.userExperiencePointsAI = 0;
+                        }
+                    }
+                    
+                    // Проверяем доступность персонажей в команде ИИ
+                    for(var key in that.commandAI)
+                    {
+                        for(var planetID in that.planets)
+                        {
+                            if( (aiSide === that.SIDE_SITH)
+                            && (that.planets[planetID].redRewardPersonage1 === that.commandAI[key] || that.planets[planetID].redRewardPersonage2 === that.commandAI[key] || that.planets[planetID].redRewardPersonage3 === that.commandAI[key]) 
+                            && (that.planets[planetID].status === that.USER_PLANET_QUEST_COMPLETE_JEDI)) 
+                            {
+                                that.personages[that.commandAI[key]].status = that.USER_PERSONAGE_NOT_AVAILABLE;
+                            }
+                            if( (aiSide === that.SIDE_JEDI)
+                            && (that.planets[planetID].blueRewardPersonage1 === that.commandAI[key] || that.planets[planetID].blueRewardPersonage2 === that.commandAI[key] || that.planets[planetID].blueRewardPersonage3 === that.commandAI[key]) 
+                            && (that.planets[planetID].status === that.USER_PLANET_QUEST_AWAITING || that.planets[planetID].status === that.USER_PLANET_QUEST_COMPLETE_SITH)) 
+                            {
+                                that.personages[that.commandAI[key]].status = that.USER_PERSONAGE_NOT_AVAILABLE;
+                            }
+                        }
+                    }
+                    
+                    // Обновляем список персонажей в команде
+                    if(aiSide === that.SIDE_JEDI)
+                    {
+                        for(var key in that.commandAI)
+			{
+                            if(key === "personage2") that.commandAI[key] = that.aiGetPersonageInCommand(that.SIDE_JEDI, that.commandAI["personage3"]);
+                            if(key === "personage3") that.commandAI[key] = that.aiGetPersonageInCommand(that.SIDE_JEDI, that.commandAI["personage2"]);
+                        }
+                    }
+                    
+                    if(aiSide === that.SIDE_SITH)
+                    {
+                        for(var key in that.commandAI)
+			{
+                            if(key === "personage2") that.commandAI[key] = that.aiGetPersonageInCommand(that.SIDE_SITH, that.commandAI["personage3"]);
+                            if(key === "personage3") that.commandAI[key] = that.aiGetPersonageInCommand(that.SIDE_SITH, that.commandAI["personage2"]);
+                        }
+                    }
+                },
+                
+                aiRemovePersonageCommand: function(aiSide)
+                {
+                    // Проверяем доступность персонажей в команде ИИ
+                    for(var key in that.commandAI)
+                    {
+                        for(var planetID in that.planets)
+                        {
+                            if( (aiSide === that.SIDE_SITH)
+                            && (that.planets[planetID].redRewardPersonage1 === that.commandAI[key] || that.planets[planetID].redRewardPersonage2 === that.commandAI[key] || that.planets[planetID].redRewardPersonage3 === that.commandAI[key]) 
+                            && (that.planets[planetID].status === that.USER_PLANET_QUEST_COMPLETE_JEDI)) 
+                            {
+                                that.personages[that.commandAI[key]].status = that.USER_PERSONAGE_NOT_AVAILABLE;
+                            }
+                            if( (aiSide === that.SIDE_JEDI)
+                            && (that.planets[planetID].blueRewardPersonage1 === that.commandAI[key] || that.planets[planetID].blueRewardPersonage2 === that.commandAI[key] || that.planets[planetID].blueRewardPersonage3 === that.commandAI[key]) 
+                            && (that.planets[planetID].status === that.USER_PLANET_QUEST_AWAITING || that.planets[planetID].status === that.USER_PLANET_QUEST_COMPLETE_SITH)) 
+                            {
+                                that.personages[that.commandAI[key]].status = that.USER_PERSONAGE_NOT_AVAILABLE;
+                            }
+                        }
+                    }
+                    // Обновляем список персонажей в команде
+                    if(aiSide === that.SIDE_JEDI)
+                    {
+                        for(var key in that.commandAI)
+			{
+                            if(key === "personage2") that.commandAI[key] = that.aiGetPersonageInCommand(that.SIDE_JEDI, that.commandAI["personage3"]);
+                            if(key === "personage3") that.commandAI[key] = that.aiGetPersonageInCommand(that.SIDE_JEDI, that.commandAI["personage2"]);
+                        }
+                    }
+                    
+                    if(aiSide === that.SIDE_SITH)
+                    {
+                        for(var key in that.commandAI)
+			{
+                            if(key === "personage2") that.commandAI[key] = that.aiGetPersonageInCommand(that.SIDE_SITH, that.commandAI["personage3"]);
+                            if(key === "personage3") that.commandAI[key] = that.aiGetPersonageInCommand(that.SIDE_SITH, that.commandAI["personage2"]);
+                        }
+                    }
                 },
                 
                 aiResultBattle: function() // расчёт результата сражения ИИ (victory.js, lost.js)

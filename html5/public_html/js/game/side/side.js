@@ -162,73 +162,73 @@ var Side = function(parent)
 		
 		droidCreate: function()
 		{
-			that.droidBlueStage = new PIXI.Container();
-    		var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidBlueRightTexture")); 
-			textureSprite.position.x = 700; 
-			textureSprite.position.y = 550; 
-			textureSprite.scale.set(0.4);
-			that.droidBlueStage.addChild(textureSprite);
-			var graphics = new PIXI.Graphics(); 
-			graphics.lineStyle(2, 0x0080C0, 1);
-			graphics.beginFill(0x0080C0, 0.2);
-			graphics.moveTo(450,450);
-			graphics.lineTo(735, 450);
-			graphics.lineTo(735, 575);
-			graphics.lineTo(450, 575);
-			graphics.endFill
-			for(var i = 0; i < 42; i++)
-			{
-				graphics.lineStyle(1, 0x0090F0, 0.5);
-				graphics.moveTo(450, 450+(3*i));
-				graphics.lineTo(735, 450+(3*i));
-			}
-			that.droidBlueStage.addChild(graphics);
-			var textMessage = new PIXI.Text("\nВыберите светлую сторону силы.\n\"Только покой ощутив, возмёшь контроль над желаниями своими\". \n\nПройдите путь Люка Скайуокера!", that.styleDroidBlueText); 
-			textMessage.x = 455; 
-			textMessage.y = 455; 
-			that.droidBlueStage.addChild(textMessage);
-			that.blueLineAnimationGraphics = new PIXI.Graphics(); 
-			that.blueLineAnimationGraphics.lineStyle(10, 0x0090F0, 0.3);
-			that.blueLineAnimationGraphics.moveTo(450,455);
-			that.blueLineAnimationGraphics.lineTo(735, 455);
-			that.droidBlueStage.addChild(that.blueLineAnimationGraphics);
-			that.windowStage.addChild(that.droidBlueStage);
+                    that.droidBlueStage = new PIXI.Container();
+                    var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidBlueRightTexture")); 
+                    textureSprite.position.x = 700; 
+                    textureSprite.position.y = 550; 
+                    textureSprite.scale.set(0.4);
+                    that.droidBlueStage.addChild(textureSprite);
+                    var graphics = new PIXI.Graphics(); 
+                    graphics.lineStyle(2, 0x0080C0, 1);
+                    graphics.beginFill(0x0080C0, 0.2);
+                    graphics.moveTo(450,450);
+                    graphics.lineTo(735, 450);
+                    graphics.lineTo(735, 575);
+                    graphics.lineTo(450, 575);
+                    graphics.endFill();
+                    for(var i = 0; i < 42; i++)
+                    {
+                            graphics.lineStyle(1, 0x0090F0, 0.5);
+                            graphics.moveTo(450, 450+(3*i));
+                            graphics.lineTo(735, 450+(3*i));
+                    }
+                    that.droidBlueStage.addChild(graphics);
+                    var textMessage = new PIXI.Text("\nВыберите светлую сторону силы.\n\"Только покой ощутив, возмёшь контроль над желаниями своими\". \n\nПройдите путь Люка Скайуокера!", that.styleDroidBlueText); 
+                    textMessage.x = 455; 
+                    textMessage.y = 455; 
+                    that.droidBlueStage.addChild(textMessage);
+                    that.blueLineAnimationGraphics = new PIXI.Graphics(); 
+                    that.blueLineAnimationGraphics.lineStyle(10, 0x0090F0, 0.3);
+                    that.blueLineAnimationGraphics.moveTo(450,455);
+                    that.blueLineAnimationGraphics.lineTo(735, 455);
+                    that.droidBlueStage.addChild(that.blueLineAnimationGraphics);
+                    that.windowStage.addChild(that.droidBlueStage);
 
-			
-			that.droidRedStage = new PIXI.Container();
-			var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidRedLeftTexture")); 
-			textureSprite.position.x = 40; 
-			textureSprite.position.y = 550; 
-			textureSprite.scale.set(0.4);
-			that.droidRedStage.addChild(textureSprite);
-			var graphics = new PIXI.Graphics(); 
-			graphics.lineStyle(2, 0x800000, 1);
-			graphics.beginFill(0x800000, 0.2);
-			graphics.moveTo(125,450);
-			graphics.lineTo(410, 450);
-			graphics.lineTo(410, 575);
-			graphics.lineTo(125, 575);
-			graphics.endFill
-			for(var i = 0; i < 42; i++)
-			{
-				graphics.lineStyle(1, 0x800000, 0.5);
-				graphics.moveTo(125, 450+(3*i));
-				graphics.lineTo(410, 450+(3*i));
-			}
-			that.droidRedStage.addChild(graphics);
-			var textMessage = new PIXI.Text("\nВыберите тёмную сторону силы.\n\"Поддайся амбициям, почувствуй власть в своих руках.\" \n\nПройдите путь Дарт Вейдера!", that.styleDroidRedText); 
-			textMessage.x = 130; 
-			textMessage.y = 455; 
-			that.droidRedStage.addChild(textMessage);
-			that.redLineAnimationGraphics = new PIXI.Graphics(); 
-			that.redLineAnimationGraphics.lineStyle(10, 0x800000, 0.3);
-			that.redLineAnimationGraphics.moveTo(125,455);
-			that.redLineAnimationGraphics.lineTo(410, 455);
-			that.droidRedStage.addChild(that.redLineAnimationGraphics);
-			that.windowStage.addChild(that.droidRedStage);
-			
-			that.droidBlueStage.visible = false;
-			that.droidRedStage.visible = false;
+
+                    that.droidRedStage = new PIXI.Container();
+                    var textureSprite = new PIXI.Sprite(parent.assets.getAsset("r2d2DroidRedLeftTexture")); 
+                    textureSprite.position.x = 40; 
+                    textureSprite.position.y = 550; 
+                    textureSprite.scale.set(0.4);
+                    that.droidRedStage.addChild(textureSprite);
+                    var graphics = new PIXI.Graphics(); 
+                    graphics.lineStyle(2, 0x800000, 1);
+                    graphics.beginFill(0x800000, 0.2);
+                    graphics.moveTo(125,450);
+                    graphics.lineTo(410, 450);
+                    graphics.lineTo(410, 575);
+                    graphics.lineTo(125, 575);
+                    graphics.endFill();
+                    for(var i = 0; i < 42; i++)
+                    {
+                            graphics.lineStyle(1, 0x800000, 0.5);
+                            graphics.moveTo(125, 450+(3*i));
+                            graphics.lineTo(410, 450+(3*i));
+                    }
+                    that.droidRedStage.addChild(graphics);
+                    var textMessage = new PIXI.Text("\nВыберите тёмную сторону силы.\n\"Поддайся амбициям, почувствуй власть в своих руках.\" \n\nПройдите путь Дарт Вейдера!", that.styleDroidRedText); 
+                    textMessage.x = 130; 
+                    textMessage.y = 455; 
+                    that.droidRedStage.addChild(textMessage);
+                    that.redLineAnimationGraphics = new PIXI.Graphics(); 
+                    that.redLineAnimationGraphics.lineStyle(10, 0x800000, 0.3);
+                    that.redLineAnimationGraphics.moveTo(125,455);
+                    that.redLineAnimationGraphics.lineTo(410, 455);
+                    that.droidRedStage.addChild(that.redLineAnimationGraphics);
+                    that.windowStage.addChild(that.droidRedStage);
+
+                    that.droidBlueStage.visible = false;
+                    that.droidRedStage.visible = false;
 		},
 		
 		tweenStart: function()

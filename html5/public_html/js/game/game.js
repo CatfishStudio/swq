@@ -20,6 +20,7 @@ var Game = function(mainStage)
 		level: null,
 		victory: null,
 		lost: null,
+                endGame: null,
 
 		vkInvite: function()
 		{
@@ -114,7 +115,7 @@ var Game = function(mainStage)
 		{
 			mainStage.removeChild(that.map.close());
 			that.map.destroy();
-			that.map = null;
+			that.map = that.settings = that.backmenu = that.message = that.startbattle = that.command = that.side = that.menu = null;
 		},
 		
 		backmenuShow: function()
@@ -134,6 +135,7 @@ var Game = function(mainStage)
 				that.config.side = "side_none";
 				if(that.map !== null) that.mapClose();
                                 if(that.level !== null) that.levelClose();
+                                that.endGame = that.timer = that.match = that.initialization = that.menu = that.backmenu = that.settings = that.message = that.side = that.command = that.startbattle = that.level = that.victory = that.lost = null;
 				that.menuShow();
 			}
 		},
@@ -225,7 +227,7 @@ var Game = function(mainStage)
                         that.matchClose();
                         mainStage.removeChild(that.level.close());
 			that.level.destroy();
-			that.level = null;
+			that.level = that.timer = that.match = that.settings = that.backmenu = that.victory = that.lost = that.side = that.menu = null;
 		},
                 
                 victoryShow: function(planetID, intercept, aiPlanetID)
@@ -239,7 +241,7 @@ var Game = function(mainStage)
                 {
                         mainStage.removeChild(that.victory.close());
 			that.victory.destroy();
-			that.victory = null;
+			that.victory = that.level = that.timer = that.match = that.settings = that.backmenu = that.lost = that.side = that.menu = null;
                         that.levelClose();
                         that.mapShow();
                 },
@@ -255,9 +257,27 @@ var Game = function(mainStage)
                 {
                     mainStage.removeChild(that.lost.close());
                     that.lost.destroy();
-                    that.lost = null;
+                    that.lost = that.level = that.timer = that.match = that.settings = that.backmenu = that.victory = that.side = that.menu = null;
                     that.levelClose();
                     that.mapShow();
+                },
+                
+                endGameShow: function(status)
+                {
+                    that.levelClose();
+                    that.endGame = EndGame(that);
+                    that.endGame.create(status);
+                    mainStage.addChild(that.endGame.show());
+                },
+                
+                endGameClose: function()
+                {
+                    mainStage.removeChild(that.endGame.close());
+                    that.endGame.destroy();
+                    that.endGame = that.timer = that.match = that.initialization = that.menu = that.backmenu = that.settings = that.message = that.side = that.command = that.startbattle = that.level = that.victory = that.lost = null;
+                    that.config.side = "side_none";
+                    that.config.stopAI = false;
+                    that.menuShow();
                 }
 		
         };

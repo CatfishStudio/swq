@@ -479,10 +479,10 @@ var StartBattle = function(parent)
 			switch (this.name)
 			{
 				case "yes":
-					//if(sbattleUserPlanetID !== sbattleAIPlanetID) levelCreate(sbattleUserPlanetID, false);
-					//else levelCreate(sbattleUserPlanetID, true);
 					if(that.userPlanetID !== that.aiPlanetID || parent.config.stopAI === true) parent.levelShow(that.userPlanetID, false, that.aiPlanetID);
 					else parent.levelShow(that.userPlanetID, true, that.aiPlanetID);
+                                        parent.startbattleClose();
+                                        parent.mapClose();
 					break;
 				case "no":
 					parent.startbattleClose();

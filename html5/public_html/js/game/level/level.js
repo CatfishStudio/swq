@@ -952,7 +952,8 @@ var Level = function(parent)
 			switch (this.name)
 			{
 				case "EndBattle":
-					parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
+					//parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
+                                        parent.endGameShow("win");
 					break;
 				case "Settings":
 					parent.settingsShow();
@@ -1086,7 +1087,8 @@ var Level = function(parent)
 					that.levelStage.removeChild(that.levelAIHit5Text);
 					that.levelStage.removeChild(that.levelAILifeText);
                                         
-					parent.victoryShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
+					if(that.levelPlanetID !== "DeathStar") parent.victoryShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
+                                        else parent.endGameShow("win");
 					
 				}else{
 					if(that.levelIndexAI < that.levelCommandAI.length - 1) that.levelIndexAI++; // < 2
@@ -1129,7 +1131,8 @@ var Level = function(parent)
 					that.levelStage.removeChild(that.levelUserHit5Text);
 					that.levelStage.removeChild(that.levelUserLifeText);
 					
-					parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
+					if(that.levelPlanetID !== "Coruscant") parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
+                                        else parent.endGameShow("lost");
 					
 				}else{
 					if(that.levelIndexUser < that.levelCommandUser.length - 1)that.levelIndexUser++; // < 2

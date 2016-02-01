@@ -67,6 +67,7 @@ var Preloader = function(parent)
 
 			loader.add('flashAtlas','./assets/image/atlas/flash.json');
 			loader.add('crystalsAtlas','./assets/image/atlas/crystals.json');
+                        loader.add('boomAtlas','./assets/image/atlas/boom.json');
 
 			loader.add('buttonBlueAtlas','./assets/image/atlas/button_blue.json');
 			loader.add('buttonRedAtlas','./assets/image/atlas/button_red.json');
@@ -77,6 +78,7 @@ var Preloader = function(parent)
 
 			loader.add('planet_light','./assets/image/textures/planets/planet_light.png');
 			loader.add('deathstarTexture','./assets/image/textures/planets/deathstar.png');
+                        loader.add('deathstarDestroyTexture','./assets/image/textures/planets/deathstar_destroy.png');
 			loader.add('deathstar_landscape','./assets/image/textures/planets/deathstar_landscape.jpg');
 			loader.add('coruscant_planet','./assets/image/textures/planets/coruscant.png');
 			loader.add('coruscant_landscape','./assets/image/textures/planets/coruscant_landscape.jpg');
@@ -262,7 +264,8 @@ var Preloader = function(parent)
 			that.progressText.text = "Загрузка " + (that.percentTextures + that.percentSounds) + "%";
 			
 			that.assets["deathstarTexture"] = res.deathstarTexture.texture;			// deathstar.png
-			that.assets["starwarsTexture"] = res.starwarsTexture.texture;			// starwars.png
+			that.assets["deathstarDestroyTexture"] = res.deathstarDestroyTexture.texture;          // deathstar_destroy.png
+                        that.assets["starwarsTexture"] = res.starwarsTexture.texture;			// starwars.png
 			that.assets["stars1Texture"] = res.stars1Texture.texture;				// stars1.jpg
 			that.assets["ship1Texture"] = res.ship1Texture.texture;				// ship1.png
 			that.assets["ship2Texture"] = res.ship2Texture.texture;				// ship2.png
@@ -286,6 +289,7 @@ var Preloader = function(parent)
 			that.assets["hit5Texture"] = PIXI.Texture.fromFrame('hit_5.png');
 			
 			that.assets["animTexFlash"] = that.loadAnimationTextures(13, 'flash_');
+                        that.assets["animTexBoom"] = that.loadAnimationTextures(27, 'boom_');
 
 			that.assets["animTexButtonBlue"] = that.loadAnimationTextures(11, 'button_blue_');
 			that.assets["animTexButtonRed"] = that.loadAnimationTextures(11, 'button_red_');

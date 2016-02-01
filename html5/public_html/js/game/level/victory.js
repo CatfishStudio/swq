@@ -485,11 +485,32 @@ var Victory = function(parent)
                     parent.initialization.userExperiencePointsAI++;
                     // обновление команды ИИ распределение очков опыта
                     parent.initialization.aiUpgradeCommand(that.SIDE_SITH, that.aiPlanetID);
+                    
+                    if(parent.config.side === that.SIDE_JEDI && parent.initialization.planets[that.aiPlanetID].id === "Coruscant") parent.endGameShow("lost");
+                    else{
+                        if(parent.config.side === that.SIDE_SITH && parent.initialization.planets[that.aiPlanetID].id === "DeathStar") parent.endGameShow("lost");
+                        else{
+
+                            // Увеличиваем очки опыта Пользователя
+                            parent.initialization.userExperiencePoints++;
+                            // ИИ получает разрешение на выполнение действий!
+                            parent.config.stopAI = false;
+                            parent.victoryClose(); // закрываем окно
+                            parent.vkWallPost(that.planetID, that.intercept, parent.initialization.personages[this.name].name);
+
+                        }
+                    }
                 }
                 else
                 {
                     // ИИ проиграл!
                     parent.initialization.aiRemovePersonageCommand(that.SIDE_SITH);
+                    // Увеличиваем очки опыта Пользователя
+                    parent.initialization.userExperiencePoints++;
+                    // ИИ получает разрешение на выполнение действий!
+                    parent.config.stopAI = false;
+                    parent.victoryClose(); // закрываем окно
+                    parent.vkWallPost(that.planetID, that.intercept, parent.initialization.personages[this.name].name);
                 }
             }
             if(parent.config.side === that.SIDE_SITH)
@@ -507,19 +528,38 @@ var Victory = function(parent)
                     parent.initialization.userExperiencePointsAI++;
                     // обновление команды ИИ распределение очков опыта
                     parent.initialization.aiUpgradeCommand(that.SIDE_JEDI, that.aiPlanetID);
+                    
+                    if(parent.config.side === that.SIDE_JEDI && parent.initialization.planets[that.aiPlanetID].id === "Coruscant") parent.endGameShow("lost");
+                    else{
+                        if(parent.config.side === that.SIDE_SITH && parent.initialization.planets[that.aiPlanetID].id === "DeathStar") parent.endGameShow("lost");
+                        else{
+
+                            // Увеличиваем очки опыта Пользователя
+                            parent.initialization.userExperiencePoints++;
+                            // ИИ получает разрешение на выполнение действий!
+                            parent.config.stopAI = false;
+                            parent.victoryClose(); // закрываем окно
+                            parent.vkWallPost(that.planetID, that.intercept, parent.initialization.personages[this.name].name);
+
+                        }
+                    }
                 }
                 else
                 {
                     // ИИ проиграл!
                     parent.initialization.aiRemovePersonageCommand(that.SIDE_JEDI);
+                    // Увеличиваем очки опыта Пользователя
+                    parent.initialization.userExperiencePoints++;
+                    // ИИ получает разрешение на выполнение действий!
+                    parent.config.stopAI = false;
+                    parent.victoryClose(); // закрываем окно
+                    parent.vkWallPost(that.planetID, that.intercept, parent.initialization.personages[this.name].name);
                 }
             }
-            // Увеличиваем очки опыта Пользователя
-            parent.initialization.userExperiencePoints++;
-            // ИИ получает разрешение на выполнение действий!
-            parent.config.stopAI = false;    
-            parent.victoryClose(); // закрываем окно
-            parent.vkWallPost(that.planetID, that.intercept, parent.initialization.personages[this.name].name);
+            
+            
+            
+            
         },
         
         buttonCloseCreate: function()

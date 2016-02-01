@@ -952,9 +952,8 @@ var Level = function(parent)
 			switch (this.name)
 			{
 				case "EndBattle":
-					//parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
-                                        parent.endGameShow("win");
-					break;
+					parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
+                                        break;
 				case "Settings":
 					parent.settingsShow();
 					break;
@@ -1087,8 +1086,16 @@ var Level = function(parent)
 					that.levelStage.removeChild(that.levelAIHit5Text);
 					that.levelStage.removeChild(that.levelAILifeText);
                                         
-					if(that.levelPlanetID !== "DeathStar") parent.victoryShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
-                                        else parent.endGameShow("win");
+                                        if(parent.config.side === that.SIDE_JEDI && that.levelPlanetID === "DeathStar") parent.endGameShow("win");
+                                        else{
+                                            if(parent.config.side === that.SIDE_SITH && that.levelPlanetID === "Coruscant") parent.endGameShow("win");
+                                            else {
+                                                parent.victoryShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
+                                            }
+                                        }
+                                            
+					//if(that.levelPlanetID !== "DeathStar") parent.victoryShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
+                                        //else parent.endGameShow("win");
 					
 				}else{
 					if(that.levelIndexAI < that.levelCommandAI.length - 1) that.levelIndexAI++; // < 2
@@ -1115,7 +1122,7 @@ var Level = function(parent)
 				{
 					if(that.levelCommandUser[i].life <= 0)
 					{
-						removePers++; //if(that.levelCommandUser[0].life <= 0 && that.levelCommandUser[1].life <= 0 && that.levelCommandUser[2].life <= 0)
+						removePers++;
 					}
 				}
 				if(removePers === (that.levelCommandUser.length))
@@ -1131,8 +1138,16 @@ var Level = function(parent)
 					that.levelStage.removeChild(that.levelUserHit5Text);
 					that.levelStage.removeChild(that.levelUserLifeText);
 					
-					if(that.levelPlanetID !== "Coruscant") parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
-                                        else parent.endGameShow("lost");
+                                        if(parent.config.side === that.SIDE_JEDI && that.levelPlanetID === "Coruscant") parent.endGameShow("lost");
+                                        else {
+                                           if(parent.config.side === that.SIDE_SITH && that.levelPlanetID === "DeathStar") parent.endGameShow("lost");
+                                           else{
+                                               parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
+                                           }
+                                        }
+                                        
+					//if(that.levelPlanetID !== "Coruscant") parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
+                                        //else parent.endGameShow("lost");
 					
 				}else{
 					if(that.levelIndexUser < that.levelCommandUser.length - 1)that.levelIndexUser++; // < 2

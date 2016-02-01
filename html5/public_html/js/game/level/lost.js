@@ -256,7 +256,15 @@ var Lost = function(parent)
                 // обновление команды ИИ распределение очков опыта
                 if(parent.config.side === that.SIDE_JEDI) parent.initialization.aiUpgradeCommand(that.SIDE_SITH, that.aiPlanetID);
                 if(parent.config.side === that.SIDE_SITH) parent.initialization.aiUpgradeCommand(that.SIDE_JEDI, that.aiPlanetID);
-
+                
+                if(parent.config.side === that.SIDE_JEDI && parent.initialization.planets[that.planetID].id === "Coruscant") parent.endGameShow("lost");
+                else{
+                    if(parent.config.side === that.SIDE_SITH && parent.initialization.planets[that.planetID].id === "DeathStar") parent.endGameShow("lost");
+                    else{
+                        parent.lostClose(); // закрываем окно
+                    }
+                }
+                
             }else{
                 if(parent.initialization.aiResultBattle() === true) // ИИ присваиваем планете статус завоёванной
                 {
@@ -267,10 +275,18 @@ var Lost = function(parent)
                     // обновление команды ИИ распределение очков опыта
                     if(parent.config.side === that.SIDE_JEDI) parent.initialization.aiUpgradeCommand(that.SIDE_SITH, that.aiPlanetID);
                     if(parent.config.side === that.SIDE_SITH) parent.initialization.aiUpgradeCommand(that.SIDE_JEDI, that.aiPlanetID);
+                    
+                    if(parent.config.side === that.SIDE_JEDI && parent.initialization.planets[that.planetID].id === "Coruscant") parent.endGameShow("lost");
+                    else{
+                        if(parent.config.side === that.SIDE_SITH && parent.initialization.planets[that.planetID].id === "DeathStar") parent.endGameShow("lost");
+                        else{
+                            parent.lostClose(); // закрываем окно
+                        }
+                    }
+                }else{
+                    parent.lostClose(); // закрываем окно
                 }
             }
-           
-            parent.lostClose(); // закрываем окно
         },
         
         tweenStart: function()

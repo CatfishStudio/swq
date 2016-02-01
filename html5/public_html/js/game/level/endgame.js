@@ -5,6 +5,8 @@ var EndGame = function(parent)
 {
     var that = {
         windowStage: null,
+        lineAnimationGraphics: null,
+        text: null,
         leftBoomArray: null,
         rightBoomArray: null,
         
@@ -52,14 +54,16 @@ var EndGame = function(parent)
                     that.deathStarCreate(150, 100);
                     that.boomCreate("left");
                     that.heroesJEDICreate();
-                    that.borderBlueCreate();
+                    that.borderBlueCreate(status);
+                    that.buttonsBlueCreate(status);
                 }
                 if(parent.config.side === that.SIDE_SITH)
                 {
                     that.corusantCreate(350, 100);
                     that.boomCreate("right");
                     that.heroesSITHCreate();
-                    that.borderRedCreate();
+                    that.borderRedCreate(status);
+                    that.buttonsRedCreate(status);
                 }
             }
             if(status === "lost") // Пользователь проиграл
@@ -69,14 +73,16 @@ var EndGame = function(parent)
                     that.corusantCreate(350, 100);
                     that.boomCreate("right");
                     that.heroesSITHCreate();
-                    that.borderRedCreate();
+                    that.borderRedCreate(status);
+                    that.buttonsRedCreate(status);
                 }
                 if(parent.config.side === that.SIDE_SITH)
                 {
                     that.deathStarCreate(150, 100);
                     that.boomCreate("left");
                     that.heroesJEDICreate();
-                    that.borderBlueCreate();
+                    that.borderBlueCreate(status);
+                    that.buttonsBlueCreate(status);
                 }
             }
         },
@@ -90,7 +96,7 @@ var EndGame = function(parent)
             that.windowStage.addChild(sprite);
         },
         
-        borderBlueCreate: function()
+        borderBlueCreate: function(status)
         {
             var graphics = new PIXI.Graphics();
             graphics.lineStyle(2, 0x0000FF, 1);
@@ -166,13 +172,22 @@ var EndGame = function(parent)
             }
             that.windowStage.addChild(graphics);
             
-            var textMessage = new PIXI.Text("ВЫ ПОБЕДИЛИ!!!", that.styleDroidBlueText); 
+            
+            if (status === "win") that.text = "ПОЗДРАВЛЯЕМ!!! ВЫ ПОБЕДИЛИ!!!\n\nВы провели " + parent.initialization.userTotalBattle + " сражений.\nВы заработали " + parent.initialization.userTotalPointsPlayerTournament + " очков."; 
+            if (status === "lost") that.text = "ВЫ ПРОИГРАЛИ!!!\nЗвезда Смерти разрушена.\n\nВы провели " + parent.initialization.userTotalBattle + " сражений.\nВы заработали " + parent.initialization.userTotalPointsPlayerTournament + " очков."; 
+            var textMessage  = new PIXI.Text(that.text, that.styleDroidBlueText); 
             textMessage.x = 130; 
             textMessage.y = 455; 
             that.windowStage.addChild(textMessage);
+            
+            that.lineAnimationGraphics = new PIXI.Graphics(); 
+            that.lineAnimationGraphics.lineStyle(10, 0x0090F0, 0.3);
+            that.lineAnimationGraphics.moveTo(125,455);
+            that.lineAnimationGraphics.lineTo(410, 455);
+            that.windowStage.addChild(that.lineAnimationGraphics);
         },
         
-        borderRedCreate: function()
+        borderRedCreate: function(status)
         {
             var graphics = new PIXI.Graphics();
             graphics.lineStyle(2, 0xFF0000, 1);
@@ -248,10 +263,18 @@ var EndGame = function(parent)
             }
             that.windowStage.addChild(graphics);
             
-            var textMessage = new PIXI.Text("ВЫ ПОБЕДИЛИ!!!", that.styleDroidRedText); 
+            if (status === "win") that.text = "ПОЗДРАВЛЯЕМ!!! ВЫ ПОБЕДИЛИ!!!\n\nВы провели " + parent.initialization.userTotalBattle + " сражений.\nВы заработали " + parent.initialization.userTotalPointsPlayerTournament + " очков."; 
+            if (status === "lost") that.text = "ВЫ ПРОИГРАЛИ!!!\nПланета Корусант уничтожена.\n\nВы провели " + parent.initialization.userTotalBattle + " сражений.\nВы заработали " + parent.initialization.userTotalPointsPlayerTournament + " очков."; 
+            var textMessage = new PIXI.Text(that.text, that.styleDroidRedText); 
             textMessage.x = 455; 
             textMessage.y = 455; 
             that.windowStage.addChild(textMessage);
+            
+            that.lineAnimationGraphics = new PIXI.Graphics(); 
+            that.lineAnimationGraphics.lineStyle(10, 0x800000, 0.3);
+            that.lineAnimationGraphics.moveTo(450, 455);
+            that.lineAnimationGraphics.lineTo(735, 455);
+            that.windowStage.addChild(that.lineAnimationGraphics);
         },
         
         heroesJEDICreate: function()
@@ -270,7 +293,7 @@ var EndGame = function(parent)
         {
             var movieClip = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexSideDarthVader"));
             movieClip.name = "DarthVader";
-            movieClip.position.x = 25;
+            movieClip.position.x = 0;
             movieClip.position.y = 155;
             movieClip.loop = true;
             movieClip.animationSpeed = 0.2;
@@ -337,14 +360,141 @@ var EndGame = function(parent)
             this.gotoAndPlay(0);
         },
         
+        buttonsBlueCreate: function(status)
+        {
+            if(status === "win")
+            {
+                var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
+                button.name = "post";
+                button.position.x = 150; 
+                button.position.y = 660; 
+                button.interactive = true; 
+                button.buttonMode = true; 
+                button.loop = false; 
+                button.animationSpeed = 0.2;
+                button.onComplete = that.onButtonUpdate;
+                button.tap = that.onButtonClick; 
+                button.click = that.onButtonClick; 
+                button.on('mouseover', that.onButtonOver);
+                button.on('mouseout', that.onButtonOut);
+                var text = new PIXI.Text("РАССКАЗАТЬ", that.styleDroidBlueText); 
+                text.x = (button.width / 2) - (text.width / 2);
+                text.y = button.height / 3;
+                button.addChild(text); 
+                that.windowStage.addChild(button);
+            }
+            
+            var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonBlue"));
+            button.name = "close";
+            button.position.x = 350; 
+            button.position.y = 660; 
+            button.interactive = true; 
+            button.buttonMode = true; 
+            button.loop = false; 
+            button.animationSpeed = 0.2;
+            button.onComplete = that.onButtonUpdate;
+            button.tap = that.onButtonClick; 
+            button.click = that.onButtonClick; 
+            button.on('mouseover', that.onButtonOver);
+            button.on('mouseout', that.onButtonOut);
+            var text = new PIXI.Text("ЗАКРЫТЬ", that.styleDroidBlueText); 
+            text.x = (button.width / 2) - (text.width / 2);
+            text.y = button.height / 3;
+            button.addChild(text); 
+            that.windowStage.addChild(button);
+        },
+        
+        buttonsRedCreate: function(status)
+        {
+            if(status === "win")
+            {
+                var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed"));
+                button.name = "post";
+                button.position.x = 300; 
+                button.position.y = 660; 
+                button.interactive = true; 
+                button.buttonMode = true; 
+                button.loop = false; 
+                button.animationSpeed = 0.2;
+                button.onComplete = that.onButtonUpdate;
+                button.tap = that.onButtonClick; 
+                button.click = that.onButtonClick; 
+                button.on('mouseover', that.onButtonOver);
+                button.on('mouseout', that.onButtonOut);
+                var text = new PIXI.Text("РАССКАЗАТЬ", that.styleDroidRedText); 
+                text.x = (button.width / 2) - (text.width / 2);
+                text.y = button.height / 3;
+                button.addChild(text); 
+                that.windowStage.addChild(button);
+            }
+            
+            var button = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexButtonRed"));
+            button.name = "close";
+            button.position.x = 500; 
+            button.position.y = 660; 
+            button.interactive = true; 
+            button.buttonMode = true; 
+            button.loop = false; 
+            button.animationSpeed = 0.2;
+            button.onComplete = that.onButtonUpdate;
+            button.tap = that.onButtonClick; 
+            button.click = that.onButtonClick; 
+            button.on('mouseover', that.onButtonOver);
+            button.on('mouseout', that.onButtonOut);
+            var text = new PIXI.Text("ЗАКРЫТЬ", that.styleDroidRedText); 
+            text.x = (button.width / 2) - (text.width / 2);
+            text.y = button.height / 3;
+            button.addChild(text); 
+            that.windowStage.addChild(button);
+        },
+        
+        onButtonOver: function()
+        {
+                this.isOver = true;
+                this.gotoAndPlay(1);
+        },
+
+        onButtonOut: function()
+        {
+                this.isOver = false;
+                this.gotoAndStop(0);
+        },
+
+        onButtonUpdate: function()
+        {
+                if(this.isOver)
+                {
+                        this.gotoAndPlay(1);
+                }else{
+                        this.gotoAndStop(0);
+                }
+        },
+
+        onButtonClick: function() 
+        {
+                switch (this.name)
+                {
+                        case "post":
+                                parent.vkWallPostEndGame(that.text);
+                                break;
+                        case "close":
+                                parent.endGameClose();
+                                break;
+                        default:
+                                break;
+                }
+        },
+        
         tweenStart: function()
         {
-            
+            createjs.Tween.get(that.lineAnimationGraphics, {loop: true}) 
+                .to({x: 0, y: 115}, 2500, createjs.Ease.getPowInOut(3));
+            createjs.Ticker.setFPS(60);
         },
         
         tweenStop: function()
         {
-            
+            createjs.Tween.removeTweens(that.lineAnimationGraphics);
         },
         
         show: function()

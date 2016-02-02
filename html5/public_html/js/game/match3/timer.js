@@ -82,14 +82,14 @@ var Timer = function(parent)
 		
 		timerStart: function()
 		{
-			if(parent.match.modeAI === true)
+                    	if(parent.match.modeAI === true)
 			{
-				parent.match.matchFieldBlocked = false; 	// поле разблокированно
+                            	parent.match.matchFieldBlocked = false; 	// поле разблокированно
 				parent.match.modeAI = false;					// ИИ отключен
 				parent.level.levelExchangePersonage("AI");
 				// console.log("[HIT START]: USER наносит удар!");
 			}else{
-				parent.match.matchFieldBlocked = true;		// поле заблокированно
+                            	parent.match.matchFieldBlocked = true;		// поле заблокированно
 				parent.match.modeAI = true;					// ИИ включен
 				parent.level.levelExchangePersonage("USER");
 				parent.match.matchCellColorBack();

@@ -1362,7 +1362,7 @@ var Initialization = function(planetTextures, heroesTextures, personagesJson, pl
 			that.initLevels();
 			that.initCharacteristics();
 			
-			that.userExperiencePoints = 0;					// Очки опыта
+			that.userExperiencePoints = 100;					// Очки опыта
 			that.userTotalPointsPlayerTournament = 0;	// Общие очки игрока за всю игру
 			that.userlTotalPointsPlayerLevel = 0;          // Общие очки игрока за уровен
 			that.userExperiencePointsAI = 0; 				// Очки опыта ИИ

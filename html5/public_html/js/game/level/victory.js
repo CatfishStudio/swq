@@ -6,8 +6,8 @@ var Victory = function(parent)
     var that = {
         windowStage: null,
         lineAnimationGraphics: null,
-        styleBlueText: { font : 'bold 18px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340, align: "center"},
-        styleRedText: { font : 'bold 18px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340, align: "center"}, 
+        styleBlueText: { font : 'bold 18px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 300, align: "center"},
+        styleRedText: { font : 'bold 18px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 300, align: "center"}, 
         styleBlueText2: { font : 'bold 12px Arial', fill : '#C4DEFB', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200, align: "center"},
         styleRedText2: { font : 'bold 12px Arial', fill : '#EDCDCB', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200, align: "center"}, 
         buttonStyleBlueText: { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 340 },
@@ -158,7 +158,19 @@ var Victory = function(parent)
                     that.windowStage.addChild(text);
                     that.contentCreate();
                 }else{
-                    text = new PIXI.Text("Вы успешно отразили нападение Дарт Вейдера на планету " + parent.initialization.planets[that.planetID].name, that.styleBlueText); 
+                    
+                    if(parent.config.side === that.SIDE_SITH && parent.initialization.planets[that.planetID].id === "Coruscant")
+                    {
+                        text = new PIXI.Text("Вы одержали победу на планете " + parent.initialization.planets[that.planetID].name, that.styleBlueText); 
+                    }else{
+                        if(parent.config.side === that.SIDE_JEDI && parent.initialization.planets[that.planetID].id === "DeathStar")
+                        {
+                            text = new PIXI.Text("Вы одержали победу на планете " + parent.initialization.planets[that.planetID].name, that.styleBlueText); 
+                        }else{
+                            text = new PIXI.Text("Вы успешно отразили нападение Дарт Вейдера на планету " + parent.initialization.planets[that.planetID].name, that.styleBlueText); 
+                        }
+                    }
+                    
                     text.x = 325;
                     text.y = 350;
                     that.windowStage.addChild(text);
@@ -184,7 +196,19 @@ var Victory = function(parent)
                     that.windowStage.addChild(text);
                     that.contentCreate();
                 }else{
-                    text = new PIXI.Text("Вы успешно помешали Люку Скайуокеру на планету " + parent.initialization.planets[that.planetID].name, that.styleRedText); 
+                    
+                    if(parent.config.side === that.SIDE_SITH && parent.initialization.planets[that.planetID].id === "Coruscant")
+                    {
+                        text = new PIXI.Text("Вы одержали победу на планете " + parent.initialization.planets[that.planetID].name, that.styleRedText); 
+                    }else{
+                        if(parent.config.side === that.SIDE_JEDI && parent.initialization.planets[that.planetID].id === "DeathStar")
+                        {
+                            text = new PIXI.Text("Вы одержали победу на планете " + parent.initialization.planets[that.planetID].name, that.styleRedText); 
+                        }else{
+                            text = new PIXI.Text("Вы успешно помешали Люку Скайуокеру на планету " + parent.initialization.planets[that.planetID].name, that.styleRedText); 
+                        }
+                    }
+                    
                     text.x = 325;
                     text.y = 350;
                     that.windowStage.addChild(text);
@@ -632,12 +656,20 @@ var Victory = function(parent)
 
         onButtonCloseClick: function(event)
         {
-            // ИИ пропускает ход!
-            parent.config.stopAI = true;    
-            // Увеличиваем очки опыта Пользователя
-            parent.initialization.userExperiencePoints++;
-            parent.victoryClose(); // закрываем окно
-            parent.vkWallPost(that.planetID, that.intercept, null);
+            if(parent.config.side === that.SIDE_SITH && parent.initialization.planets[that.planetID].id === "Coruscant") parent.endGameShow("win");
+            else{
+                if(parent.config.side === that.SIDE_JEDI && parent.initialization.planets[that.planetID].id === "DeathStar") parent.endGameShow("win");
+                else{
+                    // ИИ пропускает ход!
+                    parent.config.stopAI = true;    
+                    // Увеличиваем очки опыта Пользователя
+                    parent.initialization.userExperiencePoints++;
+                    parent.victoryClose(); // закрываем окно
+                    parent.vkWallPost(that.planetID, that.intercept, null);
+                }
+            }
+            
+            
         },
         
         tweenStart: function()

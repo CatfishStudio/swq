@@ -246,7 +246,7 @@ var Game = function(mainStage)
                 {
                         mainStage.removeChild(that.victory.close());
 			that.victory.destroy();
-			that.victory = that.level = that.timer = that.match = that.settings = that.backmenu = that.lost = that.side = that.menu = null;
+			that.victory = null;
                         that.levelClose();
                         that.mapShow();
                 },
@@ -269,16 +269,34 @@ var Game = function(mainStage)
                 
                 endGameShow: function(status)
                 {
-                    console.log("END!!!");
+                    if(that.lost !== null)
+                    {
+                        mainStage.removeChild(that.lost.close());
+                        that.lost.destroy();
+                        that.lost = null;
+                    }
                     
-                    mainStage.removeChild(that.lost.close());
-                    that.lost.destroy();
-                    
-                    mainStage.removeChild(that.victory.close());
-                    that.victory.destroy();
-                    
-                    that.levelClose();
-                    that.mapClose();
+                    if(that.victory !== null)
+                    {
+                        mainStage.removeChild(that.victory.close());
+                        that.victory.destroy();
+                        that.victory = null;
+                    }
+                
+                    if(that.level !== null)
+                    {
+                        that.timerClose();
+                        that.matchClose();
+                        mainStage.removeChild(that.level.close());
+			that.level.destroy();
+                        that.level = null;
+                    }
+                    if(that.map !== null)
+                    {
+                        mainStage.removeChild(that.map.close());
+			that.map.destroy();
+                        that.map = null;
+                    }
                     
                     that.endGame = EndGame(that);
                     that.endGame.create(status);

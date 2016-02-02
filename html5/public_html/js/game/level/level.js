@@ -6,7 +6,7 @@ var Level = function(parent)
 	var that = {
 		levelStage: null,
 		levelPlanetID: null,
-                                    levelAIPlanetID: null,
+                levelAIPlanetID: null,
 		levelStarsSprite: null,
 		levelPlanetSprite: null,
 		levelLandscapeSprite: null,
@@ -130,7 +130,7 @@ var Level = function(parent)
 					if(parent.initialization.commandAI[key] !== null)
 					{
 						var life = (parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense1 + parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense2 + parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense3 + parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense4 + parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense5) / 10 * 50;
-						parent.initialization.personages[parent.initialization.commandAI[key]].life = Math.round(life);
+						parent.initialization.personages[parent.initialization.commandAI[key]].life = 1; // !!!!!!!!!!!! Math.round(life);
 						that.levelCommandAI.push(parent.initialization.personages[parent.initialization.commandAI[key]]);
 					}
 				}
@@ -164,30 +164,30 @@ var Level = function(parent)
 				{
 					that.levelCommandAI = [];
 					var life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].life = Math.round(life);
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].life = 1; // !!!!!!!!!!!! Math.round(life);
 					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1]);
 					
 					life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].life = Math.round(life);
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].life = 1; // !!!!!!!!!!!! Math.round(life);
 					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2]);
 					
 					life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].life = Math.round(life);
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].life = 1; // !!!!!!!!!!!! Math.round(life);
 					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3]);
 				}
 				if(parent.config.side === that.SIDE_SITH)
 				{
 					that.levelCommandAI = [];
 					var life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].life = Math.round(life);
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].life = 1; // !!!!!!!!!!!! Math.round(life);
 					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1]);
 					
 					life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].life = Math.round(life);
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].life = 1; // !!!!!!!!!!!! Math.round(life);
 					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2]);
 					
 					life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].life = Math.round(life);
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].life = 1; // !!!!!!!!!!!! Math.round(life);
 					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3]);
 				}
 				
@@ -962,7 +962,7 @@ var Level = function(parent)
                                         break;
 				case "Invite": 
 					parent.vkInvite();
-					break;
+                                        break;
 				default:
 					break;
 			}
@@ -985,7 +985,10 @@ var Level = function(parent)
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit1 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit1 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
-					if(that.levelAILife < 0) that.levelAILife = 0;
+					if(that.levelAILife < 0)
+                                        {
+                                            that.levelAILife = 0;
+                                        }
 					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
 				}
 				if(hitType === parent.match.MATCH_HIT_2)
@@ -993,7 +996,9 @@ var Level = function(parent)
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit2 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit2 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
-					if(that.levelAILife < 0) that.levelAILife = 0;
+					if(that.levelAILife < 0){
+                                            that.levelAILife = 0;
+                                        }
 					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
 				}
 				if(hitType === parent.match.MATCH_HIT_3)
@@ -1001,7 +1006,10 @@ var Level = function(parent)
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit3 * hitCount) * 10;
 					that.levelCommandUser[that.levelIndexUser].life += (that.levelUserHit3 * hitCount);
 					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
-					if(that.levelAILife < 0) that.levelAILife = 0;
+					if(that.levelAILife < 0)
+                                        {
+                                            that.levelAILife = 0;
+                                        }
 					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
 				}
 				if(hitType === parent.match.MATCH_HIT_4)
@@ -1009,7 +1017,10 @@ var Level = function(parent)
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit4 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit4 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
-					if(that.levelAILife < 0) that.levelAILife = 0;
+					if(that.levelAILife < 0)
+                                        {
+                                            that.levelAILife = 0;
+                                        }
 					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
 				}
 				if(hitType === parent.match.MATCH_HIT_5)
@@ -1017,7 +1028,10 @@ var Level = function(parent)
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit5 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit5 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
-					if(that.levelAILife < 0) that.levelAILife = 0;
+					if(that.levelAILife < 0)
+                                        {
+                                            that.levelAILife = 0;
+                                        }
 					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
 				}
 			}else{ // удар ИИ (урон пользователю)
@@ -1025,35 +1039,50 @@ var Level = function(parent)
 				{
 					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit1 * hitCount);
 					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
-					if(that.levelUserLife < 0) that.levelUserLife = 0;
+					if(that.levelUserLife < 0)
+                                        {
+                                            that.levelUserLife = 0;
+                                        }
 					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
 				}
 				if(hitType === parent.match.MATCH_HIT_2)
 				{
 					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit2 * hitCount);
 					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
-					if(that.levelUserLife < 0) that.levelUserLife = 0;
+					if(that.levelUserLife < 0)
+                                        {
+                                            that.levelUserLife = 0;
+                                        }
 					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
 				}
 				if(hitType === parent.match.MATCH_HIT_3)
 				{
 					that.levelCommandAI[that.levelIndexAI].life += (that.levelAIHit2 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
-					if(that.levelUserLife < 0) that.levelUserLife = 0;
+					if(that.levelUserLife < 0)
+                                        {
+                                            that.levelUserLife = 0;
+                                        }
 					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
 				}
 				if(hitType === parent.match.MATCH_HIT_4)
 				{
 					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit4 * hitCount);
 					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
-					if(that.levelUserLife < 0) that.levelUserLife = 0;
+					if(that.levelUserLife < 0)
+                                        {
+                                            that.levelUserLife = 0;
+                                        }
 					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
 				}
 				if(hitType === parent.match.MATCH_HIT_5)
 				{
 					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit5 * hitCount);
 					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
-					if(that.levelUserLife < 0) that.levelUserLife = 0;
+					if(that.levelUserLife < 0)
+                                        {
+                                            that.levelUserLife = 0;
+                                        }
 					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
 				}
 			}
@@ -1063,6 +1092,8 @@ var Level = function(parent)
 		/* Меняем персонаж ========================================================== */
 		levelExchangePersonage: function(mode)
 		{
+                    if(parent.timer !== null)
+                    {
 			if(mode === "AI") // меняем персонаж ИИ
 			{
 				var removePers = 0;
@@ -1086,17 +1117,20 @@ var Level = function(parent)
 					that.levelStage.removeChild(that.levelAIHit5Text);
 					that.levelStage.removeChild(that.levelAILifeText);
                                         
-                                        if(parent.config.side === that.SIDE_JEDI && that.levelPlanetID === "DeathStar") parent.endGameShow("win");
+                                        if(parent.config.side === that.SIDE_JEDI && that.levelPlanetID === "DeathStar")
+                                        {
+                                            parent.victoryShow(that.levelPlanetID, true, that.levelAIPlanetID);
+                                        }
                                         else{
-                                            if(parent.config.side === that.SIDE_SITH && that.levelPlanetID === "Coruscant") parent.endGameShow("win");
+                                            if(parent.config.side === that.SIDE_SITH && that.levelPlanetID === "Coruscant")
+                                            {
+                                               parent.victoryShow(that.levelPlanetID, true, that.levelAIPlanetID);
+                                            }
                                             else {
-                                                parent.victoryShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
+                                                if(parent.victory === null) parent.victoryShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
                                             }
                                         }
-                                            
-					//if(that.levelPlanetID !== "DeathStar") parent.victoryShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
-                                        //else parent.endGameShow("win");
-					
+                                	
 				}else{
 					if(that.levelIndexAI < that.levelCommandAI.length - 1) that.levelIndexAI++; // < 2
 					else that.levelIndexAI = 0;
@@ -1138,17 +1172,20 @@ var Level = function(parent)
 					that.levelStage.removeChild(that.levelUserHit5Text);
 					that.levelStage.removeChild(that.levelUserLifeText);
 					
-                                        if(parent.config.side === that.SIDE_JEDI && that.levelPlanetID === "Coruscant") parent.endGameShow("lost");
+                                        if(parent.config.side === that.SIDE_JEDI && that.levelPlanetID === "Coruscant") 
+                                        {
+                                            if(parent.lost === null) parent.lostShow(that.levelPlanetID, true, that.levelAIPlanetID);
+                                        }
                                         else {
-                                           if(parent.config.side === that.SIDE_SITH && that.levelPlanetID === "DeathStar") parent.endGameShow("lost");
+                                           if(parent.config.side === that.SIDE_SITH && that.levelPlanetID === "DeathStar")
+                                           {
+                                              if(parent.lost === null) parent.lostShow(that.levelPlanetID, true, that.levelAIPlanetID);  
+                                           }
                                            else{
-                                               parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
+                                               if(parent.lost === null) parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
                                            }
                                         }
-                                        
-					//if(that.levelPlanetID !== "Coruscant") parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
-                                        //else parent.endGameShow("lost");
-					
+                            		
 				}else{
 					if(that.levelIndexUser < that.levelCommandUser.length - 1)that.levelIndexUser++; // < 2
 					else that.levelIndexUser = 0;
@@ -1167,6 +1204,7 @@ var Level = function(parent)
 					}
 				}
 			}
+                    }
 		},
 		/* ========================================================================== */	
 		

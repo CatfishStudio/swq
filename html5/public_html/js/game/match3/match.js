@@ -296,16 +296,16 @@ var Match3 = function(parent)
 			that.matchMoveDownProcesses = new Object();
 			if(that.matchCheckFieldFull()) // группы были найдены
 			{
-					parent.timer.timerStop();			// останавливаем таймер
-					that.matchMoveDownUnits();	// спускаем юниты
+                                parent.timer.timerStop();			// останавливаем таймер
+                                that.matchMoveDownUnits();	// спускаем юниты
 			}else{ // группы не найдены
-					if(afterDown === false) // первый спуск юнитов
-					{
-							that.matchBackExchangeUnits(); 	// возвращаем выбранные юниты на места
-					}else{ 
-							that.matchSelectUnitsClear();	// очистка и разблокиров поля
-							if(parent.level.levelStatus === parent.level.LEVEL_STATUS_BATTLE) parent.timer.timerStart();				// запускаем таймер
-					}
+                                if(afterDown === false) // первый спуск юнитов
+                                {
+                                    that.matchBackExchangeUnits(); 	// возвращаем выбранные юниты на места
+                                }else{ 
+                                    that.matchSelectUnitsClear();	// очистка и разблокиров поля
+                                    if(parent.level.levelStatus === parent.level.LEVEL_STATUS_BATTLE) parent.timer.timerStart();				// запускаем таймер
+                                }
 			}
 		},
 		

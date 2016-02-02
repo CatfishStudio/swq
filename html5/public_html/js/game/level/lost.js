@@ -257,9 +257,9 @@ var Lost = function(parent)
                 if(parent.config.side === that.SIDE_JEDI) parent.initialization.aiUpgradeCommand(that.SIDE_SITH, that.aiPlanetID);
                 if(parent.config.side === that.SIDE_SITH) parent.initialization.aiUpgradeCommand(that.SIDE_JEDI, that.aiPlanetID);
                 
-                if(parent.config.side === that.SIDE_JEDI && parent.initialization.planets[that.planetID].id === "Coruscant") parent.endGameShow("lost");
+                if(parent.config.side === that.SIDE_JEDI && parent.initialization.planets[that.aiPlanetID].id === "Coruscant") parent.endGameShow("lost");
                 else{
-                    if(parent.config.side === that.SIDE_SITH && parent.initialization.planets[that.planetID].id === "DeathStar") parent.endGameShow("lost");
+                    if(parent.config.side === that.SIDE_SITH && parent.initialization.planets[that.aiPlanetID].id === "DeathStar") parent.endGameShow("lost");
                     else{
                         parent.lostClose(); // закрываем окно
                     }
@@ -276,9 +276,9 @@ var Lost = function(parent)
                     if(parent.config.side === that.SIDE_JEDI) parent.initialization.aiUpgradeCommand(that.SIDE_SITH, that.aiPlanetID);
                     if(parent.config.side === that.SIDE_SITH) parent.initialization.aiUpgradeCommand(that.SIDE_JEDI, that.aiPlanetID);
                     
-                    if(parent.config.side === that.SIDE_JEDI && parent.initialization.planets[that.planetID].id === "Coruscant") parent.endGameShow("lost");
+                    if(parent.config.side === that.SIDE_JEDI && parent.initialization.planets[that.aiPlanetID].id === "Coruscant") parent.endGameShow("lost");
                     else{
-                        if(parent.config.side === that.SIDE_SITH && parent.initialization.planets[that.planetID].id === "DeathStar") parent.endGameShow("lost");
+                        if(parent.config.side === that.SIDE_SITH && parent.initialization.planets[that.aiPlanetID].id === "DeathStar") parent.endGameShow("lost");
                         else{
                             parent.lostClose(); // закрываем окно
                         }

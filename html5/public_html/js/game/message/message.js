@@ -205,6 +205,7 @@ var Message = function(parent)
 		
 		onButtonCloseClick: function(event)
 		{
+                        parent.sound.soundPlayStarWarsButtonClick();
 			parent.messageClose();
 		},
 		

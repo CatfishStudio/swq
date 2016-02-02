@@ -9,6 +9,7 @@ var EndGame = function(parent)
         text: null,
         leftBoomArray: null,
         rightBoomArray: null,
+        boomMovieClip: null,
         
         styleDroidBlueText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 275 },
         styleDroidRedText: { font : 'bold 14px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 275 },
@@ -321,27 +322,27 @@ var EndGame = function(parent)
         {
             if(position === "left")
             {
-                var boomMovieClip = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexBoom")); 
-                boomMovieClip.status = "left";
-                boomMovieClip.position.x = 200; 
-                boomMovieClip.position.y = 200; 
-                boomMovieClip.loop = false; 
-                boomMovieClip.animationSpeed = 0.2;
-                boomMovieClip.onComplete = that.onBoomUpdate;
-                boomMovieClip.play();
-                that.windowStage.addChild(boomMovieClip);
+                that.boomMovieClip = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexBoom")); 
+                that.boomMovieClip.status = "left";
+                that.boomMovieClip.position.x = 200; 
+                that.boomMovieClip.position.y = 200; 
+                that.boomMovieClip.loop = false; 
+                that.boomMovieClip.animationSpeed = 0.2;
+                that.boomMovieClip.onComplete = that.onBoomUpdate;
+                that.boomMovieClip.play();
+                that.windowStage.addChild(that.boomMovieClip);
             }
             if(position === "right")
             {
-                var boomMovieClip = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexBoom")); 
-                boomMovieClip.status = "right";
-                boomMovieClip.position.x = 400; 
-                boomMovieClip.position.y = 200; 
-                boomMovieClip.loop = false; 
-                boomMovieClip.animationSpeed = 0.2;
-                boomMovieClip.onComplete = that.onBoomUpdate;
-                boomMovieClip.play();
-                that.windowStage.addChild(boomMovieClip);
+                that.boomMovieClip = new PIXI.extras.MovieClip(parent.assets.getAsset("animTexBoom")); 
+                that.boomMovieClip.status = "right";
+                that.boomMovieClip.position.x = 400; 
+                that.boomMovieClip.position.y = 200; 
+                that.boomMovieClip.loop = false; 
+                that.boomMovieClip.animationSpeed = 0.2;
+                that.boomMovieClip.onComplete = that.onBoomUpdate;
+                that.boomMovieClip.play();
+                that.windowStage.addChild(that.boomMovieClip);
             }
         },
         
@@ -472,6 +473,7 @@ var EndGame = function(parent)
 
         onButtonClick: function() 
         {
+                parent.sound.soundPlayStarWarsButtonClick();
                 switch (this.name)
                 {
                         case "post":
@@ -506,6 +508,7 @@ var EndGame = function(parent)
         close: function()
         {
                 that.tweenStop();
+                that.boomMovieClip.stop();
                 for(var child in that.windowStage.children) that.windowStage.removeChild(that.windowStage.children[child]);
                 return that.windowStage;
         },

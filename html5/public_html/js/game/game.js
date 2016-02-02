@@ -4,7 +4,7 @@
 var Game = function(mainStage)
 {
 	var that = {
-		config: {music:false, sound:true, language:"rus", side: "side_none", MAIN_WIDTH:860, MAIN_HEIGH:730, stopAI: false},
+		config: {music:true, sound:true, language:"rus", side: "side_none", MAIN_WIDTH:860, MAIN_HEIGH:730, stopAI: false},
 		sound: null,
 		timer: null,
 		match: null,
@@ -51,14 +51,17 @@ var Game = function(mainStage)
 		
 		loadAssetsComplete: function()
 		{
-			that.sound = Sound(that);
-			that.sound.soundPlayStarWarsThemeSong();
+                        that.sound = Sound(that);
+                        that.sound.soundPlayStarWarsThemeSong();
+                        
 			mainStage.removeChild(that.assets.close());
 			that.menuShow();
 		},
 		
 		menuShow: function()
 		{
+                        that.sound.soundPlayStarWarsThemeSong();
+                        
 			that.menu = Menu(that);
 			that.menu.create();
 			mainStage.addChild(that.menu.show());
@@ -72,15 +75,19 @@ var Game = function(mainStage)
 			that.sideShow();
 		},
 		
-		settingsShow: function()
+		settingsShow: function(location)
 		{
-			that.settings = Settings(that);
+                        that.sound.soundPlayStarWarsWindowOpen();
+                    
+			that.settings = Settings(that, location);
 			that.settings.create();
 			mainStage.addChild(that.settings.show());
 		},
 		
 		settingsClose: function()
 		{
+                        that.sound.soundPlayStarWarsWindowClose();
+                        
 			mainStage.removeChild(that.settings.close());
 			that.settings.destroy();
 			that.settings = null;
@@ -111,6 +118,8 @@ var Game = function(mainStage)
 		
 		mapShow: function()
 		{
+                        that.sound.soundPlayStarWarsThemeSong();
+                        
 			that.map = Map(that);
 			that.map.create();
 			mainStage.addChild(that.map.show());
@@ -125,6 +134,8 @@ var Game = function(mainStage)
 		
 		backmenuShow: function()
 		{
+                        that.sound.soundPlayStarWarsWindowOpen();
+                        
 			that.backmenu = Backmenu(that);
 			that.backmenu.create();
 			mainStage.addChild(that.backmenu.show());
@@ -132,6 +143,8 @@ var Game = function(mainStage)
 		
 		backmenuClose: function(back)
 		{
+                        that.sound.soundPlayStarWarsWindowClose();
+                        
 			mainStage.removeChild(that.backmenu.close());
 			that.backmenu.destroy();
 			that.backmenu = null;
@@ -163,6 +176,8 @@ var Game = function(mainStage)
 		
 		messageShow: function(titleText, messageText)
 		{
+                        that.sound.soundPlayStarWarsWindowOpen();
+                        
 			that.message = Message(that);
 			that.message.create(titleText, messageText);
 			mainStage.addChild(that.message.show());
@@ -170,6 +185,8 @@ var Game = function(mainStage)
 		
 		messageClose: function()
 		{
+                        that.sound.soundPlayStarWarsWindowClose();
+                        
 			mainStage.removeChild(that.message.close());
 			that.message.destroy();
 			that.message = null;
@@ -177,6 +194,8 @@ var Game = function(mainStage)
 		
 		startbattleShow: function(planetUserTargetID, planetAITargetID)
 		{
+                        that.sound.soundPlayStarWarsWindowOpen();
+                        
 			that.startbattle = StartBattle(that);
 			that.startbattle.create(planetUserTargetID, planetAITargetID);
 			mainStage.addChild(that.startbattle.show());
@@ -184,6 +203,8 @@ var Game = function(mainStage)
 		
 		startbattleClose: function()
 		{
+                        that.sound.soundPlayStarWarsWindowClose();
+                        
 			mainStage.removeChild(that.startbattle.close());
 			that.startbattle.destroy();
 			that.startbattle = null;
@@ -219,6 +240,8 @@ var Game = function(mainStage)
 		
 		levelShow: function(planetID, intercept, aiPlanetID)
 		{
+                        that.sound.soundPlayStarWarsBattle();
+                        
 			that.level = Level(that);
 			that.level.levelCreate(planetID, intercept, aiPlanetID);
 			mainStage.addChild(that.level.show());
@@ -237,6 +260,8 @@ var Game = function(mainStage)
                 
                 victoryShow: function(planetID, intercept, aiPlanetID)
                 {
+                        that.sound.soundPlayStarWarsWindowOpen();
+                        
                         that.victory = Victory(that);
 			that.victory.create(planetID, intercept, aiPlanetID);
 			mainStage.addChild(that.victory.show());
@@ -244,6 +269,8 @@ var Game = function(mainStage)
                 
                 victoryClose: function()
                 {
+                        that.sound.soundPlayStarWarsWindowClose();
+                        
                         mainStage.removeChild(that.victory.close());
 			that.victory.destroy();
 			that.victory = null;
@@ -253,6 +280,8 @@ var Game = function(mainStage)
                 
                 lostShow: function(planetID, intercept, aiPlanetID)
                 {
+                    that.sound.soundPlayStarWarsWindowOpen();
+                    
                     that.lost = Lost(that);
                     that.lost.create(planetID, intercept, aiPlanetID);
                     mainStage.addChild(that.lost.show());
@@ -260,6 +289,8 @@ var Game = function(mainStage)
                 
                 lostClose: function()
                 {
+                    that.sound.soundPlayStarWarsWindowClose();
+                    
                     mainStage.removeChild(that.lost.close());
                     that.lost.destroy();
                     that.lost = null;
@@ -269,6 +300,14 @@ var Game = function(mainStage)
                 
                 endGameShow: function(status)
                 {
+                    if(status === "win") that.sound.soundPlayStarWarsThemeSong();
+                    if(status === "lost")
+                    {
+                        that.sound.soundStopStarWarsThemeSong();
+                        that.sound.soundStopStarWarsBattle();
+                        that.sound.soundPlayStarWarsThemeEnd();
+                    }
+                    
                     if(that.lost !== null)
                     {
                         mainStage.removeChild(that.lost.close());
@@ -305,6 +344,8 @@ var Game = function(mainStage)
                 
                 endGameClose: function()
                 {
+                    that.sound.soundStopStarWarsThemeEnd();
+                    
                     mainStage.removeChild(that.endGame.close());
                     that.endGame.destroy();
                     that.endGame = that.timer = that.match = that.initialization = that.menu = that.backmenu = that.settings = that.message = that.side = that.command = that.startbattle = that.level = that.victory = that.lost = null;

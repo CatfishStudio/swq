@@ -2,7 +2,7 @@
 /* == START FILE ========================================================= */
 
 
-var Settings = function(parent)
+var Settings = function(parent, location)
 {
 	var that = {
 		windowStage: null,
@@ -212,6 +212,7 @@ var Settings = function(parent)
 		
 		onButtonsClick: function(event)
 		{
+                        parent.sound.soundPlayStarWarsButtonClick();
 			 if(this.name === "sound")
 			{
 				if(parent.config.sound === true)
@@ -231,11 +232,15 @@ var Settings = function(parent)
 				{
 					parent.config.music = false;
 					this.texture = parent.assets.getAsset("musicOffButtonTexture");
-					parent.sound.soundStopStarWarsThemeSong();
+					
+                                        if(location === "menu_map") parent.sound.soundStopStarWarsThemeSong();
+                                        if(location === "level") parent.sound.soundStopStarWarsBattle();
 				}else{
 					parent.config.music = true;
 					this.texture = parent.assets.getAsset("musicOnButtonTexture");
-					parent.sound.soundPlayStarWarsThemeSong();
+                                        
+					if(location === "menu_map") parent.sound.soundPlayStarWarsThemeSong();
+                                        if(location === "level") parent.sound.soundPlayStarWarsBattle();
 				}
 			}
 			if(this.name === "info")
@@ -314,6 +319,7 @@ var Settings = function(parent)
 		
 		onButtonCloseClick: function(event)
 		{
+                        parent.sound.soundPlayStarWarsButtonClick();
 			parent.settingsClose();
 		},
 		

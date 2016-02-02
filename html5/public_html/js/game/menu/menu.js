@@ -129,7 +129,7 @@ var Menu = function(parent)
 					parent.menuStartGame();
 					break;
 				case "button_1":        // Настройки игры
-					parent.settingsShow();
+					parent.settingsShow("menu_map");
 					break;
 				case "button_2":        // Позвать друзей ВК
 					parent.vkInvite();

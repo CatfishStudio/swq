@@ -217,6 +217,8 @@ var Map = function(parent)
 		
 		onPlanetClick: function(event)
 		{
+                        parent.sound.soundPlayStarWarsButtonClick();
+                        
 			if(parent.initialization.commandUser["personage1"] === null && parent.initialization.commandUser["personage2"] === null && parent.initialization.commandUser["personage3"] === null)
 			{
 				parent.messageShow("ПРЕДУПРЕЖДЕНИЕ", "В вашей комманде нет не одного персонажа. \nВы не можите начать битву пока в команде не будет хотя бы один персонаж!");
@@ -649,13 +651,14 @@ var Map = function(parent)
 		
 		onButtonClick: function(e)
 		{
+                        parent.sound.soundPlayStarWarsButtonClick();
 			switch (this.name)
 			{
 				case "Command":
 					parent.commandShow();
 					break;
 				case "Settings":
-					parent.settingsShow();
+					parent.settingsShow("menu_map");
 					break;
 				case "BackMenu":
 					parent.backmenuShow();

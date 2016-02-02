@@ -153,6 +153,8 @@ var Side = function(parent)
 		
 		onButtonClick: function()
 		{
+                        parent.sound.soundPlayStarWarsButtonClick();
+                        
 			if(this.name === "DarthVader") that.side = that.SIDE_SITH;
 			if(this.name === "LukeSkywalker") that.side = that.SIDE_JEDI;
 			

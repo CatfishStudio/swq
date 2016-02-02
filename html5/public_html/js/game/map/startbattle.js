@@ -476,6 +476,7 @@ var StartBattle = function(parent)
 		
 		onButtonClick: function(event)
 		{
+                        parent.sound.soundPlayStarWarsButtonClick();
 			switch (this.name)
 			{
 				case "yes":

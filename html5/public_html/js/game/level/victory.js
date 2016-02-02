@@ -494,6 +494,8 @@ var Victory = function(parent)
 
         onButtonClick: function(event)
         {
+            parent.sound.soundPlayStarWarsButtonClick();
+            
             if(parent.config.side === that.SIDE_JEDI)
             {
                 // присваиваем планете статус завоёванной
@@ -656,6 +658,8 @@ var Victory = function(parent)
 
         onButtonCloseClick: function(event)
         {
+            parent.sound.soundPlayStarWarsButtonClick();
+            
             if(parent.config.side === that.SIDE_SITH && parent.initialization.planets[that.planetID].id === "Coruscant") parent.endGameShow("win");
             else{
                 if(parent.config.side === that.SIDE_JEDI && parent.initialization.planets[that.planetID].id === "DeathStar") parent.endGameShow("win");

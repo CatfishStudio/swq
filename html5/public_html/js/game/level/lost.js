@@ -246,6 +246,8 @@ var Lost = function(parent)
 
         onButtonCloseClick: function(event)
         {
+            parent.sound.soundPlayStarWarsButtonClick();
+            
             // ИИ присваиваем планете статус завоёванной если это был перехват
             if(that.intercept === true)
             {

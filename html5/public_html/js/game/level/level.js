@@ -949,13 +949,14 @@ var Level = function(parent)
 		
 		onLevelButtonClick: function() 
 		{
+                        parent.sound.soundPlayStarWarsButtonClick();
 			switch (this.name)
 			{
 				case "EndBattle":
                                         parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
                                         break;
 				case "Settings":
-					parent.settingsShow();
+					parent.settingsShow("level");
 					break;
 				case "BackMenu":
 					parent.backmenuShow();

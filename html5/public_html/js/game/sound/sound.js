@@ -12,7 +12,12 @@ var Sound = function(parent)
 		soundStopStarWarsThemeSong: function()
 		{
 			createjs.Sound.stop("StarWarsThemeSong");
-		}
+		},
+                
+                soundPlayStarWarsButtonClick: function()
+                {
+                        if(parent.config.sound === true) createjs.Sound.play("StarWarsButtonClick");
+                }
 		
 	};
 	return that;

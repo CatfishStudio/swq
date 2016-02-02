@@ -122,6 +122,7 @@ var Menu = function(parent)
 		
 		onButtonClick: function(e)
 		{
+                        parent.sound.soundPlayStarWarsButtonClick();
 			switch (this.name)
 			{
 				case "button_0":        // Начать игру

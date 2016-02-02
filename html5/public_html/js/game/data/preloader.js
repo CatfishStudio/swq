@@ -459,7 +459,8 @@ var Preloader = function(parent)
 			queue.installPlugin(createjs.Sound);
 			queue.on("progress", that.onSoundLoaderProcess);
 			queue.on("complete", that.onSoundLoaderComplete);
-			queue.loadFile({"id":"StarWarsThemeSong", "src":"assets/music/star_wars_theme_song.mp3"});
+			queue.loadFile({"id":"StarWarsThemeSong", "src":"assets/music/star_wars_theme_song.mp3",
+                                        "id":"StarWarsButtonClick", "src":"assets/sound/click.mp3"});
 			queue = null;
 		},
 		

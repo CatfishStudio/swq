@@ -130,7 +130,7 @@ var Level = function(parent)
 					if(parent.initialization.commandAI[key] !== null)
 					{
 						var life = (parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense1 + parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense2 + parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense3 + parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense4 + parent.initialization.personages[parent.initialization.commandAI[key]].hitDefense5) / 10 * 50;
-						parent.initialization.personages[parent.initialization.commandAI[key]].life = 1; // !!!!!!!!!!!! Math.round(life);
+						parent.initialization.personages[parent.initialization.commandAI[key]].life = Math.round(life);
 						that.levelCommandAI.push(parent.initialization.personages[parent.initialization.commandAI[key]]);
 					}
 				}
@@ -164,30 +164,30 @@ var Level = function(parent)
 				{
 					that.levelCommandAI = [];
 					var life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].life = 1; // !!!!!!!!!!!! Math.round(life);
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1].life = Math.round(life);
 					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage1]);
 					
 					life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].life = 1; // !!!!!!!!!!!! Math.round(life);
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2].life = Math.round(life);
 					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage2]);
 					
 					life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].life = 1; // !!!!!!!!!!!! Math.round(life);
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3].life = Math.round(life);
 					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].redPersonage3]);
 				}
 				if(parent.config.side === that.SIDE_SITH)
 				{
 					that.levelCommandAI = [];
 					var life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].life = 1; // !!!!!!!!!!!! Math.round(life);
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1].life = Math.round(life);
 					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage1]);
 					
 					life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].life = 1; // !!!!!!!!!!!! Math.round(life);
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2].life = Math.round(life);
 					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage2]);
 					
 					life = (parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack1 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack2 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack3 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack4 + parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].hitAttack5) / 10 * 50;
-					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].life = 1; // !!!!!!!!!!!! Math.round(life);
+					parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3].life = Math.round(life);
 					that.levelCommandAI.push(parent.initialization.personages[parent.initialization.planets[that.levelPlanetID].bluePersonage3]);
 				}
 				
@@ -952,7 +952,7 @@ var Level = function(parent)
 			switch (this.name)
 			{
 				case "EndBattle":
-					parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
+                                        parent.lostShow(that.levelPlanetID, that.levelIntercept, that.levelAIPlanetID);
                                         break;
 				case "Settings":
 					parent.settingsShow();
@@ -1116,6 +1116,8 @@ var Level = function(parent)
 					that.levelStage.removeChild(that.levelAIHit4Text);
 					that.levelStage.removeChild(that.levelAIHit5Text);
 					that.levelStage.removeChild(that.levelAILifeText);
+                                        
+                                        parent.initialization.userTotalPointsPlayerTournament = parent.initialization.userlTotalPointsPlayerLevel;
                                         
                                         if(parent.config.side === that.SIDE_JEDI && that.levelPlanetID === "DeathStar")
                                         {

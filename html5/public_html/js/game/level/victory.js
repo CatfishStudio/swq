@@ -145,7 +145,7 @@ var Victory = function(parent)
                 text.y = 225;
                 that.windowStage.addChild(text);
                 
-                text = new PIXI.Text("Получено очков опыта: +1", that.styleBlueText); 
+                text = new PIXI.Text("Получено очков опыта: +3", that.styleBlueText); 
                 text.x = 355;
                 text.y = 250;
                 that.windowStage.addChild(text);
@@ -183,7 +183,7 @@ var Victory = function(parent)
                 text.y = 225;
                 that.windowStage.addChild(text);
                 
-                text = new PIXI.Text("Получено очков опыта: +1", that.styleRedText); 
+                text = new PIXI.Text("Получено очков опыта: +3", that.styleRedText); 
                 text.x = 355;
                 text.y = 250;
                 that.windowStage.addChild(text);
@@ -506,7 +506,7 @@ var Victory = function(parent)
                     // ИИ присваиваем планете статус завоёванной
                     parent.initialization.planets[that.aiPlanetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH;
                     // Увеличиваем очки опыта ИИ
-                    parent.initialization.userExperiencePointsAI++;
+                    parent.initialization.userExperiencePointsAI += 3;
                     // обновление команды ИИ распределение очков опыта
                     parent.initialization.aiUpgradeCommand(that.SIDE_SITH, that.aiPlanetID);
                     
@@ -516,7 +516,7 @@ var Victory = function(parent)
                         else{
 
                             // Увеличиваем очки опыта Пользователя
-                            parent.initialization.userExperiencePoints++;
+                            parent.initialization.userExperiencePoints += 3;
                             // ИИ получает разрешение на выполнение действий!
                             parent.config.stopAI = false;
                             parent.victoryClose(); // закрываем окно
@@ -530,7 +530,7 @@ var Victory = function(parent)
                     // ИИ проиграл!
                     parent.initialization.aiRemovePersonageCommand(that.SIDE_SITH);
                     // Увеличиваем очки опыта Пользователя
-                    parent.initialization.userExperiencePoints++;
+                    parent.initialization.userExperiencePoints += 3;
                     // ИИ получает разрешение на выполнение действий!
                     parent.config.stopAI = false;
                     parent.victoryClose(); // закрываем окно
@@ -549,7 +549,7 @@ var Victory = function(parent)
                     // ИИ присваиваем планете статус завоёванной
                     parent.initialization.planets[that.aiPlanetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_JEDI;
                     // Увеличиваем очки опыта ИИ
-                    parent.initialization.userExperiencePointsAI++;
+                    parent.initialization.userExperiencePointsAI += 3;
                     // обновление команды ИИ распределение очков опыта
                     parent.initialization.aiUpgradeCommand(that.SIDE_JEDI, that.aiPlanetID);
                     
@@ -559,7 +559,7 @@ var Victory = function(parent)
                         else{
 
                             // Увеличиваем очки опыта Пользователя
-                            parent.initialization.userExperiencePoints++;
+                            parent.initialization.userExperiencePoints += 3;
                             // ИИ получает разрешение на выполнение действий!
                             parent.config.stopAI = false;
                             parent.victoryClose(); // закрываем окно

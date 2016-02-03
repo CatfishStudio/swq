@@ -986,6 +986,7 @@ var Level = function(parent)
 			{
 				if(hitType === parent.match.MATCH_HIT_1)
 				{
+                                        parent.sound.soundPlayStarWarsHit1();
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit1 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit1 * hitCount);
                                         that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
@@ -998,6 +999,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_2)
 				{
+                                        parent.sound.soundPlayStarWarsHit2();
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit2 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit2 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
@@ -1009,6 +1011,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_3)
 				{
+                                        parent.sound.soundPlayStarWarsHit3();
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit3 * hitCount) * 10;
 					that.levelCommandUser[that.levelIndexUser].life += (that.levelUserHit3 * hitCount);
 					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
@@ -1021,6 +1024,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_4)
 				{
+                                        parent.sound.soundPlayStarWarsHit4();
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit4 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit4 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
@@ -1033,6 +1037,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_5)
 				{
+                                        parent.sound.soundPlayStarWarsHit5();
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit5 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit5 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
@@ -1046,6 +1051,7 @@ var Level = function(parent)
 			}else{ // удар ИИ (урон пользователю)
 				if(hitType === parent.match.MATCH_HIT_1)
 				{
+                                        parent.sound.soundPlayStarWarsHit1();
 					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit1 * hitCount);
 					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
 					if(that.levelUserLife < 0)
@@ -1057,6 +1063,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_2)
 				{
+                                        parent.sound.soundPlayStarWarsHit2();
 					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit2 * hitCount);
 					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
 					if(that.levelUserLife < 0)
@@ -1068,6 +1075,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_3)
 				{
+                                        parent.sound.soundPlayStarWarsHit3();
 					that.levelCommandAI[that.levelIndexAI].life += (that.levelAIHit3 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
 					if(that.levelUserLife < 0)
@@ -1079,6 +1087,7 @@ var Level = function(parent)
                                }
 				if(hitType === parent.match.MATCH_HIT_4)
 				{
+                                        parent.sound.soundPlayStarWarsHit4();
 					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit4 * hitCount);
 					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
 					if(that.levelUserLife < 0)
@@ -1090,6 +1099,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_5)
 				{
+                                        parent.sound.soundPlayStarWarsHit5();
 					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit5 * hitCount);
 					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
 					if(that.levelUserLife < 0)

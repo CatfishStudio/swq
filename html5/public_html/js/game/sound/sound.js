@@ -84,6 +84,31 @@ var Sound = function(parent)
                 soundPlayStarWarsWindowClose: function()
                 {
                         if(parent.config.sound === true) createjs.Sound.play("StarWarsWindowClose");
+                },
+                
+                soundPlayStarWarsHit1: function()
+                {
+                        if(parent.config.sound === true) createjs.Sound.play("StarWarsHit1");
+                },
+                
+                 soundPlayStarWarsHit2: function()
+                {
+                        if(parent.config.sound === true) createjs.Sound.play("StarWarsHit2");
+                },
+                
+                 soundPlayStarWarsHit3: function()
+                {
+                        if(parent.config.sound === true) createjs.Sound.play("StarWarsHit3");
+                },
+                
+                 soundPlayStarWarsHit4: function()
+                {
+                        if(parent.config.sound === true) createjs.Sound.play("StarWarsHit4");
+                },
+                
+                 soundPlayStarWarsHit5: function()
+                {
+                        if(parent.config.sound === true) createjs.Sound.play("StarWarsHit5");
                 }
                 
 		

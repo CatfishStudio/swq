@@ -466,6 +466,11 @@ var Preloader = function(parent)
                         queue.loadFile({"id":"StarWarsButtonClick", "src":"assets/sound/click.mp3"});
                         queue.loadFile({"id":"StarWarsWindowOpen", "src":"assets/sound/open.mp3"});
                         queue.loadFile({"id":"StarWarsWindowClose", "src":"assets/sound/close.mp3"});
+                        queue.loadFile({"id":"StarWarsHit1", "src":"assets/sound/hit1.mp3"});
+                        queue.loadFile({"id":"StarWarsHit2", "src":"assets/sound/hit2.mp3"});
+                        queue.loadFile({"id":"StarWarsHit3", "src":"assets/sound/hit3.mp3"});
+                        queue.loadFile({"id":"StarWarsHit4", "src":"assets/sound/hit4.mp3"});
+                        queue.loadFile({"id":"StarWarsHit5", "src":"assets/sound/hit5.mp3"});
 			queue = null;
 		},
 		

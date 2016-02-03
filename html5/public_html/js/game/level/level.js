@@ -64,6 +64,9 @@ var Level = function(parent)
 		levelLineUserAnimationGraphics: null,
 		levelLineAIAnimationGraphics: null,
 		levelMessageLineGraphics: null,
+                
+                hitLeftText: null,
+                hitRightText: null,
 		
 		levelCreate: function(planetID, intercept, aiPlanetID)
 		{
@@ -84,8 +87,8 @@ var Level = function(parent)
 			that.levelInitCommands(intercept);
 			
 			that.levelBackground();
-			//parent.timerShow();
-			if(parent.config.side === that.SIDE_JEDI)
+			
+                        if(parent.config.side === that.SIDE_JEDI)
 			{
 				that.levelBorderBlue();
 				that.levelDesktopBlue();
@@ -100,7 +103,7 @@ var Level = function(parent)
 			that.levelBattons();
 			that.levelShowCommandUser();
 			that.levelShowCommandAI();
-			//that.levelFieldCreate();
+                        that.hitTextCreate();
 		},
 		
 		levelInitCommands: function(intercept)
@@ -985,12 +988,13 @@ var Level = function(parent)
 				{
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit1 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit1 * hitCount);
-					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
+                                        that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
 					if(that.levelAILife < 0)
                                         {
                                             that.levelAILife = 0;
                                         }
 					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
+                                        that.hitTextRightShow("-" + (that.levelUserHit1 * hitCount));
 				}
 				if(hitType === parent.match.MATCH_HIT_2)
 				{
@@ -1001,6 +1005,7 @@ var Level = function(parent)
                                             that.levelAILife = 0;
                                         }
 					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
+                                        that.hitTextRightShow("-" + (that.levelUserHit2 * hitCount));
 				}
 				if(hitType === parent.match.MATCH_HIT_3)
 				{
@@ -1012,6 +1017,7 @@ var Level = function(parent)
                                             that.levelAILife = 0;
                                         }
 					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
+                                        that.hitTextLeftShow("+" + (that.levelUserHit3 * hitCount));
 				}
 				if(hitType === parent.match.MATCH_HIT_4)
 				{
@@ -1023,6 +1029,7 @@ var Level = function(parent)
                                             that.levelAILife = 0;
                                         }
 					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
+                                        that.hitTextRightShow("-" + (that.levelUserHit4 * hitCount));
 				}
 				if(hitType === parent.match.MATCH_HIT_5)
 				{
@@ -1034,6 +1041,7 @@ var Level = function(parent)
                                             that.levelAILife = 0;
                                         }
 					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
+                                        that.hitTextRightShow("-" + (that.levelUserHit5 * hitCount));
 				}
 			}else{ // удар ИИ (урон пользователю)
 				if(hitType === parent.match.MATCH_HIT_1)
@@ -1045,6 +1053,7 @@ var Level = function(parent)
                                             that.levelUserLife = 0;
                                         }
 					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
+                                        that.hitTextLeftShow("-" + (that.levelAIHit1 * hitCount));
 				}
 				if(hitType === parent.match.MATCH_HIT_2)
 				{
@@ -1055,17 +1064,19 @@ var Level = function(parent)
                                             that.levelUserLife = 0;
                                         }
 					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
+                                        that.hitTextLeftShow("-" + (that.levelAIHit2 * hitCount));
 				}
 				if(hitType === parent.match.MATCH_HIT_3)
 				{
-					that.levelCommandAI[that.levelIndexAI].life += (that.levelAIHit2 * hitCount);
+					that.levelCommandAI[that.levelIndexAI].life += (that.levelAIHit3 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
 					if(that.levelUserLife < 0)
                                         {
                                             that.levelUserLife = 0;
                                         }
 					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
-				}
+                                        that.hitTextRightShow("+" + (that.levelAIHit3 * hitCount));
+                               }
 				if(hitType === parent.match.MATCH_HIT_4)
 				{
 					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit4 * hitCount);
@@ -1075,6 +1086,7 @@ var Level = function(parent)
                                             that.levelUserLife = 0;
                                         }
 					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
+                                        that.hitTextLeftShow("-" + (that.levelAIHit4 * hitCount));
 				}
 				if(hitType === parent.match.MATCH_HIT_5)
 				{
@@ -1085,6 +1097,7 @@ var Level = function(parent)
                                             that.levelUserLife = 0;
                                         }
 					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
+                                        that.hitTextLeftShow("-" + (that.levelAIHit5 * hitCount));
 				}
 			}
 		},
@@ -1211,6 +1224,72 @@ var Level = function(parent)
 		},
 		/* ========================================================================== */	
 		
+                /* Показываем очки урона в бою ============================================== */
+                hitTextCreate: function()
+                {
+                    if(parent.config.side === that.SIDE_JEDI)
+                    {
+                        that.hitLeftText = new PIXI.Text("0", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
+                        that.hitLeftText.x = 40;
+                        that.hitLeftText.y = 350;
+                        that.hitLeftText.visible = false;
+                        that.levelStage.addChild(that.hitLeftText);
+                        
+                        that.hitRightText = new PIXI.Text("0", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
+                        that.hitRightText.x = 775;
+                        that.hitRightText.y = 550;
+                        that.hitRightText.visible = false;
+                        that.levelStage.addChild(that.hitRightText);
+                    }
+                    if(parent.config.side === that.SIDE_SITH)
+                    {
+                        that.hitLeftText = new PIXI.Text("0", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
+                        that.hitLeftText.x = 40;
+                        that.hitLeftText.y = 350;
+                        that.hitLeftText.visible = false;
+                        that.levelStage.addChild(that.hitLeftText);
+                        
+                        that.hitRightText = new PIXI.Text("0", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
+                        that.hitRightText.x = 775;
+                        that.hitRightText.y = 550;
+                        that.hitRightText.visible = false;
+                        that.levelStage.addChild(that.hitRightText);   
+                    }
+                },
+                
+                hitTextLeftShow: function(textMessage)
+                {
+                    that.hitLeftText.text = textMessage;
+                    that.hitLeftText.visible = true;
+                    createjs.Tween.get(that.hitLeftText, {loop: false}) 
+                        .to({y: 125}, 500, createjs.Ease.getPowInOut(3))
+                        .to({visible: false}, 10, createjs.Ease.getPowInOut(3))
+                        .to({y: 350}, 10, createjs.Ease.getPowInOut(3))
+                        .call(that.onCompleteTextLeftShow); // событие выполнено
+                },
+                
+                onCompleteTextLeftShow: function()
+                {
+                    createjs.Tween.removeTweens(that.hitLeftText);
+                },
+                
+                hitTextRightShow: function(textMessage)
+                {
+                    that.hitRightText.text = textMessage;
+                    that.hitRightText.visible = true;
+                    createjs.Tween.get(that.hitRightText, {loop: false}) 
+                        .to({y: 350}, 500, createjs.Ease.getPowInOut(3))
+                        .to({visible: false}, 10, createjs.Ease.getPowInOut(3))
+                        .to({y: 550}, 10, createjs.Ease.getPowInOut(3))
+                        .call(that.onCompleteTextRightShow); // событие выполнено
+                },
+                
+                onCompleteTextRightShow: function()
+                {
+                    createjs.Tween.removeTweens(that.hitRightText);
+                },
+                
+                /* ========================================================================== */	
 		
 		/* Завершение работы с классом ======================================== */
 		tweenStart: function()
@@ -1257,9 +1336,11 @@ var Level = function(parent)
 			createjs.Tween.removeTweens(that.levelLineUserAnimationGraphics);
 			createjs.Tween.removeTweens(that.levelLineAIAnimationGraphics);
 			createjs.Tween.removeTweens(that.levelMessageLineGraphics);
+                        createjs.Tween.removeTweens(that.hitLeftText);
+                        createjs.Tween.removeTweens(that.hitRightText);
 		},
-		
-		show: function()
+                
+                show: function()
 		{
 			that.tweenStart();
 			return that.levelStage;

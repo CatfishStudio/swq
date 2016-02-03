@@ -575,7 +575,7 @@ var Victory = function(parent)
                     // ИИ проиграл!
                     parent.initialization.aiRemovePersonageCommand(that.SIDE_JEDI);
                     // Увеличиваем очки опыта Пользователя
-                    parent.initialization.userExperiencePoints++;
+                    parent.initialization.userExperiencePoints += 3;
                     // ИИ получает разрешение на выполнение действий!
                     parent.config.stopAI = false;
                     parent.victoryClose(); // закрываем окно

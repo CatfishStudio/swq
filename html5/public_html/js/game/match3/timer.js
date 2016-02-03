@@ -55,7 +55,7 @@ var Timer = function(parent)
 		
 		onTimerComplete: function()
 		{
-			if(that.timerCount === that.TIMER_MIN_VALUE){	// таймер = минимум
+                	if(that.timerCount === that.TIMER_MIN_VALUE){	// таймер = минимум
         
 				if(parent.match.modeAI === true)
 				{
@@ -100,7 +100,10 @@ var Timer = function(parent)
 			
 			that.timerCount = that.TIMER_MAX_VALUE;	// устанавливаем максимальное значение таймера
 			that.timerText.text = that.timerCount;	// показываем секунды
-			if(that.timerPause === false) that.timer = setInterval(that.onTimerComplete, 1000);	// запуск таймера
+			if(that.timerPause === false)
+                        {
+                            that.timer = setInterval(that.onTimerComplete, 1000);	// запуск таймера
+                        }
 		},
 		
 		timerStop: function()
@@ -110,13 +113,13 @@ var Timer = function(parent)
 		
 		timerPauseBegin: function()
 		{
-			timerPause = true;
-			if(parent.level.getWindowStage() !== null) clearInterval(that.timer);
+			that.timerPause = true;
+                        if(parent.level.getWindowStage() !== null) clearInterval(that.timer);
 		},
 		
 		timerPauseEnd: function()
 		{
-			timerPause = false;
+			that.timerPause = false;
 			if(parent.level.getWindowStage() !== null) that.timer = setInterval(that.onTimerComplete, 1000);
 		},
 				

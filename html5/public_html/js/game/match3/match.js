@@ -353,13 +353,16 @@ var Match3 = function(parent)
 										{
 											/* Удаляем группу из 5 юнитов */
 											that.matchRemoveUnit(column, j, "col", that.matchMatrixUnit["i"+column+":j"+j].unitType, 5);
+                                                                                        j += 2;
 										}else{
 											/* Удаляем группу из 4 юнитов */
 											that.matchRemoveUnit(column, j, "col", that.matchMatrixUnit["i"+column+":j"+j].unitType, 4);
+                                                                                        j += 1;
 										}
 									}else{
 										/* Удаляем группу из 4 юнитов */
 										that.matchRemoveUnit(column, j, "col", that.matchMatrixUnit["i"+column+":j"+j].unitType, 4);
+                                                                                j += 1;
 									}
 								}else{
 									/* Удаляем группу из 3 юнитов */
@@ -406,13 +409,16 @@ var Match3 = function(parent)
 										{
 											/* Удаляем группу из 5 юнитов */
 											that.matchRemoveUnit(i, row, "row", that.matchMatrixUnit["i"+i+":j"+row].unitType, 5);
+                                                                                        i += 2;
 										}else{
 											/* Удаляем группу из 4 юнитов */
 											that.matchRemoveUnit(i, row, "row", that.matchMatrixUnit["i"+i+":j"+row].unitType, 4);
+                                                                                        i += 1;
 										}
 									}else{
 										/* Удаляем группу из 4 юнитов */
 										that.matchRemoveUnit(i, row, "row", that.matchMatrixUnit["i"+i+":j"+row].unitType, 4);
+                                                                                i += 1;
 									}
 								}else{
 									/* Удаляем группу из 3 юнитов */
@@ -438,8 +444,9 @@ var Match3 = function(parent)
 			if(parent.level.levelStatus === parent.level.LEVEL_STATUS_BATTLE)
 			{
 				/* ПРОГРЕСС: Обрабтка LifeBar */
+                                //console.log("Количество: " + hitCount + "(Тип удара: " + hitType + ")");
 				parent.level.levelReduceLifeBar(hitType, hitCount, that.modeAI);
-				/* АНИМАЦИЯ: Анимация бойцов */
+                                /* АНИМАЦИЯ: Анимация бойцов */
 				//levelUpdateAnimation(that.modeAI, hitType); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			}
 			

@@ -5106,6 +5106,7 @@ var Level = function(parent)
 			{
 				if(hitType === parent.match.MATCH_HIT_1)
 				{
+                                        parent.sound.soundPlayStarWarsHit1();
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit1 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit1 * hitCount);
                                         that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
@@ -5118,6 +5119,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_2)
 				{
+                                        parent.sound.soundPlayStarWarsHit2();
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit2 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit2 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
@@ -5129,6 +5131,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_3)
 				{
+                                        parent.sound.soundPlayStarWarsHit3();
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit3 * hitCount) * 10;
 					that.levelCommandUser[that.levelIndexUser].life += (that.levelUserHit3 * hitCount);
 					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
@@ -5141,6 +5144,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_4)
 				{
+                                        parent.sound.soundPlayStarWarsHit4();
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit4 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit4 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
@@ -5153,6 +5157,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_5)
 				{
+                                        parent.sound.soundPlayStarWarsHit5();
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit5 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit5 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
@@ -5166,6 +5171,7 @@ var Level = function(parent)
 			}else{ // удар ИИ (урон пользователю)
 				if(hitType === parent.match.MATCH_HIT_1)
 				{
+                                        parent.sound.soundPlayStarWarsHit1();
 					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit1 * hitCount);
 					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
 					if(that.levelUserLife < 0)
@@ -5177,6 +5183,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_2)
 				{
+                                        parent.sound.soundPlayStarWarsHit2();
 					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit2 * hitCount);
 					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
 					if(that.levelUserLife < 0)
@@ -5188,6 +5195,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_3)
 				{
+                                        parent.sound.soundPlayStarWarsHit3();
 					that.levelCommandAI[that.levelIndexAI].life += (that.levelAIHit3 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
 					if(that.levelUserLife < 0)
@@ -5199,6 +5207,7 @@ var Level = function(parent)
                                }
 				if(hitType === parent.match.MATCH_HIT_4)
 				{
+                                        parent.sound.soundPlayStarWarsHit4();
 					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit4 * hitCount);
 					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
 					if(that.levelUserLife < 0)
@@ -5210,6 +5219,7 @@ var Level = function(parent)
 				}
 				if(hitType === parent.match.MATCH_HIT_5)
 				{
+                                        parent.sound.soundPlayStarWarsHit5();
 					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit5 * hitCount);
 					that.levelUserLife = that.levelCommandUser[that.levelIndexUser].life;
 					if(that.levelUserLife < 0)
@@ -9478,6 +9488,11 @@ var Preloader = function(parent)
                         queue.loadFile({"id":"StarWarsButtonClick", "src":"assets/sound/click.mp3"});
                         queue.loadFile({"id":"StarWarsWindowOpen", "src":"assets/sound/open.mp3"});
                         queue.loadFile({"id":"StarWarsWindowClose", "src":"assets/sound/close.mp3"});
+                        queue.loadFile({"id":"StarWarsHit1", "src":"assets/sound/hit1.mp3"});
+                        queue.loadFile({"id":"StarWarsHit2", "src":"assets/sound/hit2.mp3"});
+                        queue.loadFile({"id":"StarWarsHit3", "src":"assets/sound/hit3.mp3"});
+                        queue.loadFile({"id":"StarWarsHit4", "src":"assets/sound/hit4.mp3"});
+                        queue.loadFile({"id":"StarWarsHit5", "src":"assets/sound/hit5.mp3"});
 			queue = null;
 		},
 		
@@ -10291,6 +10306,31 @@ var Sound = function(parent)
                 soundPlayStarWarsWindowClose: function()
                 {
                         if(parent.config.sound === true) createjs.Sound.play("StarWarsWindowClose");
+                },
+                
+                soundPlayStarWarsHit1: function()
+                {
+                        if(parent.config.sound === true) createjs.Sound.play("StarWarsHit1");
+                },
+                
+                 soundPlayStarWarsHit2: function()
+                {
+                        if(parent.config.sound === true) createjs.Sound.play("StarWarsHit2");
+                },
+                
+                 soundPlayStarWarsHit3: function()
+                {
+                        if(parent.config.sound === true) createjs.Sound.play("StarWarsHit3");
+                },
+                
+                 soundPlayStarWarsHit4: function()
+                {
+                        if(parent.config.sound === true) createjs.Sound.play("StarWarsHit4");
+                },
+                
+                 soundPlayStarWarsHit5: function()
+                {
+                        if(parent.config.sound === true) createjs.Sound.play("StarWarsHit5");
                 }
                 
 		
@@ -11777,15 +11817,13 @@ var Game = function(mainStage)
 		
 		loadAssetsComplete: function()
 		{
-                        that.sound = Sound(that);
-                        that.sound.soundPlayStarWarsThemeSong();
-                        
-			mainStage.removeChild(that.assets.close());
+                        mainStage.removeChild(that.assets.close());
 			that.menuShow();
 		},
 		
 		menuShow: function()
 		{
+                        that.sound = Sound(that);
                         that.sound.soundPlayStarWarsThemeSong();
                         
                         that.menu = Menu(that);

@@ -51,15 +51,13 @@ var Game = function(mainStage)
 		
 		loadAssetsComplete: function()
 		{
-                        that.sound = Sound(that);
-                        that.sound.soundPlayStarWarsThemeSong();
-                        
-			mainStage.removeChild(that.assets.close());
+                        mainStage.removeChild(that.assets.close());
 			that.menuShow();
 		},
 		
 		menuShow: function()
 		{
+                        that.sound = Sound(that);
                         that.sound.soundPlayStarWarsThemeSong();
                         
                         that.menu = Menu(that);

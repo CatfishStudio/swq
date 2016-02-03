@@ -55,6 +55,8 @@ var Timer = function(parent)
 		
 		onTimerComplete: function()
 		{
+                    if(parent.level !== null)
+                    {
                 	if(that.timerCount === that.TIMER_MIN_VALUE){	// таймер = минимум
         
 				if(parent.match.modeAI === true)
@@ -78,6 +80,10 @@ var Timer = function(parent)
 				that.timerText.text = " " + that.timerCount;	// показываем секунды
 				if(parent.match.modeAI === true && that.timerCount === 8) { parent.match.matchActionAI();}
 			}
+                    }else{
+                        that.timerStop();
+                        parent.timerClose(); // УДАЛЯЕТСЯ ТАЙМЕР ЕСЛИ НЕТ УРОВНЯ
+                    }
 		},
 		
 		timerStart: function()

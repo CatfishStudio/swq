@@ -62,16 +62,17 @@ var Game = function(mainStage)
 		{
                         that.sound.soundPlayStarWarsThemeSong();
                         
-			that.menu = Menu(that);
+                        that.menu = Menu(that);
 			that.menu.create();
 			mainStage.addChild(that.menu.show());
 		},
 		
 		menuStartGame: function()
 		{
-			mainStage.removeChild(that.menu.close());
+                        mainStage.removeChild(that.menu.close());
 			that.menu.destroy();
-			that.menu = that.settings = null;
+			that.endGame = that.timer = that.match = that.initialization = that.menu = that.backmenu = that.settings = that.message = that.side = that.command = that.startbattle = that.level = that.victory = that.lost = null;
+                        
 			that.sideShow();
 		},
 		
@@ -120,7 +121,7 @@ var Game = function(mainStage)
 		{
                         that.sound.soundPlayStarWarsThemeSong();
                         
-			that.map = Map(that);
+                        that.map = Map(that);
 			that.map.create();
 			mainStage.addChild(that.map.show());
 		},
@@ -153,8 +154,7 @@ var Game = function(mainStage)
 				that.config.side = "side_none";
 				if(that.map !== null) that.mapClose();
                                 if(that.level !== null) that.levelClose();
-                                that.endGame = that.timer = that.match = that.initialization = that.menu = that.backmenu = that.settings = that.message = that.side = that.command = that.startbattle = that.level = that.victory = that.lost = null;
-				that.menuShow();
+                                that.menuShow();
 			}
 		},
 		
@@ -221,7 +221,7 @@ var Game = function(mainStage)
 		{
 			mainStage.removeChild(that.timer.close());
 			that.timer.destroy();
-			that.timer = null;
+			that.timer = that.match = that.level = null;
 		},
 		
 		matchShow: function(levelJSON)
@@ -251,11 +251,10 @@ var Game = function(mainStage)
 		
 		levelClose: function()
 		{
-			that.timerClose();
-                        that.matchClose();
-                        mainStage.removeChild(that.level.close());
+			mainStage.removeChild(that.level.close());
 			that.level.destroy();
-			that.level = that.timer = that.match = that.settings = that.backmenu = that.victory = that.lost = that.side = that.menu = null;
+                        that.level = that.backmenu = that.settings = that.victory = that.lost =  null;
+			//that.level = that.timer = that.match = that.settings = that.backmenu = that.victory = that.lost = that.side = that.menu = null;
 		},
                 
                 victoryShow: function(planetID, intercept, aiPlanetID)
@@ -324,8 +323,6 @@ var Game = function(mainStage)
                 
                     if(that.level !== null)
                     {
-                        that.timerClose();
-                        that.matchClose();
                         mainStage.removeChild(that.level.close());
 			that.level.destroy();
                         that.level = null;

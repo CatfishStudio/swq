@@ -3439,39 +3439,39 @@ var Initialization = function(planetTextures, heroesTextures, personagesJson, pl
 		initCharacteristics: function()
 		{
 			    var characteristicsUser = new Object();
-				characteristicsUser["planet-1"] = [2,3,4];
-				characteristicsUser["planet-2"] = [3,4,5];
-				characteristicsUser["planet-3"] = [4,5,6];
-				characteristicsUser["planet-4"] = [5,6,7];
-				characteristicsUser["planet-5"] = [6,7,8];
-				characteristicsUser["planet-6"] = [7,8,9];
-				characteristicsUser["planet-7"] = [8,9,10];
-				characteristicsUser["planet-8"] = [9,10,11];
-				characteristicsUser["planet-9"] = [10,11,12];
-				characteristicsUser["planet-10"] = [11,12,13];
-				characteristicsUser["planet-11"] = [12,13,14];
-				characteristicsUser["planet-12"] = [13,14,15];
-				characteristicsUser["planet-13"] = [14,15,16];    
-				characteristicsUser["planet-14"] = [15,16,17];
-				characteristicsUser["planet-15"] = [16,17,18]; 
+				characteristicsUser["planet-1"] = [3,4,4];
+				characteristicsUser["planet-2"] = [3,3,5];
+				characteristicsUser["planet-3"] = [4,4,6];
+				characteristicsUser["planet-4"] = [5,5,7];
+				characteristicsUser["planet-5"] = [6,6,8];
+				characteristicsUser["planet-6"] = [7,7,9];
+				characteristicsUser["planet-7"] = [8,8,10];
+				characteristicsUser["planet-8"] = [9,9,11];
+				characteristicsUser["planet-9"] = [10,10,12];
+				characteristicsUser["planet-10"] = [11,11,13];
+				characteristicsUser["planet-11"] = [12,12,14];
+				characteristicsUser["planet-12"] = [13,13,15];
+				characteristicsUser["planet-13"] = [14,14,16];    
+				characteristicsUser["planet-14"] = [15,15,17];
+				characteristicsUser["planet-15"] = [16,16,18]; 
 				
 				var characteristicsAI = new Object();
-				characteristicsAI["planet-1"] = [2,3,4];
-				characteristicsAI["planet-2"] = [3,4,5];
-				characteristicsAI["planet-3"] = [4,5,6];
-				characteristicsAI["planet-4"] = [5,6,7];
-				characteristicsAI["planet-5"] = [6,7,8];
-				characteristicsAI["planet-6"] = [7,8,9];
-				characteristicsAI["planet-7"] = [8,9,10];
-				characteristicsAI["planet-8"] = [9,10,11];
-				characteristicsAI["planet-9"] = [10,11,12];
-				characteristicsAI["planet-10"] = [11,12,13];
-				characteristicsAI["planet-11"] = [12,13,14];
-				characteristicsAI["planet-12"] = [13,14,15];
-				characteristicsAI["planet-13"] = [14,15,16];    
-				characteristicsAI["planet-14"] = [15,16,17];
-				characteristicsAI["planet-15"] = [16,17,18];  
-
+                                characteristicsAI["planet-1"] = [3,4,4];
+				characteristicsAI["planet-2"] = [3,3,5];
+				characteristicsAI["planet-3"] = [4,4,6];
+				characteristicsAI["planet-4"] = [5,5,7];
+				characteristicsAI["planet-5"] = [6,6,8];
+				characteristicsAI["planet-6"] = [7,7,9];
+				characteristicsAI["planet-7"] = [8,8,10];
+				characteristicsAI["planet-8"] = [9,9,11];
+				characteristicsAI["planet-9"] = [10,10,12];
+				characteristicsAI["planet-10"] = [11,11,13];
+				characteristicsAI["planet-11"] = [12,12,14];
+				characteristicsAI["planet-12"] = [13,13,15];
+				characteristicsAI["planet-13"] = [14,14,16];    
+				characteristicsAI["planet-14"] = [15,15,17];
+				characteristicsAI["planet-15"] = [16,16,18]; 
+                                
 				if(dataSide === that.SIDE_JEDI)
 				{
 					for(var key in that.planets)
@@ -4184,6 +4184,9 @@ var Level = function(parent)
 		levelLineUserAnimationGraphics: null,
 		levelLineAIAnimationGraphics: null,
 		levelMessageLineGraphics: null,
+                
+                hitLeftText: null,
+                hitRightText: null,
 		
 		levelCreate: function(planetID, intercept, aiPlanetID)
 		{
@@ -4204,8 +4207,8 @@ var Level = function(parent)
 			that.levelInitCommands(intercept);
 			
 			that.levelBackground();
-			//parent.timerShow();
-			if(parent.config.side === that.SIDE_JEDI)
+			
+                        if(parent.config.side === that.SIDE_JEDI)
 			{
 				that.levelBorderBlue();
 				that.levelDesktopBlue();
@@ -4220,7 +4223,7 @@ var Level = function(parent)
 			that.levelBattons();
 			that.levelShowCommandUser();
 			that.levelShowCommandAI();
-			//that.levelFieldCreate();
+                        that.hitTextCreate();
 		},
 		
 		levelInitCommands: function(intercept)
@@ -5105,12 +5108,13 @@ var Level = function(parent)
 				{
                                         parent.initialization.userlTotalPointsPlayerLevel += (that.levelUserHit1 * hitCount) * 10;
 					that.levelCommandAI[that.levelIndexAI].life -= (that.levelUserHit1 * hitCount);
-					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
+                                        that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
 					if(that.levelAILife < 0)
                                         {
                                             that.levelAILife = 0;
                                         }
 					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
+                                        that.hitTextRightShow("-" + (that.levelUserHit1 * hitCount));
 				}
 				if(hitType === parent.match.MATCH_HIT_2)
 				{
@@ -5121,6 +5125,7 @@ var Level = function(parent)
                                             that.levelAILife = 0;
                                         }
 					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
+                                        that.hitTextRightShow("-" + (that.levelUserHit2 * hitCount));
 				}
 				if(hitType === parent.match.MATCH_HIT_3)
 				{
@@ -5132,6 +5137,7 @@ var Level = function(parent)
                                             that.levelAILife = 0;
                                         }
 					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
+                                        that.hitTextLeftShow("+" + (that.levelUserHit3 * hitCount));
 				}
 				if(hitType === parent.match.MATCH_HIT_4)
 				{
@@ -5143,6 +5149,7 @@ var Level = function(parent)
                                             that.levelAILife = 0;
                                         }
 					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
+                                        that.hitTextRightShow("-" + (that.levelUserHit4 * hitCount));
 				}
 				if(hitType === parent.match.MATCH_HIT_5)
 				{
@@ -5154,6 +5161,7 @@ var Level = function(parent)
                                             that.levelAILife = 0;
                                         }
 					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
+                                        that.hitTextRightShow("-" + (that.levelUserHit5 * hitCount));
 				}
 			}else{ // удар ИИ (урон пользователю)
 				if(hitType === parent.match.MATCH_HIT_1)
@@ -5165,6 +5173,7 @@ var Level = function(parent)
                                             that.levelUserLife = 0;
                                         }
 					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
+                                        that.hitTextLeftShow("-" + (that.levelAIHit1 * hitCount));
 				}
 				if(hitType === parent.match.MATCH_HIT_2)
 				{
@@ -5175,17 +5184,19 @@ var Level = function(parent)
                                             that.levelUserLife = 0;
                                         }
 					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
+                                        that.hitTextLeftShow("-" + (that.levelAIHit2 * hitCount));
 				}
 				if(hitType === parent.match.MATCH_HIT_3)
 				{
-					that.levelCommandAI[that.levelIndexAI].life += (that.levelAIHit2 * hitCount);
+					that.levelCommandAI[that.levelIndexAI].life += (that.levelAIHit3 * hitCount);
 					that.levelAILife = that.levelCommandAI[that.levelIndexAI].life;
 					if(that.levelUserLife < 0)
                                         {
                                             that.levelUserLife = 0;
                                         }
 					that.levelAILifeText.text = "Здоровье: " + that.levelAILife;
-				}
+                                        that.hitTextRightShow("+" + (that.levelAIHit3 * hitCount));
+                               }
 				if(hitType === parent.match.MATCH_HIT_4)
 				{
 					that.levelCommandUser[that.levelIndexUser].life -= (that.levelAIHit4 * hitCount);
@@ -5195,6 +5206,7 @@ var Level = function(parent)
                                             that.levelUserLife = 0;
                                         }
 					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
+                                        that.hitTextLeftShow("-" + (that.levelAIHit4 * hitCount));
 				}
 				if(hitType === parent.match.MATCH_HIT_5)
 				{
@@ -5205,6 +5217,7 @@ var Level = function(parent)
                                             that.levelUserLife = 0;
                                         }
 					that.levelUserLifeText.text = "Здоровье: " + that.levelUserLife;
+                                        that.hitTextLeftShow("-" + (that.levelAIHit5 * hitCount));
 				}
 			}
 		},
@@ -5331,6 +5344,72 @@ var Level = function(parent)
 		},
 		/* ========================================================================== */	
 		
+                /* Показываем очки урона в бою ============================================== */
+                hitTextCreate: function()
+                {
+                    if(parent.config.side === that.SIDE_JEDI)
+                    {
+                        that.hitLeftText = new PIXI.Text("0", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
+                        that.hitLeftText.x = 40;
+                        that.hitLeftText.y = 350;
+                        that.hitLeftText.visible = false;
+                        that.levelStage.addChild(that.hitLeftText);
+                        
+                        that.hitRightText = new PIXI.Text("0", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
+                        that.hitRightText.x = 775;
+                        that.hitRightText.y = 550;
+                        that.hitRightText.visible = false;
+                        that.levelStage.addChild(that.hitRightText);
+                    }
+                    if(parent.config.side === that.SIDE_SITH)
+                    {
+                        that.hitLeftText = new PIXI.Text("0", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
+                        that.hitLeftText.x = 40;
+                        that.hitLeftText.y = 350;
+                        that.hitLeftText.visible = false;
+                        that.levelStage.addChild(that.hitLeftText);
+                        
+                        that.hitRightText = new PIXI.Text("0", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
+                        that.hitRightText.x = 775;
+                        that.hitRightText.y = 550;
+                        that.hitRightText.visible = false;
+                        that.levelStage.addChild(that.hitRightText);   
+                    }
+                },
+                
+                hitTextLeftShow: function(textMessage)
+                {
+                    that.hitLeftText.text = textMessage;
+                    that.hitLeftText.visible = true;
+                    createjs.Tween.get(that.hitLeftText, {loop: false}) 
+                        .to({y: 125}, 500, createjs.Ease.getPowInOut(3))
+                        .to({visible: false}, 10, createjs.Ease.getPowInOut(3))
+                        .to({y: 350}, 10, createjs.Ease.getPowInOut(3))
+                        .call(that.onCompleteTextLeftShow); // событие выполнено
+                },
+                
+                onCompleteTextLeftShow: function()
+                {
+                    createjs.Tween.removeTweens(that.hitLeftText);
+                },
+                
+                hitTextRightShow: function(textMessage)
+                {
+                    that.hitRightText.text = textMessage;
+                    that.hitRightText.visible = true;
+                    createjs.Tween.get(that.hitRightText, {loop: false}) 
+                        .to({y: 350}, 500, createjs.Ease.getPowInOut(3))
+                        .to({visible: false}, 10, createjs.Ease.getPowInOut(3))
+                        .to({y: 550}, 10, createjs.Ease.getPowInOut(3))
+                        .call(that.onCompleteTextRightShow); // событие выполнено
+                },
+                
+                onCompleteTextRightShow: function()
+                {
+                    createjs.Tween.removeTweens(that.hitRightText);
+                },
+                
+                /* ========================================================================== */	
 		
 		/* Завершение работы с классом ======================================== */
 		tweenStart: function()
@@ -5377,9 +5456,11 @@ var Level = function(parent)
 			createjs.Tween.removeTweens(that.levelLineUserAnimationGraphics);
 			createjs.Tween.removeTweens(that.levelLineAIAnimationGraphics);
 			createjs.Tween.removeTweens(that.levelMessageLineGraphics);
+                        createjs.Tween.removeTweens(that.hitLeftText);
+                        createjs.Tween.removeTweens(that.hitRightText);
 		},
-		
-		show: function()
+                
+                show: function()
 		{
 			that.tweenStart();
 			return that.levelStage;
@@ -7022,6 +7103,8 @@ var Match3 = function(parent)
 		/* Поиск групп ============================================================================== */
 		matchCheckField: function(afterDown)
 		{
+                    if(parent.level !== null)
+                    {
 			that.matchMoveDownProcesses = new Object();
 			if(that.matchCheckFieldFull()) // группы были найдены
 			{
@@ -7036,6 +7119,9 @@ var Match3 = function(parent)
                                     if(parent.level.levelStatus === parent.level.LEVEL_STATUS_BATTLE) parent.timer.timerStart();				// запускаем таймер
                                 }
 			}
+                    }else{
+                        parent.matchClose(); // УДАЛЯЕТСЯ ТРИ В РЯД ЕСЛИ НЕТ УРОВНЯ
+                    }
 		},
 		
 		/* Общая проверка колонок и строк (3-и и более в ряд) */
@@ -7082,13 +7168,16 @@ var Match3 = function(parent)
 										{
 											/* Удаляем группу из 5 юнитов */
 											that.matchRemoveUnit(column, j, "col", that.matchMatrixUnit["i"+column+":j"+j].unitType, 5);
+                                                                                        j += 2;
 										}else{
 											/* Удаляем группу из 4 юнитов */
 											that.matchRemoveUnit(column, j, "col", that.matchMatrixUnit["i"+column+":j"+j].unitType, 4);
+                                                                                        j += 1;
 										}
 									}else{
 										/* Удаляем группу из 4 юнитов */
 										that.matchRemoveUnit(column, j, "col", that.matchMatrixUnit["i"+column+":j"+j].unitType, 4);
+                                                                                j += 1;
 									}
 								}else{
 									/* Удаляем группу из 3 юнитов */
@@ -7135,13 +7224,16 @@ var Match3 = function(parent)
 										{
 											/* Удаляем группу из 5 юнитов */
 											that.matchRemoveUnit(i, row, "row", that.matchMatrixUnit["i"+i+":j"+row].unitType, 5);
+                                                                                        i += 2;
 										}else{
 											/* Удаляем группу из 4 юнитов */
 											that.matchRemoveUnit(i, row, "row", that.matchMatrixUnit["i"+i+":j"+row].unitType, 4);
+                                                                                        i += 1;
 										}
 									}else{
 										/* Удаляем группу из 4 юнитов */
 										that.matchRemoveUnit(i, row, "row", that.matchMatrixUnit["i"+i+":j"+row].unitType, 4);
+                                                                                i += 1;
 									}
 								}else{
 									/* Удаляем группу из 3 юнитов */
@@ -7163,12 +7255,22 @@ var Match3 = function(parent)
 		/* Удаление юнитов */
 		matchRemoveUnit: function(col, row, check, hitType, hitCount)
 		{
-
+                    /*
+                        if(parent.level === null)
+                        {
+                            console.log("!!!!!!!!!");
+                            //parent.timer.timerStop();
+                            parent.timerClose();
+                            parent.matchClose();
+                            return;
+                        }
+                    */    
 			if(parent.level.levelStatus === parent.level.LEVEL_STATUS_BATTLE)
 			{
 				/* ПРОГРЕСС: Обрабтка LifeBar */
+                                //console.log("Количество: " + hitCount + "(Тип удара: " + hitType + ")");
 				parent.level.levelReduceLifeBar(hitType, hitCount, that.modeAI);
-				/* АНИМАЦИЯ: Анимация бойцов */
+                                /* АНИМАЦИЯ: Анимация бойцов */
 				//levelUpdateAnimation(that.modeAI, hitType); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			}
 			
@@ -8475,7 +8577,7 @@ var Menu = function(parent)
 					break;
 				case "button_2":        // Позвать друзей ВК
 					parent.vkInvite();
-					break;
+                                        break;
 				default:
 					break;
 			}
@@ -10794,7 +10896,9 @@ var Timer = function(parent)
 		
 		onTimerComplete: function()
 		{
-			if(that.timerCount === that.TIMER_MIN_VALUE){	// таймер = минимум
+                    if(parent.level !== null)
+                    {
+                	if(that.timerCount === that.TIMER_MIN_VALUE){	// таймер = минимум
         
 				if(parent.match.modeAI === true)
 				{
@@ -10817,6 +10921,10 @@ var Timer = function(parent)
 				that.timerText.text = " " + that.timerCount;	// показываем секунды
 				if(parent.match.modeAI === true && that.timerCount === 8) { parent.match.matchActionAI();}
 			}
+                    }else{
+                        that.timerStop();
+                        parent.timerClose(); // УДАЛЯЕТСЯ ТАЙМЕР ЕСЛИ НЕТ УРОВНЯ
+                    }
 		},
 		
 		timerStart: function()
@@ -10839,7 +10947,10 @@ var Timer = function(parent)
 			
 			that.timerCount = that.TIMER_MAX_VALUE;	// устанавливаем максимальное значение таймера
 			that.timerText.text = that.timerCount;	// показываем секунды
-			if(that.timerPause === false) that.timer = setInterval(that.onTimerComplete, 1000);	// запуск таймера
+			if(that.timerPause === false)
+                        {
+                            that.timer = setInterval(that.onTimerComplete, 1000);	// запуск таймера
+                        }
 		},
 		
 		timerStop: function()
@@ -10849,13 +10960,13 @@ var Timer = function(parent)
 		
 		timerPauseBegin: function()
 		{
-			timerPause = true;
-			if(parent.level.getWindowStage() !== null) clearInterval(that.timer);
+			that.timerPause = true;
+                        if(parent.level.getWindowStage() !== null) clearInterval(that.timer);
 		},
 		
 		timerPauseEnd: function()
 		{
-			timerPause = false;
+			that.timerPause = false;
 			if(parent.level.getWindowStage() !== null) that.timer = setInterval(that.onTimerComplete, 1000);
 		},
 				
@@ -11467,7 +11578,7 @@ var Victory = function(parent)
                     // ИИ проиграл!
                     parent.initialization.aiRemovePersonageCommand(that.SIDE_JEDI);
                     // Увеличиваем очки опыта Пользователя
-                    parent.initialization.userExperiencePoints++;
+                    parent.initialization.userExperiencePoints += 3;
                     // ИИ получает разрешение на выполнение действий!
                     parent.config.stopAI = false;
                     parent.victoryClose(); // закрываем окно
@@ -11614,7 +11725,6 @@ var Victory = function(parent)
 
 /* == END FILE ========================================================== */
 
-
 /* == START FILE ========================================================= */
 
 var Game = function(mainStage)
@@ -11678,16 +11788,17 @@ var Game = function(mainStage)
 		{
                         that.sound.soundPlayStarWarsThemeSong();
                         
-			that.menu = Menu(that);
+                        that.menu = Menu(that);
 			that.menu.create();
 			mainStage.addChild(that.menu.show());
 		},
 		
 		menuStartGame: function()
 		{
-			mainStage.removeChild(that.menu.close());
+                        mainStage.removeChild(that.menu.close());
 			that.menu.destroy();
-			that.menu = that.settings = null;
+			that.endGame = that.timer = that.match = that.initialization = that.menu = that.backmenu = that.settings = that.message = that.side = that.command = that.startbattle = that.level = that.victory = that.lost = null;
+                        
 			that.sideShow();
 		},
 		
@@ -11736,7 +11847,7 @@ var Game = function(mainStage)
 		{
                         that.sound.soundPlayStarWarsThemeSong();
                         
-			that.map = Map(that);
+                        that.map = Map(that);
 			that.map.create();
 			mainStage.addChild(that.map.show());
 		},
@@ -11769,8 +11880,7 @@ var Game = function(mainStage)
 				that.config.side = "side_none";
 				if(that.map !== null) that.mapClose();
                                 if(that.level !== null) that.levelClose();
-                                that.endGame = that.timer = that.match = that.initialization = that.menu = that.backmenu = that.settings = that.message = that.side = that.command = that.startbattle = that.level = that.victory = that.lost = null;
-				that.menuShow();
+                                that.menuShow();
 			}
 		},
 		
@@ -11837,7 +11947,7 @@ var Game = function(mainStage)
 		{
 			mainStage.removeChild(that.timer.close());
 			that.timer.destroy();
-			that.timer = null;
+			that.timer = that.match = that.level = null;
 		},
 		
 		matchShow: function(levelJSON)
@@ -11867,11 +11977,10 @@ var Game = function(mainStage)
 		
 		levelClose: function()
 		{
-			that.timerClose();
-                        that.matchClose();
-                        mainStage.removeChild(that.level.close());
+			mainStage.removeChild(that.level.close());
 			that.level.destroy();
-			that.level = that.timer = that.match = that.settings = that.backmenu = that.victory = that.lost = that.side = that.menu = null;
+                        that.level = that.backmenu = that.settings = that.victory = that.lost =  null;
+			//that.level = that.timer = that.match = that.settings = that.backmenu = that.victory = that.lost = that.side = that.menu = null;
 		},
                 
                 victoryShow: function(planetID, intercept, aiPlanetID)
@@ -11940,8 +12049,6 @@ var Game = function(mainStage)
                 
                     if(that.level !== null)
                     {
-                        that.timerClose();
-                        that.matchClose();
                         mainStage.removeChild(that.level.close());
 			that.level.destroy();
                         that.level = null;

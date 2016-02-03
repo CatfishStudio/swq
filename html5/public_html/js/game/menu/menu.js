@@ -133,7 +133,7 @@ var Menu = function(parent)
 					break;
 				case "button_2":        // Позвать друзей ВК
 					parent.vkInvite();
-					break;
+                                        break;
 				default:
 					break;
 			}

@@ -293,6 +293,8 @@ var Match3 = function(parent)
 		/* Поиск групп ============================================================================== */
 		matchCheckField: function(afterDown)
 		{
+                    if(parent.level !== null)
+                    {
 			that.matchMoveDownProcesses = new Object();
 			if(that.matchCheckFieldFull()) // группы были найдены
 			{
@@ -307,6 +309,9 @@ var Match3 = function(parent)
                                     if(parent.level.levelStatus === parent.level.LEVEL_STATUS_BATTLE) parent.timer.timerStart();				// запускаем таймер
                                 }
 			}
+                    }else{
+                        parent.matchClose(); // УДАЛЯЕТСЯ ТРИ В РЯД ЕСЛИ НЕТ УРОВНЯ
+                    }
 		},
 		
 		/* Общая проверка колонок и строк (3-и и более в ряд) */
@@ -440,7 +445,16 @@ var Match3 = function(parent)
 		/* Удаление юнитов */
 		matchRemoveUnit: function(col, row, check, hitType, hitCount)
 		{
-
+                    /*
+                        if(parent.level === null)
+                        {
+                            console.log("!!!!!!!!!");
+                            //parent.timer.timerStop();
+                            parent.timerClose();
+                            parent.matchClose();
+                            return;
+                        }
+                    */    
 			if(parent.level.levelStatus === parent.level.LEVEL_STATUS_BATTLE)
 			{
 				/* ПРОГРЕСС: Обрабтка LifeBar */

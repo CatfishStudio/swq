@@ -521,9 +521,8 @@ var Victory = function(parent)
                             parent.initialization.userExperiencePoints += 3;
                             // ИИ получает разрешение на выполнение действий!
                             parent.config.stopAI = false;
-                            parent.victoryClose(); // закрываем окно
                             parent.vkWallPost(that.planetID, that.intercept, parent.initialization.personages[this.name].name);
-
+                            parent.victoryClose(); // закрываем окно
                         }
                     }
                 }
@@ -535,8 +534,8 @@ var Victory = function(parent)
                     parent.initialization.userExperiencePoints += 3;
                     // ИИ получает разрешение на выполнение действий!
                     parent.config.stopAI = false;
-                    parent.victoryClose(); // закрываем окно
                     parent.vkWallPost(that.planetID, that.intercept, parent.initialization.personages[this.name].name);
+                    parent.victoryClose(); // закрываем окно
                 }
             }
             if(parent.config.side === that.SIDE_SITH)
@@ -564,9 +563,8 @@ var Victory = function(parent)
                             parent.initialization.userExperiencePoints += 3;
                             // ИИ получает разрешение на выполнение действий!
                             parent.config.stopAI = false;
-                            parent.victoryClose(); // закрываем окно
                             parent.vkWallPost(that.planetID, that.intercept, parent.initialization.personages[this.name].name);
-
+                            parent.victoryClose(); // закрываем окно
                         }
                     }
                 }
@@ -578,8 +576,8 @@ var Victory = function(parent)
                     parent.initialization.userExperiencePoints += 3;
                     // ИИ получает разрешение на выполнение действий!
                     parent.config.stopAI = false;
-                    parent.victoryClose(); // закрываем окно
                     parent.vkWallPost(that.planetID, that.intercept, parent.initialization.personages[this.name].name);
+                    parent.victoryClose(); // закрываем окно
                 }
             }
             
@@ -668,8 +666,8 @@ var Victory = function(parent)
                     parent.config.stopAI = true;    
                     // Увеличиваем очки опыта Пользователя
                     parent.initialization.userExperiencePoints++;
-                    parent.victoryClose(); // закрываем окно
                     parent.vkWallPost(that.planetID, that.intercept, null);
+                    parent.victoryClose(); // закрываем окно
                 }
             }
             

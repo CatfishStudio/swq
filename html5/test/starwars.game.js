@@ -3440,37 +3440,37 @@ var Initialization = function(planetTextures, heroesTextures, personagesJson, pl
 		{
 			    var characteristicsUser = new Object();
 				characteristicsUser["planet-1"] = [3,4,4];
-				characteristicsUser["planet-2"] = [3,3,5];
-				characteristicsUser["planet-3"] = [4,4,6];
-				characteristicsUser["planet-4"] = [5,5,7];
-				characteristicsUser["planet-5"] = [6,6,8];
-				characteristicsUser["planet-6"] = [7,7,9];
-				characteristicsUser["planet-7"] = [8,8,10];
-				characteristicsUser["planet-8"] = [9,9,11];
-				characteristicsUser["planet-9"] = [10,10,12];
-				characteristicsUser["planet-10"] = [11,11,13];
-				characteristicsUser["planet-11"] = [12,12,14];
-				characteristicsUser["planet-12"] = [13,13,15];
-				characteristicsUser["planet-13"] = [14,14,16];    
-				characteristicsUser["planet-14"] = [15,15,17];
-				characteristicsUser["planet-15"] = [16,16,18]; 
+				characteristicsUser["planet-2"] = [2,2,5];
+				characteristicsUser["planet-3"] = [2,3,6];
+				characteristicsUser["planet-4"] = [3,3,7];
+				characteristicsUser["planet-5"] = [3,4,8];
+				characteristicsUser["planet-6"] = [4,4,9];
+				characteristicsUser["planet-7"] = [4,5,10];
+				characteristicsUser["planet-8"] = [5,5,11];
+				characteristicsUser["planet-9"] = [5,6,12];
+				characteristicsUser["planet-10"] = [6,6,13];
+				characteristicsUser["planet-11"] = [6,7,14];
+				characteristicsUser["planet-12"] = [7,7,15];
+				characteristicsUser["planet-13"] = [7,8,16];    
+				characteristicsUser["planet-14"] = [8,8,17];
+				characteristicsUser["planet-15"] = [8,9,18]; 
 				
 				var characteristicsAI = new Object();
                                 characteristicsAI["planet-1"] = [3,4,4];
-				characteristicsAI["planet-2"] = [3,3,5];
-				characteristicsAI["planet-3"] = [4,4,6];
-				characteristicsAI["planet-4"] = [5,5,7];
-				characteristicsAI["planet-5"] = [6,6,8];
-				characteristicsAI["planet-6"] = [7,7,9];
-				characteristicsAI["planet-7"] = [8,8,10];
-				characteristicsAI["planet-8"] = [9,9,11];
-				characteristicsAI["planet-9"] = [10,10,12];
-				characteristicsAI["planet-10"] = [11,11,13];
-				characteristicsAI["planet-11"] = [12,12,14];
-				characteristicsAI["planet-12"] = [13,13,15];
-				characteristicsAI["planet-13"] = [14,14,16];    
-				characteristicsAI["planet-14"] = [15,15,17];
-				characteristicsAI["planet-15"] = [16,16,18]; 
+				characteristicsAI["planet-2"] = [2,2,5];
+				characteristicsAI["planet-3"] = [2,3,6];
+				characteristicsAI["planet-4"] = [3,3,7];
+				characteristicsAI["planet-5"] = [3,4,8];
+				characteristicsAI["planet-6"] = [4,4,9];
+				characteristicsAI["planet-7"] = [4,5,10];
+				characteristicsAI["planet-8"] = [5,5,11];
+				characteristicsAI["planet-9"] = [5,6,12];
+				characteristicsAI["planet-10"] = [6,6,13];
+				characteristicsAI["planet-11"] = [6,7,14];
+				characteristicsAI["planet-12"] = [7,7,15];
+				characteristicsAI["planet-13"] = [7,8,16];    
+				characteristicsAI["planet-14"] = [8,8,17];
+				characteristicsAI["planet-15"] = [8,9,18]; 
                                 
 				if(dataSide === that.SIDE_JEDI)
 				{
@@ -11578,8 +11578,9 @@ var Victory = function(parent)
                     parent.initialization.userExperiencePoints += 3;
                     // ИИ получает разрешение на выполнение действий!
                     parent.config.stopAI = false;
+					parent.vkWallPost(that.planetID, that.intercept, parent.initialization.personages[this.name].name);
                     parent.victoryClose(); // закрываем окно
-                    parent.vkWallPost(that.planetID, that.intercept, parent.initialization.personages[this.name].name);
+                    
                 }
             }
             if(parent.config.side === that.SIDE_SITH)
@@ -11621,8 +11622,9 @@ var Victory = function(parent)
                     parent.initialization.userExperiencePoints += 3;
                     // ИИ получает разрешение на выполнение действий!
                     parent.config.stopAI = false;
+					parent.vkWallPost(that.planetID, that.intercept, parent.initialization.personages[this.name].name);
                     parent.victoryClose(); // закрываем окно
-                    parent.vkWallPost(that.planetID, that.intercept, parent.initialization.personages[this.name].name);
+                    
                 }
             }
             
@@ -11711,8 +11713,9 @@ var Victory = function(parent)
                     parent.config.stopAI = true;    
                     // Увеличиваем очки опыта Пользователя
                     parent.initialization.userExperiencePoints++;
+					parent.vkWallPost(that.planetID, that.intercept, null);
                     parent.victoryClose(); // закрываем окно
-                    parent.vkWallPost(that.planetID, that.intercept, null);
+                    
                 }
             }
             
@@ -12119,6 +12122,8 @@ var Game = function(mainStage)
         return that;
 };
 
+
+
 /* == END FILE ========================================================== */
 
 /* == START FILE ========================================================= */
@@ -12140,7 +12145,7 @@ function onInit()
 	/* Инициализация ВКонтакте */
 	VK.init(function() {
             apiId: 5170657;
-        });
+	});
 }
 
 function draw() 

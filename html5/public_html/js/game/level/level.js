@@ -1330,9 +1330,7 @@ var Level = function(parent)
 			createjs.Tween.removeTweens(that.levelLineUserAnimationGraphics);
 			createjs.Tween.removeTweens(that.levelLineAIAnimationGraphics);
 			createjs.Tween.removeTweens(that.levelMessageLineGraphics);
-                        //createjs.Tween.removeTweens(that.hitLeftText);
-                        //createjs.Tween.removeTweens(that.hitRightText);
-		},
+            	},
                 
                 show: function()
 		{

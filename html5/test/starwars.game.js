@@ -5450,9 +5450,7 @@ var Level = function(parent)
 			createjs.Tween.removeTweens(that.levelLineUserAnimationGraphics);
 			createjs.Tween.removeTweens(that.levelLineAIAnimationGraphics);
 			createjs.Tween.removeTweens(that.levelMessageLineGraphics);
-                        //createjs.Tween.removeTweens(that.hitLeftText);
-                        //createjs.Tween.removeTweens(that.hitRightText);
-		},
+            	},
                 
                 show: function()
 		{
@@ -6848,8 +6846,8 @@ var Match3 = function(parent)
 		matchFieldBlocked: false,										// блокирование игрового поля
 
 		modeAI: false,														// режим искуственного интелекта (по умолчанию отключен в начале)
-
-		matchLevelJSON: null,											// json игрового поля
+                
+                matchLevelJSON: null,											// json игрового поля
 		
 		/* Инициализация матриц позиций ================================================================ */
 		initMatchMatrixPosition: function()
@@ -6917,8 +6915,8 @@ var Match3 = function(parent)
 			{
 					for(var jUnit = 0; jUnit < that.MATCH_ROWS; jUnit++)
 					{
-							if(levelJSON.data.Level.cell[index].cellObject !== that.MATCH_HIT_0)
-							{
+                                                    if(levelJSON.data.Level.cell[index].cellObject !== that.MATCH_HIT_0)
+                                                    {
 									if(levelJSON.data.Level.cell[index].cellObject === that.MATCH_HIT_1) sprite = new PIXI.Sprite(parent.assets.getAsset("hit1Texture"));
 									if(levelJSON.data.Level.cell[index].cellObject === that.MATCH_HIT_2) sprite = new PIXI.Sprite(parent.assets.getAsset("hit2Texture"));
 									if(levelJSON.data.Level.cell[index].cellObject === that.MATCH_HIT_3) sprite = new PIXI.Sprite(parent.assets.getAsset("hit3Texture"));
@@ -6934,10 +6932,14 @@ var Match3 = function(parent)
 									sprite.flagRemove = false;
 									sprite.posColumnI = iUnit;
 									sprite.posRowJ = jUnit;
-
+                                                                        
 									sprite.click = that.onMatchUnitClick;
 									sprite.tap = that.onMatchUnitClick;
-
+                                                                        sprite.on('mousedown', that.onMatchUnitClick);
+                                                                        sprite.on('touchstart', that.onMatchUnitClick);
+                                                                        sprite.on('mouseup', that.onMatchUnitEndClick);
+                                                                        sprite.on('touchend', that.onMatchUnitEndClick);
+                                                                        
 									that.matchMatrixUnit["i"+iUnit+":j"+jUnit] = sprite;
 									that.matchStage.addChild(that.matchMatrixUnit["i"+iUnit+":j"+jUnit]);
 						   }else{
@@ -6950,8 +6952,8 @@ var Match3 = function(parent)
 									sprite.posColumnI = iUnit;
 									sprite.posRowJ = jUnit;
 									that.matchMatrixUnit["i"+iUnit+":j"+jUnit] = sprite;
-							}
-							index++;
+                                                    }
+                                                    index++;
 					}
 			}
 			that.matchMask();
@@ -6960,7 +6962,7 @@ var Match3 = function(parent)
 		/* Событие: нажатие на юнит */
 		onMatchUnitClick: function()
 		{
-			if(that.matchFieldBlocked === false)
+                        if(that.matchFieldBlocked === false)
 			{
 					that.matchCellColorSelect(this.unitType, this.posColumnI, this.posRowJ);
 					if(that.matchSelectUnit1 === null) 
@@ -6975,7 +6977,26 @@ var Match3 = function(parent)
 					}
 			}
 		},
-		
+                
+                /* Событие: свайп кристалов */
+                onMatchUnitEndClick: function()
+                {
+                    if(that.matchFieldBlocked === false)
+                    {
+                                    that.matchCellColorSelect(this.unitType, this.posColumnI, this.posRowJ);
+                                    if(that.matchSelectUnit1 === null) 
+                                    {
+                                                    that.matchSelectUnit1 = this;
+                                    }else{
+                                                    if(that.matchSelectUnit2 === null) 
+                                                    {
+                                                                    that.matchSelectUnit2 = this;
+                                                                    that.matchExchangeUnits(); // меняем юниты местами
+                                                    }
+                                    }
+                    }
+                },
+                
 		/* Определение цвета ячеек Cell игрового поля ================================================= */
 		matchCellColorSelect: function(unitType, colI, rowJ)
 		{
@@ -11812,7 +11833,8 @@ var Game = function(mainStage)
 		
 		loadAssetsComplete: function()
 		{
-			that.sound = Sound(that);
+                        that.sound = Sound(that);
+                        
                         mainStage.removeChild(that.assets.close());
 			that.menuShow();
 		},

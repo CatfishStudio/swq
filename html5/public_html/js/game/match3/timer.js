@@ -72,6 +72,8 @@ var Timer = function(parent)
 						parent.match.matchSelectUnit2 = null;
 						// console.log("[HIT]: AI наносит удар!");
 				}
+                                parent.level.onCompleteTextLeftShow();
+                                parent.level.onCompleteTextRightShow();
 				
 				that.timerCount = that.TIMER_MAX_VALUE;	// устанавливаем максимальное значение таймера
 				that.timerText.text = that.timerCount;	// показываем секунды
@@ -88,6 +90,8 @@ var Timer = function(parent)
 		
 		timerStart: function()
 		{
+                    if(parent.level !== null)
+                    {
                     	if(parent.match.modeAI === true)
 			{
                             	parent.match.matchFieldBlocked = false; 	// поле разблокированно
@@ -103,6 +107,8 @@ var Timer = function(parent)
 				parent.match.matchSelectUnit2 = null;
 				// console.log("[HIT START]: AI наносит удар!");
 			}
+                        parent.level.onCompleteTextLeftShow();
+                        parent.level.onCompleteTextRightShow();
 			
 			that.timerCount = that.TIMER_MAX_VALUE;	// устанавливаем максимальное значение таймера
 			that.timerText.text = that.timerCount;	// показываем секунды
@@ -110,6 +116,7 @@ var Timer = function(parent)
                         {
                             that.timer = setInterval(that.onTimerComplete, 1000);	// запуск таймера
                         }
+                    }
 		},
 		
 		timerStop: function()

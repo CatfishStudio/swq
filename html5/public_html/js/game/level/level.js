@@ -1239,64 +1239,48 @@ var Level = function(parent)
                 {
                     if(parent.config.side === that.SIDE_JEDI)
                     {
-                        that.hitLeftText = new PIXI.Text("0", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
+                        that.hitLeftText = new PIXI.Text("", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
                         that.hitLeftText.x = 40;
-                        that.hitLeftText.y = 350;
-                        that.hitLeftText.visible = false;
+                        that.hitLeftText.y = 150;
                         that.levelStage.addChild(that.hitLeftText);
                         
-                        that.hitRightText = new PIXI.Text("0", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
+                        that.hitRightText = new PIXI.Text("", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
                         that.hitRightText.x = 775;
-                        that.hitRightText.y = 550;
-                        that.hitRightText.visible = false;
+                        that.hitRightText.y = 350;
                         that.levelStage.addChild(that.hitRightText);
                     }
                     if(parent.config.side === that.SIDE_SITH)
                     {
-                        that.hitLeftText = new PIXI.Text("0", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
+                        that.hitLeftText = new PIXI.Text("", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#880000', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
                         that.hitLeftText.x = 40;
-                        that.hitLeftText.y = 350;
-                        that.hitLeftText.visible = false;
+                        that.hitLeftText.y = 150;
                         that.levelStage.addChild(that.hitLeftText);
                         
-                        that.hitRightText = new PIXI.Text("0", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
-                        that.hitRightText.x = 775;
-                        that.hitRightText.y = 550;
-                        that.hitRightText.visible = false;
+                        that.hitRightText = new PIXI.Text("", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
+                        that.hitRightText.x = 175;
+                        that.hitRightText.y = 350;
                         that.levelStage.addChild(that.hitRightText);   
                     }
                 },
                 
                 hitTextLeftShow: function(textMessage)
                 {
-                    that.hitLeftText.text = textMessage;
-                    that.hitLeftText.visible = true;
-                    createjs.Tween.get(that.hitLeftText, {loop: false}) 
-                        .to({y: 125}, 500, createjs.Ease.getPowInOut(3))
-                        .to({visible: false}, 10, createjs.Ease.getPowInOut(3))
-                        .to({y: 350}, 10, createjs.Ease.getPowInOut(3))
-                        .call(that.onCompleteTextLeftShow); // событие выполнено
+                    that.hitLeftText.text += "\n" + textMessage;
                 },
                 
                 onCompleteTextLeftShow: function()
                 {
-                    createjs.Tween.removeTweens(that.hitLeftText);
+                    that.hitLeftText.text = "";
                 },
                 
                 hitTextRightShow: function(textMessage)
                 {
-                    that.hitRightText.text = textMessage;
-                    that.hitRightText.visible = true;
-                    createjs.Tween.get(that.hitRightText, {loop: false}) 
-                        .to({y: 350}, 500, createjs.Ease.getPowInOut(3))
-                        .to({visible: false}, 10, createjs.Ease.getPowInOut(3))
-                        .to({y: 550}, 10, createjs.Ease.getPowInOut(3))
-                        .call(that.onCompleteTextRightShow); // событие выполнено
+                    that.hitRightText.text += "\n" + textMessage;
                 },
                 
                 onCompleteTextRightShow: function()
                 {
-                    createjs.Tween.removeTweens(that.hitRightText);
+                    that.hitRightText.text = "";
                 },
                 
                 /* ========================================================================== */	
@@ -1346,8 +1330,8 @@ var Level = function(parent)
 			createjs.Tween.removeTweens(that.levelLineUserAnimationGraphics);
 			createjs.Tween.removeTweens(that.levelLineAIAnimationGraphics);
 			createjs.Tween.removeTweens(that.levelMessageLineGraphics);
-                        createjs.Tween.removeTweens(that.hitLeftText);
-                        createjs.Tween.removeTweens(that.hitRightText);
+                        //createjs.Tween.removeTweens(that.hitLeftText);
+                        //createjs.Tween.removeTweens(that.hitRightText);
 		},
                 
                 show: function()

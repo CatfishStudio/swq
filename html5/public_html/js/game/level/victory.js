@@ -665,7 +665,7 @@ var Victory = function(parent)
                     // ИИ пропускает ход!
                     parent.config.stopAI = true;    
                     // Увеличиваем очки опыта Пользователя
-                    parent.initialization.userExperiencePoints++;
+                    parent.initialization.userExperiencePoints += 3;
                     parent.vkWallPost(that.planetID, that.intercept, null);
                     parent.victoryClose(); // закрываем окно
                 }

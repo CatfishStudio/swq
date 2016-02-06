@@ -255,6 +255,8 @@ var Lost = function(parent)
                 if(parent.config.side === that.SIDE_JEDI) parent.initialization.planets[that.planetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH; 
                 // Увеличиваем очки опыта ИИ
                 parent.initialization.userExperiencePointsAI += 3;
+                // ИИ получает разрешение на выполнение действий!
+                parent.config.stopAI = false;
                 // обновление команды ИИ распределение очков опыта
                 if(parent.config.side === that.SIDE_JEDI) parent.initialization.aiUpgradeCommand(that.SIDE_SITH, that.aiPlanetID);
                 if(parent.config.side === that.SIDE_SITH) parent.initialization.aiUpgradeCommand(that.SIDE_JEDI, that.aiPlanetID);
@@ -274,6 +276,8 @@ var Lost = function(parent)
                     if(parent.config.side === that.SIDE_JEDI) parent.initialization.planets[that.aiPlanetID].status = parent.initialization.USER_PLANET_QUEST_COMPLETE_SITH; 
                     // Увеличиваем очки опыта ИИ
                     parent.initialization.userExperiencePointsAI += 3;
+                    // ИИ получает разрешение на выполнение действий!
+                    parent.config.stopAI = false;
                     // обновление команды ИИ распределение очков опыта
                     if(parent.config.side === that.SIDE_JEDI) parent.initialization.aiUpgradeCommand(that.SIDE_SITH, that.aiPlanetID);
                     if(parent.config.side === that.SIDE_SITH) parent.initialization.aiUpgradeCommand(that.SIDE_JEDI, that.aiPlanetID);
@@ -286,6 +290,8 @@ var Lost = function(parent)
                         }
                     }
                 }else{
+                    // ИИ получает разрешение на выполнение действий!
+                    parent.config.stopAI = false;
                     parent.lostClose(); // закрываем окно
                 }
             }

@@ -53,13 +53,14 @@ var Game = function(mainStage)
 		
 		loadAssetsComplete: function()
 		{
+                        that.sound = Sound(that);
+                        
                         mainStage.removeChild(that.assets.close());
 			that.menuShow();
 		},
 		
 		menuShow: function()
 		{
-                        that.sound = Sound(that);
                         that.sound.soundPlayStarWarsThemeSong();
                         
                         that.menu = Menu(that);
@@ -254,7 +255,6 @@ var Game = function(mainStage)
 			mainStage.removeChild(that.level.close());
 			that.level.destroy();
                         that.level = that.backmenu = that.settings = that.victory = that.lost =  null;
-			//that.level = that.timer = that.match = that.settings = that.backmenu = that.victory = that.lost = that.side = that.menu = null;
 		},
                 
                 victoryShow: function(planetID, intercept, aiPlanetID)
@@ -354,7 +354,5 @@ var Game = function(mainStage)
         };
         return that;
 };
-
-
 
 /* == END FILE ========================================================== */

@@ -1257,7 +1257,7 @@ var Level = function(parent)
                         that.levelStage.addChild(that.hitLeftText);
                         
                         that.hitRightText = new PIXI.Text("", { font : 'bold 24px Arial', fill : '#FFFFFF', stroke : '#0090F0', strokeThickness : 1, wordWrap : true, wordWrapWidth : 200 }); 
-                        that.hitRightText.x = 175;
+                        that.hitRightText.x = 775;
                         that.hitRightText.y = 350;
                         that.levelStage.addChild(that.hitRightText);   
                     }

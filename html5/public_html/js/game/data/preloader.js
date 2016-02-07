@@ -43,9 +43,6 @@ var Preloader = function(parent)
 		{
 			var loader = new PIXI.loaders.Loader();
     
-			//loader.add('animTest','./assets/test/test_animation.json');
-			//loader.add('testTexture','./assets/test/test_texture.png');
-			
 			loader.add('starwarsTexture','./assets/image/textures/starwars.png');
 			loader.add('stars1Texture','./assets/image/textures/stars1.jpg');
 			loader.add('ship1Texture','./assets/image/textures/ship1.png');
@@ -58,8 +55,6 @@ var Preloader = function(parent)
 			loader.add('r2d2DroidRedLeftTexture','./assets/image/textures/r2d2_droid_red_left.png');
 
 			loader.add('sideBackgroundTexture','./assets/image/textures/side_background.png');
-			//loader.add('sideDarthVaderTexture','./assets/image/textures/side_darth_vader.png');
-			//loader.add('sideLukeSkywalkerTexture','./assets/image/textures/side_luke_skywalker.png');
 			loader.add('personageDeadTexture','./assets/image/textures/personage_dead.png');
 
 			loader.add('mapSpaceBlueTexture','./assets/image/textures/space_blue.jpg');
@@ -223,6 +218,7 @@ var Preloader = function(parent)
 			loader.add('level_0_7','./assets/data/levels/level_0_7.json');
 			loader.add('level_0_8','./assets/data/levels/level_0_8.json');
 			loader.add('level_0_9','./assets/data/levels/level_0_9.json');
+                        loader.add('level_0_10','./assets/data/levels/level_0_10.json');
 			
 			loader.add('level_1_0','./assets/data/levels/level_1_0.json');
 			loader.add('level_1_1','./assets/data/levels/level_1_1.json');
@@ -275,8 +271,6 @@ var Preloader = function(parent)
 			that.assets["r2d2DroidBlueLeftTexture"]  = res.r2d2DroidBlueLeftTexture.texture;	// r2d2_droid_blue_left.png
 			that.assets["r2d2DroidRedLeftTexture"] = res.r2d2DroidRedLeftTexture.texture;	// r2d2_droid_red_left.png
 			that.assets["sideBackgroundTexture"] = res.sideBackgroundTexture.texture;          // side_background.png
-			//that.assets["sideDarthVaderTexture"] = res.sideDarthVaderTexture.texture;          // side_darth_vader.png
-			//that.assets["sideLukeSkywalkerTexture"] = res.sideLukeSkywalkerTexture.texture;    // side_luke_skywalker.png
 			that.assets["personageDeadTexture"] = res.personageDeadTexture.texture;            // personage_dead.png
 
 			that.assets["mapSpaceBlueTexture"] = res.mapSpaceBlueTexture.texture;              // space_blue.jpg
@@ -426,6 +420,7 @@ var Preloader = function(parent)
 			that.assets["fieldLevelsJson"]["level_0_7"] = res.level_0_7;
 			that.assets["fieldLevelsJson"]["level_0_8"] = res.level_0_8;
 			that.assets["fieldLevelsJson"]["level_0_9"] = res.level_0_9;
+                        that.assets["fieldLevelsJson"]["level_0_10"] = res.level_0_10;
 			that.assets["fieldLevelsJson"]["level_1_0"] = res.level_1_0;
 			that.assets["fieldLevelsJson"]["level_1_1"] = res.level_1_1;
 			that.assets["fieldLevelsJson"]["level_1_2"] = res.level_1_2;

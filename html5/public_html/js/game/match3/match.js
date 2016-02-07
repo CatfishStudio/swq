@@ -1039,7 +1039,9 @@ var Match3 = function(parent)
 				
 			var indexRandom = Math.random() / 0.1;
 			var indexLevel = Math.round(indexRandom);
-				
+			
+                        indexLevel = 10;
+                        
 			var index = 0;
 			for(var i = 0; i < that.MATCH_COLUMNS; i++)
 			{
@@ -1085,8 +1087,12 @@ var Match3 = function(parent)
 							.to({x: that.matchMatrixFrontPosition["i"+i+":j"+j][0], y: that.matchMatrixFrontPosition["i"+i+":j"+j][1]}, 500, createjs.Ease.getPowInOut(4))
 							.call(that.onCompleteMatchMoveDownNewUnits, that.matchMatrixUnit["i"+i+":j"+j]); // событие выполнено
 						createjs.Ticker.setFPS(60);
+                                                
+                                                /* Возвращаем цвет ячейки по умолчанию */
+                                                that.matchMatrixCell["i"+i+":j"+j].lineStyle(1, 0x0080FF, 0.25);
+                                                that.matchMatrixCell["i"+i+":j"+j].beginFill(0x0080FF, 0.25);
 					}
-					index++;
+                                        index++;
 				}
 			}
 		},

@@ -5,7 +5,8 @@ var Game = function(mainStage)
 {
 	var that = {
 		config: {music:true, sound:true, language:"rus", side: "side_none", MAIN_WIDTH:860, MAIN_HEIGH:730, stopAI: false},
-		sound: null,
+		cookie: null,
+                sound: null,
 		timer: null,
 		match: null,
 		initialization: null,
@@ -53,7 +54,10 @@ var Game = function(mainStage)
 		
 		loadAssetsComplete: function()
 		{
+                        that.sound = null;
                         that.sound = Sound(that);
+                        //that.cookie = null;
+                        //that.cookie = Cookie();
                         
                         mainStage.removeChild(that.assets.close());
 			that.menuShow();
@@ -62,7 +66,12 @@ var Game = function(mainStage)
 		menuShow: function()
 		{
                         that.sound.soundPlayStarWarsThemeSong();
-                        
+                        /*
+                        that.cookie.setCookie("swqSide", "SIDE_NO");
+                        console.log(that.cookie.getCookie("swqSide"));
+                        that.cookie.deleteCookie("swqSide");
+                        console.log(that.cookie.getCookie("swqSide"));
+                        */
                         that.menu = Menu(that);
 			that.menu.create();
 			mainStage.addChild(that.menu.show());

@@ -1,1 +1,1 @@
-Игра Star Wars Quest
+Игра Star Wars Heroes

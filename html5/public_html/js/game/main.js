@@ -12,13 +12,13 @@ function onInit()
 
     draw();
 	
-	var game = Game(stage);
-	game.loadAssets();
-	
-	/* Инициализация ВКонтакте */
-	VK.init(function() {
-            apiId: 5170657;
-        });
+    var game = Game(stage);
+    game.loadAssets();
+
+    /* Инициализация ВКонтакте */
+    VK.init(function() {
+        apiId: 5170657;
+    });
 }
 
 function draw() 

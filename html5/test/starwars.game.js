@@ -7848,9 +7848,7 @@ var Match3 = function(parent)
 			var indexRandom = Math.random() / 0.1;
 			var indexLevel = Math.round(indexRandom);
 			
-                        indexLevel = 10;
-                        
-			var index = 0;
+            var index = 0;
 			for(var i = 0; i < that.MATCH_COLUMNS; i++)
 			{
 				for(var j = 0; j < that.MATCH_ROWS; j++)

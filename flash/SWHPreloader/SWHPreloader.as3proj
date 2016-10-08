@@ -4,9 +4,9 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="bin\StarWarsHeroes.swf" />
-    <movie fps="60" />
-    <movie width="1010" />
+    <movie path="bin\SWHPreloader.swf" />
+    <movie fps="30" />
+    <movie width="860" />
     <movie height="730" />
     <movie version="21" />
     <movie minorVersion="0" />
@@ -16,6 +16,7 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
+    <class path="assets" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -52,11 +53,11 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <element path="lib\starling.swc" />
+    <element path="assets" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
-    <element path="lib\vk_ads.swc" />
+    <!-- example: <element path="..." /> -->
   </externalLibraryPaths>
   <!-- Runtime Shared Libraries -->
   <rslPaths>
@@ -68,11 +69,11 @@
   </intrinsics>
   <!-- Assets to embed into the output SWF -->
   <library>
-    <!-- example: <asset path="..." id="..." update="..." glyphs="..." mode="..." place="..." sharepoint="..." /> -->
+    <asset path="assets\background.jpg" />
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\swh\Main.as" />
+    <compile path="src\SWHPreloader\Main.as" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>

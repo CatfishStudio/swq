@@ -17,6 +17,8 @@ package swh
 	import com.vk.MainVKBannerEvent;
 	import com.vk.vo.BannersPanelVO;
 	
+	import swh.data.Assets;
+	
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -30,6 +32,8 @@ package swh
 		
 		private var preloader:Loader;
 		private var preloaderContent:*;
+		
+		private var processStartGame:int = 0;
 		
 		public function Main() 
 		{
@@ -47,7 +51,7 @@ package swh
 			loader = new Loader();
 			loaderContext = new LoaderContext(false, ApplicationDomain.currentDomain, SecurityDomain.currentDomain);
 			//request = new URLRequest("http://app.vk.com/c420925/u99302165/8e757cfbe5be3d.swf"); 
-			request = new URLRequest("http://localhost/game/swhp/SWHPreloader.swf");
+			request = new URLRequest("http://localhost/game/swh/SWHPreloader.swf");
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
 			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onError);
@@ -56,7 +60,7 @@ package swh
 		
 		private function onProgress(e:ProgressEvent):void 
 		{
-			if (preloader != null){
+			if (processStartGame == 0){
 				preloaderContent.setValue(Math.round((e.bytesLoaded / e.bytesTotal) * 100));
 			}
 		}
@@ -73,7 +77,8 @@ package swh
 			loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, onError);
 			loader.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, onProgress);
 			
-			if (preloader == null){
+			if (processStartGame == 0){ // SWHPreloader
+				processStartGame = 1;
 				preloader = loader;
 				addChild(preloader);
 				loader = null;
@@ -81,17 +86,30 @@ package swh
 				preloaderContent = preloader.content;
 				preloaderContent.setValue(0);
 				
-				loadGame();
-			}else{
+				loadAssets();
+			}else if (processStartGame == 1){ // SWHAssetsAtlases
+				preloaderContent.setValue(100);
 				removeChild(preloader);
 				preloader = null;
 				preloaderContent = null;
-				addChild(loader);
+				
+				Assets.assetsContent = loader.content;
+				
 				
 				/////////////////////////////loadBanner();
 			}
 			
 			
+		}
+		
+		private function loadAssets():void{
+			loader = new Loader();
+			loaderContext = new LoaderContext(false, ApplicationDomain.currentDomain, SecurityDomain.currentDomain);
+			request = new URLRequest("http://localhost/game/swh/SWHAssetsAtlases.swf");
+			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
+			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
+			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onError);
+			loader.load(request, loaderContext);
 		}
 		
 		private function loadGame():void

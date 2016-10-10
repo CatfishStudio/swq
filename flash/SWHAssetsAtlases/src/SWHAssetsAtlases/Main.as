@@ -10,9 +10,9 @@ package SWHAssetsAtlases
 	public class Main extends Sprite 
 	{
 		[Embed(source = '../../assets/menu_atlas.png')]
-		public static var MenuAtlas:Class;
+		public var MenuAtlas:Class;
 		[Embed(source = '../../assets/menu_atlas.xml', mimeType='application/octet-stream')]
-		public static var MenuAtlasXML:Class;
+		public var MenuAtlasXML:Class;
 		
 		public function Main() 
 		{

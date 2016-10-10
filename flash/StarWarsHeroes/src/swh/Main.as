@@ -1,5 +1,6 @@
 package swh
 {
+	import flash.display.Bitmap;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -11,13 +12,23 @@ package swh
 	import flash.display.Loader;
 	import flash.net.URLRequest;
 	import flash.system.LoaderContext;
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
+	import flash.display3D.Context3DRenderMode;
+	import flash.geom.Rectangle;
 	
+	import starling.core.Starling;
+	import starling.display.Stage;
 	
 	import com.vk.MainVKBanner;
 	import com.vk.MainVKBannerEvent;
 	import com.vk.vo.BannersPanelVO;
+	import vk.APIConnection;
 	
+	import swh.vkAPI.VK;
 	import swh.data.Assets;
+	import swh.Game;
+	import swh.data.Constants;
 	
 	/**
 	 * ...
@@ -34,6 +45,8 @@ package swh
 		private var preloaderContent:*;
 		
 		private var processStartGame:int = 0;
+		
+		private var starling:Starling;
 		
 		public function Main() 
 		{
@@ -94,9 +107,10 @@ package swh
 				preloaderContent = null;
 				
 				Assets.assetsContent = loader.content;
+				var bitmap:Bitmap = new Assets.assetsContent.MenuAtlas();
+				addChild(bitmap);
 				
-				
-				/////////////////////////////loadBanner();
+				loadGame();
 			}
 			
 			
@@ -114,18 +128,39 @@ package swh
 		
 		private function loadGame():void
 		{
-			/*
-			loader = new Loader();
-			loaderContext = new LoaderContext(false, ApplicationDomain.currentDomain, SecurityDomain.currentDomain);
-			//request = new URLRequest("http://app.vk.com/c420925/u99302165/d6f9f5eb73a8bf.swf"); 
-			request = new URLRequest("http://localhost/game/swhp/SWHPreloader.swf");
-			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
-			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
-			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onError);
-			loader.load(request, loaderContext);
-			*/
+			//vkInit();
+			//loadBanner();
+			initStarling()
 		}
 		
+		/* Инициализация Starling ----------------------------------------------------------------- */
+		private function initStarling():void
+		{
+			stage.align = StageAlign.TOP_LEFT;
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			stage.addEventListener (Event.RESIZE, resizeListenerFlash);
+			starling = new Starling(Game, stage, null, null, Context3DRenderMode.SOFTWARE);
+			starling.antiAliasing = 1;
+			starling.start();
+		}
+		
+		private function resizeListenerFlash(event:Event):void
+		{
+			Starling.current.viewPort = new Rectangle (0, 0, stage.stageWidth, stage.stageHeight);
+			starling.stage.stageWidth = Constants.GAME_WINDOW_WIDTH;
+			starling.stage.stageHeight = Constants.GAME_WINDOW_HEIGHT;
+		}
+		/* ---------------------------------------------------------------------------------------- */
+		
+		/* Иникиализация ВКонтакте ---------------------------------------------------------------- */
+		private function vkInit():void
+		{
+			var flashVars: Object = stage.loaderInfo.parameters as Object;
+			VK.vkConnection = new APIConnection(flashVars);
+		}
+		/* ---------------------------------------------------------------------------------------- */
+		
+		/* Загрузка рекламного банера ------------------------------------------------------------- */
 		private function loadBanner():void
 		{
 			var loaderBanner: Loader = new Loader();
@@ -188,7 +223,7 @@ package swh
 			var event: MainVKBannerEvent = e as MainVKBannerEvent;
 			trace('Main.banner_onError :', event.errorMessage, event.errorCode);
 		}
-		
+		/* ---------------------------------------------------------------------------------------- */
 		
 	}
 	

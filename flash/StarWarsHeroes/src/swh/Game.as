@@ -1,6 +1,14 @@
 package swh 
 {
 	import starling.display.Sprite;
+	import starling.events.Event;
+	
+	import swh.events.Navigation;
+	import swh.data.Constants;
+	import swh.data.Assets;
+	
+	import swh.menu.Menu;
+	
 	
 	/**
 	 * ...
@@ -12,7 +20,40 @@ package swh
 		public function Game() 
 		{
 			super();
+			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+		}
+		
+		private function onAddedToStage(e:Event):void 
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			addEventListener(Navigation.CHANGE_SCREEN, onChangeScreen);
 			
+			createMenu();
+		}
+		
+		private function createMenu():void
+		{
+			if (getChildByName(Constants.MENU) == null) addChild(new Menu());
+		}
+		
+		private function removeMenu():void
+		{
+			if (getChildByName(Constants.MENU) != null) removeChild(getChildByName(Constants.MENU));
+		}
+		
+		private function onChangeScreen(event:Navigation):void 
+		{
+			switch(event.data.id)
+			{
+				case Constants.MENU:
+				{
+					break;
+				}
+				default:
+				{
+					break;
+				}
+			}
 		}
 		
 	}

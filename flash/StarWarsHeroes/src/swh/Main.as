@@ -63,7 +63,7 @@ package swh
 			
 			loader = new Loader();
 			loaderContext = new LoaderContext(false, ApplicationDomain.currentDomain, SecurityDomain.currentDomain);
-			//request = new URLRequest("http://app.vk.com/c420925/u99302165/8e757cfbe5be3d.swf"); 
+			//request = new URLRequest("http://app.vk.com/c420925/u99302165/d4c64b7107fc99.swf"); 
 			request = new URLRequest("http://localhost/game/swh/SWHPreloader.swf");
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
 			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
@@ -93,6 +93,8 @@ package swh
 			if (processStartGame == 0){ // SWHPreloader
 				processStartGame = 1;
 				preloader = loader;
+				preloader.x = 0;
+				preloader.y = 0;
 				addChild(preloader);
 				loader = null;
 				
@@ -107,8 +109,8 @@ package swh
 				preloaderContent = null;
 				
 				Assets.assetsContent = loader.content;
-				var bitmap:Bitmap = new Assets.assetsContent.MenuAtlas();
-				addChild(bitmap);
+				//var bitmap:Bitmap = new Assets.assetsContent.MenuAtlas();
+				//addChild(bitmap);
 				
 				loadGame();
 			}
@@ -119,6 +121,7 @@ package swh
 		private function loadAssets():void{
 			loader = new Loader();
 			loaderContext = new LoaderContext(false, ApplicationDomain.currentDomain, SecurityDomain.currentDomain);
+			//request = new URLRequest("http://app.vk.com/c420925/u99302165/3a62cb8897acee.swf");
 			request = new URLRequest("http://localhost/game/swh/SWHAssetsAtlases.swf");
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
 			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
@@ -130,7 +133,7 @@ package swh
 		{
 			//vkInit();
 			//loadBanner();
-			initStarling()
+			initStarling();
 		}
 		
 		/* Инициализация Starling ----------------------------------------------------------------- */
@@ -146,7 +149,8 @@ package swh
 		
 		private function resizeListenerFlash(event:Event):void
 		{
-			Starling.current.viewPort = new Rectangle (0, 0, stage.stageWidth, stage.stageHeight);
+			//Starling.current.viewPort = new Rectangle (0, 0, stage.stageWidth, stage.stageHeight);
+			Starling.current.viewPort = new Rectangle (0, 0, Constants.GAME_WINDOW_WIDTH, Constants.GAME_WINDOW_HEIGHT);
 			starling.stage.stageWidth = Constants.GAME_WINDOW_WIDTH;
 			starling.stage.stageHeight = Constants.GAME_WINDOW_HEIGHT;
 		}

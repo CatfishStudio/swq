@@ -13,11 +13,12 @@ package swh.data
 	{
 		public static var assetsContent:*;
 		
-		/* ATLASES */
+		/* ATLASES --------------------------------------------------------------------------------------------- */
 		
 		public static var textureAtlas:TextureAtlas;
 		public static var textureAtlasAnimation:TextureAtlas;
 		
+		/* for atlas textures */
 		public static function setTextureAtlasFromBitmap(ClassAtlasSprite:Class, ClassAtlasSpritesXML:Class):void
 		{
 			var contentfile:ByteArray = new ClassAtlasSpritesXML();
@@ -44,6 +45,7 @@ package swh.data
 			trace("[ATLASES] Загрузка Атласа: Ftom Bitmap");
 		}
 		
+		/* for atlas animation */
 		public static function setTextureAtlasEmbeddedAsset(ClassAtlasSprite:Class, ClassAtlasSpritesXML:Class):void
 		{
 			var contentfile:ByteArray = new ClassAtlasSpritesXML();
@@ -68,6 +70,7 @@ package swh.data
 			trace("[ATLASES] Загрузка Атласа: Ftom Bitmap");
 		}
 		
+		/* clear atlases */
 		public static function disposeTextureAtlas():void
 		{
 			if (textureAtlas != null)

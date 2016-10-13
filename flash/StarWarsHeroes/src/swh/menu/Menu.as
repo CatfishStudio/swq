@@ -74,6 +74,7 @@ package swh.menu
 			image = new Image(Assets.textureAtlas.getTexture('menu_border.png'));
 			image.name = 'menu_border';
 			addChild(image);
+			
 		}
 		
 	}

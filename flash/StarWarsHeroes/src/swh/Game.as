@@ -2,6 +2,7 @@ package swh
 {
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.display.Quad;
 	
 	import swh.events.Navigation;
 	import swh.data.Constants;
@@ -27,6 +28,8 @@ package swh
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Navigation.CHANGE_SCREEN, onChangeScreen);
+			
+			mask = new Quad(Constants.GAME_WINDOW_WIDTH, Constants.GAME_WINDOW_HEIGHT);
 			
 			createMenu();
 		}

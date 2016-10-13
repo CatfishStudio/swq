@@ -11,6 +11,7 @@ package swh.vkAPI
 		/* VK API */
 		public static var vkConnection:APIConnection;
 		
+	
 	}
 
 }

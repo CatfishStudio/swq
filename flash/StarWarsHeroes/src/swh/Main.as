@@ -25,7 +25,7 @@ package swh
 	import com.vk.vo.BannersPanelVO;
 	import vk.APIConnection;
 	
-	import swh.vkAPI.VK;
+	import swh.vkAPI.VKAPI;
 	import swh.data.Assets;
 	import swh.Game;
 	import swh.data.Constants;
@@ -37,6 +37,8 @@ package swh
 	[SWF(width="1010", height="730", frameRate="60", backgroundColor="#ffffff")]
 	public class Main extends Sprite 
 	{
+		private var vkApi:VKAPI;
+		
 		private var request:URLRequest;
 		private var loader:Loader;
 		private var loaderContext:LoaderContext;
@@ -60,7 +62,7 @@ package swh
 			
 			Security.allowDomain("*");
             Security.allowInsecureDomain("*");
-			
+						
 			loader = new Loader();
 			loaderContext = new LoaderContext(false, ApplicationDomain.currentDomain, SecurityDomain.currentDomain);
 			//request = new URLRequest("http://app.vk.com/c420925/u99302165/d4c64b7107fc99.swf"); 
@@ -149,8 +151,7 @@ package swh
 		
 		private function resizeListenerFlash(event:Event):void
 		{
-			//Starling.current.viewPort = new Rectangle (0, 0, stage.stageWidth, stage.stageHeight);
-			Starling.current.viewPort = new Rectangle (0, 0, Constants.GAME_WINDOW_WIDTH, Constants.GAME_WINDOW_HEIGHT);
+			Starling.current.viewPort = new Rectangle (0, 0, stage.stageWidth, stage.stageHeight);
 			starling.stage.stageWidth = Constants.GAME_WINDOW_WIDTH;
 			starling.stage.stageHeight = Constants.GAME_WINDOW_HEIGHT;
 		}
@@ -160,7 +161,8 @@ package swh
 		private function vkInit():void
 		{
 			var flashVars: Object = stage.loaderInfo.parameters as Object;
-			VK.vkConnection = new APIConnection(flashVars);
+			vkApi = new VKAPI(flashVars);
+			//VK.vkConnection = new APIConnection(flashVars);
 		}
 		/* ---------------------------------------------------------------------------------------- */
 		

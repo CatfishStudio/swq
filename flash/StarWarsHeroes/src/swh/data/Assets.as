@@ -42,7 +42,7 @@ package swh.data
 			xml = null;
 			bitmap = null;
 			
-			trace("[ATLASES] Загрузка Атласа: Ftom Bitmap");
+			trace("[ATLASES] Загрузка Атласа: From Bitmap");
 		}
 		
 		/* for atlas animation */
@@ -67,7 +67,7 @@ package swh.data
 			contentstr = null;
 			xml = null;
 			
-			trace("[ATLASES] Загрузка Атласа: Ftom Bitmap");
+			trace("[ATLASES] Загрузка Атласа: From Animation");
 		}
 		
 		/* clear atlases */

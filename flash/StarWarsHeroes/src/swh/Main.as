@@ -75,7 +75,7 @@ package swh
 		
 		private function onProgress(e:ProgressEvent):void 
 		{
-			if (processStartGame == 0){
+			if (processStartGame == 1){
 				preloaderContent.setValue(Math.round((e.bytesLoaded / e.bytesTotal) * 100));
 			}
 		}
@@ -116,7 +116,7 @@ package swh
 				
 				loadGame();
 			}
-			
+
 			
 		}
 		

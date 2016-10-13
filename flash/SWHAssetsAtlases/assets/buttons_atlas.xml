@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="buttons_atlas.png">
+	<!--
+	Created with ShoeBox
+	http://renderhjs.net/shoebox/
+	-->
+	<SubTexture name="button_blue_01.png"	x="400"	y="0"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_02.png"	x="800"	y="0"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_03.png"	x="600"	y="204"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_04.png"	x="600"	y="153"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_05.png"	x="600"	y="102"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_06.png"	x="600"	y="51"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_07.png"	x="600"	y="0"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_08.png"	x="400"	y="204"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_09.png"	x="400"	y="153"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_10.png"	x="400"	y="102"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_11.png"	x="400"	y="51"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_01.png"	x="800"	y="51"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_02.png"	x="200"	y="204"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_03.png"	x="200"	y="153"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_04.png"	x="200"	y="102"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_05.png"	x="200"	y="51"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_06.png"	x="200"	y="0"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_07.png"	x="0"	y="204"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_08.png"	x="0"	y="153"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_09.png"	x="0"	y="102"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_10.png"	x="0"	y="51"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_11.png"	x="0"	y="0"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+</TextureAtlas>

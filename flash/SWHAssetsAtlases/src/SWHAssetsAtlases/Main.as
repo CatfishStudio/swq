@@ -1,5 +1,6 @@
 package SWHAssetsAtlases
 {
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
@@ -14,6 +15,16 @@ package SWHAssetsAtlases
 		[Embed(source = '../../assets/menu_atlas.xml', mimeType='application/octet-stream')]
 		public var MenuAtlasXML:Class;
 		
+		[Embed(source = '../../assets/buttons_atlas.png')]
+		public var ButtonsAtlas:Class;
+		[Embed(source = '../../assets/buttons_atlas.xml', mimeType='application/octet-stream')]
+		public var ButtonsAtlasXML:Class;
+		
+		[Embed(source = '../../assets/menu_atlas.png')]
+		public var MenuAtlas2:Class;
+		[Embed(source = '../../assets/menu_atlas.xml', mimeType='application/octet-stream')]
+		public var MenuAtlasXML2:Class;
+		
 		public function Main() 
 		{
 			if (stage) init();
@@ -24,6 +35,8 @@ package SWHAssetsAtlases
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
+			var bitmap:Bitmap = new ButtonsAtlas();
+			addChild(bitmap);
 		}
 		
 	}

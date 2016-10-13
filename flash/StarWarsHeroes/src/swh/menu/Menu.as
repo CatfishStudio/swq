@@ -10,6 +10,7 @@ package swh.menu
 	
 	import swh.data.Assets;
 	import swh.data.Constants;
+	import swh.buttons.Button;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -22,6 +23,7 @@ package swh.menu
 		private var tweenShip1:Tween;
 		private var tweenShip2:Tween;
 		private var tweenShip3:Tween;
+		private var button:Button;
 		
 		public function Menu() 
 		{
@@ -38,9 +40,10 @@ package swh.menu
 			
 			name = Constants.MENU;
 			Assets.setTextureAtlasFromBitmap(Assets.assetsContent.MenuAtlas, Assets.assetsContent.MenuAtlasXML);
+			Assets.setTextureAtlasEmbeddedAsset(Assets.assetsContent.ButtonsAtlas, Assets.assetsContent.ButtonsAtlasXML);
 			
 			createBackground();
-			//createButtons();
+			createButtons();
 			
 			trace('[MENU]: added to stage');
 		}
@@ -64,6 +67,11 @@ package swh.menu
 			if (image != null){
 				image.dispose();
 				image = null;
+			}
+			
+			if (button != null){
+				button.dispose();
+				button = null;
 			}
 			
 			while (this.numChildren)
@@ -150,12 +158,7 @@ package swh.menu
 					Starling.juggler.add(tweenStars);
 					break;
 			}
-			/*
-			tweenStars.moveTo( -50, 0);
-			tweenStars.moveTo( -50, -50);
-			tweenStars.moveTo(0, -50);
-			tweenStars.moveTo(0, 0);
-			*/
+			//	tweenStars.moveTo( -50, 0);
 		}
 		
 		private function onTweenDeadstar(step:int = 0):void
@@ -256,6 +259,17 @@ package swh.menu
 			tweenShip2.animate("y", 350);
 			tweenShip2.onComplete = onTweenShip2;
 			Starling.juggler.add(tweenShip2);
+		}
+		
+		private function createButtons():void
+		{
+			button = new Button(Assets.textureAtlasAnimation.getTextures('button_blue_'), 12);
+			button.name = 'button_start_game';
+			button.x = 85;
+			button.y = 350;
+			button.stop();
+			Starling.juggler.add(button);
+			addChild(button);
 		}
 		
 	}

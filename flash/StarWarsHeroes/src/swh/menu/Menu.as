@@ -264,25 +264,25 @@ package swh.menu
 		private function createButtons():void
 		{
 			button = new Buttons("ПРОДОЛЖИТЬ ИГРУ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
-			button.name = 'button_continue_game';
+			button.name = Constants.MENU_BUTTON_CONTINUE;
 			button.x = 85;
 			button.y = 275;
 			addChild(button);
 			
 			button = new Buttons("НАЧАТЬ НОВУЮ ИГРУ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
-			button.name = 'button_continue_game';
+			button.name = Constants.MENU_BUTTON_NEW_GAME;
 			button.x = 85;
 			button.y = 350;
 			addChild(button);
 			
 			button = new Buttons("НАСТРОЙКИ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
-			button.name = 'button_continue_game';
+			button.name = Constants.MENU_BUTTON_SETTINGS;
 			button.x = 85;
 			button.y = 425;
 			addChild(button);
 			
 			button = new Buttons("ПРИГЛАСИТЬ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
-			button.name = 'button_continue_game';
+			button.name = Constants.MENU_BUTTON_INVITE;
 			button.x = 85;
 			button.y = 500;
 			addChild(button);

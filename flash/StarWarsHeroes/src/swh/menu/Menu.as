@@ -10,7 +10,7 @@ package swh.menu
 	
 	import swh.data.Assets;
 	import swh.data.Constants;
-	import swh.buttons.Button;
+	import swh.buttons.Buttons;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -23,7 +23,7 @@ package swh.menu
 		private var tweenShip1:Tween;
 		private var tweenShip2:Tween;
 		private var tweenShip3:Tween;
-		private var button:Button;
+		private var button:Buttons;
 		
 		public function Menu() 
 		{
@@ -263,12 +263,28 @@ package swh.menu
 		
 		private function createButtons():void
 		{
-			button = new Button(Assets.textureAtlasAnimation.getTextures('button_blue_'), 12);
-			button.name = 'button_start_game';
+			button = new Buttons("ПРОДОЛЖИТЬ ИГРУ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
+			button.name = 'button_continue_game';
+			button.x = 85;
+			button.y = 275;
+			addChild(button);
+			
+			button = new Buttons("НАЧАТЬ НОВУЮ ИГРУ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
+			button.name = 'button_continue_game';
 			button.x = 85;
 			button.y = 350;
-			button.stop();
-			Starling.juggler.add(button);
+			addChild(button);
+			
+			button = new Buttons("НАСТРОЙКИ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
+			button.name = 'button_continue_game';
+			button.x = 85;
+			button.y = 425;
+			addChild(button);
+			
+			button = new Buttons("ПРИГЛАСИТЬ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
+			button.name = 'button_continue_game';
+			button.x = 85;
+			button.y = 500;
 			addChild(button);
 		}
 		

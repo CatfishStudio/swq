@@ -16,6 +16,7 @@ package swh.data
 		public static const MENU_BUTTON_INVITE:String = "menu_button_invite";
 		public static const MENU_HELP:String = "menu_help";
 		
+		public static const SIDE:String = "side";
 		
 		
 	}

@@ -9,6 +9,7 @@ package swh
 	import swh.data.Assets;
 	
 	import swh.menu.Menu;
+	import swh.side.Side;
 	
 	
 	/**
@@ -22,18 +23,19 @@ package swh
 		{
 			super();
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			addEventListener(Navigation.CHANGE_SCREEN, onChangeScreen);
 		}
 		
 		private function onAddedToStage(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			addEventListener(Navigation.CHANGE_SCREEN, onChangeScreen);
 			
 			mask = new Quad(Constants.GAME_WINDOW_WIDTH, Constants.GAME_WINDOW_HEIGHT);
 			
 			createMenu();
 		}
 		
+		/* MENU ---------------------------- */
 		private function createMenu():void
 		{
 			if (getChildByName(Constants.MENU) == null) addChild(new Menu());
@@ -43,13 +45,28 @@ package swh
 		{
 			if (getChildByName(Constants.MENU) != null) removeChild(getChildByName(Constants.MENU));
 		}
+		/* -------------------------------- */
+		
+		/* SIDE ---------------------------- */
+		private function createSide():void
+		{
+			if (getChildByName(Constants.SIDE) == null) addChild(new Side());
+		}
+		
+		private function removeSide():void
+		{
+			if (getChildByName(Constants.SIDE) != null) removeChild(getChildByName(Constants.SIDE));
+		}
+		/* -------------------------------- */
 		
 		private function onChangeScreen(event:Navigation):void 
 		{
 			switch(event.data.id)
 			{
-				case Constants.MENU:
+				case Constants.MENU_BUTTON_NEW_GAME:
 				{
+					removeMenu();
+					createSide();
 					break;
 				}
 				default:

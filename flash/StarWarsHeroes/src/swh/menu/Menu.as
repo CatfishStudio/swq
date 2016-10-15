@@ -32,14 +32,12 @@ package swh.menu
 			super();
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
-			
 		}
 		
 		private function onAddedToStage(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			addEventListener(Event.TRIGGERED, onButtonsClick);
-			
+
 			name = Constants.MENU;
 			Assets.setTextureAtlasFromBitmap(Assets.assetsContent.MenuAtlas, Assets.assetsContent.MenuAtlasXML);
 			Assets.setTextureAtlasEmbeddedAsset(Assets.assetsContent.ButtonsAtlas, Assets.assetsContent.ButtonsAtlasXML);
@@ -98,7 +96,7 @@ package swh.menu
 		
 		private function onButtonsClick(e:Event):void 
 		{
-			dispatchEvent(new Navigation(Navigation.CHANGE_SCREEN, true, { id: Buttons(e.target).name }));
+			//dispatchEvent(new Navigation(Navigation.CHANGE_SCREEN, true, { id: Buttons(e.target).name }));
 		}
 		
 		private function createBackground():void

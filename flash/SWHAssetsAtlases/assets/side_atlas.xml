@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="side_atlas.png">
+	<!--
+	Created with ShoeBox
+	http://renderhjs.net/shoebox/
+	-->
+	<SubTexture name="hologram_side_blue.png"	x="0"	y="730"	width="286"	height="147" frameX="-1" frameY="-2" frameWidth="289" frameHeight="151"/>
+	<SubTexture name="hologram_side_line_blue.png"	x="0"	y="878"	width="283"	height="12" frameX="-3" frameY="-2" frameWidth="289" frameHeight="16"/>
+	<SubTexture name="hologram_side_line_red.png"	x="0"	y="891"	width="283"	height="12" frameX="-3" frameY="-2" frameWidth="289" frameHeight="16"/>
+	<SubTexture name="hologram_side_red.png"	x="287"	y="730"	width="286"	height="147" frameX="-2" frameY="-2" frameWidth="289" frameHeight="151"/>
+	<SubTexture name="r2d2_droid_blue_left.png"	x="914"	y="731"	width="109"	height="149" frameX="-5" frameY="-0" frameWidth="114" frameHeight="149"/>
+	<SubTexture name="r2d2_droid_blue_right.png"	x="689"	y="730"	width="114"	height="149" frameX="-0" frameY="-0" frameWidth="114" frameHeight="149"/>
+	<SubTexture name="r2d2_droid_red_left.png"	x="804"	y="731"	width="109"	height="149" frameX="-5" frameY="-0" frameWidth="114" frameHeight="149"/>
+	<SubTexture name="r2d2_droid_red_right.png"	x="574"	y="731"	width="114"	height="149" frameX="-0" frameY="-0" frameWidth="114" frameHeight="149"/>
+	<SubTexture name="side_background.png"	x="861"	y="0"	width="860"	height="730" frameX="-0" frameY="-0" frameWidth="860" frameHeight="730"/>
+	<SubTexture name="side_border.png"	x="0"	y="0"	width="860"	height="729" frameX="-0" frameY="-0" frameWidth="860" frameHeight="730"/>
+</TextureAtlas>

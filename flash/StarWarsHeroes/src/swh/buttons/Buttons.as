@@ -14,6 +14,7 @@ package swh.buttons
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	
+	import swh.events.Navigation;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -40,8 +41,6 @@ package swh.buttons
 			fps = _fps;
 			colorFront = _colorFront;
 			colorBack = _colorBack;
-			
-			
 			
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
@@ -130,7 +129,7 @@ package swh.buttons
 			}
 			if (e.getTouch(e.target as DisplayObject, TouchPhase.BEGAN)){
 				// click 
-
+				dispatchEvent(new Navigation(Navigation.CHANGE_SCREEN, true, { id: this.name }));
 			}
 		}
 	}

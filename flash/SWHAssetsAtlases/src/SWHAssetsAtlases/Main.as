@@ -20,10 +20,15 @@ package SWHAssetsAtlases
 		[Embed(source = '../../assets/buttons_atlas.xml', mimeType='application/octet-stream')]
 		public var ButtonsAtlasXML:Class;
 		
-		[Embed(source = '../../assets/menu_atlas.png')]
-		public var MenuAtlas2:Class;
-		[Embed(source = '../../assets/menu_atlas.xml', mimeType='application/octet-stream')]
-		public var MenuAtlasXML2:Class;
+		[Embed(source = '../../assets/side_atlas.png')]
+		public var SideAtlas:Class;
+		[Embed(source = '../../assets/side_atlas.xml', mimeType='application/octet-stream')]
+		public var SideAtlasXML:Class;
+		
+		[Embed(source = '../../assets/luck_and_darth_anim_atlas.png')]
+		public var SideAnimAtlas:Class;
+		[Embed(source = '../../assets/luck_and_darth_anim_atlas.xml', mimeType='application/octet-stream')]
+		public var SideAnimAtlasXML:Class;
 		
 		public function Main() 
 		{
@@ -35,8 +40,10 @@ package SWHAssetsAtlases
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
-			var bitmap:Bitmap = new ButtonsAtlas();
+			/*
+			var bitmap:Bitmap = new SideAnimAtlas();
 			addChild(bitmap);
+			*/
 		}
 		
 	}

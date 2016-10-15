@@ -8,6 +8,7 @@ package swh.menu
 	import starling.animation.Tween;
 	import starling.core.Starling;
 	
+	import swh.events.Navigation;
 	import swh.data.Assets;
 	import swh.data.Constants;
 	import swh.buttons.Buttons;
@@ -97,7 +98,7 @@ package swh.menu
 		
 		private function onButtonsClick(e:Event):void 
 		{
-			//dispatchEvent(new Navigation(Navigation.CHANGE_SCREEN, true, { id: Button(e.target).name }));
+			dispatchEvent(new Navigation(Navigation.CHANGE_SCREEN, true, { id: Buttons(e.target).name }));
 		}
 		
 		private function createBackground():void
@@ -301,9 +302,9 @@ package swh.menu
 		
 		private function createHelp():void
 		{
-			help = new MenuHelp();
-			help.x = 550;
-			help.y = 300;
+			help = new MenuHelp("Добро пожаловать на путь силы.\n\nВаши способности превышают способности обычных людей.\nВы тут потому что вы были избраны.\n\nНажмите кнопку \"Начать игры\"\n\nИ да пребудет с вами сила!", 0xFFFFFF, 0x0090F0);
+			help.x = 570;
+			help.y = 290;
 			addChild(help);
 		}
 	}

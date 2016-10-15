@@ -24,6 +24,7 @@ package swh.menu
 		private var tweenShip2:Tween;
 		private var tweenShip3:Tween;
 		private var button:Buttons;
+		private var help:MenuHelp;
 		
 		public function Menu() 
 		{
@@ -44,6 +45,7 @@ package swh.menu
 			
 			createBackground();
 			createButtons();
+			createHelp();
 			
 			trace('[MENU]: added to stage');
 		}
@@ -51,7 +53,6 @@ package swh.menu
 		private function onRemoveFromStage(e:Event):void 
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
-			Assets.disposeTextureAtlas();
 			
 			Starling.juggler.remove(tweenStars);
 			tweenStars = null;
@@ -65,14 +66,24 @@ package swh.menu
 			tweenShip3 = null;
 			
 			if (image != null){
+				removeChild(image);
 				image.dispose();
 				image = null;
 			}
 			
 			if (button != null){
+				removeChild(button);
 				button.dispose();
 				button = null;
 			}
+			
+			if (help != null){
+				removeChild(help);
+				help.dispose();
+				help = null;
+			}
+			
+			Assets.disposeTextureAtlas();
 			
 			while (this.numChildren)
 			{
@@ -288,6 +299,13 @@ package swh.menu
 			addChild(button);
 		}
 		
+		private function createHelp():void
+		{
+			help = new MenuHelp();
+			help.x = 550;
+			help.y = 300;
+			addChild(help);
+		}
 	}
 
 }

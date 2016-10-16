@@ -10,7 +10,7 @@ package swh
 	
 	import swh.menu.Menu;
 	import swh.side.Side;
-	
+	import swh.settings.Settings;
 	
 	/**
 	 * ...
@@ -47,6 +47,18 @@ package swh
 		}
 		/* -------------------------------- */
 		
+		/* SETTINGS ---------------------------- */
+		private function createSettings():void
+		{
+			if (getChildByName(Constants.SETTINGS) == null) addChild(new Settings());
+		}
+		
+		private function removeSettings():void
+		{
+			if (getChildByName(Constants.SETTINGS) != null) removeChild(getChildByName(Constants.SETTINGS));
+		}
+		/* -------------------------------- */
+		
 		/* SIDE ---------------------------- */
 		private function createSide():void
 		{
@@ -59,6 +71,7 @@ package swh
 		}
 		/* -------------------------------- */
 		
+		
 		private function onChangeScreen(event:Navigation):void 
 		{
 			switch(event.data.id)
@@ -67,6 +80,16 @@ package swh
 				{
 					removeMenu();
 					createSide();
+					break;
+				}
+				case Constants.MENU_BUTTON_SETTINGS:
+				{
+					createSettings();
+					break;
+				}
+				case Constants.SETTINGS_CLOSE:
+				{
+					removeSettings();
 					break;
 				}
 				default:

@@ -71,6 +71,14 @@
   <library>
     <asset path="assets\menu_atlas.png" />
     <asset path="assets\buttons_atlas.png" />
+    <asset path="assets\backroung_red.png" />
+    <asset path="assets\information.png" />
+    <asset path="assets\sound_off.png" />
+    <asset path="assets\sound_on.png" />
+    <asset path="assets\settings_backroung_blue.png" />
+    <asset path="assets\settings_backroung_red.png" />
+    <asset path="assets\music_off.png" />
+    <asset path="assets\music_on.png" />
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>

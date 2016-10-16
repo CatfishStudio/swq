@@ -10,6 +10,7 @@ package SWHAssetsAtlases
 	 */
 	public class Main extends Sprite 
 	{
+		/* Atlases */
 		[Embed(source = '../../assets/menu_atlas.png')]
 		public var MenuAtlas:Class;
 		[Embed(source = '../../assets/menu_atlas.xml', mimeType='application/octet-stream')]
@@ -30,6 +31,28 @@ package SWHAssetsAtlases
 		[Embed(source = '../../assets/luck_and_darth_anim_atlas.xml', mimeType='application/octet-stream')]
 		public var SideAnimAtlasXML:Class;
 		
+		/* Textures */
+		[Embed(source = '../../assets/information.png')]
+		public var InformationImage:Class;
+		
+		[Embed(source = '../../assets/music_on.png')]
+		public var MusicOnImage:Class;
+		
+		[Embed(source = '../../assets/music_off.png')]
+		public var MusicOffImage:Class;
+		
+		[Embed(source = '../../assets/sound_on.png')]
+		public var SoundOnImage:Class;
+		
+		[Embed(source = '../../assets/sound_off.png')]
+		public var SoundOffImage:Class;
+		
+		[Embed(source = '../../assets/settings_backroung_blue.png')]
+		public var SettingsBlueBgImage:Class;
+		
+		[Embed(source = '../../assets/settings_backroung_red.png')]
+		public var SettingsRedBgImage:Class;
+		
 		public function Main() 
 		{
 			if (stage) init();
@@ -41,9 +64,10 @@ package SWHAssetsAtlases
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 			/*
-			var bitmap:Bitmap = new SideAnimAtlas();
+			var bitmap:Bitmap = new InformationImage();
 			addChild(bitmap);
 			*/
+
 		}
 		
 	}

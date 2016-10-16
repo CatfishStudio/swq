@@ -17,7 +17,8 @@ package swh.data
 		public static const MENU_HELP:String = "menu_help";
 		
 		public static const SIDE:String = "side";
-		
+		public static const SIDE_JEDI:String = "side_jedi";
+		public static const SIDE_SITH:String = "side_sith";
 		
 	}
 

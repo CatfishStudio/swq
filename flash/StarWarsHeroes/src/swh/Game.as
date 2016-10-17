@@ -87,7 +87,7 @@ package swh
 					createSettings();
 					break;
 				}
-				case Constants.SETTINGS_CLOSE:
+				case Constants.SETTINGS_BUTTON_CLOSE:
 				{
 					removeSettings();
 					break;

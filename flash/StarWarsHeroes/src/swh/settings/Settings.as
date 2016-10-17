@@ -2,8 +2,10 @@ package swh.settings
 {
 	import flash.system.*;
 	import flash.display.Bitmap;
-	import starling.display.Button;
+	import flash.net.URLRequest;
+	import flash.net.navigateToURL;
 	
+	import starling.display.Button;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.display.Image;
@@ -19,6 +21,7 @@ package swh.settings
 	import swh.data.Data;
 	import swh.data.Assets;
 	import swh.events.Navigation;
+	import swh.buttons.Buttons;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -31,6 +34,7 @@ package swh.settings
 		private var textField1:TextField;
 		private var textField2:TextField;
 		private var tweenLine:Tween;
+		private var buttonClose:Buttons;
 		
 		private var text:String;
 		private var colorBack:uint;
@@ -69,6 +73,11 @@ package swh.settings
 				removeChild(button);
 				button.dispose();
 				button = null;
+			}
+			if (buttonClose != null){
+				removeChild(buttonClose);
+				buttonClose.dispose();
+				buttonClose = null;
 			}
 			
 			if (image != null){
@@ -191,8 +200,16 @@ package swh.settings
 			button = new Button(Texture.fromBitmap(Assets.assetsContent.informationBitmap));
 			button.name = Constants.SETTINGS_BUTTON_INFO;
 			button.x = (Constants.GAME_WINDOW_WIDTH / 2) + 90;
-			button.y = (Constants.GAME_WINDOW_HEIGHT / 2) - 35;
+			button.y = (Constants.GAME_WINDOW_HEIGHT / 2) - 37;
 			addChild(button);
+			
+			if (Data.userSide == Constants.SIDE_JEDI) buttonClose = new Buttons("ЗАКРЫТЬ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
+			else buttonClose = new Buttons("ЗАКРЫТЬ", Assets.textureAtlasAnimation.getTextures('button_red_'), 12, 0xFFFFFF, 0x880000);
+			buttonClose.name = Constants.SETTINGS_BUTTON_CLOSE;
+			buttonClose.x = (Constants.GAME_WINDOW_WIDTH / 2) - 100;
+			buttonClose.y = (Constants.GAME_WINDOW_HEIGHT / 2) + 72;
+			addChild(buttonClose);
+			
 		}
 		
 		private function updateButtonSound():void 
@@ -236,13 +253,7 @@ package swh.settings
 				}
 				case Constants.SETTINGS_BUTTON_INFO:
 				{
-					
-					break;
-				}
-				case Constants.SETTINGS_BUTTON_CLOSE:
-				{
-					//Sounds.PlaySound(Sounds.Sound4);
-					dispatchEvent(new Navigation(Navigation.CHANGE_SCREEN, true, { id: Button(e.target).name }));
+					navigateToURL(new URLRequest(Config.info));
 					break;
 				}
 				default:

@@ -11,7 +11,8 @@ package swh
 	import swh.menu.Menu;
 	import swh.side.Side;
 	import swh.settings.Settings;
-	
+	import swh.vkAPI.VKAPI;
+	import swh.data.Data;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -78,6 +79,7 @@ package swh
 			{
 				case Constants.MENU_BUTTON_NEW_GAME:
 				{
+					initialization();
 					removeMenu();
 					createSide();
 					break;
@@ -92,12 +94,34 @@ package swh
 					removeSettings();
 					break;
 				}
+				case Constants.MENU_BUTTON_INVITE:
+				{
+					VKAPI.vkConnection.callMethod("showInviteBox");
+					break;
+				}
 				default:
 				{
 					break;
 				}
 			}
 		}
+		
+		private function initialization():void
+		{
+			//VKAPI.vkConnection.api("storage.set", { key:"userTest", value:"TestGOOD"}, onDataSet, onDataErrorSet);
+			//var json:String = "[{\"id\":\"1\",\"character\":[{\"name\":\"Scorpion\"},{\"name\":\"SubZero\"}]}]";
+			VKAPI.vkConnection.api("storage.set", { key:"swhUserData", value:Data.createUserDataJSON()}, onDataSet, onDataErrorSet);
+		}
+		private function onDataSet (response:Object):void 
+        {
+            //textField.text = "метод set выполнен";
+        }
+        private function onDataErrorSet (response:Object):void 
+        {
+            //textField.text = response.error_msg;
+			//textField.text = String(response)
+			//Data.userTest = "ERROR";
+        }
 		
 	}
 

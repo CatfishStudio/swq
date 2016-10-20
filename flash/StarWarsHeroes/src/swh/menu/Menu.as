@@ -12,6 +12,8 @@ package swh.menu
 	import swh.data.Assets;
 	import swh.data.Constants;
 	import swh.buttons.Buttons;
+	import swh.data.Data;
+	import swh.vkAPI.VKAPI;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -273,6 +275,7 @@ package swh.menu
 		
 		private function createButtons():void
 		{
+			
 			button = new Buttons("ПРОДОЛЖИТЬ ИГРУ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
 			button.name = Constants.MENU_BUTTON_CONTINUE;
 			button.x = 85;

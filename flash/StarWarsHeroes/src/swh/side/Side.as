@@ -18,6 +18,7 @@ package swh.side
 	import swh.side.SideHelp;
 	import swh.data.Data;
 	import swh.vkAPI.VKAPI;
+	import swh.message.Message;
 	
 	/**
 	 * ...
@@ -30,6 +31,7 @@ package swh.side
 		private var sideBlue:MovieClip;
 		private var sideHelpRed:SideHelp;
 		private var sideHelpBlue:SideHelp;
+		private var message:Message;
 		
 		public function Side() 
 		{
@@ -48,6 +50,13 @@ package swh.side
 			
 			createBackground();
 			createSides();
+			
+			if (Data.errorSetData) {
+				message = new Message("Произошла ошибка сохранения данных. \nВаш прогресс не будет сохранён!");
+				message.x = (Constants.GAME_WINDOW_WIDTH / 2) - (message.width / 2);
+				message.y = 25;
+				addChild(message);
+			}
 			
 			trace('[SIDE]: added to stage');
 		}

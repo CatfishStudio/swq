@@ -324,14 +324,19 @@ package swh.menu
 		{
 			message = new Message("Поиск сохранённых данных...");
 			message.x = (Constants.GAME_WINDOW_WIDTH / 2) - (message.width / 2);
-			message.y = 50;
+			message.y = 25;
 			addChild(message);
 		}
 		
 		/* READ SAVE GAME ============================================================= */
 		private function getSaveGame():void
 		{
-			VKAPI.vkConnection.api("storage.get", { key:"swhUserData" }, OnGet, OnEGet);
+			try{
+				VKAPI.vkConnection.api("storage.get", { key:"swhUserData" }, OnGet, OnEGet);
+			}catch (e:Error){
+				Data.errorGetData = true;
+				message.setText("Ошибка: " + e.message);
+			}
 		}
 		
 		private function OnGet(response:Object):void 

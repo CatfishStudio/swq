@@ -7,6 +7,8 @@ package swh.data
 	 */
 	public class Data 
 	{
+		public static var errorSetData:Boolean = false;
+		public static var errorGetData:Boolean = false;
 		
 		public static var userSide:String = Constants.SIDE_JEDI;
 		public static var userData:String;

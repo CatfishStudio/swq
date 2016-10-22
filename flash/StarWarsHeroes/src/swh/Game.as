@@ -80,8 +80,6 @@ package swh
 				case Constants.MENU_BUTTON_NEW_GAME:
 				{
 					createNewGame();
-					removeMenu();
-					createSide();
 					break;
 				}
 				case Constants.MENU_BUTTON_SETTINGS:
@@ -110,11 +108,19 @@ package swh
 		{
 			//VKAPI.vkConnection.api("storage.set", { key:"userTest", value:"TestGOOD"}, onDataSet, onDataErrorSet);
 			//var json:String = "[{\"id\":\"1\",\"character\":[{\"name\":\"Scorpion\"},{\"name\":\"SubZero\"}]}]";
-			VKAPI.vkConnection.api("storage.set", { key:"swhUserData", value:Data.createUserDataJSON()}, onDataSet, onDataErrorSet);
+			try{
+				VKAPI.vkConnection.api("storage.set", { key:"swhUserData", value:Data.createUserDataJSON()}, onDataSet, onDataErrorSet);
+			}catch (e:Error){
+				Data.errorSetData = true;
+				removeMenu();
+				createSide();
+			}
+			
 		}
 		private function onDataSet (response:Object):void 
         {
-            //textField.text = "метод set выполнен";
+            removeMenu();
+			createSide();
         }
         private function onDataErrorSet (response:Object):void 
         {

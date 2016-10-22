@@ -8,11 +8,13 @@ package swh
 	import swh.data.Constants;
 	import swh.data.Assets;
 	
+	import swh.vkAPI.VKAPI;
+	import swh.data.Data;
 	import swh.menu.Menu;
 	import swh.side.Side;
 	import swh.settings.Settings;
-	import swh.vkAPI.VKAPI;
-	import swh.data.Data;
+	import swh.map.Map;
+	
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -48,7 +50,7 @@ package swh
 		}
 		/* -------------------------------- */
 		
-		/* SETTINGS ---------------------------- */
+		/* SETTINGS ----------------------- */
 		private function createSettings():void
 		{
 			if (getChildByName(Constants.SETTINGS) == null) addChild(new Settings());
@@ -60,7 +62,7 @@ package swh
 		}
 		/* -------------------------------- */
 		
-		/* SIDE ---------------------------- */
+		/* SIDE --------------------------- */
 		private function createSide():void
 		{
 			if (getChildByName(Constants.SIDE) == null) addChild(new Side());
@@ -69,6 +71,18 @@ package swh
 		private function removeSide():void
 		{
 			if (getChildByName(Constants.SIDE) != null) removeChild(getChildByName(Constants.SIDE));
+		}
+		/* -------------------------------- */
+		
+		/* MAP ---------------------------- */
+		private function createMap():void
+		{
+			if (getChildByName(Constants.MAP) == null) addChild(new Map());
+		}
+		
+		private function removeMap():void
+		{
+			if (getChildByName(Constants.MAP) != null) removeChild(getChildByName(Constants.MAP));
 		}
 		/* -------------------------------- */
 		
@@ -97,6 +111,12 @@ package swh
 					VKAPI.vkConnection.callMethod("showInviteBox");
 					break;
 				}
+				case Constants.SIDE_CLOSE:
+				{
+					removeSide();
+					createMap();
+					break;
+				}
 				default:
 				{
 					break;
@@ -109,7 +129,8 @@ package swh
 			//VKAPI.vkConnection.api("storage.set", { key:"userTest", value:"TestGOOD"}, onDataSet, onDataErrorSet);
 			//var json:String = "[{\"id\":\"1\",\"character\":[{\"name\":\"Scorpion\"},{\"name\":\"SubZero\"}]}]";
 			try{
-				VKAPI.vkConnection.api("storage.set", { key:"swhUserData", value:Data.createUserDataJSON()}, onDataSet, onDataErrorSet);
+				Data.initialization();
+				VKAPI.vkConnection.api("storage.set", { key:"swhUserData", value:Data.userData}, onDataSet, onDataErrorSet);
 			}catch (e:Error){
 				Data.errorSetData = true;
 				removeMenu();

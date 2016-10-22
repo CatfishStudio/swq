@@ -68,6 +68,10 @@ package SWHAssetsAtlases
 		public var SettingsRedLineImage:Class;
 		public var settingsRedLineBitmap:Bitmap = new SettingsRedLineImage();
 		
+		/* Data */
+		[Embed(source = '../../assets/data/personages.xml', mimeType='application/octet-stream')]
+		public var PersonagesFileXML:Class;
+		
 		public function Main() 
 		{
 			if (stage) init();

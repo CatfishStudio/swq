@@ -335,7 +335,7 @@ package swh.menu
 				VKAPI.vkConnection.api("storage.get", { key:"swhUserData" }, OnGet, OnEGet);
 			}catch (e:Error){
 				Data.errorGetData = true;
-				message.setText("Ошибка: " + e.message);
+				message.setText("Ошибка: Сервер ВКонтакте недоступен!");
 			}
 		}
 		

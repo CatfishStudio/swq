@@ -174,6 +174,7 @@ package swh.side
 			}
 			if (e.getTouch(e.target as DisplayObject, TouchPhase.BEGAN)){
 				// click 
+				Data.userSide = Constants.SIDE_SITH;
 				dispatchEvent(new Navigation(Navigation.CHANGE_SCREEN, true, { id: Constants.SIDE_SITH }));
 			}
 		}
@@ -193,6 +194,7 @@ package swh.side
 			}
 			if (e.getTouch(e.target as DisplayObject, TouchPhase.BEGAN)){
 				// click 
+				Data.userSide = Constants.SIDE_JEDI;
 				dispatchEvent(new Navigation(Navigation.CHANGE_SCREEN, true, { id: Constants.SIDE_JEDI }));
 			}
 		}

@@ -37,8 +37,6 @@ package swh
 	[SWF(width="1010", height="730", frameRate="60", backgroundColor="#ffffff")]
 	public class Main extends Sprite 
 	{
-		//private var vkApi:VKAPI;
-		
 		private var request:URLRequest;
 		private var loader:Loader;
 		private var loaderContext:LoaderContext;
@@ -162,8 +160,6 @@ package swh
 		{
 			var flashVars: Object = stage.loaderInfo.parameters as Object;
 			VKAPI.initVKAPI(flashVars);
-			//vkApi = new VKAPI(flashVars);
-			//VK.vkConnection = new APIConnection(flashVars);
 		}
 		/* ---------------------------------------------------------------------------------------- */
 		

@@ -19,7 +19,6 @@ package swh.side
 	import swh.data.Data;
 	import swh.vkAPI.VKAPI;
 	
-	import vk.api.serialization.json.JSON;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -48,23 +47,10 @@ package swh.side
 			Assets.setTextureAtlasEmbeddedAsset(Assets.assetsContent.SideAnimAtlas, Assets.assetsContent.SideAnimAtlasXML);
 			
 			createBackground();
-			VKAPI.vkConnection.api("storage.get", { key:"swhUserData" }, OnGet, OnEGet);
-			
-			//createBackground();
-			//createSides();
+			createSides();
 			
 			trace('[SIDE]: added to stage');
 		}
-		
-		private function OnGet(response:Object):void 
-        {
-			Data.userData = String(response);
-			createSides();
-        }
-        private function OnEGet(response:Object):void 
-        {
-			//Data.userTest = String(response.error_msg);
-        }
 		
 		private function onRemoveFromStage(e:Event):void 
 		{
@@ -149,17 +135,7 @@ package swh.side
 			addChild(sideBlue);
 			Starling.juggler.add(sideBlue);
 			
-			/*
 			sideHelpBlue = new SideHelp("\nВыберите светлую сторону силы. \"Только покой ощутив, возмёшь контроль над желаниями своими\". \n\nПройдите путь Люка Скайуокера!", 0xFFFFFF, 0x0090F0, Constants.SIDE_JEDI);
-			sideHelpBlue.x = (Constants.GAME_WINDOW_WIDTH / 2) + 100;
-			sideHelpBlue.y = (Constants.GAME_WINDOW_HEIGHT - 300);
-			sideHelpBlue.visible = false;
-			addChild(sideHelpBlue);
-			*/
-			
-			var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.userData);
-			
-			sideHelpBlue = new SideHelp(jsonData[0].id, 0xFFFFFF, 0x0090F0, Constants.SIDE_JEDI);
 			sideHelpBlue.x = (Constants.GAME_WINDOW_WIDTH / 2) + 100;
 			sideHelpBlue.y = (Constants.GAME_WINDOW_HEIGHT - 300);
 			sideHelpBlue.visible = false;

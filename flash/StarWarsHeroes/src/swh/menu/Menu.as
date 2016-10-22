@@ -14,6 +14,9 @@ package swh.menu
 	import swh.buttons.Buttons;
 	import swh.data.Data;
 	import swh.vkAPI.VKAPI;
+	import swh.message.Message;
+	
+	import vk.api.serialization.json.JSON;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -28,6 +31,7 @@ package swh.menu
 		private var tweenShip3:Tween;
 		private var button:Buttons;
 		private var help:MenuHelp;
+		private var message:Message;
 		
 		public function Menu() 
 		{
@@ -47,6 +51,9 @@ package swh.menu
 			createBackground();
 			createButtons();
 			createHelp();
+			createMessage();
+			
+			getSaveGame();
 			
 			trace('[MENU]: added to stage');
 		}
@@ -84,6 +91,12 @@ package swh.menu
 				help = null;
 			}
 			
+			if (message != null){
+				removeChild(message);
+				message.dispose();
+				message = null;
+			}
+			
 			Assets.disposeTextureAtlas();
 			
 			while (this.numChildren)
@@ -94,11 +107,6 @@ package swh.menu
 			super.dispose();
 			System.gc();
 			trace('[MENU]: removed from stage');
-		}
-		
-		private function onButtonsClick(e:Event):void 
-		{
-			//dispatchEvent(new Navigation(Navigation.CHANGE_SCREEN, true, { id: Buttons(e.target).name }));
 		}
 		
 		private function createBackground():void
@@ -276,12 +284,6 @@ package swh.menu
 		private function createButtons():void
 		{
 			
-			button = new Buttons("ПРОДОЛЖИТЬ ИГРУ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
-			button.name = Constants.MENU_BUTTON_CONTINUE;
-			button.x = 85;
-			button.y = 275;
-			addChild(button);
-			
 			button = new Buttons("НАЧАТЬ НОВУЮ ИГРУ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
 			button.name = Constants.MENU_BUTTON_NEW_GAME;
 			button.x = 85;
@@ -301,6 +303,15 @@ package swh.menu
 			addChild(button);
 		}
 		
+		private function createButtonContinue():void
+		{
+			button = new Buttons("ПРОДОЛЖИТЬ ИГРУ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
+			button.name = Constants.MENU_BUTTON_CONTINUE;
+			button.x = 85;
+			button.y = 275;
+			addChild(button);
+		}
+		
 		private function createHelp():void
 		{
 			help = new MenuHelp("Добро пожаловать на путь силы.\n\nВаши способности превышают способности обычных людей.\nВы тут потому что вы были избраны.\n\nНажмите кнопку \"Начать игры\"\n\nИ да пребудет с вами сила!", 0xFFFFFF, 0x0090F0);
@@ -308,6 +319,38 @@ package swh.menu
 			help.y = 290;
 			addChild(help);
 		}
+		
+		private function createMessage():void
+		{
+			message = new Message("Поиск сохранённых данных...");
+			message.x = (Constants.GAME_WINDOW_WIDTH / 2) - (message.width / 2);
+			message.y = 50;
+			addChild(message);
+		}
+		
+		/* READ SAVE GAME ============================================================= */
+		private function getSaveGame():void
+		{
+			VKAPI.vkConnection.api("storage.get", { key:"swhUserData" }, OnGet, OnEGet);
+		}
+		
+		private function OnGet(response:Object):void 
+        {
+			Data.userData = String(response);
+			if (Data.userData != ""){
+				message.setText("Сохранённых данных успешно загружены!");
+				createButtonContinue();
+				//var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.userData);
+				//jsonData[0].id
+			}else{
+				message.setText("Сохранённых данных нет. Начните новую игры.");
+			}
+        }
+        private function OnEGet(response:Object):void 
+        {
+			message.setText("Произошла ошибка загрузки данных!");
+        }
+		/* ============================================================================ */
 	}
 
 }

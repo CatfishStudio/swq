@@ -79,7 +79,7 @@ package swh
 			{
 				case Constants.MENU_BUTTON_NEW_GAME:
 				{
-					initialization();
+					createNewGame();
 					removeMenu();
 					createSide();
 					break;
@@ -106,7 +106,7 @@ package swh
 			}
 		}
 		
-		private function initialization():void
+		private function createNewGame():void
 		{
 			//VKAPI.vkConnection.api("storage.set", { key:"userTest", value:"TestGOOD"}, onDataSet, onDataErrorSet);
 			//var json:String = "[{\"id\":\"1\",\"character\":[{\"name\":\"Scorpion\"},{\"name\":\"SubZero\"}]}]";

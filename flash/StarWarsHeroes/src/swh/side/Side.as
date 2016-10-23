@@ -52,7 +52,8 @@ package swh.side
 			createSides();
 			
 			if (Data.errorSetData) {
-				message = new Message("Произошла ошибка сохранения данных. \nВаш прогресс не будет сохранён!");
+				//message = new Message("Произошла ошибка сохранения данных. \nВаш прогресс не будет сохранён!");
+				message = new Message(Data.userData);
 				message.x = (Constants.GAME_WINDOW_WIDTH / 2) - (message.width / 2);
 				message.y = 25;
 				addChild(message);

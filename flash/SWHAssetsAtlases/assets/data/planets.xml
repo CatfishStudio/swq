@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Planets>
+	<Planet>
+		<id>Coruscant</id>
+		<name>Корусант</name>
+		<personageSith1>shmi_skywalker</personageSith1>
+		<personageSith2>shmi_skywalker</personageSith2>
+		<personageSith3>shmi_skywalker</personageSith3>
+		<descriptionSith></descriptionSith>
+		<personageJedi1>luke_skywalker</personageJedi1>
+		<personageJedi2>mace_windu</personageJedi2>
+		<personageJedi3>mas_amedda</personageJedi3>
+		<descriptionJedi></descriptionJedi>
+		<status>status_planet_quest_awaiting</status>
+	</Planet>
+</Planets>

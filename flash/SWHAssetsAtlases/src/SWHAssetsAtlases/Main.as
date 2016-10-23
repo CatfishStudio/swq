@@ -72,6 +72,9 @@ package SWHAssetsAtlases
 		[Embed(source = '../../assets/data/personages.xml', mimeType='application/octet-stream')]
 		public var PersonagesFileXML:Class;
 		
+		[Embed(source = '../../assets/data/planets.xml', mimeType='application/octet-stream')]
+		public var PlanetsFileXML:Class;
+		
 		public function Main() 
 		{
 			if (stage) init();

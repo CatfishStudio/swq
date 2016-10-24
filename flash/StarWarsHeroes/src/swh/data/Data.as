@@ -2,6 +2,7 @@ package swh.data
 {
 	import swh.data.Constants;
 	import swh.data.Personage;
+	import swh.data.Planet;
 	import swh.xml.FileXML;
 	/**
 	 * ...
@@ -42,43 +43,67 @@ package swh.data
 		public static function initialization():void
 		{
 			// message
-			if (Data.userSide = Constants.SIDE_JEDI) Data.userLastMessage = "Меня зовут R2D2, рад вас приветствовать.\n\nКорусант является основной целью Ситов.";
+			if (Data.userSide == Constants.SIDE_JEDI) Data.userLastMessage = "Меня зовут R2D2, рад вас приветствовать.\n\nКорусант является основной целью Ситов.";
 			else Data.userLastMessage = "Меня зовут R3-S6, приветствую тебя мой повелитель. \n\nДжедаи хотят разрушить Звезду смерти и помешать нашим планам.";
 			
 			// characteristics
-			characteristics = new Array();
-			characteristics["planet-1"] = [3, 4, 4];
-			characteristics["planet-2"] = [2, 2, 5];
-			characteristics["planet-3"] = [2, 3, 6];
-			characteristics["planet-4"] = [3, 3, 7];
-			characteristics["planet-5"] = [3, 4, 8];
-			characteristics["planet-6"] = [4, 4, 9];
-			characteristics["planet-7"] = [4, 5, 10];
-			characteristics["planet-8"] = [5, 5, 11];
-			characteristics["planet-9"] = [5, 6, 12];
-			characteristics["planet-10"] = [6, 6, 13];
-			characteristics["planet-11"] = [6, 7, 14];
-			characteristics["planet-12"] = [7, 7, 15];
-			characteristics["planet-13"] = [7, 8, 16];
-			characteristics["planet-14"] = [8, 8, 17];
-			characteristics["planet-15"] = [8, 9, 18];
+			Data.characteristics = new Array();
+			Data.characteristics["planet-1"] = [3, 4, 4];
+			Data.characteristics["planet-2"] = [2, 2, 5];
+			Data.characteristics["planet-3"] = [2, 3, 6];
+			Data.characteristics["planet-4"] = [3, 3, 7];
+			Data.characteristics["planet-5"] = [3, 4, 8];
+			Data.characteristics["planet-6"] = [4, 4, 9];
+			Data.characteristics["planet-7"] = [4, 5, 10];
+			Data.characteristics["planet-8"] = [5, 5, 11];
+			Data.characteristics["planet-9"] = [5, 6, 12];
+			Data.characteristics["planet-10"] = [6, 6, 13];
+			Data.characteristics["planet-11"] = [6, 7, 14];
+			Data.characteristics["planet-12"] = [7, 7, 15];
+			Data.characteristics["planet-13"] = [7, 8, 16];
+			Data.characteristics["planet-14"] = [8, 8, 17];
+			Data.characteristics["planet-15"] = [8, 9, 18];
 			
 			// personages
-			personages = new Array();
+			Data.personages = new Array();
 			var persFileXML:XML = FileXML.getFileXML(Assets.assetsContent.PersonagesFileXML);
 			var pers:Personage;
-			var n:int = persFileXML.Personage.length();
+			var n:int = persFileXML.personage.length();
 			for (var i:int = 0; i < n; i++)
 			{
 				pers = new Personage();
-				pers.id = persFileXML.Personage[i].id;
-				pers.name = persFileXML.Personage[i].name;
-				pers.status = persFileXML.Personage[i].status;
-				pers.description = persFileXML.Personage[i].description;
+				pers.id = persFileXML.personage[i].id;
+				pers.name = persFileXML.personage[i].name;
+				pers.status = persFileXML.personage[i].status;
+				pers.description = persFileXML.personage[i].description;
 				Data.personages[pers.id] = pers;
 			}
 			
 			// planets
+			Data.planets = new Array();
+			var planetsFileXML:XML = FileXML.getFileXML(Assets.assetsContent.PlanetsFileXML);
+			var planet:Planet;
+			var m:int = planetsFileXML.planet.length();
+			for (var j:int = 0; j < m; j++)
+			{
+				planet = new Planet();
+				planet.id = planetsFileXML.planet[j].id;
+				planet.name = planetsFileXML.planet[j].name;
+				planet.personageSith1 = planetsFileXML.planet[j].personageSith1;
+				planet.personageSith2 = planetsFileXML.planet[j].personageSith2;
+				planet.personageSith3 = planetsFileXML.planet[j].personageSith3;
+				planet.personageJedi1 = planetsFileXML.planet[j].personageJedi1;
+				planet.personageJedi2 = planetsFileXML.planet[j].personageJedi2;
+				planet.personageJedi3 = planetsFileXML.planet[j].personageJedi3;
+				planet.descriptionSith = planetsFileXML.planet[j].descriptionSith;
+				planet.descriptionJedi = planetsFileXML.planet[j].descriptionJedi;
+				planet.status = planetsFileXML.planet[j].status;
+				planet.x = planetsFileXML.planet[j].x;
+				planet.y = planetsFileXML.planet[j].y;
+				planet.scale = planetsFileXML.planet[j].scale;
+				Data.planets[planet.id] = planet;
+			}
+			
 			
 			Data.userData = Data.getUserDataJSON();
 		}
@@ -86,6 +111,8 @@ package swh.data
 		public static function getUserDataJSON():String
 		{
 			//(Data.personages["aayla_secura"] as Personage).name;
+			//(Data.planets["jakku"] as Planet).name;
+			
 			var json:String = "[{\"id\":\"1\",\"character\":[{\"name\":\"Scorpion\"},{\"name\":\"SubZero\"}]}]";
 			return json;
 		}

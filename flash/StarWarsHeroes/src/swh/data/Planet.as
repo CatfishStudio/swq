@@ -4,7 +4,7 @@ package swh.data
 	 * ...
 	 * @author Catfish Studio
 	 */
-	public class Planets 
+	public class Planet 
 	{
 		public var id:String;
 		public var name:String;
@@ -17,8 +17,11 @@ package swh.data
 		public var descriptionJedi:String;
 		public var descriptionSith:String;
 		public var status:String;
+		public var x:String;
+		public var y:String;
+		public var scale:String;
 		
-		public function Planets() 
+		public function Planet() 
 		{
 			id = "";
 			name = "";
@@ -31,6 +34,9 @@ package swh.data
 			descriptionJedi = "";
 			descriptionSith = "";
 			status = "";
+			x = "0";
+			y = "0";
+			scale = "1";
 		}
 		
 	}

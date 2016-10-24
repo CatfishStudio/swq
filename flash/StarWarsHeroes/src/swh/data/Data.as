@@ -26,6 +26,7 @@ package swh.data
 		public static var userSide:String = Constants.SIDE_JEDI;
 		public static var userPoints:int = 0;
 		public static var userData:String;
+		public static var userLastMessage:String;
 		
 		/* AI data*/
 		public static var aiSide:String = Constants.SIDE_SITH;
@@ -40,6 +41,10 @@ package swh.data
 		
 		public static function initialization():void
 		{
+			// message
+			if (Data.userSide = Constants.SIDE_JEDI) Data.userLastMessage = "Меня зовут R2D2, рад вас приветствовать.\n\nКорусант является основной целью Ситов.";
+			else Data.userLastMessage = "Меня зовут R3-S6, приветствую тебя мой повелитель. \n\nДжедаи хотят разрушить Звезду смерти и помешать нашим планам.";
+			
 			// characteristics
 			characteristics = new Array();
 			characteristics["planet-1"] = [3, 4, 4];
@@ -68,12 +73,6 @@ package swh.data
 				pers = new Personage();
 				pers.id = persFileXML.Personage[i].id;
 				pers.name = persFileXML.Personage[i].name;
-				pers.life = persFileXML.Personage[i].life;
-				pers.hit1 = persFileXML.Personage[i].hit1;
-				pers.hit2 = persFileXML.Personage[i].hit2;
-				pers.hit3 = persFileXML.Personage[i].hit3;
-				pers.hit4 = persFileXML.Personage[i].hit4;
-				pers.hit5 = persFileXML.Personage[i].hit5;
 				pers.status = persFileXML.Personage[i].status;
 				pers.description = persFileXML.Personage[i].description;
 				Data.personages[pers.id] = pers;

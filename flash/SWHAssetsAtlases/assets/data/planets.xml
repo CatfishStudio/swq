@@ -1,16 +1,243 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Planets>
 	<Planet>
-		<id>Coruscant</id>
+		<id>coruscant</id>
 		<name>Корусант</name>
 		<personageSith1>shmi_skywalker</personageSith1>
 		<personageSith2>shmi_skywalker</personageSith2>
 		<personageSith3>shmi_skywalker</personageSith3>
-		<descriptionSith></descriptionSith>
+		<descriptionSith>Корусант\nКорусант, так же известный как Центр Империи или Королева Ядра — сверкающая планета. Корусант тысячелетиями был политическим центром Галактики.\n\nМой повелитель мы должны уничтожить Корусант чтобы победить!</descriptionSith>
 		<personageJedi1>luke_skywalker</personageJedi1>
 		<personageJedi2>mace_windu</personageJedi2>
 		<personageJedi3>mas_amedda</personageJedi3>
-		<descriptionJedi></descriptionJedi>
+		<descriptionJedi>Корусант\nКорусант, так же известный как Центр Империи или Королева Ядра — сверкающая планета. Корусант тысячелетиями был политическим центром Галактики.\n\nВы должны защетить Корусант любой ценой иначе битва будет проиграна!</descriptionJedi>
+		<status>status_planet_quest_complete_jedi</status>
+		<x>450</x>
+		<y>575</y>
+		<scale>0.2</scale>
+	</Planet>
+	<Planet>
+		<id>deathstar</id>
+		<name>Звезда смерти</name>
+		<personageSith1>darth_vader</personageSith1>
+		<personageSith2>darth_sidious</personageSith2>
+		<personageSith3>commander_jerjerrod</personageSith3>
+		<descriptionSith>Звезда смерти\n\nЗвезда Смерти супероружием шарообразной формы. \n\nМой повелитель мы должны уберечь Звезду Смерти от Джедаев, иначе битва будет проиграна.</descriptionSith>
+		<personageJedi1>shmi_skywalker</personageJedi1>
+		<personageJedi2>shmi_skywalker</personageJedi2>
+		<personageJedi3>shmi_skywalker</personageJedi3>
+		<descriptionJedi>Звезда смерти\n\nЗвезда Смерти супероружием шарообразной формы. \n\nНаша главная цель уничтожить Звезду Смерти и Дарт Вейдера. \nТолько так мы победим в войне с тёмной силой!</descriptionJedi>
+		<status>status_planet_quest_complete_sith</status>
+		<x>150</x>
+		<y>245</y>
+		<scale>0.2</scale>
+	</Planet>
+	<Planet>
+		<id>totooine</id>
+		<name>Татуин</name>
+		<personageSith1>tusken</personageSith1>
+		<personageSith2>jawas</personageSith2>
+		<personageSith3>watto</personageSith3>
+		<descriptionSith>Татуин\n\nДалекий от бдительных глаз Галактической Империи, Татуин стал пристанищем для различного рода авантюристов — контрабандистов, наёмников, охотников за головами. \nМесто рождения Энакина Скайуокера.</descriptionSith>
+		<personageJedi1>qui_gon_jinn</personageJedi1>
+		<personageJedi2>owen_lars</personageJedi2>
+		<personageJedi3>tusken_2</personageJedi3>
+		<descriptionJedi>Татуин\n\nДалекий от бдительных глаз Галактической Империи, Татуин стал пристанищем для различного рода авантюристов — контрабандистов, наёмников, охотников за головами. \nМесто рождения Энакина Скайуокера.</descriptionJedi>
 		<status>status_planet_quest_awaiting</status>
+		<x>300</x>
+		<y>425</y>
+		<scale>0.2</scale>
+	</Planet>
+	<Planet>
+		<id>naboo</id>
+		<name>Набу</name>
+		<personageSith1>darth_maul</personageSith1>
+		<personageSith2>trade_federation</personageSith2>
+		<personageSith3>b1_battle_droid</personageSith3>
+		<descriptionSith>Набу\n\nНабу населена двумя независимыми друг от друга обществами — гунганами, обитающими в подводных городах, и набуанцами - людьми. Родной мир Падме Амидалы Наберри и Джа Джа Бинкса, а также сенатора и будущего императора Палпатина.</descriptionSith>
+		<personageJedi1>boss_nass</personageJedi1>
+		<personageJedi2>capitan_panaka</personageJedi2>
+		<personageJedi3>royal_guards</personageJedi3>
+		<descriptionJedi>Набу\n\nНабу населена двумя независимыми друг от друга обществами — гунганами, обитающими в подводных городах, и набуанцами - людьми. Родной мир Падме Амидалы Наберри и Джа Джа Бинкса, а также сенатора и будущего императора Палпатина.</descriptionJedi>
+		<status>status_planet_quest_awaiting</status>
+		<x>630</x>
+		<y>240</y>
+		<scale>0.2</scale>
+	</Planet>
+	<Planet>
+		<id>endor</id>
+		<name>Эндор</name>
+		<personageSith1>nute_gunray</personageSith1>
+		<personageSith2>stormtroopers</personageSith2>
+		<personageSith3>aurra_sing</personageSith3>
+		<descriptionSith>Эндор\n\nГазовый гигант, вращавшийся вокруг звезды Иблим во Внешнем Кольце. Галактическая Империя создала Запретный путепровод, чтобы быстро добираться до окрестностей планеты.</descriptionSith>
+		<personageJedi1>alliance_to_restore_the_republic</personageJedi1>
+		<personageJedi2>wicket_wysri_warrick</personageJedi2>
+		<personageJedi3>aayla_secura</personageJedi3>
+		<descriptionJedi>Эндор\n\nГазовый гигант, вращавшийся вокруг звезды Иблим во Внешнем Кольце. Галактическая Империя создала Запретный путепровод, чтобы быстро добираться до окрестностей планеты.</descriptionJedi>
+		<status>status_planet_quest_awaiting</status>
+		<x>200</x>
+		<y>550</y>
+		<scale>0.2</scale>
+	</Planet>
+	<Planet>
+		<id>hoth</id>
+		<name>Хот</name>
+		<personageSith1>maximilian_veers</personageSith1>
+		<personageSith2>stormtrooper_2</personageSith2>
+		<personageSith3>stormtrooper_1</personageSith3>
+		<descriptionSith>Хот\n\nПоверхность планеты - одна непрерывная корка льда и снега. \n\nХот не нанесен на большинство карт звездного неба, тем самым делая эту планету очень удобной для мятежников.</descriptionSith>
+		<personageJedi1>general_madine</personageJedi1>
+		<personageJedi2>han_solo</personageJedi2>
+		<personageJedi3>chewbacca</personageJedi3>
+		<descriptionJedi>Хот\n\nПоверхность планеты - одна непрерывная корка льда и снега. \n\nХот не нанесен на большинство карт звездного неба, тем самым делая эту планету очень удобной для мятежников.</descriptionJedi>
+		<status>status_planet_quest_awaiting</status>
+		<x>700</x>
+		<y>485</y>
+		<scale>0.2</scale>
+	</Planet>
+	<Planet>
+		<id>mustafar</id>
+		<name>Мустафар</name>
+		<personageSith1>anakin_skywalker</personageSith1>
+		<personageSith2>palpatine</personageSith2>
+		<personageSith3>separatists</personageSith3>
+		<descriptionSith>Мустафар\n\nМаленький вулканический мир, где лава добывалась как ценный ресурс. Он также являлся последней столицей Конфедерации Независимых Систем.</descriptionSith>
+		<personageJedi1>obi_wan_kenobi</personageJedi1>
+		<personageJedi2>padme_amidala</personageJedi2>
+		<personageJedi3>wat_tambor</personageJedi3>
+		<descriptionJedi>Мустафар\n\nМаленький вулканический мир, где лава добывалась как ценный ресурс. Он также являлся последней столицей Конфедерации Независимых Систем.</descriptionJedi>
+		<status>status_planet_quest_awaiting</status>
+		<x>600</x>
+		<y>375</y>
+		<scale>0.2</scale>
+	</Planet>
+	<Planet>
+		<id>dagobah</id>
+		<name>Дагоба</name>
+		<personageSith1>stormtroopers_2</personageSith1>
+		<personageSith2>clone_commander_bakara</personageSith2>
+		<personageSith3>clone_commander_cody</personageSith3>
+		<descriptionSith>Дагоба\n\nДагоба — это суровая, влажная планета, практически полностью покрытая топями, перемежающимися с душными лесами.</descriptionSith>
+		<personageJedi1>yoda</personageJedi1>
+		<personageJedi2>barriss_offee</personageJedi2>
+		<personageJedi3>kit_fisto</personageJedi3>
+		<descriptionJedi>Дагоба\n\nДагоба — это суровая, влажная планета, практически полностью покрытая топями, перемежающимися с душными лесами.</descriptionJedi>
+		<status>status_planet_quest_awaiting</status>
+		<x>200</x>
+		<y>50</y>
+		<scale>0.2</scale>
+	</Planet>
+	<Planet>
+		<id>bespin</id>
+		<name>Беспин</name>
+		<personageSith1>boba_fett</personageSith1>
+		<personageSith2>stormtrooper_1_2</personageSith2>
+		<personageSith3>clone_commander_neyo</personageSith3>
+		<descriptionSith>Беспин\n\nБеспин – это газовый гигант из системы Беспин сектора Аноат Внешнего Кольца. Планета являлась важным источником газа.</descriptionSith>
+		<personageJedi1>adigallia</personageJedi1>
+		<personageJedi2>lando_calrissian</personageJedi2>
+		<personageJedi3>ki_adi_mundi</personageJedi3>
+		<descriptionJedi>Беспин\n\nБеспин – это газовый гигант из системы Беспин сектора Аноат Внешнего Кольца. Планета являлась важным источником газа.</descriptionJedi>
+		<status>status_planet_quest_awaiting</status>
+		<x>5</x>
+		<y>125</y>
+		<scale>0.2</scale>
+	</Planet>
+	<Planet>
+		<id>geonosis</id>
+		<name>Джеонозис</name>
+		<personageSith1>b1_battle_droid_2</personageSith1>
+		<personageSith2>dooku</personageSith2>
+		<personageSith3>red_battle_droid</personageSith3>
+		<descriptionSith>Джеонозис\n\nРодная планета джеонозийцев, первая столица Конфедерации независимых систем и главный центр производства дроидов.</descriptionSith>
+		<personageJedi1>republic_clone_army_2</personageJedi1>
+		<personageJedi2>poggle_the_lesser</personageJedi2>
+		<personageJedi3>saesee_tiin</personageJedi3>
+		<descriptionJedi>Джеонозис\n\nРодная планета джеонозийцев, первая столица Конфедерации независимых систем и главный центр производства дроидов.</descriptionJedi>
+		<status>status_planet_quest_awaiting</status>
+		<x>720</x>
+		<y>600</y>
+		<scale>0.2</scale>
+	</Planet>
+	<Planet>
+		<id>alderaan</id>
+		<name>Альдераан</name>
+		<personageSith1>admiral_ozzel</personageSith1>
+		<personageSith2>stormtroopers_3</personageSith2>
+		<personageSith3>rune_haako</personageSith3>
+		<descriptionSith>Альдераан\n\nАльдераан, родной дом для многих знаменитых героев, включая Лею Органу Соло, Бейла Органу и Улика Кель-Дрому. Известные по всей Галактике своей безупречной красотой, утончённой культурой.</descriptionSith>
+		<personageJedi1>bail_organa</personageJedi1>
+		<personageJedi2>leia_organa</personageJedi2>
+		<personageJedi3>kapitan_antilles</personageJedi3>
+		<descriptionJedi>Альдераан\n\nАльдераан, родной дом для многих знаменитых героев, включая Лею Органу Соло, Бейла Органу и Улика Кель-Дрому. Известные по всей Галактике своей безупречной красотой, утончённой культурой.</descriptionJedi>
+		<status>status_planet_quest_awaiting</status>
+		<x>50</x>
+		<y>380</y>
+		<scale>0.2</scale>
+	</Planet>
+	<Planet>
+		<id>kamino</id>
+		<name>Камино</name>
+		<personageSith1>jango_fett</personageSith1>
+		<personageSith2>republic_clone_army</personageSith2>
+		<personageSith3>clone_commander_rex</personageSith3>
+		<descriptionSith>Камино\n\nКамино — водный мир, где была произведена армия клонов для Галактической Республики, позже ставшая имперским штурмовым корпусом, Каминоанский флот обороны.</descriptionSith>
+		<personageJedi1>plo_koon</personageJedi1>
+		<personageJedi2>clone_commander_bakara_2</personageJedi2>
+		<personageJedi3>clone_commander_neyo_2</personageJedi3>
+		<descriptionJedi>Камино\n\nКамино — водный мир, где была произведена армия клонов для Галактической Республики, позже ставшая имперским штурмовым корпусом, Каминоанский флот обороны.</descriptionJedi>
+		<status>status_planet_quest_awaiting</status>
+		<x>400</x>
+		<y>275</y>
+		<scale>0.2</scale>
+	</Planet>
+	<Planet>
+		<id>utapau</id>
+		<name>Утапау</name>
+		<personageSith1>separatists_2</personageSith1>
+		<personageSith2>general_grievous</personageSith2>
+		<personageSith3>clone_commander_cody_2</personageSith3>
+		<descriptionSith>Утапау была населена двумя разумными видами: высокими, серокожими, медлительными, хрупковатыми на вид пау'анами, получившими прозвище «древний народ» за долгую продолжительность жизни, и коренастыми, низкорослыми утаями, прозванными «коротышками».</descriptionSith>
+		<personageJedi1>shaak_ti</personageJedi1>
+		<personageJedi2>tion_medon</personageJedi2>
+		<personageJedi3>bib_fortuna</personageJedi3>
+		<descriptionJedi>Утапау была населена двумя разумными видами: высокими, серокожими, медлительными, хрупковатыми на вид пау'анами, получившими прозвище «древний народ» за долгую продолжительность жизни, и коренастыми, низкорослыми утаями, прозванными «коротышками».</descriptionJedi>
+		<status>status_planet_quest_awaiting</status>
+		<x>700</x>
+		<y>50</y>
+		<scale>0.2</scale>
+	</Planet>
+	<Planet>
+		<id>saleucami</id>
+		<name>Салукемай</name>
+		<personageSith1>clone_commander_rex_2</personageSith1>
+		<personageSith2>general_grievous_2</personageSith2>
+		<personageSith3>b1_battle_droid_3</personageSith3>
+		<descriptionSith>Салукемай\n\nСалукемай был тусклым, засушливым миром с разбросанными оазисами растений. Планета находилась на пути Талеского транзита, по которому поставлялись грузы по Перлемианскому торговому маршруту.</descriptionSith>
+		<personageJedi1>eeth_koth</personageJedi1>
+		<personageJedi2>mon_motma</personageJedi2>
+		<personageJedi3>c_3po</personageJedi3>
+		<descriptionJedi>Салукемай\n\nСалукемай был тусклым, засушливым миром с разбросанными оазисами растений. Планета находилась на пути Талеского транзита, по которому поставлялись грузы по Перлемианскому торговому маршруту.</descriptionJedi>
+		<status>status_planet_quest_awaiting</status>
+		<x>810</x>
+		<y>155</y>
+		<scale>0.2</scale>
+	</Planet>
+	<Planet>
+		<id>jakku</id>
+		<name>Джакку</name>
+		<personageSith1>kylo_ren</personageSith1>
+		<personageSith2>phasma</personageSith2>
+		<personageSith3>stormtrooper_1_3</personageSith3>
+		<descriptionSith>Джакку - представлял собой изолированный пустынный мир, который на севере пересекали Колёсные пути, а через всю планету шли горнодобывающие карьеры. В пустошах можно встретить отшельников, а также мусорщиков, которые перевозили своё добро на лаггабистах.</descriptionSith>
+		<personageJedi1>rey</personageJedi1>
+		<personageJedi2>finn</personageJedi2>
+		<personageJedi3>poe_dameron</personageJedi3>
+		<descriptionJedi>Джакку - представлял собой изолированный пустынный мир, который на севере пересекали Колёсные пути, а через всю планету шли горнодобывающие карьеры. В пустошах можно встретить отшельников, а также мусорщиков, которые перевозили своё добро на лаггабистах.</descriptionJedi>
+		<status>status_planet_quest_awaiting</status>
+		<x>450</x>
+		<y>75</y>
+		<scale>0.2</scale>
 	</Planet>
 </Planets>

@@ -37,7 +37,6 @@ package swh.data
 		/* Game data */
 		public static var personages:Array;
 		public static var planets:Array;
-		public static var characteristics:Array;
 		
 		
 		public static function initialization():void
@@ -45,24 +44,6 @@ package swh.data
 			// message
 			if (Data.userSide == Constants.SIDE_JEDI) Data.userLastMessage = "Меня зовут R2D2, рад вас приветствовать.\n\nКорусант является основной целью Ситов.";
 			else Data.userLastMessage = "Меня зовут R3-S6, приветствую тебя мой повелитель. \n\nДжедаи хотят разрушить Звезду смерти и помешать нашим планам.";
-			
-			// characteristics
-			Data.characteristics = new Array();
-			Data.characteristics["planet-1"] = [3, 4, 4];
-			Data.characteristics["planet-2"] = [2, 2, 5];
-			Data.characteristics["planet-3"] = [2, 3, 6];
-			Data.characteristics["planet-4"] = [3, 3, 7];
-			Data.characteristics["planet-5"] = [3, 4, 8];
-			Data.characteristics["planet-6"] = [4, 4, 9];
-			Data.characteristics["planet-7"] = [4, 5, 10];
-			Data.characteristics["planet-8"] = [5, 5, 11];
-			Data.characteristics["planet-9"] = [5, 6, 12];
-			Data.characteristics["planet-10"] = [6, 6, 13];
-			Data.characteristics["planet-11"] = [6, 7, 14];
-			Data.characteristics["planet-12"] = [7, 7, 15];
-			Data.characteristics["planet-13"] = [7, 8, 16];
-			Data.characteristics["planet-14"] = [8, 8, 17];
-			Data.characteristics["planet-15"] = [8, 9, 18];
 			
 			// personages
 			Data.personages = new Array();
@@ -104,11 +85,56 @@ package swh.data
 				Data.planets[planet.id] = planet;
 			}
 			
+			// characteristics
+			Data.setCharacteristics();
 			
-			Data.userData = Data.getUserDataJSON();
+			// create json
+			Data.userData = Data.createUserDataJSON();
 		}
 		
-		public static function getUserDataJSON():String
+		public static function setCharacteristics():void
+		{
+			var characteristics:Array = [
+				[3, 4, 4],	[2, 2, 5],	[2, 3, 6],	[3, 3, 7],	[3, 4, 8],
+				[4, 4, 9],	[4, 5, 10],	[5, 5, 11],	[5, 6, 12],	[6, 6, 13],				
+				[6, 7, 14],	[7, 7, 15],	[7, 8, 16],	[8, 8, 17],	[8, 9, 18]
+			];
+			
+			
+			for each (var planet:Planet in Data.planets) 
+			{ 
+				var powers:Array;
+				if (planet.name == "coruscant" && Data.userSide == Constants.SIDE_JEDI){
+					powers = characteristics.splice(0, 1);
+					(Data.personages[planet.personageJedi1] as Personage).setCharacteristics(powers[0]);
+					(Data.personages[planet.personageJedi2] as Personage).setCharacteristics(powers[1]);
+					(Data.personages[planet.personageJedi3] as Personage).setCharacteristics(powers[2]);
+					
+				}else if (planet.name == "coruscant" && Data.userSide == Constants.SIDE_SITH){
+					powers = characteristics.splice(characteristics.length-1, 1);
+					(Data.personages[planet.personageJedi1] as Personage).setCharacteristics(powers[0]);
+					(Data.personages[planet.personageJedi2] as Personage).setCharacteristics(powers[1]);
+					(Data.personages[planet.personageJedi3] as Personage).setCharacteristics(powers[2]);
+					
+				}else if (planet.name == "deathstar" && Data.userSide == Constants.SIDE_SITH){
+					powers = characteristics.splice(0, 1);
+					(Data.personages[planet.personageSith1] as Personage).setCharacteristics(powers[0]);
+					(Data.personages[planet.personageSith2] as Personage).setCharacteristics(powers[1]);
+					(Data.personages[planet.personageSith3] as Personage).setCharacteristics(powers[2]);
+					
+				}else if (planet.name == "deathstar" && Data.userSide == Constants.SIDE_JEDI){
+					powers = characteristics.splice(characteristics.length-1, 1);
+					(Data.personages[planet.personageSith1] as Personage).setCharacteristics(powers[0]);
+					(Data.personages[planet.personageSith2] as Personage).setCharacteristics(powers[1]);
+					(Data.personages[planet.personageSith3] as Personage).setCharacteristics(powers[2]);
+					
+				}else{
+					
+				}
+			} 
+		}
+		
+		public static function createUserDataJSON():String
 		{
 			//(Data.personages["aayla_secura"] as Personage).name;
 			//(Data.planets["jakku"] as Planet).name;

@@ -217,10 +217,50 @@ package swh.data
 		
 		public static function createUserDataJSON():String
 		{
-			//(Data.personages["aayla_secura"] as Personage).name;
-			//(Data.planets["jakku"] as Planet).name;
+			/* Формат данных
+				{
+					"ИмяГруппы": {
+						"ИмяМассива": [
+							{
+								"id": "0"
+							},
+							{
+								"id": "1"
+							},
+							{
+								"id": "2"
+							}
+						]
+					}
+				}
+			*/
 			
-			var json:String = "[{\"id\":\"1\",\"character\":[{\"name\":\"Scorpion\"},{\"name\":\"SubZero\"}]}]";
+			//var json:String = "[{\"id\":\"1\",\"character\":[{\"name\":\"Scorpion\"},{\"name\":\"SubZero\"}]}]";
+			var json:String = "{";
+			json += "\"user\":{";
+			json += "\"message\":" + Data.userLastMessage.toString() + "\",";
+			json += "\"side\":" + Data.userSide.toString() + "\",";
+			json += "\"points\":" + Data.userPoints.toString() + "\",";
+			json += "\"command\":[";
+			for (var i:int = 0; i < Data.userCommand.length; i++){
+				json += "{";
+				json += "\"id\":" + "\"" + Data.userCommand[i].id.toString() + "\","; 
+				json += "\"name\":" + "\"" + Data.userCommand[i].name.toString() + "\",";
+				json += "\"life\":" + "\"" + Data.userCommand[i].life.toString() + "\",";
+				json += "\"hit1\":" + "\"" + Data.userCommand[i].hit1.toString() + "\",";
+				json += "\"hit2\":" + "\"" + Data.userCommand[i].hit2.toString() + "\",";
+				json += "\"hit3\":" + "\"" + Data.userCommand[i].hit3.toString() + "\",";
+				json += "\"hit4\":" + "\"" + Data.userCommand[i].hit4.toString() + "\",";
+				json += "\"hit5\":" + "\"" + Data.userCommand[i].hit5.toString() + "\",";
+				json += "\"status\":" + "\"" + Data.userCommand[i].status.toString() + "\",";
+				json += "\"incommand\":" + "\"" + Data.userCommand[i].inCommand.toString() + "\""; 
+				if (i == (Data.userCommand.length - 1)) json += "}";
+				else json += "},";
+			}
+			json += "]";
+			json += "}";
+			json += "}";
+			
 			return json;
 		}
 		
@@ -230,6 +270,11 @@ package swh.data
 		
 		
 		/* ЧТЕНИЕ ДАННЫХ С СЕРВЕРА И ПОСТРОЕНИЕ ЛОГИКИ //////////////////////////////////////////////////////////// */
+		public static function readUserDataJSON():void
+		{
+			//(Data.personages["aayla_secura"] as Personage).name;
+			//(Data.planets["jakku"] as Planet).name;
+		}
 		
 		/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 	}

@@ -28,13 +28,15 @@ package swh.data
 		public static var userSide:String = Constants.SIDE_JEDI;
 		public static var userPoints:int = 0;
 		public static var userCommand:Vector.<Personage>;
-		public static var userData:String;
+		public static var userData:String;		// для json
 		
 		/* AI data*/
 		public static var aiSide:String = Constants.SIDE_SITH;
 		public static var aiPoints:int = 0;
 		public static var aiCommand:Vector.<Personage>;
-		public static var aiData:String;
+		public static var aiData:String;		// для json
+		
+		public static var planetsData:String;	// для json
 		
 		/* Game data */
 		public static var personages:Array;
@@ -218,29 +220,15 @@ package swh.data
 		public static function createUserDataJSON():String
 		{
 			/* Формат данных
-				{
-					"ИмяГруппы": {
-						"ИмяМассива": [
-							{
-								"id": "0"
-							},
-							{
-								"id": "1"
-							},
-							{
-								"id": "2"
-							}
-						]
-					}
-				}
+				{	"ИмяГруппы": {	"ИмяМассива": [	{	"id": "0"	},	{	"id": "1"	},	{	"id": "2"	}]	}	}
+				или var json:String = "[{\"id\":\"1\",\"character\":[{\"name\":\"Scorpion\"},{\"name\":\"SubZero\"}]}]";
 			*/
 			
-			//var json:String = "[{\"id\":\"1\",\"character\":[{\"name\":\"Scorpion\"},{\"name\":\"SubZero\"}]}]";
 			var json:String = "{";
 			json += "\"user\":{";
-			json += "\"message\":" + Data.userLastMessage.toString() + "\",";
-			json += "\"side\":" + Data.userSide.toString() + "\",";
-			json += "\"points\":" + Data.userPoints.toString() + "\",";
+			json += "\"message\":\"" + Data.userLastMessage.toString() + "\",";
+			json += "\"side\":\"" + Data.userSide.toString() + "\",";
+			json += "\"points\":\"" + Data.userPoints.toString() + "\",";
 			json += "\"command\":[";
 			for (var i:int = 0; i < Data.userCommand.length; i++){
 				json += "{";
@@ -255,6 +243,36 @@ package swh.data
 				json += "\"status\":" + "\"" + Data.userCommand[i].status.toString() + "\",";
 				json += "\"incommand\":" + "\"" + Data.userCommand[i].inCommand.toString() + "\""; 
 				if (i == (Data.userCommand.length - 1)) json += "}";
+				else json += "},";
+			}
+			json += "]";
+			json += "}";
+			json += "}";
+			
+			return json;
+		}
+		
+		public static function createAIDataJSON():String
+		{
+			var json:String = "{";
+			json += "\"user\":{";
+			json += "\"message\":\"" + "\",";
+			json += "\"side\":\"" + Data.aiSide.toString() + "\",";
+			json += "\"points\":\"" + Data.aiPoints.toString() + "\",";
+			json += "\"command\":[";
+			for (var i:int = 0; i < Data.aiCommand.length; i++){
+				json += "{";
+				json += "\"id\":" + "\"" + Data.aiCommand[i].id.toString() + "\","; 
+				json += "\"name\":" + "\"" + Data.aiCommand[i].name.toString() + "\",";
+				json += "\"life\":" + "\"" + Data.aiCommand[i].life.toString() + "\",";
+				json += "\"hit1\":" + "\"" + Data.aiCommand[i].hit1.toString() + "\",";
+				json += "\"hit2\":" + "\"" + Data.aiCommand[i].hit2.toString() + "\",";
+				json += "\"hit3\":" + "\"" + Data.aiCommand[i].hit3.toString() + "\",";
+				json += "\"hit4\":" + "\"" + Data.aiCommand[i].hit4.toString() + "\",";
+				json += "\"hit5\":" + "\"" + Data.aiCommand[i].hit5.toString() + "\",";
+				json += "\"status\":" + "\"" + Data.aiCommand[i].status.toString() + "\",";
+				json += "\"incommand\":" + "\"" + Data.aiCommand[i].inCommand.toString() + "\""; 
+				if (i == (Data.aiCommand.length - 1)) json += "}";
 				else json += "},";
 			}
 			json += "]";

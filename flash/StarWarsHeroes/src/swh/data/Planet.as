@@ -17,9 +17,11 @@ package swh.data
 		public var descriptionJedi:String;
 		public var descriptionSith:String;
 		public var status:String;
-		public var x:String;
-		public var y:String;
-		public var scale:String;
+		public var x:int;
+		public var y:int;
+		public var scale:Number;
+		public var powersJedi:Array;
+		public var powersSith:Array;
 		
 		public function Planet() 
 		{
@@ -34,9 +36,11 @@ package swh.data
 			descriptionJedi = "";
 			descriptionSith = "";
 			status = "";
-			x = "0";
-			y = "0";
-			scale = "1";
+			x = 0;
+			y = 0;
+			scale = 1.0;
+			powersJedi = [];
+			powersSith = [];
 		}
 		
 	}

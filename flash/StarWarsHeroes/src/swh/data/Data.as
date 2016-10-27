@@ -1,5 +1,7 @@
 package swh.data 
 {
+	import flash.net.URLRequest;
+	import flash.net.navigateToURL;
 	import swh.data.Constants;
 	import swh.data.Personage;
 	import swh.data.Planet;
@@ -46,6 +48,12 @@ package swh.data
 		public static function utilitRandomValue(min:int, max:int):int
 		{
 			return Math.random() * max | min;
+		}
+		
+		public static function utilitConsole(message:*):void
+		{
+			var url:String = "http://localhost/game/swh/console.php?console=" + String(message);
+			navigateToURL(new URLRequest(url));
 		}
 		
 		/* ПОСТРОЕНИЕ НОВОЙ ЛОГИКИ ///////////////////////////////////////////////////////////////////////////////// */
@@ -95,14 +103,7 @@ package swh.data
 				Data.planets[planet.id] = planet;
 			}
 			
-			// characteristics
-			Data.createNewCharacteristics();
 			
-			// commands
-			Data.createNewCommands();
-			
-			// create json
-			Data.userData = Data.createUserDataJSON();
 		}
 		
 		public static function createNewCharacteristics():void
@@ -248,14 +249,14 @@ package swh.data
 			json += "]";
 			json += "}";
 			json += "}";
-			
+			//Data.utilitConsole(json);
 			return json;
 		}
 		
 		public static function createAIDataJSON():String
 		{
 			var json:String = "{";
-			json += "\"user\":{";
+			json += "\"ai\":{";
 			json += "\"message\":\"" + "\",";
 			json += "\"side\":\"" + Data.aiSide.toString() + "\",";
 			json += "\"points\":\"" + Data.aiPoints.toString() + "\",";
@@ -278,7 +279,45 @@ package swh.data
 			json += "]";
 			json += "}";
 			json += "}";
-			
+			//Data.utilitConsole(json);
+			return json;
+		}
+		
+		public static function createPlanetsDataJSON():String
+		{
+			var count:int = 0;
+			var json:String = "{";
+			json += "\"map\":{";
+			json += "\"planets\":[";
+			for each (var planet:Planet in Data.planets) 
+			{
+				json += "{";
+				json += "\"id\":" + "\"" + planet.id.toString() + "\","; 
+				json += "\"status\":" + "\"" + planet.status.toString() + "\",";
+				json += "\"powersjedi\":["
+				for (var n:int = 0; n < planet.powersJedi.length; n++){
+					json += "{";
+					json += "\"value\":" + "\"" + String(planet.powersJedi[n]) + "\""; 
+					if (n == (planet.powersJedi.length - 1)) json += "}";
+					else json += "},";
+				}
+				json +=	"],"; 
+				json += "\"powerssith\":["
+				for (var m:int = 0; m < planet.powersSith.length; m++){
+					json += "{";
+					json += "\"value\":" + "\"" + String(planet.powersSith[m]) + "\"";
+					if (m == (planet.powersSith.length - 1)) json += "}";
+					else json += "},";
+				}
+				json += "]";
+				if (count < 14) json += "},";
+				else json += "}";
+				count++;
+			}
+			json += "]";
+			json += "}";
+			json += "}";
+			//Data.utilitConsole(json);
 			return json;
 		}
 		

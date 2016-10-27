@@ -35,7 +35,7 @@ package swh
 			
 			mask = new Quad(Constants.GAME_WINDOW_WIDTH, Constants.GAME_WINDOW_HEIGHT);
 			
-			createMenu();
+			getSaveGame();
 		}
 		
 		/* MENU ---------------------------- */
@@ -130,7 +130,14 @@ package swh
 			//var json:String = "[{\"id\":\"1\",\"character\":[{\"name\":\"Scorpion\"},{\"name\":\"SubZero\"}]}]";
 			try{
 				Data.initialization();
+				Data.createNewCharacteristics();
+				Data.createNewCommands();
+				Data.userData = Data.createUserDataJSON();
+				Data.aiData = Data.createAIDataJSON();
+				Data.planetsData = Data.createPlanetsDataJSON();
 				VKAPI.vkConnection.api("storage.set", { key:"swhUserData", value:Data.userData}, onDataSet, onDataErrorSet);
+				VKAPI.vkConnection.api("storage.set", { key:"swhAIData", value:Data.aiData}, onDataSet, onDataErrorSet);
+				VKAPI.vkConnection.api("storage.set", { key:"swhPlanetsData", value:Data.planetsData}, onDataSet, onDataErrorSet);
 			}catch (e:Error){
 				Data.errorSetData = true;
 				removeMenu();
@@ -145,10 +152,48 @@ package swh
         }
         private function onDataErrorSet (response:Object):void 
         {
+			Data.errorSetData = true;
+			removeMenu();
+			createSide();
             //textField.text = response.error_msg;
 			//textField.text = String(response)
 			//Data.userTest = "ERROR";
         }
+		
+		/* READ SAVE GAME ============================================================= */
+		private function getSaveGame():void
+		{
+			try{
+				VKAPI.vkConnection.api("storage.get", { key:"swhUserData" }, OnGetUserData, OnEGet);
+				VKAPI.vkConnection.api("storage.get", { key:"swhAIData" }, OnGetAIData, OnEGet);
+				VKAPI.vkConnection.api("storage.get", { key:"swhPlanetsData" }, OnGetPlanetsData, OnEGet);
+				createMenu();
+			}catch (e:Error){
+				Data.errorGetData = true;
+				createMenu();
+			}
+		}
+		private function OnGetUserData(response:Object):void 
+        {
+			//var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.userData);
+			//jsonData[0].id
+			Data.userData = String(response);
+        }
+		private function OnGetAIData(response:Object):void 
+        {
+			Data.aiData = String(response);
+        }
+		private function OnGetPlanetsData(response:Object):void 
+        {
+			Data.planetsData = String(response);
+        }
+        private function OnEGet(response:Object):void 
+        {
+			Data.errorGetData = true;
+			createMenu();
+        }
+		
+		/* ============================================================================ */
 		
 	}
 

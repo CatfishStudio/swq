@@ -53,7 +53,16 @@ package swh.menu
 			createHelp();
 			createMessage();
 			
-			getSaveGame();
+			if (Data.errorGetData === true){
+				message.setText("Ошибка: Сервер ВКонтакте недоступен!\nСохранённые данные не удалось загрузить.");
+			}else{
+				if (Data.userData != "" && Data.aiData != "" && Data.planetsData != "") {
+					message.setText("Сохранённых данных успешно загружены!\nВы можите продолжить игру.");
+					createButtonContinue();
+				} else{
+					message.setText("Сохранённых данных нет.\nНачните новую игры.");
+				}
+			}
 			
 			trace('[MENU]: added to stage');
 		}
@@ -328,34 +337,7 @@ package swh.menu
 			addChild(message);
 		}
 		
-		/* READ SAVE GAME ============================================================= */
-		private function getSaveGame():void
-		{
-			try{
-				VKAPI.vkConnection.api("storage.get", { key:"swhUserData" }, OnGet, OnEGet);
-			}catch (e:Error){
-				Data.errorGetData = true;
-				message.setText("Ошибка: Сервер ВКонтакте недоступен!");
-			}
-		}
 		
-		private function OnGet(response:Object):void 
-        {
-			Data.userData = String(response);
-			if (Data.userData != ""){
-				message.setText("Сохранённых данных успешно загружены!");
-				createButtonContinue();
-				//var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.userData);
-				//jsonData[0].id
-			}else{
-				message.setText("Сохранённых данных нет. Начните новую игры.");
-			}
-        }
-        private function OnEGet(response:Object):void 
-        {
-			message.setText("Произошла ошибка загрузки данных!");
-        }
-		/* ============================================================================ */
 	}
 
 }

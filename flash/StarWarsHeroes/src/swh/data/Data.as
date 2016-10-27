@@ -6,6 +6,7 @@ package swh.data
 	import swh.data.Personage;
 	import swh.data.Planet;
 	import swh.xml.FileXML;
+	import vk.api.serialization.json.JSON;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -30,15 +31,15 @@ package swh.data
 		public static var userSide:String = Constants.SIDE_JEDI;
 		public static var userPoints:int = 0;
 		public static var userCommand:Vector.<Personage>;
-		public static var userData:String;		// для json
+		public static var userData:String;		// для сервера (формат: json)
 		
 		/* AI data*/
 		public static var aiSide:String = Constants.SIDE_SITH;
 		public static var aiPoints:int = 0;
 		public static var aiCommand:Vector.<Personage>;
-		public static var aiData:String;		// для json
+		public static var aiData:String;		// для сервера (формат: json)
 		
-		public static var planetsData:String;	// для json
+		public static var planetsData:String;	// для сервера (формат: json)
 		
 		/* Game data */
 		public static var personages:Array;
@@ -102,8 +103,6 @@ package swh.data
 				planet.scale = Number(planetsFileXML.planet[j].scale);
 				Data.planets[planet.id] = planet;
 			}
-			
-			
 		}
 		
 		public static function createNewCharacteristics():void
@@ -222,11 +221,11 @@ package swh.data
 		{
 			/* Формат данных
 				{	"ИмяГруппы": {	"ИмяМассива": [	{	"id": "0"	},	{	"id": "1"	},	{	"id": "2"	}]	}	}
-				или var json:String = "[{\"id\":\"1\",\"character\":[{\"name\":\"Scorpion\"},{\"name\":\"SubZero\"}]}]";
+				или 
+				[	{ "id":"1",	"character":[	{	"name":"Scorpion"	},	{	"name":"SubZero"	}	]	}	]
 			*/
 			
-			var json:String = "{";
-			json += "\"user\":{";
+			var json:String = "[{";
 			json += "\"message\":\"" + Data.userLastMessage.toString() + "\",";
 			json += "\"side\":\"" + Data.userSide.toString() + "\",";
 			json += "\"points\":\"" + Data.userPoints.toString() + "\",";
@@ -247,16 +246,14 @@ package swh.data
 				else json += "},";
 			}
 			json += "]";
-			json += "}";
-			json += "}";
+			json += "}]";
 			//Data.utilitConsole(json);
 			return json;
 		}
 		
 		public static function createAIDataJSON():String
 		{
-			var json:String = "{";
-			json += "\"ai\":{";
+			var json:String = "[{";
 			json += "\"message\":\"" + "\",";
 			json += "\"side\":\"" + Data.aiSide.toString() + "\",";
 			json += "\"points\":\"" + Data.aiPoints.toString() + "\",";
@@ -277,8 +274,7 @@ package swh.data
 				else json += "},";
 			}
 			json += "]";
-			json += "}";
-			json += "}";
+			json += "}]";
 			//Data.utilitConsole(json);
 			return json;
 		}
@@ -286,8 +282,7 @@ package swh.data
 		public static function createPlanetsDataJSON():String
 		{
 			var count:int = 0;
-			var json:String = "{";
-			json += "\"map\":{";
+			var json:String = "[{";
 			json += "\"planets\":[";
 			for each (var planet:Planet in Data.planets) 
 			{
@@ -315,8 +310,7 @@ package swh.data
 				count++;
 			}
 			json += "]";
-			json += "}";
-			json += "}";
+			json += "}]";
 			//Data.utilitConsole(json);
 			return json;
 		}
@@ -324,13 +318,30 @@ package swh.data
 		/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 		
 		
-		
-		
 		/* ЧТЕНИЕ ДАННЫХ С СЕРВЕРА И ПОСТРОЕНИЕ ЛОГИКИ //////////////////////////////////////////////////////////// */
 		public static function readUserDataJSON():void
 		{
 			//(Data.personages["aayla_secura"] as Personage).name;
 			//(Data.planets["jakku"] as Planet).name;
+			var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.userData);
+			
+			//Data.utilitConsole(jsonData[0].message);
+			//Data.utilitConsole(jsonData[0].command[0].id);
+			
+		}
+		
+		public static function readAIDataJSON():void
+		{
+			var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.aiData);
+			//Data.utilitConsole(jsonData[0].message);
+			//Data.utilitConsole(jsonData[0].command[0].id);
+		}
+		
+		public static function readPlanetsDataJSON():void
+		{
+			var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.planetsData);
+			//Data.utilitConsole(jsonData[0].planets[0].id);
+			//Data.utilitConsole(jsonData[0].planets.length);
 		}
 		
 		/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */

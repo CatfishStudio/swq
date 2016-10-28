@@ -58,6 +58,7 @@ package swh.menu
 			}else{
 				if (Data.userData != "" && Data.aiData != "" && Data.planetsData != "") {
 					Data.initialization();
+					Data.readDataJSON();
 					Data.readPlanetsDataJSON();
 					Data.readUserDataJSON();
 					Data.readAIDataJSON();

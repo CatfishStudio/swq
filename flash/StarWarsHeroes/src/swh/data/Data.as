@@ -150,15 +150,19 @@ package swh.data
 					}
 				}
 				
-				(Data.personages[planet.personageJedi1] as Personage).setCharacteristics(powersJedi[0]);
-				(Data.personages[planet.personageJedi2] as Personage).setCharacteristics(powersJedi[1]);
-				(Data.personages[planet.personageJedi3] as Personage).setCharacteristics(powersJedi[2]);
-				(Data.personages[planet.personageSith1] as Personage).setCharacteristics(powersSith[0]);
-				(Data.personages[planet.personageSith2] as Personage).setCharacteristics(powersSith[1]);
-				(Data.personages[planet.personageSith3] as Personage).setCharacteristics(powersSith[2]);
+				(Data.personages[planet.personageJedi1] as Personage).setCharacteristics(powersJedi[0][0]);
+				(Data.personages[planet.personageJedi2] as Personage).setCharacteristics(powersJedi[0][1]);
+				(Data.personages[planet.personageJedi3] as Personage).setCharacteristics(powersJedi[0][2]);
+				(Data.personages[planet.personageSith1] as Personage).setCharacteristics(powersSith[0][0]);
+				(Data.personages[planet.personageSith2] as Personage).setCharacteristics(powersSith[0][1]);
+				(Data.personages[planet.personageSith3] as Personage).setCharacteristics(powersSith[0][2]);
 				
-				(Data.planets[planet.id] as Planet).powersJedi = powersJedi;
-				(Data.planets[planet.id] as Planet).powersSith = powersSith;
+				(Data.planets[planet.id] as Planet).powersJedi.push(powersJedi[0][0]);
+				(Data.planets[planet.id] as Planet).powersJedi.push(powersJedi[0][1]);
+				(Data.planets[planet.id] as Planet).powersJedi.push(powersJedi[0][2]);
+				(Data.planets[planet.id] as Planet).powersSith.push(powersSith[0][0]);
+				(Data.planets[planet.id] as Planet).powersSith.push(powersSith[0][1]);
+				(Data.planets[planet.id] as Planet).powersSith.push(powersSith[0][2]);
 			} 
 		}
 		
@@ -289,7 +293,7 @@ package swh.data
 				json += "{";
 				json += "\"id\":" + "\"" + planet.id.toString() + "\","; 
 				json += "\"status\":" + "\"" + planet.status.toString() + "\",";
-				json += "\"powersjedi\":["
+				json += "\"powersjedi\":[";
 				for (var n:int = 0; n < planet.powersJedi.length; n++){
 					json += "{";
 					json += "\"value\":" + "\"" + String(planet.powersJedi[n]) + "\""; 
@@ -297,7 +301,7 @@ package swh.data
 					else json += "},";
 				}
 				json +=	"],"; 
-				json += "\"powerssith\":["
+				json += "\"powerssith\":[";
 				for (var m:int = 0; m < planet.powersSith.length; m++){
 					json += "{";
 					json += "\"value\":" + "\"" + String(planet.powersSith[m]) + "\"";
@@ -319,6 +323,30 @@ package swh.data
 		
 		
 		/* ЧТЕНИЕ ДАННЫХ С СЕРВЕРА И ПОСТРОЕНИЕ ЛОГИКИ //////////////////////////////////////////////////////////// */
+		public static function readDataJSON():void
+		{
+			var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.userData);
+			Data.userSide = jsonData[0].side;
+			Data.userPoints = jsonData[0].points;
+			Data.userLastMessage = jsonData[0].message;
+		}
+		
+		public static function readPlanetsDataJSON():void
+		{
+			var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.planetsData);
+			for (var i:int = 0; i < jsonData[0].planets.length; i++){
+				(Data.planets[jsonData[0].planets[i].id] as Planet).status = jsonData[0].planets[i].status;
+				(Data.planets[jsonData[0].planets[i].id] as Planet).powersJedi[0] = jsonData[0].planets[i].powersjedi[0];
+				(Data.planets[jsonData[0].planets[i].id] as Planet).powersJedi[1] = jsonData[0].planets[i].powersjedi[1];
+				(Data.planets[jsonData[0].planets[i].id] as Planet).powersJedi[2] = jsonData[0].planets[i].powersjedi[2];
+				(Data.planets[jsonData[0].planets[i].id] as Planet).powersSith[0] = jsonData[0].planets[i].powerssith[0];
+				(Data.planets[jsonData[0].planets[i].id] as Planet).powersSith[1] = jsonData[0].planets[i].powerssith[1];
+				(Data.planets[jsonData[0].planets[i].id] as Planet).powersSith[2] = jsonData[0].planets[i].powerssith[2];
+			}
+			//Data.utilitConsole(jsonData[0].planets[0].id);
+			//Data.utilitConsole(jsonData[0].planets.length);
+		}
+		
 		public static function readUserDataJSON():void
 		{
 			//(Data.personages["aayla_secura"] as Personage).name;
@@ -337,12 +365,7 @@ package swh.data
 			//Data.utilitConsole(jsonData[0].command[0].id);
 		}
 		
-		public static function readPlanetsDataJSON():void
-		{
-			var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.planetsData);
-			//Data.utilitConsole(jsonData[0].planets[0].id);
-			//Data.utilitConsole(jsonData[0].planets.length);
-		}
+		
 		
 		/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 	}

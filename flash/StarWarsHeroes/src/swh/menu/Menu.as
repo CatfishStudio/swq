@@ -58,10 +58,10 @@ package swh.menu
 			}else{
 				if (Data.userData != "" && Data.aiData != "" && Data.planetsData != "") {
 					Data.initialization();
-					Data.readDataJSON();
-					Data.readPlanetsDataJSON();
 					Data.readUserDataJSON();
-					Data.readAIDataJSON();
+					Data.readPlanetsDataJSON();
+					Data.readUserCommandDataJSON();
+					Data.readAICommandDataJSON();
 					message.setText("Сохранённых данных успешно загружены!\nВы можите продолжить игру.");
 					createButtonContinue();
 				} else{

@@ -93,7 +93,8 @@ package swh
 			{
 				case Constants.MENU_BUTTON_NEW_GAME:
 				{
-					createNewGame();
+					removeMenu();
+					createSide();
 					break;
 				}
 				case Constants.MENU_BUTTON_SETTINGS:
@@ -113,8 +114,7 @@ package swh
 				}
 				case Constants.SIDE_CLOSE:
 				{
-					removeSide();
-					createMap();
+					createNewGame();
 					break;
 				}
 				default:
@@ -128,33 +128,33 @@ package swh
 		{
 			//VKAPI.vkConnection.api("storage.set", { key:"userTest", value:"TestGOOD"}, onDataSet, onDataErrorSet);
 			//var json:String = "[{\"id\":\"1\",\"character\":[{\"name\":\"Scorpion\"},{\"name\":\"SubZero\"}]}]";
+			Data.initialization();
+			Data.createNewCharacteristics();
+			Data.createNewCommands();
+			Data.userData = Data.createUserDataJSON();
+			Data.aiData = Data.createAIDataJSON();
+			Data.planetsData = Data.createPlanetsDataJSON();
 			try{
-				Data.initialization();
-				Data.createNewCharacteristics();
-				Data.createNewCommands();
-				Data.userData = Data.createUserDataJSON();
-				Data.aiData = Data.createAIDataJSON();
-				Data.planetsData = Data.createPlanetsDataJSON();
 				VKAPI.vkConnection.api("storage.set", { key:"swhUserData", value:Data.userData}, onDataSet, onDataErrorSet);
 				VKAPI.vkConnection.api("storage.set", { key:"swhAIData", value:Data.aiData}, onDataSet, onDataErrorSet);
 				VKAPI.vkConnection.api("storage.set", { key:"swhPlanetsData", value:Data.planetsData}, onDataSet, onDataErrorSet);
 			}catch (e:Error){
 				Data.errorSetData = true;
-				removeMenu();
-				createSide();
+				removeSide();
+				createMap();
 			}
 			
 		}
 		private function onDataSet (response:Object):void 
         {
-            removeMenu();
-			createSide();
+            removeSide();
+			createMap();
         }
         private function onDataErrorSet (response:Object):void 
         {
 			Data.errorSetData = true;
-			removeMenu();
-			createSide();
+			removeSide();
+			createMap();
             //textField.text = response.error_msg;
 			//textField.text = String(response)
 			//Data.userTest = "ERROR";

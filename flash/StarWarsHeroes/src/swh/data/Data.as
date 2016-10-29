@@ -323,7 +323,7 @@ package swh.data
 		
 		
 		/* ЧТЕНИЕ ДАННЫХ С СЕРВЕРА И ПОСТРОЕНИЕ ЛОГИКИ //////////////////////////////////////////////////////////// */
-		public static function readDataJSON():void
+		public static function readUserDataJSON():void
 		{
 			var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.userData);
 			Data.userSide = jsonData[0].side;
@@ -333,6 +333,8 @@ package swh.data
 		
 		public static function readPlanetsDataJSON():void
 		{
+			//Data.utilitConsole(jsonData[0].planets[0].id);
+			//Data.utilitConsole(jsonData[0].planets.length);
 			var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.planetsData);
 			for (var i:int = 0; i < jsonData[0].planets.length; i++){
 				(Data.planets[jsonData[0].planets[i].id] as Planet).status = jsonData[0].planets[i].status;
@@ -343,11 +345,20 @@ package swh.data
 				(Data.planets[jsonData[0].planets[i].id] as Planet).powersSith[1] = jsonData[0].planets[i].powerssith[1];
 				(Data.planets[jsonData[0].planets[i].id] as Planet).powersSith[2] = jsonData[0].planets[i].powerssith[2];
 			}
-			//Data.utilitConsole(jsonData[0].planets[0].id);
-			//Data.utilitConsole(jsonData[0].planets.length);
+			
+			for each (var planet:Planet in Data.planets) 
+			{ 
+				(Data.personages[planet.personageJedi1] as Personage).setCharacteristics(planet.powersJedi[0]);
+				(Data.personages[planet.personageJedi2] as Personage).setCharacteristics(planet.powersJedi[1]);
+				(Data.personages[planet.personageJedi3] as Personage).setCharacteristics(planet.powersJedi[2]);
+				(Data.personages[planet.personageSith1] as Personage).setCharacteristics(planet.powersSith[0]);
+				(Data.personages[planet.personageSith2] as Personage).setCharacteristics(planet.powersSith[1]);
+				(Data.personages[planet.personageSith3] as Personage).setCharacteristics(planet.powersSith[2]);
+			}
+			
 		}
 		
-		public static function readUserDataJSON():void
+		public static function readUserCommandDataJSON():void
 		{
 			//(Data.personages["aayla_secura"] as Personage).name;
 			//(Data.planets["jakku"] as Planet).name;
@@ -358,7 +369,7 @@ package swh.data
 			
 		}
 		
-		public static function readAIDataJSON():void
+		public static function readAICommandDataJSON():void
 		{
 			var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.aiData);
 			//Data.utilitConsole(jsonData[0].message);

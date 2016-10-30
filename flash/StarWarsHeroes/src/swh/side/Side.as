@@ -43,7 +43,6 @@ package swh.side
 		private function onAddedToStage(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			
 			name = Constants.SIDE;
 			Assets.setTextureAtlasFromBitmap(Assets.assetsContent.SideAtlas, Assets.assetsContent.SideAtlasXML);
 			Assets.setTextureAtlasEmbeddedAsset(Assets.assetsContent.SideAnimAtlas, Assets.assetsContent.SideAnimAtlasXML);
@@ -51,8 +50,8 @@ package swh.side
 			createBackground();
 			createSides();
 			
-			if (Data.errorSetData) {
-				message = new Message("Произошла ошибка сохранения данных. \nВаш прогресс не будет сохранён!");
+			if (Data.errorSetData || Data.errorGetData) {
+				message = new Message("Сервер ВКонтакте недоступен. \nВаш прогресс не будет сохранён!");
 				message.x = (Constants.GAME_WINDOW_WIDTH / 2) - (message.width / 2);
 				message.y = 25;
 				addChild(message);

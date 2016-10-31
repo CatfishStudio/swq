@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="luck_and_darth_anim_atlas.png">
+	<!--
+	Created with ShoeBox
+	http://renderhjs.net/shoebox/
+	-->
+	<SubTexture name="button_blue_01.png"	x="304"	y="153"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_02.png"	x="779"	y="1665"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_03.png"	x="779"	y="1614"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_04.png"	x="779"	y="1563"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_05.png"	x="579"	y="1971"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_06.png"	x="579"	y="1920"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_07.png"	x="579"	y="1869"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_08.png"	x="579"	y="1818"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_09.png"	x="579"	y="1767"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_10.png"	x="579"	y="1716"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_blue_11.png"	x="579"	y="1665"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_01.png"	x="579"	y="1614"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_02.png"	x="579"	y="1563"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_03.png"	x="304"	y="408"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_04.png"	x="304"	y="357"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_05.png"	x="304"	y="306"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_06.png"	x="304"	y="255"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_07.png"	x="304"	y="204"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_08.png"	x="779"	y="1716"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_09.png"	x="304"	y="102"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_10.png"	x="304"	y="51"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="button_red_11.png"	x="304"	y="0"	width="199"	height="50" frameX="-0" frameY="-0" frameWidth="200" frameHeight="50"/>
+	<SubTexture name="side_darth_vader_01.png"	x="297"	y="500"	width="281"	height="499" frameX="-51" frameY="-50" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_darth_vader_02.png"	x="294"	y="1000"	width="284"	height="499" frameX="-48" frameY="-50" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_darth_vader_03.png"	x="0"	y="1500"	width="289"	height="499" frameX="-43" frameY="-50" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_darth_vader_04.png"	x="0"	y="1000"	width="293"	height="499" frameX="-39" frameY="-50" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_darth_vader_05.png"	x="0"	y="0"	width="303"	height="499" frameX="-29" frameY="-50" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_darth_vader_06.png"	x="0"	y="500"	width="296"	height="499" frameX="-36" frameY="-50" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_darth_vader_07.png"	x="290"	y="1500"	width="288"	height="499" frameX="-44" frameY="-50" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_darth_vader_08.png"	x="297"	y="500"	width="281"	height="499" frameX="-51" frameY="-50" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_darth_vader_09.png"	x="297"	y="500"	width="281"	height="499" frameX="-51" frameY="-50" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_darth_vader_10.png"	x="290"	y="1500"	width="288"	height="499" frameX="-44" frameY="-50" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_darth_vader_11.png"	x="0"	y="500"	width="296"	height="499" frameX="-36" frameY="-50" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_darth_vader_12.png"	x="0"	y="0"	width="303"	height="499" frameX="-29" frameY="-50" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_darth_vader_13.png"	x="0"	y="1000"	width="293"	height="499" frameX="-39" frameY="-50" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_darth_vader_14.png"	x="0"	y="1500"	width="289"	height="499" frameX="-43" frameY="-50" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_darth_vader_15.png"	x="294"	y="1000"	width="284"	height="499" frameX="-48" frameY="-50" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_darth_vader_16.png"	x="297"	y="500"	width="281"	height="499" frameX="-51" frameY="-50" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_01.png"	x="989"	y="0"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_02.png"	x="989"	y="0"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_03.png"	x="989"	y="0"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_04.png"	x="579"	y="1042"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_05.png"	x="579"	y="1042"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_06.png"	x="579"	y="1042"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_07.png"	x="579"	y="0"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_08.png"	x="579"	y="0"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_09.png"	x="579"	y="0"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_10.png"	x="579"	y="521"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_11.png"	x="579"	y="521"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_12.png"	x="579"	y="521"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_13.png"	x="784"	y="1042"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_14.png"	x="784"	y="1042"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_15.png"	x="784"	y="1042"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_16.png"	x="784"	y="0"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_17.png"	x="784"	y="0"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_18.png"	x="784"	y="0"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_19.png"	x="784"	y="521"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_20.png"	x="784"	y="521"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+	<SubTexture name="side_luke_skywalker_21.png"	x="784"	y="521"	width="204"	height="520" frameX="-53" frameY="-42" frameWidth="355" frameHeight="600"/>
+</TextureAtlas>

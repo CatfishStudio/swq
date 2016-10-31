@@ -19,6 +19,7 @@ package swh.side
 	import swh.data.Data;
 	import swh.vkAPI.VKAPI;
 	import swh.message.Message;
+	import swh.buttons.Buttons;
 	
 	/**
 	 * ...
@@ -32,6 +33,8 @@ package swh.side
 		private var sideHelpRed:SideHelp;
 		private var sideHelpBlue:SideHelp;
 		private var message:Message;
+		private var buttonBlue:Buttons;
+		private var buttonRed:Buttons;
 		
 		public function Side() 
 		{
@@ -49,13 +52,16 @@ package swh.side
 			
 			createBackground();
 			createSides();
+			createButtons();
 			
 			if (Data.errorSetData || Data.errorGetData) {
 				message = new Message("Сервер ВКонтакте недоступен. \nВаш прогресс не будет сохранён!");
-				message.x = (Constants.GAME_WINDOW_WIDTH / 2) - (message.width / 2);
-				message.y = 25;
-				addChild(message);
+			}else{
+				message = new Message("После выбора персонажа. \nНовые данные будут сохранены сохранены!");
 			}
+			message.x = (Constants.GAME_WINDOW_WIDTH / 2) - (message.width / 2);
+			message.y = 25;
+			addChild(message);
 			
 			trace('[SIDE]: added to stage');
 		}
@@ -66,6 +72,20 @@ package swh.side
 			Starling.juggler.remove(sideRed);
 			Starling.juggler.remove(sideBlue);
 			
+			if (buttonBlue != null){
+				buttonBlue.removeEventListener(TouchEvent.TOUCH, onTouchRed);
+				removeChild(buttonBlue);
+				buttonBlue.dispose();
+				buttonBlue = null;
+			}
+			
+			if (buttonRed != null){
+				buttonRed.removeEventListener(TouchEvent.TOUCH, onTouchRed);
+				removeChild(buttonRed);
+				buttonRed.dispose();
+				buttonRed = null;
+			}
+			
 			if (image != null){
 				removeChild(image);
 				image.dispose();
@@ -73,14 +93,14 @@ package swh.side
 			}
 			
 			if (sideRed != null){
-				sideRed.removeEventListener(TouchEvent.TOUCH, onTouchRed);
+				//sideRed.removeEventListener(TouchEvent.TOUCH, onTouchRed);
 				removeChild(sideRed);
 				sideRed.dispose();
 				sideRed = null;
 			}
 			
 			if (sideBlue != null){
-				sideBlue.removeEventListener(TouchEvent.TOUCH, onTouchBlue);
+				//sideBlue.removeEventListener(TouchEvent.TOUCH, onTouchBlue);
 				removeChild(sideBlue);
 				sideBlue.dispose();
 				sideBlue = null;
@@ -129,7 +149,7 @@ package swh.side
 			sideRed.name = Constants.SIDE_SITH;
 			sideRed.x = 50;
 			sideRed.y = 50;
-			sideRed.addEventListener(TouchEvent.TOUCH, onTouchRed);
+			//sideRed.addEventListener(TouchEvent.TOUCH, onTouchRed);
 			sideRed.play();
 			addChild(sideRed);
 			Starling.juggler.add(sideRed);
@@ -138,7 +158,7 @@ package swh.side
 			sideBlue.name = Constants.SIDE_JEDI;
 			sideBlue.x = (Constants.GAME_WINDOW_WIDTH - sideBlue.width) - 50;
 			sideBlue.y = 50;
-			sideBlue.addEventListener(TouchEvent.TOUCH, onTouchBlue);
+			//sideBlue.addEventListener(TouchEvent.TOUCH, onTouchBlue);
 			sideBlue.play();
 			addChild(sideBlue);
 			Starling.juggler.add(sideBlue);
@@ -166,16 +186,20 @@ package swh.side
 					sideHelpBlue.visible = false;
 					sideRedPlay = true;
 					sideHelpRed.visible = true;
+					Data.userSide = Constants.SIDE_SITH;
+					Data.aiSide = Constants.SIDE_JEDI;
 				}
 			}else{
 				sideRedPlay = false;
-				sideHelpRed.visible = false;
+				if(sideHelpRed != null)	sideHelpRed.visible = false;
 			}
 			if (e.getTouch(e.target as DisplayObject, TouchPhase.BEGAN)){
 				// click 
+				/*
 				Data.userSide = Constants.SIDE_SITH;
 				Data.aiSide = Constants.SIDE_JEDI;
 				dispatchEvent(new Navigation(Navigation.CHANGE_SCREEN, true, { id: Constants.SIDE_CLOSE }));
+				*/
 			}
 		}
 		
@@ -187,17 +211,38 @@ package swh.side
 					sideHelpRed.visible = false;
 					sideBluePlay = true;
 					sideHelpBlue.visible = true;
+					Data.userSide = Constants.SIDE_JEDI;
+					Data.aiSide = Constants.SIDE_SITH;
 				}
 			}else{
 				sideBluePlay = false;
-				sideHelpBlue.visible = false;
+				if(sideHelpBlue != null) sideHelpBlue.visible = false;
 			}
 			if (e.getTouch(e.target as DisplayObject, TouchPhase.BEGAN)){
 				// click 
+				/*
 				Data.userSide = Constants.SIDE_JEDI;
 				Data.aiSide = Constants.SIDE_SITH;
 				dispatchEvent(new Navigation(Navigation.CHANGE_SCREEN, true, { id: Constants.SIDE_CLOSE }));
+				*/
 			}
+		}
+		
+		private function createButtons(): void
+		{
+			buttonBlue = new Buttons("ВЫБРАТЬ", Assets.textureAtlasAnimation.getTextures('button_red_'), 12, 0xFFFFFF, 0x880000);
+			buttonBlue.name = Constants.SIDE_CLOSE;
+			buttonBlue.x = 125;
+			buttonBlue.y = 250;
+			buttonBlue.addEventListener(TouchEvent.TOUCH, onTouchRed);
+			addChild(buttonBlue);
+			
+			buttonRed = new Buttons("ВЫБРАТЬ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
+			buttonRed.name = Constants.SIDE_CLOSE;
+			buttonRed.x = 525;
+			buttonRed.y = 250;
+			buttonRed.addEventListener(TouchEvent.TOUCH, onTouchBlue);
+			addChild(buttonRed);
 		}
 		
 	}

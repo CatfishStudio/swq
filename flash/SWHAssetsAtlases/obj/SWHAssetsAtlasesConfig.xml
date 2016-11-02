@@ -16,7 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'31.10.2016'</value>
+      <value>'02.11.2016'</value>
     </define>
     <define append="true">
       <name>CONFIG::air</name>
@@ -41,6 +41,8 @@
     <library-path append="true">
       <path-element>C:\GIT\swq\flash\SWHAssetsAtlases\assets</path-element>
       <path-element>C:\GIT\swq\flash\SWHAssetsAtlases\assets\data</path-element>
+      <path-element>C:\GIT\swq\flash\SWHAssetsAtlases\assets\atlases</path-element>
+      <path-element>C:\GIT\swq\flash\SWHAssetsAtlases\assets\textures</path-element>
     </library-path>
   </compiler>
   <file-specs>

@@ -57,6 +57,8 @@
     <element path="assets\data" />
     <element path="assets\atlases" />
     <element path="assets\textures" />
+    <element path="assets\textures\personages" />
+    <element path="assets\textures\planets" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

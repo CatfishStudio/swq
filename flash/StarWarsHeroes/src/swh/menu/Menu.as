@@ -45,8 +45,8 @@ package swh.menu
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 
 			name = Constants.MENU;
-			Assets.setTextureAtlasFromBitmap(Assets.assetsContent.MenuAtlas, Assets.assetsContent.MenuAtlasXML);
-			Assets.setTextureAtlasEmbeddedAsset(Assets.assetsContent.ButtonsAtlas, Assets.assetsContent.ButtonsAtlasXML);
+			Assets.setTextureAtlasFromBitmap(Assets.assetsAtlasesContent.MenuAtlas, Assets.assetsAtlasesContent.MenuAtlasXML);
+			Assets.setTextureAtlasEmbeddedAsset(Assets.assetsAtlasesContent.ButtonsAtlas, Assets.assetsAtlasesContent.ButtonsAtlasXML);
 			
 			createBackground();
 			createButtons();

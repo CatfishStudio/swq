@@ -47,8 +47,8 @@ package swh.side
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			name = Constants.SIDE;
-			Assets.setTextureAtlasFromBitmap(Assets.assetsContent.SideAtlas, Assets.assetsContent.SideAtlasXML);
-			Assets.setTextureAtlasEmbeddedAsset(Assets.assetsContent.SideAnimAtlas, Assets.assetsContent.SideAnimAtlasXML);
+			Assets.setTextureAtlasFromBitmap(Assets.assetsAtlasesContent.SideAtlas, Assets.assetsAtlasesContent.SideAtlasXML);
+			Assets.setTextureAtlasEmbeddedAsset(Assets.assetsAtlasesContent.SideAnimAtlas, Assets.assetsAtlasesContent.SideAnimAtlasXML);
 			
 			createBackground();
 			createSides();
@@ -233,14 +233,14 @@ package swh.side
 			buttonBlue = new Buttons("ВЫБРАТЬ", Assets.textureAtlasAnimation.getTextures('button_red_'), 12, 0xFFFFFF, 0x880000);
 			buttonBlue.name = Constants.SIDE_CLOSE;
 			buttonBlue.x = 125;
-			buttonBlue.y = 250;
+			buttonBlue.y = 625;
 			buttonBlue.addEventListener(TouchEvent.TOUCH, onTouchRed);
 			addChild(buttonBlue);
 			
 			buttonRed = new Buttons("ВЫБРАТЬ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
 			buttonRed.name = Constants.SIDE_CLOSE;
 			buttonRed.x = 525;
-			buttonRed.y = 250;
+			buttonRed.y = 625;
 			buttonRed.addEventListener(TouchEvent.TOUCH, onTouchBlue);
 			addChild(buttonRed);
 		}

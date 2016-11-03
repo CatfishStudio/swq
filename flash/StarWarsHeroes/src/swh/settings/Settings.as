@@ -127,26 +127,26 @@ package swh.settings
 		private function createBackground():void
 		{
 			if (Data.userSide == Constants.SIDE_JEDI){
-				image = new Image(Texture.fromBitmap(Assets.assetsContent.settingsBlueLineBitmap));
+				image = new Image(Texture.fromBitmap(Assets.assetsTexturesContent.settingsBlueLineBitmap));
 				image.name = 'hologram_line';
 				image.x = (Constants.GAME_WINDOW_WIDTH / 2) - (image.width / 2); 
 				image.y = 240;
 				addChild(image);
 				
-				image = new Image(Texture.fromBitmap(Assets.assetsContent.settingsBlueBgBitmap));
+				image = new Image(Texture.fromBitmap(Assets.assetsTexturesContent.settingsBlueBgBitmap));
 				image.name = 'settings_background';
 				image.x = (Constants.GAME_WINDOW_WIDTH / 2) - (image.width / 2); 
 				image.y = (Constants.GAME_WINDOW_HEIGHT / 2) - (image.height / 2);
 				addChild(image);
 			}
 			if (Data.userSide == Constants.SIDE_SITH){
-				image = new Image(Texture.fromBitmap(Assets.assetsContent.settingsRedLineBitmap));
+				image = new Image(Texture.fromBitmap(Assets.assetsTexturesContent.settingsRedLineBitmap));
 				image.name = 'hologram_line';
 				image.x = (Constants.GAME_WINDOW_WIDTH / 2) - (image.width / 2); 
 				image.y = 240;
 				addChild(image);
 				
-				image = new Image(Texture.fromBitmap(Assets.assetsContent.settingsRedBgBitmap));
+				image = new Image(Texture.fromBitmap(Assets.assetsTexturesContent.settingsRedBgBitmap));
 				image.name = 'settings_background';
 				image.x = (Constants.GAME_WINDOW_WIDTH / 2) - (image.width / 2); 
 				image.y = (Constants.GAME_WINDOW_HEIGHT / 2) - (image.height / 2);
@@ -183,21 +183,21 @@ package swh.settings
 		
 		private function createButtons():void
 		{
-			if (Config.soundOn == true) button = new Button(Texture.fromBitmap(Assets.assetsContent.soundOnBitmap));
-			else button = new Button(Texture.fromBitmap(Assets.assetsContent.soundOffBitmap));
+			if (Config.soundOn == true) button = new Button(Texture.fromBitmap(Assets.assetsTexturesContent.soundOnBitmap));
+			else button = new Button(Texture.fromBitmap(Assets.assetsTexturesContent.soundOffBitmap));
 			button.name = Constants.SETTINGS_BUTTON_SOUND;
 			button.x = (Constants.GAME_WINDOW_WIDTH / 2) - 125;
 			button.y = (Constants.GAME_WINDOW_HEIGHT / 2) - 35;
 			addChild(button);
 			
-			if (Config.musicOn == true) button = new Button(Texture.fromBitmap(Assets.assetsContent.musicOnBitmap));
-			else button = new Button(Texture.fromBitmap(Assets.assetsContent.musicOffBitmap));
+			if (Config.musicOn == true) button = new Button(Texture.fromBitmap(Assets.assetsTexturesContent.musicOnBitmap));
+			else button = new Button(Texture.fromBitmap(Assets.assetsTexturesContent.musicOffBitmap));
 			button.name = Constants.SETTINGS_BUTTON_MUSIC;
 			button.x = (Constants.GAME_WINDOW_WIDTH / 2) - 15;
 			button.y = (Constants.GAME_WINDOW_HEIGHT / 2) - 35;
 			addChild(button);
 			
-			button = new Button(Texture.fromBitmap(Assets.assetsContent.informationBitmap));
+			button = new Button(Texture.fromBitmap(Assets.assetsTexturesContent.informationBitmap));
 			button.name = Constants.SETTINGS_BUTTON_INFO;
 			button.x = (Constants.GAME_WINDOW_WIDTH / 2) + 90;
 			button.y = (Constants.GAME_WINDOW_HEIGHT / 2) - 37;
@@ -217,10 +217,10 @@ package swh.settings
 			button = Button(getChildByName(Constants.SETTINGS_BUTTON_SOUND));
 			if (Config.soundOn == true) {
 				Config.soundOn = false;
-				button.upState = Texture.fromBitmap(Assets.assetsContent.soundOffBitmap)
+				button.upState = Texture.fromBitmap(Assets.assetsTexturesContent.soundOffBitmap)
 			} else {
 				Config.soundOn = true;
-				button.upState = Texture.fromBitmap(Assets.assetsContent.soundOnBitmap);
+				button.upState = Texture.fromBitmap(Assets.assetsTexturesContent.soundOnBitmap);
 			}
 		}
 		
@@ -229,10 +229,10 @@ package swh.settings
 			button = Button(getChildByName(Constants.SETTINGS_BUTTON_MUSIC));
 			if (Config.musicOn == true) {
 				Config.musicOn = false;
-				button.upState = Texture.fromBitmap(Assets.assetsContent.musicOffBitmap)
+				button.upState = Texture.fromBitmap(Assets.assetsTexturesContent.musicOffBitmap)
 			} else {
 				Config.musicOn = true;
-				button.upState = Texture.fromBitmap(Assets.assetsContent.musicOnBitmap);
+				button.upState = Texture.fromBitmap(Assets.assetsTexturesContent.musicOnBitmap);
 			}
 		}
 		

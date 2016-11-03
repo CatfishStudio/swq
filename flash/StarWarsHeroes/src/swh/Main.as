@@ -90,7 +90,7 @@ package swh
 			loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, onError);
 			loader.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, onProgress);
 			
-			if (processStartGame == 0){ // SWHPreloader
+			if (processStartGame == 0){ // SWHPreloader - complete
 				processStartGame = 1;
 				preloader = loader;
 				preloader.x = 0;
@@ -101,28 +101,43 @@ package swh
 				preloaderContent = preloader.content;
 				preloaderContent.setValue(0);
 				
-				loadAssets();
-			}else if (processStartGame == 1){ // SWHAssetsAtlases
+				loadAssetsAtlases();
+			}else if (processStartGame == 1){ // SWHAssetsAtlases - complete
+				processStartGame = 2;
+				preloaderContent.setValue(50);
+				
+				Assets.assetsAtlasesContent = loader.content;
+				loadAssetsTextures()
+				
+			}else if (processStartGame == 2) { // SWHAssetsTextures - complete
 				preloaderContent.setValue(100);
 				removeChild(preloader);
 				preloader = null;
 				preloaderContent = null;
 				
-				Assets.assetsContent = loader.content;
-				//var bitmap:Bitmap = new Assets.assetsContent.MenuAtlas();
-				//addChild(bitmap);
-				
+				Assets.assetsTexturesContent = loader.content;
 				loadGame();
 			}
 
 			
 		}
 		
-		private function loadAssets():void{
+		private function loadAssetsAtlases():void{
 			loader = new Loader();
 			loaderContext = new LoaderContext(false, ApplicationDomain.currentDomain, SecurityDomain.currentDomain);
 			//request = new URLRequest("http://app.vk.com/c420925/u99302165/94eb80320ac27b.swf");
 			request = new URLRequest("http://localhost/game/swh/SWHAssetsAtlases.swf");
+			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
+			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
+			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onError);
+			loader.load(request, loaderContext);
+		}
+		
+		private function loadAssetsTextures():void{
+			loader = new Loader();
+			loaderContext = new LoaderContext(false, ApplicationDomain.currentDomain, SecurityDomain.currentDomain);
+			//request = new URLRequest("http://app.vk.com/c420925/u99302165/94eb80320ac27b.swf");
+			request = new URLRequest("http://localhost/game/swh/SWHAssetsTextures.swf");
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
 			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onError);

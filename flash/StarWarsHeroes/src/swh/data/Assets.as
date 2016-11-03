@@ -11,7 +11,8 @@ package swh.data
 	 */
 	public class Assets 
 	{
-		public static var assetsContent:*;
+		public static var assetsAtlasesContent:*;
+		public static var assetsTexturesContent:*;
 		
 		/* ATLASES --------------------------------------------------------------------------------------------- */
 		

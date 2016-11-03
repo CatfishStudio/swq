@@ -42,9 +42,6 @@
       <path-element>C:\GIT\swq\flash\SWHAssetsAtlases\assets</path-element>
       <path-element>C:\GIT\swq\flash\SWHAssetsAtlases\assets\data</path-element>
       <path-element>C:\GIT\swq\flash\SWHAssetsAtlases\assets\atlases</path-element>
-      <path-element>C:\GIT\swq\flash\SWHAssetsAtlases\assets\textures</path-element>
-      <path-element>C:\GIT\swq\flash\SWHAssetsAtlases\assets\textures\personages</path-element>
-      <path-element>C:\GIT\swq\flash\SWHAssetsAtlases\assets\textures\planets</path-element>
     </library-path>
   </compiler>
   <file-specs>

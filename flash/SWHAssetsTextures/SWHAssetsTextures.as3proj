@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project version="2">
+  <!-- Output SWF options -->
+  <output>
+    <movie outputType="Application" />
+    <movie input="" />
+    <movie path="bin\SWHAssetsTextures.swf" />
+    <movie fps="30" />
+    <movie width="800" />
+    <movie height="600" />
+    <movie version="21" />
+    <movie minorVersion="0" />
+    <movie platform="Flash Player" />
+    <movie background="#FFFFFF" />
+  </output>
+  <!-- Other classes to be compiled into your SWF -->
+  <classpaths>
+    <class path="src" />
+    <class path="assets" />
+  </classpaths>
+  <!-- Build options -->
+  <build>
+    <option accessible="False" />
+    <option advancedTelemetry="False" />
+    <option allowSourcePathOverlap="False" />
+    <option benchmark="False" />
+    <option es="False" />
+    <option inline="False" />
+    <option locale="" />
+    <option loadConfig="" />
+    <option optimize="True" />
+    <option omitTraces="True" />
+    <option showActionScriptWarnings="True" />
+    <option showBindingWarnings="True" />
+    <option showInvalidCSS="True" />
+    <option showDeprecationWarnings="True" />
+    <option showUnusedTypeSelectorWarnings="True" />
+    <option strict="True" />
+    <option useNetwork="True" />
+    <option useResourceBundleMetadata="True" />
+    <option warnings="True" />
+    <option verboseStackTraces="False" />
+    <option linkReport="" />
+    <option loadExterns="" />
+    <option staticLinkRSL="True" />
+    <option additional="" />
+    <option compilerConstants="" />
+    <option minorVersion="" />
+  </build>
+  <!-- SWC Include Libraries -->
+  <includeLibraries>
+    <!-- example: <element path="..." /> -->
+  </includeLibraries>
+  <!-- SWC Libraries -->
+  <libraryPaths>
+    <element path="assets" />
+    <element path="assets\textures" />
+    <element path="assets\textures\planets" />
+    <element path="assets\textures\personages" />
+  </libraryPaths>
+  <!-- External Libraries -->
+  <externalLibraryPaths>
+    <!-- example: <element path="..." /> -->
+  </externalLibraryPaths>
+  <!-- Runtime Shared Libraries -->
+  <rslPaths>
+    <!-- example: <element path="..." /> -->
+  </rslPaths>
+  <!-- Intrinsic Libraries -->
+  <intrinsics>
+    <!-- example: <element path="..." /> -->
+  </intrinsics>
+  <!-- Assets to embed into the output SWF -->
+  <library>
+    <asset path="assets\textures\information.png" />
+    <asset path="assets\textures\music_off.png" />
+    <asset path="assets\textures\music_on.png" />
+    <asset path="assets\textures\settings_backroung_blue.png" />
+    <asset path="assets\textures\settings_backroung_red.png" />
+    <asset path="assets\textures\settings_line_blue.png" />
+    <asset path="assets\textures\settings_line_red.png" />
+    <asset path="assets\textures\sound_off.png" />
+    <asset path="assets\textures\sound_on.png" />
+    <asset path="assets\textures\space_blue.jpg" />
+    <asset path="assets\textures\space_red.jpg" />
+    <asset path="assets\textures\planets\alderaan.png" />
+    <asset path="assets\textures\planets\alderaan_landscape.jpg" />
+    <asset path="assets\textures\planets\bespin.png" />
+    <asset path="assets\textures\planets\bespin_landscape.jpg" />
+    <asset path="assets\textures\planets\coruscant.png" />
+    <asset path="assets\textures\planets\coruscant_landscape.jpg" />
+    <asset path="assets\textures\planets\dagobah.png" />
+    <asset path="assets\textures\planets\dagobah_landscape.jpg" />
+    <asset path="assets\textures\planets\deathstar.png" />
+    <asset path="assets\textures\planets\deathstar_destroy.png" />
+    <asset path="assets\textures\planets\deathstar_landscape.jpg" />
+    <asset path="assets\textures\planets\endor.png" />
+    <asset path="assets\textures\planets\endor_landscape.jpg" />
+    <asset path="assets\textures\planets\geonosis.png" />
+    <asset path="assets\textures\planets\geonosis_landscape.jpg" />
+    <asset path="assets\textures\planets\hoth.png" />
+    <asset path="assets\textures\planets\hoth_landscape.jpg" />
+    <asset path="assets\textures\planets\jakku.png" />
+    <asset path="assets\textures\planets\jakku_landscape.jpg" />
+    <asset path="assets\textures\planets\kamino.png" />
+    <asset path="assets\textures\planets\kamino_landscape.jpg" />
+    <asset path="assets\textures\planets\mustafar.png" />
+    <asset path="assets\textures\planets\mustafar_landscape.jpg" />
+    <asset path="assets\textures\planets\naboo.png" />
+    <asset path="assets\textures\planets\naboo_landscape.jpg" />
+    <asset path="assets\textures\planets\planet_light.png" />
+    <asset path="assets\textures\planets\saleucami.png" />
+    <asset path="assets\textures\planets\saleucami_landscape.jpg" />
+    <asset path="assets\textures\planets\tatooine.png" />
+    <asset path="assets\textures\planets\tatooine_landscape.jpg" />
+    <asset path="assets\textures\planets\utapau.png" />
+    <asset path="assets\textures\planets\utapau_landscape.jpg" />
+    <asset path="assets\textures\personages\aayla_secura_lr.png" />
+    <asset path="assets\textures\personages\aayla_secura_rl.png" />
+    <asset path="assets\textures\personages\adigallia.png" />
+    <asset path="assets\textures\personages\admiral_ozzel.png" />
+    <asset path="assets\textures\personages\alliance_to_restore_the_republic.png" />
+    <asset path="assets\textures\personages\anakin_skywalker.png" />
+    <asset path="assets\textures\personages\aurra_sing_lr.png" />
+    <asset path="assets\textures\personages\aurra_sing_rl.png" />
+    <asset path="assets\textures\personages\b1_battle_droid_lr.png" />
+    <asset path="assets\textures\personages\b1_battle_droid_rl.png" />
+    <asset path="assets\textures\personages\bail_organa.png" />
+    <asset path="assets\textures\personages\barriss_offee.png" />
+    <asset path="assets\textures\personages\beru_lars.png" />
+    <asset path="assets\textures\personages\bib_fortuna.png" />
+    <asset path="assets\textures\personages\boba_fett.png" />
+    <asset path="assets\textures\personages\boss_nass_lr.png" />
+    <asset path="assets\textures\personages\boss_nass_rl.png" />
+    <asset path="assets\textures\personages\c_3po_lr.png" />
+    <asset path="assets\textures\personages\c_3po_rl.png" />
+    <asset path="assets\textures\personages\capitan_panaka.png" />
+    <asset path="assets\textures\personages\chewbacca_lr.png" />
+    <asset path="assets\textures\personages\chewbacca_rl.png" />
+    <asset path="assets\textures\personages\clone_commander_bakara.png" />
+    <asset path="assets\textures\personages\clone_commander_cody_lr.png" />
+    <asset path="assets\textures\personages\clone_commander_cody_rl.png" />
+    <asset path="assets\textures\personages\clone_commander_neyo.png" />
+    <asset path="assets\textures\personages\clone_commander_rex.png" />
+    <asset path="assets\textures\personages\commander_jerjerrod_lr.png" />
+    <asset path="assets\textures\personages\commander_jerjerrod_rl.png" />
+    <asset path="assets\textures\personages\darth_maul.png" />
+    <asset path="assets\textures\personages\darth_sidious_lr.png" />
+    <asset path="assets\textures\personages\darth_sidious_rl.png" />
+    <asset path="assets\textures\personages\darth_vader.png" />
+    <asset path="assets\textures\personages\dooku_lr.png" />
+    <asset path="assets\textures\personages\dooku_rl.png" />
+    <asset path="assets\textures\personages\eeth_koth.png" />
+    <asset path="assets\textures\personages\finn_lr.png" />
+    <asset path="assets\textures\personages\finn_rl.png" />
+    <asset path="assets\textures\personages\general_grievous.png" />
+    <asset path="assets\textures\personages\general_madine_lr.png" />
+    <asset path="assets\textures\personages\general_madine_rl.png" />
+    <asset path="assets\textures\personages\han_solo_lr.png" />
+    <asset path="assets\textures\personages\han_solo_rl.png" />
+    <asset path="assets\textures\personages\jango_fett_lr.png" />
+    <asset path="assets\textures\personages\jango_fett_rl.png" />
+    <asset path="assets\textures\personages\jar_jar_binks.png" />
+    <asset path="assets\textures\personages\jawas.png" />
+    <asset path="assets\textures\personages\kapitan_antilles.png" />
+    <asset path="assets\textures\personages\ki_adi_mundi.png" />
+    <asset path="assets\textures\personages\kit_fisto.png" />
+    <asset path="assets\textures\personages\kylo_ren.png" />
+    <asset path="assets\textures\personages\lando_calrissian_lr.png" />
+    <asset path="assets\textures\personages\lando_calrissian_rl.png" />
+    <asset path="assets\textures\personages\leia_organa_lr.png" />
+    <asset path="assets\textures\personages\leia_organa_rl.png" />
+    <asset path="assets\textures\personages\luke_skywalker.png" />
+    <asset path="assets\textures\personages\mace_windu_lr.png" />
+    <asset path="assets\textures\personages\mace_windu_rl.png" />
+    <asset path="assets\textures\personages\mas_amedda.png" />
+    <asset path="assets\textures\personages\maximilian_veers.png" />
+    <asset path="assets\textures\personages\mon_motma_lr.png" />
+    <asset path="assets\textures\personages\mon_motma_rl.png" />
+    <asset path="assets\textures\personages\nute_gunray.png" />
+    <asset path="assets\textures\personages\obi_wan_kenobi.png" />
+    <asset path="assets\textures\personages\owen_lars.png" />
+    <asset path="assets\textures\personages\padme_amidala.png" />
+    <asset path="assets\textures\personages\palpatine.png" />
+    <asset path="assets\textures\personages\phasma.png" />
+    <asset path="assets\textures\personages\plo_koon.png" />
+    <asset path="assets\textures\personages\poe_dameron.png" />
+    <asset path="assets\textures\personages\poggle_the_lesser.png" />
+    <asset path="assets\textures\personages\qui_gon_jinn_lr.png" />
+    <asset path="assets\textures\personages\qui_gon_jinn_rl.png" />
+    <asset path="assets\textures\personages\red_battle_droid_lr.png" />
+    <asset path="assets\textures\personages\red_battle_droid_rl.png" />
+    <asset path="assets\textures\personages\republic_clone_army.png" />
+    <asset path="assets\textures\personages\rey.png" />
+    <asset path="assets\textures\personages\royal_guards.png" />
+    <asset path="assets\textures\personages\rune_haako_lr.png" />
+    <asset path="assets\textures\personages\rune_haako_rl.png" />
+    <asset path="assets\textures\personages\saesee_tiin_lr.png" />
+    <asset path="assets\textures\personages\saesee_tiin_rl.png" />
+    <asset path="assets\textures\personages\separatists.png" />
+    <asset path="assets\textures\personages\shaak_ti.png" />
+    <asset path="assets\textures\personages\shmi_skywalker.png" />
+    <asset path="assets\textures\personages\sio_bibble.png" />
+    <asset path="assets\textures\personages\stormtrooper.png" />
+    <asset path="assets\textures\personages\stormtrooper_lr.png" />
+    <asset path="assets\textures\personages\stormtrooper_rl.png" />
+    <asset path="assets\textures\personages\stormtroopers.png" />
+    <asset path="assets\textures\personages\tion_medon.png" />
+    <asset path="assets\textures\personages\trade_federation.png" />
+    <asset path="assets\textures\personages\tusken.png" />
+    <asset path="assets\textures\personages\wat_tambor_lr.png" />
+    <asset path="assets\textures\personages\wat_tambor_rl.png" />
+    <asset path="assets\textures\personages\watto.png" />
+    <asset path="assets\textures\personages\wicket_wysri_warrick.png" />
+    <asset path="assets\textures\personages\yoda.png" />
+  </library>
+  <!-- Class files to compile (other referenced classes will automatically be included) -->
+  <compileTargets>
+    <compile path="src\SWHAssetsTextures\Main.as" />
+  </compileTargets>
+  <!-- Paths to exclude from the Project Explorer tree -->
+  <hiddenPaths>
+    <hidden path="obj" />
+  </hiddenPaths>
+  <!-- Executed before build -->
+  <preBuildCommand />
+  <!-- Executed after build -->
+  <postBuildCommand alwaysRun="False" />
+  <!-- Other project options -->
+  <options>
+    <option showHiddenPaths="False" />
+    <option testMovie="Default" />
+    <option testMovieCommand="" />
+  </options>
+  <!-- Plugin storage -->
+  <storage />
+</project>

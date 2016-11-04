@@ -66,7 +66,7 @@ package swh.data
 			
 			// personages
 			Data.personages = new Array();
-			var persFileXML:XML = FileXML.getFileXML(Assets.assetsAtlasesContent.PersonagesFileXML);
+			var persFileXML:XML = FileXML.getFileXML(Assets.assetsDataContent.PersonagesFileXML);
 			var pers:Personage;
 			var n:int = persFileXML.personage.length();
 			for (var i:int = 0; i < n; i++)
@@ -81,7 +81,7 @@ package swh.data
 			
 			// planets
 			Data.planets = new Array();
-			var planetsFileXML:XML = FileXML.getFileXML(Assets.assetsAtlasesContent.PlanetsFileXML);
+			var planetsFileXML:XML = FileXML.getFileXML(Assets.assetsDataContent.PlanetsFileXML);
 			var planet:Planet;
 			var m:int = planetsFileXML.planet.length();
 			for (var j:int = 0; j < m; j++)

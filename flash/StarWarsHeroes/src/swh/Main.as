@@ -74,6 +74,12 @@ package swh
 		private function onProgress(e:ProgressEvent):void 
 		{
 			if (processStartGame == 1){
+				preloaderContent.setValue(Math.round((e.bytesLoaded / e.bytesTotal) * 1));
+			}
+			if (processStartGame == 2){
+				preloaderContent.setValue(Math.round((e.bytesLoaded / e.bytesTotal) * 40));
+			}
+			if (processStartGame == 3){
 				preloaderContent.setValue(Math.round((e.bytesLoaded / e.bytesTotal) * 100));
 			}
 		}
@@ -99,27 +105,44 @@ package swh
 				loader = null;
 				
 				preloaderContent = preloader.content;
-				preloaderContent.setValue(0);
+				preloaderContent.setValue(5);
 				
-				loadAssetsAtlases();
-			}else if (processStartGame == 1){ // SWHAssetsAtlases - complete
+				loadAssetsData();
+			}else if (processStartGame == 1) { // SWHAssetsData - complete
 				processStartGame = 2;
-				preloaderContent.setValue(50);
+				preloaderContent.setValue(10);				
+				Assets.assetsDataContent = loader.content;
+				loadAssetsAtlases();
 				
+			}else if (processStartGame == 2){ // SWHAssetsAtlases - complete
+				processStartGame = 3;
+				preloaderContent.setValue(50);				
 				Assets.assetsAtlasesContent = loader.content;
 				loadAssetsTextures()
 				
-			}else if (processStartGame == 2) { // SWHAssetsTextures - complete
+			}else if (processStartGame == 3) { // SWHAssetsTextures - complete
 				preloaderContent.setValue(100);
+				Assets.assetsTexturesContent = loader.content;
+				
 				removeChild(preloader);
 				preloader = null;
 				preloaderContent = null;
 				
-				Assets.assetsTexturesContent = loader.content;
 				loadGame();
 			}
 
 			
+		}
+		
+		private function loadAssetsData():void{
+			loader = new Loader();
+			loaderContext = new LoaderContext(false, ApplicationDomain.currentDomain, SecurityDomain.currentDomain);
+			//request = new URLRequest("http://app.vk.com/c420925/u99302165/94eb80320ac27b.swf");
+			request = new URLRequest("http://localhost/game/swh/SWHAssetsData.swf");
+			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
+			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
+			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onError);
+			loader.load(request, loaderContext);
 		}
 		
 		private function loadAssetsAtlases():void{

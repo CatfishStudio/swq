@@ -28,6 +28,7 @@ package swh.data
 		public static const SIDE_CLOSE:String = "side_close";
 		
 		public static const MAP:String = "map";
+		public static const MAP_DROID:String = "map_droid";
 		
 	}
 

@@ -29,6 +29,10 @@ package swh.data
 		
 		public static const MAP:String = "map";
 		public static const MAP_DROID:String = "map_droid";
+		public static const MAP_BUTTON_BACK_MENU:String = "map_button_back_menu";
+		public static const MAP_BUTTON_INVITE:String = "map_button_invite";
+		public static const MAP_BUTTON_COMMAND:String = "map_button_command";
+		public static const MAP_BUTTON_SETTINGS:String = "map_button_settings";
 		
 	}
 

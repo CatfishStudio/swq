@@ -152,11 +152,13 @@ package swh.map
 		private function createIcons():void 
 		{
 			for (var i:int = 0; i < Data.userCommand.length; i++){
-				image = new Image(Assets.textureAtlas.getTexture(Data.userCommand[i].id + "_icon.png"));
-				image.name = Data.userCommand[i].id;
-				image.x = 35 + (105 * i);
-				image.y = 625;
-				addChild(image);
+				if(Data.checkPersonagePlanetAvailable(Data.userCommand[i].id) == true && Data.userCommand[i].status == Data.STATUS_USER_PERSONAGE_AVAILABLE) {
+					image = new Image(Assets.textureAtlas.getTexture(Data.userCommand[i].id + "_icon.png"));
+					image.name = Data.userCommand[i].id;
+					image.x = 35 + (105 * i);
+					image.y = 625;
+					addChild(image);
+				}
 			}
 		}
 		

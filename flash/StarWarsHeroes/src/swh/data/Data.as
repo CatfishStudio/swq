@@ -92,11 +92,17 @@ package swh.data
 				planet.id = planetsFileXML.planet[j].id;
 				planet.name = planetsFileXML.planet[j].name;
 				planet.personageSith1 = planetsFileXML.planet[j].personageSith1;
+				(Data.personages[planet.personageSith1] as Personage).planetID = planet.id;
 				planet.personageSith2 = planetsFileXML.planet[j].personageSith2;
+				(Data.personages[planet.personageSith2] as Personage).planetID = planet.id;
 				planet.personageSith3 = planetsFileXML.planet[j].personageSith3;
+				(Data.personages[planet.personageSith3] as Personage).planetID = planet.id;
 				planet.personageJedi1 = planetsFileXML.planet[j].personageJedi1;
+				(Data.personages[planet.personageJedi1] as Personage).planetID = planet.id;
 				planet.personageJedi2 = planetsFileXML.planet[j].personageJedi2;
+				(Data.personages[planet.personageJedi2] as Personage).planetID = planet.id;
 				planet.personageJedi3 = planetsFileXML.planet[j].personageJedi3;
+				(Data.personages[planet.personageJedi3] as Personage).planetID = planet.id;
 				planet.descriptionSith = planetsFileXML.planet[j].descriptionSith;
 				planet.descriptionJedi = planetsFileXML.planet[j].descriptionJedi;
 				planet.status = planetsFileXML.planet[j].status;
@@ -376,9 +382,27 @@ package swh.data
 			//Data.utilitConsole(jsonData[0].command[0].id);
 		}
 		
-		
-		
 		/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
+		
+		/* Проверяет планету персонажа команды (если планета завоёвана - персонаж доступен) */
+		public static function checkPersonagePlanetAvailable(personagesID:String):Boolean
+		{
+			if(Data.userSide == Constants.SIDE_JEDI){
+				if ((Data.planets[(Data.personages[personagesID] as Personage).planetID] as Planet).status == Data.STATUS_PLANET_QUEST_COMPLETE_JEDI){
+					return true;
+				}else{
+					return false;
+				}
+			}
+			if(Data.userSide == Constants.SIDE_SITH){
+				if ((Data.planets[(Data.personages[personagesID] as Personage).planetID] as Planet).status == Data.STATUS_PLANET_QUEST_COMPLETE_SITH){
+					return true;
+				}else{
+					return false;
+				}
+			}
+			return false;
+		}
 	}
 
 }

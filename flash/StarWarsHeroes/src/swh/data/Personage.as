@@ -17,6 +17,7 @@ package swh.data
 		public var status:String;
 		public var description:String;
 		public var inCommand:int;
+		public var planetID:String;
 		
 		public function Personage() 
 		{
@@ -31,6 +32,7 @@ package swh.data
 			status = "";
 			description = "";
 			inCommand = 0;
+			planetID = "";
 		}
 		
 		public function setCharacteristics(power:int):void

@@ -226,8 +226,6 @@ package swh.data
 		public static function createUserDataJSON():String
 		{
 			/* Формат данных
-				{	"ИмяГруппы": {	"ИмяМассива": [	{	"id": "0"	},	{	"id": "1"	},	{	"id": "2"	}]	}	}
-				или 
 				[	{ "id":"1",	"character":[	{	"name":"Scorpion"	},	{	"name":"SubZero"	}	]	}	]
 			*/
 			

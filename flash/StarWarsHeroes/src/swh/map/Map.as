@@ -18,6 +18,7 @@ package swh.map
 	import swh.data.Data;
 	import swh.map.MapDroid;
 	import swh.buttons.Buttons;
+	import swh.map.MapPlanet;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -32,6 +33,7 @@ package swh.map
 		private var image:Image;
 		private var droid:MapDroid;
 		private var button:Buttons;
+		private var mapPlanet:MapPlanet;
 		
 		public function Map() 
 		{

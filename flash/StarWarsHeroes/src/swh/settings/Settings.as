@@ -86,6 +86,18 @@ package swh.settings
 				image = null;
 			}
 			
+			if (textField1 != null){
+				removeChild(textField1);
+				textField1.dispose();
+				textField1 = null;
+			}
+			
+			if (textField2 != null){
+				removeChild(textField2);
+				textField2.dispose();
+				textField2 = null;
+			}
+			
 			if (quad != null){
 				removeChild(quad);
 				quad.dispose();

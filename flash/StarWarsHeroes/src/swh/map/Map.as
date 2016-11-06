@@ -16,7 +16,7 @@ package swh.map
 	import swh.data.Constants;
 	import swh.data.Assets;
 	import swh.data.Data;
-	import swh.map.Droid;
+	import swh.map.MapDroid;
 	import swh.buttons.Buttons;
 	/**
 	 * ...
@@ -30,7 +30,7 @@ package swh.map
 		private var mapMove:Boolean = false;	// флаг движения курсора (скрол карты)
 		
 		private var image:Image;
-		private var droid:Droid;
+		private var droid:MapDroid;
 		private var button:Buttons;
 		
 		public function Map() 
@@ -217,13 +217,13 @@ package swh.map
 		private function createDroid():void
 		{
 			if (Data.userSide == Constants.SIDE_JEDI) {
-				droid = new Droid(Data.userLastMessage, 0xFFFFFF, 0x0090F0);
+				droid = new MapDroid(Data.userLastMessage, 0xFFFFFF, 0x0090F0);
 				droid.x = 700;
 				droid.y = 235;
 				addChild(droid);
 			}
 			if (Data.userSide == Constants.SIDE_SITH) {
-				droid = new Droid(Data.userLastMessage, 0xFFFFFF, 0x880000);
+				droid = new MapDroid(Data.userLastMessage, 0xFFFFFF, 0x880000);
 				droid.x = 700;
 				droid.y = 235;
 				addChild(droid);

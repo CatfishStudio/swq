@@ -22,7 +22,7 @@ package swh.map
 	 * ...
 	 * @author Catfish Studio
 	 */
-	public class Droid extends Sprite 
+	public class MapDroid extends Sprite 
 	{
 		private var image:Image;
 		private var textField1:TextField;
@@ -32,7 +32,7 @@ package swh.map
 		private var colorFront:uint;
 		private var tweenLine:Tween;
 		
-		public function Droid(_text:String, _colorFront:uint, _colorBack:uint) 
+		public function MapDroid(_text:String, _colorFront:uint, _colorBack:uint) 
 		{
 			super();
 			text = _text;

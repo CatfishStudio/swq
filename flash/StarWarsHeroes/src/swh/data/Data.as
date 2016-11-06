@@ -41,14 +41,16 @@ package swh.data
 		
 		public static var planetsData:String;	// для сервера (формат: json)
 		
-		/* Game data */
+		/* Game data (ассоциативные массивы)*/
 		public static var personages:Array;
 		public static var planets:Array;
 		
 		/* Utilits */
 		public static function utilitRandomValue(min:int, max:int):int
 		{
-			return Math.random() * max | min;
+			var value:int = Math.random() * max | 0;
+			if (value == 0) value = min;
+			return value;
 		}
 		
 		public static function utilitConsole(message:*):void

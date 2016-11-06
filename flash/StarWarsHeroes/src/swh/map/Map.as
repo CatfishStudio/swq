@@ -2,6 +2,7 @@ package swh.map
 {
 	import flash.system.*;
 	import starling.textures.Texture;
+	import swh.data.Planet;
 	
 	import starling.events.Event;
 	import starling.display.Sprite;
@@ -25,7 +26,7 @@ package swh.map
 	 */
 	public class Map extends Sprite 
 	{
-		private var map:Image;
+		private var map:Sprite;
 		private var mapMouseX:Number;		// позиция курсора
 		private var mapMouseY:Number;		// позиция курсора
 		private var mapMove:Boolean = false;	// флаг движения курсора (скрол карты)
@@ -50,6 +51,7 @@ package swh.map
 			Assets.setTextureAtlasEmbeddedAsset(Assets.assetsAtlasesContent.ButtonsAtlas, Assets.assetsAtlasesContent.ButtonsAtlasXML);
 			
 			createSpace();
+			createPlanets();
 			createIcons();
 			createBorder();
 			createDroid();
@@ -61,6 +63,11 @@ package swh.map
 		private function onRemoveFromStage(e:Event):void 
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
+			
+			while (map.numChildren)
+			{
+				map.removeChildren(0, -1, true);
+			}
 			
 			if (map != null){
 				map.removeEventListener(TouchEvent.TOUCH, onMapTouch);
@@ -101,12 +108,14 @@ package swh.map
 		
 		private function createSpace():void
 		{
-			if (Data.userSide == Constants.SIDE_JEDI) map = new Image(Texture.fromBitmap(Assets.assetsTexturesContent.spaceBlueBitmap));
-			if (Data.userSide == Constants.SIDE_SITH) map = new Image(Texture.fromBitmap(Assets.assetsTexturesContent.spaceRedBitmap));
+			if (Data.userSide == Constants.SIDE_JEDI) image = new Image(Texture.fromBitmap(Assets.assetsTexturesContent.spaceBlueBitmap));
+			if (Data.userSide == Constants.SIDE_SITH) image = new Image(Texture.fromBitmap(Assets.assetsTexturesContent.spaceRedBitmap));
+			map = new Sprite();
 			map.name = 'map_background';
 			map.x = -82; 
 			map.y = -19;
 			map.addEventListener(TouchEvent.TOUCH, onMapTouch);
+			map.addChild(image);
 			addChild(map);
 		}
 
@@ -146,6 +155,17 @@ package swh.map
 						mapMouseY = touch.globalY;
 					}
 				}
+			}
+		}
+		
+		private function createPlanets():void
+		{
+			for each (var planet:Planet in Data.planets) 
+			{ 
+				mapPlanet = new MapPlanet((planet as Planet));
+				mapPlanet.x = (planet as Planet).x;
+				mapPlanet.y = (planet as Planet).y;
+				map.addChild(mapPlanet);
 			}
 		}
 		

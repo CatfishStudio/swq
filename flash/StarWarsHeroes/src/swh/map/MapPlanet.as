@@ -27,10 +27,10 @@ package swh.map
 		private var colorBack:uint;
 		private var colorFront:uint;
 		
-		public function MapPlanet(_name:String, _planet:Planet) 
+		public function MapPlanet(_planet:Planet) 
 		{
 			super();
-			name = _name;
+			planet = _planet;
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
 		}
@@ -38,8 +38,11 @@ package swh.map
 		private function onAddedToStage(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			
-			
+			name = planet.id;
+			image = new Image(Assets.getPlanetTexture(planet.id));
+			image.x = 0; image.y = 0;
+			image.scale = planet.scale;
+			addChild(image);
 		}
 		
 		

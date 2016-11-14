@@ -45,7 +45,7 @@ package swh.map
 			createMarks();
 			createPlanet();
 			createTitle();		
-			
+			createPersonages();
 			
 		}
 		
@@ -181,6 +181,20 @@ package swh.map
 				addChild(textField2);
 			}
 		}
+		
+		private function createPersonages():void
+		{
+			if (Data.userSide == Constants.SIDE_JEDI){
+				image = new Image(Assets.getPersonageTexture(planet.personageSith1));
+				image.x = 0; image.y = 0;
+				image.scale = 0.15;
+				addChild(image);
+				
+			}
+			
+			
+		}
+		
+		
 	}
-
 }

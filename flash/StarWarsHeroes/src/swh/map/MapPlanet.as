@@ -184,14 +184,39 @@ package swh.map
 		
 		private function createPersonages():void
 		{
-			if (Data.userSide == Constants.SIDE_JEDI){
+			if (Data.userSide == Constants.SIDE_JEDI && planet.status == Data.STATUS_PLANET_QUEST_AWAITING){
 				image = new Image(Assets.getPersonageTexture(planet.personageSith1));
-				image.x = 0; image.y = 0;
+				image.x = 85; image.y = 0;
+				image.scale = 0.15;
+				addChild(image);
+				
+				image = new Image(Assets.getPersonageTexture(planet.personageSith2));
+				image.x = 125; image.y = 0;
+				image.scale = 0.15;
+				addChild(image);
+				
+				image = new Image(Assets.getPersonageTexture(planet.personageSith3));
+				image.x = 165; image.y = 0;
+				image.scale = 0.15;
+				addChild(image);
+			}
+			if (Data.userSide == Constants.SIDE_SITH && planet.status == Data.STATUS_PLANET_QUEST_AWAITING){
+				image = new Image(Assets.getPersonageTexture(planet.personageJedi1));
+				image.x = 85; image.y = 0;
+				image.scale = 0.15;
+				addChild(image);
+				
+				image = new Image(Assets.getPersonageTexture(planet.personageJedi2));
+				image.x = 125; image.y = 0;
+				image.scale = 0.15;
+				addChild(image);
+				
+				image = new Image(Assets.getPersonageTexture(planet.personageJedi3));
+				image.x = 165; image.y = 0;
 				image.scale = 0.15;
 				addChild(image);
 				
 			}
-			
 			
 		}
 		

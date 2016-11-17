@@ -168,16 +168,24 @@ package swh.map
 		public function setText(_text:String):void
 		{
 			text = _text;
+			removeChild(textField1);
+			removeChild(textField2);
 			
-			var textFormat:TextFormat = new TextFormat("Arial", 12, colorBack, "left", "top");
+			var textFormat:TextFormat;
+			
+			textFormat = new TextFormat("Arial", 12, colorBack, "left", "top");
 			textFormat.bold = true;
 			textField1 = new TextField(145, 500, text, textFormat);
 			textField1.x = 2;
 			textField1.y = 0;
+			addChild(textField1);
 			
+			textFormat = new TextFormat("Arial", 12, colorFront, "left", "top");
+			textFormat.bold = true;
 			textField2 = new TextField(145, 500, text, textFormat);
 			textField2.x = 2 - 1.5;
 			textField2.y = 0 - 1;
+			addChild(textField2);
 		}
 		
 		public function getText():String

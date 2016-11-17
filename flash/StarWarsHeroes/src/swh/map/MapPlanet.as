@@ -98,11 +98,13 @@ package swh.map
 		private function createPlanet():void
 		{
 			image = new Image(Assets.getPlanetTexture(planet.id));
+			image.name = planet.id;
 			image.x = 0; image.y = 0;
 			image.scale = planet.scale;
 			addChild(image);
 			
 			image = new Image(Assets.getPlanetTexture('planet_light'));
+			image.name = planet.id;
 			image.x = -4; image.y = -5.5;
 			image.scale = planet.scale + 0.01;
 			image.alpha = 0.3;

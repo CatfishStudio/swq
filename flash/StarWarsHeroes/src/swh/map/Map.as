@@ -12,6 +12,7 @@ package swh.map
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	import starling.display.DisplayObject;
+	import starling.animation.Tween;
 	
 	import swh.events.Navigation;
 	import swh.data.Constants;
@@ -35,6 +36,7 @@ package swh.map
 		private var droid:MapDroid;
 		private var button:Buttons;
 		private var mapPlanet:MapPlanet;
+		private var tweenLine:Tween;
 		
 		public function Map() 
 		{
@@ -63,6 +65,8 @@ package swh.map
 		private function onRemoveFromStage(e:Event):void 
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
+			Starling.juggler.remove(tweenLine);
+			tweenLine = null;
 			
 			while (map.numChildren)
 			{
@@ -110,6 +114,7 @@ package swh.map
 		{
 			if (Data.userSide == Constants.SIDE_JEDI) image = new Image(Texture.fromBitmap(Assets.assetsTexturesContent.spaceBlueBitmap));
 			if (Data.userSide == Constants.SIDE_SITH) image = new Image(Texture.fromBitmap(Assets.assetsTexturesContent.spaceRedBitmap));
+			image.name = 'map';
 			map = new Sprite();
 			map.name = 'map_background';
 			map.x = -82; 
@@ -138,6 +143,7 @@ package swh.map
 				}
 				if (touch.phase == TouchPhase.MOVED)
 				{
+					
 					if (mapMove) {
 						if (mapMouseX < touch.globalX) {
 							if(map.x < -5) map.x += 5;
@@ -153,9 +159,18 @@ package swh.map
 						}
 						mapMouseX = touch.globalX;
 						mapMouseY = touch.globalY;
+					}else{
+						
+						
 					}
 				}
 			}
+			if (String(e.target) == '[object Image]'){
+				if ((e.target as Image).name == null || (e.target as Image).name == 'map') droid.setText(Data.userLastMessage);
+				else if (Data.planets[(e.target as Image).name] == null) droid.setText(Data.userLastMessage);
+				else droid.setText((Data.planets[(e.target as Image).name] as Planet).descriptionJedi);
+			}
+
 		}
 		
 		private function createPlanets():void
@@ -209,6 +224,13 @@ package swh.map
 				image.name = 'map_border_desktop';
 				image.x = 0; image.y = 598;
 				addChild(image);
+				
+				image = new Image(Assets.textureAtlas.getTexture('map_desktop_blue_line.png'));
+				image.name = 'map_desktop_line';
+				image.x = 14; image.y = 608;
+				addChild(image);
+				
+				onTweenLine();
 			}
 			if (Data.userSide == Constants.SIDE_SITH) {
 				image = new Image(Assets.textureAtlas.getTexture('map_red_border_top.png'));
@@ -235,7 +257,25 @@ package swh.map
 				image.name = 'map_border_desktop';
 				image.x = 0; image.y = 598;
 				addChild(image);
+				
+				image = new Image(Assets.textureAtlas.getTexture('map_desktop_red_line.png'));
+				image.name = 'map_desktop_line';
+				image.x = 14; image.y = 608;
+				addChild(image);
+				
+				onTweenLine();
 			}
+		}
+		
+		private function onTweenLine():void
+		{
+			Starling.juggler.remove(tweenLine);
+			image = (getChildByName('map_desktop_line') as Image);
+			image.y = 608;
+			tweenLine = new Tween(image, 2.0, "easeInOut");
+			tweenLine.animate("y", image.y + 95);
+			tweenLine.onComplete = onTweenLine;
+			Starling.juggler.add(tweenLine);
 		}
 		
 		private function createDroid():void
@@ -307,6 +347,7 @@ package swh.map
 				addChild(button);
 			}
 		}
+		
 		
 	}
 

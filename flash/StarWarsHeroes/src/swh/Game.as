@@ -117,6 +117,27 @@ package swh
 					createNewGame();
 					break;
 				}
+				case Constants.MAP_BUTTON_BACK_MENU:
+				{
+					removeMap();
+					createMenu();
+					break;
+				}
+				case Constants.MAP_BUTTON_INVITE:
+				{
+					VKAPI.vkConnection.callMethod("showInviteBox");
+					break;
+				}
+				case Constants.MAP_BUTTON_COMMAND:
+				{
+					
+					break;
+				}
+				case Constants.MAP_BUTTON_SETTINGS:
+				{
+					createSettings();
+					break;
+				}
 				default:
 				{
 					break;

@@ -33,6 +33,7 @@ package swh.data
 		public static const MAP_BUTTON_INVITE:String = "map_button_invite";
 		public static const MAP_BUTTON_COMMAND:String = "map_button_command";
 		public static const MAP_BUTTON_SETTINGS:String = "map_button_settings";
+		public static const MAP_START_BATTLE:String = "map_start_battle";
 		
 	}
 

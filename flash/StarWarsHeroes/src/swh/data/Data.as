@@ -133,10 +133,10 @@ package swh.data
 				var powersSith:Array;
 				
 				if (Data.userSide == Constants.SIDE_JEDI){
-					if (planet.name == "coruscant"){
+					if (planet.id == "coruscant"){
 						powersJedi = characteristicsJedi.splice(characteristicsJedi.length - 1, 1); 	// моя защита против ИИ (с ними сражается ИИ)
 						powersSith = characteristicsSith.splice(0, 1);									// защита ИИ против меня (с ними сражаюсь я)
-					}else if (planet.name == "deathstar"){
+					}else if (planet.id == "deathstar"){
 						powersJedi = characteristicsJedi.splice(0, 1);									// моя защита против ИИ (с ними сражается ИИ)
 						powersSith = characteristicsSith.splice(characteristicsSith.length - 1, 1);		// защита ИИ против меня (с ними сражаюсь я)
 					}else{
@@ -146,10 +146,10 @@ package swh.data
 				}
 				
 				if (Data.userSide == Constants.SIDE_SITH){
-					if (planet.name == "deathstar"){
+					if (planet.id == "deathstar"){
 						powersSith = characteristicsSith.splice(characteristicsSith.length - 1, 1); 	// моя защита против ИИ (с ними сражается ИИ)
 						powersJedi = characteristicsJedi.splice(0, 1);									// защита ИИ против меня (с ними сражаюсь я)
-					}else if (planet.name == "coruscant"){
+					}else if (planet.id == "coruscant"){
 						powersSith = characteristicsSith.splice(0, 1);									// моя защита против ИИ (с ними сражается ИИ)
 						powersJedi = characteristicsJedi.splice(characteristicsJedi.length - 1, 1);		// защита ИИ против меня (с ними сражаюсь я)
 					}else{

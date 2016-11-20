@@ -9,10 +9,12 @@ package swh.map
 	import starling.text.TextField;
 	import starling.text.TextFormat;
 	
+	
 	import swh.data.Planet;
 	import swh.data.Constants;
 	import swh.data.Assets;
 	import swh.data.Data;
+	import swh.data.Personage;
 	/**
 	 * ...
 	 * @author ...
@@ -28,6 +30,7 @@ package swh.map
 		private var colorBlueFront:uint = 0xFFFFFF;
 		private var colorRedBack:uint = 0x880000;
 		private var colorRedFront:uint = 0xFFFFFF;
+		private var power:Number = 0;
 		
 		public function MapPlanet(_planet:Planet) 
 		{
@@ -42,6 +45,7 @@ package swh.map
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			name = planet.id;
 			
+			initPower();
 			createMarks();
 			createPlanet();
 			createTitle();		
@@ -79,6 +83,50 @@ package swh.map
 			this.removeFromParent(true);
 			super.dispose();
 			System.gc();
+		}
+		
+		public function getPlanet():Planet
+		{
+			return planet;
+		}
+		
+		private function initPower():void
+		{
+			if (Data.userSide == Constants.SIDE_JEDI){
+				power += (Data.personages[planet.personageSith1] as Personage).hit1 + 
+							(Data.personages[planet.personageSith1] as Personage).hit2 +
+							(Data.personages[planet.personageSith1] as Personage).hit3 +
+							(Data.personages[planet.personageSith1] as Personage).hit4 +
+							(Data.personages[planet.personageSith1] as Personage).hit5;
+				power += (Data.personages[planet.personageSith2] as Personage).hit1 + 
+							(Data.personages[planet.personageSith2] as Personage).hit2 +
+							(Data.personages[planet.personageSith2] as Personage).hit3 +
+							(Data.personages[planet.personageSith2] as Personage).hit4 +
+							(Data.personages[planet.personageSith2] as Personage).hit5;
+				power += (Data.personages[planet.personageSith3] as Personage).hit1 + 
+							(Data.personages[planet.personageSith3] as Personage).hit2 +
+							(Data.personages[planet.personageSith3] as Personage).hit3 +
+							(Data.personages[planet.personageSith3] as Personage).hit4 +
+							(Data.personages[planet.personageSith3] as Personage).hit5;
+			}
+			if (Data.userSide == Constants.SIDE_SITH){
+				power += (Data.personages[planet.personageJedi1] as Personage).hit1 + 
+							(Data.personages[planet.personageJedi1] as Personage).hit2 +
+							(Data.personages[planet.personageJedi1] as Personage).hit3 +
+							(Data.personages[planet.personageJedi1] as Personage).hit4 +
+							(Data.personages[planet.personageJedi1] as Personage).hit5;
+				power += (Data.personages[planet.personageJedi2] as Personage).hit1 + 
+							(Data.personages[planet.personageJedi2] as Personage).hit2 +
+							(Data.personages[planet.personageJedi2] as Personage).hit3 +
+							(Data.personages[planet.personageJedi2] as Personage).hit4 +
+							(Data.personages[planet.personageJedi2] as Personage).hit5;
+				power += (Data.personages[planet.personageJedi3] as Personage).hit1 + 
+							(Data.personages[planet.personageJedi3] as Personage).hit2 +
+							(Data.personages[planet.personageJedi3] as Personage).hit3 +
+							(Data.personages[planet.personageJedi3] as Personage).hit4 +
+							(Data.personages[planet.personageJedi3] as Personage).hit5;
+			}
+			power /= 10;
 		}
 		
 		private function createMarks():void
@@ -122,14 +170,14 @@ package swh.map
 			if(Data.userSide == Constants.SIDE_JEDI){
 				textFormat = new TextFormat("Arial", 14, colorBlueBack, "left", "center");
 				textFormat.bold = true;
-				textField1 = new TextField(150, 30, planet.name, textFormat);
+				textField1 = new TextField(200, 30, planet.name + " [" + power.toString() + "]", textFormat);
 				textField1.x = 40;
 				textField1.y = -30;
 				addChild(textField1);
 				
 				textFormat = new TextFormat("Arial", 14, colorBlueFront, "left", "center");
 				textFormat.bold = true;
-				textField2 = new TextField(150, 30, planet.name, textFormat);
+				textField2 = new TextField(200, 30, planet.name  + " [" + power.toString() + "]", textFormat);
 				textField2.x = 40 - 1.5;
 				textField2.y = -31;
 				addChild(textField2);
@@ -138,14 +186,14 @@ package swh.map
 			if(Data.userSide == Constants.SIDE_SITH){
 				textFormat = new TextFormat("Arial", 14, colorRedBack, "left", "center");
 				textFormat.bold = true;
-				textField1 = new TextField(150, 30, planet.name, textFormat);
+				textField1 = new TextField(200, 30, planet.name  + " [" + power.toString() + "]", textFormat);
 				textField1.x = 40;
 				textField1.y = -30;
 				addChild(textField1);
 				
 				textFormat = new TextFormat("Arial", 14, colorRedFront, "left", "center");
 				textFormat.bold = true;
-				textField2 = new TextField(150, 30, planet.name, textFormat);
+				textField2 = new TextField(200, 30, planet.name  + " [" + power.toString() + "]", textFormat);
 				textField2.x = 40 - 1.5;
 				textField2.y = -31;
 				addChild(textField2);
@@ -154,14 +202,14 @@ package swh.map
 			if (planet.status == Data.STATUS_PLANET_QUEST_COMPLETE_JEDI){
 				textFormat = new TextFormat("Arial", 14, colorBlueBack, "left", "center");
 				textFormat.bold = true;
-				textField1 = new TextField(150, 30, 'Орден Джедай', textFormat);
+				textField1 = new TextField(200, 30, 'Орден Джедай', textFormat);
 				textField1.x = 75;
 				textField1.y = -5;
 				addChild(textField1);
 				
 				textFormat = new TextFormat("Arial", 14, colorBlueFront, "left", "center");
 				textFormat.bold = true;
-				textField2 = new TextField(150, 30, 'Орден Джедай', textFormat);
+				textField2 = new TextField(200, 30, 'Орден Джедай', textFormat);
 				textField2.x = 75 - 1.5;
 				textField2.y = -6;
 				addChild(textField2);
@@ -170,14 +218,14 @@ package swh.map
 			if (planet.status == Data.STATUS_PLANET_QUEST_COMPLETE_SITH){
 				textFormat = new TextFormat("Arial", 14, colorRedBack, "left", "center");
 				textFormat.bold = true;
-				textField1 = new TextField(150, 30, 'Орден Ситов', textFormat);
+				textField1 = new TextField(200, 30, 'Орден Ситов', textFormat);
 				textField1.x = 75;
 				textField1.y = -5;
 				addChild(textField1);
 				
 				textFormat = new TextFormat("Arial", 14, colorRedFront, "left", "center");
 				textFormat.bold = true;
-				textField2 = new TextField(150, 30, 'Орден Ситов', textFormat);
+				textField2 = new TextField(200, 30, 'Орден Ситов', textFormat);
 				textField2.x = 75 - 1.5;
 				textField2.y = -6;
 				addChild(textField2);

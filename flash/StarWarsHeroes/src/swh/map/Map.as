@@ -21,6 +21,7 @@ package swh.map
 	import swh.map.MapDroid;
 	import swh.buttons.Buttons;
 	import swh.map.MapPlanet;
+	import swh.map.MapStartBattle;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -37,6 +38,7 @@ package swh.map
 		private var button:Buttons;
 		private var mapPlanet:MapPlanet;
 		private var tweenLine:Tween;
+		private var battleStart:MapStartBattle;
 		
 		public function Map() 
 		{
@@ -134,6 +136,14 @@ package swh.map
 					mapMouseX = touch.globalX;
 					mapMouseY = touch.globalY;
 					mapMove = true;
+					
+					if (String(e.target) == '[object Image]'){
+						if ((e.target as Image).name != null || (e.target as Image).name != 'map'){
+							battleStart = new MapStartBattle(Data.planets[(e.target as Image).name]);
+							addChild(battleStart);
+						}
+					}
+					
 				} 
 				if (touch.phase == TouchPhase.ENDED)
 				{
@@ -159,9 +169,6 @@ package swh.map
 						}
 						mapMouseX = touch.globalX;
 						mapMouseY = touch.globalY;
-					}else{
-						
-						
 					}
 				}
 			}

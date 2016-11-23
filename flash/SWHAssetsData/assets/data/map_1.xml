@@ -1,30 +1,106 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<RoadMapJedi>
+	<step>
+		<planet1>coruscant</planet1>
+		<planet2>coruscant</planet2>
+	</step>
+	<step>
+		<planet1>totooine</planet1>
+		<planet2>naboo</planet2>
+	</step>
+	<step>
+		<planet1>endor</planet1>
+		<planet2>hoth</planet2>
+	</step>
+	<step>
+		<planet1>mustafar</planet1>
+		<planet2>dagobah</planet2>
+	</step>
+	<step>
+		<planet1>bespin</planet1>
+		<planet2>bespin</planet2>
+	</step>
+	<step>
+		<planet1>geonosis</planet1>
+		<planet2>alderaan</planet2>
+	</step>
+	<step>
+		<planet1>kamino</planet1>
+		<planet2>utapau</planet2>
+	</step>
+	<step>
+		<planet1>saleucami</planet1>
+		<planet2>jakku</planet2>
+	</step>
+	<step>
+		<planet1>deathstar</planet1>
+		<planet2>deathstar</planet2>
+	</step>
+</RoadMapJedi>
+<RoadMapSith>
+	<step>
+		<planet1>deathstar</planet1>
+		<planet2>deathstar</planet2>
+	</step>
+	<step>
+		<planet1>totooine</planet1>
+		<planet2>naboo</planet2>
+	</step>
+	<step>
+		<planet1>endor</planet1>
+		<planet2>hoth</planet2>
+	</step>
+	<step>
+		<planet1>mustafar</planet1>
+		<planet2>dagobah</planet2>
+	</step>
+	<step>
+		<planet1>bespin</planet1>
+		<planet2>bespin</planet2>
+	</step>
+	<step>
+		<planet1>geonosis</planet1>
+		<planet2>alderaan</planet2>
+	</step>
+	<step>
+		<planet1>kamino</planet1>
+		<planet2>utapau</planet2>
+	</step>
+	<step>
+		<planet1>saleucami</planet1>
+		<planet2>jakku</planet2>
+	</step>
+	<step>
+		<planet1>coruscant</planet1>
+		<planet2>coruscant</planet2>
+	</step>
+</RoadMapSith>
 <Planets>
 	<planet>
 		<id>coruscant</id>
 		<personageSith1>
 			<id>shmi_skywalker</id>
-			<hit1>0</hit1><hit2>0</hit2><hit3>0</hit3><hit4>0</hit4><hit5>0</hit5>
+			<hit1>4</hit1><hit2>3</hit2><hit3>4</hit3><hit4>4</hit4><hit5>3</hit5>
 		</personageSith1>
 		<personageSith2>
 			<id>shmi_skywalker</id>
-			<hit1>0</hit1><hit2>0</hit2><hit3>0</hit3><hit4>0</hit4><hit5>0</hit5>
+			<hit1>4</hit1><hit2>3</hit2><hit3>3</hit3><hit4>2</hit4><hit5>4</hit5>
 		</personageSith2>
 		<personageSith3>
 			<id>shmi_skywalker</id>
-			<hit1>0</hit1><hit2>0</hit2><hit3>0</hit3><hit4>0</hit4><hit5>0</hit5>
+			<hit1>2</hit1><hit2>3</hit2><hit3>3</hit3><hit4>2</hit4><hit5>3</hit5>
 		</personageSith3>
 		<personageJedi1>
 			<id>luke_skywalker</id>
-			<hit1>4</hit1><hit2>3</hit2><hit3>4</hit3><hit4>4</hit4><hit5>3</hit5>
+			<hit1>20</hit1><hit2>17</hit2><hit3>20</hit3><hit4>18</hit4><hit5>20</hit5>
 		</personageJedi1>
 		<personageJedi2>
 			<id>mace_windu</id>
-			<hit1>4</hit1><hit2>3</hit2><hit3>3</hit3><hit4>2</hit4><hit5>4</hit5>
+			<hit1>14</hit1><hit2>8</hit2><hit3>9</hit3><hit4>10</hit4><hit5>11</hit5>
 		</personageJedi2>
 		<personageJedi3>
 			<id>mas_amedda</id>
-			<hit1>2</hit1><hit2>3</hit2><hit3>3</hit3><hit4>2</hit4><hit5>3</hit5>
+			<hit1>12</hit1><hit2>10</hit2><hit3>9</hit3><hit4>10</hit4><hit5>9</hit5>
 		</personageJedi3>
 	</planet>
 	<planet>
@@ -112,297 +188,297 @@
 		<id>hoth</id>
 		<personageSith1>
 			<id>maximilian_veers</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>6</hit1><hit2>7</hit2><hit3>4</hit3><hit4>7</hit4><hit5>7</hit5>
 		</personageSith1>
 		<personageSith2>
 			<id>stormtrooper_2</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>4</hit1><hit2>4</hit2><hit3>3</hit3><hit4>2</hit4><hit5>3</hit5>
 		</personageSith2>
 		<personageSith3>
 			<id>stormtrooper_1</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>3</hit1><hit2>3</hit2><hit3>2</hit3><hit4>3</hit4><hit5>4</hit5>
 		</personageSith3>
 		<personageJedi1>
 			<id>general_madine</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>3</hit1><hit2>3</hit2><hit3>2</hit3><hit4>3</hit4><hit5>4</hit5>
 		</personageJedi1>
 		<personageJedi2>
 			<id>han_solo</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>6</hit1><hit2>7</hit2><hit3>4</hit3><hit4>7</hit4><hit5>7</hit5>
 		</personageJedi2>
 		<personageJedi3>
 			<id>chewbacca</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>4</hit1><hit2>4</hit2><hit3>3</hit3><hit4>2</hit4><hit5>3</hit5>
 		</personageJedi3>
 	</planet>
 	<planet>
 		<id>mustafar</id>
 		<personageSith1>
 			<id>anakin_skywalker</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>8</hit1><hit2>9</hit2><hit3>9</hit3><hit4>7</hit4><hit5>9</hit5>
 		</personageSith1>
 		<personageSith2>
 			<id>palpatine</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>4</hit1><hit2>3</hit2><hit3>4</hit3><hit4>4</hit4><hit5>4</hit5>
 		</personageSith2>
 		<personageSith3>
 			<id>separatists</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>4</hit1><hit2>3</hit2><hit3>4</hit3><hit4>3</hit4><hit5>3</hit5>
 		</personageSith3>
 		<personageJedi1>
 			<id>obi_wan_kenobi</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>8</hit1><hit2>9</hit2><hit3>9</hit3><hit4>7</hit4><hit5>9</hit5>
 		</personageJedi1>
 		<personageJedi2>
 			<id>padme_amidala</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>4</hit1><hit2>3</hit2><hit3>4</hit3><hit4>4</hit4><hit5>4</hit5>
 		</personageJedi2>
 		<personageJedi3>
 			<id>wat_tambor</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>4</hit1><hit2>3</hit2><hit3>4</hit3><hit4>3</hit4><hit5>3</hit5>
 		</personageJedi3>
 	</planet>
 	<planet>
 		<id>dagobah</id>
 		<personageSith1>
 			<id>stormtroopers_2</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>8</hit1><hit2>6</hit2><hit3>9</hit3><hit4>8</hit4><hit5>5</hit5>
 		</personageSith1>
 		<personageSith2>
 			<id>clone_commander_bakara</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>4</hit1><hit2>4</hit2><hit3>6</hit3><hit4>4</hit4><hit5>5</hit5>
 		</personageSith2>
 		<personageSith3>
 			<id>clone_commander_cody</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>4</hit1><hit2>5</hit2><hit3>4</hit3><hit4>3</hit4><hit5>2</hit5>
 		</personageSith3>
 		<personageJedi1>
 			<id>yoda</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>8</hit1><hit2>6</hit2><hit3>9</hit3><hit4>8</hit4><hit5>5</hit5>
 		</personageJedi1>
 		<personageJedi2>
 			<id>barriss_offee</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>4</hit1><hit2>4</hit2><hit3>6</hit3><hit4>4</hit4><hit5>5</hit5>
 		</personageJedi2>
 		<personageJedi3>
 			<id>kit_fisto</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>4</hit1><hit2>5</hit2><hit3>4</hit3><hit4>3</hit4><hit5>2</hit5>
 		</personageJedi3>
 	</planet>
 	<planet>
 		<id>bespin</id>
 		<personageSith1>
 			<id>boba_fett</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>11</hit1><hit2>12</hit2><hit3>12</hit3><hit4>10</hit4><hit5>12</hit5>
 		</personageSith1>
 		<personageSith2>
 			<id>stormtrooper_1_2</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>5</hit1><hit2>7</hit2><hit3>5</hit3><hit4>3</hit4><hit5>5</hit5>
 		</personageSith2>
 		<personageSith3>
 			<id>clone_commander_neyo</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>5</hit1><hit2>6</hit2><hit3>6</hit3><hit4>4</hit4><hit5>6</hit5>
 		</personageSith3>
 		<personageJedi1>
 			<id>adigallia</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>11</hit1><hit2>12</hit2><hit3>12</hit3><hit4>10</hit4><hit5>12</hit5>
 		</personageJedi1>
 		<personageJedi2>
 			<id>lando_calrissian</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>5</hit1><hit2>6</hit2><hit3>6</hit3><hit4>4</hit4><hit5>6</hit5>
 		</personageJedi2>
 		<personageJedi3>
 			<id>ki_adi_mundi</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>5</hit1><hit2>7</hit2><hit3>5</hit3><hit4>3</hit4><hit5>5</hit5>
 		</personageJedi3>
 	</planet>
 	<planet>
 		<id>geonosis</id>
 		<personageSith1>
 			<id>b1_battle_droid_2</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>6</hit1><hit2>7</hit2><hit3>6</hit3><hit4>7</hit4><hit5>6</hit5>
 		</personageSith1>
 		<personageSith2>
 			<id>dooku</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>14</hit1><hit2>11</hit2><hit3>14</hit3><hit4>13</hit4><hit5>14</hit5>
 		</personageSith2>
 		<personageSith3>
 			<id>red_battle_droid</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>8</hit1><hit2>7</hit2><hit3>6</hit3><hit4>7</hit4><hit5>7</hit5>
 		</personageSith3>
 		<personageJedi1>
 			<id>republic_clone_army_2</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>14</hit1><hit2>11</hit2><hit3>14</hit3><hit4>13</hit4><hit5>14</hit5>
 		</personageJedi1>
 		<personageJedi2>
 			<id>poggle_the_lesser</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>6</hit1><hit2>7</hit2><hit3>6</hit3><hit4>7</hit4><hit5>6</hit5>
 		</personageJedi2>
 		<personageJedi3>
 			<id>saesee_tiin</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>8</hit1><hit2>7</hit2><hit3>6</hit3><hit4>7</hit4><hit5>7</hit5>
 		</personageJedi3>
 	</planet>
 	<planet>
 		<id>alderaan</id>
 		<personageSith1>
 			<id>admiral_ozzel</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>14</hit1><hit2>14</hit2><hit3>12</hit3><hit4>14</hit4><hit5>14</hit5>
 		</personageSith1>
 		<personageSith2>
 			<id>stormtroopers_3</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>9</hit1><hit2>7</hit2><hit3>6</hit3><hit4>7</hit4><hit5>7</hit5>
 		</personageSith2>
 		<personageSith3>
 			<id>rune_haako</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>9</hit1><hit2>7</hit2><hit3>6</hit3><hit4>7</hit4><hit5>6</hit5>
 		</personageSith3>
 		<personageJedi1>
 			<id>bail_organa</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>9</hit1><hit2>7</hit2><hit3>6</hit3><hit4>7</hit4><hit5>7</hit5>
 		</personageJedi1>
 		<personageJedi2>
 			<id>leia_organa</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>14</hit1><hit2>14</hit2><hit3>12</hit3><hit4>14</hit4><hit5>14</hit5>
 		</personageJedi2>
 		<personageJedi3>
 			<id>kapitan_antilles</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>9</hit1><hit2>7</hit2><hit3>6</hit3><hit4>7</hit4><hit5>6</hit5>
 		</personageJedi3>
 	</planet>
 	<planet>
 		<id>kamino</id>
 		<personageSith1>
 			<id>jango_fett</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>16</hit1><hit2>17</hit2><hit3>17</hit3><hit4>17</hit4><hit5>13</hit5>
 		</personageSith1>
 		<personageSith2>
 			<id>republic_clone_army</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>8</hit1><hit2>8</hit2><hit3>9</hit3><hit4>8</hit4><hit5>7</hit5>
 		</personageSith2>
 		<personageSith3>
 			<id>clone_commander_rex</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>9</hit1><hit2>6</hit2><hit3>8</hit3><hit4>7</hit4><hit5>8</hit5>
 		</personageSith3>
 		<personageJedi1>
 			<id>plo_koon</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>16</hit1><hit2>17</hit2><hit3>17</hit3><hit4>17</hit4><hit5>13</hit5>
 		</personageJedi1>
 		<personageJedi2>
 			<id>clone_commander_bakara_2</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>8</hit1><hit2>8</hit2><hit3>9</hit3><hit4>8</hit4><hit5>7</hit5>
 		</personageJedi2>
 		<personageJedi3>
 			<id>clone_commander_neyo_2</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>9</hit1><hit2>6</hit2><hit3>8</hit3><hit4>7</hit4><hit5>8</hit5>
 		</personageJedi3>
 	</planet>
 	<planet>
 		<id>utapau</id>
 		<personageSith1>
 			<id>separatists_2</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>8</hit1><hit2>8</hit2><hit3>8</hit3><hit4>8</hit4><hit5>6</hit5>
 		</personageSith1>
 		<personageSith2>
 			<id>general_grievous</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>9</hit1><hit2>6</hit2><hit3>8</hit3><hit4>7</hit4><hit5>8</hit5>
 		</personageSith2>
 		<personageSith3>
 			<id>clone_commander_cody_2</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>16</hit1><hit2>17</hit2><hit3>15</hit3><hit4>17</hit4><hit5>12</hit5>
 		</personageSith3>
 		<personageJedi1>
 			<id>shaak_ti</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>16</hit1><hit2>17</hit2><hit3>15</hit3><hit4>17</hit4><hit5>12</hit5>
 		</personageJedi1>
 		<personageJedi2>
 			<id>tion_medon</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>9</hit1><hit2>6</hit2><hit3>8</hit3><hit4>7</hit4><hit5>8</hit5>
 		</personageJedi2>
 		<personageJedi3>
 			<id>bib_fortuna</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>8</hit1><hit2>8</hit2><hit3>8</hit3><hit4>8</hit4><hit5>6</hit5>
 		</personageJedi3>
 	</planet>
 	<planet>
 		<id>saleucami</id>
 		<personageSith1>
 			<id>clone_commander_rex_2</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>9</hit1><hit2>8</hit2><hit3>9</hit3><hit4>9</hit4><hit5>9</hit5>
 		</personageSith1>
 		<personageSith2>
 			<id>general_grievous_2</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>17</hit1><hit2>17</hit2><hit3>18</hit3><hit4>16</hit4><hit5>17</hit5>
 		</personageSith2>
 		<personageSith3>
 			<id>b1_battle_droid_3</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>9</hit1><hit2>8</hit2><hit3>8</hit3><hit4>8</hit4><hit5>8</hit5>
 		</personageSith3>
 		<personageJedi1>
 			<id>eeth_koth</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>17</hit1><hit2>17</hit2><hit3>18</hit3><hit4>16</hit4><hit5>17</hit5>
 		</personageJedi1>
 		<personageJedi2>
 			<id>mon_motma</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>9</hit1><hit2>8</hit2><hit3>9</hit3><hit4>9</hit4><hit5>9</hit5>
 		</personageJedi2>
 		<personageJedi3>
 			<id>c_3po</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>9</hit1><hit2>8</hit2><hit3>8</hit3><hit4>8</hit4><hit5>8</hit5>
 		</personageJedi3>
 	</planet>
 	<planet>
 		<id>jakku</id>
 		<personageSith1>
 			<id>kylo_ren</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>18</hit1><hit2>17</hit2><hit3>18</hit3><hit4>16</hit4><hit5>18</hit5>
 		</personageSith1>
 		<personageSith2>
 			<id>phasma</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>9</hit1><hit2>11</hit2><hit3>9</hit3><hit4>7</hit4><hit5>9</hit5>
 		</personageSith2>
 		<personageSith3>
 			<id>stormtrooper_1_3</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>9</hit1><hit2>10</hit2><hit3>8</hit3><hit4>8</hit4><hit5>8</hit5>
 		</personageSith3>
 		<personageJedi1>
 			<id>rey</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>18</hit1><hit2>17</hit2><hit3>18</hit3><hit4>16</hit4><hit5>18</hit5>
 		</personageJedi1>
 		<personageJedi2>
 			<id>finn</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>9</hit1><hit2>11</hit2><hit3>9</hit3><hit4>7</hit4><hit5>9</hit5>
 		</personageJedi2>
 		<personageJedi3>
 			<id>poe_dameron</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>9</hit1><hit2>10</hit2><hit3>8</hit3><hit4>8</hit4><hit5>8</hit5>
 		</personageJedi3>
 	</planet>
 	<planet>
 		<id>deathstar</id>
 		<personageSith1>
 			<id>darth_vader</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>20</hit1><hit2>17</hit2><hit3>20</hit3><hit4>18</hit4><hit5>20</hit5>
 		</personageSith1>
 		<personageSith2>
 			<id>darth_sidious</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>14</hit1><hit2>8</hit2><hit3>9</hit3><hit4>10</hit4><hit5>11</hit5>
 		</personageSith2>
 		<personageSith3>
 			<id>commander_jerjerrod</id>
-			<hit1></hit1><hit2></hit2><hit3></hit3><hit4></hit4><hit5></hit5>
+			<hit1>12</hit1><hit2>10</hit2><hit3>9</hit3><hit4>10</hit4><hit5>9</hit5>
 		</personageSith3>
 		<personageJedi1>
 			<id>shmi_skywalker</id>
-			<hit1>0</hit1><hit2>0</hit2><hit3>0</hit3><hit4>0</hit4><hit5>0</hit5>
+			<hit1>4</hit1><hit2>3</hit2><hit3>4</hit3><hit4>4</hit4><hit5>3</hit5>
 		</personageJedi1>
 		<personageJedi2>
 			<id>shmi_skywalker</id>
-			<hit1>0</hit1><hit2>0</hit2><hit3>0</hit3><hit4>0</hit4><hit5>0</hit5>
+			<hit1>4</hit1><hit2>3</hit2><hit3>3</hit3><hit4>2</hit4><hit5>4</hit5>
 		</personageJedi2>
 		<personageJedi3>
 			<id>shmi_skywalker</id>
-			<hit1>0</hit1><hit2>0</hit2><hit3>0</hit3><hit4>0</hit4><hit5>0</hit5>
+			<hit1>2</hit1><hit2>3</hit2><hit3>3</hit3><hit4>2</hit4><hit5>3</hit5>
 		</personageJedi3>
 	</planet>
 </Planets>

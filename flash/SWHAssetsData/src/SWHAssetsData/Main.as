@@ -16,6 +16,9 @@ package SWHAssetsData
 		[Embed(source = '../../assets/data/planets.xml', mimeType='application/octet-stream')]
 		public var PlanetsFileXML:Class;
 		
+		[Embed(source = '../../assets/data/map_1.xml', mimeType='application/octet-stream')]
+		public var Map1FileXML:Class;
+		
 		[Embed(source = '../../assets/data/level_0_0.xml', mimeType='application/octet-stream')]
 		public var Level00FileXML:Class;
 		[Embed(source = '../../assets/data/level_0_1.xml', mimeType='application/octet-stream')]

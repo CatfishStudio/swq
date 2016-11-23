@@ -115,6 +115,54 @@ package swh.data
 		
 		public static function createNewCharacteristics():void
 		{
+			var mapFileXML:XML = FileXML.getFileXML(Assets.assetsDataContent.Map1FileXML);
+			var n:int = mapFileXML.planet.length();
+			for (var i:int = 0; i < n; i++)
+			{
+				(Data.personages[mapFileXML.planet[i].personageJedi1.id] as Personage).hit1 = mapFileXML.planet[i].personageJedi1.hit1;
+				(Data.personages[mapFileXML.planet[i].personageJedi1.id] as Personage).hit2 = mapFileXML.planet[i].personageJedi1.hit2;
+				(Data.personages[mapFileXML.planet[i].personageJedi1.id] as Personage).hit3 = mapFileXML.planet[i].personageJedi1.hit3;
+				(Data.personages[mapFileXML.planet[i].personageJedi1.id] as Personage).hit4 = mapFileXML.planet[i].personageJedi1.hit4;
+				(Data.personages[mapFileXML.planet[i].personageJedi1.id] as Personage).hit5 = mapFileXML.planet[i].personageJedi1.hit5;
+				(Data.personages[mapFileXML.planet[i].personageJedi1.id] as Personage).setLife();
+				
+				(Data.personages[mapFileXML.planet[i].personageJedi2.id] as Personage).hit1 = mapFileXML.planet[i].personageJedi2.hit1;
+				(Data.personages[mapFileXML.planet[i].personageJedi2.id] as Personage).hit2 = mapFileXML.planet[i].personageJedi2.hit2;
+				(Data.personages[mapFileXML.planet[i].personageJedi2.id] as Personage).hit3 = mapFileXML.planet[i].personageJedi2.hit3;
+				(Data.personages[mapFileXML.planet[i].personageJedi2.id] as Personage).hit4 = mapFileXML.planet[i].personageJedi2.hit4;
+				(Data.personages[mapFileXML.planet[i].personageJedi2.id] as Personage).hit5 = mapFileXML.planet[i].personageJedi2.hit5;
+				(Data.personages[mapFileXML.planet[i].personageJedi2.id] as Personage).setLife();
+				
+				(Data.personages[mapFileXML.planet[i].personageJedi3.id] as Personage).hit1 = mapFileXML.planet[i].personageJedi3.hit1;
+				(Data.personages[mapFileXML.planet[i].personageJedi3.id] as Personage).hit2 = mapFileXML.planet[i].personageJedi3.hit2;
+				(Data.personages[mapFileXML.planet[i].personageJedi3.id] as Personage).hit3 = mapFileXML.planet[i].personageJedi3.hit3;
+				(Data.personages[mapFileXML.planet[i].personageJedi3.id] as Personage).hit4 = mapFileXML.planet[i].personageJedi3.hit4;
+				(Data.personages[mapFileXML.planet[i].personageJedi3.id] as Personage).hit5 = mapFileXML.planet[i].personageJedi3.hit5;
+				(Data.personages[mapFileXML.planet[i].personageJedi3.id] as Personage).setLife();
+				
+				
+				(Data.personages[mapFileXML.planet[i].personageSith1.id] as Personage).hit1 = mapFileXML.planet[i].personageSith1.hit1;
+				(Data.personages[mapFileXML.planet[i].personageSith1.id] as Personage).hit2 = mapFileXML.planet[i].personageSith1.hit2;
+				(Data.personages[mapFileXML.planet[i].personageSith1.id] as Personage).hit3 = mapFileXML.planet[i].personageSith1.hit3;
+				(Data.personages[mapFileXML.planet[i].personageSith1.id] as Personage).hit4 = mapFileXML.planet[i].personageSith1.hit4;
+				(Data.personages[mapFileXML.planet[i].personageSith1.id] as Personage).hit5 = mapFileXML.planet[i].personageSith1.hit5;
+				(Data.personages[mapFileXML.planet[i].personageSith1.id] as Personage).setLife();
+				
+				(Data.personages[mapFileXML.planet[i].personageSith2.id] as Personage).hit1 = mapFileXML.planet[i].personageSith2.hit1;
+				(Data.personages[mapFileXML.planet[i].personageSith2.id] as Personage).hit2 = mapFileXML.planet[i].personageSith2.hit2;
+				(Data.personages[mapFileXML.planet[i].personageSith2.id] as Personage).hit3 = mapFileXML.planet[i].personageSith2.hit3;
+				(Data.personages[mapFileXML.planet[i].personageSith2.id] as Personage).hit4 = mapFileXML.planet[i].personageSith2.hit4;
+				(Data.personages[mapFileXML.planet[i].personageSith2.id] as Personage).hit5 = mapFileXML.planet[i].personageSith2.hit5;
+				(Data.personages[mapFileXML.planet[i].personageSith2.id] as Personage).setLife();
+				
+				(Data.personages[mapFileXML.planet[i].personageSith3.id] as Personage).hit1 = mapFileXML.planet[i].personageSith3.hit1;
+				(Data.personages[mapFileXML.planet[i].personageSith3.id] as Personage).hit2 = mapFileXML.planet[i].personageSith3.hit2;
+				(Data.personages[mapFileXML.planet[i].personageSith3.id] as Personage).hit3 = mapFileXML.planet[i].personageSith3.hit3;
+				(Data.personages[mapFileXML.planet[i].personageSith3.id] as Personage).hit4 = mapFileXML.planet[i].personageSith3.hit4;
+				(Data.personages[mapFileXML.planet[i].personageSith3.id] as Personage).hit5 = mapFileXML.planet[i].personageSith3.hit5;
+				(Data.personages[mapFileXML.planet[i].personageSith3.id] as Personage).setLife();
+			}
+			/*
 			var characteristicsJedi:Array = [
 				[3, 4, 4],	[2, 2, 5],	[2, 3, 6],	[3, 3, 7],	[3, 4, 8],
 				[4, 4, 9],	[4, 5, 10],	[5, 5, 11],	[5, 6, 12],	[6, 6, 13],				
@@ -172,6 +220,7 @@ package swh.data
 				(Data.planets[planet.id] as Planet).powersSith.push(powersSith[0][1]);
 				(Data.planets[planet.id] as Planet).powersSith.push(powersSith[0][2]);
 			} 
+			*/
 		}
 		
 		public static function createNewCommands():void
@@ -291,6 +340,7 @@ package swh.data
 		
 		public static function createPlanetsDataJSON():String
 		{
+			/*
 			var count:int = 0;
 			var json:String = "[{";
 			json += "\"planets\":[";
@@ -323,6 +373,8 @@ package swh.data
 			json += "}]";
 			//Data.utilitConsole(json);
 			return json;
+			*/
+			return "";
 		}
 		
 		/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -341,6 +393,7 @@ package swh.data
 		{
 			//Data.utilitConsole(jsonData[0].planets[0].id);
 			//Data.utilitConsole(jsonData[0].planets.length);
+			/*
 			var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.planetsData);
 			for (var i:int = 0; i < jsonData[0].planets.length; i++){
 				(Data.planets[jsonData[0].planets[i].id] as Planet).status = jsonData[0].planets[i].status;
@@ -361,7 +414,7 @@ package swh.data
 				(Data.personages[planet.personageSith2] as Personage).setCharacteristics(planet.powersSith[1]);
 				(Data.personages[planet.personageSith3] as Personage).setCharacteristics(planet.powersSith[2]);
 			}
-			
+			*/
 		}
 		
 		public static function readUserCommandDataJSON():void

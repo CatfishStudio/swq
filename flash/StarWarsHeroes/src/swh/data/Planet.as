@@ -20,8 +20,8 @@ package swh.data
 		public var x:int;
 		public var y:int;
 		public var scale:Number;
-		public var powersJedi:Array;
-		public var powersSith:Array;
+		//public var powersJedi:Array;
+		//public var powersSith:Array;
 		
 		public function Planet() 
 		{
@@ -39,8 +39,8 @@ package swh.data
 			x = 0;
 			y = 0;
 			scale = 1.0;
-			powersJedi = [];
-			powersSith = [];
+			//powersJedi = [];
+			//powersSith = [];
 		}
 		
 	}

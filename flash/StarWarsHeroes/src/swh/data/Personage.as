@@ -35,6 +35,7 @@ package swh.data
 			planetID = "";
 		}
 		
+		/*
 		public function setCharacteristics(power:int):void
 		{
 			hit1 = Data.utilitRandomValue(1, power);
@@ -42,6 +43,12 @@ package swh.data
 			hit3 = Data.utilitRandomValue(1, power);
 			hit4 = Data.utilitRandomValue(1, power);
 			hit5 = Data.utilitRandomValue(1, power);
+			life = Math.round( (hit1 + hit2 + hit3 + hit4 + hit5) / 10 * 50);
+		}
+		*/
+		
+		public function setLife():void
+		{
 			life = Math.round( (hit1 + hit2 + hit3 + hit4 + hit5) / 10 * 50);
 		}
 		

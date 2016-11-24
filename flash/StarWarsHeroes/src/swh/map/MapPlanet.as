@@ -170,32 +170,60 @@ package swh.map
 			if(Data.userSide == Constants.SIDE_JEDI){
 				textFormat = new TextFormat("Arial", 14, colorBlueBack, "left", "center");
 				textFormat.bold = true;
-				textField1 = new TextField(200, 30, planet.name + " [" + power.toString() + "]", textFormat);
+				textField1 = new TextField(200, 30, planet.name, textFormat);
 				textField1.x = 40;
 				textField1.y = -30;
 				addChild(textField1);
 				
 				textFormat = new TextFormat("Arial", 14, colorBlueFront, "left", "center");
 				textFormat.bold = true;
-				textField2 = new TextField(200, 30, planet.name  + " [" + power.toString() + "]", textFormat);
+				textField2 = new TextField(200, 30, planet.name, textFormat);
 				textField2.x = 40 - 1.5;
 				textField2.y = -31;
+				addChild(textField2);
+				
+				textFormat = new TextFormat("Arial", 14, colorBlueBack, "right", "center");
+				textFormat.bold = true;
+				textField1 = new TextField(40, 30, power.toString(), textFormat);
+				textField1.x = -10;
+				textField1.y = -10;
+				addChild(textField1);
+				
+				textFormat = new TextFormat("Arial", 14, colorBlueFront, "right", "center");
+				textFormat.bold = true;
+				textField2 = new TextField(40, 30, power.toString(), textFormat);
+				textField2.x = -10 - 1.5;
+				textField2.y = -11;
 				addChild(textField2);
 			}
 			
 			if(Data.userSide == Constants.SIDE_SITH){
 				textFormat = new TextFormat("Arial", 14, colorRedBack, "left", "center");
 				textFormat.bold = true;
-				textField1 = new TextField(200, 30, planet.name  + " [" + power.toString() + "]", textFormat);
+				textField1 = new TextField(200, 30, planet.name, textFormat);
 				textField1.x = 40;
 				textField1.y = -30;
 				addChild(textField1);
 				
 				textFormat = new TextFormat("Arial", 14, colorRedFront, "left", "center");
 				textFormat.bold = true;
-				textField2 = new TextField(200, 30, planet.name  + " [" + power.toString() + "]", textFormat);
+				textField2 = new TextField(200, 30, planet.name, textFormat);
 				textField2.x = 40 - 1.5;
 				textField2.y = -31;
+				addChild(textField2);
+				
+				textFormat = new TextFormat("Arial", 14, colorRedBack, "left", "center");
+				textFormat.bold = true;
+				textField1 = new TextField(40, 30, power.toString(), textFormat);
+				textField1.x = -10;
+				textField1.y = -10;
+				addChild(textField1);
+				
+				textFormat = new TextFormat("Arial", 14, colorRedFront, "left", "center");
+				textFormat.bold = true;
+				textField2 = new TextField(40, 30, power.toString(), textFormat);
+				textField2.x = -10 - 1.5;
+				textField2.y = -11;
 				addChild(textField2);
 			}
 			

@@ -162,65 +162,6 @@ package swh.data
 				(Data.personages[mapFileXML.planet[i].personageSith3.id] as Personage).hit5 = mapFileXML.planet[i].personageSith3.hit5;
 				(Data.personages[mapFileXML.planet[i].personageSith3.id] as Personage).setLife();
 			}
-			/*
-			var characteristicsJedi:Array = [
-				[3, 4, 4],	[2, 2, 5],	[2, 3, 6],	[3, 3, 7],	[3, 4, 8],
-				[4, 4, 9],	[4, 5, 10],	[5, 5, 11],	[5, 6, 12],	[6, 6, 13],				
-				[6, 7, 14],	[7, 7, 15],	[7, 8, 16],	[8, 8, 17],	[8, 9, 18]
-			];
-			
-			var characteristicsSith:Array = [
-				[3, 4, 4],	[2, 2, 5],	[2, 3, 6],	[3, 3, 7],	[3, 4, 8],
-				[4, 4, 9],	[4, 5, 10],	[5, 5, 11],	[5, 6, 12],	[6, 6, 13],				
-				[6, 7, 14],	[7, 7, 15],	[7, 8, 16],	[8, 8, 17],	[8, 9, 18]
-			];
-			
-			for each (var planet:Planet in Data.planets) 
-			{ 
-				var powersJedi:Array;
-				var powersSith:Array;
-				
-				if (Data.userSide == Constants.SIDE_JEDI){
-					if (planet.id == "coruscant"){
-						powersJedi = characteristicsJedi.splice(characteristicsJedi.length - 1, 1); 	// моя защита против ИИ (с ними сражается ИИ)
-						powersSith = characteristicsSith.splice(0, 1);									// защита ИИ против меня (с ними сражаюсь я)
-					}else if (planet.id == "deathstar"){
-						powersJedi = characteristicsJedi.splice(0, 1);									// моя защита против ИИ (с ними сражается ИИ)
-						powersSith = characteristicsSith.splice(characteristicsSith.length - 1, 1);		// защита ИИ против меня (с ними сражаюсь я)
-					}else{
-						powersJedi = characteristicsJedi.splice(Data.utilitRandomValue(0, characteristicsJedi.length), 1);	// (с ними сражается ИИ)
-						powersSith = characteristicsSith.splice(Data.utilitRandomValue(0, characteristicsSith.length), 1);	// (с ними сражаюсь я)
-					}
-				}
-				
-				if (Data.userSide == Constants.SIDE_SITH){
-					if (planet.id == "deathstar"){
-						powersSith = characteristicsSith.splice(characteristicsSith.length - 1, 1); 	// моя защита против ИИ (с ними сражается ИИ)
-						powersJedi = characteristicsJedi.splice(0, 1);									// защита ИИ против меня (с ними сражаюсь я)
-					}else if (planet.id == "coruscant"){
-						powersSith = characteristicsSith.splice(0, 1);									// моя защита против ИИ (с ними сражается ИИ)
-						powersJedi = characteristicsJedi.splice(characteristicsJedi.length - 1, 1);		// защита ИИ против меня (с ними сражаюсь я)
-					}else{
-						powersSith = characteristicsSith.splice(Data.utilitRandomValue(0, characteristicsSith.length), 1);	// (с ними сражается ИИ)
-						powersJedi = characteristicsJedi.splice(Data.utilitRandomValue(0, characteristicsJedi.length), 1);	// (с ними сражаюсь я)
-					}
-				}
-				
-				(Data.personages[planet.personageJedi1] as Personage).setCharacteristics(powersJedi[0][0]);
-				(Data.personages[planet.personageJedi2] as Personage).setCharacteristics(powersJedi[0][1]);
-				(Data.personages[planet.personageJedi3] as Personage).setCharacteristics(powersJedi[0][2]);
-				(Data.personages[planet.personageSith1] as Personage).setCharacteristics(powersSith[0][0]);
-				(Data.personages[planet.personageSith2] as Personage).setCharacteristics(powersSith[0][1]);
-				(Data.personages[planet.personageSith3] as Personage).setCharacteristics(powersSith[0][2]);
-				
-				(Data.planets[planet.id] as Planet).powersJedi.push(powersJedi[0][0]);
-				(Data.planets[planet.id] as Planet).powersJedi.push(powersJedi[0][1]);
-				(Data.planets[planet.id] as Planet).powersJedi.push(powersJedi[0][2]);
-				(Data.planets[planet.id] as Planet).powersSith.push(powersSith[0][0]);
-				(Data.planets[planet.id] as Planet).powersSith.push(powersSith[0][1]);
-				(Data.planets[planet.id] as Planet).powersSith.push(powersSith[0][2]);
-			} 
-			*/
 		}
 		
 		public static function createNewCommands():void
@@ -232,49 +173,63 @@ package swh.data
 				(Data.personages[(Data.planets["coruscant"] as Planet).personageJedi1] as Personage).status = Data.STATUS_USER_PERSONAGE_AVAILABLE;
 				(Data.personages[(Data.planets["coruscant"] as Planet).personageJedi2] as Personage).status = Data.STATUS_USER_PERSONAGE_AVAILABLE;
 				(Data.personages[(Data.planets["coruscant"] as Planet).personageJedi3] as Personage).status = Data.STATUS_USER_PERSONAGE_AVAILABLE;
-				Data.userCommand.push(Data.createNewCommandPers(Data.personages[(Data.planets["coruscant"] as Planet).personageJedi1], Data.personages[(Data.planets["coruscant"] as Planet).personageSith1], 1));
-				Data.userCommand.push(Data.createNewCommandPers(Data.personages[(Data.planets["coruscant"] as Planet).personageJedi2], Data.personages[(Data.planets["coruscant"] as Planet).personageSith2], 2));
-				Data.userCommand.push(Data.createNewCommandPers(Data.personages[(Data.planets["coruscant"] as Planet).personageJedi3], Data.personages[(Data.planets["coruscant"] as Planet).personageSith3], 3));
+				Data.userCommand.push( Data.clonePersonage((Data.personages[(Data.planets["coruscant"] as Planet).personageJedi1] as Personage)) );
+				Data.userCommand.push( Data.clonePersonage((Data.personages[(Data.planets["coruscant"] as Planet).personageJedi2] as Personage)) );
+				Data.userCommand.push( Data.clonePersonage((Data.personages[(Data.planets["coruscant"] as Planet).personageJedi3] as Personage)) );
 				
 				(Data.personages[(Data.planets["deathstar"] as Planet).personageSith1] as Personage).status = Data.STATUS_AI_PERSONAGE_AVAILABLE;
 				(Data.personages[(Data.planets["deathstar"] as Planet).personageSith2] as Personage).status = Data.STATUS_AI_PERSONAGE_AVAILABLE;
 				(Data.personages[(Data.planets["deathstar"] as Planet).personageSith3] as Personage).status = Data.STATUS_AI_PERSONAGE_AVAILABLE;
-				Data.aiCommand.push(Data.createNewCommandPers(Data.personages[(Data.planets["deathstar"] as Planet).personageSith1], Data.personages[(Data.planets["deathstar"] as Planet).personageJedi1], 1));
-				Data.aiCommand.push(Data.createNewCommandPers(Data.personages[(Data.planets["deathstar"] as Planet).personageSith2], Data.personages[(Data.planets["deathstar"] as Planet).personageJedi2], 2));
-				Data.aiCommand.push(Data.createNewCommandPers(Data.personages[(Data.planets["deathstar"] as Planet).personageSith3], Data.personages[(Data.planets["deathstar"] as Planet).personageJedi3], 3));
+				Data.aiCommand.push( Data.clonePersonage((Data.personages[(Data.planets["deathstar"] as Planet).personageSith1] as Personage)) );
+				Data.aiCommand.push( Data.clonePersonage((Data.personages[(Data.planets["deathstar"] as Planet).personageSith2] as Personage)) );
+				Data.aiCommand.push( Data.clonePersonage((Data.personages[(Data.planets["deathstar"] as Planet).personageSith3] as Personage)) );
 			}
-						
 			if (Data.userSide == Constants.SIDE_SITH){
 				(Data.personages[(Data.planets["deathstar"] as Planet).personageSith1] as Personage).status = Data.STATUS_USER_PERSONAGE_AVAILABLE;
 				(Data.personages[(Data.planets["deathstar"] as Planet).personageSith2] as Personage).status = Data.STATUS_USER_PERSONAGE_AVAILABLE;
 				(Data.personages[(Data.planets["deathstar"] as Planet).personageSith3] as Personage).status = Data.STATUS_USER_PERSONAGE_AVAILABLE;
-				Data.userCommand.push(Data.createNewCommandPers(Data.personages[(Data.planets["deathstar"] as Planet).personageSith1], Data.personages[(Data.planets["deathstar"] as Planet).personageJedi1], 1));
-				Data.userCommand.push(Data.createNewCommandPers(Data.personages[(Data.planets["deathstar"] as Planet).personageSith2], Data.personages[(Data.planets["deathstar"] as Planet).personageJedi2], 2));
-				Data.userCommand.push(Data.createNewCommandPers(Data.personages[(Data.planets["deathstar"] as Planet).personageSith3], Data.personages[(Data.planets["deathstar"] as Planet).personageJedi3], 3));
+				Data.userCommand.push( Data.clonePersonage((Data.personages[(Data.planets["deathstar"] as Planet).personageSith1] as Personage)) );
+				Data.userCommand.push( Data.clonePersonage((Data.personages[(Data.planets["deathstar"] as Planet).personageSith2] as Personage)) );
+				Data.userCommand.push( Data.clonePersonage((Data.personages[(Data.planets["deathstar"] as Planet).personageSith3] as Personage)) );
+				
 				
 				(Data.personages[(Data.planets["coruscant"] as Planet).personageJedi1] as Personage).status = Data.STATUS_AI_PERSONAGE_AVAILABLE;
 				(Data.personages[(Data.planets["coruscant"] as Planet).personageJedi2] as Personage).status = Data.STATUS_AI_PERSONAGE_AVAILABLE;
 				(Data.personages[(Data.planets["coruscant"] as Planet).personageJedi3] as Personage).status = Data.STATUS_AI_PERSONAGE_AVAILABLE;
-				Data.aiCommand.push(Data.createNewCommandPers(Data.personages[(Data.planets["coruscant"] as Planet).personageJedi1], Data.personages[(Data.planets["coruscant"] as Planet).personageSith1], 1));
-				Data.aiCommand.push(Data.createNewCommandPers(Data.personages[(Data.planets["coruscant"] as Planet).personageJedi2], Data.personages[(Data.planets["coruscant"] as Planet).personageSith2], 2));
-				Data.aiCommand.push(Data.createNewCommandPers(Data.personages[(Data.planets["coruscant"] as Planet).personageJedi3], Data.personages[(Data.planets["coruscant"] as Planet).personageSith3], 3));
+				Data.aiCommand.push( Data.clonePersonage((Data.personages[(Data.planets["coruscant"] as Planet).personageJedi1] as Personage)) );
+				Data.aiCommand.push( Data.clonePersonage((Data.personages[(Data.planets["coruscant"] as Planet).personageJedi2] as Personage)) );
+				Data.aiCommand.push( Data.clonePersonage((Data.personages[(Data.planets["coruscant"] as Planet).personageJedi3] as Personage)) );
 			}
+			
+			Data.userCommand[0].hit1 = 4; Data.userCommand[0].hit2 = 3;	Data.userCommand[0].hit3 = 4; Data.userCommand[0].hit4 = 4;
+			Data.userCommand[0].hit5 = 3; Data.userCommand[0].setLife(); Data.userCommand[0].inCommand = 1;
+			Data.userCommand[1].hit1 = 4; Data.userCommand[1].hit2 = 3;	Data.userCommand[1].hit3 = 3; Data.userCommand[1].hit4 = 2;
+			Data.userCommand[1].hit5 = 3; Data.userCommand[1].setLife(); Data.userCommand[1].inCommand = 2;
+			Data.userCommand[2].hit1 = 2; Data.userCommand[2].hit2 = 3;	Data.userCommand[2].hit3 = 3; Data.userCommand[2].hit4 = 2;
+			Data.userCommand[2].hit5 = 3; Data.userCommand[2].setLife(); Data.userCommand[2].inCommand = 3;
+			
+			Data.aiCommand[0].hit1 = 4; Data.aiCommand[0].hit2 = 3;	Data.aiCommand[0].hit3 = 4; Data.aiCommand[0].hit4 = 4;
+			Data.aiCommand[0].hit5 = 3; Data.aiCommand[0].setLife(); Data.aiCommand[0].inCommand = 1;
+			Data.aiCommand[1].hit1 = 4; Data.aiCommand[1].hit2 = 3;	Data.aiCommand[1].hit3 = 3; Data.aiCommand[1].hit4 = 2;
+			Data.aiCommand[1].hit5 = 3; Data.aiCommand[1].setLife(); Data.aiCommand[1].inCommand = 2;
+			Data.aiCommand[2].hit1 = 2; Data.aiCommand[2].hit2 = 3;	Data.aiCommand[2].hit3 = 3; Data.aiCommand[2].hit4 = 2;
+			Data.aiCommand[2].hit5 = 3; Data.aiCommand[2].setLife(); Data.aiCommand[2].inCommand = 3;
 		}
 		
-		public static function createNewCommandPers(pers:Personage, persValues:Personage, positionIndex:int):Personage
+		public static function clonePersonage(pers:Personage):Personage
 		{
 			var _pers:Personage = new Personage();
 			_pers.id = pers.id;
 			_pers.name = pers.name;
-			_pers.life = persValues.life;	// берём показатель врага
-			_pers.hit1 = persValues.hit1;	// берём показатель врага
-			_pers.hit2 = persValues.hit2;	// берём показатель врага
-			_pers.hit3 = persValues.hit3;	// берём показатель врага
-			_pers.hit4 = persValues.hit4;	// берём показатель врага
-			_pers.hit5 = persValues.hit5;	// берём показатель врага
+			_pers.life = pers.life;
+			_pers.hit1 = pers.hit1;
+			_pers.hit2 = pers.hit2;
+			_pers.hit3 = pers.hit3;
+			_pers.hit4 = pers.hit4;
+			_pers.hit5 = pers.hit5;
+			_pers.inCommand = pers.inCommand;
 			_pers.description = pers.description;
 			_pers.status = pers.status;
-			_pers.inCommand = positionIndex;
 			return _pers;
 		}
 		

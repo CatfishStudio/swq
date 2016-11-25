@@ -138,7 +138,7 @@ package swh.map
 					mapMove = true;
 					
 					if (String(e.target) == '[object Image]'){
-						if ((e.target as Image).name != null || (e.target as Image).name != 'map'){
+						if ((e.target as Image).name != null && (e.target as Image).name != 'map'){
 							battleStart = new MapStartBattle(Data.planets[(e.target as Image).name]);
 							addChild(battleStart);
 						}

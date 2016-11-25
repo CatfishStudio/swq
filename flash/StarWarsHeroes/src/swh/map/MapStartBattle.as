@@ -115,7 +115,7 @@ package swh.map
 		private function createQuad():void
 		{
 			quad = new Quad(Constants.GAME_WINDOW_WIDTH, Constants.GAME_WINDOW_HEIGHT,  0x000000);
-			quad.alpha = 0.2;
+			quad.alpha = 0.05;
 			quad.x = 0 - this.x;
 			quad.y = 0 - this.y;
 			this.addChild(quad);
@@ -125,22 +125,20 @@ package swh.map
 		{
 			if (Data.userSide == Constants.SIDE_JEDI) {
 				image = new Image(Assets.textureAtlas.getTexture('map_window_start_battle_blue_background.png'));
-				image.name = 'background';
 				posX = (Constants.GAME_WINDOW_WIDTH / 2) - (image.width / 2);
 				posY = (Constants.GAME_WINDOW_HEIGHT / 2) - (image.height / 2 + 50);
 				image.x = posX; 
 				image.y = posY;
-				image.alpha = 0.8;
+				image.alpha = 0.3;
 				addChild(image);
 			}
 			if (Data.userSide == Constants.SIDE_SITH) {
 				image = new Image(Assets.textureAtlas.getTexture('map_window_start_battle_red_background.png'));
-				image.name = 'background';
 				posX = (Constants.GAME_WINDOW_WIDTH / 2) - (image.width / 2);
 				posY = (Constants.GAME_WINDOW_HEIGHT / 2) - (image.height / 2 + 50);
 				image.x = posX; 
 				image.y = posY;
-				image.alpha = 0.8;
+				image.alpha = 0.3;
 				addChild(image);
 			}
 		}
@@ -178,19 +176,31 @@ package swh.map
 		private function createBorder():void
 		{
 			if (Data.userSide == Constants.SIDE_JEDI) {
+				image = new Image(Assets.textureAtlas.getTexture('map_window_start_battle_blue_lines.png'));
+				image.name = 'border';
+				image.x = posX; 
+				image.y = posY;
+				image.alpha = 0.3;
+				addChild(image);
+				
 				image = new Image(Assets.textureAtlas.getTexture('map_window_start_battle_blue_border.png'));
 				image.name = 'border';
 				image.x = posX; 
 				image.y = posY;
-				image.alpha = 0.5;
 				addChild(image);
 			}
 			if (Data.userSide == Constants.SIDE_SITH) {
+				image = new Image(Assets.textureAtlas.getTexture('map_window_start_battle_red_lines.png'));
+				image.name = 'border';
+				image.x = posX; 
+				image.y = posY;
+				image.alpha = 0.3;
+				addChild(image);
+				
 				image = new Image(Assets.textureAtlas.getTexture('map_window_start_battle_red_border.png'));
 				image.name = 'border';
 				image.x = posX; 
 				image.y = posY;
-				image.alpha = 0.5;
 				addChild(image);
 			}
 		}
@@ -208,8 +218,8 @@ package swh.map
 			textFormat = new TextFormat("Arial", 28, colorFront, "left", "top");
 			textFormat.bold = true;
 			textField2 = new TextField(100, 50, 'БИТВА', textFormat);
-			textField2.x = (Constants.GAME_WINDOW_WIDTH / 2) - (textField1.width / 2) - 1.5;
-			textField2.y = posY + 25 - 1;
+			textField2.x = (Constants.GAME_WINDOW_WIDTH / 2) - (textField1.width / 2) - 2.5;
+			textField2.y = posY + 23;
 			addChild(textField2);
 		}
 		

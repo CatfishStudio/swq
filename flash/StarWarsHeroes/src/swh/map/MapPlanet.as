@@ -166,96 +166,74 @@ package swh.map
 			image.alpha = 0.8;
 			addChild(image);
 			
-			var textFormat:TextFormat;
-			if(Data.userSide == Constants.SIDE_JEDI){
-				textFormat = new TextFormat("Arial", 14, colorBlueBack, "left", "center");
-				textFormat.bold = true;
-				textField1 = new TextField(200, 30, planet.name, textFormat);
-				textField1.x = 40;
-				textField1.y = -30;
-				addChild(textField1);
-				
-				textFormat = new TextFormat("Arial", 14, colorBlueFront, "left", "center");
-				textFormat.bold = true;
-				textField2 = new TextField(200, 30, planet.name, textFormat);
-				textField2.x = 40 - 1.5;
-				textField2.y = -31;
-				addChild(textField2);
-				
-				textFormat = new TextFormat("Arial", 14, colorBlueBack, "right", "center");
-				textFormat.bold = true;
-				textField1 = new TextField(40, 30, power.toString(), textFormat);
-				textField1.x = -10;
-				textField1.y = -10;
-				addChild(textField1);
-				
-				textFormat = new TextFormat("Arial", 14, colorBlueFront, "right", "center");
-				textFormat.bold = true;
-				textField2 = new TextField(40, 30, power.toString(), textFormat);
-				textField2.x = -10 - 1.5;
-				textField2.y = -11;
-				addChild(textField2);
-			}
+			var textFormatBack:TextFormat;
+			var textFormatFront:TextFormat;
 			
-			if(Data.userSide == Constants.SIDE_SITH){
-				textFormat = new TextFormat("Arial", 14, colorRedBack, "left", "center");
-				textFormat.bold = true;
-				textField1 = new TextField(200, 30, planet.name, textFormat);
-				textField1.x = 40;
-				textField1.y = -30;
-				addChild(textField1);
-				
-				textFormat = new TextFormat("Arial", 14, colorRedFront, "left", "center");
-				textFormat.bold = true;
-				textField2 = new TextField(200, 30, planet.name, textFormat);
-				textField2.x = 40 - 1.5;
-				textField2.y = -31;
-				addChild(textField2);
-				
-				textFormat = new TextFormat("Arial", 14, colorRedBack, "left", "center");
-				textFormat.bold = true;
-				textField1 = new TextField(40, 30, power.toString(), textFormat);
-				textField1.x = -10;
-				textField1.y = -10;
-				addChild(textField1);
-				
-				textFormat = new TextFormat("Arial", 14, colorRedFront, "left", "center");
-				textFormat.bold = true;
-				textField2 = new TextField(40, 30, power.toString(), textFormat);
-				textField2.x = -10 - 1.5;
-				textField2.y = -11;
-				addChild(textField2);
+			if (Data.userSide == Constants.SIDE_JEDI){
+				if (planet.status == Data.STATUS_PLANET_QUEST_COMPLETE_JEDI || planet.status == Data.STATUS_PLANET_QUEST_AWAITING){
+					textFormatBack = new TextFormat("Arial", 14, colorBlueBack, "left", "center");
+					textFormatFront = new TextFormat("Arial", 14, colorBlueFront, "left", "center");
+				}else if(planet.status == Data.STATUS_PLANET_QUEST_COMPLETE_SITH){
+					textFormatBack = new TextFormat("Arial", 14, colorRedBack, "left", "center");
+					textFormatFront = new TextFormat("Arial", 14, colorRedFront, "left", "center");
+				}
+			}else if (Data.userSide == Constants.SIDE_SITH){
+				if (planet.status == Data.STATUS_PLANET_QUEST_COMPLETE_SITH || planet.status == Data.STATUS_PLANET_QUEST_AWAITING){
+					textFormatBack = new TextFormat("Arial", 14, colorRedBack, "left", "center");
+					textFormatFront = new TextFormat("Arial", 14, colorRedFront, "left", "center");
+				}else if(planet.status == Data.STATUS_PLANET_QUEST_COMPLETE_JEDI){
+					textFormatBack = new TextFormat("Arial", 14, colorBlueBack, "left", "center");
+					textFormatFront = new TextFormat("Arial", 14, colorBlueFront, "left", "center");
+				}
 			}
+			textFormatBack.bold = true;
+			textFormatFront.bold = true;
+			
+			textField1 = new TextField(200, 30, planet.name, textFormatBack);
+			textField1.x = 40;
+			textField1.y = -30;
+			addChild(textField1);
+			
+			textField2 = new TextField(200, 30, planet.name, textFormatFront);
+			textField2.x = 40 - 1.5;
+			textField2.y = -31;
+			addChild(textField2);
 			
 			if (planet.status == Data.STATUS_PLANET_QUEST_COMPLETE_JEDI){
-				textFormat = new TextFormat("Arial", 14, colorBlueBack, "left", "center");
-				textFormat.bold = true;
-				textField1 = new TextField(200, 30, 'Орден Джедай', textFormat);
+				textField1 = new TextField(200, 30, 'Орден Джедай', textFormatBack);
 				textField1.x = 75;
 				textField1.y = -5;
 				addChild(textField1);
 				
-				textFormat = new TextFormat("Arial", 14, colorBlueFront, "left", "center");
-				textFormat.bold = true;
-				textField2 = new TextField(200, 30, 'Орден Джедай', textFormat);
+				textField2 = new TextField(200, 30, 'Орден Джедай', textFormatFront);
 				textField2.x = 75 - 1.5;
 				textField2.y = -6;
 				addChild(textField2);
 			}
 			
 			if (planet.status == Data.STATUS_PLANET_QUEST_COMPLETE_SITH){
-				textFormat = new TextFormat("Arial", 14, colorRedBack, "left", "center");
-				textFormat.bold = true;
-				textField1 = new TextField(200, 30, 'Орден Ситов', textFormat);
+				textField1 = new TextField(200, 30, 'Орден Ситов', textFormatBack);
 				textField1.x = 75;
 				textField1.y = -5;
 				addChild(textField1);
 				
-				textFormat = new TextFormat("Arial", 14, colorRedFront, "left", "center");
-				textFormat.bold = true;
-				textField2 = new TextField(200, 30, 'Орден Ситов', textFormat);
+				textField2 = new TextField(200, 30, 'Орден Ситов', textFormatFront);
 				textField2.x = 75 - 1.5;
 				textField2.y = -6;
+				addChild(textField2);
+			}
+			
+			if (planet.status == Data.STATUS_PLANET_QUEST_AWAITING){
+				textFormatBack.horizontalAlign = "right";
+				textFormatFront.horizontalAlign = "right";
+				textField1 = new TextField(40, 30, power.toString(), textFormatBack);
+				textField1.x = -10;
+				textField1.y = -10;
+				addChild(textField1);
+				
+				textField2 = new TextField(40, 30, power.toString(), textFormatFront);
+				textField2.x = -10 - 1.5;
+				textField2.y = -11;
 				addChild(textField2);
 			}
 		}

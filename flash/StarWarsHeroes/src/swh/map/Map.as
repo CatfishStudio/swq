@@ -304,50 +304,50 @@ package swh.map
 		private function createButtons():void
 		{
 			if (Data.userSide == Constants.SIDE_JEDI) {
-				button = new Buttons("НАЗАД В МЕНЮ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
+				button = new Buttons("НАЗАД В МЕНЮ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 14, 0xFFFFFF, 0x0090F0);
 				button.name = Constants.MAP_BUTTON_BACK_MENU;
 				button.x = 10;
 				button.y = 10;
 				addChild(button);
 				
-				button = new Buttons("ПРИГЛАСИТЬ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
+				button = new Buttons("ПРИГЛАСИТЬ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 14, 0xFFFFFF, 0x0090F0);
 				button.name = Constants.MAP_BUTTON_INVITE;
 				button.x = 10;
 				button.y = 555;
 				addChild(button);
 				
-				button = new Buttons("КОМАНДА", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
+				button = new Buttons("КОМАНДА", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 14, 0xFFFFFF, 0x0090F0);
 				button.name = Constants.MAP_BUTTON_COMMAND;
 				button.x = 360;
 				button.y = 670;
 				addChild(button);
 				
-				button = new Buttons("НАСТРОЙКИ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
+				button = new Buttons("НАСТРОЙКИ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 14, 0xFFFFFF, 0x0090F0);
 				button.name = Constants.MAP_BUTTON_SETTINGS;
 				button.x = 560;
 				button.y = 670;
 				addChild(button);
 			}
 			if (Data.userSide == Constants.SIDE_SITH) {
-				button = new Buttons("НАЗАД В МЕНЮ", Assets.textureAtlasAnimation.getTextures('button_red_'), 12, 0xFFFFFF, 0x880000);
+				button = new Buttons("НАЗАД В МЕНЮ", Assets.textureAtlasAnimation.getTextures('button_red_'), 12, 14, 0xFFFFFF, 0x880000);
 				button.name = Constants.MAP_BUTTON_BACK_MENU;
 				button.x = 10;
 				button.y = 10;
 				addChild(button);
 				
-				button = new Buttons("ПРИГЛАСИТЬ", Assets.textureAtlasAnimation.getTextures('button_red_'), 12, 0xFFFFFF, 0x880000);
+				button = new Buttons("ПРИГЛАСИТЬ", Assets.textureAtlasAnimation.getTextures('button_red_'), 12, 14, 0xFFFFFF, 0x880000);
 				button.name = Constants.MAP_BUTTON_INVITE;
 				button.x = 10;
 				button.y = 555;
 				addChild(button);
 				
-				button = new Buttons("КОМАНДА", Assets.textureAtlasAnimation.getTextures('button_red_'), 12, 0xFFFFFF, 0x880000);
+				button = new Buttons("КОМАНДА", Assets.textureAtlasAnimation.getTextures('button_red_'), 12, 14, 0xFFFFFF, 0x880000);
 				button.name = Constants.MAP_BUTTON_COMMAND;
 				button.x = 360;
 				button.y = 670;
 				addChild(button);
 				
-				button = new Buttons("НАСТРОЙКИ", Assets.textureAtlasAnimation.getTextures('button_red_'), 12, 0xFFFFFF, 0x880000);
+				button = new Buttons("НАСТРОЙКИ", Assets.textureAtlasAnimation.getTextures('button_red_'), 12, 14, 0xFFFFFF, 0x880000);
 				button.name = Constants.MAP_BUTTON_SETTINGS;
 				button.x = 560;
 				button.y = 670;

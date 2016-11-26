@@ -230,14 +230,14 @@ package swh.side
 		
 		private function createButtons(): void
 		{
-			buttonBlue = new Buttons("ВЫБРАТЬ", Assets.textureAtlasAnimation.getTextures('button_red_'), 12, 0xFFFFFF, 0x880000);
+			buttonBlue = new Buttons("ВЫБРАТЬ", Assets.textureAtlasAnimation.getTextures('button_red_'), 12, 14, 0xFFFFFF, 0x880000);
 			buttonBlue.name = Constants.SIDE_CLOSE;
 			buttonBlue.x = 125;
 			buttonBlue.y = 625;
 			buttonBlue.addEventListener(TouchEvent.TOUCH, onTouchRed);
 			addChild(buttonBlue);
 			
-			buttonRed = new Buttons("ВЫБРАТЬ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
+			buttonRed = new Buttons("ВЫБРАТЬ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 14, 0xFFFFFF, 0x0090F0);
 			buttonRed.name = Constants.SIDE_CLOSE;
 			buttonRed.x = 525;
 			buttonRed.y = 625;

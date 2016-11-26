@@ -26,25 +26,26 @@ package swh.buttons
 		private var textField1:TextField;
 		private var textField2:TextField;
 		private var text:String;
+		private var textSize:int;
 		private var textures:Vector.<Texture>;
 		private var texture:Texture;
 		private var fps:Number = 12;
 		private var colorBack:uint;
 		private var colorFront:uint;
 		
-		public function Buttons(_text:String, _textures:Vector.<Texture>, _fps:Number, _colorFront:uint, _colorBack:uint) 
+		public function Buttons(_text:String, _textures:Vector.<Texture>, _fps:Number, _textSize:int, _colorFront:uint, _colorBack:uint) 
 		{
 			super();
 			text = _text;
 			textures = _textures;
 			texture = _textures[0];
 			fps = _fps;
+			textSize = _textSize;
 			colorFront = _colorFront;
 			colorBack = _colorBack;
 			
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
-			addEventListener(TouchEvent.TOUCH, onTouch);
 		}
 		
 		private function onAddedToStage(e:Event):void 
@@ -64,25 +65,25 @@ package swh.buttons
 			this.width = button.width;
 			this.height = button.height;
 			
-			var textFormat:TextFormat = new TextFormat("Arial", 14, colorBack, "center", "center");
+			var textFormat:TextFormat = new TextFormat("Arial", textSize, colorBack, "center", "center");
 			textFormat.bold = true;
-			textField1 = new TextField(200, 20, text, textFormat);
+			textField1 = new TextField(200, 30, text, textFormat);
 			textField1.x = (this.width / 2) - (textField1.width / 2);
 			textField1.y = (this.height / 2) - (textField1.height / 2);
 			addChild(textField1);
 			
-			textFormat = new TextFormat("Arial", 14, colorFront, "center", "center");
+			textFormat = new TextFormat("Arial", textSize, colorFront, "center", "center");
 			textFormat.bold = true;
-			textField2 = new TextField(200, 20, text, textFormat);
+			textField2 = new TextField(200, 30, text, textFormat);
 			textField2.x = (this.width / 2) - (textField2.width / 2) - 1.5;
 			textField2.y = (this.height / 2) - (textField2.height / 2) - 1;
+			textField2.addEventListener(TouchEvent.TOUCH, onTouch);
 			addChild(textField2);
 		}
 		
 		private function onRemoveFromStage(e:Event):void 
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
-			removeEventListener(TouchEvent.TOUCH, onTouch);
 			Starling.juggler.remove(button);
 			if (button != null){
 				removeChild(button);
@@ -95,6 +96,7 @@ package swh.buttons
 				textField1 = null;
 			}
 			if (textField2 != null){
+				textField2.removeEventListener(TouchEvent.TOUCH, onTouch);
 				removeChild(textField2);
 				textField2.dispose();
 				textField2 = null;

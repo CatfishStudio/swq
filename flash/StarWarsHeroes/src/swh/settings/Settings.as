@@ -215,8 +215,8 @@ package swh.settings
 			button.y = (Constants.GAME_WINDOW_HEIGHT / 2) - 37;
 			addChild(button);
 			
-			if (Data.userSide == Constants.SIDE_JEDI) buttonClose = new Buttons("ЗАКРЫТЬ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 0xFFFFFF, 0x0090F0);
-			else buttonClose = new Buttons("ЗАКРЫТЬ", Assets.textureAtlasAnimation.getTextures('button_red_'), 12, 0xFFFFFF, 0x880000);
+			if (Data.userSide == Constants.SIDE_JEDI) buttonClose = new Buttons("ЗАКРЫТЬ", Assets.textureAtlasAnimation.getTextures('button_blue_'), 12, 14, 0xFFFFFF, 0x0090F0);
+			else buttonClose = new Buttons("ЗАКРЫТЬ", Assets.textureAtlasAnimation.getTextures('button_red_'), 12, 14, 0xFFFFFF, 0x880000);
 			buttonClose.name = Constants.SETTINGS_BUTTON_CLOSE;
 			buttonClose.x = (Constants.GAME_WINDOW_WIDTH / 2) - 100;
 			buttonClose.y = (Constants.GAME_WINDOW_HEIGHT / 2) + 72;

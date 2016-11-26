@@ -34,6 +34,8 @@ package swh.data
 		public static const MAP_BUTTON_COMMAND:String = "map_button_command";
 		public static const MAP_BUTTON_SETTINGS:String = "map_button_settings";
 		public static const MAP_START_BATTLE:String = "map_start_battle";
+		public static const MAP_START_BATTLE_BUTTON_START:String = "map_start_battle_button_start";
+		public static const MAP_START_BATTLE_BUTTON_CANCEL:String = "map_start_battle_button_cancel";
 		
 	}
 

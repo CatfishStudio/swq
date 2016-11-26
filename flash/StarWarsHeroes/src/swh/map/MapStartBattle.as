@@ -52,6 +52,7 @@ package swh.map
 			createBackground();
 			createPersonages();
 			createBorder();
+			onTweenLine();
 			createText();
 		}
 		
@@ -177,32 +178,53 @@ package swh.map
 		{
 			if (Data.userSide == Constants.SIDE_JEDI) {
 				image = new Image(Assets.textureAtlas.getTexture('map_window_start_battle_blue_lines.png'));
-				image.name = 'border';
 				image.x = posX; 
 				image.y = posY;
 				image.alpha = 0.3;
 				addChild(image);
 				
 				image = new Image(Assets.textureAtlas.getTexture('map_window_start_battle_blue_border.png'));
-				image.name = 'border';
 				image.x = posX; 
 				image.y = posY;
+				addChild(image);
+				
+				image = new Image(Assets.textureAtlas.getTexture('map_window_start_battle_blue_line.png'));
+				image.name = 'hologram_line';
+				image.x = posX+15; 
+				image.y = posY+18;
+				image.alpha = 0.3;
 				addChild(image);
 			}
 			if (Data.userSide == Constants.SIDE_SITH) {
 				image = new Image(Assets.textureAtlas.getTexture('map_window_start_battle_red_lines.png'));
-				image.name = 'border';
 				image.x = posX; 
 				image.y = posY;
 				image.alpha = 0.3;
 				addChild(image);
 				
 				image = new Image(Assets.textureAtlas.getTexture('map_window_start_battle_red_border.png'));
-				image.name = 'border';
 				image.x = posX; 
 				image.y = posY;
 				addChild(image);
+				
+				image = new Image(Assets.textureAtlas.getTexture('map_window_start_battle_red_line.png'));
+				image.name = 'hologram_line';
+				image.x = posX+15; 
+				image.y = posY+18;
+				image.alpha = 0.3;
+				addChild(image);
 			}
+		}
+		
+		private function onTweenLine():void
+		{
+			Starling.juggler.remove(tweenLine);
+			image = (getChildByName('hologram_line') as Image);
+			image.y = posY+18;
+			tweenLine = new Tween(image, 2.0, "easeInOut");
+			tweenLine.animate("y", image.y + 225);
+			tweenLine.onComplete = onTweenLine;
+			Starling.juggler.add(tweenLine);
 		}
 		
 		private function createText():void
@@ -222,6 +244,7 @@ package swh.map
 			textField2.y = posY + 23;
 			addChild(textField2);
 		}
+		
 		
 	}
 

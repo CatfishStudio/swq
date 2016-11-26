@@ -55,11 +55,19 @@ package swh.menu
 			
 			if (Data.errorGetData === true){
 				message.setText("Ошибка: Сервер ВКонтакте недоступен!\nСохранённые данные не удалось загрузить.");
+				if (Data.userData != null && Data.aiData != null) {
+					Data.initialization();
+					Data.loadMapCharacteristics()
+					Data.readUserDataJSON();
+					Data.readAIDataJSON();
+					Data.readUserCommandDataJSON();
+					Data.readAICommandDataJSON();
+					createButtonContinue();
+				}
 			}else{
-				if (Data.userData != "" && Data.aiData != "" && Data.planetsData != "") {
+				if (Data.userData != null && Data.aiData != null) {
 					Data.initialization();
 					Data.readUserDataJSON();
-					Data.readPlanetsDataJSON();
 					Data.readUserCommandDataJSON();
 					Data.readAICommandDataJSON();
 					message.setText("Сохранённых данных успешно загружены!\nВы можите продолжить игру.");

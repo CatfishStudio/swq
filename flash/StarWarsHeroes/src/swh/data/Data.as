@@ -39,7 +39,7 @@ package swh.data
 		public static var aiCommand:Vector.<Personage>;
 		public static var aiData:String;		// для сервера (формат: json)
 		
-		public static var planetsData:String;	// для сервера (формат: json)
+		public static var map:int = 0;			// индекс файла map_*.xml
 		
 		/* Game data (ассоциативные массивы)*/
 		public static var personages:Array;
@@ -113,7 +113,7 @@ package swh.data
 			}
 		}
 		
-		public static function createNewCharacteristics():void
+		public static function loadMapCharacteristics():void
 		{
 			var mapFileXML:XML = FileXML.getFileXML(Assets.assetsDataContent.Map1FileXML);
 			var n:int = mapFileXML.planet.length();
@@ -240,6 +240,7 @@ package swh.data
 			*/
 			
 			var json:String = "[{";
+			json += "\"map\":\"" + Data.map.toString() + "\",";
 			json += "\"message\":\"" + Data.userLastMessage.toString() + "\",";
 			json += "\"side\":\"" + Data.userSide.toString() + "\",";
 			json += "\"points\":\"" + Data.userPoints.toString() + "\",";
@@ -268,6 +269,7 @@ package swh.data
 		public static function createAIDataJSON():String
 		{
 			var json:String = "[{";
+			json += "\"map\":\"" + Data.map.toString() + "\",";
 			json += "\"message\":\"" + "\",";
 			json += "\"side\":\"" + Data.aiSide.toString() + "\",";
 			json += "\"points\":\"" + Data.aiPoints.toString() + "\",";
@@ -293,45 +295,6 @@ package swh.data
 			return json;
 		}
 		
-		public static function createPlanetsDataJSON():String
-		{
-			/*
-			var count:int = 0;
-			var json:String = "[{";
-			json += "\"planets\":[";
-			for each (var planet:Planet in Data.planets) 
-			{
-				json += "{";
-				json += "\"id\":" + "\"" + planet.id.toString() + "\","; 
-				json += "\"status\":" + "\"" + planet.status.toString() + "\",";
-				json += "\"powersjedi\":[";
-				for (var n:int = 0; n < planet.powersJedi.length; n++){
-					json += "{";
-					json += "\"value\":" + "\"" + String(planet.powersJedi[n]) + "\""; 
-					if (n == (planet.powersJedi.length - 1)) json += "}";
-					else json += "},";
-				}
-				json +=	"],"; 
-				json += "\"powerssith\":[";
-				for (var m:int = 0; m < planet.powersSith.length; m++){
-					json += "{";
-					json += "\"value\":" + "\"" + String(planet.powersSith[m]) + "\"";
-					if (m == (planet.powersSith.length - 1)) json += "}";
-					else json += "},";
-				}
-				json += "]";
-				if (count < 14) json += "},";
-				else json += "}";
-				count++;
-			}
-			json += "]";
-			json += "}]";
-			//Data.utilitConsole(json);
-			return json;
-			*/
-			return "";
-		}
-		
 		/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 		
 		
@@ -342,34 +305,14 @@ package swh.data
 			Data.userSide = jsonData[0].side;
 			Data.userPoints = jsonData[0].points;
 			Data.userLastMessage = jsonData[0].message;
+			Data.map = jsonData[0].map;
 		}
 		
-		public static function readPlanetsDataJSON():void
+		public static function readAIDataJSON():void
 		{
-			//Data.utilitConsole(jsonData[0].planets[0].id);
-			//Data.utilitConsole(jsonData[0].planets.length);
-			/*
-			var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.planetsData);
-			for (var i:int = 0; i < jsonData[0].planets.length; i++){
-				(Data.planets[jsonData[0].planets[i].id] as Planet).status = jsonData[0].planets[i].status;
-				(Data.planets[jsonData[0].planets[i].id] as Planet).powersJedi[0] = jsonData[0].planets[i].powersjedi[0];
-				(Data.planets[jsonData[0].planets[i].id] as Planet).powersJedi[1] = jsonData[0].planets[i].powersjedi[1];
-				(Data.planets[jsonData[0].planets[i].id] as Planet).powersJedi[2] = jsonData[0].planets[i].powersjedi[2];
-				(Data.planets[jsonData[0].planets[i].id] as Planet).powersSith[0] = jsonData[0].planets[i].powerssith[0];
-				(Data.planets[jsonData[0].planets[i].id] as Planet).powersSith[1] = jsonData[0].planets[i].powerssith[1];
-				(Data.planets[jsonData[0].planets[i].id] as Planet).powersSith[2] = jsonData[0].planets[i].powerssith[2];
-			}
-			
-			for each (var planet:Planet in Data.planets) 
-			{ 
-				(Data.personages[planet.personageJedi1] as Personage).setCharacteristics(planet.powersJedi[0]);
-				(Data.personages[planet.personageJedi2] as Personage).setCharacteristics(planet.powersJedi[1]);
-				(Data.personages[planet.personageJedi3] as Personage).setCharacteristics(planet.powersJedi[2]);
-				(Data.personages[planet.personageSith1] as Personage).setCharacteristics(planet.powersSith[0]);
-				(Data.personages[planet.personageSith2] as Personage).setCharacteristics(planet.powersSith[1]);
-				(Data.personages[planet.personageSith3] as Personage).setCharacteristics(planet.powersSith[2]);
-			}
-			*/
+			var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.aiData);
+			Data.aiSide = jsonData[0].side;
+			Data.aiPoints = jsonData[0].points;
 		}
 		
 		public static function readUserCommandDataJSON():void
@@ -380,14 +323,46 @@ package swh.data
 			
 			//Data.utilitConsole(jsonData[0].message);
 			//Data.utilitConsole(jsonData[0].command[0].id);
+			Data.userCommand = new Vector.<Personage>();
+			var pers:Personage;
+			for (var i:int = 0; i < jsonData[0].command.length; i++){
+				pers = new Personage();
+				pers.id = jsonData[0].command[i].id;
+				pers.name = jsonData[0].command[i].name;
+				pers.life = jsonData[0].command[i].life;
+				pers.hit1 = jsonData[0].command[i].hit1;
+				pers.hit2 = jsonData[0].command[i].hit2;
+				pers.hit3 = jsonData[0].command[i].hit3;
+				pers.hit4 = jsonData[0].command[i].hit4;
+				pers.hit5 = jsonData[0].command[i].hit5;
+				pers.status = jsonData[0].command[i].status;
+				pers.inCommand = jsonData[0].command[i].incommand;
+				pers.description = (Data.personages[pers.id] as Personage).description;
+				Data.userCommand.push(pers);
+			}
 			
 		}
 		
 		public static function readAICommandDataJSON():void
 		{
 			var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.aiData);
-			//Data.utilitConsole(jsonData[0].message);
-			//Data.utilitConsole(jsonData[0].command[0].id);
+			Data.aiCommand = new Vector.<Personage>();
+			var pers:Personage;
+			for (var i:int = 0; i < jsonData[0].command.length; i++){
+				pers = new Personage();
+				pers.id = jsonData[0].command[i].id;
+				pers.name = jsonData[0].command[i].name;
+				pers.life = jsonData[0].command[i].life;
+				pers.hit1 = jsonData[0].command[i].hit1;
+				pers.hit2 = jsonData[0].command[i].hit2;
+				pers.hit3 = jsonData[0].command[i].hit3;
+				pers.hit4 = jsonData[0].command[i].hit4;
+				pers.hit5 = jsonData[0].command[i].hit5;
+				pers.status = jsonData[0].command[i].status;
+				pers.inCommand = jsonData[0].command[i].incommand;
+				pers.description = (Data.personages[pers.id] as Personage).description;
+				Data.aiCommand.push(pers);
+			}
 		}
 		
 		/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */

@@ -35,7 +35,7 @@ package swh
 			
 			mask = new Quad(Constants.GAME_WINDOW_WIDTH, Constants.GAME_WINDOW_HEIGHT);
 			
-			getSaveGame();
+			getSaveGame(); // Загрузка сохранённых данных
 		}
 		
 		/* MENU ---------------------------- */
@@ -91,6 +91,12 @@ package swh
 		{
 			switch(event.data.id)
 			{
+				case Constants.MENU_BUTTON_CONTINUE:
+				{
+					removeMenu();
+					createMap();
+					break;
+				}
 				case Constants.MENU_BUTTON_NEW_GAME:
 				{
 					removeMenu();
@@ -102,14 +108,14 @@ package swh
 					createSettings();
 					break;
 				}
-				case Constants.SETTINGS_BUTTON_CLOSE:
-				{
-					removeSettings();
-					break;
-				}
 				case Constants.MENU_BUTTON_INVITE:
 				{
 					VKAPI.vkConnection.callMethod("showInviteBox");
+					break;
+				}
+				case Constants.SETTINGS_BUTTON_CLOSE:
+				{
+					removeSettings();
 					break;
 				}
 				case Constants.SIDE_CLOSE:
@@ -145,20 +151,20 @@ package swh
 			}
 		}
 		
+		/* CREATE NEW SAVE GAME ============================================================= */
+		private var dataSetComplete:int = 0;
 		private function createNewGame():void
 		{
 			//VKAPI.vkConnection.api("storage.set", { key:"userTest", value:"TestGOOD"}, onDataSet, onDataErrorSet);
 			//var json:String = "[{\"id\":\"1\",\"character\":[{\"name\":\"Scorpion\"},{\"name\":\"SubZero\"}]}]";
 			Data.initialization();
-			Data.createNewCharacteristics();
+			Data.loadMapCharacteristics();
 			Data.createNewCommands();
 			Data.userData = Data.createUserDataJSON();
 			Data.aiData = Data.createAIDataJSON();
-			Data.planetsData = Data.createPlanetsDataJSON();
 			try{
 				VKAPI.vkConnection.api("storage.set", { key:"swhUserData", value:Data.userData}, onDataSet, onDataErrorSet);
 				VKAPI.vkConnection.api("storage.set", { key:"swhAIData", value:Data.aiData}, onDataSet, onDataErrorSet);
-				VKAPI.vkConnection.api("storage.set", { key:"swhPlanetsData", value:Data.planetsData}, onDataSet, onDataErrorSet);
 			}catch (e:Error){
 				Data.errorSetData = true;
 				removeSide();
@@ -168,8 +174,11 @@ package swh
 		}
 		private function onDataSet (response:Object):void 
         {
-            removeSide();
-			createMap();
+			dataSetComplete++;
+			if(dataSetComplete == 2){
+				removeSide();
+				createMap();
+			}
         }
         private function onDataErrorSet (response:Object):void 
         {
@@ -180,6 +189,7 @@ package swh
 			//textField.text = String(response)
 			//Data.userTest = "ERROR";
         }
+		/* ============================================================================ */
 		
 		/* READ SAVE GAME ============================================================= */
 		private function getSaveGame():void
@@ -187,7 +197,6 @@ package swh
 			try{
 				VKAPI.vkConnection.api("storage.get", { key:"swhUserData" }, OnGetUserData, OnEGet);
 				VKAPI.vkConnection.api("storage.get", { key:"swhAIData" }, OnGetAIData, OnEGet);
-				VKAPI.vkConnection.api("storage.get", { key:"swhPlanetsData" }, OnGetPlanetsData, OnEGet);
 				createMenu();
 			}catch (e:Error){
 				Data.errorGetData = true;
@@ -204,11 +213,7 @@ package swh
         {
 			Data.aiData = String(response);
         }
-		private function OnGetPlanetsData(response:Object):void 
-        {
-			Data.planetsData = String(response);
-        }
-        private function OnEGet(response:Object):void 
+		private function OnEGet(response:Object):void 
         {
 			Data.errorGetData = true;
 			createMenu();

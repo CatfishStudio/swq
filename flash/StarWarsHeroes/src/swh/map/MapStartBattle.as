@@ -271,8 +271,8 @@ package swh.map
 				aiPers3 = (Data.personages[planet.personageSith3] as Personage);
 			}else {
 				aiPers1 = (Data.personages[planet.personageJedi1] as Personage);
-				aiPers2 = (Data.personages[planet.personageJedi1] as Personage);
-				aiPers3 = (Data.personages[planet.personageJedi1] as Personage);
+				aiPers2 = (Data.personages[planet.personageJedi2] as Personage);
+				aiPers3 = (Data.personages[planet.personageJedi3] as Personage);
 			}
 			
 			textFormat = new TextFormat("Arial", 18, colorBack, "center", "center");

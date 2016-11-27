@@ -5,6 +5,7 @@ package swh.data
 	import swh.data.Constants;
 	import swh.data.Personage;
 	import swh.data.Planet;
+	import swh.data.Roadmap;
 	import swh.xml.FileXML;
 	import vk.api.serialization.json.JSON;
 	/**
@@ -39,7 +40,9 @@ package swh.data
 		public static var aiCommand:Vector.<Personage>;
 		public static var aiData:String;		// для сервера (формат: json)
 		
-		public static var map:int = 0;			// индекс файла map_*.xml
+		/* Map data*/
+		public static var map:int = 0;			// индекс файла map_*.xml и roadmap_*.xml
+		public static var roadmap:Vector.<Roadmap>;		
 		
 		/* Game data (ассоциативные массивы)*/
 		public static var personages:Array;
@@ -115,6 +118,7 @@ package swh.data
 		
 		public static function loadMapCharacteristics():void
 		{
+			/* map_*.xml */
 			var mapFileXML:XML = FileXML.getFileXML(Assets.assetsDataContent.Map1FileXML);
 			var n:int = mapFileXML.planet.length();
 			for (var i:int = 0; i < n; i++)
@@ -162,6 +166,20 @@ package swh.data
 				(Data.personages[mapFileXML.planet[i].personageSith3.id] as Personage).hit5 = mapFileXML.planet[i].personageSith3.hit5;
 				(Data.personages[mapFileXML.planet[i].personageSith3.id] as Personage).setLife();
 			}
+			
+			/* roadmap_*.xml  */
+			Data.roadmap = new Vector.<Roadmap>();
+			if(Data.userSide == Constants.SIDE_JEDI) Data.roadmap.push(new Roadmap(0, 'coruscant', 'coruscant'));
+			else Data.roadmap.push(new Roadmap(0, 'deathstar', 'deathstar'));
+			
+			var roadmapFileXML:XML = FileXML.getFileXML(Assets.assetsDataContent.Roadmap1FileXML);
+			var m:int = roadmapFileXML.step.length();
+			for (var j:int = 0; j < m; j++)
+			{
+				Data.roadmap.push(new Roadmap(j+1, roadmapFileXML.step[j].planet1, roadmapFileXML.step[j].planet2));
+			}
+			if (Data.userSide == Constants.SIDE_JEDI) Data.roadmap.push(new Roadmap(m + 1, 'deathstar', 'deathstar'));
+			else Data.roadmap.push(new Roadmap(m + 1, 'coruscant', 'coruscant'));
 		}
 		
 		public static function createNewCommands():void

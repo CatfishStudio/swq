@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Roadmap>
+	<step>
+		<planet1>totooine</planet1>
+		<planet2>naboo</planet2>
+	</step>
+	<step>
+		<planet1>endor</planet1>
+		<planet2>hoth</planet2>
+	</step>
+	<step>
+		<planet1>mustafar</planet1>
+		<planet2>dagobah</planet2>
+	</step>
+	<step>
+		<planet1>bespin</planet1>
+		<planet2>bespin</planet2>
+	</step>
+	<step>
+		<planet1>geonosis</planet1>
+		<planet2>alderaan</planet2>
+	</step>
+	<step>
+		<planet1>kamino</planet1>
+		<planet2>utapau</planet2>
+	</step>
+	<step>
+		<planet1>saleucami</planet1>
+		<planet2>jakku</planet2>
+	</step>
+</Roadmap>

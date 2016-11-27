@@ -18,6 +18,8 @@ package SWHAssetsData
 		
 		[Embed(source = '../../assets/data/map_1.xml', mimeType='application/octet-stream')]
 		public var Map1FileXML:Class;
+		[Embed(source = '../../assets/data/roadmap_1.xml', mimeType='application/octet-stream')]
+		public var Roadmap1FileXML:Class;
 		
 		[Embed(source = '../../assets/data/level_0_0.xml', mimeType='application/octet-stream')]
 		public var Level00FileXML:Class;

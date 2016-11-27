@@ -126,22 +126,30 @@ package swh.map
 			addChild(map);
 		}
 
-		/* Перемещение карты */
+		/* Перемещение карты и нажатие на планеты (открытие окна начала битвы)*/
 		private function onMapTouch(e:TouchEvent):void 
 		{
 			var touch:Touch = e.getTouch(stage);
 			if(touch){
 				if (touch.phase == TouchPhase.BEGAN)
 				{
-					mapMouseX = touch.globalX;
-					mapMouseY = touch.globalY;
-					mapMove = true;
+					
 					
 					if (String(e.target) == '[object Image]'){
-						if ((e.target as Image).name != null && (e.target as Image).name != 'map'){
-							battleStart = new MapStartBattle(Data.planets[(e.target as Image).name]);
-							addChild(battleStart);
+						if ((e.target as Image).name != null){
+							
+							if((e.target as Image).name == 'map'){
+								mapMouseX = touch.globalX;
+								mapMouseY = touch.globalY;
+								mapMove = true;
+							}else if ((e.target as Image).name != 'map'){
+								battleStart = new MapStartBattle(Data.planets[(e.target as Image).name]);
+								addChild(battleStart);
+							}
+							
 						}
+						
+						
 					}
 					
 				} 
@@ -177,7 +185,11 @@ package swh.map
 				else if (Data.planets[(e.target as Image).name] == null) droid.setText(Data.userLastMessage);
 				else droid.setText((Data.planets[(e.target as Image).name] as Planet).descriptionJedi);
 			}
-
+		}
+		
+		public function onBattleStartClose():void
+		{
+			if (battleStart != null) removeChild(battleStart);
 		}
 		
 		private function createPlanets():void

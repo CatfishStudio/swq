@@ -258,9 +258,10 @@ package swh.map
 					userPers = Data.userCommand[i];
 				}
 				if (Data.userCommand[i].status == Data.STATUS_USER_PERSONAGE_AVAILABLE){
-					userPower += ((Data.userCommand[i].hit1 + Data.userCommand[i].hit2 + Data.userCommand[i].hit3 + Data.userCommand[i].hit4 + Data.userCommand[i].hit5) / 10);
+					userPower += Data.userCommand[i].hit1 + Data.userCommand[i].hit2 + Data.userCommand[i].hit3 + Data.userCommand[i].hit4 + Data.userCommand[i].hit5;
 				}
 			}
+			userPower /= 10;
 			
 			var aiPers1:Personage = null;
 			var aiPers2:Personage = null;
@@ -305,9 +306,10 @@ package swh.map
 			addChild(textField2);
 			
 			var aiPower:Number = 0;			
-			aiPower += ((aiPers1.hit1 + aiPers1.hit2 + aiPers1.hit3 + aiPers1.hit4 + aiPers1.hit5) / 10);
-			aiPower += ((aiPers2.hit1 + aiPers2.hit2 + aiPers2.hit3 + aiPers2.hit4 + aiPers2.hit5) / 10);
-			aiPower += ((aiPers3.hit1 + aiPers3.hit2 + aiPers3.hit3 + aiPers3.hit4 + aiPers3.hit5) / 10);
+			aiPower += aiPers1.hit1 + aiPers1.hit2 + aiPers1.hit3 + aiPers1.hit4 + aiPers1.hit5;
+			aiPower += aiPers2.hit1 + aiPers2.hit2 + aiPers2.hit3 + aiPers2.hit4 + aiPers2.hit5;
+			aiPower += aiPers3.hit1 + aiPers3.hit2 + aiPers3.hit3 + aiPers3.hit4 + aiPers3.hit5;
+			aiPower /= 10;
 			
 			textFormat = new TextFormat("Arial", 18, colorBack, "left", "top");
 			textFormat.bold = true;

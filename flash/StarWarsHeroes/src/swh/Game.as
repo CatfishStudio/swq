@@ -144,6 +144,17 @@ package swh
 					createSettings();
 					break;
 				}
+				case Constants.MAP_START_BATTLE_BUTTON_START:
+				{
+					
+					break;
+				}
+				case Constants.MAP_START_BATTLE_BUTTON_CANCEL:
+				{
+					var map:Map = (getChildByName(Constants.MAP) as Map);
+					if (map != null) map.onBattleStartClose();
+					break;
+				}
 				default:
 				{
 					break;

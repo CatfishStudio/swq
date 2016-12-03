@@ -120,12 +120,14 @@ package swh.data
 		public static function clearAtlases():void
 		{
 			for each(var texture:Bitmap in Atlas.atlasesTextureBitmap){
+				texture.bitmapData.dispose();
 				texture = null;
 			}
 			Atlas.atlasesTextureBitmap = [];
 			Atlas.atlasesTextureBitmap = null;
 			
 			for each(var anim:Bitmap in Atlas.atlasesAnimationBitmap){
+				anim.bitmapData.dispose();
 				anim = null;
 			}
 			Atlas.atlasesAnimationBitmap = [];

@@ -107,6 +107,7 @@ package swh.button
 			stop();
 			
 			removeChild(frameBitmap);
+			frameBitmap.bitmapData.dispose();
 			frameBitmap = null;
 			
 			blueFrames = null;

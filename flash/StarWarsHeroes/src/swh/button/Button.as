@@ -104,8 +104,14 @@ package swh.button
 		private function onRemoveFromStage(e:Event):void 
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
-			removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 			stop();
+			removeEventListener(Event.ENTER_FRAME, onEnterFrame);
+			removeEventListener(MouseEvent.MOUSE_OUT, onMouseOutButton);
+			removeEventListener(MouseEvent.MOUSE_OVER, onMouseOverButton);
+			removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDownButton);
+			removeEventListener(MouseEvent.MOUSE_UP, onMouseUpButton);
+			removeEventListener(MouseEvent.CLICK, onMouseClickButton);
+			
 			
 			removeChild(frameBitmap);
 			frameBitmap = null;
@@ -136,13 +142,11 @@ package swh.button
 		private function onMouseOutButton(e:MouseEvent):void 
 		{
 			Mouse.cursor = MouseCursor.AUTO;
-			removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 			stop();
-			removeChild(frameBitmap);
+			removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 			count = 0;
-			if (Data.userSide == Constants.SIDE_JEDI) frameBitmap = new Bitmap((Atlas.atlasAnimationsBitmapData[blueFrames[count]] as BitmapData));
-			else if (Data.userSide == Constants.SIDE_SITH) frameBitmap = new Bitmap((Atlas.atlasAnimationsBitmapData[redFrames[count]] as BitmapData));
-			addChild(frameBitmap);
+			if (Data.userSide == Constants.SIDE_JEDI) frameBitmap.bitmapData = (Atlas.atlasAnimationsBitmapData[blueFrames[count]] as BitmapData);
+			else if (Data.userSide == Constants.SIDE_SITH) frameBitmap.bitmapData = (Atlas.atlasAnimationsBitmapData[redFrames[count]] as BitmapData);
 		}
 		
 		private function onMouseOverButton(e:MouseEvent):void 
@@ -160,12 +164,11 @@ package swh.button
 		
 		private function onEnterFrame(e:Event):void 
 		{
-			removeChild(frameBitmap);
 			count++;
 			if (count == blueFrames.length) count = 1;
-			if (Data.userSide == Constants.SIDE_JEDI) frameBitmap = new Bitmap((Atlas.atlasAnimationsBitmapData[blueFrames[count]] as BitmapData));
-			else if (Data.userSide == Constants.SIDE_SITH) frameBitmap = new Bitmap((Atlas.atlasAnimationsBitmapData[redFrames[count]] as BitmapData));
-			addChild(frameBitmap);
+			if (Data.userSide == Constants.SIDE_JEDI) frameBitmap.bitmapData = (Atlas.atlasAnimationsBitmapData[blueFrames[count]] as BitmapData);
+			else if (Data.userSide == Constants.SIDE_SITH) frameBitmap.bitmapData = (Atlas.atlasAnimationsBitmapData[redFrames[count]] as BitmapData);
+			
 		}
 		
 		

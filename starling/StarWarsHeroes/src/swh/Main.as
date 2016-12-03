@@ -17,15 +17,18 @@ package swh
 	import flash.display3D.Context3DRenderMode;
 	import flash.geom.Rectangle;
 	
+	import starling.core.Starling;
+	import starling.display.Stage;
+	
 	import com.vk.MainVKBanner;
 	import com.vk.MainVKBannerEvent;
 	import com.vk.vo.BannersPanelVO;
 	import vk.APIConnection;
 	
 	import swh.vkAPI.VKAPI;
-	import swh.data.Constants;
 	import swh.data.Assets;
 	import swh.Game;
+	import swh.data.Constants;
 	
 	/**
 	 * ...
@@ -36,14 +39,14 @@ package swh
 	{
 		private var request:URLRequest;
 		private var loader:Loader;
-		private var loaderContext:LoaderContext;	
+		private var loaderContext:LoaderContext;
 		
 		private var preloader:Loader;
 		private var preloaderContent:*;
 		
 		private var processStartGame:int = 0;
 		
-		private var game:Game;
+		private var starling:Starling;
 		
 		public function Main() 
 		{
@@ -127,6 +130,8 @@ package swh
 				
 				loadGame();
 			}
+
+			
 		}
 		
 		private function loadAssetsData():void{
@@ -166,8 +171,27 @@ package swh
 		{
 			//vkInit();
 			//loadBanner();
-			startGame();
+			initStarling();
 		}
+		
+		/* Инициализация Starling ----------------------------------------------------------------- */
+		private function initStarling():void
+		{
+			stage.align = StageAlign.TOP_LEFT;
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			//stage.addEventListener (Event.RESIZE, resizeListenerFlash);
+			starling = new Starling(Game, stage, null, null, Context3DRenderMode.SOFTWARE);
+			starling.antiAliasing = 1;
+			starling.start();
+		}
+		
+		private function resizeListenerFlash(event:Event):void
+		{
+			Starling.current.viewPort = new Rectangle (0, 0, stage.stageWidth, stage.stageHeight);
+			starling.stage.stageWidth = Constants.GAME_WINDOW_WIDTH;
+			starling.stage.stageHeight = Constants.GAME_WINDOW_HEIGHT;
+		}
+		/* ---------------------------------------------------------------------------------------- */
 		
 		/* Иникиализация ВКонтакте ---------------------------------------------------------------- */
 		private function vkInit():void
@@ -242,13 +266,6 @@ package swh
 		}
 		/* ---------------------------------------------------------------------------------------- */
 		
-		/*-- ЗАПУСК ИГРЫ -------------------------------------------------------------------------- */
-		private function startGame():void
-		{
-			game = new Game();
-			addChild(game);
-		}
-		/* ---------------------------------------------------------------------------------------- */
 	}
 	
 }

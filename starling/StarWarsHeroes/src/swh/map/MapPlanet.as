@@ -276,6 +276,9 @@ package swh.map
 			
 		}
 		
-		
+		public function target():void
+		{
+			
+		}
 	}
 }

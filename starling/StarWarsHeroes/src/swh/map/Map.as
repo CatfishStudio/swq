@@ -60,6 +60,7 @@ package swh.map
 			createBorder();
 			createDroid();
 			createButtons();
+			createTarget();
 			
 			trace('[MAP]: added to stage');
 		}
@@ -367,6 +368,34 @@ package swh.map
 			}
 		}
 		
+		private function createTarget():void
+		{
+			var userStep:int;
+			var aiStep:int;
+			
+			for (var i:int = 0; i < Data.roadmap.length; i++){
+				if (Data.userSide == Constants.SIDE_JEDI){
+					if ( (Data.planets[Data.roadmap[i].planet1] as Planet).status == Data.STATUS_PLANET_QUEST_COMPLETE_JEDI 
+						|| (Data.planets[Data.roadmap[i].planet2] as Planet).status == Data.STATUS_PLANET_QUEST_COMPLETE_JEDI ){
+						userStep = Data.roadmap[i].step;
+					}
+					if ( (Data.planets[Data.roadmap[i].planet1] as Planet).status == Data.STATUS_PLANET_QUEST_COMPLETE_SITH 
+						|| (Data.planets[Data.roadmap[i].planet2] as Planet).status == Data.STATUS_PLANET_QUEST_COMPLETE_SITH ){
+						aiStep = Data.roadmap[i].step;
+					}					
+				}else if (Data.userSide == Constants.SIDE_SITH){
+					if ( (Data.planets[Data.roadmap[i].planet1] as Planet).status == Data.STATUS_PLANET_QUEST_COMPLETE_SITH 
+						|| (Data.planets[Data.roadmap[i].planet2] as Planet).status == Data.STATUS_PLANET_QUEST_COMPLETE_SITH ){
+						userStep = Data.roadmap[i].step;
+					}
+					if ( (Data.planets[Data.roadmap[i].planet1] as Planet).status == Data.STATUS_PLANET_QUEST_COMPLETE_JEDI 
+						|| (Data.planets[Data.roadmap[i].planet2] as Planet).status == Data.STATUS_PLANET_QUEST_COMPLETE_JEDI ){
+						aiStep = Data.roadmap[i].step;
+					}
+				}
+				
+			}
+		}
 		
 	}
 

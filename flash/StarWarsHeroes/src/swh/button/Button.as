@@ -20,6 +20,7 @@ package swh.button
 	 */
 	public class Button extends MovieClip 
 	{
+		private var frameBitmap:Bitmap;
 		private var blueFrames:Vector.<String>;
 		private var redFrames:Vector.<String>;
 		private var count:int = 0;
@@ -28,8 +29,7 @@ package swh.button
 		private var textY:int = 0;
 		private var textSize:int = 0;
 		private var colorFront:int;
-		private var colorBack:int;
-		
+		private var colorBack:int;		
 		private var label:Label;
 		
 		public function Button(_x:int, _y:int, _text:String, _textX:int, _textY:int, _textSize:int, _name:String) 
@@ -89,8 +89,9 @@ package swh.button
 			redFrames.push("button_red_10.png");
 			redFrames.push("button_red_11.png");
 			
-			if (Data.userSide == Constants.SIDE_JEDI) addChild(Atlas.atlasesAnimationBitmap[blueFrames[count]]);
-			else if (Data.userSide == Constants.SIDE_SITH) addChild(Atlas.atlasesAnimationBitmap[redFrames[count]]);
+			if (Data.userSide == Constants.SIDE_JEDI) frameBitmap = new Bitmap((Atlas.atlasesAnimationBitmap[blueFrames[count]] as Bitmap).bitmapData);
+			else if (Data.userSide == Constants.SIDE_SITH) frameBitmap = new Bitmap((Atlas.atlasesAnimationBitmap[redFrames[count]] as Bitmap).bitmapData);
+			addChild(frameBitmap);
 			
 			addEventListener(MouseEvent.MOUSE_OUT, onMouseOutButton);
 			addEventListener(MouseEvent.MOUSE_OVER, onMouseOverButton);
@@ -104,6 +105,23 @@ package swh.button
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
 			removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 			stop();
+			
+			removeChild(frameBitmap);
+			frameBitmap = null;
+			
+			blueFrames = null;
+			redFrames = null;
+			count:int = null;
+			text = null;
+			textX = null;
+			textY = null;
+			textSize = null;
+			colorFront = null;
+			colorBack = null;
+			
+			removeChild(label);
+			label = null;
+			
 			while (this.numChildren > 0)
 			{
 				this.removeChildren(0);
@@ -125,11 +143,11 @@ package swh.button
 			Mouse.cursor = MouseCursor.AUTO;
 			removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 			stop();
-			if (Data.userSide == Constants.SIDE_JEDI) removeChild(Atlas.atlasesAnimationBitmap[blueFrames[count]]);
-			else if (Data.userSide == Constants.SIDE_SITH) removeChild(Atlas.atlasesAnimationBitmap[redFrames[count]]);
+			removeChild(frameBitmap);
 			count = 0;
-			if (Data.userSide == Constants.SIDE_JEDI) addChild(Atlas.atlasesAnimationBitmap[blueFrames[count]]);
-			else if (Data.userSide == Constants.SIDE_SITH) addChild(Atlas.atlasesAnimationBitmap[redFrames[count]]);
+			if (Data.userSide == Constants.SIDE_JEDI) frameBitmap = new Bitmap((Atlas.atlasesAnimationBitmap[blueFrames[count]] as Bitmap).bitmapData);
+			else if (Data.userSide == Constants.SIDE_SITH) frameBitmap = new Bitmap((Atlas.atlasesAnimationBitmap[redFrames[count]] as Bitmap).bitmapData);
+			addChild(frameBitmap);
 		}
 		
 		private function onMouseOverButton(e:MouseEvent):void 
@@ -146,13 +164,12 @@ package swh.button
 		
 		private function onEnterFrame(e:Event):void 
 		{
-			if (Data.userSide == Constants.SIDE_JEDI) removeChild(Atlas.atlasesAnimationBitmap[blueFrames[count]]);
-			else if(Data.userSide == Constants.SIDE_SITH) removeChild(Atlas.atlasesAnimationBitmap[redFrames[count]]);
-			
+			removeChild(frameBitmap);
 			count++;
 			if (count == blueFrames.length) count = 1;
-			if (Data.userSide == Constants.SIDE_JEDI) addChild(Atlas.atlasesAnimationBitmap[blueFrames[count]]);
-			else if(Data.userSide == Constants.SIDE_SITH) addChild(Atlas.atlasesAnimationBitmap[redFrames[count]]);
+			if (Data.userSide == Constants.SIDE_JEDI) frameBitmap = new Bitmap((Atlas.atlasesAnimationBitmap[blueFrames[count]] as Bitmap).bitmapData);
+			else if (Data.userSide == Constants.SIDE_SITH) frameBitmap = new Bitmap((Atlas.atlasesAnimationBitmap[redFrames[count]] as Bitmap).bitmapData);
+			addChild(frameBitmap);
 		}
 		
 		

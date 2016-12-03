@@ -79,6 +79,13 @@ package swh.menu
 		private function createButtons():void
 		{
 			addChild(new Button(85, 350, "НАЧАТЬ ИГРУ", 45, 15, 16,  Constants.MENU_BUTTON_NEW_GAME));
+			addChild(new Button(85, 425, "НАСТРОЙКИ", 45, 15, 16,  Constants.MENU_BUTTON_SETTINGS));
+			addChild(new Button(85, 500, "ПРИГЛАСИТЬ", 45, 15, 16,  Constants.MENU_BUTTON_INVITE));
+		}
+		
+		private function createButtonContinue():void
+		{
+			addChild(new Button(85, 275, "ПРОДОЛЖИТЬ ИГРУ", 45, 15, 16,  Constants.MENU_BUTTON_CONTINUE));
 		}
 	}
 

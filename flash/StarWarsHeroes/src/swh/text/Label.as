@@ -12,7 +12,7 @@ package swh.text
 			this.text = _text;
 			this.x = _x; this.y = _y; // положение
 			this.width = _w; this.height = _h; // размер
-			this.defaultTextFormat = new TextFormat(_font, _size, _color); // формат
+			this.defaultTextFormat = new TextFormat(_font, _size, _color, true); // формат
 			this.htmlText = this.text;	// текст
 			this.selectable = _edit; // запрет или разрешение выделения текста
 		}

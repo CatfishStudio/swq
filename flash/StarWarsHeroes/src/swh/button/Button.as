@@ -1,5 +1,6 @@
 package swh.button 
 {
+	import flash.display.BitmapData;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.display.Bitmap;
@@ -89,8 +90,8 @@ package swh.button
 			redFrames.push("button_red_10.png");
 			redFrames.push("button_red_11.png");
 			
-			if (Data.userSide == Constants.SIDE_JEDI) frameBitmap = new Bitmap((Atlas.atlasesAnimationBitmap[blueFrames[count]] as Bitmap).bitmapData);
-			else if (Data.userSide == Constants.SIDE_SITH) frameBitmap = new Bitmap((Atlas.atlasesAnimationBitmap[redFrames[count]] as Bitmap).bitmapData);
+			if (Data.userSide == Constants.SIDE_JEDI) frameBitmap = new Bitmap((Atlas.atlasAnimationsBitmapData[blueFrames[count]] as BitmapData));
+			else if (Data.userSide == Constants.SIDE_SITH) frameBitmap = new Bitmap((Atlas.atlasAnimationsBitmapData[redFrames[count]] as BitmapData));
 			addChild(frameBitmap);
 			
 			addEventListener(MouseEvent.MOUSE_OUT, onMouseOutButton);
@@ -107,7 +108,6 @@ package swh.button
 			stop();
 			
 			removeChild(frameBitmap);
-			frameBitmap.bitmapData.dispose();
 			frameBitmap = null;
 			
 			blueFrames = null;
@@ -140,8 +140,8 @@ package swh.button
 			stop();
 			removeChild(frameBitmap);
 			count = 0;
-			if (Data.userSide == Constants.SIDE_JEDI) frameBitmap = new Bitmap((Atlas.atlasesAnimationBitmap[blueFrames[count]] as Bitmap).bitmapData);
-			else if (Data.userSide == Constants.SIDE_SITH) frameBitmap = new Bitmap((Atlas.atlasesAnimationBitmap[redFrames[count]] as Bitmap).bitmapData);
+			if (Data.userSide == Constants.SIDE_JEDI) frameBitmap = new Bitmap((Atlas.atlasAnimationsBitmapData[blueFrames[count]] as BitmapData));
+			else if (Data.userSide == Constants.SIDE_SITH) frameBitmap = new Bitmap((Atlas.atlasAnimationsBitmapData[redFrames[count]] as BitmapData));
 			addChild(frameBitmap);
 		}
 		
@@ -154,6 +154,7 @@ package swh.button
 		
 		private function onMouseClickButton(e:MouseEvent):void 
 		{
+			Utilits.consoleLog(name);
 			dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: name }, true));
 		}
 		
@@ -162,8 +163,8 @@ package swh.button
 			removeChild(frameBitmap);
 			count++;
 			if (count == blueFrames.length) count = 1;
-			if (Data.userSide == Constants.SIDE_JEDI) frameBitmap = new Bitmap((Atlas.atlasesAnimationBitmap[blueFrames[count]] as Bitmap).bitmapData);
-			else if (Data.userSide == Constants.SIDE_SITH) frameBitmap = new Bitmap((Atlas.atlasesAnimationBitmap[redFrames[count]] as Bitmap).bitmapData);
+			if (Data.userSide == Constants.SIDE_JEDI) frameBitmap = new Bitmap((Atlas.atlasAnimationsBitmapData[blueFrames[count]] as BitmapData));
+			else if (Data.userSide == Constants.SIDE_SITH) frameBitmap = new Bitmap((Atlas.atlasAnimationsBitmapData[redFrames[count]] as BitmapData));
 			addChild(frameBitmap);
 		}
 		

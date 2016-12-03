@@ -40,6 +40,9 @@
     <external-library-path append="true">
       <path-element>C:\GIT\swq\flash\StarWarsHeroes\lib\vk_ads.swc</path-element>
     </external-library-path>
+    <library-path append="true">
+      <path-element>C:\GIT\swq\flash\StarWarsHeroes\lib\GTween_V2_01.swc</path-element>
+    </library-path>
   </compiler>
   <file-specs>
     <path-element>C:\GIT\swq\flash\StarWarsHeroes\src\swh\Main.as</path-element>

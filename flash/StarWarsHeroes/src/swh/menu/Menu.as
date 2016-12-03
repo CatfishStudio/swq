@@ -4,8 +4,13 @@ package swh.menu
 	import flash.events.Event;
 	import flash.display.Bitmap;
 	
-	import com.greensock.TweenNano;
 	
+	import com.gskinner.motion.GTween;
+	import com.gskinner.motion.GTweener;
+	import com.gskinner.motion.GTweenTimeline;
+	import com.gskinner.motion.easing.Sine;
+	
+	import swh.data.Utilits;
 	import swh.data.Assets;
 	import swh.data.Atlas;
 	import swh.data.Constants;
@@ -16,6 +21,8 @@ package swh.menu
 	 */
 	public class Menu extends Sprite 
 	{
+		private var tweenStars:GTween;
+		
 		public function Menu() 
 		{
 			super();
@@ -74,6 +81,8 @@ package swh.menu
 			(Atlas.atlasesTextureBitmap['menu_border.png'] as Bitmap).x = 0;
 			(Atlas.atlasesTextureBitmap['menu_border.png'] as Bitmap).y = 5;
 			addChild(Atlas.atlasesTextureBitmap['menu_border.png']);
+			
+			onTweenStars(tweenStars);
 		}
 		
 		private function createButtons():void
@@ -86,6 +95,36 @@ package swh.menu
 		private function createButtonContinue():void
 		{
 			addChild(new Button(85, 275, "ПРОДОЛЖИТЬ ИГРУ", 45, 15, 16,  Constants.MENU_BUTTON_CONTINUE));
+		}
+		
+		private function onTweenStars(tween:GTween):void
+		{
+			var tx:int = 0;
+			var ty:int = 0;
+			if (tween != null) {
+				if (tween.getValue("x") == -50 && tween.getValue("y") == 0){
+					tx = tween.getValue("x");
+					ty = tween.getValue("y") - 50;
+				}else if (tween.getValue("x") == -50 && tween.getValue("y") == -50){
+					tx = tween.getValue("x") + 50;
+					ty = tween.getValue("y");
+				}else if (tween.getValue("x") == 0 && tween.getValue("y") == -50){
+					tx = tween.getValue("x");
+					ty = tween.getValue("y") + 50;
+				}else if (tween.getValue("x") == 0 && tween.getValue("y") == 0){
+					tx = tween.getValue("x") - 50;
+					ty = tween.getValue("y");
+				}
+			}else{
+				tx = (Atlas.atlasesTextureBitmap['menu_background.jpg'] as Bitmap).x - 50;
+				ty = (Atlas.atlasesTextureBitmap['menu_background.jpg'] as Bitmap).y;
+				tweenStars = new GTween((Atlas.atlasesTextureBitmap['menu_background.jpg'] as Bitmap), 1);
+			}
+			tweenStars.setValue("x", tx);
+			tweenStars.setValue("y", ty);
+			tweenStars.ease = Sine.easeInOut;
+			tweenStars.timeScale = 0.2;
+			tweenStars.onComplete = onTweenStars;
 		}
 	}
 

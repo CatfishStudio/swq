@@ -58,9 +58,9 @@ package swh.button
 				colorBack = 0x880000;
 			}
 			
-			label = new Label(textX, textY, 200, 30, "arial", textSize, colorBack, text, false);
+			label = new Label(textX, textY, 125, 20, "arial", textSize, colorBack, text, false);
 			addChild(label);
-			label = new Label(textX+1, textY+1, 200, 30, "arial", textSize, colorFront, text, false);
+			label = new Label(textX+1, textY+1, 125, 20, "arial", textSize, colorFront, text, false);
 			addChild(label);
 			
 			blueFrames = new Vector.<String>();
@@ -111,13 +111,7 @@ package swh.button
 			
 			blueFrames = null;
 			redFrames = null;
-			count:int = null;
 			text = null;
-			textX = null;
-			textY = null;
-			textSize = null;
-			colorFront = null;
-			colorBack = null;
 			
 			removeChild(label);
 			label = null;

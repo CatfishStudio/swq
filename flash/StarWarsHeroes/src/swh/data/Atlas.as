@@ -13,7 +13,11 @@ package swh.data
 	 */
 	public class Atlas 
 	{
-		public static var atlasesBitmap:Array;
+		public static const TYPE_TEXTURES:int = 1;
+		public static const TYPE_ANIMATION:int = 2;
+		
+		public static var atlasesTextureBitmap:Array;
+		public static var atlasesAnimationBitmap:Array;
 		
 		public static function createAtlasBitmap(_bitmap:Bitmap, _fullSizeWidth:int, _fullSizeHeight:int, _backSizeWidth:int,  _backSizeHeight:int,  _transparent:Boolean, _fillColor:uint, _rectX1:int, _rectY1:int, _rectX2:int, _rectY2:int, _ptX:int, _ptY:int):Bitmap
 		{
@@ -74,12 +78,12 @@ package swh.data
 			return resultBitmap;
 		}
 		
-		public static function loadAtlasBitmap(atlasImage:Class, atlasXML:Class):void
+		public static function loadAtlasBitmap(atlasImage:Class, atlasXML:Class, type:int):void
 		{
 			/*
 			 * Как использовать эту функцию
 			 * Atlas.loadAtlasBitmap(Assets.assetsAtlasesContent.MenuAtlas, Assets.assetsAtlasesContent.MenuAtlasXML);
-			 * addChild(Atlas.atlasesBitmap['menu_background.jpg']);
+			 * addChild(Atlas.atlasesTextureBitmap['menu_background.jpg']);
 			 * */
 			var bitmap:Bitmap = new atlasImage();
 			var fullSizeWidth:int = bitmap.width;
@@ -95,19 +99,37 @@ package swh.data
 			var ptX:int = 0;
 			var ptY:int = 0;
 			
-			Atlas.atlasesBitmap = new Array();
+			if (type == Atlas.TYPE_TEXTURES) Atlas.atlasesTextureBitmap = new Array();
+			else if (type == Atlas.TYPE_ANIMATION) Atlas.atlasesAnimationBitmap = new Array();
+			
 			var persFileXML:XML = FileXML.getFileXML(atlasXML);
 			var count:int = persFileXML.SubTexture.length();
 			for (var i:int = 0; i < count; i++)
 			{
-				backSizeWidth = persFileXML.SubTexture[i].attribute("frameWidth");
-				backSizeHeight = persFileXML.SubTexture[i].attribute("frameHeight");
+				backSizeWidth = persFileXML.SubTexture[i].attribute("width");
+				backSizeHeight = persFileXML.SubTexture[i].attribute("height");
 				rectX1 = persFileXML.SubTexture[i].attribute("x");
 				rectY1 = persFileXML.SubTexture[i].attribute("y");
 				rectX2 = persFileXML.SubTexture[i].attribute("x") + backSizeWidth;
 				rectY2 = persFileXML.SubTexture[i].attribute("y") + backSizeHeight;
-				Atlas.atlasesBitmap[persFileXML.SubTexture[i].attribute("name")] = Atlas.createAtlasBitmap(bitmap, fullSizeWidth, fullSizeHeight, backSizeWidth, backSizeHeight, transparent, fillColor, rectX1, rectY1, rectX2, rectY2, ptX, ptY);
+				if (type == Atlas.TYPE_TEXTURES) Atlas.atlasesTextureBitmap[persFileXML.SubTexture[i].attribute("name")] = Atlas.createAtlasBitmap(bitmap, fullSizeWidth, fullSizeHeight, backSizeWidth, backSizeHeight, transparent, fillColor, rectX1, rectY1, rectX2, rectY2, ptX, ptY);
+				else if (type == Atlas.TYPE_ANIMATION) Atlas.atlasesAnimationBitmap[persFileXML.SubTexture[i].attribute("name")] = Atlas.createAtlasBitmap(bitmap, fullSizeWidth, fullSizeHeight, backSizeWidth, backSizeHeight, transparent, fillColor, rectX1, rectY1, rectX2, rectY2, ptX, ptY);
 			}			
+		}
+		
+		public static function clearAtlases():void
+		{
+			for each(var texture:Bitmap in Atlas.atlasesTextureBitmap){
+				texture = null;
+			}
+			Atlas.atlasesTextureBitmap = [];
+			Atlas.atlasesTextureBitmap = null;
+			
+			for each(var anim:Bitmap in Atlas.atlasesAnimationBitmap){
+				anim = null;
+			}
+			Atlas.atlasesAnimationBitmap = [];
+			Atlas.atlasesAnimationBitmap = null;
 		}
 		
 	}

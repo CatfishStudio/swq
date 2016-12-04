@@ -6,6 +6,16 @@ package swh.data
 	/**
 	 * ...
 	 * @author Catfish Studio
+	 * 
+	 * КАК ИСПОЛЬЗОВАТЬ
+	 * Данные
+	 * 		Assets.assetsDataContent.nameVarFileXML
+	 * Атласы
+	 * 		Assets.assetsAtlasesContent.nameVarAtlas
+	 * 		Assets.assetsAtlasesContent.nameVarAtlasXML
+	 * Текстуры
+	 * 		addChild(Assets.assetsTexturesContent.nameVarBitmap);
+	 * 
 	 */
 	public class Assets 
 	{

@@ -32,8 +32,11 @@ package swh.menu
 		private var settingsButton:Button;
 		private var invateButton:Button;
 		
-		
-		private var tweenStars:GTween;
+		private var starsTween:GTween;
+		private var deathstarTween:GTween;
+		private var ship1Tween:GTween;
+		private var ship2Tween:GTween;
+		private var ship3Tween:GTween;
 		
 		public function Menu() 
 		{
@@ -59,6 +62,12 @@ package swh.menu
 		private function onRemoveFromStage(e:Event):void 
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
+			
+			starsTween = null;
+			deathstarTween = null;
+			ship1Tween = null;
+			ship2Tween = null;
+			ship3Tween = null;
 			
 			removeChild(starsBitmap);
 			starsBitmap = null;
@@ -92,8 +101,6 @@ package swh.menu
 		
 		private function createBackground():void
 		{
-			//addChild(Assets.assetsTexturesContent.spaceBlueBitmap);
-			
 			starsBitmap = new Bitmap((Atlas.atlasTexturesBitmapData['menu_background.jpg'] as BitmapData));
 			starsBitmap.x = 0;
 			starsBitmap.y = 0;
@@ -125,6 +132,7 @@ package swh.menu
 			addChild(border);
 			
 			runStarsTween();
+			runDeadstarTween();
 		}
 		
 		private function createButtons():void
@@ -145,34 +153,81 @@ package swh.menu
 		
 		private function runStarsTween():void
 		{
-			tweenStars = new GTween(starsBitmap);
-			tweenStars.setValue("x", starsBitmap.x -50);
-			tweenStars.setValue("y", starsBitmap.y);
-			tweenStars.ease = Sine.easeInOut;
-			tweenStars.timeScale = 0.2;
-			tweenStars.onComplete = onTweenStars;
+			starsTween = new GTween(starsBitmap);
+			starsTween.setValue("x", starsBitmap.x -50);
+			starsTween.setValue("y", starsBitmap.y);
+			starsTween.ease = Sine.easeInOut;
+			starsTween.timeScale = 0.2;
+			starsTween.onComplete = onTweenStars;
 		}
 		
 		private function onTweenStars(tween:GTween):void
 		{
 			if (tween != null) {
 				if (tween.getValue("x") == -50 && tween.getValue("y") == 0){
-					tweenStars.setValue("x", tween.getValue("x"));
-					tweenStars.setValue("y", tween.getValue("y") - 50);
+					starsTween.setValue("x", tween.getValue("x"));
+					starsTween.setValue("y", tween.getValue("y") - 50);
 				}else if (tween.getValue("x") == -50 && tween.getValue("y") == -50){
-					tweenStars.setValue("x", tween.getValue("x") + 50);
-					tweenStars.setValue("y", tween.getValue("y"));
+					starsTween.setValue("x", tween.getValue("x") + 50);
+					starsTween.setValue("y", tween.getValue("y"));
 				}else if (tween.getValue("x") == 0 && tween.getValue("y") == -50){
-					tweenStars.setValue("x", tween.getValue("x"));
-					tweenStars.setValue("y", tween.getValue("y") + 50);
+					starsTween.setValue("x", tween.getValue("x"));
+					starsTween.setValue("y", tween.getValue("y") + 50);
 				}else if (tween.getValue("x") == 0 && tween.getValue("y") == 0){
-					tweenStars.setValue("x", tween.getValue("x") - 50);
-					tweenStars.setValue("y", tween.getValue("y"));
+					starsTween.setValue("x", tween.getValue("x") - 50);
+					starsTween.setValue("y", tween.getValue("y"));
 				}
-				tweenStars.ease = Sine.easeInOut;
-				tweenStars.timeScale = 0.2;
-				tweenStars.onComplete = onTweenStars;
+				starsTween.ease = Sine.easeInOut;
+				starsTween.timeScale = 0.2;
+				starsTween.onComplete = onTweenStars;
 			}
+		}
+		
+		private function runDeadstarTween():void
+		{
+			deathstarTween = new GTween(deathstarBitmap);
+			deathstarTween.setValue("x", deathstarBitmap.x -100);
+			deathstarTween.setValue("y", deathstarBitmap.y);
+			deathstarTween.ease = Sine.easeInOut;
+			deathstarTween.timeScale = 0.2;
+			deathstarTween.onComplete = onTweenDeadstar;
+		}
+		
+		private function onTweenDeadstar(tween:GTween):void
+		{
+			if (tween != null) {
+				if (tween.getValue("x") == 200 && tween.getValue("y") == 100){
+					deathstarTween.setValue("x", tween.getValue("x"));
+					deathstarTween.setValue("y", tween.getValue("y") - 100);
+				}else if (tween.getValue("x") == 200 && tween.getValue("y") == 0){
+					deathstarTween.setValue("x", tween.getValue("x") + 100);
+					deathstarTween.setValue("y", tween.getValue("y"));
+				}else if (tween.getValue("x") == 300 && tween.getValue("y") == 0){
+					deathstarTween.setValue("x", tween.getValue("x"));
+					deathstarTween.setValue("y", tween.getValue("y") + 100);
+				}else if (tween.getValue("x") == 300 && tween.getValue("y") == 100){
+					deathstarTween.setValue("x", tween.getValue("x") - 100);
+					deathstarTween.setValue("y", tween.getValue("y"));
+				}
+				deathstarTween.ease = Sine.easeInOut;
+				deathstarTween.timeScale = 0.2;
+				deathstarTween.onComplete = onTweenDeadstar;
+			}
+		}
+		
+		private function onTweenShip2(tween:GTween):void
+		{
+			
+		}
+		
+		private function onTweenShip3(tween:GTween):void
+		{
+			
+		}
+		
+		private function onTweenShip1(tween:GTween):void
+		{
+			
 		}
 	}
 

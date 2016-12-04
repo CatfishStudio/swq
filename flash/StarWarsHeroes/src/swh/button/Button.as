@@ -114,7 +114,6 @@ package swh.button
 			removeEventListener(MouseEvent.MOUSE_UP, onMouseUpButton);
 			removeEventListener(MouseEvent.CLICK, onMouseClickButton);
 			
-			
 			removeChild(frameBitmap);
 			frameBitmap = null;
 			
@@ -162,7 +161,6 @@ package swh.button
 		
 		private function onMouseClickButton(e:MouseEvent):void 
 		{
-			Utilits.consoleLog(name);
 			dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: name }, true));
 		}
 		

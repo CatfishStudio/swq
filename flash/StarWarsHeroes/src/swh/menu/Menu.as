@@ -111,16 +111,22 @@ package swh.menu
 			ship3Tween.end();
 			ship3Tween = null;
 			
+			starsBitmap.bitmapData.dispose();
 			removeChild(starsBitmap);
 			starsBitmap = null;
+			deathstarBitmap.bitmapData.dispose();
 			removeChild(deathstarBitmap);
 			deathstarBitmap = null;
+			ship1Bitmap.bitmapData.dispose();
 			removeChild(ship1Bitmap);
 			ship1Bitmap = null;
+			ship2Bitmap.bitmapData.dispose();
 			removeChild(ship2Bitmap);
 			ship2Bitmap = null;
+			ship3Bitmap.bitmapData.dispose();
 			removeChild(ship3Bitmap);
 			ship3Bitmap = null;
+			borderBitmap.bitmapData.dispose();
 			removeChild(borderBitmap);
 			borderBitmap = null;
 			

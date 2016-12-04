@@ -96,10 +96,10 @@ package swh.menu
 			lineBitmap.y = 0;
 			addChild(lineBitmap);
 			
-			runStarsTween();
+			runLineTween();
 		}
 		
-		private function runStarsTween():void
+		private function runLineTween():void
 		{
 			lineTween = new GTween(lineBitmap, 2);
 			lineTween.setValue("x", 2);

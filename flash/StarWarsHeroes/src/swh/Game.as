@@ -3,19 +3,22 @@ package swh
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
+	
 	import swh.vkAPI.VKAPI;
 	import swh.data.Data;
 	import swh.data.Constants;
 	import swh.events.NavigationEvent;
 	import swh.menu.Menu;
+	import swh.settings.Settings;
 	/**
 	 * ...
 	 * @author Catfish Studio
 	 */
 	public class Game extends Sprite 
 	{
-		private var gameMask:Sprite = new Sprite();	// маска
+		private var gameMask:Sprite;
 		private var menu:Menu;
+		private var settings:Settings;
 		
 		public function Game() 
 		{
@@ -28,6 +31,7 @@ package swh
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			
 			/* Маска -------------------------------------------------------------------------------- */
+			gameMask = new Sprite();
 			gameMask.graphics.beginFill(0x333333, 1);
 			gameMask.graphics.drawRect(0, 0, Constants.GAME_WINDOW_WIDTH, Constants.GAME_WINDOW_HEIGHT);
 			gameMask.x = 0; 
@@ -46,25 +50,36 @@ package swh
 		/* MENU ---------------------------- */
 		private function createMenu():void
 		{
-			menu = new Menu();
-			addChild(menu);
+			if(menu == null){
+				menu = new Menu();
+				addChild(menu);
+			}
 		}
 		
 		private function removeMenu():void
 		{
-			removeChild(menu);
+			if(menu != null){
+				removeChild(menu);
+				menu = null;
+			}
 		}
 		/* -------------------------------- */
 		
 		/* SETTINGS ----------------------- */
 		private function createSettings():void
 		{
-			
+			if(settings == null){
+				settings = new Settings();
+				addChild(settings);
+			}
 		}
 		
 		private function removeSettings():void
 		{
-			
+			if(settings != null){
+				removeChild(settings);
+				settings = null;
+			}
 		}
 		/* -------------------------------- */
 		
@@ -113,6 +128,10 @@ package swh
 				   
 				case Constants.MENU_BUTTON_INVITE:
 					VKAPI.vkConnection.callMethod("showInviteBox");
+					break;   
+				
+				case Constants.SETTINGS_BUTTON_CLOSE:
+					removeSettings();
 					break;   
 					
 				default:

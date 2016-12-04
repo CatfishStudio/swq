@@ -4,12 +4,18 @@ package swh.settings
 	import flash.events.Event;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.events.MouseEvent;
+	import flash.ui.Mouse;
+	import flash.ui.MouseCursor;
+	import flash.net.URLRequest;
+	import flash.net.navigateToURL;
 	
 	import com.gskinner.motion.GTween;
 	import com.gskinner.motion.GTweener;
 	import com.gskinner.motion.GTweenTimeline;
 	import com.gskinner.motion.easing.Sine;
 	
+	import swh.data.Utilits;
 	import swh.data.Constants;
 	import swh.data.Data;
 	import swh.data.Assets;
@@ -61,7 +67,9 @@ package swh.settings
 		private function onRemoveFromStage(e:Event):void 
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
+			Mouse.cursor = MouseCursor.AUTO;
 			
+			lineTween.onComplete = null;
 			lineTween.end();
 			lineTween = null;
 			
@@ -176,17 +184,59 @@ package swh.settings
 		{
 			if (Config.soundOn == true) soundSButton = new SmallButton((Constants.GAME_WINDOW_WIDTH / 2) - 125, (Constants.GAME_WINDOW_HEIGHT / 2) - 35, Constants.SETTINGS_BUTTON_SOUND, (Assets.assetsTexturesContent.soundOnBitmap as Bitmap).bitmapData);
 			else soundSButton = new SmallButton((Constants.GAME_WINDOW_WIDTH / 2) - 125, (Constants.GAME_WINDOW_HEIGHT / 2) - 35, Constants.SETTINGS_BUTTON_SOUND, (Assets.assetsTexturesContent.soundOffBitmap as Bitmap).bitmapData);
+			soundSButton.addEventListener(MouseEvent.CLICK, onClickSmallButton);
 			addChild(soundSButton);
 			
 			if (Config.musicOn == true) musicSButton = new SmallButton((Constants.GAME_WINDOW_WIDTH / 2) - 15, (Constants.GAME_WINDOW_HEIGHT / 2) - 35, Constants.SETTINGS_BUTTON_MUSIC, (Assets.assetsTexturesContent.musicOnBitmap as Bitmap).bitmapData);
 			else  musicSButton = new SmallButton((Constants.GAME_WINDOW_WIDTH / 2) - 15, (Constants.GAME_WINDOW_HEIGHT / 2) - 35, Constants.SETTINGS_BUTTON_MUSIC, (Assets.assetsTexturesContent.musicOffBitmap as Bitmap).bitmapData);
+			musicSButton.addEventListener(MouseEvent.CLICK, onClickSmallButton);
 			addChild(musicSButton);
 			
 			infoSButton = new SmallButton((Constants.GAME_WINDOW_WIDTH / 2) + 90, (Constants.GAME_WINDOW_HEIGHT / 2) - 37, Constants.SETTINGS_BUTTON_INFO, (Assets.assetsTexturesContent.informationBitmap as Bitmap).bitmapData);
+			infoSButton.addEventListener(MouseEvent.CLICK, onClickSmallButton);
 			addChild(infoSButton);
 			
 			closeButton = new Button((Constants.GAME_WINDOW_WIDTH / 2) - 100, (Constants.GAME_WINDOW_HEIGHT / 2) + 72, "ЗАКРЫТЬ", 60, 15, 16,  Constants.SETTINGS_BUTTON_CLOSE);
 			addChild(closeButton);
+		}
+		
+		private function onClickSmallButton(e:MouseEvent):void 
+		{
+			switch(SmallButton(e.target).name){
+				case 'settings_button_sound':
+				{
+					if (Config.soundOn == false){
+						Config.soundOn = true;
+						soundSButton.updateFrame((Assets.assetsTexturesContent.soundOnBitmap as Bitmap).bitmapData);
+					}else{
+						Config.soundOn = false;
+						soundSButton.updateFrame((Assets.assetsTexturesContent.soundOffBitmap as Bitmap).bitmapData);
+					}
+					break;
+				}
+				case 'settings_button_music':
+				{
+					if (Config.musicOn == false){
+						Config.musicOn = true;
+						musicSButton.updateFrame((Assets.assetsTexturesContent.musicOnBitmap as Bitmap).bitmapData);
+					}else{
+						Config.musicOn = false;
+						musicSButton.updateFrame((Assets.assetsTexturesContent.musicOffBitmap as Bitmap).bitmapData);
+					}
+					break;
+				}
+				case 'settings_button_info':
+				{
+					navigateToURL(new URLRequest(Config.info));
+					break;
+				}
+				default:
+				{
+					break;
+				}
+			}
+			
+			
 		}
 	}
 

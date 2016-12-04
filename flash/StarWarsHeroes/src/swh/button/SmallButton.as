@@ -4,6 +4,9 @@ package swh.button
 	import flash.events.Event;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.events.MouseEvent;
+	import flash.ui.Mouse;
+	import flash.ui.MouseCursor;
 	
 	/**
 	 * ...
@@ -27,13 +30,16 @@ package swh.button
 		private function onAddedToStage(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			
+			addEventListener(MouseEvent.MOUSE_OUT, onMouseOutButton);
+			addEventListener(MouseEvent.MOUSE_OVER, onMouseOverButton);
 			addChild(frameBitmap);
 		}
 		
 		private function onRemoveFromStage(e:Event):void 
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
+			removeEventListener(MouseEvent.MOUSE_OUT, onMouseOutButton);
+			removeEventListener(MouseEvent.MOUSE_OVER, onMouseOverButton);
 			
 			removeChild(frameBitmap);
 			frameBitmap = null;
@@ -42,6 +48,21 @@ package swh.button
 			{
 				this.removeChildren(0);
 			}
+		}
+		
+		private function onMouseOutButton(e:MouseEvent):void 
+		{
+			Mouse.cursor = MouseCursor.AUTO;
+		}
+		
+		private function onMouseOverButton(e:MouseEvent):void 
+		{
+			Mouse.cursor = MouseCursor.BUTTON;
+		}
+		
+		public function updateFrame(_bitmapData:BitmapData):void
+		{
+			frameBitmap.bitmapData = _bitmapData;
 		}
 	}
 

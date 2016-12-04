@@ -53,6 +53,7 @@ package swh.menu
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
 			
+			lineTween.onComplete = null;
 			lineTween.end();
 			lineTween = null;
 			

@@ -98,8 +98,8 @@ package swh.button
 			
 			addEventListener(MouseEvent.MOUSE_OUT, onMouseOutButton);
 			addEventListener(MouseEvent.MOUSE_OVER, onMouseOverButton);
-			addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownButton);
-			addEventListener(MouseEvent.MOUSE_UP, onMouseUpButton);
+			//addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownButton);
+			//addEventListener(MouseEvent.MOUSE_UP, onMouseUpButton);
 			addEventListener(MouseEvent.CLICK, onMouseClickButton);
 		}
 		
@@ -110,8 +110,8 @@ package swh.button
 			removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 			removeEventListener(MouseEvent.MOUSE_OUT, onMouseOutButton);
 			removeEventListener(MouseEvent.MOUSE_OVER, onMouseOverButton);
-			removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDownButton);
-			removeEventListener(MouseEvent.MOUSE_UP, onMouseUpButton);
+			//removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDownButton);
+			//removeEventListener(MouseEvent.MOUSE_UP, onMouseUpButton);
 			removeEventListener(MouseEvent.CLICK, onMouseClickButton);
 			
 			removeChild(frameBitmap);

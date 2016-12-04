@@ -100,14 +100,23 @@ package swh.menu
 			removeChild(mHelp);
 			mHelp = null;
 			
+			starsTween.onComplete = null;
 			starsTween.end();
 			starsTween = null;
+			
+			deathstarTween.onComplete = null;
 			deathstarTween.end();
 			deathstarTween = null;
+			
+			ship1Tween.onComplete = null;
 			ship1Tween.end();
 			ship1Tween = null;
+			
+			ship2Tween.onComplete = null;
 			ship2Tween.end();
 			ship2Tween = null;
+			
+			ship3Tween.onComplete = null;
 			ship3Tween.end();
 			ship3Tween = null;
 			

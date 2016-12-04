@@ -15,6 +15,7 @@ package swh.menu
 	import swh.data.Atlas;
 	import swh.data.Constants;
 	import swh.button.Button;
+	import swh.menu.MenuHelp;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -31,6 +32,7 @@ package swh.menu
 		private var newGameButton:Button;
 		private var settingsButton:Button;
 		private var invateButton:Button;
+		private var mHelp:MenuHelp;
 		
 		private var starsTween:GTween;
 		private var deathstarTween:GTween;
@@ -55,7 +57,7 @@ package swh.menu
 			
 			createBackground();
 			createButtons();
-			//createHelp();
+			createHelp();
 			//createMessage();
 		}
 		
@@ -66,15 +68,18 @@ package swh.menu
 			Atlas.clearAtlases(Atlas.TYPE_TEXTURES);
 			Atlas.clearAtlases(Atlas.TYPE_ANIMATION);
 			
-			starsTween.paused = true;
+			removeChild(mHelp);
+			mHelp = null;
+			
+			starsTween.end();
 			starsTween = null;
-			deathstarTween.paused = true;
+			deathstarTween.end();
 			deathstarTween = null;
-			ship1Tween.paused = true;
+			ship1Tween.end();
 			ship1Tween = null;
-			ship2Tween.paused = true;
+			ship2Tween.end();
 			ship2Tween = null;
-			ship3Tween.paused = true;
+			ship3Tween.end();
 			ship3Tween = null;
 			
 			removeChild(starsBitmap);
@@ -170,8 +175,8 @@ package swh.menu
 			starsTween.onComplete = onTweenStars;
 		}
 		
-		private function onTweenStars(tween:GTween):void		{
-			
+		private function onTweenStars(tween:GTween):void		
+		{			
 			if (tween.getValue("x") == -50 && tween.getValue("y") == 0){
 				starsTween.setValue("x", tween.getValue("x"));
 				starsTween.setValue("y", tween.getValue("y") - 50);
@@ -226,7 +231,7 @@ package swh.menu
 			ship1Tween.setValue("x", 1000);
 			ship1Tween.setValue("y", 1000);
 			ship1Tween.ease = Sine.easeInOut;
-			ship1Tween.timeScale = 0.2;
+			ship1Tween.timeScale = 0.4;
 			ship1Tween.onComplete = onTweenShip1;
 		}
 		
@@ -237,7 +242,7 @@ package swh.menu
 			ship1Tween.setValue("x", 1000);
 			ship1Tween.setValue("y", 1000);
 			ship1Tween.ease = Sine.easeInOut;
-			ship1Tween.timeScale = 0.2;
+			ship1Tween.timeScale = 0.4;
 			ship1Tween.onComplete = onTweenShip1;
 		}
 		
@@ -247,7 +252,7 @@ package swh.menu
 			ship2Tween.setValue("x", -250);
 			ship2Tween.setValue("y", 350);
 			ship2Tween.ease = Sine.easeInOut;
-			ship2Tween.timeScale = 0.2;
+			ship2Tween.timeScale = 0.5;
 			ship2Tween.onComplete = onTweenShip2;
 		}
 		
@@ -258,7 +263,7 @@ package swh.menu
 			ship2Tween.setValue("x", -250);
 			ship2Tween.setValue("y", 350);
 			ship2Tween.ease = Sine.easeInOut;
-			ship2Tween.timeScale = 0.2;
+			ship2Tween.timeScale = 0.5;
 			ship2Tween.onComplete = onTweenShip2;
 		}
 		
@@ -292,7 +297,13 @@ package swh.menu
 			ship3Tween.onComplete = onTweenShip3;
 		}
 		
-		
+		private function createHelp():void
+		{
+			mHelp = new MenuHelp("Добро пожаловать на путь силы.\n\nВаши способности превышают способности обычных людей.\nВы тут потому что вы были избраны.\n\nНажмите кнопку \"Начать игры\"\n\nИ да пребудет с вами сила!", 0xFFFFFF, 0x0090F0);
+			mHelp.x = 570;
+			mHelp.y = 290;
+			addChild(mHelp);
+		}
 	}
 
 }

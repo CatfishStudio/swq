@@ -31,7 +31,8 @@ package swh.button
 		private var textSize:int = 0;
 		private var colorFront:int;
 		private var colorBack:int;		
-		private var label:Label;
+		private var labelBack:Label;
+		private var labelFront:Label;
 		
 		public function Button(_x:int, _y:int, _text:String, _textX:int, _textY:int, _textSize:int, _name:String) 
 		{
@@ -59,10 +60,11 @@ package swh.button
 				colorBack = 0x880000;
 			}
 			
-			label = new Label(textX, textY, 125, 20, "arial", textSize, colorBack, text, false);
-			addChild(label);
-			label = new Label(textX+1, textY+1, 125, 20, "arial", textSize, colorFront, text, false);
-			addChild(label);
+			labelBack = new Label(textX, textY, 125, 20, "arial", textSize, colorBack, text, false);
+			addChild(labelBack);
+			labelFront = new Label(textX+1, textY+1, 125, 20, "arial", textSize, colorFront, text, false);
+			addChild(labelFront);
+			
 			
 			blueFrames = new Vector.<String>();
 			blueFrames.push("button_blue_01.png");
@@ -120,8 +122,10 @@ package swh.button
 			redFrames = null;
 			text = null;
 			
-			removeChild(label);
-			label = null;
+			removeChild(labelBack);
+			labelBack = null;
+			removeChild(labelFront);
+			labelFront = null;
 			
 			while (this.numChildren > 0)
 			{

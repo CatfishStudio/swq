@@ -29,8 +29,8 @@ package swh.menu
 		private var lineTween:GTween;
 		
 		private var text:String;
-		private var colorBack:uint;
-		private var colorFront:uint;
+		private var colorBack:int;
+		private var colorFront:int;
 		
 		public function MenuHelp(_text:String, _colorFront:int, _colorBack:int) 
 		{

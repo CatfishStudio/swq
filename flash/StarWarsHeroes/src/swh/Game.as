@@ -3,6 +3,8 @@ package swh
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
+	import swh.vkAPI.VKAPI;
+	import swh.data.Data;
 	import swh.data.Constants;
 	import swh.events.NavigationEvent;
 	import swh.menu.Menu;
@@ -38,38 +40,148 @@ package swh
 			/* Глобальное событие при выборе, смене окна */
 			addEventListener(NavigationEvent.CHANGE_SCREEN, onChangeScreen);
 			
-			/* Загрузка окна: главное меню игры */
+			getSaveGame(); // Загрузка сохранённых данных
+		}
+		
+		/* MENU ---------------------------- */
+		private function createMenu():void
+		{
 			menu = new Menu();
 			addChild(menu);
 		}
 		
-		/* Событие: управление окнами игры */
+		private function removeMenu():void
+		{
+			removeChild(menu);
+		}
+		/* -------------------------------- */
+		
+		/* SETTINGS ----------------------- */
+		private function createSettings():void
+		{
+			
+		}
+		
+		private function removeSettings():void
+		{
+			
+		}
+		/* -------------------------------- */
+		
+		/* SIDE --------------------------- */
+		private function createSide():void
+		{
+			
+		}
+		
+		private function removeSide():void
+		{
+			
+		}
+		/* -------------------------------- */
+		
+		/* MAP ---------------------------- */
+		private function createMap():void
+		{
+			
+		}
+		
+		private function removeMap():void
+		{
+			
+		}
+		/* -------------------------------- */
+		
+		/* Событие: управление окнами игры ===================================================== */
 		private function onChangeScreen(e:NavigationEvent):void 
 		{
 			switch(e.param.id)
 			{
 				case Constants.MENU_BUTTON_CONTINUE: 
-					
+					removeMenu();
+					createMap();
 					break;
 				   
 				case Constants.MENU_BUTTON_NEW_GAME: 
-					
+					removeMenu();
+					createSide();
 					break;
 				   
 				case Constants.MENU_BUTTON_SETTINGS:
-					
+					createSettings();
 					break;
 				   
 				case Constants.MENU_BUTTON_INVITE:
-					
+					VKAPI.vkConnection.callMethod("showInviteBox");
 					break;   
 					
 				default:
 					break;
 			}
 		}
+		/* ================================================================================== */
 		
+		/* CREATE NEW SAVE GAME ============================================================= */
+		private var dataSetComplete:int = 0;
+		private function createNewGame():void
+		{
+			Data.initialization();
+			Data.loadMapCharacteristics();
+			Data.createNewCommands();
+			Data.userData = Data.createUserDataJSON();
+			Data.aiData = Data.createAIDataJSON();
+			try{
+				VKAPI.vkConnection.api("storage.set", { key:"swhUserData", value:Data.userData}, onDataSet, onDataErrorSet);
+				VKAPI.vkConnection.api("storage.set", { key:"swhAIData", value:Data.aiData}, onDataSet, onDataErrorSet);
+			}catch (e:Error){
+				Data.errorSetData = true;
+				removeSide();
+				createMap();
+			}
+			
+		}
+		private function onDataSet (response:Object):void 
+        {
+			dataSetComplete++;
+			if(dataSetComplete == 2){
+				removeSide();
+				createMap();
+			}
+        }
+        private function onDataErrorSet (response:Object):void 
+        {
+			Data.errorSetData = true;
+			removeSide();
+			createMap();
+        }
+		/* ============================================================================ */
 		
+		/* READ SAVE GAME ============================================================= */
+		private function getSaveGame():void
+		{
+			try{
+				VKAPI.vkConnection.api("storage.get", { key:"swhUserData" }, OnGetUserData, OnEGet);
+				VKAPI.vkConnection.api("storage.get", { key:"swhAIData" }, OnGetAIData, OnEGet);
+				createMenu();
+			}catch (e:Error){
+				Data.errorGetData = true;
+				createMenu();
+			}
+		}
+		private function OnGetUserData(response:Object):void 
+        {
+			Data.userData = String(response);
+        }
+		private function OnGetAIData(response:Object):void 
+        {
+			Data.aiData = String(response);
+        }
+		private function OnEGet(response:Object):void 
+        {
+			Data.errorGetData = true;
+			createMenu();
+        }		
+		/* ============================================================================ */
 		
 	}
 

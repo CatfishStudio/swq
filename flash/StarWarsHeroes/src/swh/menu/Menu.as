@@ -11,11 +11,13 @@ package swh.menu
 	import com.gskinner.motion.easing.Sine;
 	
 	import swh.data.Utilits;
+	import swh.data.Data;
 	import swh.data.Assets;
 	import swh.data.Atlas;
 	import swh.data.Constants;
 	import swh.button.Button;
 	import swh.menu.MenuHelp;
+	import swh.message.Message;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -33,6 +35,7 @@ package swh.menu
 		private var settingsButton:Button;
 		private var invateButton:Button;
 		private var mHelp:MenuHelp;
+		private var message:Message;
 		
 		private var starsTween:GTween;
 		private var deathstarTween:GTween;
@@ -58,7 +61,31 @@ package swh.menu
 			createBackground();
 			createButtons();
 			createHelp();
-			//createMessage();
+			createMessage();
+			
+			if (Data.errorGetData === true){
+				message.setText("Ошибка: Сервер ВКонтакте недоступен!\nСохранённые данные не удалось загрузить.");
+				if (Data.userData != null && Data.aiData != null) {
+					Data.initialization();
+					Data.loadMapCharacteristics()
+					Data.readUserDataJSON();
+					Data.readAIDataJSON();
+					Data.readUserCommandDataJSON();
+					Data.readAICommandDataJSON();
+					createButtonContinue();
+				}
+			}else{
+				if (Data.userData != null && Data.aiData != null) {
+					Data.initialization();
+					Data.readUserDataJSON();
+					Data.readUserCommandDataJSON();
+					Data.readAICommandDataJSON();
+					message.setText("Сохранённых данных успешно загружены!\nВы можите продолжить игру.");
+					createButtonContinue();
+				} else{
+					message.setText("Сохранённых данных нет.\nНачните новую игры.");
+				}
+			}
 		}
 		
 		private function onRemoveFromStage(e:Event):void 
@@ -68,6 +95,8 @@ package swh.menu
 			Atlas.clearAtlases(Atlas.TYPE_TEXTURES);
 			Atlas.clearAtlases(Atlas.TYPE_ANIMATION);
 			
+			removeChild(message);
+			message = null;			
 			removeChild(mHelp);
 			mHelp = null;
 			
@@ -303,6 +332,14 @@ package swh.menu
 			mHelp.x = 570;
 			mHelp.y = 290;
 			addChild(mHelp);
+		}
+		
+		private function createMessage():void
+		{
+			message = new Message("Поиск сохранённых данных...");
+			message.x = (Constants.GAME_WINDOW_WIDTH / 2) - (message.width / 2);
+			message.y = 25;
+			addChild(message);
 		}
 	}
 

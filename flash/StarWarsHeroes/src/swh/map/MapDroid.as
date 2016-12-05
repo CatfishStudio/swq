@@ -1,6 +1,19 @@
 package swh.map 
 {
 	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	
+	import com.gskinner.motion.GTween;
+	import com.gskinner.motion.GTweener;
+	import com.gskinner.motion.GTweenTimeline;
+	import com.gskinner.motion.easing.Sine;
+	
+	import swh.data.Assets;
+	import swh.data.Atlas;
+	import swh.data.Constants;
+	import swh.text.Label;
 	
 	/**
 	 * ...
@@ -8,11 +21,158 @@ package swh.map
 	 */
 	public class MapDroid extends Sprite 
 	{
+		private var r2d2Bitmap:Bitmap;
+		private var hologramBitmap:Bitmap;
+		private var lineBitmap:Bitmap;
+		private var labelBack:Label;
+		private var labelFront:Label;
 		
-		public function MapDroid() 
+		private var lineTween:GTween;
+		
+		private var text:String;
+		private var side:String;
+		private var colorBack:int;
+		private var colorFront:int;
+		
+		public function MapDroid(_x:int, _y:int, _text:String, _side:String) 
 		{
 			super();
+			x = _x;
+			y = _y;
+			text = _text;
+			side = _side;
+			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			addEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
+		}
 			
+		private function onAddedToStage(e:Event):void 
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			
+			if (side == Constants.SIDE_JEDI) {
+				colorFront = 0xFFFFFF;
+				colorBack = 0x0090F0;	
+				createBlue();
+			}else if (side == Constants.SIDE_SITH) {
+				colorFront = 0xFFFFFF;
+				colorBack = 0x880000;
+				createRed();
+			}
+			
+			
+		}
+		
+		private function onRemoveFromStage(e:Event):void 
+		{
+			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
+			
+			lineTween.onComplete = null;
+			lineTween.end();
+			lineTween = null;
+			
+			removeChild(labelBack);
+			labelBack = null;
+			removeChild(labelFront);
+			labelFront = null;
+			
+			removeChild(r2d2Bitmap);
+			r2d2Bitmap = null;
+			removeChild(hologramBitmap);
+			hologramBitmap = null;
+			removeChild(lineBitmap);
+			lineBitmap = null;
+			
+			while (this.numChildren)
+			{
+				this.removeChildren(0);
+			}
+		}
+		
+		private function createBlue():void
+		{
+			r2d2Bitmap = new Bitmap((Atlas.atlasTexturesBitmapData['r2d2_droid_blue_right.png'] as BitmapData));
+			r2d2Bitmap.x = 65;
+			r2d2Bitmap.y = 370;
+			r2d2Bitmap.scaleX = 0.75;
+			r2d2Bitmap.scaleY = 0.75;
+			addChild(r2d2Bitmap);
+			
+			hologramBitmap = new Bitmap((Atlas.atlasTexturesBitmapData['map_blue_hologram.png'] as BitmapData));
+			hologramBitmap.x = 0;
+			hologramBitmap.y = 0;
+			addChild(hologramBitmap);
+			
+			labelBack = new Label(5, 5, 145, 500, "arial", 12, colorBack, text, false);
+			addChild(labelBack);
+			labelFront = new Label(4, 4, 145, 500, "arial", 12, colorFront, text, false);
+			addChild(labelFront);
+			
+			lineBitmap = new Bitmap((Atlas.atlasTexturesBitmapData['map_blue_hologram_line.png'] as BitmapData));
+			lineBitmap.x = 2;
+			lineBitmap.y = 0;
+			addChild(lineBitmap);
+			
+			runLineTween();
+		}
+		
+		private function createRed():void
+		{
+			r2d2Bitmap = new Bitmap((Atlas.atlasTexturesBitmapData['r2d2_droid_red_right.png'] as BitmapData));
+			r2d2Bitmap.x = 65;
+			r2d2Bitmap.y = 370;
+			r2d2Bitmap.scaleX = 0.75;
+			r2d2Bitmap.scaleY = 0.75;
+			addChild(r2d2Bitmap);
+			
+			hologramBitmap = new Bitmap((Atlas.atlasTexturesBitmapData['map_red_hologram.png'] as BitmapData));
+			hologramBitmap.x = 0;
+			hologramBitmap.y = 0;
+			addChild(hologramBitmap);
+			
+			labelBack = new Label(5, 5, 145, 500, "arial", 12, colorBack, text, false);
+			addChild(labelBack);
+			labelFront = new Label(4, 4, 145, 500, "arial", 12, colorFront, text, false);
+			addChild(labelFront);
+			
+			lineBitmap = new Bitmap((Atlas.atlasTexturesBitmapData['map_red_hologram_line.png'] as BitmapData));
+			lineBitmap.x = 2;
+			lineBitmap.y = 0;
+			addChild(lineBitmap);
+			
+			runLineTween();
+		}
+		
+		private function runLineTween():void
+		{
+			lineTween = new GTween(lineBitmap, 2);
+			lineTween.setValue("y", lineBitmap.y + 208);
+			lineTween.ease = Sine.easeInOut;
+			lineTween.timeScale = 1;
+			lineTween.onComplete = onTweenLine;
+		}
+		
+		private function onTweenLine(tween:GTween):void		
+		{
+			lineBitmap.x = 2;
+			lineBitmap.y = 0;
+			lineTween.setValue("y", lineBitmap.y + 208);
+			lineTween.ease = Sine.easeInOut;
+			lineTween.timeScale = 1;
+			lineTween.onComplete = onTweenLine;
+		}
+		
+		public function setText(_text:String):void
+		{
+			text = _text;
+			labelBack.text = text;
+			labelBack.htmlText = text;
+			labelFront.text = text;
+			labelFront.htmlText = text;
+		}
+		
+		public function getText():String
+		{
+			return text;
 		}
 		
 	}

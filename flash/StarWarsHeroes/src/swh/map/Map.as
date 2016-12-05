@@ -8,12 +8,20 @@ package swh.map
 	import flash.ui.MouseCursor;
 	import flash.events.MouseEvent;
 	
+	import com.gskinner.motion.GTween;
+	import com.gskinner.motion.GTweener;
+	import com.gskinner.motion.GTweenTimeline;
+	import com.gskinner.motion.easing.Sine;
+	
 	import swh.data.Utilits;
 	import swh.data.Data;
 	import swh.data.Assets;
 	import swh.data.Atlas;
 	import swh.data.Constants;
 	import swh.button.Button;
+	import swh.map.MapDroid;
+	import swh.map.MapPlanet;
+	import swh.map.MapStartBattle;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -24,6 +32,11 @@ package swh.map
 		private var mapMouseX:Number;			// позиция курсора
 		private var mapMouseY:Number;			// позиция курсора
 		private var mapMove:Boolean = false;	// флаг движения курсора (скрол карты)
+		
+		private var lineBitmap:Bitmap;
+		private var lineTween:GTween;
+		
+		private var droid:MapDroid;
 		
 		public function Map() 
 		{
@@ -40,6 +53,9 @@ package swh.map
 			Atlas.loadAtlasBitmapData(Assets.assetsAtlasesContent.ButtonsAtlas, Assets.assetsAtlasesContent.ButtonsAtlasXML, Atlas.TYPE_ANIMATION);
 			
 			createSpace();
+			createIcons();
+			createBorder();
+			createDroid();
 		}
 		
 		private function onRemoveFromStage(e:Event):void 
@@ -49,6 +65,27 @@ package swh.map
 			
 			Atlas.clearAtlases(Atlas.TYPE_TEXTURES);
 			Atlas.clearAtlases(Atlas.TYPE_ANIMATION);
+			
+			lineTween.onComplete = null;
+			lineTween.end();
+			lineTween = null;
+			
+			lineBitmap.bitmapData.dispose();
+			removeChild(lineBitmap);
+			lineBitmap = null;
+			
+			removeChild(droid);
+			droid = null;
+			
+			while (map.numChildren > 0) 
+			{
+				map.removeChildren(0);
+			}
+			map.removeEventListener(MouseEvent.MOUSE_UP, onMouseUpMap);
+			map.removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDownMap);
+			map.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMoveMap);
+			removeChild(map);
+			map = null;
 			
 			while (this.numChildren > 0)
 			{
@@ -72,7 +109,6 @@ package swh.map
 			map.addEventListener(MouseEvent.MOUSE_UP, onMouseUpMap);
 			map.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDownMap);
 			map.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMoveMap);
-			map.addEventListener(MouseEvent.CLICK, onMouseClickMap);
 			addChild(map);
 		}
 		
@@ -93,22 +129,131 @@ package swh.map
 			if(mapMove == true){
 				if(mapMouseX <= stage.mouseX){
 					map.x += 5;
-					mapMouseX = stage.mouseX;
-					mapMouseY = stage.mouseY;
+					if (map.x > 0) map.x = 0;
 				}else{
 					map.x -= 5;
-					mapMouseX = stage.mouseX;
-					mapMouseY = stage.mouseY;
+					if (map.x < -160) map.x = -160;
 				}
+				if (mapMouseY <= stage.mouseY){
+					map.y += 1;
+					if (map.y > 0) map.y = 0;
+				}else{
+					map.y -= 1;
+					if (map.y < -10) map.y = -10;
+				}
+				mapMouseX = stage.mouseX;
+				mapMouseY = stage.mouseY;
 			}
 		}
 		
-		private function onMouseClickMap(e:MouseEvent):void 
+		private function createIcons():void 
 		{
-			
+			var bitmap:Bitmap;
+			for (var i:int = 0; i < Data.userCommand.length; i++){
+				if(Data.checkPersonagePlanetAvailable(Data.userCommand[i].id) == true && Data.userCommand[i].status == Data.STATUS_USER_PERSONAGE_AVAILABLE) {
+					bitmap = new Bitmap((Atlas.atlasTexturesBitmapData[Data.userCommand[i].id + "_icon.png"] as BitmapData));
+					bitmap.name = Data.userCommand[i].id;
+					bitmap.x = 35 + (105 * i);
+					bitmap.y = 625;
+					addChild(bitmap);
+				}
+			}
+			bitmap = null;
 		}
 		
+		private function createBorder():void
+		{
+			var bitmap:Bitmap;
+			if (Data.userSide == Constants.SIDE_JEDI) {
+				bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["map_blue_border_top.png"] as BitmapData));
+				bitmap.name = 'map_border_top';
+				bitmap.x = 0; bitmap.y = 0;
+				addChild(bitmap);
+				
+				bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["map_blue_border_left.png"] as BitmapData));
+				bitmap.name = 'map_border_left';
+				bitmap.x = 8; bitmap.y = 14;
+				addChild(bitmap);
+				
+				bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["map_blue_border_bottom.png"] as BitmapData));
+				bitmap.name = 'map_border_bottom';
+				bitmap.x = 355; bitmap.y = 715;
+				addChild(bitmap);
+				
+				bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["map_blue_border_right.png"] as BitmapData));
+				bitmap.name = 'map_border_right';
+				bitmap.x = 849; bitmap.y = 14;
+				addChild(bitmap);
+				
+				bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["map_blue_border_desktop.png"] as BitmapData));
+				bitmap.name = 'map_border_desktop';
+				bitmap.x = 3; bitmap.y = 598;
+				addChild(bitmap);
+				
+				lineBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["map_desktop_blue_line.png"] as BitmapData));
+				lineBitmap.name = 'map_desktop_line';
+				lineBitmap.x = 14; lineBitmap.y = 608;
+				addChild(lineBitmap);
+				runLineTween();
+				
+			}else if (Data.userSide == Constants.SIDE_SITH) {
+				bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["map_red_border_top.png"] as BitmapData));
+				bitmap.name = 'map_border_top';
+				bitmap.x = 0; bitmap.y = 0;
+				addChild(bitmap);
+				
+				bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["map_red_border_left.png"] as BitmapData));
+				bitmap.name = 'map_border_left';
+				bitmap.x = 8; bitmap.y = 14;
+				addChild(bitmap);
+				
+				bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["map_red_border_bottom.png"] as BitmapData));
+				bitmap.name = 'map_border_bottom';
+				bitmap.x = 355; bitmap.y = 715;
+				addChild(bitmap);
+				
+				bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["map_red_border_right.png"] as BitmapData));
+				bitmap.name = 'map_border_right';
+				bitmap.x = 849; bitmap.y = 14;
+				addChild(bitmap);
+				
+				bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["map_red_border_desktop.png"] as BitmapData));
+				bitmap.name = 'map_border_desktop';
+				bitmap.x = 3; bitmap.y = 598;
+				addChild(bitmap);
+				
+				lineBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["map_desktop_red_line.png"] as BitmapData));
+				lineBitmap.name = 'map_desktop_line';
+				lineBitmap.x = 14; lineBitmap.y = 608;
+				addChild(lineBitmap);
+				runLineTween();
+			}
+			bitmap = null;
+		}
 		
+		private function runLineTween():void
+		{
+			lineTween = new GTween(lineBitmap, 2);
+			lineTween.setValue("y", lineBitmap.y + 95);
+			lineTween.ease = Sine.easeInOut;
+			lineTween.timeScale = 1;
+			lineTween.onComplete = onTweenLine;
+		}
+		
+		private function onTweenLine(tween:GTween):void		
+		{
+			lineBitmap.y = 608;
+			lineTween.setValue("y", lineBitmap.y + 95);
+			lineTween.ease = Sine.easeInOut;
+			lineTween.timeScale = 1;
+			lineTween.onComplete = onTweenLine;
+		}
+		
+		private function createDroid():void
+		{
+			droid = new MapDroid(700, 235, Data.userLastMessage, Data.userSide);
+			addChild(droid);
+		}
 		
 	}
 

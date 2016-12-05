@@ -354,7 +354,7 @@ package swh.menu
 		
 		private function createMessage():void
 		{
-			message = new Message("Поиск сохранённых данных...");
+			message = new Message("Поиск сохранённых данных...", Constants.SIDE_JEDI);
 			message.x = (Constants.GAME_WINDOW_WIDTH / 2) - (message.width / 2);
 			message.y = 25;
 			addChild(message);

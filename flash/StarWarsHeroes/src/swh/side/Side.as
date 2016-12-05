@@ -52,13 +52,14 @@ package swh.side
 			cheateHelp();
 			
 			if (Data.errorSetData || Data.errorGetData) {
-				message = new Message("Сервер ВКонтакте недоступен. \nВаш прогресс не будет сохранён!");
-				message.x = (Constants.GAME_WINDOW_WIDTH / 2);
-				message.y = 25;
-				addChild(message);
+				message = new Message("Сервер ВКонтакте недоступен. \nВаш прогресс не будет сохранён!", Constants.SIDE_SITH);
+				
 			}else{
-				//message = new Message("После выбора персонажа. \nНовые данные будут сохранены!");
+				message = new Message("После выбора персонажа. \nНовые данные будут сохранены!", Constants.SIDE_JEDI);
 			}
+			message.x = (Constants.GAME_WINDOW_WIDTH / 2);
+			message.y = 25;
+			addChild(message);
 			
 		}
 		

@@ -13,13 +13,15 @@ package swh.message
 	public class Message extends Sprite 
 	{
 		private var text:String;
+		private var side:String;
 		private var labelBack:Label;
 		private var labelFront:Label;
 		
-		public function Message(_text:String) 
+		public function Message(_text:String, _side:String) 
 		{
 			super();
 			text = _text;
+			side = _side;
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
 		}
@@ -49,7 +51,7 @@ package swh.message
 		{
 			var colorFront:int;
 			var colorBack:int;
-			if (Data.userSide == Constants.SIDE_JEDI){
+			if (side == Constants.SIDE_JEDI){
 				graphics.beginFill(0x0080C0, 0.4);
 				graphics.drawRect(0, 0, 400, 50);
 				graphics.endFill();
@@ -61,7 +63,7 @@ package swh.message
 				labelFront = new Label(9, 4, 400, 50, "arial", 14, colorFront, text, false);
 				addChild(labelFront);
 				
-			}else if (Data.userSide == Constants.SIDE_SITH){
+			}else if (side == Constants.SIDE_SITH){
 				graphics.beginFill(0xA63A24, 0.4);
 				graphics.drawRect(0, 0, 400, 50);
 				graphics.endFill();

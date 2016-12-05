@@ -16,6 +16,7 @@ package swh.side
 	import swh.animation.DarthVader;
 	import swh.animation.LukeSkywalker;
 	import swh.side.SideHelp;
+	import swh.message.Message;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -30,7 +31,7 @@ package swh.side
 		private var lsButton:Button;
 		private var dvHelp:SideHelp;
 		private var lsHelp:SideHelp;
-		
+		private var message:Message;
 		
 		public function Side() 
 		{
@@ -49,6 +50,16 @@ package swh.side
 			createSides();
 			createButtons();
 			cheateHelp();
+			
+			if (Data.errorSetData || Data.errorGetData) {
+				message = new Message("Сервер ВКонтакте недоступен. \nВаш прогресс не будет сохранён!");
+				message.x = (Constants.GAME_WINDOW_WIDTH / 2) - 190;
+				message.y = 5;
+				addChild(message);
+			}else{
+				//message = new Message("После выбора персонажа. \nНовые данные будут сохранены!");
+			}
+			
 		}
 		
 		private function onRemoveFromStage(e:Event):void 
@@ -58,6 +69,11 @@ package swh.side
 			
 			Atlas.clearAtlases(Atlas.TYPE_TEXTURES);
 			Atlas.clearAtlases(Atlas.TYPE_ANIMATION);
+			
+			if(message != null){
+				removeChild(message);
+				message = null;
+			}
 			
 			removeChild(dvHelp);
 			dvHelp = null;
@@ -106,14 +122,14 @@ package swh.side
 		
 		private function createSides():void
 		{
-			dvAnim = new DarthVader(70, 25, Constants.SIDE_SITH);
-			dvAnim.scaleX = 0.8;
-			dvAnim.scaleY = 0.8;
+			dvAnim = new DarthVader(70, 15, Constants.SIDE_SITH);
+			dvAnim.scaleX = 0.85;
+			dvAnim.scaleY = 0.85;
 			addChild(dvAnim);
 			
 			lsAnim = new LukeSkywalker((Constants.GAME_WINDOW_WIDTH - 300), 15, Constants.SIDE_JEDI);
-			lsAnim.scaleX = 0.8;
-			lsAnim.scaleY = 0.8;
+			lsAnim.scaleX = 0.85;
+			lsAnim.scaleY = 0.85;
 			addChild(lsAnim);
 		}
 		
@@ -128,10 +144,10 @@ package swh.side
 		
 		private function cheateHelp():void
 		{
-			dvHelp = new SideHelp(45, (Constants.GAME_WINDOW_HEIGHT - 300),"Выберите тёмную сторону силы. \"Поддайся амбициям, почувствуй власть в своих руках.\" \n\nПройдите путь Дарт Вейдера!", Constants.SIDE_SITH);
+			dvHelp = new SideHelp(45, (Constants.GAME_WINDOW_HEIGHT - 285),"Выберите тёмную сторону силы. \"Поддайся амбициям, почувствуй власть в своих руках.\" \n\nПройдите путь Дарт Вейдера!", Constants.SIDE_SITH);
 			addChild(dvHelp);
 			
-			lsHelp = new SideHelp((Constants.GAME_WINDOW_WIDTH / 2) + 100, (Constants.GAME_WINDOW_HEIGHT - 300), "Выберите светлую сторону силы. \"Только покой ощутив, возмёшь контроль над желаниями своими\". \n\nПройдите путь Люка Скайуокера!", Constants.SIDE_JEDI);
+			lsHelp = new SideHelp((Constants.GAME_WINDOW_WIDTH / 2) + 100, (Constants.GAME_WINDOW_HEIGHT - 285), "Выберите светлую сторону силы. \"Только покой ощутив, возмёшь контроль над желаниями своими\". \n\nПройдите путь Люка Скайуокера!", Constants.SIDE_JEDI);
 			addChild(lsHelp);
 		}
 		

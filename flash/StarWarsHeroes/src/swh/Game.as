@@ -11,6 +11,7 @@ package swh
 	import swh.menu.Menu;
 	import swh.settings.Settings;
 	import swh.side.Side;
+	import swh.map.Map;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -21,6 +22,7 @@ package swh
 		private var menu:Menu;
 		private var settings:Settings;
 		private var side:Side;
+		private var map:Map;
 		
 		public function Game() 
 		{
@@ -106,12 +108,18 @@ package swh
 		/* MAP ---------------------------- */
 		private function createMap():void
 		{
-			
+			if (map == null){
+				map = new Map();
+				addChild(map);
+			}
 		}
 		
 		private function removeMap():void
 		{
-			
+			if (map != null){
+				removeChild(map);
+				map = null;
+			}
 		}
 		/* -------------------------------- */
 		
@@ -140,18 +148,19 @@ package swh
 				
 				case Constants.SETTINGS_BUTTON_CLOSE:
 					removeSettings();
-					break;   
+					break;
+					
 				case Constants.SIDE_CLOSE_SITH:
 					Data.userSide = Constants.SIDE_SITH;
 					Data.aiSide = Constants.SIDE_JEDI;
-					removeSide();
-					break;   
+					createNewGame();
+					break;
+					
 				case Constants.SIDE_CLOSE_JEDI:
 					Data.userSide = Constants.SIDE_JEDI;
 					Data.aiSide = Constants.SIDE_SITH;
-					removeSide();
+					createNewGame();
 					break;   
-				
 					
 				default:
 					break;

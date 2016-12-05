@@ -148,7 +148,7 @@ package swh.settings
 				lineBitmap.y = 240;
 				addChild(lineBitmap);	
 				
-				windowBitmap = new Bitmap((Assets.assetsTexturesContent.settingsRedLineBitmap as Bitmap).bitmapData);
+				windowBitmap = new Bitmap((Assets.assetsTexturesContent.settingsRedBgBitmap as Bitmap).bitmapData);
 				windowBitmap.x = (Constants.GAME_WINDOW_WIDTH / 2) - (windowBitmap.width / 2);
 				windowBitmap.y = (Constants.GAME_WINDOW_HEIGHT / 2) - (windowBitmap.height / 2);
 				addChild(windowBitmap);

@@ -62,9 +62,9 @@ package swh.button
 				colorBack = 0x880000;
 			}
 			
-			labelBack = new Label(textX, textY, 125, 20, "arial", textSize, colorBack, text, false);
+			labelBack = new Label(textX, textY, 150, 20, "arial", textSize, colorBack, text, false);
 			addChild(labelBack);
-			labelFront = new Label(textX+1, textY+1, 125, 20, "arial", textSize, colorFront, text, false);
+			labelFront = new Label(textX+1, textY+1, 150, 20, "arial", textSize, colorFront, text, false);
 			addChild(labelFront);
 			
 			

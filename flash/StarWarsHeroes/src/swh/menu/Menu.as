@@ -208,7 +208,7 @@ package swh.menu
 		
 		private function createButtonContinue():void
 		{
-			continueButton = new Button(85, 275, "ПРОДОЛЖИТЬ ИГРУ", 45, 15, 16,  Constants.MENU_BUTTON_CONTINUE, Constants.SIDE_JEDI);
+			continueButton = new Button(85, 275, "ПРОДОЛЖИТЬ", 45, 15, 16,  Constants.MENU_BUTTON_CONTINUE, Constants.SIDE_JEDI);
 			addChild(continueButton);
 		}
 		

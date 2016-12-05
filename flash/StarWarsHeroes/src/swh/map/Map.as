@@ -38,6 +38,11 @@ package swh.map
 		private var lineBitmap:Bitmap;
 		private var lineTween:GTween;
 		
+		private var backmenuButton:Button;
+		private var inviteButton:Button;
+		private var commandButton:Button;
+		private var settingsButton:Button;
+		
 		private var droid:MapDroid;
 		
 		public function Map() 
@@ -59,6 +64,7 @@ package swh.map
 			createIcons();
 			createBorder();
 			createDroid();
+			createButtons();
 		}
 		
 		private function onRemoveFromStage(e:Event):void 
@@ -79,6 +85,15 @@ package swh.map
 			
 			removeChild(droid);
 			droid = null;
+			
+			removeChild(backmenuButton);
+			backmenuButton = null;
+			removeChild(inviteButton);
+			inviteButton = null;
+			removeChild(commandButton);
+			commandButton = null;
+			removeChild(settingsButton);
+			settingsButton = null;
 			
 			while (map.numChildren > 0) 
 			{
@@ -268,6 +283,18 @@ package swh.map
 		{
 			droid = new MapDroid(700, 235, Data.userLastMessage, Data.userSide);
 			addChild(droid);
+		}
+		
+		private function createButtons():void
+		{
+			backmenuButton = new Button(10, 10, "НАЗАД В МЕНЮ", 40, 15, 16,  Constants.MAP_BUTTON_BACK_MENU, Data.userSide);
+			addChild(backmenuButton);
+			inviteButton = new Button(10, 555, "ПРИГЛАСИТЬ", 45, 15, 16,  Constants.MAP_BUTTON_INVITE, Data.userSide);
+			addChild(inviteButton);
+			commandButton = new Button(360, 670, "КОМАНДА", 50, 15, 16,  Constants.MAP_BUTTON_COMMAND, Data.userSide);
+			addChild(commandButton);
+			settingsButton = new Button(560, 670, "НАСТРОЙКИ", 45, 15, 16,  Constants.MAP_BUTTON_SETTINGS, Data.userSide);
+			addChild(settingsButton);
 		}
 		
 	}

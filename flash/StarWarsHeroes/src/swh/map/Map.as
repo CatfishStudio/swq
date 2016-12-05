@@ -215,7 +215,10 @@ package swh.map
 			addChild(battleStart);
 		}
 		
-		
+		public function onBattleStartClose():void
+		{
+			if (battleStart != null) removeChild(battleStart);
+		}
 		
 		private function createIcons():void 
 		{
@@ -337,6 +340,8 @@ package swh.map
 			settingsButton = new Button(560, 670, "НАСТРОЙКИ", 45, 15, 16,  Constants.MAP_BUTTON_SETTINGS, Data.userSide);
 			addChild(settingsButton);
 		}
+		
+		
 		
 	}
 

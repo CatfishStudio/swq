@@ -178,6 +178,14 @@ package swh
 				case Constants.MAP_BUTTON_SETTINGS:
 					createSettings();
 					break;
+				
+				case Constants.MAP_START_BATTLE_BUTTON_START:
+					
+					break;
+					
+				case Constants.MAP_START_BATTLE_BUTTON_CANCEL:
+					if (map != null) map.onBattleStartClose();
+					break;
 					
 				default:
 					break;

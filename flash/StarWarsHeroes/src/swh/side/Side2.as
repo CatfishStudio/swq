@@ -4,7 +4,6 @@ package swh.side
 	import flash.events.Event;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
-	import flash.events.MouseEvent;
 	import flash.ui.Mouse;
 	import flash.ui.MouseCursor;
 	
@@ -18,18 +17,18 @@ package swh.side
 	import swh.animation.LukeSkywalker;
 	import swh.side.SideHelp;
 	import swh.message.Message;
-	import swh.events.NavigationEvent;
-	
 	/**
 	 * ...
 	 * @author Catfish Studio
 	 */
-	public class Side extends Sprite 
+	public class Side2 extends Sprite 
 	{
 		private var backgroundBitmap:Bitmap;
 		private var borderBitmap:Bitmap;
 		private var dvAnim:DarthVader;
 		private var lsAnim:LukeSkywalker;
+		private var dvButton:Button;
+		private var lsButton:Button;
 		private var dvHelp:SideHelp;
 		private var lsHelp:SideHelp;
 		private var message:Message;
@@ -49,12 +48,13 @@ package swh.side
 			Atlas.loadAtlasBitmapData(Assets.assetsAtlasesContent.SideAnimAtlas, Assets.assetsAtlasesContent.SideAnimAtlasXML, Atlas.TYPE_ANIMATION);
 			createBackground();
 			createSides();
+			createButtons();
 			cheateHelp();
 			
 			if (Data.errorSetData || Data.errorGetData) {
 				message = new Message("Сервер ВКонтакте недоступен. \nВаш прогресс не будет сохранён!");
-				message.x = (Constants.GAME_WINDOW_WIDTH / 2);
-				message.y = 25;
+				message.x = (Constants.GAME_WINDOW_WIDTH / 2) - 190;
+				message.y = 5;
 				addChild(message);
 			}else{
 				//message = new Message("После выбора персонажа. \nНовые данные будут сохранены!");
@@ -81,15 +81,15 @@ package swh.side
 			removeChild(lsHelp);
 			lsHelp = null;
 			
-			dvAnim.removeEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
-			dvAnim.removeEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
-			dvAnim.removeEventListener(MouseEvent.CLICK, onMouseClick);
+			removeChild(dvButton);
+			dvButton = null;
+			
 			removeChild(dvAnim);
 			dvAnim = null;
 			
-			lsAnim.removeEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
-			lsAnim.removeEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
-			lsAnim.removeEventListener(MouseEvent.CLICK, onMouseClick);
+			removeChild(lsButton);
+			lsButton = null;
+			
 			removeChild(lsAnim);
 			lsAnim = null;
 			
@@ -122,51 +122,32 @@ package swh.side
 		
 		private function createSides():void
 		{
-			dvAnim = new DarthVader(50, 100, Constants.SIDE_CLOSE_SITH);
-			dvAnim.addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
-			dvAnim.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
-			dvAnim.addEventListener(MouseEvent.CLICK, onMouseClick);
+			dvAnim = new DarthVader(70, 15, Constants.SIDE_SITH);
+			dvAnim.scaleX = 0.85;
+			dvAnim.scaleY = 0.85;
 			addChild(dvAnim);
 			
-			lsAnim = new LukeSkywalker((Constants.GAME_WINDOW_WIDTH - 325), 100, Constants.SIDE_CLOSE_JEDI);
-			lsAnim.addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
-			lsAnim.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
-			lsAnim.addEventListener(MouseEvent.CLICK, onMouseClick);
+			lsAnim = new LukeSkywalker((Constants.GAME_WINDOW_WIDTH - 300), 15, Constants.SIDE_JEDI);
+			lsAnim.scaleX = 0.85;
+			lsAnim.scaleY = 0.85;
 			addChild(lsAnim);
 		}
 		
-		private function onMouseOut(e:MouseEvent):void 
+		private function createButtons():void
 		{
-			Mouse.cursor = MouseCursor.AUTO;
-			lsHelp.visible = false;
-			dvHelp.visible = false;
-		}
-		
-		private function onMouseOver(e:MouseEvent):void 
-		{
-			Mouse.cursor = MouseCursor.BUTTON;
-			if (e.target.name == Constants.SIDE_CLOSE_JEDI){
-				dvHelp.visible = false;
-				lsHelp.visible = true;
-			}else if (e.target.name == Constants.SIDE_CLOSE_SITH){
-				lsHelp.visible = false;
-				dvHelp.visible = true;
-			}
-		}
-		
-		private function onMouseClick(e:MouseEvent):void 
-		{
-			dispatchEvent(new NavigationEvent(NavigationEvent.CHANGE_SCREEN, { id: e.target.name }, true));
+			dvButton = new Button(125, 625, "ВЫБРАТЬ", 50, 15, 16, Constants.SIDE_CLOSE_SITH, Constants.SIDE_SITH);
+			addChild(dvButton);
+			
+			lsButton = new Button(525, 625, "ВЫБРАТЬ", 50, 15, 16, Constants.SIDE_CLOSE_JEDI, Constants.SIDE_JEDI);
+			addChild(lsButton);
 		}
 		
 		private function cheateHelp():void
 		{
 			dvHelp = new SideHelp(45, (Constants.GAME_WINDOW_HEIGHT - 285),"Выберите тёмную сторону силы. \"Поддайся амбициям, почувствуй власть в своих руках.\" \n\nПройдите путь Дарт Вейдера!", Constants.SIDE_SITH);
-			dvHelp.visible = false;
 			addChild(dvHelp);
 			
 			lsHelp = new SideHelp((Constants.GAME_WINDOW_WIDTH / 2) + 100, (Constants.GAME_WINDOW_HEIGHT - 285), "Выберите светлую сторону силы. \"Только покой ощутив, возмёшь контроль над желаниями своими\". \n\nПройдите путь Люка Скайуокера!", Constants.SIDE_JEDI);
-			lsHelp.visible = false;
 			addChild(lsHelp);
 		}
 		

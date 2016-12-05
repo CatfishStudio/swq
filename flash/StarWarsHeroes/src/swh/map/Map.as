@@ -8,6 +8,7 @@ package swh.map
 	import flash.ui.MouseCursor;
 	import flash.events.MouseEvent;
 	
+	
 	import com.gskinner.motion.GTween;
 	import com.gskinner.motion.GTweener;
 	import com.gskinner.motion.GTweenTimeline;
@@ -18,6 +19,7 @@ package swh.map
 	import swh.data.Assets;
 	import swh.data.Atlas;
 	import swh.data.Constants;
+	import swh.data.Planet;
 	import swh.button.Button;
 	import swh.map.MapDroid;
 	import swh.map.MapPlanet;
@@ -53,6 +55,7 @@ package swh.map
 			Atlas.loadAtlasBitmapData(Assets.assetsAtlasesContent.ButtonsAtlas, Assets.assetsAtlasesContent.ButtonsAtlasXML, Atlas.TYPE_ANIMATION);
 			
 			createSpace();
+			createPlanets();
 			createIcons();
 			createBorder();
 			createDroid();
@@ -139,10 +142,22 @@ package swh.map
 					if (map.y > 0) map.y = 0;
 				}else{
 					map.y -= 1;
-					if (map.y < -10) map.y = -10;
+					if (map.y < -25) map.y = -25;
 				}
 				mapMouseX = stage.mouseX;
 				mapMouseY = stage.mouseY;
+			}
+		}
+		
+		private function createPlanets():void
+		{
+			var mapPlanet:MapPlanet;
+			for each (var planet:Planet in Data.planets) 
+			{ 
+				mapPlanet = new MapPlanet((planet as Planet));
+				mapPlanet.x = (planet as Planet).x;
+				mapPlanet.y = (planet as Planet).y;
+				map.addChild(mapPlanet);
 			}
 		}
 		

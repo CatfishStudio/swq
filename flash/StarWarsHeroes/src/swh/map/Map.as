@@ -45,6 +45,8 @@ package swh.map
 		
 		private var droid:MapDroid;
 		
+		private var battleStart:MapStartBattle;
+		
 		public function Map() 
 		{
 			super();
@@ -94,6 +96,22 @@ package swh.map
 			commandButton = null;
 			removeChild(settingsButton);
 			settingsButton = null;
+			
+			if (battleStart != null){
+				removeChild(battleStart);
+				battleStart = null;
+			}
+			
+			var mapPlanet:MapPlanet; 
+			for each (var planet:Planet in Data.planets) 
+			{ 
+				mapPlanet = (map.getChildByName(planet.id) as MapPlanet);
+				mapPlanet.removeEventListener(MouseEvent.MOUSE_OUT, onPlanetMouseOut);
+				mapPlanet.removeEventListener(MouseEvent.MOUSE_OVER, onPlanetMouseOver);
+				mapPlanet.removeEventListener(MouseEvent.CLICK, onPlanetMouseClick);
+				map.removeChild(mapPlanet);
+				mapPlanet = null;
+			}
 			
 			while (map.numChildren > 0) 
 			{
@@ -172,9 +190,32 @@ package swh.map
 				mapPlanet = new MapPlanet((planet as Planet));
 				mapPlanet.x = (planet as Planet).x;
 				mapPlanet.y = (planet as Planet).y;
+				mapPlanet.addEventListener(MouseEvent.MOUSE_OUT, onPlanetMouseOut);
+				mapPlanet.addEventListener(MouseEvent.MOUSE_OVER, onPlanetMouseOver);
+				mapPlanet.addEventListener(MouseEvent.CLICK, onPlanetMouseClick);
 				map.addChild(mapPlanet);
 			}
 		}
+		
+		private function onPlanetMouseOut(e:MouseEvent):void 
+		{
+			Mouse.cursor = MouseCursor.AUTO;
+			droid.setText(Data.userLastMessage);
+		}
+		
+		private function onPlanetMouseOver(e:MouseEvent):void 
+		{
+			Mouse.cursor = MouseCursor.BUTTON;
+			droid.setText((Data.planets[e.target.name] as Planet).descriptionJedi);
+		}
+		
+		private function onPlanetMouseClick(e:MouseEvent):void 
+		{
+			battleStart = new MapStartBattle(Data.planets[e.target.name]);
+			addChild(battleStart);
+		}
+		
+		
 		
 		private function createIcons():void 
 		{

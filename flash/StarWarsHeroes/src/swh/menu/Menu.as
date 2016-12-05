@@ -4,6 +4,8 @@ package swh.menu
 	import flash.events.Event;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.ui.Mouse;
+	import flash.ui.MouseCursor;
 	
 	import com.gskinner.motion.GTween;
 	import com.gskinner.motion.GTweener;
@@ -91,6 +93,7 @@ package swh.menu
 		private function onRemoveFromStage(e:Event):void 
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
+			Mouse.cursor = MouseCursor.AUTO;
 			
 			Atlas.clearAtlases(Atlas.TYPE_TEXTURES);
 			Atlas.clearAtlases(Atlas.TYPE_ANIMATION);
@@ -195,17 +198,17 @@ package swh.menu
 		
 		private function createButtons():void
 		{
-			newGameButton = new Button(85, 350, "НАЧАТЬ ИГРУ", 45, 15, 16,  Constants.MENU_BUTTON_NEW_GAME);
+			newGameButton = new Button(85, 350, "НАЧАТЬ ИГРУ", 45, 15, 16,  Constants.MENU_BUTTON_NEW_GAME, Constants.SIDE_JEDI);
 			addChild(newGameButton);
-			settingsButton = new Button(85, 425, "НАСТРОЙКИ", 45, 15, 16,  Constants.MENU_BUTTON_SETTINGS);
+			settingsButton = new Button(85, 425, "НАСТРОЙКИ", 45, 15, 16,  Constants.MENU_BUTTON_SETTINGS, Constants.SIDE_JEDI);
 			addChild(settingsButton);
-			invateButton = new Button(85, 500, "ПРИГЛАСИТЬ", 45, 15, 16,  Constants.MENU_BUTTON_INVITE);
+			invateButton = new Button(85, 500, "ПРИГЛАСИТЬ", 45, 15, 16,  Constants.MENU_BUTTON_INVITE, Constants.SIDE_JEDI);
 			addChild(invateButton);
 		}
 		
 		private function createButtonContinue():void
 		{
-			continueButton = new Button(85, 275, "ПРОДОЛЖИТЬ ИГРУ", 45, 15, 16,  Constants.MENU_BUTTON_CONTINUE);
+			continueButton = new Button(85, 275, "ПРОДОЛЖИТЬ ИГРУ", 45, 15, 16,  Constants.MENU_BUTTON_CONTINUE, Constants.SIDE_JEDI);
 			addChild(continueButton);
 		}
 		

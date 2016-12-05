@@ -196,7 +196,7 @@ package swh.settings
 			infoSButton.addEventListener(MouseEvent.CLICK, onClickSmallButton);
 			addChild(infoSButton);
 			
-			closeButton = new Button((Constants.GAME_WINDOW_WIDTH / 2) - 100, (Constants.GAME_WINDOW_HEIGHT / 2) + 72, "ЗАКРЫТЬ", 60, 15, 16,  Constants.SETTINGS_BUTTON_CLOSE);
+			closeButton = new Button((Constants.GAME_WINDOW_WIDTH / 2) - 100, (Constants.GAME_WINDOW_HEIGHT / 2) + 72, "ЗАКРЫТЬ", 60, 15, 16,  Constants.SETTINGS_BUTTON_CLOSE, Data.userSide);
 			addChild(closeButton);
 		}
 		

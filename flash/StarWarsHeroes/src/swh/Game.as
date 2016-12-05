@@ -10,6 +10,7 @@ package swh
 	import swh.events.NavigationEvent;
 	import swh.menu.Menu;
 	import swh.settings.Settings;
+	import swh.side.Side;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -19,6 +20,7 @@ package swh
 		private var gameMask:Sprite;
 		private var menu:Menu;
 		private var settings:Settings;
+		private var side:Side;
 		
 		public function Game() 
 		{
@@ -86,12 +88,18 @@ package swh
 		/* SIDE --------------------------- */
 		private function createSide():void
 		{
-			
+			if (side == null){
+				side = new Side();
+				addChild(side);
+			}
 		}
 		
 		private function removeSide():void
 		{
-			
+			if (side != null){
+				removeChild(side);
+				side = null;
+			}
 		}
 		/* -------------------------------- */
 		
@@ -133,6 +141,17 @@ package swh
 				case Constants.SETTINGS_BUTTON_CLOSE:
 					removeSettings();
 					break;   
+				case Constants.SIDE_CLOSE_SITH:
+					Data.userSide = Constants.SIDE_SITH;
+					Data.aiSide = Constants.SIDE_JEDI;
+					removeSide();
+					break;   
+				case Constants.SIDE_CLOSE_JEDI:
+					Data.userSide = Constants.SIDE_JEDI;
+					Data.aiSide = Constants.SIDE_SITH;
+					removeSide();
+					break;   
+				
 					
 				default:
 					break;

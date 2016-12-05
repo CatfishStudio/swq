@@ -69,8 +69,8 @@ package swh.data
 			var count:int = persFileXML.SubTexture.length();
 			for (var i:int = 0; i < count; i++)
 			{
-				backSizeWidth = persFileXML.SubTexture[i].attribute("width");
-				backSizeHeight = persFileXML.SubTexture[i].attribute("height");
+				backSizeWidth = int(persFileXML.SubTexture[i].attribute("width"));
+				backSizeHeight = int(persFileXML.SubTexture[i].attribute("height"));
 				rectX1 = persFileXML.SubTexture[i].attribute("x");
 				rectY1 = persFileXML.SubTexture[i].attribute("y");
 				rectX2 = persFileXML.SubTexture[i].attribute("x") + backSizeWidth;

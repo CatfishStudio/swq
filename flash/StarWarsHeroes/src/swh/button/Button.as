@@ -33,8 +33,9 @@ package swh.button
 		private var colorBack:int;		
 		private var labelBack:Label;
 		private var labelFront:Label;
+		private var side:String;
 		
-		public function Button(_x:int, _y:int, _text:String, _textX:int, _textY:int, _textSize:int, _name:String) 
+		public function Button(_x:int, _y:int, _text:String, _textX:int, _textY:int, _textSize:int, _name:String, _side:String) 
 		{
 			super();
 			x = _x;
@@ -44,6 +45,7 @@ package swh.button
 			textX = _textX;
 			textY = _textY;
 			textSize = _textSize;
+			side = _side;
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
 		}
@@ -52,10 +54,10 @@ package swh.button
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			
-			if (Data.userSide == Constants.SIDE_JEDI) {
+			if (side == Constants.SIDE_JEDI) {
 				colorFront = 0xFFFFFF;
 				colorBack = 0x0090F0;				
-			}else if (Data.userSide == Constants.SIDE_SITH) {
+			}else if (side == Constants.SIDE_SITH) {
 				colorFront = 0xFFFFFF;
 				colorBack = 0x880000;
 			}
@@ -92,8 +94,8 @@ package swh.button
 			redFrames.push("button_red_10.png");
 			redFrames.push("button_red_11.png");
 			
-			if (Data.userSide == Constants.SIDE_JEDI) frameBitmap = new Bitmap((Atlas.atlasAnimationsBitmapData[blueFrames[count]] as BitmapData));
-			else if (Data.userSide == Constants.SIDE_SITH) frameBitmap = new Bitmap((Atlas.atlasAnimationsBitmapData[redFrames[count]] as BitmapData));
+			if (side == Constants.SIDE_JEDI) frameBitmap = new Bitmap((Atlas.atlasAnimationsBitmapData[blueFrames[count]] as BitmapData));
+			else if (side == Constants.SIDE_SITH) frameBitmap = new Bitmap((Atlas.atlasAnimationsBitmapData[redFrames[count]] as BitmapData));
 			addChild(frameBitmap);
 			
 			addEventListener(MouseEvent.MOUSE_OUT, onMouseOutButton);
@@ -148,8 +150,8 @@ package swh.button
 			stop();
 			removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 			count = 0;
-			if (Data.userSide == Constants.SIDE_JEDI) frameBitmap.bitmapData = (Atlas.atlasAnimationsBitmapData[blueFrames[count]] as BitmapData);
-			else if (Data.userSide == Constants.SIDE_SITH) frameBitmap.bitmapData = (Atlas.atlasAnimationsBitmapData[redFrames[count]] as BitmapData);
+			if (side == Constants.SIDE_JEDI) frameBitmap.bitmapData = (Atlas.atlasAnimationsBitmapData[blueFrames[count]] as BitmapData);
+			else if (side == Constants.SIDE_SITH) frameBitmap.bitmapData = (Atlas.atlasAnimationsBitmapData[redFrames[count]] as BitmapData);
 		}
 		
 		private function onMouseOverButton(e:MouseEvent):void 
@@ -168,8 +170,8 @@ package swh.button
 		{
 			count++;
 			if (count == blueFrames.length) count = 1;
-			if (Data.userSide == Constants.SIDE_JEDI) frameBitmap.bitmapData = (Atlas.atlasAnimationsBitmapData[blueFrames[count]] as BitmapData);
-			else if (Data.userSide == Constants.SIDE_SITH) frameBitmap.bitmapData = (Atlas.atlasAnimationsBitmapData[redFrames[count]] as BitmapData);
+			if (side == Constants.SIDE_JEDI) frameBitmap.bitmapData = (Atlas.atlasAnimationsBitmapData[blueFrames[count]] as BitmapData);
+			else if (side == Constants.SIDE_SITH) frameBitmap.bitmapData = (Atlas.atlasAnimationsBitmapData[redFrames[count]] as BitmapData);
 			
 		}
 		

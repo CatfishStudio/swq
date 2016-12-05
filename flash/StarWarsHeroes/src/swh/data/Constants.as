@@ -25,7 +25,8 @@ package swh.data
 		public static const SIDE:String = "side";
 		public static const SIDE_JEDI:String = "side_jedi";
 		public static const SIDE_SITH:String = "side_sith";
-		public static const SIDE_CLOSE:String = "side_close";
+		public static const SIDE_CLOSE_JEDI:String = "side_close_jedi";
+		public static const SIDE_CLOSE_SITH:String = "side_close_sith";
 		
 		public static const MAP:String = "map";
 		public static const MAP_DROID:String = "map_droid";

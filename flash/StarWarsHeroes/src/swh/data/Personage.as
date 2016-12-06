@@ -29,9 +29,9 @@ package swh.data
 			hit3 = 0;
 			hit4 = 0;
 			hit5 = 0;
-			status = "";
+			status = "";		// AVAILABLE or NOT_AVAILABLE
 			description = "";
-			inCommand = 0;
+			inCommand = -1;		// -1 not available (0,1 or 2 position in command)
 			planetID = "";
 		}
 		

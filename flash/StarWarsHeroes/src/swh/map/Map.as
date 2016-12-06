@@ -61,6 +61,7 @@ package swh.map
 			Atlas.loadAtlasBitmapData(Assets.assetsAtlasesContent.MapAtlas, Assets.assetsAtlasesContent.MapAtlasXML, Atlas.TYPE_TEXTURES);
 			Atlas.loadAtlasBitmapData(Assets.assetsAtlasesContent.ButtonsAtlas, Assets.assetsAtlasesContent.ButtonsAtlasXML, Atlas.TYPE_ANIMATION);
 			
+			updateCommands();
 			createSpace();
 			createPlanets();
 			createIcons();
@@ -127,6 +128,12 @@ package swh.map
 			{
 				this.removeChildren(0);
 			}
+		}
+		
+		private function updateCommands():void
+		{
+			Data.updateUserCommand();
+			Data.updateAICommand();
 		}
 		
 		private function createSpace():void
@@ -223,13 +230,17 @@ package swh.map
 		private function createIcons():void 
 		{
 			var bitmap:Bitmap;
-			for (var i:int = 0; i < Data.userCommand.length; i++){
-				if(Data.checkPersonagePlanetAvailable(Data.userCommand[i].id) == true && Data.userCommand[i].status == Data.STATUS_USER_PERSONAGE_AVAILABLE) {
-					bitmap = new Bitmap((Atlas.atlasTexturesBitmapData[Data.userCommand[i].id + "_icon.png"] as BitmapData));
-					bitmap.name = Data.userCommand[i].id;
-					bitmap.x = 35 + (105 * i);
-					bitmap.y = 625;
-					addChild(bitmap);
+			for (var i:int = 0; i < 3; i++){
+				for (var j:int = 0; j < Data.userCommand.length; j++){
+					if (Data.userCommand[j].inCommand == i){
+						if(Data.checkPersonagePlanetAvailable(Data.userCommand[j].id) == true && Data.userCommand[j].status == Data.STATUS_USER_PERSONAGE_AVAILABLE) {
+							bitmap = new Bitmap((Atlas.atlasTexturesBitmapData[Data.userCommand[j].id + "_icon.png"] as BitmapData));
+							bitmap.name = Data.userCommand[j].id;
+							bitmap.x = 35 + (105 * i);
+							bitmap.y = 625;
+							addChild(bitmap);
+						}
+					}
 				}
 			}
 			bitmap = null;

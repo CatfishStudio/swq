@@ -11,7 +11,7 @@ package swh.data
 		
 		public static function randomValue(min:int, max:int):int
 		{
-			return Math.floor(Math.random() * (max - min + 1)) + min;;
+			return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
 		
 		public static function consoleLog(message:*):void

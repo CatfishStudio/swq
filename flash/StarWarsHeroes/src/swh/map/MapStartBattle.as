@@ -286,10 +286,10 @@ package swh.map
 			var userPers:Personage = null;
 			var userPower:Number = 0;
 			for (var i:int = 0; i < Data.userCommand.length; i++){
-				if (Data.userCommand[i].status == Data.STATUS_USER_PERSONAGE_AVAILABLE && Data.userCommand[i].inCommand == 1){
+				if (Data.userCommand[i].status == Data.STATUS_USER_PERSONAGE_AVAILABLE && Data.userCommand[i].inCommand == 0){
 					userPers = Data.userCommand[i];
 				}
-				if (Data.userCommand[i].status == Data.STATUS_USER_PERSONAGE_AVAILABLE){
+				if (Data.userCommand[i].status == Data.STATUS_USER_PERSONAGE_AVAILABLE && Data.userCommand[i].inCommand != -1){
 					userPower += Data.userCommand[i].hit1 + Data.userCommand[i].hit2 + Data.userCommand[i].hit3 + Data.userCommand[i].hit4 + Data.userCommand[i].hit5;
 				}
 			}

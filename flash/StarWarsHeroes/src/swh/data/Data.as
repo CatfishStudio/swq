@@ -22,6 +22,8 @@ package swh.data
 		public static const STATUS_PLANET_QUEST_AWAITING:String = "status_planet_quest_awaiting";
 		public static const STATUS_PLANET_QUEST_COMPLETE_JEDI:String = "status_planet_quest_complete_jedi";
 		public static const STATUS_PLANET_QUEST_COMPLETE_SITH:String = "status_planet_quest_complete_sith";
+		public static const POINTS_ONE:int = 1;
+		public static const POINTS_THREE:int = 3;
 		
 		/* Errors */
 		public static var errorSetData:Boolean = false;
@@ -51,9 +53,7 @@ package swh.data
 		/* Utilits */
 		public static function utilitRandomValue(min:int, max:int):int
 		{
-			var value:int = Math.random() * max | 0;
-			if (value == 0) value = min;
-			return value;
+			return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
 		
 		public static function utilitConsole(message:*):void
@@ -220,18 +220,18 @@ package swh.data
 			}
 			
 			Data.userCommand[0].hit1 = 4; Data.userCommand[0].hit2 = 3;	Data.userCommand[0].hit3 = 4; Data.userCommand[0].hit4 = 4;
-			Data.userCommand[0].hit5 = 3; Data.userCommand[0].setLife(); Data.userCommand[0].inCommand = 1;
+			Data.userCommand[0].hit5 = 3; Data.userCommand[0].setLife(); Data.userCommand[0].inCommand = 0;
 			Data.userCommand[1].hit1 = 4; Data.userCommand[1].hit2 = 3;	Data.userCommand[1].hit3 = 3; Data.userCommand[1].hit4 = 2;
-			Data.userCommand[1].hit5 = 3; Data.userCommand[1].setLife(); Data.userCommand[1].inCommand = 2;
+			Data.userCommand[1].hit5 = 3; Data.userCommand[1].setLife(); Data.userCommand[1].inCommand = 1;
 			Data.userCommand[2].hit1 = 2; Data.userCommand[2].hit2 = 3;	Data.userCommand[2].hit3 = 3; Data.userCommand[2].hit4 = 2;
-			Data.userCommand[2].hit5 = 3; Data.userCommand[2].setLife(); Data.userCommand[2].inCommand = 3;
+			Data.userCommand[2].hit5 = 3; Data.userCommand[2].setLife(); Data.userCommand[2].inCommand = 2;
 			
 			Data.aiCommand[0].hit1 = 4; Data.aiCommand[0].hit2 = 3;	Data.aiCommand[0].hit3 = 4; Data.aiCommand[0].hit4 = 4;
-			Data.aiCommand[0].hit5 = 3; Data.aiCommand[0].setLife(); Data.aiCommand[0].inCommand = 1;
+			Data.aiCommand[0].hit5 = 3; Data.aiCommand[0].setLife(); Data.aiCommand[0].inCommand = 0;
 			Data.aiCommand[1].hit1 = 4; Data.aiCommand[1].hit2 = 3;	Data.aiCommand[1].hit3 = 3; Data.aiCommand[1].hit4 = 2;
-			Data.aiCommand[1].hit5 = 3; Data.aiCommand[1].setLife(); Data.aiCommand[1].inCommand = 2;
+			Data.aiCommand[1].hit5 = 3; Data.aiCommand[1].setLife(); Data.aiCommand[1].inCommand = 1;
 			Data.aiCommand[2].hit1 = 2; Data.aiCommand[2].hit2 = 3;	Data.aiCommand[2].hit3 = 3; Data.aiCommand[2].hit4 = 2;
-			Data.aiCommand[2].hit5 = 3; Data.aiCommand[2].setLife(); Data.aiCommand[2].inCommand = 3;
+			Data.aiCommand[2].hit5 = 3; Data.aiCommand[2].setLife(); Data.aiCommand[2].inCommand = 2;
 		}
 		
 		public static function clonePersonage(pers:Personage):Personage
@@ -404,6 +404,88 @@ package swh.data
 			}
 			return false;
 		}
+		
+		public static function userAddPoints(points:int):void
+		{
+			Data.userPoints += points;
+		}
+		
+		public static function updateUserCommand():void
+		{
+			for (var i:int = 0; i < Data.userCommand.length; i++){
+				if (Data.checkPersonagePlanetAvailable(Data.userCommand[i].id) == false) {
+					Data.userCommand[i].inCommand = -1;
+					Data.userCommand[i].status = Data.STATUS_USER_PERSONAGE_NOT_AVAILABLE;
+				}
+			}
+		}
+		
+		public static function aiAddPoints(points:int):void
+		{
+			Data.aiPoints += points;
+			if (Data.aiPoints == 0) return;
+			for (var i:int = 0; i < Data.aiCommand.length; i++){
+				if (Data.aiSide == Constants.SIDE_SITH && Data.aiCommand[i].id == 'darth_vader'){
+					for (var n:int = 0; n < Data.aiPoints; n++){
+						Data.aiCharacteristicsUp(i, Data.utilitRandomValue(1, 5));
+					}
+					break;
+				} else if (Data.aiSide == Constants.SIDE_JEDI && Data.aiCommand[i].id == 'luke_skywalker'){
+					for (var m:int = 0; m < Data.aiPoints; m++){
+						Data.aiCharacteristicsUp(i, Data.utilitRandomValue(1, 5));
+					}
+					break;
+				}
+			}
+		}
+		
+		public static function aiCharacteristicsUp(indexPers:int, indexCharacteristics:int):void
+		{
+			if (indexCharacteristics == 1) Data.aiCommand[indexPers].hit1 += 1;
+			if (indexCharacteristics == 2) Data.aiCommand[indexPers].hit2 += 1;
+			if (indexCharacteristics == 3) Data.aiCommand[indexPers].hit3 += 1;
+			if (indexCharacteristics == 4) Data.aiCommand[indexPers].hit4 += 1;
+			if (indexCharacteristics == 5) Data.aiCommand[indexPers].hit5 += 1;
+			Data.aiCommand[indexPers].setLife();
+		}
+		
+		public static function updateAICommand():void
+		{
+			Data.aiCommand.sort(function(valueA:*, valueB:*):*{
+				return (valueB as Personage).life - (valueA as Personage).life;
+			});
+			
+			var index:int = 1;
+			for (var i:int = 0; i < Data.aiCommand.length; i++){
+				if (Data.aiSide == Constants.SIDE_SITH && Data.aiCommand[i].id == 'darth_vader'){
+					Data.aiCommand[i].inCommand = 0;
+					Data.aiCommand[i].status = Data.STATUS_AI_PERSONAGE_AVAILABLE;
+				} else if (Data.aiSide == Constants.SIDE_JEDI && Data.aiCommand[i].id == 'luke_skywalker'){
+					Data.aiCommand[i].inCommand = 0;
+					Data.aiCommand[i].status = Data.STATUS_AI_PERSONAGE_AVAILABLE;
+				} else {
+					if (index < 3){
+						if(Data.checkPersonagePlanetAvailable(Data.aiCommand[i].id) == true){
+							Data.aiCommand[i].inCommand = index;
+							Data.aiCommand[i].status = Data.STATUS_AI_PERSONAGE_AVAILABLE;
+							index++;
+						}else{
+							Data.aiCommand[i].inCommand = -1;
+							Data.aiCommand[i].status = Data.STATUS_AI_PERSONAGE_NOT_AVAILABLE;
+						}
+					}else{
+						Data.aiCommand[i].inCommand = -1;
+						Data.aiCommand[i].status = Data.STATUS_AI_PERSONAGE_NOT_AVAILABLE;
+					}
+				}
+			}
+		}
+		
+		
+		
+		
+		
+		
 	}
 
 }

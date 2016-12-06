@@ -33,18 +33,21 @@ package swh.data
 		public static var userLastMessage:String;
 		public static var userSide:String = Constants.SIDE_JEDI;
 		public static var userPoints:int = 0;
+		public static var userTarget:String;
 		public static var userCommand:Vector.<Personage>;
 		public static var userData:String;		// для сервера (формат: json)
 		
 		/* AI data*/
 		public static var aiSide:String = Constants.SIDE_SITH;
+		public static var aiTarget:String;
 		public static var aiPoints:int = 0;
 		public static var aiCommand:Vector.<Personage>;
 		public static var aiData:String;		// для сервера (формат: json)
 		
 		/* Map data*/
 		public static var map:int = 0;			// индекс файла map_*.xml и roadmap_*.xml
-		public static var roadmap:Vector.<Roadmap>;		
+		public static var userRoadmap:Vector.<Roadmap>;
+		public static var aiRoadmap:Vector.<Roadmap>;	
 		
 		/* Game data (ассоциативные массивы)*/
 		public static var personages:Array;
@@ -168,18 +171,32 @@ package swh.data
 			}
 			
 			/* roadmap_*.xml  */
-			Data.roadmap = new Vector.<Roadmap>();
-			if(Data.userSide == Constants.SIDE_JEDI) Data.roadmap.push(new Roadmap(0, 'coruscant', 'coruscant'));
-			else Data.roadmap.push(new Roadmap(0, 'deathstar', 'deathstar'));
+			Data.userRoadmap = new Vector.<Roadmap>();
+			Data.aiRoadmap = new Vector.<Roadmap>();
+			
+			if (Data.userSide == Constants.SIDE_JEDI){
+				Data.userRoadmap.push(new Roadmap(0, 'coruscant', 'coruscant'));
+				Data.aiRoadmap.push(new Roadmap(0, 'deathstar', 'deathstar'));
+			} else {
+				Data.userRoadmap.push(new Roadmap(0, 'deathstar', 'deathstar'));
+				Data.aiRoadmap.push(new Roadmap(0, 'coruscant', 'coruscant'));
+			}
 			
 			var roadmapFileXML:XML = FileXML.getFileXML(Assets.assetsDataContent.Roadmap1FileXML);
 			var m:int = roadmapFileXML.step.length();
 			for (var j:int = 0; j < m; j++)
 			{
-				Data.roadmap.push(new Roadmap(j+1, roadmapFileXML.step[j].planet1, roadmapFileXML.step[j].planet2));
+				Data.userRoadmap.push(new Roadmap(j + 1, roadmapFileXML.step[j].planet1, roadmapFileXML.step[j].planet2));
+				Data.aiRoadmap.push(new Roadmap(j + 1, roadmapFileXML.step[j].planet1, roadmapFileXML.step[j].planet2));
 			}
-			if (Data.userSide == Constants.SIDE_JEDI) Data.roadmap.push(new Roadmap(m + 1, 'deathstar', 'deathstar'));
-			else Data.roadmap.push(new Roadmap(m + 1, 'coruscant', 'coruscant'));
+			
+			if (Data.userSide == Constants.SIDE_JEDI){
+				Data.userRoadmap.push(new Roadmap(m + 1, 'deathstar', 'deathstar'));
+				Data.aiRoadmap.push(new Roadmap(m + 1, 'coruscant', 'coruscant'));
+			} else {
+				Data.userRoadmap.push(new Roadmap(m + 1, 'coruscant', 'coruscant'));
+				Data.aiRoadmap.push(new Roadmap(m + 1, 'deathstar', 'deathstar'));
+			}
 		}
 		
 		public static function createNewCommands():void
@@ -481,9 +498,45 @@ package swh.data
 			}
 		}
 		
+		public static function aiSearchTargetID():void
+		{
+			
+		}
 		
-		
-		
+		public static function userSearchTarget():void
+		{
+			var userStatus:String;
+			var aiStatus:String;
+			if (Data.userSide == Constants.SIDE_JEDI) {
+				userStatus = Data.STATUS_PLANET_QUEST_COMPLETE_JEDI;
+				aiStatus = Data.STATUS_PLANET_QUEST_COMPLETE_SITH;
+			}else{
+				userStatus = Data.STATUS_PLANET_QUEST_COMPLETE_SITH;
+				aiStatus = Data.STATUS_PLANET_QUEST_COMPLETE_JEDI;
+			}
+			
+			for (var i:int = Data.userRoadmap.length - 1; i >= 0; i--){
+				if ((Data.planets[Data.userRoadmap[i].planet1] as Planet).status == userStatus 
+					|| (Data.planets[Data.userRoadmap[i].planet2] as Planet).status == userStatus) {
+					
+					if ((Data.planets[Data.userRoadmap[i + 1].planet1] as Planet).status == Data.STATUS_PLANET_QUEST_AWAITING){
+						Data.userTarget = Data.userRoadmap[i + 1].planet1;
+						break;
+					}else if ((Data.planets[Data.userRoadmap[i + 1].planet2] as Planet).status == Data.STATUS_PLANET_QUEST_AWAITING){
+						Data.userTarget = Data.userRoadmap[i + 1].planet2;
+						break;
+					}else {
+						if (Data.userRoadmap[i + 1].planet1 != Data.aiTarget){
+							Data.userTarget = Data.userRoadmap[i + 1].planet1;
+							break;
+						}else{
+							Data.userTarget = Data.userRoadmap[i + 1].planet2;
+							break;
+						}
+					}
+				}
+			}
+		}
 		
 		
 	}

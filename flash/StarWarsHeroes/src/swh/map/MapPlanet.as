@@ -41,6 +41,8 @@ package swh.map
 		private var pers1Bitmap:Bitmap;
 		private var pers2Bitmap:Bitmap;
 		private var pers3Bitmap:Bitmap;
+		private var targetBlueBitmap:Bitmap;
+		private var targetRedBitmap:Bitmap;
 		
 		private var labelTitleBack:Label;
 		private var labelTitleFront:Label;
@@ -72,6 +74,16 @@ package swh.map
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
 			Mouse.cursor = MouseCursor.AUTO;
+			
+			if (targetBlueBitmap != null){
+				removeChild(targetBlueBitmap);
+				targetBlueBitmap = null;
+			}
+			
+			if (targetRedBitmap != null){
+				removeChild(targetRedBitmap);
+				targetRedBitmap = null;
+			}
 			
 			removeChild(labelTitleBack);
 			labelTitleBack = null;
@@ -298,7 +310,24 @@ package swh.map
 			
 		}
 		
-		
+		public function showTarget(side:String):void
+		{
+			if (side == Constants.SIDE_JEDI){
+				targetBlueBitmap = new Bitmap((Atlas.atlasTexturesBitmapData['map_target_blue.png'] as BitmapData));
+				targetBlueBitmap.rotationZ = 0;
+				targetBlueBitmap.x = -15;
+				targetBlueBitmap.y = -15;
+				addChild(targetBlueBitmap);
+				
+			}else if (side == Constants.SIDE_SITH){
+				targetRedBitmap = new Bitmap((Atlas.atlasTexturesBitmapData['map_target_red.png'] as BitmapData));
+				targetRedBitmap.rotationZ = 45;
+				targetRedBitmap.x = +45;
+				targetRedBitmap.y = -35;
+				addChild(targetRedBitmap);
+				
+			}
+		}
 
 	}
 

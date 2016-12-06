@@ -62,6 +62,8 @@ package swh.map
 			Atlas.loadAtlasBitmapData(Assets.assetsAtlasesContent.ButtonsAtlas, Assets.assetsAtlasesContent.ButtonsAtlasXML, Atlas.TYPE_ANIMATION);
 			
 			updateCommands();
+			targetSearch();
+			
 			createSpace();
 			createPlanets();
 			createIcons();
@@ -136,6 +138,12 @@ package swh.map
 			Data.updateAICommand();
 		}
 		
+		private function targetSearch():void
+		{
+			Data.userSearchTarget();
+			Data.aiSearchTargetID();
+		}
+		
 		private function createSpace():void
 		{
 			var bitmap:Bitmap;
@@ -201,6 +209,8 @@ package swh.map
 				mapPlanet.addEventListener(MouseEvent.MOUSE_OVER, onPlanetMouseOver);
 				mapPlanet.addEventListener(MouseEvent.CLICK, onPlanetMouseClick);
 				map.addChild(mapPlanet);
+				if (planet.id == Data.userTarget) mapPlanet.showTarget(Data.userSide);
+				if (planet.id == Data.aiTarget) mapPlanet.showTarget(Data.aiSide);
 			}
 		}
 		

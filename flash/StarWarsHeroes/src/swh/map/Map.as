@@ -140,8 +140,8 @@ package swh.map
 		
 		private function targetSearch():void
 		{
-			Data.userSearchTarget();
 			Data.aiSearchTargetID();
+			Data.userSearchTarget();
 		}
 		
 		private function createSpace():void

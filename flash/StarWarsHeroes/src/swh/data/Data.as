@@ -500,6 +500,35 @@ package swh.data
 		
 		public static function aiSearchTargetID():void
 		{
+			var userStatus:String;
+			var aiStatus:String;
+			if (Data.userSide == Constants.SIDE_JEDI) {
+				userStatus = Data.STATUS_PLANET_QUEST_COMPLETE_JEDI;
+				aiStatus = Data.STATUS_PLANET_QUEST_COMPLETE_SITH;
+			}else{
+				userStatus = Data.STATUS_PLANET_QUEST_COMPLETE_SITH;
+				aiStatus = Data.STATUS_PLANET_QUEST_COMPLETE_JEDI;
+			}
+			
+			for (var i:int = Data.aiRoadmap.length - 1; i >= 0; i--){
+				if ((Data.planets[Data.aiRoadmap[i].planet1] as Planet).status == aiStatus 
+					|| (Data.planets[Data.aiRoadmap[i].planet2] as Planet).status == aiStatus) {
+					if ((Data.planets[Data.aiRoadmap[i + 1].planet2] as Planet).status == Data.STATUS_PLANET_QUEST_AWAITING){
+						Data.aiTarget = Data.aiRoadmap[i + 1].planet2;
+						break;
+					}else if ((Data.planets[Data.aiRoadmap[i + 1].planet1] as Planet).status == Data.STATUS_PLANET_QUEST_AWAITING){
+						Data.aiTarget = Data.aiRoadmap[i + 1].planet1;
+						break;
+					}else {
+						
+						Data.aiTarget = Data.aiRoadmap[i + 1].planet2;
+						break;
+						
+						
+					}
+					
+				}
+			}
 			
 		}
 		

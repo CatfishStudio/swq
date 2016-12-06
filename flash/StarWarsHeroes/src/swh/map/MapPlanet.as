@@ -322,8 +322,8 @@ package swh.map
 			}else if (side == Constants.SIDE_SITH){
 				targetRedBitmap = new Bitmap((Atlas.atlasTexturesBitmapData['map_target_red.png'] as BitmapData));
 				targetRedBitmap.rotationZ = 45;
-				targetRedBitmap.x = +45;
-				targetRedBitmap.y = -35;
+				targetRedBitmap.x = +40;
+				targetRedBitmap.y = -40;
 				addChild(targetRedBitmap);
 				
 			}

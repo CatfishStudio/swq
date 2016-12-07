@@ -169,11 +169,13 @@ package swh.map
 		{
 			if (planet.status == Data.STATUS_PLANET_QUEST_COMPLETE_JEDI){
 				markBitmap = new Bitmap((Atlas.atlasTexturesBitmapData['map_mark_blue.png'] as BitmapData));
+				markBitmap.name = planet.id;
 				markBitmap.x = -10;
 				markBitmap.y = -10;
 				addChild(markBitmap);
 			}else if (planet.status == Data.STATUS_PLANET_QUEST_COMPLETE_SITH){
 				markBitmap = new Bitmap((Atlas.atlasTexturesBitmapData['map_mark_red.png'] as BitmapData));
+				markBitmap.name = planet.id;
 				markBitmap.x = -10;
 				markBitmap.y = -10;
 				addChild(markBitmap);
@@ -204,6 +206,7 @@ package swh.map
 		private function createTitle():void
 		{
 			titleBitmap = new Bitmap((Atlas.atlasTexturesBitmapData['map_planet_title.png'] as BitmapData));
+			titleBitmap.name = planet.id;
 			titleBitmap.x = 20; 
 			titleBitmap.y = -10;
 			titleBitmap.alpha = 0.8;
@@ -231,27 +234,35 @@ package swh.map
 			}
 			
 			labelTitleBack = new Label(40, -30, 200, 30, "arial", 14, colorBack, planet.name, false);
+			labelTitleBack.name = planet.id;
 			addChild(labelTitleBack);
 			labelTitleFront = new Label(39, -31, 200, 30, "arial", 14, colorFront, planet.name, false);
+			labelTitleFront.name = planet.id;
 			addChild(labelTitleFront);
 			
 			if (planet.status == Data.STATUS_PLANET_QUEST_COMPLETE_JEDI){
 				labelMasterBack = new Label(75, -5, 200, 30, "arial", 14, colorBlueBack, 'Орден Джедай', false);
+				labelMasterBack.name = planet.id;
 				addChild(labelMasterBack);
 				labelMasterFront = new Label(74, -6, 200, 30, "arial", 14, colorBlueFront, 'Орден Джедай', false);
+				labelMasterFront.name = planet.id;
 				addChild(labelMasterFront);
 				
 			} else if (planet.status == Data.STATUS_PLANET_QUEST_COMPLETE_SITH){
 				labelMasterBack = new Label(75, -5, 200, 30, "arial", 14, colorRedBack, 'Орден Ситов', false);
+				labelMasterBack.name = planet.id;
 				addChild(labelMasterBack);
 				labelMasterFront = new Label(74, -6, 200, 30, "arial", 14, colorRedFront, 'Орден Ситов', false);
+				labelMasterFront.name = planet.id;
 				addChild(labelMasterFront);
 			}
 			
 			if (planet.status == Data.STATUS_PLANET_QUEST_AWAITING){
-				labelPowerBack = new Label( int(power.toString().length) * (-1), -10, 40, 30, "arial", 14, colorBack, power.toString(), false);
+				labelPowerBack = new Label( int(power.toString().length) * ( -1), -10, 40, 30, "arial", 14, colorBack, power.toString(), false);
+				labelPowerBack.name = planet.id;
 				addChild(labelPowerBack);
-				labelPowerFront = new Label( int(power.toString().length) * (-1) -1, -11, 40, 30, "arial", 14, colorFront, power.toString(), false);
+				labelPowerFront = new Label( int(power.toString().length) * ( -1) -1, -11, 40, 30, "arial", 14, colorFront, power.toString(), false);
+				labelPowerFront.name = planet.id;
 				addChild(labelPowerFront);
 			}
 		}
@@ -260,6 +271,7 @@ package swh.map
 		{
 			if (Data.userSide == Constants.SIDE_JEDI && planet.status == Data.STATUS_PLANET_QUEST_AWAITING){
 				pers1Bitmap = new Bitmap((Assets.getPersonageTexture(planet.personageSith1) as Bitmap).bitmapData);
+				pers1Bitmap.name = planet.id;
 				pers1Bitmap.x = 85; 
 				pers1Bitmap.y = 0;
 				pers1Bitmap.scaleX = 0.15;
@@ -267,6 +279,7 @@ package swh.map
 				addChild(pers1Bitmap);
 				
 				pers2Bitmap = new Bitmap((Assets.getPersonageTexture(planet.personageSith2) as Bitmap).bitmapData);
+				pers2Bitmap.name = planet.id;
 				pers2Bitmap.x = 125; 
 				pers2Bitmap.y = 0;
 				pers2Bitmap.scaleX = 0.15;
@@ -274,6 +287,7 @@ package swh.map
 				addChild(pers2Bitmap);
 				
 				pers3Bitmap = new Bitmap((Assets.getPersonageTexture(planet.personageSith3) as Bitmap).bitmapData);
+				pers3Bitmap.name = planet.id;
 				pers3Bitmap.x = 165; 
 				pers3Bitmap.y = 0;
 				pers3Bitmap.scaleX = 0.15;
@@ -283,6 +297,7 @@ package swh.map
 			}else if (Data.userSide == Constants.SIDE_SITH && planet.status == Data.STATUS_PLANET_QUEST_AWAITING){
 				
 				pers1Bitmap = new Bitmap((Assets.getPersonageTexture(planet.personageJedi1) as Bitmap).bitmapData);
+				pers1Bitmap.name = planet.id;
 				pers1Bitmap.x = 85; 
 				pers1Bitmap.y = 0;
 				pers1Bitmap.scaleX = 0.15;
@@ -290,6 +305,7 @@ package swh.map
 				addChild(pers1Bitmap);
 				
 				pers2Bitmap = new Bitmap((Assets.getPersonageTexture(planet.personageJedi2) as Bitmap).bitmapData);
+				pers2Bitmap.name = planet.id;
 				pers2Bitmap.x = 125; 
 				pers2Bitmap.y = 0;
 				pers2Bitmap.scaleX = 0.15;
@@ -297,6 +313,7 @@ package swh.map
 				addChild(pers2Bitmap);
 				
 				pers3Bitmap = new Bitmap((Assets.getPersonageTexture(planet.personageJedi3) as Bitmap).bitmapData);
+				pers3Bitmap.name = planet.id;
 				pers3Bitmap.x = 165; 
 				pers3Bitmap.y = 0;
 				pers3Bitmap.scaleX = 0.15;
@@ -309,6 +326,7 @@ package swh.map
 		public function showTarget(side:String):void
 		{
 			mapTarget = new MapTarget(45, 45, side);
+			mapTarget.name = planet.id;
 			addChild(mapTarget);
 		}
 

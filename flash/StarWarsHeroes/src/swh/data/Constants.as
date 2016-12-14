@@ -38,6 +38,9 @@ package swh.data
 		public static const MAP_START_BATTLE_BUTTON_START:String = "map_start_battle_button_start";
 		public static const MAP_START_BATTLE_BUTTON_CANCEL:String = "map_start_battle_button_cancel";
 		
+		public static const COMMAND:String = "command";
+		public static const COMMAND_BUTTON_CLOSE:String = "command_button_close";
+		
 	}
 
 }

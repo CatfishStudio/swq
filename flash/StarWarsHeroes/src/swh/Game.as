@@ -12,6 +12,7 @@ package swh
 	import swh.settings.Settings;
 	import swh.side.Side;
 	import swh.map.Map;
+	import swh.command.Command;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -23,6 +24,7 @@ package swh
 		private var settings:Settings;
 		private var side:Side;
 		private var map:Map;
+		private var command:Command;
 		
 		public function Game() 
 		{
@@ -123,6 +125,24 @@ package swh
 		}
 		/* -------------------------------- */
 		
+		/* COMMAND ------------------------ */
+		private function createCommand():void
+		{
+			if (command == null){
+				command = new Command();
+				addChild(command);
+			}
+		}
+		
+		private function removeCommand():void
+		{
+			if (command != null){
+				removeChild(command);
+				command = null;
+			}
+		}
+		/* -------------------------------- */
+		
 		/* Событие: управление окнами игры ===================================================== */
 		private function onChangeScreen(e:NavigationEvent):void 
 		{
@@ -172,7 +192,8 @@ package swh
 					break;
 				
 				case Constants.MAP_BUTTON_COMMAND:
-					
+					removeMap();
+					createCommand();
 					break;
 				
 				case Constants.MAP_BUTTON_SETTINGS:
@@ -185,6 +206,11 @@ package swh
 					
 				case Constants.MAP_START_BATTLE_BUTTON_CANCEL:
 					if (map != null) map.onBattleStartClose();
+					break;
+				
+				case Constants.COMMAND_BUTTON_CLOSE:
+					removeCommand();
+					createMap();
 					break;
 					
 				default:

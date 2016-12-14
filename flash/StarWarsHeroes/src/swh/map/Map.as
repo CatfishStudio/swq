@@ -228,7 +228,8 @@ package swh.map
 		
 		private function onPlanetMouseClick(e:MouseEvent):void 
 		{
-			battleStart = new MapStartBattle(Data.planets[e.target.name]);
+			if (e.target.name == Data.aiTarget) battleStart = new MapStartBattle(Data.planets[e.target.name], true);
+			else battleStart = new MapStartBattle(Data.planets[e.target.name], false);
 			addChild(battleStart);
 		}
 		

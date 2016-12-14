@@ -27,6 +27,7 @@ package swh.map
 	public class MapStartBattle extends Sprite 
 	{
 		private var planet:Planet;
+		private var interception:Boolean;
 		private var posX:int;
 		private var posY:int;
 		private var colorBack:int;
@@ -55,10 +56,11 @@ package swh.map
 		private var startButton:Button;
 		private var cancelButton:Button;
 		
-		public function MapStartBattle(_planet:Planet) 
+		public function MapStartBattle(_planet:Planet, _interception:Boolean) 
 		{
 			super();
 			planet = _planet;
+			interception = _interception;
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
 		}
@@ -197,14 +199,16 @@ package swh.map
 			addChild(persLeftBitmap);
 			
 			if (Data.userSide == Constants.SIDE_JEDI) {
-				persRightBitmap = new Bitmap((Assets.getPersonageTexture(planet.personageSith1) as Bitmap).bitmapData);
+				if (interception == false) persRightBitmap = new Bitmap((Assets.getPersonageTexture(planet.personageSith1, 'rl') as Bitmap).bitmapData);
+				else persRightBitmap = new Bitmap((Assets.getPersonageTexture(Data.aiCommand[0].id, 'rl') as Bitmap).bitmapData);
 				persRightBitmap.x = posX + 300; 
 				persRightBitmap.y = posY + 15;
 				persRightBitmap.scaleX = 0.5;
 				persRightBitmap.scaleY = 0.5;
 				addChild(persRightBitmap);
 			}else if (Data.userSide == Constants.SIDE_SITH) {
-				persRightBitmap = new Bitmap((Assets.getPersonageTexture(planet.personageJedi1) as Bitmap).bitmapData);
+				if (interception == false) persRightBitmap = new Bitmap((Assets.getPersonageTexture(planet.personageJedi1, 'rl') as Bitmap).bitmapData);
+				else persRightBitmap = new Bitmap((Assets.getPersonageTexture(Data.aiCommand[0].id, 'rl') as Bitmap).bitmapData);
 				persRightBitmap.x = posX + 300; 
 				persRightBitmap.y = posY + 15;
 				persRightBitmap.scaleX = 0.5;
@@ -298,14 +302,20 @@ package swh.map
 			var aiPers1:Personage = null;
 			var aiPers2:Personage = null;
 			var aiPers3:Personage = null;
-			if (Data.userSide == Constants.SIDE_JEDI){
-				aiPers1 = (Data.personages[planet.personageSith1] as Personage);
-				aiPers2 = (Data.personages[planet.personageSith2] as Personage);
-				aiPers3 = (Data.personages[planet.personageSith3] as Personage);
-			}else {
-				aiPers1 = (Data.personages[planet.personageJedi1] as Personage);
-				aiPers2 = (Data.personages[planet.personageJedi2] as Personage);
-				aiPers3 = (Data.personages[planet.personageJedi3] as Personage);
+			if(interception === false){
+				if (Data.userSide == Constants.SIDE_JEDI){
+					aiPers1 = (Data.personages[planet.personageSith1] as Personage);
+					aiPers2 = (Data.personages[planet.personageSith2] as Personage);
+					aiPers3 = (Data.personages[planet.personageSith3] as Personage);
+				}else {
+					aiPers1 = (Data.personages[planet.personageJedi1] as Personage);
+					aiPers2 = (Data.personages[planet.personageJedi2] as Personage);
+					aiPers3 = (Data.personages[planet.personageJedi3] as Personage);
+				}
+			}else{ // AI COMMAND
+				aiPers1 = Data.aiCommand[0];
+				aiPers2 = Data.aiCommand[1];
+				aiPers3 = Data.aiCommand[2];
 			}
 			
 			labelMasterBack = new LabelCenter(0, 0, 250, 150, "arial", 18, colorBack, userPers.name + '\nVS\n' + aiPers1.name, false);

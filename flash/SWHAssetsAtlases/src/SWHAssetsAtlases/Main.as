@@ -16,6 +16,11 @@ package SWHAssetsAtlases
 		[Embed(source = '../../assets/atlases/buttons_atlas.xml', mimeType='application/octet-stream')]
 		public var ButtonsAtlasXML:Class;
 		
+		[Embed(source = '../../assets/atlases/command_atlas.png')]
+		public var CommandAtlas:Class;
+		[Embed(source = '../../assets/atlases/command_atlas.xml', mimeType='application/octet-stream')]
+		public var CommandAtlasXML:Class;		
+		
 		[Embed(source = '../../assets/atlases/luck_and_darth_anim_atlas.png')]
 		public var SideAnimAtlas:Class;
 		[Embed(source = '../../assets/atlases/luck_and_darth_anim_atlas.xml', mimeType='application/octet-stream')]

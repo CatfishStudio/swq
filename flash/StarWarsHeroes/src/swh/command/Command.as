@@ -18,7 +18,8 @@ package swh.command
 	import swh.data.Assets;
 	import swh.data.Atlas;
 	import swh.data.Constants;
-	import swh.button.Button
+	import swh.button.Button;
+	import swh.text.Label;
 	
 	/**
 	 * ...
@@ -26,8 +27,22 @@ package swh.command
 	 */
 	public class Command extends Sprite 
 	{
+		private var spaceBitmap:Bitmap;
+		private var borderBitmap:Bitmap;
+		private var bigBackgroundBitmap:Bitmap;
+		private var bottomBackgroundBitmap:Bitmap;
+		private var rightBackgroundBitmap:Bitmap;
+		private var linesBitmap:Bitmap;
+		private var persBitmap:Bitmap;
+
+		private var labelBack:Label;
+		private var labelFront:Label;
+		private var colorBack:int;
+		private var colorFront:int;
+		
 		private var lineBitmap:Bitmap;
 		private var lineTween:GTween;
+		
 		private var closeButton:Button;
 		
 		public function Command() 
@@ -45,6 +60,11 @@ package swh.command
 			Atlas.loadAtlasBitmapData(Assets.assetsAtlasesContent.CommandAtlas, Assets.assetsAtlasesContent.CommandAtlasXML, Atlas.TYPE_TEXTURES);
 			Atlas.loadAtlasBitmapData(Assets.assetsAtlasesContent.ButtonsAtlas, Assets.assetsAtlasesContent.ButtonsAtlasXML, Atlas.TYPE_ANIMATION);
 			
+			init();
+			createSpace();
+			createBackground();
+			createPers();
+			createBorder();
 		}
 		
 		private function onRemoveFromStage(e:Event):void 
@@ -58,14 +78,116 @@ package swh.command
 			lineTween.onComplete = null;
 			lineTween.end();
 			lineTween = null;
+
+			removeChild(lineBitmap);
+			lineBitmap;
+
+			removeChild(lineBitmap);
+			lineBitmap = null;
 			
 			removeChild(closeButton);
 			closeButton = null;
+
+			removeChild(persBitmap);
+			persBitmap = null;
+
+			removeChild(bigBackgroundBitmap);
+			bigBackgroundBitmap = null;
+
+			removeChild(bottomBackgroundBitmap);
+			bottomBackgroundBitmap = null;
+
+			removeChild(rightBackgroundBitmap);
+			rightBackgroundBitmap = null;
+
+			removeChild(borderBitmap);
+			borderBitmap = null;			
+
+			removeChild(spaceBitmap);
+			spaceBitmap = null;
+
+			removeChild(labelBack);
+			labelBack = null;
+			removeChild(labelFront);
+			labelFront = null;
 			
 			while (this.numChildren > 0)
 			{
 				this.removeChildren(0);
 			}
+		}
+
+		private function init():void
+		{
+			if (Data.userSide == Constants.SIDE_JEDI) {
+				colorFront = 0xFFFFFF;
+				colorBack = 0x0090F0;	
+			}else if (Data.userSide == Constants.SIDE_SITH) {
+				colorFront = 0xFFFFFF;
+				colorBack = 0x880000;
+			}
+		}
+
+		private function createSpace():void
+		{
+			if (Data.userSide == Constants.SIDE_JEDI){
+				spaceBitmap = new Bitmap((Assets.assetsTexturesContent.spaceBlueBitmap as Bitmap).bitmapData);
+			}else if (Data.userSide == Constants.SIDE_SITH){
+				spaceBitmap = new Bitmap((Assets.assetsTexturesContent.spaceRedBitmap as Bitmap).bitmapData);
+			}
+			addChild(spaceBitmap);
+		}
+
+		private function createBackground():void
+		{
+			if (Data.userSide == Constants.SIDE_JEDI){
+				bigBackgroundBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_blue_big_background.png"] as BitmapData));
+				bottomBackgroundBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_blue_bottom_background.png"] as BitmapData));
+				rightBackgroundBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_blue_right_background.png"] as BitmapData));
+			else if (Data.userSide == Constants.SIDE_SITH){
+				bigBackgroundBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_red_big_background.png"] as BitmapData));
+				bottomBackgroundBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_red_bottom_background.png"] as BitmapData));
+				rightBackgroundBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_red_right_background.png"] as BitmapData));
+			}
+			addChild(bigBackgroundBitmap);
+			addChild(bottomBackgroundBitmap);
+			addChild(rightBackgroundBitmap);
+		}
+
+		private function createPers():void
+		{
+
+		}
+
+		private function createLines():void
+		{
+			if (Data.userSide == Constants.SIDE_JEDI){
+				lineBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_blue_lines.png"] as BitmapData));
+			else if (Data.userSide == Constants.SIDE_SITH){
+				lineBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_red_lines.png"] as BitmapData));
+			}
+			addChild(lineBitmap);
+		}
+
+		private function createText():void
+		{
+			labelBack = new Label(5, 5, 145, 500, "arial", 12, colorBack, "text", false);
+			addChild(labelBack);
+			labelFront = new Label(4, 4, 145, 500, "arial", 12, colorFront, "text", false);
+			addChild(labelFront);
+		}
+
+		private function createBorder():void
+		{
+			if (Data.userSide == Constants.SIDE_JEDI){
+				borderBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_blue_border.png"] as BitmapData));
+				lineBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_blue_big_line.png"] as BitmapData));
+			else if (Data.userSide == Constants.SIDE_SITH){
+				borderBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_red_border.png"] as BitmapData));
+				lineBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_red_big_line.png"] as BitmapData));
+			}
+			addChild(borderBitmap);
+			addChild(lineBitmap);
 		}
 	}
 

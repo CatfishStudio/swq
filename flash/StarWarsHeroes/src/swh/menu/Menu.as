@@ -65,23 +65,27 @@ package swh.menu
 			createHelp();
 			createMessage();
 			
-			if (Data.errorGetData === true){
+			if (Data.errorGetData == true){
 				message.setText("Ошибка: Сервер ВКонтакте недоступен!\nСохранённые данные не удалось загрузить.");
 				if (Data.userData != null && Data.aiData != null) {
 					Data.initialization();
-					Data.loadMapCharacteristics()
+					Data.loadMapCharacteristics();
 					Data.readUserDataJSON();
 					Data.readAIDataJSON();
 					Data.readUserCommandDataJSON();
 					Data.readAICommandDataJSON();
+					Data.readProgressDataJSON();
 					createButtonContinue();
 				}
 			}else{
 				if (Data.userData != null && Data.aiData != null) {
 					Data.initialization();
+					Data.loadMapCharacteristics();
 					Data.readUserDataJSON();
+					Data.readAIDataJSON();
 					Data.readUserCommandDataJSON();
 					Data.readAICommandDataJSON();
+					Data.readProgressDataJSON();
 					message.setText("Сохранённых данных успешно загружены!\nВы можите продолжить игру.");
 					createButtonContinue();
 				} else{

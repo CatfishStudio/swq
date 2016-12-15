@@ -219,18 +219,21 @@ package swh
 		}
 		/* ================================================================================== */
 		
-		/* CREATE NEW SAVE GAME ============================================================= */
-		private var dataSetComplete:int = 0;
+		/* SAVE GAME ======================================================================== */
+		private var dataSetComplete:int;
 		private function createNewGame():void
 		{
+			dataSetComplete = 0;
 			Data.initialization();
 			Data.loadMapCharacteristics();
 			Data.createNewCommands();
 			Data.userData = Data.createUserDataJSON();
 			Data.aiData = Data.createAIDataJSON();
+			Data.progressData = Data.createProgressDataJSON();
 			try{
 				VKAPI.vkConnection.api("storage.set", { key:"swhUserData", value:Data.userData}, onDataSet, onDataErrorSet);
 				VKAPI.vkConnection.api("storage.set", { key:"swhAIData", value:Data.aiData}, onDataSet, onDataErrorSet);
+				VKAPI.vkConnection.api("storage.set", { key:"swhProgressData", value:Data.progressData}, onDataSet, onDataErrorSet);
 			}catch (e:Error){
 				Data.errorSetData = true;
 				removeSide();
@@ -241,7 +244,7 @@ package swh
 		private function onDataSet (response:Object):void 
         {
 			dataSetComplete++;
-			if(dataSetComplete == 2){
+			if(dataSetComplete == 3){
 				removeSide();
 				createMap();
 			}
@@ -254,31 +257,47 @@ package swh
         }
 		/* ============================================================================ */
 		
-		/* READ SAVE GAME ============================================================= */
+		/* LOAD GAME ================================================================== */
+		private var dataGetComplete:int;
 		private function getSaveGame():void
 		{
+			dataGetComplete = 0;
 			try{
-				VKAPI.vkConnection.api("storage.get", { key:"swhUserData" }, OnGetUserData, OnEGet);
-				VKAPI.vkConnection.api("storage.get", { key:"swhAIData" }, OnGetAIData, OnEGet);
-				createMenu();
+				VKAPI.vkConnection.api("storage.get", { key:"swhUserData" }, onGetUserData, OnEGet);
+				VKAPI.vkConnection.api("storage.get", { key:"swhAIData" }, onGetAIData, OnEGet);
+				VKAPI.vkConnection.api("storage.get", { key:"swhProgressData" }, onGetProgressData, OnEGet);
 			}catch (e:Error){
 				Data.errorGetData = true;
 				createMenu();
 			}
 		}
-		private function OnGetUserData(response:Object):void 
+		private function onGetUserData(response:Object):void 
         {
 			Data.userData = String(response);
+			onDataGetComplete();
         }
-		private function OnGetAIData(response:Object):void 
+		private function onGetAIData(response:Object):void 
         {
 			Data.aiData = String(response);
+			onDataGetComplete();
+        }
+		private function onGetProgressData(response:Object):void 
+        {
+			Data.progressData = String(response);
+			onDataGetComplete();
         }
 		private function OnEGet(response:Object):void 
         {
 			Data.errorGetData = true;
 			createMenu();
-        }		
+        }
+		private function onDataGetComplete():void
+		{
+			dataGetComplete++;
+			if (dataGetComplete == 3){
+				createMenu();
+			}
+		}
 		/* ============================================================================ */
 		
 	}

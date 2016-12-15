@@ -35,23 +35,26 @@ package swh.data
 		public static var userPoints:int = 0;
 		public static var userTarget:String;
 		public static var userCommand:Vector.<Personage>;
-		public static var userData:String;		// для сервера (формат: json)
 		
 		/* AI data*/
 		public static var aiSide:String = Constants.SIDE_SITH;
 		public static var aiTarget:String;
 		public static var aiPoints:int = 0;
 		public static var aiCommand:Vector.<Personage>;
-		public static var aiData:String;		// для сервера (формат: json)
 		
 		/* Map data*/
 		public static var map:int = 0;			// индекс файла map_*.xml и roadmap_*.xml
 		public static var userRoadmap:Vector.<Roadmap>;
-		public static var aiRoadmap:Vector.<Roadmap>;	
+		public static var aiRoadmap:Vector.<Roadmap>;
 		
 		/* Game data (ассоциативные массивы)*/
 		public static var personages:Array;
 		public static var planets:Array;
+		
+		/* JSON */
+		public static var userData:String;		// для сервера (формат: json)
+		public static var aiData:String;		// для сервера (формат: json)
+		public static var progressData:String;	// для сервера (формат: json)
 		
 		/* Utilits */
 		public static function utilitRandomValue(min:int, max:int):int
@@ -330,6 +333,27 @@ package swh.data
 			return json;
 		}
 		
+		public static function createProgressDataJSON():String
+		{
+			var last:int = 15;
+			var count:int = 0;
+			var json:String = "[{";			
+			json += "\"map\":\"" + Data.map.toString() + "\",";
+			json += "\"planets\":[";
+			for each (var planet:Planet in Data.planets) 
+			{ 
+				count++;
+				json += "{";
+				json += "\"id\":" + "\"" + planet.id.toString() + "\",";
+				json += "\"status\":" + "\"" + planet.status.toString() + "\"";
+				if (count == last) json += "}";
+				else json += "},";
+			}
+			json += "]";
+			json += "}]";
+			return json;
+		}
+		
 		/* //////////////////////////////////////////////////////////////////////////////////////////////////////// */
 		
 		
@@ -348,6 +372,16 @@ package swh.data
 			var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.aiData);
 			Data.aiSide = jsonData[0].side;
 			Data.aiPoints = jsonData[0].points;
+		}
+		
+		public static function readProgressDataJSON():void
+		{
+			var jsonData:Array = vk.api.serialization.json.JSON.decode(Data.progressData);
+			Data.map = jsonData[0].map;
+			for (var i:int = 0; i < jsonData[0].planets.length; i++){
+				(Data.planets[jsonData[0].planets[i].id] as Planet).status = jsonData[0].planets[i].status;
+			}
+			Data.utilitConsole(jsonData);
 		}
 		
 		public static function readUserCommandDataJSON():void

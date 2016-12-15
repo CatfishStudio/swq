@@ -64,6 +64,7 @@ package swh.command
 			createSpace();
 			createBackground();
 			createPers();
+			createLines();
 			createBorder();
 		}
 		
@@ -99,6 +100,9 @@ package swh.command
 
 			removeChild(rightBackgroundBitmap);
 			rightBackgroundBitmap = null;
+			
+			removeChild(linesBitmap);
+			linesBitmap = null;
 
 			removeChild(borderBitmap);
 			borderBitmap = null;			
@@ -132,9 +136,11 @@ package swh.command
 		{
 			if (Data.userSide == Constants.SIDE_JEDI){
 				spaceBitmap = new Bitmap((Assets.assetsTexturesContent.spaceBlueBitmap as Bitmap).bitmapData);
-			}else if (Data.userSide == Constants.SIDE_SITH){
+			} else if (Data.userSide == Constants.SIDE_SITH){
 				spaceBitmap = new Bitmap((Assets.assetsTexturesContent.spaceRedBitmap as Bitmap).bitmapData);
 			}
+			spaceBitmap.x = -82; 
+			spaceBitmap.y = -19;
 			addChild(spaceBitmap);
 		}
 
@@ -144,13 +150,24 @@ package swh.command
 				bigBackgroundBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_blue_big_background.png"] as BitmapData));
 				bottomBackgroundBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_blue_bottom_background.png"] as BitmapData));
 				rightBackgroundBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_blue_right_background.png"] as BitmapData));
-			else if (Data.userSide == Constants.SIDE_SITH){
+			} else if (Data.userSide == Constants.SIDE_SITH){
 				bigBackgroundBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_red_big_background.png"] as BitmapData));
 				bottomBackgroundBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_red_bottom_background.png"] as BitmapData));
 				rightBackgroundBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_red_right_background.png"] as BitmapData));
 			}
+			bigBackgroundBitmap.x = 22;
+			bigBackgroundBitmap.y = 17;
+			bigBackgroundBitmap.alpha = 0.2;
 			addChild(bigBackgroundBitmap);
+			
+			bottomBackgroundBitmap.x = 22;
+			bottomBackgroundBitmap.y = 600;
+			bottomBackgroundBitmap.alpha = 0.2;
 			addChild(bottomBackgroundBitmap);
+			
+			rightBackgroundBitmap.x = 655;
+			rightBackgroundBitmap.y = 50;
+			rightBackgroundBitmap.alpha = 0.2;
 			addChild(rightBackgroundBitmap);
 		}
 
@@ -162,11 +179,14 @@ package swh.command
 		private function createLines():void
 		{
 			if (Data.userSide == Constants.SIDE_JEDI){
-				lineBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_blue_lines.png"] as BitmapData));
-			else if (Data.userSide == Constants.SIDE_SITH){
-				lineBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_red_lines.png"] as BitmapData));
+				linesBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_blue_lines.png"] as BitmapData));
+			} else if (Data.userSide == Constants.SIDE_SITH){
+				linesBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_red_lines.png"] as BitmapData));
 			}
-			addChild(lineBitmap);
+			linesBitmap.alpha = 0.2;
+			linesBitmap.x = 22;
+			linesBitmap.y = 17;
+			addChild(linesBitmap);
 		}
 
 		private function createText():void
@@ -182,11 +202,18 @@ package swh.command
 			if (Data.userSide == Constants.SIDE_JEDI){
 				borderBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_blue_border.png"] as BitmapData));
 				lineBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_blue_big_line.png"] as BitmapData));
-			else if (Data.userSide == Constants.SIDE_SITH){
+			} else if (Data.userSide == Constants.SIDE_SITH){
 				borderBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_red_border.png"] as BitmapData));
 				lineBitmap = new Bitmap((Atlas.atlasTexturesBitmapData["command_red_big_line.png"] as BitmapData));
 			}
+			
+			borderBitmap.x = 2;
+			borderBitmap.y = 2;
 			addChild(borderBitmap);
+			
+			lineBitmap.x = 22;
+			lineBitmap.y = 20;
+			lineBitmap.alpha = 0.3;
 			addChild(lineBitmap);
 		}
 	}

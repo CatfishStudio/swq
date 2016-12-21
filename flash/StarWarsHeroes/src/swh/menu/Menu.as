@@ -146,8 +146,10 @@ package swh.menu
 			removeChild(borderBitmap);
 			borderBitmap = null;
 			
-			removeChild(continueButton);
-			continueButton = null;
+			if(continueButton != null) {
+				removeChild(continueButton);
+				continueButton = null;
+			}
 			removeChild(newGameButton);
 			newGameButton = null;
 			removeChild(settingsButton);
@@ -159,6 +161,7 @@ package swh.menu
 			{
 				this.removeChildren(0);
 			}
+			
 		}
 		
 		private function createBackground():void

@@ -81,39 +81,62 @@ package swh.map
 				mapTarget = null;
 			}
 			
-			removeChild(labelTitleBack);
-			labelTitleBack = null;
-			removeChild(labelTitleFront);
-			labelTitleFront = null;
+			if(labelTitleBack != null) {
+				removeChild(labelTitleBack);
+				labelTitleBack = null;
+			}
+			if(labelTitleFront != null){
+				removeChild(labelTitleFront);
+				labelTitleFront = null;
+			}
 			
-			removeChild(labelMasterBack);
-			labelMasterBack = null;
-			removeChild(labelMasterFront);
-			labelMasterFront = null;
+			if(labelMasterBack != null) {
+				removeChild(labelMasterBack);
+				labelMasterBack = null;
+			}
+			if(labelMasterFront != null) {
+				removeChild(labelMasterFront);
+				labelMasterFront = null;
+			}
 			
-			removeChild(labelPowerBack);
-			labelPowerBack = null;
-			removeChild(labelPowerFront);
-			labelPowerFront = null;
+			if(labelPowerBack != null) {
+				removeChild(labelPowerBack);
+				labelPowerBack = null;
+			}
+			if(labelPowerFront != null){
+				removeChild(labelPowerFront);
+				labelPowerFront = null;
+			}
 			
-			removeChild(pers1Bitmap);
-			pers1Bitmap = null;
-			removeChild(pers2Bitmap);
-			pers2Bitmap = null;
-			removeChild(pers3Bitmap);
-			pers3Bitmap = null;
+			if(pers1Bitmap != null) {
+				removeChild(pers1Bitmap);
+				pers1Bitmap = null;
+			}
+			if(pers2Bitmap != null) {
+				removeChild(pers2Bitmap);
+				pers2Bitmap = null;
+			}
+			if(pers3Bitmap != null) {
+				removeChild(pers3Bitmap);
+				pers3Bitmap = null;
+			}
 			
-			removeChild(markBitmap);
-			markBitmap = null;
-			
-			removeChild(planetBitmap);
-			planetBitmap = null;
-			
-			removeChild(lightBitmap);
-			lightBitmap = null;
-			
-			removeChild(titleBitmap);
-			titleBitmap = null;
+			if(markBitmap != null) {
+				removeChild(markBitmap);
+				markBitmap = null;
+			}
+			if(planetBitmap != null) {
+				removeChild(planetBitmap);
+				planetBitmap = null;
+			}
+			if(lightBitmap != null) {
+				removeChild(lightBitmap);
+				lightBitmap = null;
+			}
+			if(titleBitmap != null) {
+				removeChild(titleBitmap);
+				titleBitmap = null;
+			}
 			
 			while (this.numChildren > 0)
 			{

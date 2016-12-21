@@ -76,44 +76,55 @@ package swh.command
 			Atlas.clearAtlases(Atlas.TYPE_TEXTURES);
 			Atlas.clearAtlases(Atlas.TYPE_ANIMATION);
 			
-			lineTween.onComplete = null;
-			lineTween.end();
-			lineTween = null;
-
-			removeChild(lineBitmap);
-			lineBitmap;
-
-			removeChild(lineBitmap);
-			lineBitmap = null;
-			
-			removeChild(closeButton);
-			closeButton = null;
-
-			removeChild(persBitmap);
-			persBitmap = null;
-
-			removeChild(bigBackgroundBitmap);
-			bigBackgroundBitmap = null;
-
-			removeChild(bottomBackgroundBitmap);
-			bottomBackgroundBitmap = null;
-
-			removeChild(rightBackgroundBitmap);
-			rightBackgroundBitmap = null;
-			
-			removeChild(linesBitmap);
-			linesBitmap = null;
-
-			removeChild(borderBitmap);
-			borderBitmap = null;			
-
-			removeChild(spaceBitmap);
-			spaceBitmap = null;
-
-			removeChild(labelBack);
-			labelBack = null;
-			removeChild(labelFront);
-			labelFront = null;
+			if(lineTween != null) {
+				lineTween.onComplete = null;
+				lineTween.end();
+				lineTween = null;
+			}
+			if(lineBitmap != null) {
+				removeChild(lineBitmap);
+				lineBitmap;
+			}
+			if(closeButton != null) {
+				removeChild(closeButton);
+				closeButton = null;
+			}
+			if(persBitmap != null) {
+				removeChild(persBitmap);
+				persBitmap = null;
+			}
+			if(bigBackgroundBitmap != null) {
+				removeChild(bigBackgroundBitmap);
+				bigBackgroundBitmap = null;
+			}
+			if(bottomBackgroundBitmap != null) {
+				removeChild(bottomBackgroundBitmap);
+				bottomBackgroundBitmap = null;
+			}
+			if(rightBackgroundBitmap != null) {
+				removeChild(rightBackgroundBitmap);
+				rightBackgroundBitmap = null;
+			}
+			if(linesBitmap != null) {
+				removeChild(linesBitmap);
+				linesBitmap = null;
+			}
+			if(borderBitmap != null) {
+				removeChild(borderBitmap);
+				borderBitmap = null;			
+			}
+			if(spaceBitmap != null) {
+				removeChild(spaceBitmap);
+				spaceBitmap = null;
+			}
+			if(labelBack != null) {
+				removeChild(labelBack);
+				labelBack = null;
+			}
+			if(labelFront != null) {
+				removeChild(labelFront);
+				labelFront = null;
+			}
 			
 			while (this.numChildren > 0)
 			{

@@ -84,56 +84,79 @@ package swh.map
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
 			
-			lineTween.onComplete = null;
-			lineTween.end();
-			lineTween = null;	
-			
-			removeChild(backgroundBitmap);
-			backgroundBitmap = null;
-			
-			removeChild(persLeftBitmap);
-			persLeftBitmap = null;
-			
-			removeChild(persRightBitmap);
-			persRightBitmap = null;
-			
-			removeChild(linesBitmap);
-			linesBitmap = null;
-			
-			removeChild(borderBitmap);
-			borderBitmap = null;
-			
-			removeChild(lineBitmap);
-			lineBitmap = null;
-			
-			removeChild(labelTitleBack);
-			labelTitleBack = null;
-			removeChild(labelTitleFront);
-			labelTitleFront = null;
-			
-			removeChild(labelMasterBack);
-			labelMasterBack = null;
-			removeChild(labelMasterFront);
-			labelMasterFront = null;
-			
-			removeChild(labelUserPowerBack);
-			labelUserPowerBack = null;
-			removeChild(labelUserPowerFront);
-			labelUserPowerFront = null;
-			
-			removeChild(labelAIPowerBack);
-			labelUserPowerBack = null;
-			removeChild(labelAIPowerFront);
-			labelUserPowerFront = null;
-			
-			removeChild(cancelButton);
-			cancelButton = null;
-			
-			removeChild(startButton);
-			startButton = null;
-			
-			removeChild(quad);
-			quad = null;
+			if(lineTween != null) {
+				lineTween.onComplete = null;
+				lineTween.end();
+				lineTween = null;	
+			}
+			if(backgroundBitmap != null) {
+				removeChild(backgroundBitmap);
+				backgroundBitmap = null;
+			}
+			if(persLeftBitmap != null) {
+				removeChild(persLeftBitmap);
+				persLeftBitmap = null;
+			}
+			if(persRightBitmap != null) {
+				removeChild(persRightBitmap);
+				persRightBitmap = null;
+			}
+			if(linesBitmap != null) {
+				removeChild(linesBitmap);
+				linesBitmap = null;
+			}
+			if(borderBitmap != null) {
+				removeChild(borderBitmap);
+				borderBitmap = null;
+			}
+			if(lineBitmap != null) {
+				removeChild(lineBitmap);
+				lineBitmap = null;
+			}
+			if(labelTitleBack != null) {
+				removeChild(labelTitleBack);
+				labelTitleBack = null;
+			}
+			if(labelTitleFront != null) {
+				removeChild(labelTitleFront);
+				labelTitleFront = null;
+			}
+			if(labelMasterBack != null) {
+				removeChild(labelMasterBack);
+				labelMasterBack = null;
+			}
+			if(labelMasterFront != null) {
+				removeChild(labelMasterFront);
+				labelMasterFront = null;
+			}
+			if(labelUserPowerBack != null) {
+				removeChild(labelUserPowerBack);
+				labelUserPowerBack = null;
+			}
+			if(labelUserPowerFront != null) {
+				removeChild(labelUserPowerFront);
+				labelUserPowerFront = null;
+			}
+			if(labelAIPowerBack != null) {
+				removeChild(labelAIPowerBack);
+				labelUserPowerBack = null;
+			}
+			if(labelAIPowerFront != null) {
+				removeChild(labelAIPowerFront);
+				labelUserPowerFront = null;
+			}
+			if(cancelButton != null) {
+				removeChild(cancelButton);
+				cancelButton = null;
+			}
+			if(startButton != null) {
+				removeChild(startButton);
+				startButton = null;
+			}
+			if(quad != null) {
+				removeChild(quad);
+				quad = null;
+			}
 			
 			while (this.numChildren)
 			{

@@ -102,60 +102,85 @@ package swh.menu
 			Atlas.clearAtlases(Atlas.TYPE_TEXTURES);
 			Atlas.clearAtlases(Atlas.TYPE_ANIMATION);
 			
-			removeChild(message);
-			message = null;			
-			removeChild(mHelp);
-			mHelp = null;
-			
-			starsTween.onComplete = null;
-			starsTween.end();
-			starsTween = null;
-			
-			deathstarTween.onComplete = null;
-			deathstarTween.end();
-			deathstarTween = null;
-			
-			ship1Tween.onComplete = null;
-			ship1Tween.end();
-			ship1Tween = null;
-			
-			ship2Tween.onComplete = null;
-			ship2Tween.end();
-			ship2Tween = null;
-			
-			ship3Tween.onComplete = null;
-			ship3Tween.end();
-			ship3Tween = null;
-			
-			starsBitmap.bitmapData.dispose();
-			removeChild(starsBitmap);
-			starsBitmap = null;
-			deathstarBitmap.bitmapData.dispose();
-			removeChild(deathstarBitmap);
-			deathstarBitmap = null;
-			ship1Bitmap.bitmapData.dispose();
-			removeChild(ship1Bitmap);
-			ship1Bitmap = null;
-			ship2Bitmap.bitmapData.dispose();
-			removeChild(ship2Bitmap);
-			ship2Bitmap = null;
-			ship3Bitmap.bitmapData.dispose();
-			removeChild(ship3Bitmap);
-			ship3Bitmap = null;
-			borderBitmap.bitmapData.dispose();
-			removeChild(borderBitmap);
-			borderBitmap = null;
-			
+			if(message != null) {
+				removeChild(message);
+				message = null;
+			}
+			if(mHelp != null) {
+				removeChild(mHelp);
+				mHelp = null;
+			}
+			if(starsTween != null) {
+				starsTween.onComplete = null;
+				starsTween.end();
+				starsTween = null;
+			}
+			if(deathstarTween != null) {
+				deathstarTween.onComplete = null;
+				deathstarTween.end();
+				deathstarTween = null;
+			}
+			if(ship1Tween != null) {
+				ship1Tween.onComplete = null;
+				ship1Tween.end();
+				ship1Tween = null;
+			}
+			if(ship2Tween != null) {
+				ship2Tween.onComplete = null;
+				ship2Tween.end();
+				ship2Tween = null;
+			}
+			if(ship3Tween != null) {
+				ship3Tween.onComplete = null;
+				ship3Tween.end();
+				ship3Tween = null;
+			}
+			if(starsBitmap != null) {
+				starsBitmap.bitmapData.dispose();
+				removeChild(starsBitmap);
+				starsBitmap = null;
+			}
+			if(deathstarBitmap != null) {
+				deathstarBitmap.bitmapData.dispose();
+				removeChild(deathstarBitmap);
+				deathstarBitmap = null;
+			}
+			if(ship1Bitmap != null) {
+				ship1Bitmap.bitmapData.dispose();
+				removeChild(ship1Bitmap);
+				ship1Bitmap = null;
+			}
+			if(ship2Bitmap != null) {
+				ship2Bitmap.bitmapData.dispose();
+				removeChild(ship2Bitmap);
+				ship2Bitmap = null;
+			}
+			if(ship3Bitmap != null) {
+				ship3Bitmap.bitmapData.dispose();
+				removeChild(ship3Bitmap);
+				ship3Bitmap = null;
+			}
+			if(borderBitmap != null) {
+				borderBitmap.bitmapData.dispose();
+				removeChild(borderBitmap);
+				borderBitmap = null;
+			}			
 			if(continueButton != null) {
 				removeChild(continueButton);
 				continueButton = null;
 			}
-			removeChild(newGameButton);
-			newGameButton = null;
-			removeChild(settingsButton);
-			settingsButton = null;
-			removeChild(invateButton);
-			invateButton = null;
+			if(newGameButton != null) {
+				removeChild(newGameButton);
+				newGameButton = null;
+			}
+			if(settingsButton != null) {
+				removeChild(settingsButton);
+				settingsButton = null;
+			}
+			if(invateButton != null) {
+				removeChild(invateButton);
+				invateButton = null;
+			}
 			
 			while (this.numChildren > 0)
 			{

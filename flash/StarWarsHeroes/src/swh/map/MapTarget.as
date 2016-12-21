@@ -52,9 +52,11 @@ package swh.map
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
 			
-			rotateTween.onComplete = null;
-			rotateTween.end();
-			rotateTween = null;
+			if(rotateTween != null) {
+				rotateTween.onComplete = null;
+				rotateTween.end();
+				rotateTween = null;
+			}
 			
 			while (this.numChildren)
 			{

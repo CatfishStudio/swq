@@ -52,22 +52,31 @@ package swh.menu
 		private function onRemoveFromStage(e:Event):void 
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
-			
-			lineTween.onComplete = null;
-			lineTween.end();
-			lineTween = null;
-			
-			removeChild(labelBack);
-			labelBack = null;
-			removeChild(labelFront);
-			labelFront = null;
-			
-			removeChild(r2d2Bitmap);
-			r2d2Bitmap = null;
-			removeChild(hologramBitmap);
-			hologramBitmap = null;
-			removeChild(lineBitmap);
-			lineBitmap = null;
+			if(lineTween != null) {
+				lineTween.onComplete = null;
+				lineTween.end();
+				lineTween = null;
+			}
+			if(labelBack != null) {
+				removeChild(labelBack);
+				labelBack = null;
+			}
+			if(labelFront != null) {
+				removeChild(labelFront);
+				labelFront = null;
+			}
+			if(r2d2Bitmap != null) {
+				removeChild(r2d2Bitmap);
+				r2d2Bitmap = null;
+			}
+			if(hologramBitmap != null) {
+				removeChild(hologramBitmap);
+				hologramBitmap = null;
+			}
+			if(lineBitmap != null) {
+				removeChild(lineBitmap);
+				lineBitmap = null;
+			}
 			
 			while (this.numChildren)
 			{

@@ -381,7 +381,7 @@ package swh.data
 			for (var i:int = 0; i < jsonData[0].planets.length; i++){
 				(Data.planets[jsonData[0].planets[i].id] as Planet).status = jsonData[0].planets[i].status;
 			}
-			Data.utilitConsole(jsonData);
+			//Data.utilitConsole(jsonData);
 		}
 		
 		public static function readUserCommandDataJSON():void

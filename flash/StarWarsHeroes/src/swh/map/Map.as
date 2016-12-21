@@ -80,51 +80,68 @@ package swh.map
 			Atlas.clearAtlases(Atlas.TYPE_TEXTURES);
 			Atlas.clearAtlases(Atlas.TYPE_ANIMATION);
 			
-			lineTween.onComplete = null;
-			lineTween.end();
-			lineTween = null;
+			if(lineTween != null) {
+				lineTween.onComplete = null;
+				lineTween.end();
+				lineTween = null;
+			}
 			
-			lineBitmap.bitmapData.dispose();
-			removeChild(lineBitmap);
-			lineBitmap = null;
+			if(lineBitmap != null) {
+				removeChild(lineBitmap);
+				lineBitmap = null;
+			}
 			
-			removeChild(droid);
-			droid = null;
+			if(droid != null) {
+				removeChild(droid);
+				droid = null;
+			}
 			
-			removeChild(backmenuButton);
-			backmenuButton = null;
-			removeChild(inviteButton);
-			inviteButton = null;
-			removeChild(commandButton);
-			commandButton = null;
-			removeChild(settingsButton);
-			settingsButton = null;
+			if(backmenuButton != null) {
+				removeChild(backmenuButton);
+				backmenuButton = null;
+			}
+			if(inviteButton != null) {
+				removeChild(inviteButton);
+				inviteButton = null;
+			}
+			if(commandButton != null) {
+				removeChild(commandButton);
+				commandButton = null;
+			}
+			if(settingsButton != null){
+				removeChild(settingsButton);
+				settingsButton = null;
+			}
 			
 			if (battleStart != null){
 				removeChild(battleStart);
 				battleStart = null;
 			}
 			
-			var mapPlanet:MapPlanet; 
+			var mapPlanet:MapPlanet = null; 
 			for each (var planet:Planet in Data.planets) 
 			{ 
 				mapPlanet = (map.getChildByName(planet.id) as MapPlanet);
-				mapPlanet.removeEventListener(MouseEvent.MOUSE_OUT, onPlanetMouseOut);
-				mapPlanet.removeEventListener(MouseEvent.MOUSE_OVER, onPlanetMouseOver);
-				mapPlanet.removeEventListener(MouseEvent.CLICK, onPlanetMouseClick);
-				map.removeChild(mapPlanet);
-				mapPlanet = null;
+				if(mapPlanet != null) {
+					mapPlanet.removeEventListener(MouseEvent.MOUSE_OUT, onPlanetMouseOut);
+					mapPlanet.removeEventListener(MouseEvent.MOUSE_OVER, onPlanetMouseOver);
+					mapPlanet.removeEventListener(MouseEvent.CLICK, onPlanetMouseClick);
+					map.removeChild(mapPlanet);
+					mapPlanet = null;
+				}
 			}
-			
+				
 			while (map.numChildren > 0) 
 			{
 				map.removeChildren(0);
 			}
-			map.removeEventListener(MouseEvent.MOUSE_UP, onMouseUpMap);
-			map.removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDownMap);
-			map.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMoveMap);
-			removeChild(map);
-			map = null;
+			if(map != null){
+				map.removeEventListener(MouseEvent.MOUSE_UP, onMouseUpMap);
+				map.removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDownMap);
+				map.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMoveMap);
+				removeChild(map);
+				map = null;
+			}			
 			
 			while (this.numChildren > 0)
 			{

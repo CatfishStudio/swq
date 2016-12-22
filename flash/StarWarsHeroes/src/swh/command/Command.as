@@ -19,7 +19,7 @@ package swh.command
 	import swh.data.Atlas;
 	import swh.data.Constants;
 	import swh.button.Button;
-	import swh.text.Label;
+	import swh.command.CommandLabel;
 	
 	/**
 	 * ...
@@ -34,11 +34,10 @@ package swh.command
 		private var rightBackgroundBitmap:Bitmap;
 		private var linesBitmap:Bitmap;
 		private var persBitmap:Bitmap;
-
-		private var labelBack:Label;
-		private var labelFront:Label;
-		private var colorBack:int;
-		private var colorFront:int;
+		
+		private var labelPoints:CommandLabel;
+		private var labelPersName:CommandLabel;
+		
 		
 		private var lineBitmap:Bitmap;
 		private var lineTween:GTween;
@@ -60,12 +59,12 @@ package swh.command
 			Atlas.loadAtlasBitmapData(Assets.assetsAtlasesContent.CommandAtlas, Assets.assetsAtlasesContent.CommandAtlasXML, Atlas.TYPE_TEXTURES);
 			Atlas.loadAtlasBitmapData(Assets.assetsAtlasesContent.ButtonsAtlas, Assets.assetsAtlasesContent.ButtonsAtlasXML, Atlas.TYPE_ANIMATION);
 			
-			init();
 			createSpace();
 			createBackground();
 			createPers();
 			createLines();
 			createBorder();
+			createText();
 		}
 		
 		private function onRemoveFromStage(e:Event):void 
@@ -117,29 +116,18 @@ package swh.command
 				removeChild(spaceBitmap);
 				spaceBitmap = null;
 			}
-			if(labelBack != null) {
-				removeChild(labelBack);
-				labelBack = null;
+			if(labelPoints != null) {
+				removeChild(labelPoints);
+				labelPoints = null;
 			}
-			if(labelFront != null) {
-				removeChild(labelFront);
-				labelFront = null;
+			if(labelPersName != null) {
+				removeChild(labelPersName);
+				labelPersName = null;
 			}
 			
 			while (this.numChildren > 0)
 			{
 				this.removeChildren(0);
-			}
-		}
-
-		private function init():void
-		{
-			if (Data.userSide == Constants.SIDE_JEDI) {
-				colorFront = 0xFFFFFF;
-				colorBack = 0x0090F0;	
-			}else if (Data.userSide == Constants.SIDE_SITH) {
-				colorFront = 0xFFFFFF;
-				colorBack = 0x880000;
 			}
 		}
 
@@ -200,14 +188,6 @@ package swh.command
 			addChild(linesBitmap);
 		}
 
-		private function createText():void
-		{
-			labelBack = new Label(5, 5, 145, 500, "arial", 12, colorBack, "text", false);
-			addChild(labelBack);
-			labelFront = new Label(4, 4, 145, 500, "arial", 12, colorFront, "text", false);
-			addChild(labelFront);
-		}
-
 		private function createBorder():void
 		{
 			if (Data.userSide == Constants.SIDE_JEDI){
@@ -226,6 +206,14 @@ package swh.command
 			lineBitmap.y = 20;
 			lineBitmap.alpha = 0.3;
 			addChild(lineBitmap);
+		}
+		
+		private function createText():void
+		{
+			labelPoints = new CommandLabel(650, 30, 250, 50, "arial", 14, "КОМАНДА. Очки опыта: " + Data.userPoints.toString());
+			addChild(labelPoints);
+			labelPersName = new CommandLabel(50, 30, 250, 50, "arial", 14, "Люк");
+			addChild(labelPersName);
 		}
 	}
 

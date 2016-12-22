@@ -252,7 +252,10 @@ package swh.map
 		
 		public function onBattleStartClose():void
 		{
-			if (battleStart != null) removeChild(battleStart);
+			if (battleStart != null) {
+				removeChild(battleStart);
+				battleStart = null;
+			}
 		}
 		
 		private function createIcons():void 

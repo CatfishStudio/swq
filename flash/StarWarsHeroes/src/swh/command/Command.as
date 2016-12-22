@@ -28,6 +28,8 @@ package swh.command
 	public class Command extends Sprite 
 	{
 		private var spaceBitmap:Bitmap;
+		private var spaceTween:GTween;
+		
 		private var borderBitmap:Bitmap;
 		private var bigBackgroundBitmap:Bitmap;
 		private var bottomBackgroundBitmap:Bitmap;
@@ -65,6 +67,7 @@ package swh.command
 			createLines();
 			createBorder();
 			createText();
+			createButtons();
 		}
 		
 		private function onRemoveFromStage(e:Event):void 
@@ -75,6 +78,11 @@ package swh.command
 			Atlas.clearAtlases(Atlas.TYPE_TEXTURES);
 			Atlas.clearAtlases(Atlas.TYPE_ANIMATION);
 			
+			if (spaceTween != null) {
+				spaceTween.onComplete = null;
+				spaceTween.end();
+				spaceTween = null;
+			}
 			if(lineTween != null) {
 				lineTween.onComplete = null;
 				lineTween.end();
@@ -141,6 +149,33 @@ package swh.command
 			spaceBitmap.x = -82; 
 			spaceBitmap.y = -19;
 			addChild(spaceBitmap);
+			
+			runSpaceTween();
+		}
+		
+		private function runSpaceTween():void
+		{
+			spaceTween = new GTween(spaceBitmap, 0.1);
+			spaceTween.setValue("rotation", -1);
+			spaceTween.ease = Sine.easeInOut;
+			spaceTween.timeScale = 0.1;
+			spaceTween.onComplete = onTweenSpace1;
+		}
+		
+		private function onTweenSpace1(tween:GTween):void		
+		{
+			spaceTween.setValue("rotation", 1);
+			spaceTween.ease = Sine.easeInOut;
+			spaceTween.timeScale = 0.1;
+			spaceTween.onComplete = onTweenSpace2;
+		}
+		
+		private function onTweenSpace2(tween:GTween):void		
+		{
+			spaceTween.setValue("rotation", -1);
+			spaceTween.ease = Sine.easeInOut;
+			spaceTween.timeScale = 0.1;
+			spaceTween.onComplete = onTweenSpace1;
 		}
 
 		private function createBackground():void
@@ -206,6 +241,26 @@ package swh.command
 			lineBitmap.y = 20;
 			lineBitmap.alpha = 0.3;
 			addChild(lineBitmap);
+			
+			runLineTween();
+		}
+		
+		private function runLineTween():void
+		{
+			lineTween = new GTween(lineBitmap, 2);
+			lineTween.setValue("y", lineBitmap.y + 545);
+			lineTween.ease = Sine.easeInOut;
+			lineTween.timeScale = 1;
+			lineTween.onComplete = onTweenLine;
+		}
+		
+		private function onTweenLine(tween:GTween):void		
+		{
+			lineBitmap.y = 17;
+			lineTween.setValue("y", lineBitmap.y + 545);
+			lineTween.ease = Sine.easeInOut;
+			lineTween.timeScale = 1;
+			lineTween.onComplete = onTweenLine;
 		}
 		
 		private function createText():void
@@ -214,6 +269,12 @@ package swh.command
 			addChild(labelPoints);
 			labelPersName = new CommandLabel(50, 30, 250, 50, "arial", 14, "Люк");
 			addChild(labelPersName);
+		}
+		
+		private function createButtons():void
+		{
+			closeButton = new Button(650, 670, "ЗАКРЫТЬ", 60, 15, 16,  Constants.COMMAND_BUTTON_CLOSE, Data.userSide);
+			addChild(closeButton);
 		}
 	}
 

@@ -301,11 +301,11 @@ package swh.map
 		
 		private function createText():void
 		{
-			labelTitleBack = new LabelCenter(0, 0, 100, 50, "arial", 28, colorBack, 'БИТВА', false);
+			labelTitleBack = new LabelCenter(0, 0, 125, 50, "arial", 28, colorBack, 'БИТВА', false);
 			labelTitleBack.x = 10 + (Constants.GAME_WINDOW_WIDTH / 2) - (labelTitleBack.width / 2);
 			labelTitleBack.y = posY + 25;
 			addChild(labelTitleBack);
-			labelTitleFront = new LabelCenter(0, 0, 100, 50, "arial", 28, colorFront, 'БИТВА', false);
+			labelTitleFront = new LabelCenter(0, 0, 125, 50, "arial", 28, colorFront, 'БИТВА', false);
 			labelTitleFront.x = 10 + (Constants.GAME_WINDOW_WIDTH / 2) - (labelTitleFront.width / 2) - 2.5;
 			labelTitleFront.y = posY + 23;
 			addChild(labelTitleFront);

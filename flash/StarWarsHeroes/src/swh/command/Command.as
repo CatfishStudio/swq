@@ -20,6 +20,7 @@ package swh.command
 	import swh.data.Constants;
 	import swh.button.Button;
 	import swh.command.CommandLabel;
+	import swh.command.CommandDroid;
 	
 	/**
 	 * ...
@@ -40,11 +41,12 @@ package swh.command
 		private var labelPoints:CommandLabel;
 		private var labelPersName:CommandLabel;
 		
-		
 		private var lineBitmap:Bitmap;
 		private var lineTween:GTween;
 		
 		private var closeButton:Button;
+		
+		private var droid:CommandDroid;
 		
 		public function Command() 
 		{
@@ -68,6 +70,7 @@ package swh.command
 			createBorder();
 			createText();
 			createButtons();
+			createDroid();
 		}
 		
 		private function onRemoveFromStage(e:Event):void 
@@ -132,6 +135,10 @@ package swh.command
 				removeChild(labelPersName);
 				labelPersName = null;
 			}
+			if(droid != null) {
+				removeChild(droid);
+				droid = null;
+			}
 			
 			while (this.numChildren > 0)
 			{
@@ -155,10 +162,10 @@ package swh.command
 		
 		private function runSpaceTween():void
 		{
-			spaceTween = new GTween(spaceBitmap, 0.1);
+			spaceTween = new GTween(spaceBitmap, 10);
 			spaceTween.setValue("rotation", -1);
 			spaceTween.ease = Sine.easeInOut;
-			spaceTween.timeScale = 0.1;
+			spaceTween.timeScale = 1;
 			spaceTween.onComplete = onTweenSpace1;
 		}
 		
@@ -166,7 +173,7 @@ package swh.command
 		{
 			spaceTween.setValue("rotation", 1);
 			spaceTween.ease = Sine.easeInOut;
-			spaceTween.timeScale = 0.1;
+			spaceTween.timeScale = 1;
 			spaceTween.onComplete = onTweenSpace2;
 		}
 		
@@ -174,7 +181,7 @@ package swh.command
 		{
 			spaceTween.setValue("rotation", -1);
 			spaceTween.ease = Sine.easeInOut;
-			spaceTween.timeScale = 0.1;
+			spaceTween.timeScale = 1;
 			spaceTween.onComplete = onTweenSpace1;
 		}
 
@@ -275,6 +282,12 @@ package swh.command
 		{
 			closeButton = new Button(650, 670, "ЗАКРЫТЬ", 60, 15, 16,  Constants.COMMAND_BUTTON_CLOSE, Data.userSide);
 			addChild(closeButton);
+		}
+		
+		private function createDroid():void
+		{
+			droid = new CommandDroid(560, 360, "Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", Data.userSide);
+			addChild(droid);
 		}
 	}
 

@@ -40,12 +40,19 @@ package swh.command
 		
 		private var labelPoints:CommandLabel;
 		private var labelPersName:CommandLabel;
+		private var labelTitleCharacteristics:CommandLabel;
+		private var labelCharacteristics:CommandLabel;
+		
+		private var crystal1Bitmap:Bitmap;
+		private var crystal2Bitmap:Bitmap;
+		private var crystal3Bitmap:Bitmap;
+		private var crystal4Bitmap:Bitmap;
+		private var crystal5Bitmap:Bitmap;
 		
 		private var lineBitmap:Bitmap;
 		private var lineTween:GTween;
 		
-		private var closeButton:Button;
-		
+		private var closeButton:Button;		
 		private var droid:CommandDroid;
 		
 		public function Command() 
@@ -69,6 +76,7 @@ package swh.command
 			createLines();
 			createBorder();
 			createText();
+			createCrystals();
 			createButtons();
 			createDroid();
 		}
@@ -103,6 +111,26 @@ package swh.command
 				removeChild(persBitmap);
 				persBitmap = null;
 			}
+			if(crystal1Bitmap != null) {
+				removeChild(crystal1Bitmap);
+				crystal1Bitmap = null;
+			}
+			if(crystal2Bitmap != null) {
+				removeChild(crystal2Bitmap);
+				crystal2Bitmap = null;
+			}
+			if(crystal3Bitmap != null) {
+				removeChild(crystal3Bitmap);
+				crystal3Bitmap = null;
+			}
+			if(crystal4Bitmap != null) {
+				removeChild(crystal4Bitmap);
+				crystal4Bitmap = null;
+			}
+			if(crystal5Bitmap != null) {
+				removeChild(crystal5Bitmap);
+				crystal5Bitmap = null;
+			}
 			if(bigBackgroundBitmap != null) {
 				removeChild(bigBackgroundBitmap);
 				bigBackgroundBitmap = null;
@@ -134,6 +162,14 @@ package swh.command
 			if(labelPersName != null) {
 				removeChild(labelPersName);
 				labelPersName = null;
+			}
+			if(labelTitleCharacteristics != null) {
+				removeChild(labelTitleCharacteristics);
+				labelTitleCharacteristics = null;
+			}
+			if(labelCharacteristics != null) {
+				removeChild(labelCharacteristics);
+				labelCharacteristics = null;
 			}
 			if(droid != null) {
 				removeChild(droid);
@@ -274,8 +310,61 @@ package swh.command
 		{
 			labelPoints = new CommandLabel(650, 30, 250, 50, "arial", 14, "КОМАНДА. Очки опыта: " + Data.userPoints.toString());
 			addChild(labelPoints);
-			labelPersName = new CommandLabel(50, 30, 250, 50, "arial", 14, "Люк");
+			labelPersName = new CommandLabel(50, 30, 250, 50, "arial", 14, "Имя персонажа");
 			addChild(labelPersName);
+			labelTitleCharacteristics = new CommandLabel(300, 80, 250, 250, "arial", 14, "Характеристики:" + "\n\n" 
+																					+ "	Здоровье:" + "\n\n" 
+																					+ "	Кристал ловкости:" + "\n\n" 
+																					+ "	Кристал тьмы:" + "\n\n" 
+																					+ "	Кристал жизни:" + "\n\n" 
+																					+ "	Кристал света:" + "\n\n" 
+																					+ "	Кристал интеллекта:");
+			addChild(labelTitleCharacteristics);
+			labelCharacteristics = new CommandLabel(475, 113, 250, 250, "arial" , 14, "0" + "\n\n" 
+																					+ "0" + "\n\n"
+																					+ "0" + "\n\n"
+																					+ "0" + "\n\n"
+																					+ "0" + "\n\n"
+																					+ "0");
+			addChild(labelCharacteristics);
+		}
+		
+		private function createCrystals():void
+		{
+			crystal1Bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["hit_1.png"] as BitmapData));
+			crystal1Bitmap.x = 295;
+			crystal1Bitmap.y = 140;
+			crystal1Bitmap.scaleX = 0.3;
+			crystal1Bitmap.scaleY = 0.3;
+			addChild(crystal1Bitmap);
+			
+			crystal2Bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["hit_2.png"] as BitmapData));
+			crystal2Bitmap.x = 295;
+			crystal2Bitmap.y = 170;
+			crystal2Bitmap.scaleX = 0.3;
+			crystal2Bitmap.scaleY = 0.3;
+			addChild(crystal2Bitmap);
+			
+			crystal3Bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["hit_3.png"] as BitmapData));
+			crystal3Bitmap.x = 295;
+			crystal3Bitmap.y = 205;
+			crystal3Bitmap.scaleX = 0.3;
+			crystal3Bitmap.scaleY = 0.3;
+			addChild(crystal3Bitmap);
+			
+			crystal4Bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["hit_4.png"] as BitmapData));
+			crystal4Bitmap.x = 295;
+			crystal4Bitmap.y = 240;
+			crystal4Bitmap.scaleX = 0.3;
+			crystal4Bitmap.scaleY = 0.3;
+			addChild(crystal4Bitmap);
+			
+			crystal5Bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["hit_5.png"] as BitmapData));
+			crystal5Bitmap.x = 295;
+			crystal5Bitmap.y = 270;
+			crystal5Bitmap.scaleX = 0.3;
+			crystal5Bitmap.scaleY = 0.3;
+			addChild(crystal5Bitmap);
 		}
 		
 		private function createButtons():void

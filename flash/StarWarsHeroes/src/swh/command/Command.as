@@ -20,6 +20,7 @@ package swh.command
 	import swh.data.Constants;
 	import swh.button.Button;
 	import swh.command.CommandLabel;
+	import swh.command.CommandText;
 	import swh.command.CommandDroid;
 	
 	/**
@@ -42,6 +43,7 @@ package swh.command
 		private var labelPersName:CommandLabel;
 		private var labelTitleCharacteristics:CommandLabel;
 		private var labelCharacteristics:CommandLabel;
+		private var textPers:CommandText;
 		
 		private var crystal1Bitmap:Bitmap;
 		private var crystal2Bitmap:Bitmap;
@@ -171,6 +173,10 @@ package swh.command
 				removeChild(labelCharacteristics);
 				labelCharacteristics = null;
 			}
+			if(textPers != null) {
+				removeChild(textPers);
+				textPers = null;
+			}
 			if(droid != null) {
 				removeChild(droid);
 				droid = null;
@@ -198,26 +204,29 @@ package swh.command
 		
 		private function runSpaceTween():void
 		{
-			spaceTween = new GTween(spaceBitmap, 10);
-			spaceTween.setValue("rotation", -1);
+			spaceTween = new GTween(spaceBitmap, 0.1);
+			//spaceTween.setValue("rotation", -1);
 			spaceTween.ease = Sine.easeInOut;
-			spaceTween.timeScale = 1;
+			spaceTween.timeScale = 0.1;
 			spaceTween.onComplete = onTweenSpace1;
+			spaceTween.proxy.rotation -= 2; 
 		}
 		
 		private function onTweenSpace1(tween:GTween):void		
 		{
-			spaceTween.setValue("rotation", 1);
+			//spaceTween.setValue("rotation", 1);
 			spaceTween.ease = Sine.easeInOut;
-			spaceTween.timeScale = 1;
+			spaceTween.timeScale = 0.1;
+			spaceTween.proxy.rotation += 2;
 			spaceTween.onComplete = onTweenSpace2;
 		}
 		
 		private function onTweenSpace2(tween:GTween):void		
 		{
-			spaceTween.setValue("rotation", -1);
+			//spaceTween.setValue("rotation", -1);
 			spaceTween.ease = Sine.easeInOut;
-			spaceTween.timeScale = 1;
+			spaceTween.timeScale = 0.1;
+			spaceTween.proxy.rotation -= 2;
 			spaceTween.onComplete = onTweenSpace1;
 		}
 
@@ -327,6 +336,8 @@ package swh.command
 																					+ "0" + "\n\n"
 																					+ "0");
 			addChild(labelCharacteristics);
+			textPers = new CommandText(50, 300, 485, 275, "arial", 14, "Текст");
+			addChild(textPers);
 		}
 		
 		private function createCrystals():void

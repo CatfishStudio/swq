@@ -61,7 +61,7 @@ package swh.command
 			labelBack.selectable = false;
 			labelBack.multiline = true;
 			labelBack.wordWrap = true;
-			//labelBack.autoSize = TextFieldAutoSize.LEFT;
+			labelBack.autoSize = TextFieldAutoSize.LEFT;
 			addChild(labelBack);
 			
 			labelFront = new TextField();
@@ -75,7 +75,7 @@ package swh.command
 			labelFront.selectable = false;
 			labelFront.multiline = true;
 			labelFront.wordWrap = true;
-			//labelFront.autoSize = TextFieldAutoSize.LEFT;
+			labelFront.autoSize = TextFieldAutoSize.LEFT;
 			addChild(labelFront);
 		}
 		

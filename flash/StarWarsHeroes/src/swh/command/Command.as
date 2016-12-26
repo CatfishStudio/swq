@@ -209,7 +209,7 @@ package swh.command
 			spaceTween.ease = Sine.easeInOut;
 			spaceTween.timeScale = 0.1;
 			spaceTween.onComplete = onTweenSpace1;
-			spaceTween.proxy.rotation -= 2; 
+			spaceTween.proxy.rotation += 1; 
 		}
 		
 		private function onTweenSpace1(tween:GTween):void		
@@ -217,7 +217,7 @@ package swh.command
 			//spaceTween.setValue("rotation", 1);
 			spaceTween.ease = Sine.easeInOut;
 			spaceTween.timeScale = 0.1;
-			spaceTween.proxy.rotation += 2;
+			spaceTween.proxy.rotation -= 1;
 			spaceTween.onComplete = onTweenSpace2;
 		}
 		
@@ -226,7 +226,7 @@ package swh.command
 			//spaceTween.setValue("rotation", -1);
 			spaceTween.ease = Sine.easeInOut;
 			spaceTween.timeScale = 0.1;
-			spaceTween.proxy.rotation -= 2;
+			spaceTween.proxy.rotation += 1;
 			spaceTween.onComplete = onTweenSpace1;
 		}
 
@@ -336,8 +336,9 @@ package swh.command
 																					+ "0" + "\n\n"
 																					+ "0");
 			addChild(labelCharacteristics);
-			textPers = new CommandText(50, 300, 485, 275, "arial", 14, "Текст");
+			textPers = new CommandText(50, 300, 485, 5, "arial", 14, "Текст\n sdfsd \n sdsds \n");
 			addChild(textPers);
+			textPers.y = 550 - textPers.height;
 		}
 		
 		private function createCrystals():void
@@ -380,7 +381,7 @@ package swh.command
 		
 		private function createButtons():void
 		{
-			closeButton = new Button(650, 670, "ЗАКРЫТЬ", 60, 15, 16,  Constants.COMMAND_BUTTON_CLOSE, Data.userSide);
+			closeButton = new Button(650, 667, "ЗАКРЫТЬ", 60, 15, 16,  Constants.COMMAND_BUTTON_CLOSE, Data.userSide);
 			addChild(closeButton);
 		}
 		

@@ -19,9 +19,11 @@ package swh.command
 	import swh.data.Atlas;
 	import swh.data.Constants;
 	import swh.button.Button;
+	import swh.data.Personage;
 	import swh.command.CommandLabel;
 	import swh.command.CommandText;
 	import swh.command.CommandDroid;
+	import swh.command.CommandIcons;
 	
 	/**
 	 * ...
@@ -29,6 +31,8 @@ package swh.command
 	 */
 	public class Command extends Sprite 
 	{
+		private var selectedPersonage:Personage;
+		
 		private var spaceBitmap:Bitmap;
 		private var spaceTween:GTween;
 		
@@ -57,6 +61,10 @@ package swh.command
 		private var closeButton:Button;		
 		private var droid:CommandDroid;
 		
+		private var icon1:CommandIcons;
+		private var icon2:CommandIcons;
+		private var icon3:CommandIcons;
+		
 		public function Command() 
 		{
 			super();
@@ -81,6 +89,7 @@ package swh.command
 			createCrystals();
 			createButtons();
 			createDroid();
+			createInons();
 		}
 		
 		private function onRemoveFromStage(e:Event):void 
@@ -181,6 +190,18 @@ package swh.command
 				removeChild(droid);
 				droid = null;
 			}
+			if (icon1 != null) {
+				removeChild(icon1);
+				icon1 = null;
+			}
+			if (icon2 != null) {
+				removeChild(icon2);
+				icon2 = null;
+			}
+			if (icon3 != null) {
+				removeChild(icon3);
+				icon3 = null;
+			}
 			
 			while (this.numChildren > 0)
 			{
@@ -259,7 +280,31 @@ package swh.command
 
 		private function createPers():void
 		{
-
+			selectedPersonage = null;
+			for (var i:int = 0; i < Data.userCommand.length; i++){
+				
+				if (Data.userCommand[i].inCommand >= 0){
+					selectedPersonage = new Personage();
+					selectedPersonage.description = Data.userCommand[i].description;
+					selectedPersonage.hit1 = Data.userCommand[i].hit1;
+					selectedPersonage.hit2 = Data.userCommand[i].hit2;
+					selectedPersonage.hit3 = Data.userCommand[i].hit3;
+					selectedPersonage.hit4 = Data.userCommand[i].hit4;
+					selectedPersonage.hit5 = Data.userCommand[i].hit5;
+					selectedPersonage.id = Data.userCommand[i].id;
+					selectedPersonage.inCommand = Data.userCommand[i].inCommand;
+					selectedPersonage.life = Data.userCommand[i].life;
+					selectedPersonage.name = Data.userCommand[i].name;
+					selectedPersonage.planetID = Data.userCommand[i].planetID;
+					selectedPersonage.status = Data.userCommand[i].status;
+					
+					persBitmap = new Bitmap((Assets.getPersonageTexture(Data.userCommand[i].id) as Bitmap).bitmapData);
+					persBitmap.x = 25;
+					persBitmap.y = 50;
+					addChild(persBitmap);
+					break;
+				}
+			}
 		}
 
 		private function createLines():void
@@ -319,7 +364,7 @@ package swh.command
 		{
 			labelPoints = new CommandLabel(650, 30, 250, 50, "arial", 14, "КОМАНДА. Очки опыта: " + Data.userPoints.toString());
 			addChild(labelPoints);
-			labelPersName = new CommandLabel(50, 30, 250, 50, "arial", 14, "Имя персонажа");
+			labelPersName = new CommandLabel(50, 30, 250, 50, "arial", 14, selectedPersonage.name);
 			addChild(labelPersName);
 			labelTitleCharacteristics = new CommandLabel(300, 80, 250, 250, "arial", 14, "Характеристики:" + "\n\n" 
 																					+ "	Здоровье:" + "\n\n" 
@@ -329,14 +374,14 @@ package swh.command
 																					+ "	Кристал света:" + "\n\n" 
 																					+ "	Кристал интеллекта:");
 			addChild(labelTitleCharacteristics);
-			labelCharacteristics = new CommandLabel(475, 113, 250, 250, "arial" , 14, "0" + "\n\n" 
-																					+ "0" + "\n\n"
-																					+ "0" + "\n\n"
-																					+ "0" + "\n\n"
-																					+ "0" + "\n\n"
-																					+ "0");
+			labelCharacteristics = new CommandLabel(475, 113, 250, 250, "arial" , 14, selectedPersonage.life.toString() + "\n\n" 
+																					+ selectedPersonage.hit1.toString() + "\n\n"
+																					+ selectedPersonage.hit2.toString() + "\n\n"
+																					+ selectedPersonage.hit3.toString() + "\n\n"
+																					+ selectedPersonage.hit4.toString() + "\n\n"
+																					+ selectedPersonage.hit5.toString());
 			addChild(labelCharacteristics);
-			textPers = new CommandText(50, 300, 485, 5, "arial", 14, "Текст\n sdfsd \n sdsds \n");
+			textPers = new CommandText(50, 300, 485, 5, "arial", 14, selectedPersonage.description);
 			addChild(textPers);
 			textPers.y = 550 - textPers.height;
 		}
@@ -390,6 +435,25 @@ package swh.command
 			droid = new CommandDroid(560, 360, "Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", Data.userSide);
 			addChild(droid);
 		}
+		
+		private function createInons():void
+		{
+			icon1 = new CommandIcons('icon1');
+			icon1.x = 690;
+			icon1.y = 60;
+			addChild(icon1);
+			
+			icon2 = new CommandIcons('icon2');
+			icon2.x = 690;
+			icon2.y = 160;
+			addChild(icon2);
+			
+			icon3 = new CommandIcons('icon3');
+			icon3.x = 690;
+			icon3.y = 260;
+			addChild(icon3);
+		}
+		
 	}
 
 }

@@ -84,9 +84,9 @@ package swh.command
 		{
 			if(persData != null) {
 				persBitmap = new Bitmap((Atlas.atlasTexturesBitmapData[persData.id + '_icon.png'] as BitmapData));
-				persBitmap.x = 1;
-				persBitmap.y = 1;
 				addChild(persBitmap);
+				persBitmap.x = (width / 2) - (persBitmap.width / 2);
+				persBitmap.y = (height / 2) - (persBitmap.height / 2);
 			}			
 		}
 		

@@ -24,6 +24,7 @@ package swh.command
 	import swh.command.CommandText;
 	import swh.command.CommandDroid;
 	import swh.command.CommandIcons;
+	import swh.command.CommandPanelIcons;
 	
 	/**
 	 * ...
@@ -65,6 +66,8 @@ package swh.command
 		private var icon2:CommandIcons;
 		private var icon3:CommandIcons;
 		
+		private var panelIcons:CommandPanelIcons;
+		
 		public function Command() 
 		{
 			super();
@@ -90,6 +93,7 @@ package swh.command
 			createButtons();
 			createDroid();
 			createInons();
+			createPanelIcons();
 		}
 		
 		private function onRemoveFromStage(e:Event):void 
@@ -210,6 +214,10 @@ package swh.command
 				icon3.removeEventListener(MouseEvent.CLICK, onIconMouseClick);
 				removeChild(icon3);
 				icon3 = null;
+			}
+			if (panelIcons != null) {
+				removeChild(panelIcons)
+				panelIcons = null;
 			}
 			
 			while (this.numChildren > 0)
@@ -472,9 +480,31 @@ package swh.command
 			addChild(icon3);
 			
 			for (var i:int = 0; i < Data.userCommand.length; i++){
+				if (Data.checkPersonagePlanetAvailable(Data.userCommand[i].id) == false) continue;
 				if (Data.userCommand[i].inCommand == 0)	icon1.setPers(Data.userCommand[i]);
 				if (Data.userCommand[i].inCommand == 1)	icon2.setPers(Data.userCommand[i]);
 				if (Data.userCommand[i].inCommand == 2)	icon3.setPers(Data.userCommand[i]);
+			}
+		}
+		
+		private function createPanelIcons():void
+		{
+			panelIcons = new CommandPanelIcons();
+			panelIcons.x = 70;
+			panelIcons.y = 612;
+			addChild(panelIcons);
+			
+			var icon:CommandIcons;
+			for (var i:int = 0; i < Data.userCommand.length; i++){
+				icon = null;
+				if (Data.checkPersonagePlanetAvailable(Data.userCommand[i].id) == false) continue;
+				if (Data.userCommand[i].inCommand < 0 && Data.userCommand[i].status == Data.STATUS_USER_PERSONAGE_AVAILABLE){
+					icon = new CommandIcons("icon" + i.toString(), Data.userCommand[i]);
+					icon.addEventListener(MouseEvent.MOUSE_OUT, onIconMouseOut);
+					icon.addEventListener(MouseEvent.MOUSE_OVER, onIconMouseOver);
+					icon.addEventListener(MouseEvent.CLICK, onIconMouseClick);
+					panelIcons.addPanelChild(icon);
+				}
 			}
 		}
 		
@@ -490,7 +520,6 @@ package swh.command
 		
 		private function onIconMouseClick(e:MouseEvent):void 
 		{
-			//(e.target as CommandIcons).setPers(Data.userCommand[0]);
 			labelPersName.setText((e.target as CommandIcons).persData.name);
 			labelCharacteristics.setText((e.target as CommandIcons).persData.life.toString() + "\n\n" 
 										+ (e.target as CommandIcons).persData.hit1.toString() + "\n\n"
@@ -501,6 +530,12 @@ package swh.command
 			textPers.setText((e.target as CommandIcons).persData.description);
 			textPers.y = 550 - textPers.height;
 			persBitmap.bitmapData = (Assets.getPersonageTexture((e.target as CommandIcons).persData.id) as Bitmap).bitmapData;
+			
+			icon1.selectOff();
+			icon2.selectOff();
+			icon3.selectOff();
+			panelIcons.selectIconsOff();
+			(e.target as CommandIcons).selectOn();
 		}
 		
 	}

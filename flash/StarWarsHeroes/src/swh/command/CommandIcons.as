@@ -9,6 +9,7 @@ package swh.command
 	import swh.data.Atlas;
 	import swh.data.Constants;
 	import swh.data.Data;
+	import swh.data.Personage;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -20,13 +21,13 @@ package swh.command
 		private var borderBitmap:Bitmap;
 		private var borderSelectBitmap:Bitmap;
 		
-		private var persID:String;
+		public var persData:Personage;
 		
-		public function CommandIcons(_name:String, _persID:String = null) 
+		public function CommandIcons(_name:String, _persData:Personage = null) 
 		{
 			super();
 			name = _name;
-			persID = _persID;
+			persData = _persData;
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
 		}
@@ -81,19 +82,12 @@ package swh.command
 		
 		private function createPers():void
 		{
-			if(persID != null) {
-				persBitmap = new Bitmap((Atlas.atlasTexturesBitmapData[persID + '_icon.png'] as BitmapData));
-			}else{
-				if (Data.userSide == Constants.SIDE_JEDI){
-					persBitmap = new Bitmap((Atlas.atlasTexturesBitmapData['icon_blue_background.png'] as BitmapData));
-				} else {
-					persBitmap = new Bitmap((Atlas.atlasTexturesBitmapData['icon_red_background.png'] as BitmapData));
-				}
-				persBitmap.visible = false;
-			}
-			persBitmap.x = 0;
-			persBitmap.y = 0;
-			addChild(persBitmap);
+			if(persData != null) {
+				persBitmap = new Bitmap((Atlas.atlasTexturesBitmapData[persData.id + '_icon.png'] as BitmapData));
+				persBitmap.x = 1;
+				persBitmap.y = 1;
+				addChild(persBitmap);
+			}			
 		}
 		
 		private function createBorder():void
@@ -126,6 +120,36 @@ package swh.command
 			}
 		}
 		
+		public function setPers(_persData:Personage):void
+		{
+			persData = _persData;
+			
+			if (backgroundBitmap != null) {
+				removeChild(backgroundBitmap);
+				backgroundBitmap = null;
+			}
+			if (persBitmap != null) {
+				removeChild(persBitmap);
+				persBitmap = null;
+			}
+			if (borderBitmap != null) {
+				removeChild(borderBitmap);
+				borderBitmap = null;
+			}
+			if (borderSelectBitmap != null) {
+				removeChild(borderSelectBitmap);
+				borderSelectBitmap = null;
+			}
+			
+			createBackground();
+			createPers();
+			createBorder();
+		}
+		
+		public function getPers():Personage
+		{
+			return persData;
+		}
 	}
 
 }

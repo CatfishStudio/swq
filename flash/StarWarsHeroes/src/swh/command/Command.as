@@ -191,14 +191,23 @@ package swh.command
 				droid = null;
 			}
 			if (icon1 != null) {
+				icon1.removeEventListener(MouseEvent.MOUSE_OUT, onIconMouseOut);
+				icon1.removeEventListener(MouseEvent.MOUSE_OVER, onIconMouseOver);
+				icon1.removeEventListener(MouseEvent.CLICK, onIconMouseClick);
 				removeChild(icon1);
 				icon1 = null;
 			}
 			if (icon2 != null) {
+				icon2.removeEventListener(MouseEvent.MOUSE_OUT, onIconMouseOut);
+				icon2.removeEventListener(MouseEvent.MOUSE_OVER, onIconMouseOver);
+				icon2.removeEventListener(MouseEvent.CLICK, onIconMouseClick);
 				removeChild(icon2);
 				icon2 = null;
 			}
 			if (icon3 != null) {
+				icon3.removeEventListener(MouseEvent.MOUSE_OUT, onIconMouseOut);
+				icon3.removeEventListener(MouseEvent.MOUSE_OVER, onIconMouseOver);
+				icon3.removeEventListener(MouseEvent.CLICK, onIconMouseClick);
 				removeChild(icon3);
 				icon3 = null;
 			}
@@ -438,20 +447,60 @@ package swh.command
 		
 		private function createInons():void
 		{
-			icon1 = new CommandIcons('icon1');
+			icon1 = new CommandIcons('GlobalIcon1');
 			icon1.x = 690;
 			icon1.y = 60;
+			icon1.addEventListener(MouseEvent.MOUSE_OUT, onIconMouseOut);
+			icon1.addEventListener(MouseEvent.MOUSE_OVER, onIconMouseOver);
+			icon1.addEventListener(MouseEvent.CLICK, onIconMouseClick);
 			addChild(icon1);
 			
-			icon2 = new CommandIcons('icon2');
+			icon2 = new CommandIcons('GlobalIcon2');
 			icon2.x = 690;
 			icon2.y = 160;
+			icon2.addEventListener(MouseEvent.MOUSE_OUT, onIconMouseOut);
+			icon2.addEventListener(MouseEvent.MOUSE_OVER, onIconMouseOver);
+			icon2.addEventListener(MouseEvent.CLICK, onIconMouseClick);
 			addChild(icon2);
 			
-			icon3 = new CommandIcons('icon3');
+			icon3 = new CommandIcons('GlobalIcon3');
 			icon3.x = 690;
 			icon3.y = 260;
+			icon3.addEventListener(MouseEvent.MOUSE_OUT, onIconMouseOut);
+			icon3.addEventListener(MouseEvent.MOUSE_OVER, onIconMouseOver);
+			icon3.addEventListener(MouseEvent.CLICK, onIconMouseClick);
 			addChild(icon3);
+			
+			for (var i:int = 0; i < Data.userCommand.length; i++){
+				if (Data.userCommand[i].inCommand == 0)	icon1.setPers(Data.userCommand[i]);
+				if (Data.userCommand[i].inCommand == 1)	icon2.setPers(Data.userCommand[i]);
+				if (Data.userCommand[i].inCommand == 2)	icon3.setPers(Data.userCommand[i]);
+			}
+		}
+		
+		private function onIconMouseOut(e:MouseEvent):void 
+		{
+			Mouse.cursor = MouseCursor.AUTO;
+		}
+		
+		private function onIconMouseOver(e:MouseEvent):void 
+		{
+			Mouse.cursor = MouseCursor.BUTTON;
+		}
+		
+		private function onIconMouseClick(e:MouseEvent):void 
+		{
+			//(e.target as CommandIcons).setPers(Data.userCommand[0]);
+			labelPersName.setText((e.target as CommandIcons).persData.name);
+			labelCharacteristics.setText((e.target as CommandIcons).persData.life.toString() + "\n\n" 
+										+ (e.target as CommandIcons).persData.hit1.toString() + "\n\n"
+										+ (e.target as CommandIcons).persData.hit2.toString() + "\n\n"
+										+ (e.target as CommandIcons).persData.hit3.toString() + "\n\n"
+										+ (e.target as CommandIcons).persData.hit4.toString() + "\n\n"
+										+ (e.target as CommandIcons).persData.hit5.toString());
+			textPers.setText((e.target as CommandIcons).persData.description);
+			textPers.y = 550 - textPers.height;
+			persBitmap.bitmapData = (Assets.getPersonageTexture((e.target as CommandIcons).persData.id) as Bitmap).bitmapData;
 		}
 		
 	}

@@ -141,6 +141,13 @@ package swh
 				command = null;
 			}
 		}
+		
+		private function buttonCommand(type:String):void
+		{
+			if (command != null){
+				command.CommandAddOrRemove(type);
+			}
+		}
 		/* -------------------------------- */
 		
 		/* Событие: управление окнами игры ===================================================== */
@@ -211,6 +218,14 @@ package swh
 				case Constants.COMMAND_BUTTON_CLOSE:
 					removeCommand();
 					createMap();
+					break;
+				
+				case Constants.COMMAND_BUTTON_ADD:
+					buttonCommand(Constants.COMMAND_BUTTON_ADD);
+					break;
+				
+				case Constants.COMMAND_BUTTON_REMOVE:
+					buttonCommand(Constants.COMMAND_BUTTON_REMOVE);
 					break;
 					
 				default:

@@ -59,7 +59,10 @@ package swh.command
 		private var lineBitmap:Bitmap;
 		private var lineTween:GTween;
 		
-		private var closeButton:Button;		
+		private var closeButton:Button;
+		private var removeButton:Button;
+		private var addButton:Button;
+		
 		private var droid:CommandDroid;
 		
 		private var icon1:CommandIcons;
@@ -73,6 +76,15 @@ package swh.command
 			super();
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
+		}
+		
+		public function CommandAddOrRemove(type:String):void
+		{
+			if (type == Constants.COMMAND_BUTTON_ADD){
+				
+			}else if (type == Constants.COMMAND_BUTTON_REMOVE){
+				
+			}
 		}
 		
 		private function onAddedToStage(e:Event):void 
@@ -90,10 +102,26 @@ package swh.command
 			createBorder();
 			createText();
 			createCrystals();
-			createButtons();
 			createDroid();
 			createInons();
 			createPanelIcons();
+			createButtons();
+			if (icon1.persData != null) {
+				showPersonageCharacteristics(icon1);
+			}else if (icon2.persData != null){
+				showPersonageCharacteristics(icon2);
+			}else if (icon3.persData != null){
+				showPersonageCharacteristics(icon3);
+			}else{
+				for (var i:int = 0; i < panelIcons.icons.length; i++) {
+					if (panelIcons.icons[i].persData != null){
+						showPersonageCharacteristics(panelIcons.icons[i]);
+						break;
+					}
+				}
+				
+	
+			}
 		}
 		
 		private function onRemoveFromStage(e:Event):void 
@@ -121,6 +149,14 @@ package swh.command
 			if(closeButton != null) {
 				removeChild(closeButton);
 				closeButton = null;
+			}
+			if(removeButton != null) {
+				removeChild(removeButton);
+				removeButton = null;
+			}
+			if(addButton != null) {
+				removeChild(addButton);
+				addButton = null;
 			}
 			if(persBitmap != null) {
 				removeChild(persBitmap);
@@ -216,7 +252,10 @@ package swh.command
 				icon3 = null;
 			}
 			if (panelIcons != null) {
-				removeChild(panelIcons)
+				panelIcons.clearPanelEvents(MouseEvent.MOUSE_OUT, onIconMouseOut);
+				panelIcons.clearPanelEvents(MouseEvent.MOUSE_OVER, onIconMouseOver);
+				panelIcons.clearPanelEvents(MouseEvent.CLICK, onIconMouseClick);
+				removeChild(panelIcons);
 				panelIcons = null;
 			}
 			
@@ -441,12 +480,6 @@ package swh.command
 			addChild(crystal5Bitmap);
 		}
 		
-		private function createButtons():void
-		{
-			closeButton = new Button(650, 667, "ЗАКРЫТЬ", 60, 15, 16,  Constants.COMMAND_BUTTON_CLOSE, Data.userSide);
-			addChild(closeButton);
-		}
-		
 		private function createDroid():void
 		{
 			droid = new CommandDroid(560, 360, "Это окно вашей команды.\n\nТут вы можите убирать и добавлять персонажей в команду.\n\nВы можите улучшать характеристики персонажей за счёт полученных очков опыта.", Data.userSide);
@@ -455,7 +488,7 @@ package swh.command
 		
 		private function createInons():void
 		{
-			icon1 = new CommandIcons('GlobalIcon1');
+			icon1 = new CommandIcons('GlobalIcon');
 			icon1.x = 690;
 			icon1.y = 60;
 			icon1.addEventListener(MouseEvent.MOUSE_OUT, onIconMouseOut);
@@ -463,7 +496,7 @@ package swh.command
 			icon1.addEventListener(MouseEvent.CLICK, onIconMouseClick);
 			addChild(icon1);
 			
-			icon2 = new CommandIcons('GlobalIcon2');
+			icon2 = new CommandIcons('GlobalIcon');
 			icon2.x = 690;
 			icon2.y = 160;
 			icon2.addEventListener(MouseEvent.MOUSE_OUT, onIconMouseOut);
@@ -471,7 +504,7 @@ package swh.command
 			icon2.addEventListener(MouseEvent.CLICK, onIconMouseClick);
 			addChild(icon2);
 			
-			icon3 = new CommandIcons('GlobalIcon3');
+			icon3 = new CommandIcons('GlobalIcon');
 			icon3.x = 690;
 			icon3.y = 260;
 			icon3.addEventListener(MouseEvent.MOUSE_OUT, onIconMouseOut);
@@ -498,8 +531,8 @@ package swh.command
 			for (var i:int = 0; i < Data.userCommand.length; i++){
 				icon = null;
 				if (Data.checkPersonagePlanetAvailable(Data.userCommand[i].id) == false) continue;
-				if (Data.userCommand[i].inCommand < 0 && Data.userCommand[i].status == Data.STATUS_USER_PERSONAGE_AVAILABLE){
-					icon = new CommandIcons("icon" + i.toString(), Data.userCommand[i]);
+				if (Data.userCommand[i].inCommand < 0 && Data.userCommand[i].status == Data.STATUS_USER_PERSONAGE_NOT_AVAILABLE){
+					icon = new CommandIcons("Icon", Data.userCommand[i]);
 					icon.addEventListener(MouseEvent.MOUSE_OUT, onIconMouseOut);
 					icon.addEventListener(MouseEvent.MOUSE_OVER, onIconMouseOver);
 					icon.addEventListener(MouseEvent.CLICK, onIconMouseClick);
@@ -520,24 +553,54 @@ package swh.command
 		
 		private function onIconMouseClick(e:MouseEvent):void 
 		{
-			labelPersName.setText((e.target as CommandIcons).persData.name);
-			labelCharacteristics.setText((e.target as CommandIcons).persData.life.toString() + "\n\n" 
-										+ (e.target as CommandIcons).persData.hit1.toString() + "\n\n"
-										+ (e.target as CommandIcons).persData.hit2.toString() + "\n\n"
-										+ (e.target as CommandIcons).persData.hit3.toString() + "\n\n"
-										+ (e.target as CommandIcons).persData.hit4.toString() + "\n\n"
-										+ (e.target as CommandIcons).persData.hit5.toString());
-			textPers.setText((e.target as CommandIcons).persData.description);
+			showPersonageCharacteristics((e.target as CommandIcons));
+		}
+		
+		private function createButtons():void
+		{
+			closeButton = new Button(650, 667, "ЗАКРЫТЬ", 60, 15, 16,  Constants.COMMAND_BUTTON_CLOSE, Data.userSide);
+			addChild(closeButton);
+			addButton = new Button(350, 25, "ДОБАВИТЬ В КОМАНДУ", 30, 15, 12, Constants.COMMAND_BUTTON_ADD, Data.userSide);
+			addButton.visible = false;
+			addChild(addButton);
+			removeButton = new Button(350, 25, "УБРАТЬ ИЗ КОМАНДЫ", 30, 15, 12, Constants.COMMAND_BUTTON_REMOVE, Data.userSide);
+			removeButton.visible = false;
+			addChild(removeButton);
+		}
+		
+		private function showButton(name:String):void
+		{
+			if (name == 'GlobalIcon'){
+				addButton.visible = false;
+				removeButton.visible = true;
+			}else if (name == 'Icon'){
+				removeButton.visible = false;
+				addButton.visible = true;
+			}
+		}
+		
+		private function showPersonageCharacteristics(targetIcon:CommandIcons):void
+		{
+			selectedPersonage = targetIcon.persData;
+			labelPersName.setText(targetIcon.persData.name);
+			labelCharacteristics.setText(targetIcon.persData.life.toString() + "\n\n" 
+										+ targetIcon.persData.hit1.toString() + "\n\n"
+										+ targetIcon.persData.hit2.toString() + "\n\n"
+										+ targetIcon.persData.hit3.toString() + "\n\n"
+										+ targetIcon.persData.hit4.toString() + "\n\n"
+										+ targetIcon.persData.hit5.toString());
+			textPers.setText(targetIcon.persData.description);
 			textPers.y = 550 - textPers.height;
-			persBitmap.bitmapData = (Assets.getPersonageTexture((e.target as CommandIcons).persData.id) as Bitmap).bitmapData;
+			persBitmap.bitmapData = (Assets.getPersonageTexture(targetIcon.persData.id) as Bitmap).bitmapData;
 			
 			icon1.selectOff();
 			icon2.selectOff();
 			icon3.selectOff();
 			panelIcons.selectIconsOff();
-			(e.target as CommandIcons).selectOn();
+			targetIcon.selectOn();
+			
+			showButton(targetIcon.name);
 		}
-		
 	}
 
 }

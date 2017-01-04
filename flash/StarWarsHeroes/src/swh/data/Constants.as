@@ -40,6 +40,8 @@ package swh.data
 		
 		public static const COMMAND:String = "command";
 		public static const COMMAND_BUTTON_CLOSE:String = "command_button_close";
+		public static const COMMAND_BUTTON_REMOVE:String = "command_button_remove";
+		public static const COMMAND_BUTTON_ADD:String = "command_button_add";
 		
 	}
 

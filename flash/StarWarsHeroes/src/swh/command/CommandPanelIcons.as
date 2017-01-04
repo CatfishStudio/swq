@@ -16,7 +16,7 @@ package swh.command
 		private var panel:Sprite;
 		
 		private var colorPanel:int;
-		private var icons:Vector.<CommandIcons>;
+		public var icons:Vector.<CommandIcons>;
 		
 		public function CommandPanelIcons() 
 		{
@@ -38,6 +38,18 @@ package swh.command
 		private function onRemoveFromStage(e:Event):void 
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
+			
+			if (panel != null){
+				removePanelChild();
+				removeChild(panel);
+				panel = null;
+			}
+			if (panelMask != null){
+				mask = null;
+				removeChild(panelMask);
+				panelMask = null;
+			}
+			
 			while (this.numChildren)
 			{
 				this.removeChildren(0);
@@ -79,10 +91,26 @@ package swh.command
 		
 		public function addPanelChild(icon:CommandIcons):void
 		{
+			if(icons == null) icons = new Vector.<CommandIcons>();
 			icons.push(icon);
 			icons[icons.length - 1].x = 5 + (50 * (icons.length - 1) );
 			icons[icons.length - 1].y = 5;
-			panel.addChild(icon);
+			panel.addChild(icons[icons.length - 1]);
+		}
+		
+		public function clearPanelEvents(type:String = null, listener:Function = null):void
+		{
+			for (var i:int = 0; i < icons.length; i++){
+				if (type != null && listener != null) icons[i].removeEventListener(type, listener);
+			}
+		}
+		
+		public function removePanelChild():void
+		{
+			for (var i:int = 0; i < icons.length; i++){
+				panel.removeChild(icons.shift());
+			}
+			icons = null;
 		}
 		
 		public function selectIconsOff():void
@@ -91,6 +119,8 @@ package swh.command
 				icons[i].selectOff();
 			}
 		}
+		
+		
 	}
 
 }

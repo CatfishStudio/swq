@@ -81,9 +81,9 @@ package swh.command
 		public function CommandAddOrRemove(type:String):void
 		{
 			if (type == Constants.COMMAND_BUTTON_ADD){
-				
+				addPersInCommand();
 			}else if (type == Constants.COMMAND_BUTTON_REMOVE){
-				
+				removePersInCommand();
 			}
 		}
 		
@@ -119,8 +119,6 @@ package swh.command
 						break;
 					}
 				}
-				
-	
 			}
 		}
 		
@@ -581,25 +579,103 @@ package swh.command
 		
 		private function showPersonageCharacteristics(targetIcon:CommandIcons):void
 		{
-			selectedPersonage = targetIcon.persData;
-			labelPersName.setText(targetIcon.persData.name);
-			labelCharacteristics.setText(targetIcon.persData.life.toString() + "\n\n" 
-										+ targetIcon.persData.hit1.toString() + "\n\n"
-										+ targetIcon.persData.hit2.toString() + "\n\n"
-										+ targetIcon.persData.hit3.toString() + "\n\n"
-										+ targetIcon.persData.hit4.toString() + "\n\n"
-										+ targetIcon.persData.hit5.toString());
-			textPers.setText(targetIcon.persData.description);
-			textPers.y = 550 - textPers.height;
-			persBitmap.bitmapData = (Assets.getPersonageTexture(targetIcon.persData.id) as Bitmap).bitmapData;
-			
-			icon1.selectOff();
-			icon2.selectOff();
-			icon3.selectOff();
-			panelIcons.selectIconsOff();
-			targetIcon.selectOn();
-			
-			showButton(targetIcon.name);
+			if(targetIcon.persData != null){
+				selectedPersonage = targetIcon.persData;
+				labelPersName.setText(targetIcon.persData.name);
+				labelCharacteristics.setText(targetIcon.persData.life.toString() + "\n\n" 
+											+ targetIcon.persData.hit1.toString() + "\n\n"
+											+ targetIcon.persData.hit2.toString() + "\n\n"
+											+ targetIcon.persData.hit3.toString() + "\n\n"
+											+ targetIcon.persData.hit4.toString() + "\n\n"
+											+ targetIcon.persData.hit5.toString());
+				textPers.setText(targetIcon.persData.description);
+				textPers.y = 550 - textPers.height;
+				persBitmap.bitmapData = (Assets.getPersonageTexture(targetIcon.persData.id) as Bitmap).bitmapData;
+				
+				icon1.selectOff();
+				icon2.selectOff();
+				icon3.selectOff();
+				panelIcons.selectIconsOff();
+				targetIcon.selectOn();
+				
+				showButton(targetIcon.name);
+			}
+		}
+		
+		private function addPersInCommand():void
+		{
+			for (var i:int = 0; i < Data.userCommand.length; i++){
+				if (Data.checkPersonagePlanetAvailable(Data.userCommand[i].id) == false) continue;
+				if (Data.userCommand[i].id == selectedPersonage.id){
+					if (icon1.persData == null) Data.userCommand[i].inCommand = 0;
+					else if (icon2.persData == null) Data.userCommand[i].inCommand = 1;
+					else if (icon3.persData == null) Data.userCommand[i].inCommand = 2;
+					Data.userCommand[i].status = Data.STATUS_USER_PERSONAGE_AVAILABLE;
+					break;
+				}
+			}
+			updateAllIcons();
+		}
+		
+		private function removePersInCommand():void
+		{
+			for (var i:int = 0; i < Data.userCommand.length; i++){
+				if (Data.checkPersonagePlanetAvailable(Data.userCommand[i].id) == false) continue;
+				if (Data.userCommand[i].id == selectedPersonage.id){
+					Data.userCommand[i].inCommand = -1;
+					Data.userCommand[i].status = Data.STATUS_USER_PERSONAGE_NOT_AVAILABLE;
+					break;
+				}
+			}
+			updateAllIcons();
+		}
+		
+		private function updateAllIcons():void
+		{
+			if (icon1 != null) {
+				icon1.removeEventListener(MouseEvent.MOUSE_OUT, onIconMouseOut);
+				icon1.removeEventListener(MouseEvent.MOUSE_OVER, onIconMouseOver);
+				icon1.removeEventListener(MouseEvent.CLICK, onIconMouseClick);
+				removeChild(icon1);
+				icon1 = null;
+			}
+			if (icon2 != null) {
+				icon2.removeEventListener(MouseEvent.MOUSE_OUT, onIconMouseOut);
+				icon2.removeEventListener(MouseEvent.MOUSE_OVER, onIconMouseOver);
+				icon2.removeEventListener(MouseEvent.CLICK, onIconMouseClick);
+				removeChild(icon2);
+				icon2 = null;
+			}
+			if (icon3 != null) {
+				icon3.removeEventListener(MouseEvent.MOUSE_OUT, onIconMouseOut);
+				icon3.removeEventListener(MouseEvent.MOUSE_OVER, onIconMouseOver);
+				icon3.removeEventListener(MouseEvent.CLICK, onIconMouseClick);
+				removeChild(icon3);
+				icon3 = null;
+			}
+			if (panelIcons != null) {
+				panelIcons.clearPanelEvents(MouseEvent.MOUSE_OUT, onIconMouseOut);
+				panelIcons.clearPanelEvents(MouseEvent.MOUSE_OVER, onIconMouseOver);
+				panelIcons.clearPanelEvents(MouseEvent.CLICK, onIconMouseClick);
+				removeChild(panelIcons);
+				panelIcons = null;
+			}
+			createInons();
+			createPanelIcons();
+			if (icon1.persData != null) {
+				showPersonageCharacteristics(icon1);
+			}else if (icon2.persData != null){
+				showPersonageCharacteristics(icon2);
+			}else if (icon3.persData != null){
+				showPersonageCharacteristics(icon3);
+			}else{
+				for (var i:int = 0; i < panelIcons.icons.length; i++) {
+					if (panelIcons.icons[i].persData != null){
+						showPersonageCharacteristics(panelIcons.icons[i]);
+						break;
+					}
+				}
+			}
 		}
 	}
 

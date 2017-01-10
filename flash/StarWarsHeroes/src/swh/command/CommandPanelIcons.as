@@ -93,7 +93,7 @@ package swh.command
 		{
 			if(icons == null) icons = new Vector.<CommandIcons>();
 			icons.push(icon);
-			icons[icons.length - 1].x = 5 + (50 * (icons.length - 1) );
+			icons[icons.length - 1].x = 5 + (100 * (icons.length - 1) );
 			icons[icons.length - 1].y = 5;
 			panel.addChild(icons[icons.length - 1]);
 		}

@@ -73,7 +73,8 @@ package swh.map
 			init();
 			createQuad();
 			createBackground();
-			createPersonages();
+			createUserPersonage();
+			createAIPersonage();
 			createBorder();
 			runLineTween();
 			createText();
@@ -212,15 +213,26 @@ package swh.map
 			}
 		}
 		
-		private function createPersonages():void
+		private function createUserPersonage():void
 		{
-			persLeftBitmap = new Bitmap((Assets.getPersonageTexture(Data.userCommand[0].id) as Bitmap).bitmapData);
-			persLeftBitmap.x = posX + 25; 
-			persLeftBitmap.y = posY + 15;
-			persLeftBitmap.scaleX = 0.5;
-			persLeftBitmap.scaleY = 0.5;
-			addChild(persLeftBitmap);
-			
+			for (var i:int = 0; i < 3; i++){
+				for (var j:int = 0; j < Data.userCommand.length; j++){
+					if (Data.checkPersonagePlanetAvailable(Data.userCommand[j].id) == false) continue;
+					if (Data.userCommand[j].inCommand == i && Data.userCommand[j].status == Data.STATUS_USER_PERSONAGE_AVAILABLE){
+						persLeftBitmap = new Bitmap((Assets.getPersonageTexture(Data.userCommand[j].id) as Bitmap).bitmapData);
+						persLeftBitmap.x = posX + 25; 
+						persLeftBitmap.y = posY + 15;
+						persLeftBitmap.scaleX = 0.5;
+						persLeftBitmap.scaleY = 0.5;
+						addChild(persLeftBitmap);
+						return;
+					}
+				}			
+			}
+		}
+		
+		private function createAIPersonage():void
+		{
 			if (Data.userSide == Constants.SIDE_JEDI) {
 				if (interception == false) persRightBitmap = new Bitmap((Assets.getPersonageTexture(planet.personageSith1, 'rl') as Bitmap).bitmapData);
 				else persRightBitmap = new Bitmap((Assets.getPersonageTexture(Data.aiCommand[0].id, 'rl') as Bitmap).bitmapData);
@@ -313,7 +325,11 @@ package swh.map
 			var userPers:Personage = null;
 			var userPower:Number = 0;
 			for (var i:int = 0; i < Data.userCommand.length; i++){
-				if (Data.userCommand[i].status == Data.STATUS_USER_PERSONAGE_AVAILABLE && Data.userCommand[i].inCommand == 0){
+				if (Data.userCommand[i].status == Data.STATUS_USER_PERSONAGE_AVAILABLE && Data.userCommand[i].inCommand == 0 && userPers ==  null){
+					userPers = Data.userCommand[i];
+				}else if (Data.userCommand[i].status == Data.STATUS_USER_PERSONAGE_AVAILABLE && Data.userCommand[i].inCommand == 1 && userPers ==  null){
+					userPers = Data.userCommand[i];
+				}else if (Data.userCommand[i].status == Data.STATUS_USER_PERSONAGE_AVAILABLE && Data.userCommand[i].inCommand == 2 && userPers ==  null){
 					userPers = Data.userCommand[i];
 				}
 				if (Data.userCommand[i].status == Data.STATUS_USER_PERSONAGE_AVAILABLE && Data.userCommand[i].inCommand != -1){

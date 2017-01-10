@@ -19,6 +19,7 @@ package swh.command
 	import swh.data.Atlas;
 	import swh.data.Constants;
 	import swh.button.Button;
+	import swh.button.SmallButton;
 	import swh.data.Personage;
 	import swh.command.CommandLabel;
 	import swh.command.CommandText;
@@ -62,6 +63,8 @@ package swh.command
 		private var closeButton:Button;
 		private var removeButton:Button;
 		private var addButton:Button;
+		private var arrowLeftSButton:SmallButton;
+		private var arrowRightSButton:SmallButton;
 		
 		private var droid:CommandDroid;
 		
@@ -155,6 +158,16 @@ package swh.command
 			if(addButton != null) {
 				removeChild(addButton);
 				addButton = null;
+			}
+			if (arrowLeftSButton != null) {
+				arrowLeftSButton.removeEventListener(MouseEvent.CLICK, onArrowMouseClick);
+				removeChild(arrowLeftSButton);
+				arrowLeftSButton = null;
+			}
+			if (arrowRightSButton != null) {
+				arrowRightSButton.removeEventListener(MouseEvent.CLICK, onArrowMouseClick);
+				removeChild(arrowRightSButton);
+				arrowRightSButton = null;
 			}
 			if(persBitmap != null) {
 				removeChild(persBitmap);
@@ -537,6 +550,27 @@ package swh.command
 					panelIcons.addPanelChild(icon);
 				}
 			}
+			
+			if (Data.userSide == Constants.SIDE_JEDI) arrowLeftSButton = new SmallButton(30, 630, "arrowLeft", (Atlas.atlasTexturesBitmapData["arrow_blue_left.png"] as BitmapData));
+			else arrowLeftSButton = new SmallButton(30, 630, "arrowLeft", (Atlas.atlasTexturesBitmapData["arrow_red_left.png"] as BitmapData));
+			arrowLeftSButton.scaleX = 0.8;
+			arrowLeftSButton.scaleY = 0.8;
+			arrowLeftSButton.alpha = 0.8;
+			arrowLeftSButton.addEventListener(MouseEvent.CLICK, onArrowMouseClick);
+			addChild(arrowLeftSButton);
+			
+			if (Data.userSide == Constants.SIDE_JEDI) arrowRightSButton = new SmallButton(515, 630, "arrowRight", (Atlas.atlasTexturesBitmapData["arrow_blue_right.png"] as BitmapData));
+			else arrowRightSButton = new SmallButton(515, 630, "arrowRight", (Atlas.atlasTexturesBitmapData["arrow_red_right.png"] as BitmapData));
+			arrowRightSButton.scaleX = 0.8;
+			arrowRightSButton.scaleY = 0.8;
+			arrowRightSButton.alpha = 0.8;
+			arrowRightSButton.addEventListener(MouseEvent.CLICK, onArrowMouseClick);
+			addChild(arrowRightSButton);
+		}
+		
+		private function onArrowMouseClick(e:MouseEvent):void 
+		{
+			
 		}
 		
 		private function onIconMouseOut(e:MouseEvent):void 

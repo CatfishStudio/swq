@@ -26,6 +26,8 @@ package swh.command
 	import swh.command.CommandDroid;
 	import swh.command.CommandIcons;
 	import swh.command.CommandPanelIcons;
+	import swh.command.CommandArrowButton;
+	import swh.command.CommandPlusButton;
 	
 	/**
 	 * ...
@@ -63,8 +65,13 @@ package swh.command
 		private var closeButton:Button;
 		private var removeButton:Button;
 		private var addButton:Button;
-		private var arrowLeftSButton:SmallButton;
-		private var arrowRightSButton:SmallButton;
+		private var arrowLeftSButton:CommandArrowButton;
+		private var arrowRightSButton:CommandArrowButton;
+		private var plus1Button:CommandPlusButton;
+		private var plus2Button:CommandPlusButton;
+		private var plus3Button:CommandPlusButton;
+		private var plus4Button:CommandPlusButton;
+		private var plus5Button:CommandPlusButton;
 		
 		private var droid:CommandDroid;
 		
@@ -104,7 +111,7 @@ package swh.command
 			createLines();
 			createBorder();
 			createText();
-			createCrystals();
+			createCrystalsAndButtons();
 			createDroid();
 			createInons();
 			createPanelIcons();
@@ -168,6 +175,31 @@ package swh.command
 				arrowRightSButton.removeEventListener(MouseEvent.CLICK, onArrowMouseClick);
 				removeChild(arrowRightSButton);
 				arrowRightSButton = null;
+			}
+			if (plus1Button != null) {
+				plus1Button.removeEventListener(MouseEvent.CLICK, onPlusMouseClick);
+				removeChild(plus1Button);
+				plus1Button = null;
+			}
+			if (plus2Button != null) {
+				plus2Button.removeEventListener(MouseEvent.CLICK, onPlusMouseClick);
+				removeChild(plus2Button);
+				plus2Button = null;
+			}
+			if (plus3Button != null) {
+				plus3Button.removeEventListener(MouseEvent.CLICK, onPlusMouseClick);
+				removeChild(plus3Button);
+				plus3Button = null;
+			}
+			if (plus4Button != null) {
+				plus4Button.removeEventListener(MouseEvent.CLICK, onPlusMouseClick);
+				removeChild(plus4Button);
+				plus4Button = null;
+			}
+			if (plus5Button != null) {
+				plus5Button.removeEventListener(MouseEvent.CLICK, onPlusMouseClick);
+				removeChild(plus5Button);
+				plus5Button = null;
 			}
 			if(persBitmap != null) {
 				removeChild(persBitmap);
@@ -453,7 +485,7 @@ package swh.command
 			textPers.y = 550 - textPers.height;
 		}
 		
-		private function createCrystals():void
+		private function createCrystalsAndButtons():void
 		{
 			crystal1Bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["hit_1.png"] as BitmapData));
 			crystal1Bitmap.x = 295;
@@ -489,6 +521,31 @@ package swh.command
 			crystal5Bitmap.scaleX = 0.3;
 			crystal5Bitmap.scaleY = 0.3;
 			addChild(crystal5Bitmap);
+			
+			plus1Button = new CommandPlusButton(510, 145, 'hit1');
+			plus1Button.addEventListener(MouseEvent.CLICK, onPlusMouseClick);
+			addChild(plus1Button);
+			
+			plus2Button = new CommandPlusButton(510, 178, 'hit2');
+			plus2Button.addEventListener(MouseEvent.CLICK, onPlusMouseClick);
+			addChild(plus2Button);
+			
+			plus3Button = new CommandPlusButton(510, 210, 'hit3');
+			plus3Button.addEventListener(MouseEvent.CLICK, onPlusMouseClick);
+			addChild(plus3Button);
+			
+			plus4Button = new CommandPlusButton(510, 245, 'hit4');
+			plus4Button.addEventListener(MouseEvent.CLICK, onPlusMouseClick);
+			addChild(plus4Button);
+			
+			plus5Button = new CommandPlusButton(510, 275, 'hit5');
+			plus5Button.addEventListener(MouseEvent.CLICK, onPlusMouseClick);
+			addChild(plus5Button);
+		}
+		
+		private function onPlusMouseClick(e:MouseEvent):void 
+		{
+			
 		}
 		
 		private function createDroid():void
@@ -551,21 +608,13 @@ package swh.command
 				}
 			}
 			
-			if (Data.userSide == Constants.SIDE_JEDI) arrowLeftSButton = new SmallButton(30, 630, "arrowLeft", (Atlas.atlasTexturesBitmapData["arrow_blue_left.png"] as BitmapData));
-			else arrowLeftSButton = new SmallButton(30, 630, "arrowLeft", (Atlas.atlasTexturesBitmapData["arrow_red_left.png"] as BitmapData));
-			arrowLeftSButton.scaleX = 0.8;
-			arrowLeftSButton.scaleY = 0.8;
-			arrowLeftSButton.alpha = 0.8;
+			arrowLeftSButton = new CommandArrowButton(30, 655, 'arrowLeft', 'rl');
 			arrowLeftSButton.addEventListener(MouseEvent.CLICK, onArrowMouseClick);
 			addChild(arrowLeftSButton);
 			
-			if (Data.userSide == Constants.SIDE_JEDI) arrowRightSButton = new SmallButton(515, 630, "arrowRight", (Atlas.atlasTexturesBitmapData["arrow_blue_right.png"] as BitmapData));
-			else arrowRightSButton = new SmallButton(515, 630, "arrowRight", (Atlas.atlasTexturesBitmapData["arrow_red_right.png"] as BitmapData));
-			arrowRightSButton.scaleX = 0.8;
-			arrowRightSButton.scaleY = 0.8;
-			arrowRightSButton.alpha = 0.8;
-			arrowRightSButton.addEventListener(MouseEvent.CLICK, onArrowMouseClick);
-			addChild(arrowRightSButton);
+			arrowLeftSButton = new CommandArrowButton(515, 655, 'arrowRight', 'lr');
+			arrowLeftSButton.addEventListener(MouseEvent.CLICK, onArrowMouseClick);
+			addChild(arrowLeftSButton);
 		}
 		
 		private function onArrowMouseClick(e:MouseEvent):void 

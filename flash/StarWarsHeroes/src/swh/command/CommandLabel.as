@@ -18,8 +18,8 @@ package swh.command
 		private var font:String;
 		private var size:int;
 		private var text:String;
-		private var textWidth:int;
-		private var textHeight:int;
+		public var textWidth:int;
+		public var textHeight:int;
 		private var colorBack:int;
 		private var colorFront:int;
 		private var labelBack:TextField;
@@ -42,6 +42,7 @@ package swh.command
 		private function onAddedToStage(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			
 			if (Data.userSide == Constants.SIDE_JEDI) {
 				colorFront = 0xFFFFFF;
 				colorBack = 0x0090F0;	

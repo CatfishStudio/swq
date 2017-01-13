@@ -28,7 +28,7 @@ package swh.command
 	import swh.command.CommandPanelIcons;
 	import swh.command.CommandArrowButton;
 	import swh.command.CommandPlusButton;
-	
+	import swh.command.CommandCharacterictic;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -50,14 +50,14 @@ package swh.command
 		private var labelPoints:CommandLabel;
 		private var labelPersName:CommandLabel;
 		private var labelTitleCharacteristics:CommandLabel;
-		private var labelCharacteristics:CommandLabel;
+		//private var labelCharacteristics:CommandLabel;
 		private var textPers:CommandText;
 		
-		private var crystal1Bitmap:Bitmap;
-		private var crystal2Bitmap:Bitmap;
-		private var crystal3Bitmap:Bitmap;
-		private var crystal4Bitmap:Bitmap;
-		private var crystal5Bitmap:Bitmap;
+		//private var crystal1Bitmap:Bitmap;
+		//private var crystal2Bitmap:Bitmap;
+		//private var crystal3Bitmap:Bitmap;
+		//private var crystal4Bitmap:Bitmap;
+		//private var crystal5Bitmap:Bitmap;
 		
 		private var lineBitmap:Bitmap;
 		private var lineTween:GTween;
@@ -67,11 +67,18 @@ package swh.command
 		private var addButton:Button;
 		private var arrowLeftSButton:CommandArrowButton;
 		private var arrowRightSButton:CommandArrowButton;
-		private var plus1Button:CommandPlusButton;
-		private var plus2Button:CommandPlusButton;
-		private var plus3Button:CommandPlusButton;
-		private var plus4Button:CommandPlusButton;
-		private var plus5Button:CommandPlusButton;
+		//private var plus1Button:CommandPlusButton;
+		//private var plus2Button:CommandPlusButton;
+		//private var plus3Button:CommandPlusButton;
+		//private var plus4Button:CommandPlusButton;
+		//private var plus5Button:CommandPlusButton;
+		
+		private var charLife:CommandCharacterictic;
+		private var charHit1:CommandCharacterictic;
+		private var charHit2:CommandCharacterictic;
+		private var charHit3:CommandCharacterictic;
+		private var charHit4:CommandCharacterictic;
+		private var charHit5:CommandCharacterictic;
 		
 		private var droid:CommandDroid;
 		
@@ -176,54 +183,38 @@ package swh.command
 				removeChild(arrowRightSButton);
 				arrowRightSButton = null;
 			}
-			if (plus1Button != null) {
-				plus1Button.removeEventListener(MouseEvent.CLICK, onPlusMouseClick);
-				removeChild(plus1Button);
-				plus1Button = null;
+			if (charLife != null){
+				removeChild(charLife);
+				charLife = null;
 			}
-			if (plus2Button != null) {
-				plus2Button.removeEventListener(MouseEvent.CLICK, onPlusMouseClick);
-				removeChild(plus2Button);
-				plus2Button = null;
+			if (charHit1 != null){
+				charHit1.buttonPlus.removeEventListener(MouseEvent.CLICK, onPlusMouseClick);
+				removeChild(charHit1);
+				charHit1 = null;
 			}
-			if (plus3Button != null) {
-				plus3Button.removeEventListener(MouseEvent.CLICK, onPlusMouseClick);
-				removeChild(plus3Button);
-				plus3Button = null;
+			if (charHit2 != null){
+				charHit2.buttonPlus.removeEventListener(MouseEvent.CLICK, onPlusMouseClick);
+				removeChild(charHit2);
+				charHit2 = null;
 			}
-			if (plus4Button != null) {
-				plus4Button.removeEventListener(MouseEvent.CLICK, onPlusMouseClick);
-				removeChild(plus4Button);
-				plus4Button = null;
+			if (charHit3 != null){
+				charHit3.buttonPlus.removeEventListener(MouseEvent.CLICK, onPlusMouseClick);
+				removeChild(charHit3);
+				charHit3 = null;
 			}
-			if (plus5Button != null) {
-				plus5Button.removeEventListener(MouseEvent.CLICK, onPlusMouseClick);
-				removeChild(plus5Button);
-				plus5Button = null;
+			if (charHit4 != null){
+				charHit4.buttonPlus.removeEventListener(MouseEvent.CLICK, onPlusMouseClick);
+				removeChild(charHit4);
+				charHit4 = null;
+			}
+			if (charHit5 != null){
+				charHit5.buttonPlus.removeEventListener(MouseEvent.CLICK, onPlusMouseClick);
+				removeChild(charHit5);
+				charHit5 = null;
 			}
 			if(persBitmap != null) {
 				removeChild(persBitmap);
 				persBitmap = null;
-			}
-			if(crystal1Bitmap != null) {
-				removeChild(crystal1Bitmap);
-				crystal1Bitmap = null;
-			}
-			if(crystal2Bitmap != null) {
-				removeChild(crystal2Bitmap);
-				crystal2Bitmap = null;
-			}
-			if(crystal3Bitmap != null) {
-				removeChild(crystal3Bitmap);
-				crystal3Bitmap = null;
-			}
-			if(crystal4Bitmap != null) {
-				removeChild(crystal4Bitmap);
-				crystal4Bitmap = null;
-			}
-			if(crystal5Bitmap != null) {
-				removeChild(crystal5Bitmap);
-				crystal5Bitmap = null;
 			}
 			if(bigBackgroundBitmap != null) {
 				removeChild(bigBackgroundBitmap);
@@ -260,10 +251,6 @@ package swh.command
 			if(labelTitleCharacteristics != null) {
 				removeChild(labelTitleCharacteristics);
 				labelTitleCharacteristics = null;
-			}
-			if(labelCharacteristics != null) {
-				removeChild(labelCharacteristics);
-				labelCharacteristics = null;
 			}
 			if(textPers != null) {
 				removeChild(textPers);
@@ -465,21 +452,8 @@ package swh.command
 			addChild(labelPoints);
 			labelPersName = new CommandLabel(50, 30, 250, 50, "arial", 14, selectedPersonage.name);
 			addChild(labelPersName);
-			labelTitleCharacteristics = new CommandLabel(300, 80, 250, 250, "arial", 14, "Характеристики:" + "\n\n" 
-																					+ "	Здоровье:" + "\n\n" 
-																					+ "	Кристал ловкости:" + "\n\n" 
-																					+ "	Кристал тьмы:" + "\n\n" 
-																					+ "	Кристал жизни:" + "\n\n" 
-																					+ "	Кристал света:" + "\n\n" 
-																					+ "	Кристал интеллекта:");
+			labelTitleCharacteristics = new CommandLabel(280, 80, 250, 250, "arial", 14, "Характеристики:");
 			addChild(labelTitleCharacteristics);
-			labelCharacteristics = new CommandLabel(475, 113, 250, 250, "arial" , 14, selectedPersonage.life.toString() + "\n\n" 
-																					+ selectedPersonage.hit1.toString() + "\n\n"
-																					+ selectedPersonage.hit2.toString() + "\n\n"
-																					+ selectedPersonage.hit3.toString() + "\n\n"
-																					+ selectedPersonage.hit4.toString() + "\n\n"
-																					+ selectedPersonage.hit5.toString());
-			addChild(labelCharacteristics);
 			textPers = new CommandText(50, 300, 485, 5, "arial", 14, selectedPersonage.description);
 			addChild(textPers);
 			textPers.y = 550 - textPers.height;
@@ -487,60 +461,46 @@ package swh.command
 		
 		private function createCrystalsAndButtons():void
 		{
-			crystal1Bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["hit_1.png"] as BitmapData));
-			crystal1Bitmap.x = 295;
-			crystal1Bitmap.y = 140;
-			crystal1Bitmap.scaleX = 0.3;
-			crystal1Bitmap.scaleY = 0.3;
-			addChild(crystal1Bitmap);
+			charLife = new CommandCharacterictic(295, 115, "life");
+			charLife.createTitle("Здоровье:");
+			charLife.createData(selectedPersonage.life.toString());
+			addChild(charLife);
 			
-			crystal2Bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["hit_2.png"] as BitmapData));
-			crystal2Bitmap.x = 295;
-			crystal2Bitmap.y = 170;
-			crystal2Bitmap.scaleX = 0.3;
-			crystal2Bitmap.scaleY = 0.3;
-			addChild(crystal2Bitmap);
+			charHit1 = new CommandCharacterictic(295, 140, "hit1");
+			charHit1.createImabe((Atlas.atlasTexturesBitmapData["hit_1.png"] as BitmapData), 0.3);
+			charHit1.createTitle("Кристал ловкости:");
+			charHit1.createData(selectedPersonage.hit1.toString());
+			charHit1.createButtonPlus();
+			charHit1.buttonPlus.addEventListener(MouseEvent.CLICK, onPlusMouseClick);
+			addChild(charHit1);
 			
-			crystal3Bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["hit_3.png"] as BitmapData));
-			crystal3Bitmap.x = 295;
-			crystal3Bitmap.y = 205;
-			crystal3Bitmap.scaleX = 0.3;
-			crystal3Bitmap.scaleY = 0.3;
-			addChild(crystal3Bitmap);
+			charHit2 = new CommandCharacterictic(295, 165, "hit2");
+			charHit2.createImabe((Atlas.atlasTexturesBitmapData["hit_2.png"] as BitmapData), 0.3);
+			charHit2.createTitle("Кристал тьмы:");
+			charHit2.createData(selectedPersonage.hit2.toString());
+			charHit2.createButtonPlus();
+			addChild(charHit2);
 			
-			crystal4Bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["hit_4.png"] as BitmapData));
-			crystal4Bitmap.x = 295;
-			crystal4Bitmap.y = 240;
-			crystal4Bitmap.scaleX = 0.3;
-			crystal4Bitmap.scaleY = 0.3;
-			addChild(crystal4Bitmap);
+			charHit3 = new CommandCharacterictic(295, 190, "hit3");
+			charHit3.createImabe((Atlas.atlasTexturesBitmapData["hit_3.png"] as BitmapData), 0.3);
+			charHit3.createTitle("Кристал жизни:");
+			charHit3.createData(selectedPersonage.hit3.toString());
+			charHit3.createButtonPlus();
+			addChild(charHit3);
 			
-			crystal5Bitmap = new Bitmap((Atlas.atlasTexturesBitmapData["hit_5.png"] as BitmapData));
-			crystal5Bitmap.x = 295;
-			crystal5Bitmap.y = 270;
-			crystal5Bitmap.scaleX = 0.3;
-			crystal5Bitmap.scaleY = 0.3;
-			addChild(crystal5Bitmap);
+			charHit4 = new CommandCharacterictic(295, 215, "hit4");
+			charHit4.createImabe((Atlas.atlasTexturesBitmapData["hit_4.png"] as BitmapData), 0.3);
+			charHit4.createTitle("Кристал света:");
+			charHit4.createData(selectedPersonage.hit4.toString());
+			charHit4.createButtonPlus();
+			addChild(charHit4);
 			
-			plus1Button = new CommandPlusButton(510, 145, 'hit1');
-			plus1Button.addEventListener(MouseEvent.CLICK, onPlusMouseClick);
-			addChild(plus1Button);
-			
-			plus2Button = new CommandPlusButton(510, 178, 'hit2');
-			plus2Button.addEventListener(MouseEvent.CLICK, onPlusMouseClick);
-			addChild(plus2Button);
-			
-			plus3Button = new CommandPlusButton(510, 210, 'hit3');
-			plus3Button.addEventListener(MouseEvent.CLICK, onPlusMouseClick);
-			addChild(plus3Button);
-			
-			plus4Button = new CommandPlusButton(510, 245, 'hit4');
-			plus4Button.addEventListener(MouseEvent.CLICK, onPlusMouseClick);
-			addChild(plus4Button);
-			
-			plus5Button = new CommandPlusButton(510, 275, 'hit5');
-			plus5Button.addEventListener(MouseEvent.CLICK, onPlusMouseClick);
-			addChild(plus5Button);
+			charHit5 = new CommandCharacterictic(295, 240, "hit5");
+			charHit5.createImabe((Atlas.atlasTexturesBitmapData["hit_5.png"] as BitmapData), 0.3);
+			charHit5.createTitle("Кристал интеллекта:");
+			charHit5.createData(selectedPersonage.hit5.toString());
+			charHit5.createButtonPlus();
+			addChild(charHit5);
 		}
 		
 		private function onPlusMouseClick(e:MouseEvent):void 
@@ -665,12 +625,12 @@ package swh.command
 			if(targetIcon.persData != null){
 				selectedPersonage = targetIcon.persData;
 				labelPersName.setText(targetIcon.persData.name);
-				labelCharacteristics.setText(targetIcon.persData.life.toString() + "\n\n" 
-											+ targetIcon.persData.hit1.toString() + "\n\n"
-											+ targetIcon.persData.hit2.toString() + "\n\n"
-											+ targetIcon.persData.hit3.toString() + "\n\n"
-											+ targetIcon.persData.hit4.toString() + "\n\n"
-											+ targetIcon.persData.hit5.toString());
+				charLife.updateData(targetIcon.persData.life.toString());
+				charHit1.updateData(targetIcon.persData.hit1.toString());
+				charHit2.updateData(targetIcon.persData.hit2.toString());
+				charHit3.updateData(targetIcon.persData.hit3.toString());
+				charHit4.updateData(targetIcon.persData.hit4.toString());
+				charHit5.updateData(targetIcon.persData.hit5.toString());
 				textPers.setText(targetIcon.persData.description);
 				textPers.y = 550 - textPers.height;
 				persBitmap.bitmapData = (Assets.getPersonageTexture(targetIcon.persData.id) as Bitmap).bitmapData;

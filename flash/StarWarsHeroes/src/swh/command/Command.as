@@ -50,14 +50,7 @@ package swh.command
 		private var labelPoints:CommandLabel;
 		private var labelPersName:CommandLabel;
 		private var labelTitleCharacteristics:CommandLabel;
-		//private var labelCharacteristics:CommandLabel;
 		private var textPers:CommandText;
-		
-		//private var crystal1Bitmap:Bitmap;
-		//private var crystal2Bitmap:Bitmap;
-		//private var crystal3Bitmap:Bitmap;
-		//private var crystal4Bitmap:Bitmap;
-		//private var crystal5Bitmap:Bitmap;
 		
 		private var lineBitmap:Bitmap;
 		private var lineTween:GTween;
@@ -67,11 +60,6 @@ package swh.command
 		private var addButton:Button;
 		private var arrowLeftSButton:CommandArrowButton;
 		private var arrowRightSButton:CommandArrowButton;
-		//private var plus1Button:CommandPlusButton;
-		//private var plus2Button:CommandPlusButton;
-		//private var plus3Button:CommandPlusButton;
-		//private var plus4Button:CommandPlusButton;
-		//private var plus5Button:CommandPlusButton;
 		
 		private var charLife:CommandCharacterictic;
 		private var charHit1:CommandCharacterictic;
@@ -579,7 +567,11 @@ package swh.command
 		
 		private function onArrowMouseClick(e:MouseEvent):void 
 		{
-			
+			if ((e.target as CommandArrowButton).name == 'arrowLeft'){
+				panelIcons.movePanelLeft();
+			}else if ((e.target as CommandArrowButton).name == 'arrowRight'){
+				panelIcons.movePanelRight();
+			}
 		}
 		
 		private function onIconMouseOut(e:MouseEvent):void 

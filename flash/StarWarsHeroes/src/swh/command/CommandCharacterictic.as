@@ -45,8 +45,7 @@ package swh.command
 		
 		private function onRemoveFromStage(e:Event):void 
 		{
-			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);
-			
+			removeEventListener(Event.REMOVED_FROM_STAGE, onRemoveFromStage);			
 			
 			if (imageBitmap != null){
 				removeChild(imageBitmap);
@@ -71,16 +70,6 @@ package swh.command
 			{
 				this.removeChildren(0);
 			}
-		}
-		
-		private function onMouseOutButton(e:MouseEvent):void 
-		{
-			Mouse.cursor = MouseCursor.AUTO;
-		}
-		
-		private function onMouseOverButton(e:MouseEvent):void 
-		{
-			Mouse.cursor = MouseCursor.BUTTON;
 		}
 		
 		public function createImabe(bitmapData:BitmapData, scale:Number):void
@@ -124,6 +113,17 @@ package swh.command
 			buttonPlus.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverButton);
 			addChild(buttonPlus);
 		}
+		
+		private function onMouseOutButton(e:MouseEvent):void 
+		{
+			Mouse.cursor = MouseCursor.AUTO;
+		}
+		
+		private function onMouseOverButton(e:MouseEvent):void 
+		{
+			Mouse.cursor = MouseCursor.BUTTON;
+		}
+		
 	}
 
 }

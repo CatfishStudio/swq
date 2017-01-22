@@ -120,7 +120,15 @@ package swh.command
 			}
 		}
 		
+		public function movePanelLeft():void
+		{
+			panel.x += 100;
+		}
 		
+		public function movePanelRight():void
+		{
+			panel.x -= 100;
+		}
 	}
 
 }

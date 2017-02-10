@@ -467,6 +467,7 @@ package swh.command
 			charHit2.createTitle("Кристал тьмы:");
 			charHit2.createData(selectedPersonage.hit2.toString());
 			charHit2.createButtonPlus();
+			charHit2.buttonPlus.addEventListener(MouseEvent.CLICK, onPlusMouseClick);
 			addChild(charHit2);
 			
 			charHit3 = new CommandCharacterictic(295, 190, "hit3");
@@ -474,6 +475,7 @@ package swh.command
 			charHit3.createTitle("Кристал жизни:");
 			charHit3.createData(selectedPersonage.hit3.toString());
 			charHit3.createButtonPlus();
+			charHit3.buttonPlus.addEventListener(MouseEvent.CLICK, onPlusMouseClick);
 			addChild(charHit3);
 			
 			charHit4 = new CommandCharacterictic(295, 215, "hit4");
@@ -481,6 +483,7 @@ package swh.command
 			charHit4.createTitle("Кристал света:");
 			charHit4.createData(selectedPersonage.hit4.toString());
 			charHit4.createButtonPlus();
+			charHit4.buttonPlus.addEventListener(MouseEvent.CLICK, onPlusMouseClick);
 			addChild(charHit4);
 			
 			charHit5 = new CommandCharacterictic(295, 240, "hit5");
@@ -488,12 +491,61 @@ package swh.command
 			charHit5.createTitle("Кристал интеллекта:");
 			charHit5.createData(selectedPersonage.hit5.toString());
 			charHit5.createButtonPlus();
+			charHit5.buttonPlus.addEventListener(MouseEvent.CLICK, onPlusMouseClick);
 			addChild(charHit5);
+			
+			if (Data.userPoints == 0){
+				charHit1.buttonPlus.visible = false;
+				charHit2.buttonPlus.visible = false;
+				charHit3.buttonPlus.visible = false;
+				charHit4.buttonPlus.visible = false;
+				charHit5.buttonPlus.visible = false;
+			}
 		}
 		
 		private function onPlusMouseClick(e:MouseEvent):void 
 		{
-			
+			if(Data.userPoints > 0){			
+				Data.userPoints--;
+				labelPoints.setText("КОМАНДА. Очки опыта: " + Data.userPoints.toString());
+				
+				if ((e.target as CommandPlusButton).name == "hit1"){
+					selectedPersonage.hit1++;
+					selectedPersonage.setLife();
+					charHit1.updateData(selectedPersonage.hit1.toString());
+					charLife.updateData(selectedPersonage.life.toString());
+				}
+				if ((e.target as CommandPlusButton).name == "hit2"){
+					selectedPersonage.hit2++;
+					selectedPersonage.setLife();
+					charHit2.updateData(selectedPersonage.hit2.toString());
+					charLife.updateData(selectedPersonage.life.toString());
+				}
+				if ((e.target as CommandPlusButton).name == "hit3"){
+					selectedPersonage.hit3++;
+					selectedPersonage.setLife();
+					charHit3.updateData(selectedPersonage.hit3.toString());
+					charLife.updateData(selectedPersonage.life.toString());
+				}
+				if ((e.target as CommandPlusButton).name == "hit4"){
+					selectedPersonage.hit4++;
+					selectedPersonage.setLife();
+					charHit4.updateData(selectedPersonage.hit4.toString());
+					charLife.updateData(selectedPersonage.life.toString());
+				}
+				if ((e.target as CommandPlusButton).name == "hit5"){
+					selectedPersonage.hit5++;
+					selectedPersonage.setLife();
+					charHit5.updateData(selectedPersonage.hit5.toString());
+					charLife.updateData(selectedPersonage.life.toString());
+				}
+			}else{
+				charHit1.buttonPlus.visible = false;
+				charHit2.buttonPlus.visible = false;
+				charHit3.buttonPlus.visible = false;
+				charHit4.buttonPlus.visible = false;
+				charHit5.buttonPlus.visible = false;
+			}
 		}
 		
 		private function createDroid():void

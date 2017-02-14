@@ -27,9 +27,17 @@ package SWHAssetsTextures
 		public var SettingsBlueBgImage:Class;
 		public var settingsBlueBgBitmap:Bitmap = new SettingsBlueBgImage();
 		
+		[Embed(source = '../../assets/textures/message_backroung_blue.png')]
+		public var MessageBlueBgImage:Class;
+		public var messageBlueBgBitmap:Bitmap = new MessageBlueBgImage();
+		
 		[Embed(source = '../../assets/textures/settings_backroung_red.png')]
 		public var SettingsRedBgImage:Class;
 		public var settingsRedBgBitmap:Bitmap = new SettingsRedBgImage();
+		
+		[Embed(source = '../../assets/textures/message_backroung_red.png')]
+		public var MessageRedBgImage:Class;
+		public var messageRedBgBitmap:Bitmap = new MessageRedBgImage();
 		
 		[Embed(source = '../../assets/textures/settings_line_blue.png')]
 		public var SettingsBlueLineImage:Class;

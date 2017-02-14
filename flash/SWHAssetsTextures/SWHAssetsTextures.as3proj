@@ -213,6 +213,8 @@
     <asset path="assets\textures\personages\watto.png" />
     <asset path="assets\textures\personages\wicket_wysri_warrick.png" />
     <asset path="assets\textures\personages\yoda.png" />
+    <asset path="assets\textures\message_backroung_blue.png" />
+    <asset path="assets\textures\message_backroung_red.png" />
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>

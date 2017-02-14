@@ -81,8 +81,8 @@ package swh.command
 		private function createPanel():void
 		{
 			panel = new Sprite();
-			panel.graphics.beginFill(colorPanel, 0.2);
-			panel.graphics.drawRect(0, 0, 435, 90);
+			panel.graphics.beginFill(colorPanel, 0);
+			panel.graphics.drawRect(0, 0, 90, 90);
 			panel.graphics.endFill();
 			panel.x = 0;
 			panel.y = 0;

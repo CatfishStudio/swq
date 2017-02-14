@@ -90,6 +90,14 @@ package swh.command
 			}else if (type == Constants.COMMAND_BUTTON_REMOVE){
 				removePersInCommand();
 			}
+			
+			if (panelIcons.icons.length > 3){
+				arrowLeftSButton.visible = true;
+				arrowRightSButton.visible = true;
+			}else{
+				arrowLeftSButton.visible = false;
+				arrowRightSButton.visible = false;
+			}
 		}
 		
 		private function onAddedToStage(e:Event):void 
@@ -539,7 +547,10 @@ package swh.command
 					charHit5.updateData(selectedPersonage.hit5.toString());
 					charLife.updateData(selectedPersonage.life.toString());
 				}
-			}else{
+			}
+			if (Data.userPoints <= 0){
+				Data.userPoints = 0;
+				labelPoints.setText("КОМАНДА. Очки опыта: " + Data.userPoints.toString());
 				charHit1.buttonPlus.visible = false;
 				charHit2.buttonPlus.visible = false;
 				charHit3.buttonPlus.visible = false;
@@ -612,9 +623,17 @@ package swh.command
 			arrowLeftSButton.addEventListener(MouseEvent.CLICK, onArrowMouseClick);
 			addChild(arrowLeftSButton);
 			
-			arrowLeftSButton = new CommandArrowButton(515, 655, 'arrowRight', 'lr');
-			arrowLeftSButton.addEventListener(MouseEvent.CLICK, onArrowMouseClick);
-			addChild(arrowLeftSButton);
+			arrowRightSButton = new CommandArrowButton(515, 655, 'arrowRight', 'lr');
+			arrowRightSButton.addEventListener(MouseEvent.CLICK, onArrowMouseClick);
+			addChild(arrowRightSButton);
+			
+			if (panelIcons.icons.length > 3){
+				arrowLeftSButton.visible = true;
+				arrowRightSButton.visible = true;
+			}else{
+				arrowLeftSButton.visible = false;
+				arrowRightSButton.visible = false;
+			}
 		}
 		
 		private function onArrowMouseClick(e:MouseEvent):void 

@@ -672,6 +672,14 @@ package swh.command
 			addChild(removeButton);
 		}
 		
+		public function checkBeforeClosing():Boolean
+		{
+			if (icon1.persData == null && icon2.persData == null && icon3.persData == null) {
+				return false;
+			}
+			return true;
+		}
+		
 		private function showButton(name:String):void
 		{
 			if (name == 'GlobalIcon'){

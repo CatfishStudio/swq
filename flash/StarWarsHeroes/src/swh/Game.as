@@ -13,6 +13,7 @@ package swh
 	import swh.side.Side;
 	import swh.map.Map;
 	import swh.command.Command;
+	import swh.warning.Warning;
 	/**
 	 * ...
 	 * @author Catfish Studio
@@ -25,6 +26,7 @@ package swh
 		private var side:Side;
 		private var map:Map;
 		private var command:Command;
+		private var warning:Warning;
 		
 		public function Game() 
 		{
@@ -150,6 +152,24 @@ package swh
 		}
 		/* -------------------------------- */
 		
+		/* WARNING ----------------------- */
+		private function createWarning():void
+		{
+			if(warning == null){
+				warning = new Warning();
+				addChild(warning);
+			}
+		}
+		
+		private function removeWarning():void
+		{
+			if(warning != null){
+				removeChild(warning);
+				warning = null;
+			}
+		}
+		/* -------------------------------- */
+		
 		/* Событие: управление окнами игры ===================================================== */
 		private function onChangeScreen(e:NavigationEvent):void 
 		{
@@ -216,8 +236,12 @@ package swh
 					break;
 				
 				case Constants.COMMAND_BUTTON_CLOSE:
-					removeCommand();
-					createMap();
+					if (!command.checkBeforeClosing()){
+						createWarning();
+					}else{
+						removeCommand();
+						createMap();
+					}
 					break;
 				
 				case Constants.COMMAND_BUTTON_ADD:
@@ -227,6 +251,14 @@ package swh
 				case Constants.COMMAND_BUTTON_REMOVE:
 					buttonCommand(Constants.COMMAND_BUTTON_REMOVE);
 					break;
+				
+				case Constants.WARNING:
+					createWarning();
+					break;
+					
+				case Constants.WARNING_BUTTON_CLOSE:
+					removeWarning();
+					break;	
 					
 				default:
 					break;

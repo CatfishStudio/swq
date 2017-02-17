@@ -15,6 +15,7 @@ package swh.command
 		private var panelMask:Sprite;
 		private var panel:Sprite;
 		
+		private var step:int;
 		private var colorPanel:int;
 		public var icons:Vector.<CommandIcons>;
 		
@@ -64,6 +65,7 @@ package swh.command
 			}else{
 				colorPanel = 0x880000;
 			}
+			step = 0;
 		}
 		
 		private function createMask():void
@@ -111,6 +113,7 @@ package swh.command
 				panel.removeChild(icons.shift());
 			}
 			icons = null;
+			step = 0;
 		}
 		
 		public function selectIconsOff():void
@@ -122,12 +125,18 @@ package swh.command
 		
 		public function movePanelLeft():void
 		{
-			panel.x += 100;
+			if(step > 0){
+				panel.x += 100;
+				step--;
+			}
 		}
 		
 		public function movePanelRight():void
 		{
-			panel.x -= 100;
+			if(step <= icons.length){
+				panel.x -= 100;
+				step++;
+			}
 		}
 	}
 

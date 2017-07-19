@@ -1,3 +1,6 @@
+const hostname = 'localhost';
+const port = 8080;
+
 var http = require('http');
 var nodeStatic = require('node-static');
 var url = require('url'); 
@@ -9,8 +12,9 @@ function onRequest(request, response)       // Получаем запрос
 }
 
 function start(){
-    http.createServer(onRequest).listen(8080);
-    console.log('[SERVER]:', 'Server running on http://127.0.0.1:8080');
+    http.createServer(onRequest).listen(port, hostname);
+    //console.log('[SERVER]:', 'Server running on http://127.0.0.1:8080');
+	console.log('[SERVER]:', 'Server running on http://localhost:8080');
 }
 
 exports.start = start;

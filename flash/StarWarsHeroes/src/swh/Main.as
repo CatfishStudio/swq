@@ -61,7 +61,8 @@ package swh
 			loader = new Loader();
 			loaderContext = new LoaderContext(false, ApplicationDomain.currentDomain, SecurityDomain.currentDomain);
 			//request = new URLRequest("http://app.vk.com/c420925/u99302165/9d1534179d8941.swf"); 
-			request = new URLRequest("http://localhost/game/swh/SWHPreloader.swf");
+			//request = new URLRequest("http://localhost/game/swh/SWHPreloader.swf");
+			request = new URLRequest("http://localhost:8080/SWHPreloader.swf");
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
 			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onError);
@@ -133,7 +134,8 @@ package swh
 			loader = new Loader();
 			loaderContext = new LoaderContext(false, ApplicationDomain.currentDomain, SecurityDomain.currentDomain);
 			//request = new URLRequest("http://app.vk.com/c420925/u99302165/94eb80320ac27b.swf");
-			request = new URLRequest("http://localhost/game/swh/SWHAssetsData.swf");
+			//request = new URLRequest("http://localhost/game/swh/SWHAssetsData.swf");
+			request = new URLRequest("http://localhost:8080/SWHAssetsData.swf");
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
 			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onError);
@@ -144,7 +146,8 @@ package swh
 			loader = new Loader();
 			loaderContext = new LoaderContext(false, ApplicationDomain.currentDomain, SecurityDomain.currentDomain);
 			//request = new URLRequest("http://app.vk.com/c420925/u99302165/94eb80320ac27b.swf");
-			request = new URLRequest("http://localhost/game/swh/SWHAssetsAtlases.swf");
+			//request = new URLRequest("http://localhost/game/swh/SWHAssetsAtlases.swf");
+			request = new URLRequest("http://localhost:8080/SWHAssetsAtlases.swf");
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
 			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onError);
@@ -155,7 +158,8 @@ package swh
 			loader = new Loader();
 			loaderContext = new LoaderContext(false, ApplicationDomain.currentDomain, SecurityDomain.currentDomain);
 			//request = new URLRequest("http://app.vk.com/c420925/u99302165/94eb80320ac27b.swf");
-			request = new URLRequest("http://localhost/game/swh/SWHAssetsTextures.swf");
+			//request = new URLRequest("http://localhost/game/swh/SWHAssetsTextures.swf");
+			request = new URLRequest("http://localhost:8080/SWHAssetsTextures.swf");
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
 			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgress);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onError);

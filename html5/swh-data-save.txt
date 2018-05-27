@@ -1,0 +1,171 @@
+МАССИВЫ ОБЪЕКТОВ:
+---------------------
+Game.config.side - (меняется) выбранная сторона игроком
+
+mapPlanets - (НЕ меняется) визуальное отображение планет на карте
+mapMessage - (НЕ меняется) описание планет на карте
+
+levels - (меняется) игровое поле загружается из json
+	Alderaan:
+		name: "level_2_0"
+		url: "./assets/data/levels/level_2_0.json"
+		data:
+			Level:
+				LevelNumber: "11"
+				LevelType: "LEVEL_TYPE_ALL"
+				cell: [ массив данных о ячейках поля взятых из json ]
+
+commandUser - (меняется) сохраняет имена выбранных персонажей в команду
+	personage1: "luke_skywalker"
+	personage2: "mace_windu"
+	personage3: "mas_amedda"
+
+commandAI - (меняется) сохраняет имена выбранных персонажей в команду
+	personage1: "darth_vader"
+	personage2: "darth_sidious"
+	personage3: "commander_jerjerrod"
+
+personages - (меняется) характеристики персонажей
+	aayla_secura:
+		command: false
+		description: ""
+		hitAttack1: 18
+		hitAttack2: 8
+		hitAttack3: 18
+		hitAttack4: 9
+		hitAttack5: 9
+		hitDefense1: 4
+		hitDefense2: 3
+		hitDefense3: 4
+		hitDefense4: 4
+		hitDefense5: 3
+		id: "aayla_secura"
+		life: "0"
+		name: "Эйла Секура"
+		planet: ""
+		status: "user_personage_not_available"
+
+planets - (меняется) характеристики планет
+		Alderaan:
+			bluePersonage1: "bail_organa"
+			bluePersonage2: "leia_organa"
+			bluePersonage3: "kapitan_antilles"
+			blueRewardPersonage1: "bail_organa"
+			blueRewardPersonage2: "leia_organa"
+			blueRewardPersonage3: "kapitan_antilles"
+			description: ""
+			id: "Alderaan"
+			name: "Альдераан"
+			redPersonage1: "admiral_ozzel"
+			redPersonage2: "stormtroopers_3"
+			redPersonage3: "rune_haako"
+			redRewardPersonage1: "admiral_ozzel"
+			redRewardPersonage2: "stormtroopers_3"
+			redRewardPersonage3: "rune_haako"
+			status: "user_planet_quest_awaiting"
+
+score - (меняется) очки игрока за всю игру
+	userExperiencePoints
+	userTotalPointsPlayerTournament
+	userlTotalPointsPlayerLevel
+	userExperiencePointsAI
+	userTotalBattle
+	
+=============================================================
+ДАННЫЕ КОТОРЫЕ НЕОБХОДИМО ХРАНИТЬ НА СЕРВЕРЕ									 |
+=============================================================
+
+Game.config.side - выбранная сторона								(side)
+levels - список планет и соответствующие им json файлы	(name)
+commandUser - имена выбранных в команду персонажей		(personage1, personage2, personage3)
+commandAI - имена выбранных в команду персонажей			(personage1, personage2, personage3)
+personages - характеристики персонажей 							(всю информацию)
+planets - характеристики планет 										(status)
+
+=============================================================
+
+{
+   "side":"side_jedi",
+   "levels_planets":{
+      "Coruscant":[
+         "level_1_3",
+         "user_planet_quest_complete_jedi"
+      ],
+      "Totooine":[
+         "level_2_1",
+         "user_planet_quest_awaiting"
+      ],
+      "Naboo":[
+         "level_2_7",
+         "user_planet_quest_awaiting"
+      ],
+      "Endor":[
+         "level_2_9",
+         "user_planet_quest_awaiting"
+      ],
+      "Hoth":[
+         "level_2_6",
+         "user_planet_quest_awaiting"
+      ],
+      "Mustafar":[
+         "level_1_4",
+         "user_planet_quest_awaiting"
+      ],
+      "Dagobah":[
+         "level_2_3",
+         "user_planet_quest_awaiting"
+      ],
+      "Bespin":[
+         "level_2_0",
+         "user_planet_quest_awaiting"
+      ],
+      "Geonosis":[
+         "level_2_5",
+         "user_planet_quest_awaiting"
+      ],
+      "Alderaan":[
+         "level_1_1",
+         "user_planet_quest_awaiting"
+      ],
+      "Kamino":[
+         "level_1_8",
+         "user_planet_quest_awaiting"
+      ],
+      "DeathStar":[
+         "level_1_5",
+         "user_planet_quest_complete_sith"
+      ],
+      "Utapau":[
+         "level_1_6",
+         "user_planet_quest_awaiting"
+      ],
+      "Saleucami":[
+         "level_2_4",
+         "user_planet_quest_awaiting"
+      ],
+      "Jakku":[
+         "level_1_7",
+         "user_planet_quest_awaiting"
+      ]
+   },
+   "commandUser":[
+      "luke_skywalker",
+      "mace_windu",
+      "mas_amedda"
+   ],
+   "commandAI":[
+      "darth_vader",
+      "darth_sidious",
+      "commander_jerjerrod"
+   ],
+   "userExperiencePoints":0,
+   "userTotalPointsPlayerTournament":0,
+   "userlTotalPointsPlayerLevel":0,
+   "userExperiencePointsAI":0,
+   "userTotalBattle":0
+}
+
+=============================================================
+
+menu.buttonContinue();
+parent.continueGame();
